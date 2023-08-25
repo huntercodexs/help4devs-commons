@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Properties;
 
 import static com.huntercodexs.demojobs.services.Help4DevsBaseService.*;

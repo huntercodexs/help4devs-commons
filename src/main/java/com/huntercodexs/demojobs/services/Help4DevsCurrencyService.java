@@ -1,12 +1,12 @@
 package com.huntercodexs.demojobs.services;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-@Log4j2
+@Slf4j
 @Service
 public class Help4DevsCurrencyService {
 
