@@ -10,12 +10,12 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static com.huntercodexs.demojobs.services.Help4DevsBaseService.*;
 import static com.huntercodexs.demojobs.services.Help4DevsCurrencyService.*;
-import static com.huntercodexs.demojobs.services.Help4DevsDateService.expiredDate;
-import static com.huntercodexs.demojobs.services.Help4DevsDateService.reverseDate;
+import static com.huntercodexs.demojobs.services.Help4DevsDateService.*;
 import static com.huntercodexs.demojobs.services.Help4DevsFileHandlerService.*;
 import static com.huntercodexs.demojobs.services.Help4DevsFileReaderService.getFileContent;
 import static com.huntercodexs.demojobs.services.Help4DevsPathService.sanitizeAscii;
@@ -277,6 +277,36 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
         time = expiredDate("14/07/2023 14:53:25", 1, "year");
         System.out.println("RESULT IS [YEAR]: " + time);
+    }
+
+    @Test
+    public void calculateDateTest() {
+        quantifyDate("14/07/2023 15:53:25", "14/07/2023 15:53:26");
+        quantifyDate("14/07/2023 15:53:25", "14/07/2023 15:54:26");
+        quantifyDate("14/07/2023 15:53:25", "14/07/2023 16:54:26");
+        quantifyDate("14/07/2023 15:53:25", "15/07/2023 16:54:26");
+        quantifyDate("14/07/2023 15:53:25", "15/08/2023 16:54:26");
+        quantifyDate("14/07/2022 15:53:25", "15/08/2023 16:54:26");
+    }
+
+    @Test
+    public void quantifyMillisDateTest() {
+        quantifyMillisDate();
+    }
+
+    @Test
+    public void quantifyMillisParamsDateTest() {
+        quantifyMillisParamsDate("2023/08/20 15:30:10.100", "2023/08/20 15:31:10.500");
+        quantifyMillisParamsDate("2023/08/20 15:30:10", "2023/08/20 15:31:10");
+        quantifyMillisParamsDate("2023/08/20 15:30", "2023/08/20 15:31");
+        quantifyMillisParamsDate("2023/08/20 15", "2023/08/20 16");
+        quantifyMillisParamsDate("2023/08/20", "2023/08/21");
+
+        quantifyMillisParamsDate("2023-08-20 15:30:10.100", "2023-08-20 15:30:10.500");
+        quantifyMillisParamsDate("2023-08-20 15:30:10", "2023-08-20 15:31:10");
+        quantifyMillisParamsDate("2023-08-20 15:30", "2023-08-20 15:31");
+        quantifyMillisParamsDate("2023-08-20 15", "2023-08-20 16");
+        quantifyMillisParamsDate("2023-08-20", "2023-08-21");
     }
 
     /**

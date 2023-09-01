@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -29,7 +33,7 @@ public class Help4DevsDateService {
 
         /*14/07/2023 14:53:25, 14-07-2023 14:53:25*/
         if (inputDate.matches("[0-9]{2}[/-][0-9]{2}[/-][0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}")) {
-            System.out.println("DEU MATCH 1: " + inputDate);
+            System.out.println("MATCH 1: " + inputDate);
 
             datetime = inputDate.split(" ");
             date = datetime[0].replaceAll("[/-]", "");
@@ -42,7 +46,7 @@ public class Help4DevsDateService {
 
         /*2023/08/16 16:10:28, 2023-08-16 16:10:28*/
         else if (inputDate.matches("[0-9]{4}[/-][0-9]{2}[/-][0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}")) {
-            System.out.println("DEU MATCH 2: " + inputDate);
+            System.out.println("MATCH 2: " + inputDate);
 
             datetime = inputDate.split(" ");
             date = datetime[0].replaceAll("[/-]", "");
@@ -56,7 +60,7 @@ public class Help4DevsDateService {
 
         /*14/07/2023 14:53:25.333, 14-07-2023 14:53:25.333*/
         else if (inputDate.matches("[0-9]{2}[/-][0-9]{2}[/-][0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,3})")) {
-            System.out.println("DEU MATCH 3: " + inputDate);
+            System.out.println("MATCH 3: " + inputDate);
 
             datetime = inputDate.split(" ");
             date = datetime[0].replaceAll("[/-]", "");
@@ -69,7 +73,7 @@ public class Help4DevsDateService {
 
         /*2023/08/16 16:10:28.333, 2023-08-16 16:10:28.333*/
         else if (inputDate.matches("[0-9]{4}[/-][0-9]{2}[/-][0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,3})")) {
-            System.out.println("DEU MATCH 4: " + inputDate);
+            System.out.println("MATCH 4: " + inputDate);
 
             datetime = inputDate.split(" ");
             date = datetime[0].replaceAll("[/-]", "");
@@ -83,7 +87,7 @@ public class Help4DevsDateService {
 
         /*16/08/2023, 16-08-2023*/
         else if (inputDate.matches("[0-9]{2}[/-][0-9]{2}[/-][0-9]{4}")) {
-            System.out.println("DEU MATCH 5: " + inputDate);
+            System.out.println("MATCH 5: " + inputDate);
 
             datetime = inputDate.split(" ");
             date = datetime[0].replaceAll("[/-]", "");
@@ -95,7 +99,7 @@ public class Help4DevsDateService {
 
         /*2023/08/16, 2023-08-16*/
         else if (inputDate.matches("[0-9]{4}[/-][0-9]{2}[/-][0-9]{2}")) {
-            System.out.println("DEU MATCH 6: " + inputDate);
+            System.out.println("MATCH 6: " + inputDate);
 
             datetime = inputDate.split(" ");
             date = datetime[0].replaceAll("[/-]", "");
@@ -124,24 +128,24 @@ public class Help4DevsDateService {
         }
     }
 
-    public static boolean expiredDate(String date, int time, String periodType) {
+    public static boolean expiredDate(String date, int time, String metricType) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
 
         LocalDateTime dateTimeNow = LocalDateTime.now();
         String dateTimeFormat = dateTimeNow.format(formatter);
         LocalDateTime dateTimeNowFormatter = LocalDateTime.parse(dateTimeFormat, formatter);
 
-        LocalDateTime dateTimeSession = LocalDateTime.parse(reverseDate(date, "-"), formatter);
+        LocalDateTime dateTimeRef = LocalDateTime.parse(reverseDate(date, "-"), formatter);
 
-        LocalDateTime timeLimit = switch (periodType) {
-            case "nano" -> dateTimeSession.plusNanos(time);
-            case "second" -> dateTimeSession.plusSeconds(time);
-            case "minute" -> dateTimeSession.plusMinutes(time);
-            case "hour" -> dateTimeSession.plusHours(time);
-            case "day" -> dateTimeSession.plusDays(time);
-            case "week" -> dateTimeSession.plusWeeks(time);
-            case "month" -> dateTimeSession.plusMonths(time);
-            case "year" -> dateTimeSession.plusYears(time);
+        LocalDateTime timeLimit = switch (metricType) {
+            case "nano" -> dateTimeRef.plusNanos(time);
+            case "second" -> dateTimeRef.plusSeconds(time);
+            case "minute" -> dateTimeRef.plusMinutes(time);
+            case "hour" -> dateTimeRef.plusHours(time);
+            case "day" -> dateTimeRef.plusDays(time);
+            case "week" -> dateTimeRef.plusWeeks(time);
+            case "month" -> dateTimeRef.plusMonths(time);
+            case "year" -> dateTimeRef.plusYears(time);
             default -> throw new RuntimeException("Invalid period to expiredDate");
         };
 
@@ -153,6 +157,161 @@ public class Help4DevsDateService {
         }
 
         return false;
+    }
+
+    public static List<Long> quantifyDate(String initialDate, String finalDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+
+        LocalDateTime initialDateRef = LocalDateTime.parse(reverseDate(initialDate, "-"), formatter);
+        LocalDateTime finalDateRef = LocalDateTime.parse(reverseDate(finalDate, "-"), formatter);
+        LocalDateTime tmpDateTime = LocalDateTime.from(initialDateRef);
+
+        long years = tmpDateTime.until(finalDateRef, ChronoUnit.YEARS);
+        tmpDateTime = tmpDateTime.plusYears(years);
+
+        long months = tmpDateTime.until(finalDateRef, ChronoUnit.MONTHS);
+        tmpDateTime = tmpDateTime.plusMonths(months);
+
+        long days = tmpDateTime.until(finalDateRef, ChronoUnit.DAYS);
+        tmpDateTime = tmpDateTime.plusDays(days);
+
+        long hours = tmpDateTime.until(finalDateRef, ChronoUnit.HOURS);
+        tmpDateTime = tmpDateTime.plusHours(hours);
+
+        long minutes = tmpDateTime.until(finalDateRef, ChronoUnit.MINUTES);
+        tmpDateTime = tmpDateTime.plusMinutes(minutes);
+
+        long seconds = tmpDateTime.until(finalDateRef, ChronoUnit.SECONDS);
+        tmpDateTime = tmpDateTime.plusSeconds(seconds);
+
+        long milliseconds = tmpDateTime.until(finalDateRef, ChronoUnit.MILLIS);
+
+        List<Long> arrayList = new ArrayList<>();
+        arrayList.add(years);
+        arrayList.add(months);
+        arrayList.add(days);
+        arrayList.add(hours);
+        arrayList.add(minutes);
+        arrayList.add(seconds);
+        arrayList.add(milliseconds);
+
+        System.out.println(arrayList);
+        System.out.println(
+                "RESULT: " +
+                arrayList.get(0) + " years, " +
+                arrayList.get(1) + " months, " +
+                arrayList.get(2) + " days, " +
+                arrayList.get(3) + " hours, " +
+                arrayList.get(4) + " minutes, " +
+                arrayList.get(5) + " seconds, " +
+                arrayList.get(6) + " milliseconds"
+        );
+
+        return arrayList;
+
+    }
+
+    public static long quantifyMillisDate() {
+
+        /*Sample functionality*/
+
+        long startDate = Calendar.getInstance().getTimeInMillis();
+
+        try {
+            Thread.sleep(3200);
+
+            long endDate = Calendar.getInstance().getTimeInMillis();
+            long duration = endDate - startDate;
+
+            System.out.println("StartDate: " + startDate);
+            System.out.println("EndDate: " + endDate);
+            System.out.println("Duration: " + duration + " milliseconds");
+
+            return duration;
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static long quantifyMillisParamsDate(String start, String end) {
+
+        String[] startDate = start
+                .replaceAll("[/-]", " ")
+                .replaceAll(":", " ")
+                .replaceAll("\\.", " ")
+                .split(" ");
+
+        String[] endDate = end
+                .replaceAll("[/-]", " ")
+                .replaceAll(":", " ")
+                .replaceAll("\\.", " ")
+                .split(" ");
+
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.set(Calendar.YEAR, Integer.parseInt(startDate[0]));
+        startCalendar.set(Calendar.MONTH, Integer.parseInt(startDate[1]));
+        startCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(startDate[2]));
+
+        try {
+            startCalendar.set(Calendar.HOUR, Integer.parseInt(startDate[3]));
+        } catch (RuntimeException re) {
+            startCalendar.set(Calendar.HOUR, 0);
+        }
+
+        try {
+            startCalendar.set(Calendar.MINUTE, Integer.parseInt(startDate[4]));
+        } catch (RuntimeException re) {
+            startCalendar.set(Calendar.MINUTE, 0);
+        }
+
+        try {
+            startCalendar.set(Calendar.SECOND, Integer.parseInt(startDate[5]));
+        } catch (RuntimeException re) {
+            startCalendar.set(Calendar.SECOND, 0);
+        }
+
+        try {
+            startCalendar.set(Calendar.MILLISECOND, Integer.parseInt(startDate[6]));
+        } catch (RuntimeException re) {
+            startCalendar.set(Calendar.MILLISECOND, 0);
+        }
+
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.set(Calendar.YEAR, Integer.parseInt(endDate[0]));
+        endCalendar.set(Calendar.MONTH, Integer.parseInt(endDate[1]));
+        endCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(endDate[2]));
+
+        try {
+            endCalendar.set(Calendar.HOUR, Integer.parseInt(endDate[3]));
+        } catch (RuntimeException re) {
+            endCalendar.set(Calendar.HOUR, 0);
+        }
+
+        try {
+            endCalendar.set(Calendar.MINUTE, Integer.parseInt(endDate[4]));
+        } catch (RuntimeException re) {
+            endCalendar.set(Calendar.MINUTE, 0);
+        }
+
+        try {
+            endCalendar.set(Calendar.SECOND, Integer.parseInt(endDate[5]));
+        } catch (RuntimeException re) {
+            endCalendar.set(Calendar.SECOND, 0);
+        }
+
+        try {
+            endCalendar.set(Calendar.MILLISECOND, Integer.parseInt(endDate[6]));
+        } catch (RuntimeException re) {
+            endCalendar.set(Calendar.MILLISECOND, 0);
+        }
+
+        long duration = endCalendar.getTimeInMillis() - startCalendar.getTimeInMillis();
+
+        System.out.println("DURATION: " + duration);
+
+        return duration;
+
     }
 
 }
