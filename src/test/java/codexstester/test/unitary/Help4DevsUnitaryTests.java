@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import static com.huntercodexs.demojobs.services.Help4DevsBaseService.*;
@@ -307,6 +307,17 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         quantifyMillisParamsDate("2023-08-20 15:30", "2023-08-20 15:31");
         quantifyMillisParamsDate("2023-08-20 15", "2023-08-20 16");
         quantifyMillisParamsDate("2023-08-20", "2023-08-21");
+    }
+
+    @Test
+    public void convertToLocalDateTest() {
+        String localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "minus", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("2023-08-15 15:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "plus", 3);
+        System.out.println("RESULT IS [PLUS]: " + localDate);
+        codexsTesterAssertText("2023-08-15 21:02:26.737", localDate);
     }
 
     /**

@@ -3,7 +3,9 @@ package com.huntercodexs.demojobs.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -312,6 +314,31 @@ public class Help4DevsDateService {
 
         return duration;
 
+    }
+
+    public static String localDateFromGmtDate(String gmtDate, String option, int time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+
+        String[] millis = gmtDate
+                .replaceAll("Z", "")
+                .split("\\.");
+
+        gmtDate = gmtDate
+                .replaceAll("[TZ]", " ")
+                .trim()
+                .replaceAll("\\.[0-9]+$", "");
+
+        LocalDateTime dateTimeRef = LocalDateTime.parse(gmtDate, formatter);
+
+        Object result = switch (option) {
+            case "minus" ->
+                    dateTimeRef.minusHours(time).toLocalDate() + " " + dateTimeRef.minusHours(time).toLocalTime() + "." + millis[1];
+            case "plus" ->
+                    dateTimeRef.plusHours(time).toLocalDate() + " " + dateTimeRef.plusHours(time).toLocalTime() + "." + millis[1];
+            default -> throw new RuntimeException("Invalid option to localDateFromGmtDate");
+        };
+
+        return result.toString().replaceAll("\\.$", "");
     }
 
 }
