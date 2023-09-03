@@ -311,13 +311,29 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void convertToLocalDateTest() {
-        String localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "minus", 3);
+        String localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "-", 3);
         System.out.println("RESULT IS [MINUS]: " + localDate);
         codexsTesterAssertText("2023-08-15 15:02:26.737", localDate);
 
-        localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "plus", 3);
+        localDate = localDateFromGmtDate("2023/08/15T18:02:26.737Z", "-", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("2023/08/15 15:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "+", 3);
         System.out.println("RESULT IS [PLUS]: " + localDate);
         codexsTesterAssertText("2023-08-15 21:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023/08/15T18:02:26.737Z", "+", 3);
+        System.out.println("RESULT IS [PLUS]: " + localDate);
+        codexsTesterAssertText("2023/08/15 21:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15 18:02:26", "-", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("invalid date format", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15 18:02:26", "+", 3);
+        System.out.println("RESULT IS [PLUS]: " + localDate);
+        codexsTesterAssertText("invalid date format", localDate);
     }
 
     /**

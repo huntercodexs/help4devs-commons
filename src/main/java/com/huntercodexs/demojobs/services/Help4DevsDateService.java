@@ -3,10 +3,10 @@ package com.huntercodexs.demojobs.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -316,29 +316,45 @@ public class Help4DevsDateService {
 
     }
 
-    public static String localDateFromGmtDate(String gmtDate, String option, int time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+    public static String localDateFromGmtDate(String gmtDate, String operation, int time) {
 
-        String[] millis = gmtDate
-                .replaceAll("Z", "")
-                .split("\\.");
+        if (!gmtDate.matches("[0-9]{4}[/-][0-9]{2}[/-][0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,3})Z")) {
+            return "invalid date format";
+        }
+
+        DateTimeFormatter formatterDash = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterBar  = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+
+        String[] saveMillis = gmtDate.replaceAll("Z", "").split("\\.");
 
         gmtDate = gmtDate
                 .replaceAll("[TZ]", " ")
                 .trim()
                 .replaceAll("\\.[0-9]+$", "");
 
-        LocalDateTime dateTimeRef = LocalDateTime.parse(gmtDate, formatter);
+        LocalDateTime dateTimeRef;
 
-        Object result = switch (option) {
-            case "minus" ->
-                    dateTimeRef.minusHours(time).toLocalDate() + " " + dateTimeRef.minusHours(time).toLocalTime() + "." + millis[1];
-            case "plus" ->
-                    dateTimeRef.plusHours(time).toLocalDate() + " " + dateTimeRef.plusHours(time).toLocalTime() + "." + millis[1];
-            default -> throw new RuntimeException("Invalid option to localDateFromGmtDate");
-        };
+        try {
+            dateTimeRef = LocalDateTime.parse(gmtDate, formatterDash);
+        } catch (DateTimeParseException re) {
+            dateTimeRef = LocalDateTime.parse(gmtDate, formatterBar);
+            formatterDate = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+        }
 
-        return result.toString().replaceAll("\\.$", "");
+        if (operation.equals("-")) {
+            String dt = dateTimeRef.minusHours(time).toLocalDate().format(formatterDate);
+            LocalTime tm = dateTimeRef.minusHours(time).toLocalTime();
+            return dt + " " + tm + "." + saveMillis[1];
+
+        } else if (operation.equals("+")) {
+            String dt = dateTimeRef.plusHours(time).toLocalDate().format(formatterDate);
+            LocalTime tm = dateTimeRef.plusHours(time).toLocalTime();
+            return dt + " " + tm + "." + saveMillis[1];
+
+        } else {
+            throw new RuntimeException("Invalid option to localDateFromGmtDate, use: - or +");
+        }
     }
 
 }
