@@ -35,7 +35,7 @@ public class Help4DevsValidatorService {
             cpfDigit = Integer.valueOf(cpf.substring(nCount - 1, nCount)).intValue();
             d1 = d1 + (11 - nCount) * cpfDigit;
             d2 = d2 + (12 - nCount) * cpfDigit;
-        };
+        }
 
         rest = (d1 % 11);
 
@@ -62,8 +62,8 @@ public class Help4DevsValidatorService {
 
     public static boolean mailValidator(String email) {
         boolean isValidMail = false;
-        if (email != null && email.length() > 0) {
-            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[a-zA-Z]{2,4}$";
+        if (email != null && !email.isEmpty()) {
+            String expression = "^[\\w.-]+@([\\w\\-]+\\.)+[a-zA-Z]{2,4}$";
             Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(email.trim());
             if (matcher.matches()) {
