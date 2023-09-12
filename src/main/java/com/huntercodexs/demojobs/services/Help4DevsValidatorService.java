@@ -75,8 +75,8 @@ public class Help4DevsValidatorService {
 
     public static boolean phoneValidator(String phoneNumber) {
         boolean isValidPhone = false;
-        if (phoneNumber != null && phoneNumber.length() > 0) {
-            String expression = "^[0-9]{13}$";
+        if (phoneNumber != null && !phoneNumber.isEmpty()) {
+            String expression = "^55[0-9]{2}9?[0-9]{8}$";
             Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(phoneNumber);
             if (matcher.matches()) {
