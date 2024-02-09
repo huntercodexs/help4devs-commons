@@ -24,7 +24,7 @@ The content that you will find out in this project are:
 
 [Help4DevsBaseService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsBaseService.java)
 
-# public static void params(JSONObject... jsonObjects)
+> public static void params(JSONObject... jsonObjects)
 
 This method offer the functionality to receive all arguments was passed as the parameters, for example:
 
@@ -57,7 +57,7 @@ Look at the above result and see that there two objects of type JSON, and they w
 way, however the method have a single expected argument (JSONObject... jsonObjects) that automatically convert these 
 parameters to a list parameters with a type define in the signature.
 
-# public static String numberFormatter(int input, String format)
+> public static String numberFormatter(int input, String format)
 
 The method numberFormatter is shortcut to format a number in the specific way. Maybe you need format one number from 
 left to right filling using a specific number. Below is the common use to this functionality:
@@ -82,7 +82,7 @@ As a result we have the following output
 000000001
 </pre>
 
-# public static String stringFormatter(String input, String format)
+> public static String stringFormatter(String input, String format)
 
 The following method afford the function that format one string in a specific way. Below are the method mentioned in 
 this topic, look at it how simple is the implementation
@@ -120,7 +120,7 @@ Using %-10s
 [XXX       ]
 </pre>
 
-# public static String fillerFormatter(String input, String filler, String align, int size)
+> public static String fillerFormatter(String input, String filler, String align, int size)
 
 This functionality offer a better way to format one string with a specific char, that can be a number or a string, and 
 also can be made from left to right and right to left, below we have one simple example to explain in the better way 
@@ -191,7 +191,7 @@ Error: use size > 0
 [null]
 </pre>
 
-# public static String rgFormatter(String value, String rgUf)
+> public static String rgFormatter(String value, String rgUf)
 
 This method is only used in the Brazil, because it serves to specific situation in that country, where we need to manager 
 or formatter the document number or document type from anyone in the system. So, maybe we need to add any information 
@@ -245,7 +245,7 @@ in the form correct form for each place in the Brazil, and not accept empty rgUf
 
 [Help4DevsCurrencyService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsCurrencyService.java)
 
-- public static String brCurrency(float value)
+> public static String brCurrency(float value)
 
 This method only works with Reais currency that are used in Brazil. To use it, just pass one parameter value in float 
 format, below we can see an example using this method.
@@ -274,7 +274,7 @@ Result
 R$ 999.111.131.136,00
 </pre>
 
-- public static String brCurrency(double value)
+> public static String brCurrency(double value)
 
 In this case we have the same idea or purpose that was used in the previous method above. However, in this case we need 
 to pay attention in the type of parameter, that should be double, not float. Below it's possible see the correct use 
@@ -304,7 +304,7 @@ Result
 R$ 999.111.111.111,00
 </pre>
 
-- public static double currencySum(double current, double add)
+> public static double currencySum(double current, double add)
 
 <pre>
     public static double currencySum(double current, double add) {
@@ -395,7 +395,7 @@ Total
 R$ 6,00
 </pre>
 
-- public static double currencySumFromString(String current, String add)
+> public static double currencySumFromString(String current, String add)
 
 In the same way, that was presented in the method above, we can make a sum of the number that are in string format. Just 
 pay attention when the parameter are passed in the request to guarantee that those are from string type, for example:
@@ -454,62 +454,84 @@ R$ 6,00
 
 [Help4DevsDateService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsDateService.java)
 
-- public static String reverseDate(String inputDate, String separator)
-- public static boolean expiredDate(String date, int time, String metricType)
-- public static List<Long> quantifyDate(String initialDate, String finalDate)
-- public static long quantifyMillisDate()
-- public static long quantifyMillisParamsDate(String start, String end)
-- public static String localDateFromGmtDate(String gmtDate, String operation, int time)
+> public static String reverseDate(String inputDate, String separator)
+
+> public static boolean expiredDate(String date, int time, String metricType)
+
+> public static List<Long> quantifyDate(String initialDate, String finalDate)
+
+> public static long quantifyMillisDate()
+
+> public static long quantifyMillisParamsDate(String start, String end)
+
+> public static String localDateFromGmtDate(String gmtDate, String operation, int time)
 
 # FileHandler
 
 [Help4DevsFileHandlerService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsFileHandlerService.java)
 
-- public static Properties loadProps(String classpath)
-- public static InputStream bytesExtractorShipmentFile(String targetPath, String targetFile)
-- public static InputStream fileToByteArray(String targetPath, String targetFile)
-- public static ByteArrayDataSource fileToDataSource(String targetPath, String targetFile) throws IOException
-- public static byte[] byteConvert(InputStream fileArray) throws IOException
-- public static String fileToString(String targetPath, String targetFile)
-- public static ArrayList<String> fileToArray(String targetPath, String targetFile)
+> public static Properties loadProps(String classpath)
+
+> public static InputStream bytesExtractorShipmentFile(String targetPath, String targetFile)
+
+> public static InputStream fileToByteArray(String targetPath, String targetFile)
+
+> public static ByteArrayDataSource fileToDataSource(String targetPath, String targetFile) throws IOException
+
+> public static byte[] byteConvert(InputStream fileArray) throws IOException
+
+> public static String fileToString(String targetPath, String targetFile)
+
+> public static ArrayList<String> fileToArray(String targetPath, String targetFile)
 
 # FileReader
 
 [Help4DevsFileReaderService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsFileReaderService.java)
 
-- public static FileReader open(String filepath)
-- public static BufferedReader buffer(FileReader activateFile)
-- public static String reader(BufferedReader readActivateFile)
-- public static void close(FileReader activateFile)
-- public static String getFileContent(String filepath, String regex, int timeout)
+> public static FileReader open(String filepath)
+
+> public static BufferedReader buffer(FileReader activateFile)
+
+> public static String reader(BufferedReader readActivateFile)
+
+> public static void close(FileReader activateFile)
+
+> public static String getFileContent(String filepath, String regex, int timeout)
 
 # Path
 
 [Help4DevsPathService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsPathService.java)
 
-- public static String sanitizePath(String path)
-- public static String sanitizeAscii(String input)
+> public static String sanitizePath(String path)
+
+> public static String sanitizeAscii(String input)
 
 # StringHandler
 
 [Help4DevsStringHandlerService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsStringHandlerService.java)
 
-- public static String queryStringBuilder(Object input)
-- public static String getDataFromQueryString(String queryString, String field)
-- public static JSONObject queryStringToJson(String input)
-- public static JSONObject stringToJson(String str)
+> public static String queryStringBuilder(Object input)
+
+> public static String getDataFromQueryString(String queryString, String field)
+
+> public static JSONObject queryStringToJson(String input)
+
+> public static JSONObject stringToJson(String str)
 
 # Tools
 
 [Help4DevsToolsService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsToolsService.java)
 
-- public static String md5(String data)
-- public static String guide(String tcn)
+> public static String md5(String data)
+
+> public static String guide(String tcn)
 
 # Validator
 
 [Help4DevsValidatorService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsValidatorService.java)
 
-- public static boolean cpfValidator(String cpf)
-- public static boolean mailValidator(String email)
-- public static boolean phoneValidator(String phoneNumber)
+> public static boolean cpfValidator(String cpf)
+
+> public static boolean mailValidator(String email)
+
+> public static boolean phoneValidator(String phoneNumber)
