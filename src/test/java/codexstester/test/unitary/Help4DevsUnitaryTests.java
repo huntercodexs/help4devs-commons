@@ -128,6 +128,27 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void fillerFormatterTest() {
+        String result1 = fillerFormatter("XXX", "F", "left", 20);
+        System.out.println("["+result1+"]");
+
+        String result2 = fillerFormatter("XXX", "F", "right", 20);
+        System.out.println("["+result2+"]");
+
+        String result3 = fillerFormatter("ZZZ", "8", "left", 20);
+        System.out.println("["+result3+"]");
+
+        String result4 = fillerFormatter("ZZZ", "8", "right", 20);
+        System.out.println("["+result4+"]");
+
+        String result5 = fillerFormatter("YYY", "A", "left", -20);
+        System.out.println("["+result5+"]");
+
+        String result6 = fillerFormatter("YYY", "A", "right", -20);
+        System.out.println("["+result6+"]");
+    }
+
+    @Test
     public void rgFormatterTest() {
         System.out.println(" > ["+ rgFormatter("9090909090", "CNH")+"]");
         System.out.println(" > ["+ rgFormatter("7878787878", "SSP SC")+"]");

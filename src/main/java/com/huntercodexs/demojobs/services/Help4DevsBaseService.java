@@ -22,6 +22,33 @@ public class Help4DevsBaseService {
         return String.format(format, input);
     }
 
+    public static String fillerFormatter(String input, String fill, String align, int size) {
+
+        if (!align.equals("left") && !align.equals("right")) {
+            System.out.println("Error: use left or right to param [align]");
+            return null;
+        }
+
+        if (size < 0) {
+            System.out.println("Error: use size > 0");
+            return null;
+        }
+
+        String formatted = input;
+
+        int lenValue = input.length();
+        int lenFill = size - lenValue;
+        String repeat = fill.repeat(lenFill);
+
+        if (align.equals("left")) {
+            formatted = input + repeat;
+        } else {
+            formatted = repeat + input;
+        }
+
+        return formatted;
+    }
+
     public static String rgFormatter(String value, String rgUf) {
         if (value == null || value.equals("")) return "";
         if (rgUf == null) rgUf = "";
