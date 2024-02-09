@@ -162,6 +162,16 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
      */
 
     @Test
+    public void brCurrencyFloatTest() {
+        System.out.println(brCurrency(Float.parseFloat("999111111111.00")));
+    }
+
+    @Test
+    public void brCurrencyDoubleTest() {
+        System.out.println(brCurrency(999111111111.00));
+    }
+
+    @Test
     public void currencySumTest() {
 
         double result = currencySum(0.00, 0.01);

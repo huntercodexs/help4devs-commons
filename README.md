@@ -246,9 +246,205 @@ in the form correct form for each place in the Brazil, and not accept empty rgUf
 [Help4DevsCurrencyService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsCurrencyService.java)
 
 - public static String brCurrency(float value)
+
+This method only works with Reais currency that are used in Brazil. To use it, just pass one parameter value in float 
+format, below we can see an example using this method.
+
+<pre>
+    public static String brCurrency(float value) {
+        if (value <= 0) return "";
+        Locale localBrazil = new Locale("pt", "BR");
+        NumberFormat brCurrency = NumberFormat.getCurrencyInstance(localBrazil);
+        return brCurrency.format(value)
+                .replaceAll("[^0-9R$., ]+", "")
+                .replaceAll("R[$]", "R\\$ ");
+    }
+</pre>
+
+<pre>
+    @Test
+    public void brCurrencyFloatTest() {
+        System.out.println(brCurrency(Float.parseFloat("999111111111.00")));
+    }
+</pre>
+
+Result
+
+<pre>
+R$ 999.111.131.136,00
+</pre>
+
 - public static String brCurrency(double value)
+
+In this case we have the same idea or purpose that was used in the previous method above. However, in this case we need 
+to pay attention in the type of parameter, that should be double, not float. Below it's possible see the correct use 
+fo this method and the result
+
+<pre>
+    public static String brCurrency(double value) {
+        if (value <= 0) value = 0.00;
+        Locale localBrazil = new Locale("pt", "BR");
+        NumberFormat brCurrency = NumberFormat.getCurrencyInstance(localBrazil);
+        return brCurrency.format(value)
+                .replaceAll("[^0-9R$., ]+", "")
+                .replaceAll("R[$]", "R\\$ ");
+    }
+</pre>
+
+<pre>
+    @Test
+    public void brCurrencyDoubleTest() {
+        System.out.println(brCurrency(999111111111.00));
+    }
+</pre>
+
+Result
+
+<pre>
+R$ 999.111.111.111,00
+</pre>
+
 - public static double currencySum(double current, double add)
+
+<pre>
+    public static double currencySum(double current, double add) {
+        System.out.println(brCurrency(current) +"+"+ brCurrency(add));
+        double sum = current + add;
+        System.out.println(brCurrency((float) sum));
+        return sum;
+    }
+</pre>
+
+<pre>
+    @Test
+    public void currencySumTest() {
+
+        double result = currencySum(0.00, 0.01);
+        result += currencySum(0.01, 0.10);
+        result += currencySum(0.10, 0.11);
+        result += currencySum(0.11, 1.11);
+        result += currencySum(1.00, 1.01);
+        result += currencySum(1.00, 1.10);
+        result += currencySum(11.00, 111.10);
+        result += currencySum(1111.00, 11.10);
+        result += currencySum(111111.00, 111.10);
+        result += currencySum(111.00, 11.01);
+        result += currencySum(111111111.00, 11.01);
+        result += currencySum(999111111111.00, 11.01);
+
+        System.out.println("Total");
+        System.out.println(brCurrency(result));
+
+        /*Proof*/
+        double proff = currencySum(0.00, 1.00);
+        proff += currencySum(0.00, 1.00);
+        proff += currencySum(0.00, 1.00);
+        proff += currencySum(0.00, 1.00);
+        proff += currencySum(0.00, 1.00);
+        proff += currencySum(0.00, 1.00);
+
+        System.out.println("Total");
+        System.out.println(brCurrency(proff));
+        codexsTesterAssertText("R$ 6,00", brCurrency(proff));
+
+    }
+</pre>
+
+Result
+
+<pre>
+R$ 0,00+R$ 0,01
+R$ 0,01
+R$ 0,01+R$ 0,10
+R$ 0,11
+R$ 0,10+R$ 0,11
+R$ 0,21
+R$ 0,11+R$ 1,11
+R$ 1,22
+R$ 1,00+R$ 1,01
+R$ 2,01
+R$ 1,00+R$ 1,10
+R$ 2,10
+R$ 11,00+R$ 111,10
+R$ 122,10
+R$ 1.111,00+R$ 11,10
+R$ 1.122,10
+R$ 111.111,00+R$ 111,10
+R$ 111.222,10
+R$ 111,00+R$ 11,01
+R$ 122,01
+R$ 111.111.111,00+R$ 11,01
+R$ 111.111.120,00
+R$ 999.111.111.111,00+R$ 11,01
+R$ 999.111.131.136,00
+Total
+R$ 999.222.334.837,99
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+Total
+R$ 6,00
+</pre>
+
 - public static double currencySumFromString(String current, String add)
+
+In the same way, that was presented in the method above, we can make a sum of the number that are in string format. Just 
+pay attention when the parameter are passed in the request to guarantee that those are from string type, for example:
+
+<pre>
+    public static double currencySumFromString(String current, String add) {
+        System.out.println(brCurrency(Double.parseDouble(current)) +"+"+ brCurrency(Double.parseDouble(add)));
+        double sum = Double.parseDouble(current) + Double.parseDouble(add);
+        System.out.println(brCurrency((float) sum));
+        return sum;
+    }
+</pre>
+
+<pre>
+    public void currencySumFromStringTest() {
+
+        /*Proof*/
+        double proff = currencySumFromString("0.00", "1.00");
+        proff += currencySumFromString("0.00", "1.00");
+        proff += currencySumFromString("0.00", "1.00");
+        proff += currencySumFromString("0.00", "1.00");
+        proff += currencySumFromString("0.00", "1.00");
+        proff += currencySumFromString("0.00", "1.00");
+
+        System.out.println("Total");
+        System.out.println(brCurrency(proff));
+        codexsTesterAssertText("R$ 6,00", brCurrency(proff));
+
+    }
+</pre>
+
+Result, see that even the params was in the string type, this method can be handling that situation
+
+<pre>
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+R$ 0,00+R$ 1,00
+R$ 1,00
+Total
+R$ 6,00
+</pre>
 
 # Database
 

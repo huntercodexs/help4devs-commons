@@ -14,7 +14,9 @@ public class Help4DevsCurrencyService {
         if (value <= 0) return "";
         Locale localBrazil = new Locale("pt", "BR");
         NumberFormat brCurrency = NumberFormat.getCurrencyInstance(localBrazil);
-        return brCurrency.format(value).replaceAll("R[$]", "R\\$ ");
+        return brCurrency.format(value)
+                .replaceAll("[^0-9R$., ]+", "")
+                .replaceAll("R[$]", "R\\$ ");
     }
 
     public static String brCurrency(double value) {
