@@ -574,7 +574,7 @@ With this method you can quantify one time in years, months, days, hours, minute
 information about one specific time. The result will be something like below
 
 <pre>
-    public static List<Long> quantifyDate(String initialDate, String finalDate) {
+    public static List&lt;Long&gt; quantifyDate(String initialDate, String finalDate) {
         ...
     }
 </pre>
@@ -595,25 +595,27 @@ RESULT: 0 years, 0 months, 0 days, 0 hours, 0 minutes, 1 seconds, 0 milliseconds
 
 > public static long quantifyMillisDate()
 
+If you need to know how log time took one specific operation or transaction, and you have 
+the initial time and final time, just use this method and get the result quickly and easily
+
 <pre>
-    public static long quantifyMillisDate() {
+    public static long quantifyMillisDate(long startDate, long endDate) {
+        long duration = endDate - startDate;
+        System.out.println("StartDate: " + startDate);
+        System.out.println("EndDate: " + endDate);
+        return duration;
+    }
+</pre>
 
-        /*Sample functionality*/
-
+<pre>
+    @Test
+    public void quantifyMillisDateTest() {
         long startDate = Calendar.getInstance().getTimeInMillis();
-
         try {
             Thread.sleep(3200);
-
             long endDate = Calendar.getInstance().getTimeInMillis();
-            long duration = endDate - startDate;
-
-            System.out.println("StartDate: " + startDate);
-            System.out.println("EndDate: " + endDate);
+            long duration = quantifyMillisDate(startDate, endDate);
             System.out.println("Duration: " + duration + " milliseconds");
-
-            return duration;
-
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -629,6 +631,9 @@ Duration: 3201 milliseconds
 </pre>
 
 > public static long quantifyMillisParamsDate(String start, String end)
+
+In this case, if you want to know how long time took one operation or transaction, and you have a 
+start time and final time, as showed below, so you can use this method to get in milliseconds the time from the transaction.
 
 <pre>
     public static long quantifyMillisParamsDate(String start, String end) {

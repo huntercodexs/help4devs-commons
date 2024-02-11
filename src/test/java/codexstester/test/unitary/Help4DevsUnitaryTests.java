@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Properties;
 
 import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
@@ -321,7 +322,15 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void quantifyMillisDateTest() {
-        quantifyMillisDate();
+        long startDate = Calendar.getInstance().getTimeInMillis();
+        try {
+            Thread.sleep(3200);
+            long endDate = Calendar.getInstance().getTimeInMillis();
+            long duration = quantifyMillisDate(startDate, endDate);
+            System.out.println("Duration: " + duration + " milliseconds");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test

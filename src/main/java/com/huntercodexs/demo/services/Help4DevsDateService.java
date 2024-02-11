@@ -213,27 +213,11 @@ public class Help4DevsDateService {
 
     }
 
-    public static long quantifyMillisDate() {
-
-        /*Sample functionality*/
-
-        long startDate = Calendar.getInstance().getTimeInMillis();
-
-        try {
-            Thread.sleep(3200);
-
-            long endDate = Calendar.getInstance().getTimeInMillis();
-            long duration = endDate - startDate;
-
-            System.out.println("StartDate: " + startDate);
-            System.out.println("EndDate: " + endDate);
-            System.out.println("Duration: " + duration + " milliseconds");
-
-            return duration;
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public static long quantifyMillisDate(long startDate, long endDate) {
+        long duration = endDate - startDate;
+        System.out.println("StartDate: " + startDate);
+        System.out.println("EndDate: " + endDate);
+        return duration;
     }
 
     public static long quantifyMillisParamsDate(String start, String end) {
