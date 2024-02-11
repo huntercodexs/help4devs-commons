@@ -1,4 +1,4 @@
-package com.huntercodexs.demojobs.services;
+package com.huntercodexs.demo.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import static com.huntercodexs.demojobs.services.Help4DevsPathService.sanitizePath;
+import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
 
 @Slf4j
 @Service

@@ -1,7 +1,7 @@
 package codexstester.setup.bridge;
 
 import codexstester.engine.bridge.CodexsTesterCoreBridgeTests;
-import com.huntercodexs.demojobs.Help4DevsApplication;
+import com.huntercodexs.demo.Help4DevsApplication;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

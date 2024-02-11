@@ -20,9 +20,14 @@ The content that you will find out in this project are:
 - <a href="#tools">Tools</a>
 - <a href="#validator">Validator</a>
 
+> IMPORTANT NOTE:<br>
+> All methods and functionalities are placed int the project scope in the path src/main/java/com/huntercodexs/demo/services
+> and all tests are placed in the test scope from src/test/java/codexstester/test/unitary/Help4DevsUnitaryTests.java.
+> You can follow this documentation or read and execute directly the @Test for each function afford here.
+
 # Base
 
-[Help4DevsBaseService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsBaseService.java)
+[Help4DevsBaseService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsBaseService.java)
 
 > public static void params(JSONObject... jsonObjects)
 
@@ -243,7 +248,7 @@ in the form correct form for each place in the Brazil, and not accept empty rgUf
 
 # Currency
 
-[Help4DevsCurrencyService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsCurrencyService.java)
+[Help4DevsCurrencyService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsCurrencyService.java)
 
 > public static String brCurrency(float value)
 
@@ -448,27 +453,226 @@ R$ 6,00
 
 # Database
 
-[Help4DevsDatabaseService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsDatabaseService.java)
+[Help4DevsDatabaseService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsDatabaseService.java)
 
 # Date
 
-[Help4DevsDateService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsDateService.java)
+[Help4DevsDateService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsDateService.java)
 
 > public static String reverseDate(String inputDate, String separator)
 
+Whether you need make one date revert in the position of each part from any date, this is the correct and useful method.
+Check the algorithm from this method inside the Help4DevsDateService.java file.
+
+To use this method, you can follow the example below
+
+<pre>
+    @Test
+    public void reverseDateTest() {
+        System.out.println(reverseDate("14/07/2023 14:53:25", "-"));
+        System.out.println(reverseDate("2023-08-16 16:10:28", "/"));
+        System.out.println(reverseDate("14/07/2023 14:53:25", "/"));
+        System.out.println(reverseDate("2023-08-16 16:10:28", "-"));
+
+        System.out.println(reverseDate("14/07/2023TZ14:53:25", "-"));
+        System.out.println(reverseDate("2023-08-16TZ16:10:28", "/"));
+        System.out.println(reverseDate("14/07/2023TZ14:53:25", "/"));
+        System.out.println(reverseDate("2023-08-16TZ16:10:28", "-"));
+        System.out.println(reverseDate("2023-08-15T18:02:26.737Z", "-"));
+        System.out.println(reverseDate("2023-08-15T18:02:26.737Z", "/"));
+
+        System.out.println(reverseDate("14/07/2023", "-"));
+        System.out.println(reverseDate("2023-08-16", "/"));
+        System.out.println(reverseDate("14/07/2023", "/"));
+        System.out.println(reverseDate("2023-08-16", "-"));
+    }
+</pre>
+
+The expected result is something like that
+
+<pre>
+2023-07-14 14:53:25
+16/08/2023 16:10:28
+2023/07/14 14:53:25
+16-08-2023 16:10:28
+2023-07-14 14:53:25
+16/08/2023 16:10:28
+2023/07/14 14:53:25
+16-08-2023 16:10:28
+15-08-2023 18:02:26.737
+15/08/2023 18:02:26.737
+2023-07-14
+16/08/2023
+2023/07/14
+16-08-2023
+</pre>
+
 > public static boolean expiredDate(String date, int time, String metricType)
+
+To check if any date is outdated, due or any other case, use the method expiredDate, for example:
+
+<pre>
+    @Test
+    public void expiredDateTest() {
+        boolean time = expiredDate("14/07/2023 14:53:25", 1, "nano");
+        System.out.println("RESULT IS [NANO]: " + time);
+
+        time = expiredDate("14/07/2023 14:53:25", 1, "second");
+        System.out.println("RESULT IS [SECOND]: " + time);
+
+        time = expiredDate("14/07/2023 14:53:25", 1, "minute");
+        System.out.println("RESULT IS [MINUTE]: " + time);
+
+        time = expiredDate("14/07/2023 14:53:25", 1, "hour");
+        System.out.println("RESULT IS [HOUR]: " + time);
+
+        time = expiredDate("14/07/2023 14:53:25", 1, "day");
+        System.out.println("RESULT IS [DAY]: " + time);
+
+        time = expiredDate("14/07/2023 14:53:25", 1, "week");
+        System.out.println("RESULT IS [WEEK]: " + time);
+
+        time = expiredDate("14/07/2023 14:53:25", 1, "month");
+        System.out.println("RESULT IS [MONTH]: " + time);
+
+        time = expiredDate("14/07/2023 14:53:25", 1, "year");
+        System.out.println("RESULT IS [YEAR]: " + time);
+    }
+</pre>
+
+In this case we have the following result
+
+<pre>
+MATCH 1: 14/07/2023 14:53:25
+2024-02-09 15:01:35.026  INFO jereelton-acer-nitro --- [           main] c.h.d.s.Help4DevsDateService             : Expired time: (now)2024-02-09T15:01:35 - (limit)2023-07-14T14:53:25.000000001
+RESULT IS [NANO]: true
+MATCH 1: 14/07/2023 14:53:25
+2024-02-09 15:01:35.026  INFO jereelton-acer-nitro --- [           main] c.h.d.s.Help4DevsDateService             : Expired time: (now)2024-02-09T15:01:35 - (limit)2023-07-14T14:53:26
+RESULT IS [SECOND]: true
+MATCH 1: 14/07/2023 14:53:25
+2024-02-09 15:01:35.027  INFO jereelton-acer-nitro --- [           main] c.h.d.s.Help4DevsDateService             : Expired time: (now)2024-02-09T15:01:35 - (limit)2023-07-14T14:54:25
+RESULT IS [MINUTE]: true
+MATCH 1: 14/07/2023 14:53:25
+2024-02-09 15:01:35.027  INFO jereelton-acer-nitro --- [           main] c.h.d.s.Help4DevsDateService             : Expired time: (now)2024-02-09T15:01:35 - (limit)2023-07-14T15:53:25
+RESULT IS [HOUR]: true
+MATCH 1: 14/07/2023 14:53:25
+2024-02-09 15:01:35.028  INFO jereelton-acer-nitro --- [           main] c.h.d.s.Help4DevsDateService             : Expired time: (now)2024-02-09T15:01:35 - (limit)2023-07-15T14:53:25
+RESULT IS [DAY]: true
+MATCH 1: 14/07/2023 14:53:25
+2024-02-09 15:01:35.028  INFO jereelton-acer-nitro --- [           main] c.h.d.s.Help4DevsDateService             : Expired time: (now)2024-02-09T15:01:35 - (limit)2023-07-21T14:53:25
+RESULT IS [WEEK]: true
+MATCH 1: 14/07/2023 14:53:25
+2024-02-09 15:01:35.029  INFO jereelton-acer-nitro --- [           main] c.h.d.s.Help4DevsDateService             : Expired time: (now)2024-02-09T15:01:35 - (limit)2023-08-14T14:53:25
+RESULT IS [MONTH]: true
+MATCH 1: 14/07/2023 14:53:25
+RESULT IS [YEAR]: false
+</pre>
 
 > public static List<Long> quantifyDate(String initialDate, String finalDate)
 
+With this method you can quantify one time in years, months, days, hours, minutes, seconds, milliseconds to get full 
+information about one specific time. The result will be something like below
+
+<pre>
+    public static List<Long> quantifyDate(String initialDate, String finalDate) {
+        ...
+    }
+</pre>
+
+<pre>
+    @Test
+    public void quantifyDateTest() {
+        quantifyDate("14/07/2023 15:53:25", "14/07/2023 15:53:26");
+    }
+</pre>
+
+<pre>
+MATCH 1: 14/07/2023 15:53:25
+MATCH 1: 14/07/2023 15:53:26
+[0, 0, 0, 0, 0, 1, 0]
+RESULT: 0 years, 0 months, 0 days, 0 hours, 0 minutes, 1 seconds, 0 milliseconds
+</pre>
+
 > public static long quantifyMillisDate()
 
+<pre>
+    public static long quantifyMillisDate() {
+
+        /*Sample functionality*/
+
+        long startDate = Calendar.getInstance().getTimeInMillis();
+
+        try {
+            Thread.sleep(3200);
+
+            long endDate = Calendar.getInstance().getTimeInMillis();
+            long duration = endDate - startDate;
+
+            System.out.println("StartDate: " + startDate);
+            System.out.println("EndDate: " + endDate);
+            System.out.println("Duration: " + duration + " milliseconds");
+
+            return duration;
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+</pre>
+
+The result should be something like below
+
+<pre>
+StartDate: 1707675336041
+EndDate: 1707675339242
+Duration: 3201 milliseconds
+</pre>
+
 > public static long quantifyMillisParamsDate(String start, String end)
+
+<pre>
+    public static long quantifyMillisParamsDate(String start, String end) {
+        ...
+    }
+</pre>
+
+<pre>
+    @Test
+    public void quantifyMillisParamsDateTest() {
+        quantifyMillisParamsDate("2023/08/20 15:30:10.100", "2023/08/20 15:31:10.500");
+        quantifyMillisParamsDate("2023/08/20 15:30:10", "2023/08/20 15:31:10");
+        quantifyMillisParamsDate("2023/08/20 15:30", "2023/08/20 15:31");
+        quantifyMillisParamsDate("2023/08/20 15", "2023/08/20 16");
+        quantifyMillisParamsDate("2023/08/20", "2023/08/21");
+
+        quantifyMillisParamsDate("2023-08-20 15:30:10.100", "2023-08-20 15:30:10.500");
+        quantifyMillisParamsDate("2023-08-20 15:30:10", "2023-08-20 15:31:10");
+        quantifyMillisParamsDate("2023-08-20 15:30", "2023-08-20 15:31");
+        quantifyMillisParamsDate("2023-08-20 15", "2023-08-20 16");
+        quantifyMillisParamsDate("2023-08-20", "2023-08-21");
+    }
+</pre>
+
+The result look like as below
+
+<pre>
+DURATION: 60400
+DURATION: 60000
+DURATION: 60000
+DURATION: 3600000
+DURATION: 86400000
+DURATION: 400
+DURATION: 60000
+DURATION: 60000
+DURATION: 3600000
+DURATION: 86400000
+</pre>
 
 > public static String localDateFromGmtDate(String gmtDate, String operation, int time)
 
 # FileHandler
 
-[Help4DevsFileHandlerService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsFileHandlerService.java)
+[Help4DevsFileHandlerService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsFileHandlerService.java)
 
 > public static Properties loadProps(String classpath)
 
@@ -486,7 +690,7 @@ R$ 6,00
 
 # FileReader
 
-[Help4DevsFileReaderService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsFileReaderService.java)
+[Help4DevsFileReaderService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsFileReaderService.java)
 
 > public static FileReader open(String filepath)
 
@@ -500,7 +704,7 @@ R$ 6,00
 
 # Path
 
-[Help4DevsPathService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsPathService.java)
+[Help4DevsPathService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsPathService.java)
 
 > public static String sanitizePath(String path)
 
@@ -508,7 +712,7 @@ R$ 6,00
 
 # StringHandler
 
-[Help4DevsStringHandlerService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsStringHandlerService.java)
+[Help4DevsStringHandlerService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsStringHandlerService.java)
 
 > public static String queryStringBuilder(Object input)
 
@@ -520,7 +724,7 @@ R$ 6,00
 
 # Tools
 
-[Help4DevsToolsService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsToolsService.java)
+[Help4DevsToolsService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsToolsService.java)
 
 > public static String md5(String data)
 
@@ -528,7 +732,7 @@ R$ 6,00
 
 # Validator
 
-[Help4DevsValidatorService.java](src/main/java/com/huntercodexs/demojobs/services/Help4DevsValidatorService.java)
+[Help4DevsValidatorService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsValidatorService.java)
 
 > public static boolean cpfValidator(String cpf)
 

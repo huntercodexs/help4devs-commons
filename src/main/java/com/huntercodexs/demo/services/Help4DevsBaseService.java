@@ -1,4 +1,4 @@
-package com.huntercodexs.demojobs.services;
+package com.huntercodexs.demo.services;
 
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;

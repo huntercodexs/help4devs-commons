@@ -9,21 +9,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import static com.huntercodexs.demojobs.services.Help4DevsBaseService.*;
-import static com.huntercodexs.demojobs.services.Help4DevsCurrencyService.*;
-import static com.huntercodexs.demojobs.services.Help4DevsDateService.*;
-import static com.huntercodexs.demojobs.services.Help4DevsFileHandlerService.*;
-import static com.huntercodexs.demojobs.services.Help4DevsFileReaderService.getFileContent;
-import static com.huntercodexs.demojobs.services.Help4DevsPathService.sanitizeAscii;
-import static com.huntercodexs.demojobs.services.Help4DevsPathService.sanitizePath;
-import static com.huntercodexs.demojobs.services.Help4DevsStringHandlerService.*;
-import static com.huntercodexs.demojobs.services.Help4DevsToolsService.guide;
-import static com.huntercodexs.demojobs.services.Help4DevsToolsService.md5;
-import static com.huntercodexs.demojobs.services.Help4DevsValidatorService.*;
+import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
+import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
+import static com.huntercodexs.demo.services.Help4DevsDateService.*;
+import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
+import static com.huntercodexs.demo.services.Help4DevsFileReaderService.getFileContent;
+import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizeAscii;
+import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
+import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.guide;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.md5;
+import static com.huntercodexs.demo.services.Help4DevsValidatorService.*;
 
 public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
@@ -311,7 +310,7 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void calculateDateTest() {
+    public void quantifyDateTest() {
         quantifyDate("14/07/2023 15:53:25", "14/07/2023 15:53:26");
         quantifyDate("14/07/2023 15:53:25", "14/07/2023 15:54:26");
         quantifyDate("14/07/2023 15:53:25", "14/07/2023 16:54:26");
