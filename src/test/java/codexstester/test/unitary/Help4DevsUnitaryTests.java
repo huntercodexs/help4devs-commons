@@ -350,7 +350,11 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void convertToLocalDateTest() {
-        String localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "-", 3);
+        String localDate = localDateFromGmtDate("2023-08-15T02:02:26.737Z", "-", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("2023-08-14 23:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "-", 3);
         System.out.println("RESULT IS [MINUS]: " + localDate);
         codexsTesterAssertText("2023-08-15 15:02:26.737", localDate);
 

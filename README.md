@@ -675,6 +675,114 @@ DURATION: 86400000
 
 > public static String localDateFromGmtDate(String gmtDate, String operation, int time)
 
+We can use this method to get correctly datetime from API standards when using GMT. For example, if you are in the Brazil 
+and receive one API response form any service, and it is using the GMT system date, you need make datetime minus 3 hours, 
+like this: 20/10/2020 13:00:00 to 20/10/2020 10:00:00.
+
+The code below show with more details and clear how to this work
+
+<pre>
+    public static String localDateFromGmtDate(String gmtDate, String operation, int time) {
+
+        if (!gmtDate.matches("[0-9]{4}[/-][0-9]{2}[/-][0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,3})Z")) {
+            return "invalid date format";
+        }
+
+        DateTimeFormatter formatterDash = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterBar  = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+
+        String[] saveMillis = gmtDate.replaceAll("Z", "").split("\\.");
+
+        gmtDate = gmtDate
+                .replaceAll("[TZ]", " ")
+                .trim()
+                .replaceAll("\\.[0-9]+$", "");
+
+        LocalDateTime dateTimeRef;
+
+        try {
+            dateTimeRef = LocalDateTime.parse(gmtDate, formatterDash);
+        } catch (DateTimeParseException re) {
+            dateTimeRef = LocalDateTime.parse(gmtDate, formatterBar);
+            formatterDate = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+        }
+
+        if (operation.equals("-")) {
+            String dt = dateTimeRef.minusHours(time).toLocalDate().format(formatterDate);
+            LocalTime tm = dateTimeRef.minusHours(time).toLocalTime();
+            return dt + " " + tm + "." + saveMillis[1];
+
+        } else if (operation.equals("+")) {
+            String dt = dateTimeRef.plusHours(time).toLocalDate().format(formatterDate);
+            LocalTime tm = dateTimeRef.plusHours(time).toLocalTime();
+            return dt + " " + tm + "." + saveMillis[1];
+
+        } else {
+            throw new RuntimeException("Invalid option to localDateFromGmtDate, use: - or +");
+        }
+    }
+</pre>
+
+<pre>
+    @Test
+    public void convertToLocalDateTest() {
+        String localDate = localDateFromGmtDate("2023-08-15T02:02:26.737Z", "-", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("2023-08-14 23:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "-", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("2023-08-15 15:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023/08/15T18:02:26.737Z", "-", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("2023/08/15 15:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "+", 3);
+        System.out.println("RESULT IS [PLUS]: " + localDate);
+        codexsTesterAssertText("2023-08-15 21:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023/08/15T18:02:26.737Z", "+", 3);
+        System.out.println("RESULT IS [PLUS]: " + localDate);
+        codexsTesterAssertText("2023/08/15 21:02:26.737", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15 18:02:26", "-", 3);
+        System.out.println("RESULT IS [MINUS]: " + localDate);
+        codexsTesterAssertText("invalid date format", localDate);
+
+        localDate = localDateFromGmtDate("2023-08-15 18:02:26", "+", 3);
+        System.out.println("RESULT IS [PLUS]: " + localDate);
+        codexsTesterAssertText("invalid date format", localDate);
+    }
+</pre>
+
+The result should be like something like below
+
+<pre>
+RESULT IS [MINUS]: 2023-08-14 23:02:26.737
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS [MINUS]: 2023-08-15 15:02:26.737
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS [MINUS]: 2023/08/15 15:02:26.737
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS [PLUS]: 2023-08-15 21:02:26.737
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS [PLUS]: 2023/08/15 21:02:26.737
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS [MINUS]: invalid date format
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS [PLUS]: invalid date format
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+</pre>
+
 # FileHandler
 
 [Help4DevsFileHandlerService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsFileHandlerService.java)
