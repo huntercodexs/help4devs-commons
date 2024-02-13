@@ -13,6 +13,9 @@ import java.io.IOException;
 public class Help4DevsFileReaderService {
 
     public static FileReader open(String filepath) {
+
+        System.out.println("[INFO] >> Opening file: " + filepath);
+
         FileReader activateFile = null;
 
         try {
@@ -28,56 +31,66 @@ public class Help4DevsFileReaderService {
         return new BufferedReader(activateFile);
     }
 
-    public static String reader(BufferedReader readActivateFile) {
+    public static String reader(BufferedReader readActivateFile) throws InterruptedException {
         String lineFile = "";
 
         try {
+            Thread.sleep(1000);
             lineFile = readActivateFile.readLine();
-            if (lineFile == null || lineFile.equals("")) {
-                return null;
+            if (lineFile == null || lineFile.isEmpty()) {
+                return "";
             }
         } catch (IOException e) {
-            return null;
+            System.out.println("Exception: " + e.getMessage());
+            return "";
         }
 
         return lineFile;
     }
 
-    public static void close(FileReader activateFile) throws IOException {
+    public static void close(FileReader activateFile, String filepath) throws IOException, InterruptedException {
+
+        System.out.println("[INFO] << Closing file: " + filepath);
+        System.out.println(("-").repeat(120));
+
         activateFile.close();
         System.out.flush();
+
+        Thread.sleep(2000);
     }
 
-    public static String getFileContent(String filepath, String regex, int timeout) throws Exception {
-        String code = null;
+    public static String getFileContentByMatch(String filepath, String regex, int timeout) throws Exception {
+        String content = "null";
         int counter = 0;
-
-        FileReader openFile = open(filepath);
-        BufferedReader bufferFile = buffer(openFile);
 
         System.out.println("Awaiting content...");
 
-        while (code == null) {
+        while (!content.matches(regex)) {
+
+            FileReader openFile = open(filepath);
+            BufferedReader bufferFile = buffer(openFile);
 
             try {
-                Thread.sleep(1000);
                 counter++;
-                code = reader(bufferFile);
-                if (code != null && code.matches(regex)) {
+                content = reader(bufferFile);
+
+                if (content.matches(regex)) {
                     break;
                 }
                 if (counter > timeout) {
-                    close(openFile);
+                    close(openFile, filepath);
                     throw new RuntimeException("Time Exception to get content: timeout !");
                 }
+
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+                return null;
             }
+
+            close(openFile,filepath);
         }
 
-        close(openFile);
-
-        return code;
+        return content;
     }
 
 }

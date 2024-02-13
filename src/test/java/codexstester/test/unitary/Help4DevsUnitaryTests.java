@@ -17,7 +17,7 @@ import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
 import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
 import static com.huntercodexs.demo.services.Help4DevsDateService.*;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
-import static com.huntercodexs.demo.services.Help4DevsFileReaderService.getFileContent;
+import static com.huntercodexs.demo.services.Help4DevsFileReaderService.getFileContentByMatch;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizeAscii;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
@@ -52,8 +52,8 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void getFileContentTest() throws Exception {
-        /*TIP: Edit the file src/test/resources/help4devs/file.txt and press Enter button*/
-        String code = getFileContent("src/test/resources/help4devs/file.txt", "[0-9]{6}",1500000000);
+        /*TIP: Edit the file ./src/test/resources/help4devs/file.txt and press [Ctrl+S] button*/
+        String code = getFileContentByMatch("./src/test/resources/help4devs/file.txt", "[0-9]{6}",1500000000);
         System.out.println("Content: " + code);
     }
 
@@ -69,31 +69,31 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void bytesExtractorShipmentFileTest() throws IOException {
-        InputStream result = bytesExtractorShipmentFile("/home/jereelton/Documentos/Devel/Java/JProjects/demo-projects/help4devs/src/test/resources/help4devs/", "external.tests.properties");
+        InputStream result = bytesFileExtractor("./src/test/resources/help4devs/", "external.tests.properties");
         System.out.println("RESULT IS: " + result);
     }
 
     @Test
     public void fileToByteArrayTest() throws IOException {
-        InputStream result = fileToByteArray("/home/jereelton/Documentos/Devel/Java/JProjects/demo-projects/help4devs/src/test/resources/help4devs/", "external.tests.properties");
+        InputStream result = fileToByteArray("./src/test/resources/help4devs/", "external.tests.properties");
         System.out.println("RESULT IS: " + result);
     }
 
     @Test
     public void fileToDataSourceTest() throws IOException {
-        ByteArrayDataSource result = fileToDataSource("/home/jereelton/Documentos/Devel/Java/JProjects/demo-projects/help4devs/src/test/resources/help4devs/", "external.tests.properties");
+        ByteArrayDataSource result = fileToDataSource("./src/test/resources/help4devs/", "external.tests.properties");
         System.out.println("RESULT IS: " + result);
     }
 
     @Test
     public void fileToStringTest() throws IOException {
-        String result = fileToString("/home/jereelton/Documentos/Devel/Java/JProjects/demo-projects/help4devs/src/test/resources/help4devs/", "external.tests.properties");
+        String result = fileToString("./src/test/resources/help4devs/", "external.tests.properties");
         System.out.println("RESULT IS: " + result);
     }
 
     @Test
     public void fileToArrayTest() throws IOException {
-        ArrayList<String> result = fileToArray("/home/jereelton/Documentos/Devel/Java/JProjects/demo-projects/help4devs/src/test/resources/help4devs/", "external.tests.properties");
+        ArrayList<String> result = fileToArray("./src/test/resources/help4devs/", "external.tests.properties");
         System.out.println("RESULT IS: " + result);
     }
 

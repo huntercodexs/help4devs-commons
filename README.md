@@ -29,7 +29,7 @@ The content that you will find out in this project are:
 
 [Help4DevsBaseService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsBaseService.java)
 
-> public static void params(JSONObject... jsonObjects)
+- void params(JSONObject... jsonObjects)
 
 This method offer the functionality to receive all arguments was passed as the parameters, for example:
 
@@ -62,7 +62,7 @@ Look at the above result and see that there two objects of type JSON, and they w
 way, however the method have a single expected argument (JSONObject... jsonObjects) that automatically convert these 
 parameters to a list parameters with a type define in the signature.
 
-> public static String numberFormatter(int input, String format)
+- String numberFormatter(int input, String format)
 
 The method numberFormatter is shortcut to format a number in the specific way. Maybe you need format one number from 
 left to right filling using a specific number. Below is the common use to this functionality:
@@ -87,7 +87,7 @@ As a result we have the following output
 000000001
 </pre>
 
-> public static String stringFormatter(String input, String format)
+- String stringFormatter(String input, String format)
 
 The following method afford the function that format one string in a specific way. Below are the method mentioned in 
 this topic, look at it how simple is the implementation
@@ -125,7 +125,7 @@ Using %-10s
 [XXX       ]
 </pre>
 
-> public static String fillerFormatter(String input, String filler, String align, int size)
+- String fillerFormatter(String input, String filler, String align, int size)
 
 This functionality offer a better way to format one string with a specific char, that can be a number or a string, and 
 also can be made from left to right and right to left, below we have one simple example to explain in the better way 
@@ -196,7 +196,7 @@ Error: use size > 0
 [null]
 </pre>
 
-> public static String rgFormatter(String value, String rgUf)
+- String rgFormatter(String value, String rgUf)
 
 This method is only used in the Brazil, because it serves to specific situation in that country, where we need to manager 
 or formatter the document number or document type from anyone in the system. So, maybe we need to add any information 
@@ -250,7 +250,7 @@ in the form correct form for each place in the Brazil, and not accept empty rgUf
 
 [Help4DevsCurrencyService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsCurrencyService.java)
 
-> public static String brCurrency(float value)
+- String brCurrency(float value)
 
 This method only works with Reais currency that are used in Brazil. To use it, just pass one parameter value in float 
 format, below we can see an example using this method.
@@ -279,7 +279,7 @@ Result
 R$ 999.111.131.136,00
 </pre>
 
-> public static String brCurrency(double value)
+- String brCurrency(double value)
 
 In this case we have the same idea or purpose that was used in the previous method above. However, in this case we need 
 to pay attention in the type of parameter, that should be double, not float. Below it's possible see the correct use 
@@ -309,7 +309,7 @@ Result
 R$ 999.111.111.111,00
 </pre>
 
-> public static double currencySum(double current, double add)
+- double currencySum(double current, double add)
 
 <pre>
     public static double currencySum(double current, double add) {
@@ -400,7 +400,7 @@ Total
 R$ 6,00
 </pre>
 
-> public static double currencySumFromString(String current, String add)
+- double currencySumFromString(String current, String add)
 
 In the same way, that was presented in the method above, we can make a sum of the number that are in string format. Just 
 pay attention when the parameter are passed in the request to guarantee that those are from string type, for example:
@@ -459,7 +459,7 @@ R$ 6,00
 
 [Help4DevsDateService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsDateService.java)
 
-> public static String reverseDate(String inputDate, String separator)
+- String reverseDate(String inputDate, String separator)
 
 Whether you need make one date revert in the position of each part from any date, this is the correct and useful method.
 Check the algorithm from this method inside the Help4DevsDateService.java file.
@@ -507,7 +507,7 @@ The expected result is something like that
 16-08-2023
 </pre>
 
-> public static boolean expiredDate(String date, int time, String metricType)
+- boolean expiredDate(String date, int time, String metricType)
 
 To check if any date is outdated, due or any other case, use the method expiredDate, for example:
 
@@ -568,7 +568,7 @@ MATCH 1: 14/07/2023 14:53:25
 RESULT IS [YEAR]: false
 </pre>
 
-> public static List<Long> quantifyDate(String initialDate, String finalDate)
+- List<Long> quantifyDate(String initialDate, String finalDate)
 
 With this method you can quantify one time in years, months, days, hours, minutes, seconds, milliseconds to get full 
 information about one specific time. The result will be something like below
@@ -593,7 +593,7 @@ MATCH 1: 14/07/2023 15:53:26
 RESULT: 0 years, 0 months, 0 days, 0 hours, 0 minutes, 1 seconds, 0 milliseconds
 </pre>
 
-> public static long quantifyMillisDate()
+- long quantifyMillisDate()
 
 If you need to know how log time took one specific operation or transaction, and you have 
 the initial time and final time, just use this method and get the result quickly and easily
@@ -630,7 +630,7 @@ EndDate: 1707675339242
 Duration: 3201 milliseconds
 </pre>
 
-> public static long quantifyMillisParamsDate(String start, String end)
+- long quantifyMillisParamsDate(String start, String end)
 
 In this case, if you want to know how long time took one operation or transaction, and you have a 
 start time and final time, as showed below, so you can use this method to get in milliseconds the time from the transaction.
@@ -673,7 +673,7 @@ DURATION: 3600000
 DURATION: 86400000
 </pre>
 
-> public static String localDateFromGmtDate(String gmtDate, String operation, int time)
+- String localDateFromGmtDate(String gmtDate, String operation, int time)
 
 We can use this method to get correctly datetime from API standards when using GMT. For example, if you are in the Brazil 
 and receive one API response form any service, and it is using the GMT system date, you need make datetime minus 3 hours, 
@@ -787,68 +787,150 @@ CODEXS TESTER FINISHED: PASSED
 
 [Help4DevsFileHandlerService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsFileHandlerService.java)
 
-> public static Properties loadProps(String classpath)
+- Properties loadProps(String classpath)
 
-> public static InputStream bytesExtractorShipmentFile(String targetPath, String targetFile)
+You probably already needed to get data from the application.properties, and maybe you stayed in the look-up in the internet 
+seeking that information. Even though it's can very simple, beginners can face a little challenge to do it, so here is 
+the simple method to get it done.
 
-> public static InputStream fileToByteArray(String targetPath, String targetFile)
+<pre>
+    public static Properties loadProps(String classpath) {
+        Properties properties = new Properties();
 
-> public static ByteArrayDataSource fileToDataSource(String targetPath, String targetFile) throws IOException
+        try {
+            File file = ResourceUtils.getFile(classpath);
+            InputStream in = new FileInputStream(file);
+            properties.load(in);
+        } catch (IOException ioe) {
+            System.out.println(ioe.getMessage());
+        }
 
-> public static byte[] byteConvert(InputStream fileArray) throws IOException
+        return properties;
+    }
+</pre>
 
-> public static String fileToString(String targetPath, String targetFile)
+<pre>
+    @Test
+    public void loadPropsTest() {
+        Properties props = loadProps("classpath:application.properties");
+        System.out.println(props);
+    }
+</pre>
 
-> public static ArrayList<String> fileToArray(String targetPath, String targetFile)
+The Result should be something like below
+
+<pre>
+{application-version=23.01.1-SNAPSHOT, info.version=23.01.1-SNAPSHOT, txt.filepath=/home/jereelton/txt/, server.port=35000, application-description=@project.description@, logging.config=src/main/resources/log4j2.xml, txt.filename=spring-batch-job-demo-data.txt}
+</pre>
+
+> NOTE:<br>
+> The methods below work gather and each one is a complement for each one 
+
+- InputStream bytesFileExtractor(String targetPath, String targetFile)
+
+- InputStream fileToByteArray(String targetPath, String targetFile)
+
+- ByteArrayDataSource fileToDataSource(String targetPath, String targetFile) throws IOException
+
+- byte[] byteConvert(InputStream fileArray) throws IOException
+
+- String fileToString(String targetPath, String targetFile)
+
+With this method you can revert the transformation made by others methods, for example fileToDataSource, in a readable 
+and human format content, simply the string format
+
+- ArrayList<String> fileToArray(String targetPath, String targetFile)
 
 # FileReader
 
 [Help4DevsFileReaderService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsFileReaderService.java)
 
-> public static FileReader open(String filepath)
+> NOTE:<br>
+> The methods below are a package to work like an assistant to method getFileContentByMatch, however, you can use 
+> each one from these methods alone to get the solution for your needed
 
-> public static BufferedReader buffer(FileReader activateFile)
+- FileReader open(String filepath)
 
-> public static String reader(BufferedReader readActivateFile)
+Open a specific file to read
 
-> public static void close(FileReader activateFile)
+- BufferedReader buffer(FileReader activateFile)
 
-> public static String getFileContent(String filepath, String regex, int timeout)
+Create the buffer from one opened file and save data temporarily in it
+
+- String reader(BufferedReader readActivateFile)
+
+Reader the buffer created in the buffer method to get data that was saved in the memory
+
+- void close(FileReader activateFile)
+
+Close one opened file
+
+- String getFileContentByMatch(String filepath, String regex, int timeout)
+
+This method make a constantly reading from a specific source file and get the content according the regex passed in the 
+parameter, for example:
+
+<pre>
+    public static String getFileContentByMatch(String filepath, String regex, int timeout) throws Exception {
+        ...
+        return content;
+    }
+</pre>
+
+<pre>
+    @Test
+    public void getFileContentTest() throws Exception {
+        /*TIP: Edit the file ./src/test/resources/help4devs/file.txt and press [Ctrl+S] button*/
+        String code = getFileContentByMatch("./src/test/resources/help4devs/file.txt", "[0-9]{6}",1500000000);
+        System.out.println("Content: " + code);
+    }
+</pre>
+
+The result probably will be something like below
+
+<pre>
+    ------------------------------------------------------------------------------------------------------------------------
+    [INFO] >> Opening file: ./src/test/resources/help4devs/file.txt
+    [INFO] << Closing file: ./src/test/resources/help4devs/file.txt
+    ------------------------------------------------------------------------------------------------------------------------
+    [INFO] >> Opening file: ./src/test/resources/help4devs/file.txt
+    Content: 898989
+</pre>
 
 # Path
 
 [Help4DevsPathService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsPathService.java)
 
-> public static String sanitizePath(String path)
+- String sanitizePath(String path)
 
-> public static String sanitizeAscii(String input)
+- String sanitizeAscii(String input)
 
 # StringHandler
 
 [Help4DevsStringHandlerService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsStringHandlerService.java)
 
-> public static String queryStringBuilder(Object input)
+- String queryStringBuilder(Object input)
 
-> public static String getDataFromQueryString(String queryString, String field)
+- String getDataFromQueryString(String queryString, String field)
 
-> public static JSONObject queryStringToJson(String input)
+- JSONObject queryStringToJson(String input)
 
-> public static JSONObject stringToJson(String str)
+- JSONObject stringToJson(String str)
 
 # Tools
 
 [Help4DevsToolsService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsToolsService.java)
 
-> public static String md5(String data)
+- String md5(String data)
 
-> public static String guide(String tcn)
+- String guide(String tcn)
 
 # Validator
 
 [Help4DevsValidatorService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsValidatorService.java)
 
-> public static boolean cpfValidator(String cpf)
+- boolean cpfValidator(String cpf)
 
-> public static boolean mailValidator(String email)
+- boolean mailValidator(String email)
 
-> public static boolean phoneValidator(String phoneNumber)
+- boolean phoneValidator(String phoneNumber)

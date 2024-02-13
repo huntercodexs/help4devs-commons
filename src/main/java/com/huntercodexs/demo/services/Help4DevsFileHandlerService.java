@@ -30,7 +30,7 @@ public class Help4DevsFileHandlerService {
         return properties;
     }
 
-    public static InputStream bytesExtractorShipmentFile(String targetPath, String targetFile) {
+    public static InputStream bytesFileExtractor(String targetPath, String targetFile) {
         String content = fileToString(targetPath, targetFile);
         return new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
     }
