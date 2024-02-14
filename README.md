@@ -1144,14 +1144,6 @@ Result
 RESULT IS: {"gender":"female","age":"40"}
 </pre>
 
-# Tools
-
-[Help4DevsToolsService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsToolsService.java)
-
-- String md5(String data)
-
-- String guide(String tcn)
-
 # Validator
 
 [Help4DevsValidatorService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsValidatorService.java)
@@ -1161,3 +1153,11 @@ RESULT IS: {"gender":"female","age":"40"}
 - boolean mailValidator(String email)
 
 - boolean phoneValidator(String phoneNumber)
+
+# Tools
+
+[Help4DevsToolsService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsToolsService.java)
+
+- String md5(String data)
+
+- String guide(String tcn)
