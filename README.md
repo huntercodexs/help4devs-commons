@@ -29,7 +29,10 @@ The content that you will find out in this project are:
 
 [Help4DevsBaseService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsBaseService.java)
 
-- void params(JSONObject... jsonObjects)
+
+<br>
+<h4>public static void params(JSONObject... jsonObjects)</h4>
+<hr>
 
 This method offer the functionality to receive all arguments was passed as the parameters, for example:
 
@@ -62,7 +65,9 @@ Look at the above result and see that there two objects of type JSON, and they w
 way, however the method have a single expected argument (JSONObject... jsonObjects) that automatically convert these 
 parameters to a list parameters with a type define in the signature.
 
-- String numberFormatter(int input, String format)
+<br>
+<h4>public static String numberFormatter(int input, String format)</h4>
+<hr>
 
 The method numberFormatter is shortcut to format a number in the specific way. Maybe you need format one number from 
 left to right filling using a specific number. Below is the common use to this functionality:
@@ -87,7 +92,9 @@ As a result we have the following output
 000000001
 </pre>
 
-- String stringFormatter(String input, String format)
+<br>
+<h4>public static String stringFormatter(String input, String format)</h4>
+<hr>
 
 The following method afford the function that format one string in a specific way. Below are the method mentioned in 
 this topic, look at it how simple is the implementation
@@ -125,7 +132,9 @@ Using %-10s
 [XXX       ]
 </pre>
 
-- String fillerFormatter(String input, String filler, String align, int size)
+<br>
+<h4>public static String fillerFormatter(String input, String filler, String align, int size)</h4>
+<hr>
 
 This functionality offer a better way to format one string with a specific char, that can be a number or a string, and 
 also can be made from left to right and right to left, below we have one simple example to explain in the better way 
@@ -196,7 +205,9 @@ Error: use size > 0
 [null]
 </pre>
 
-- String rgFormatter(String value, String rgUf)
+<br>
+<h4>public static String rgFormatter(String value, String rgUf)</h4>
+<hr>
 
 This method is only used in the Brazil, because it serves to specific situation in that country, where we need to manager 
 or formatter the document number or document type from anyone in the system. So, maybe we need to add any information 
@@ -250,7 +261,9 @@ in the form correct form for each place in the Brazil, and not accept empty rgUf
 
 [Help4DevsCurrencyService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsCurrencyService.java)
 
-- String brCurrency(float value)
+<br>
+<h4>public static String brCurrency(float value)</h4>
+<hr>
 
 This method only works with Reais currency that are used in Brazil. To use it, just pass one parameter value in float 
 format, below we can see an example using this method.
@@ -279,7 +292,9 @@ Result
 R$ 999.111.131.136,00
 </pre>
 
-- String brCurrency(double value)
+<br>
+<h4>public static String brCurrency(double value)</h4>
+<hr>
 
 In this case we have the same idea or purpose that was used in the previous method above. However, in this case we need 
 to pay attention in the type of parameter, that should be double, not float. Below it's possible see the correct use 
@@ -309,7 +324,9 @@ Result
 R$ 999.111.111.111,00
 </pre>
 
-- double currencySum(double current, double add)
+<br>
+<h4>public static double currencySum(double current, double add)</h4>
+<hr>
 
 <pre>
     public static double currencySum(double current, double add) {
@@ -400,7 +417,9 @@ Total
 R$ 6,00
 </pre>
 
-- double currencySumFromString(String current, String add)
+<br>
+<h4>public static double currencySumFromString(String current, String add)</h4>
+<hr>
 
 In the same way, that was presented in the method above, we can make a sum of the number that are in string format. Just 
 pay attention when the parameter are passed in the request to guarantee that those are from string type, for example:
@@ -459,7 +478,9 @@ R$ 6,00
 
 [Help4DevsDateService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsDateService.java)
 
-- String reverseDate(String inputDate, String separator)
+<br>
+<h4>public static String reverseDate(String inputDate, String separator)</h4>
+<hr>
 
 Whether you need make one date revert in the position of each part from any date, this is the correct and useful method.
 Check the algorithm from this method inside the Help4DevsDateService.java file.
@@ -507,7 +528,9 @@ The expected result is something like that
 16-08-2023
 </pre>
 
-- boolean expiredDate(String date, int time, String metricType)
+<br>
+<h4>public static boolean expiredDate(String date, int time, String metricType)</h4>
+<hr>
 
 To check if any date is outdated, due or any other case, use the method expiredDate, for example:
 
@@ -568,7 +591,9 @@ MATCH 1: 14/07/2023 14:53:25
 RESULT IS [YEAR]: false
 </pre>
 
-- List<Long> quantifyDate(String initialDate, String finalDate)
+<br>
+<h4>public static List<Long> quantifyDate(String initialDate, String finalDate)</h4>
+<hr>
 
 With this method you can quantify one time in years, months, days, hours, minutes, seconds, milliseconds to get full 
 information about one specific time. The result will be something like below
@@ -593,7 +618,9 @@ MATCH 1: 14/07/2023 15:53:26
 RESULT: 0 years, 0 months, 0 days, 0 hours, 0 minutes, 1 seconds, 0 milliseconds
 </pre>
 
-- long quantifyMillisDate()
+<br>
+<h4>public static long quantifyMillisDate()</h4>
+<hr>
 
 If you need to know how log time took one specific operation or transaction, and you have 
 the initial time and final time, just use this method and get the result quickly and easily
@@ -630,7 +657,9 @@ EndDate: 1707675339242
 Duration: 3201 milliseconds
 </pre>
 
-- long quantifyMillisParamsDate(String start, String end)
+<br>
+<h4>public static long quantifyMillisParamsDate(String start, String end)</h4>
+<hr>
 
 In this case, if you want to know how long time took one operation or transaction, and you have a 
 start time and final time, as showed below, so you can use this method to get in milliseconds the time from the transaction.
@@ -673,7 +702,9 @@ DURATION: 3600000
 DURATION: 86400000
 </pre>
 
-- String localDateFromGmtDate(String gmtDate, String operation, int time)
+<br>
+<h4>public static String localDateFromGmtDate(String gmtDate, String operation, int time)</h4>
+<hr>
 
 We can use this method to get correctly datetime from API standards when using GMT. For example, if you are in the Brazil 
 and receive one API response form any service, and it is using the GMT system date, you need make datetime minus 3 hours, 
@@ -787,7 +818,9 @@ CODEXS TESTER FINISHED: PASSED
 
 [Help4DevsFileHandlerService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsFileHandlerService.java)
 
-- Properties loadProps(String classpath)
+<br>
+<h4>public static Properties loadProps(String classpath)</h4>
+<hr>
 
 You probably already needed to get data from the application.properties, and maybe you stayed in the look-up in the internet 
 seeking that information. Even though it's can very simple, beginners can face a little challenge to do it, so here is 
@@ -826,20 +859,32 @@ The Result should be something like below
 > NOTE:<br>
 > The methods below work gather and each one is a complement for each one 
 
-- InputStream bytesFileExtractor(String targetPath, String targetFile)
+<br>
+<h4>public static InputStream bytesFileExtractor(String targetPath, String targetFile)</h4>
+<hr>
 
-- InputStream fileToByteArray(String targetPath, String targetFile)
+<br>
+<h4>public static InputStream fileToByteArray(String targetPath, String targetFile)</h4>
+<hr>
 
-- ByteArrayDataSource fileToDataSource(String targetPath, String targetFile) throws IOException
+<br>
+<h4>public static ByteArrayDataSource fileToDataSource(String targetPath, String targetFile) throws IOException</h4>
+<hr>
 
-- byte[] byteConvert(InputStream fileArray) throws IOException
+<br>
+<h4>public static byte[] byteConvert(InputStream fileArray) throws IOException</h4>
+<hr>
 
-- String fileToString(String targetPath, String targetFile)
+<br>
+<h4>public static String fileToString(String targetPath, String targetFile)</h4>
+<hr>
 
 With this method you can revert the transformation made by others methods, for example fileToDataSource, in a readable 
 and human format content, simply the string format
 
-- ArrayList<String> fileToArray(String targetPath, String targetFile)
+<br>
+<h4>public static ArrayList<String> fileToArray(String targetPath, String targetFile)</h4>
+<hr>
 
 # FileReader
 
@@ -849,23 +894,33 @@ and human format content, simply the string format
 > The methods below are a package to work like an assistant to method getFileContentByMatch, however, you can use 
 > each one from these methods alone to get the solution for your needed
 
-- FileReader open(String filepath)
+<br>
+<h4>public static FileReader open(String filepath)</h4>
+<hr>
 
 Open a specific file to read
 
-- BufferedReader buffer(FileReader activateFile)
+<br>
+<h4>public static BufferedReader buffer(FileReader activateFile)</h4>
+<hr>
 
 Create the buffer from one opened file and save data temporarily in it
 
-- String reader(BufferedReader readActivateFile)
+<br>
+<h4>public static String reader(BufferedReader readActivateFile)</h4>
+<hr>
 
 Reader the buffer created in the buffer method to get data that was saved in the memory
 
-- void close(FileReader activateFile)
+<br>
+<h4>public static public static void close(FileReader activateFile)</h4>
+<hr>
 
 Close one opened file
 
-- String getFileContentByMatch(String filepath, String regex, int timeout)
+<br>
+<h4>public static String getFileContentByMatch(String filepath, String regex, int timeout)</h4>
+<hr>
 
 This method make a constantly reading from a specific source file and get the content according the regex passed in the 
 parameter, for example:
@@ -901,7 +956,9 @@ The result probably will be something like below
 
 [Help4DevsPathService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsPathService.java)
 
-- String sanitizePath(String path)
+<br>
+<h4>public static String sanitizePath(String path)</h4>
+<hr>
 
 This method simply make a clean in the specified path like showed below
 
@@ -929,7 +986,9 @@ RESULT IS: /home/user/test/
 RESULT IS: /home/user/test/
 </pre>
 
-- String sanitizeAscii(String input)
+<br>
+<h4>public static String sanitizeAscii(String input)</h4>
+<hr>
 
 Use this method to remove special characters that can broken your database or the correctly words format.
 This is a useful method when you don't know about the data source from your customers or services, and you need 
@@ -982,7 +1041,9 @@ RESULT IS: Teste com acentuacao e inevital !
 
 [Help4DevsStringHandlerService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsStringHandlerService.java)
 
-- String queryStringBuilder(Object input)
+<br>
+<h4>public static String queryStringBuilder(Object input)</h4>
+<hr>
 
 If you have any string like showed below, be on JSON format or any other format, you can need transform this data to one 
 specific type of string before send by webclient or any request to any API, maybe this format should be a query string, 
@@ -1029,7 +1090,9 @@ RESULT IS: age=40&gender=female
 RESULT IS: age=40&gender=female
 </pre>
 
-- String getDataFromQueryString(String queryString, String field)
+<br>
+<h4>public static String getDataFromQueryString(String queryString, String field)</h4>
+<hr>
 
 In this case, whether you need to get one specific data from one query string, so just use this method, and make your 
 life easier.
@@ -1062,7 +1125,9 @@ The result can be seen below
 RESULT IS: 40
 </pre>
 
-- JSONObject queryStringToJson(String input)
+<br>
+<h4>public static JSONObject queryStringToJson(String input)</h4>
+<hr>
 
 With this method it's possible to convert one query string to json string format, look the example below
 
@@ -1100,7 +1165,9 @@ INPUT STRING: age=40&gender=female
 RESULT IS: {"gender":"female","age":"40"}
 </pre>
 
-- JSONObject stringToJson(String str)
+<br>
+<h4>public static JSONObject stringToJson(String str)</h4>
+<hr>
 
 The similar method to queryStringToJson, the stringToJson can convert one string to json format
 
@@ -1148,16 +1215,26 @@ RESULT IS: {"gender":"female","age":"40"}
 
 [Help4DevsValidatorService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsValidatorService.java)
 
-- boolean cpfValidator(String cpf)
+<br>
+<h4>public static boolean cpfValidator(String cpf)</h4>
+<hr>
 
-- boolean mailValidator(String email)
+<br>
+<h4>public static boolean mailValidator(String email)</h4>
+<hr>
 
-- boolean phoneValidator(String phoneNumber)
+<br>
+<h4>public static boolean phoneValidator(String phoneNumber)</h4>
+<hr>
 
 # Tools
 
 [Help4DevsToolsService.java](src/main/java/com/huntercodexs/demo/services/Help4DevsToolsService.java)
 
-- String md5(String data)
+<br>
+<h4>public static String md5(String data)</h4>
+<hr>
 
-- String guide(String tcn)
+<br>
+<h4>public static String guide(String tcn)</h4>
+<hr>
