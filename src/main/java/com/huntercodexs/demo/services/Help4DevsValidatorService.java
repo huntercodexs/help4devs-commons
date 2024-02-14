@@ -73,10 +73,12 @@ public class Help4DevsValidatorService {
         return isValidMail;
     }
 
-    public static boolean phoneValidator(String phoneNumber) {
+    public static boolean phoneValidator(String phoneNumber, String country) {
         boolean isValidPhone = false;
+
+        String expression = phoneRegex(country);
+
         if (phoneNumber != null && !phoneNumber.isEmpty()) {
-            String expression = "^55[0-9]{2}9?[0-9]{8}$";
             Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(phoneNumber);
             if (matcher.matches()) {
@@ -84,6 +86,14 @@ public class Help4DevsValidatorService {
             }
         }
         return isValidPhone;
+    }
+
+    public static String phoneRegex(String country) {
+        return switch (country) {
+            case "us" -> "^[+]?1[0-9]{2}9?[0-9]{8}$";
+            case "br" -> "^[+]?55[0-9]{2}9?[0-9]{8}$";
+            default -> throw new RuntimeException("Invalid Country ID");
+        };
     }
 
 }

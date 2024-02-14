@@ -1219,13 +1219,125 @@ RESULT IS: {"gender":"female","age":"40"}
 <h4>public static boolean cpfValidator(String cpf)</h4>
 <hr>
 
+To validate a CPF document (in Brazil)
+
+<pre>
+    public static boolean cpfValidator(String cpf) {
+        ...
+    }
+</pre>
+
+<pre>
+    @Test
+    public void cpfValidatorTest() {
+        boolean result = cpfValidator("07365238801");
+        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertBool(result, true);
+
+        boolean result2 = cpfValidator("07365238899");
+        System.out.println("RESULT IS: " + result2);
+        codexsTesterAssertBool(result2, false);
+    }
+</pre>
+
+The result should be something like that
+
+<pre>
+RESULT IS: true
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS: false
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+</pre>
+
 <br>
 <h4>public static boolean mailValidator(String email)</h4>
 <hr>
 
+To validate email address
+
+<pre>
+    public static boolean mailValidator(String email) {
+        ...
+    }
+</pre>
+
+<pre>
+    @Test
+    public void mailValidatorTest() throws Exception {
+        boolean result = mailValidator("marcos_portela@yahoo.com.br");
+        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertBool(result, true);
+
+        result = mailValidator("johnsmith23@email.com");
+        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertBool(result, true);
+    }
+</pre>
+
+The result is showed below
+
+<pre>
+RESULT IS: true
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS: true
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+</pre>
+
 <br>
 <h4>public static boolean phoneValidator(String phoneNumber)</h4>
 <hr>
+
+To validate a phone number
+
+<pre>
+    public static boolean phoneValidator(String phoneNumber, String country) {
+        boolean isValidPhone = false;
+
+        String expression = phoneExpression(country);
+
+        if (phoneNumber != null && !phoneNumber.isEmpty()) {
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(phoneNumber);
+            if (matcher.matches()) {
+                isValidPhone = true;
+            }
+        }
+        return isValidPhone;
+    }
+</pre>
+
+<pre>
+    @Test
+    public void phoneValidatorTest() {
+        boolean result = phoneValidator("5511982772389", "br");
+        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertBool(result, true);
+
+        boolean result2 = phoneValidator("5511982772", "br");
+        System.out.println("RESULT IS: " + result2);
+        codexsTesterAssertBool(result2, false);
+
+        boolean result3 = phoneValidator("551187722212", "br");
+        System.out.println("RESULT IS: " + result3);
+        codexsTesterAssertBool(result3, true);
+    }
+</pre>
+
+<pre>
+RESULT IS: true
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS: false
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+RESULT IS: true
+------------------------------------------------------------------------------------------------------------------------
+CODEXS TESTER FINISHED: PASSED
+</pre>
 
 # Tools
 
@@ -1235,6 +1347,25 @@ RESULT IS: {"gender":"female","age":"40"}
 <h4>public static String md5(String data)</h4>
 <hr>
 
+Generate a md5sum dynamically and randomly
+
+<pre>
+    public static String md5(String data){
+        return DigestUtils.md5DigestAsHex(data.getBytes());
+    }
+</pre>
+
 <br>
 <h4>public static String guide(String tcn)</h4>
 <hr>
+
+Generate a GUID randomly
+
+<pre>
+    public static String guide(String tcn) {
+        if (tcn == null || tcn.equals("")) {
+            return UUID.randomUUID().toString();
+        }
+        return tcn;
+    }
+</pre>

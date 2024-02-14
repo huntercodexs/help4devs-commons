@@ -413,15 +413,15 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void phoneValidatorTest() {
-        boolean result = phoneValidator("5511982772389");
+        boolean result = phoneValidator("5511982772389", "br");
         System.out.println("RESULT IS: " + result);
         codexsTesterAssertBool(result, true);
 
-        boolean result2 = phoneValidator("5511982772");
+        boolean result2 = phoneValidator("5511982772", "br");
         System.out.println("RESULT IS: " + result2);
         codexsTesterAssertBool(result2, false);
 
-        boolean result3 = phoneValidator("551187722212");
+        boolean result3 = phoneValidator("551187722212", "br");
         System.out.println("RESULT IS: " + result3);
         codexsTesterAssertBool(result3, true);
     }
