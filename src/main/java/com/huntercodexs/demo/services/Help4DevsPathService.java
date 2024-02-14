@@ -13,10 +13,19 @@ public class Help4DevsPathService {
         return path.replaceAll("/$", "") + "/";
     }
 
-    public static String sanitizeAscii(String input) {
+    public static String sanitizeAscii(String input, String letterType) {
+        if (letterType == null) letterType = "";
         try {
-            return Normalizer.normalize(input, Normalizer.Form.NFD)
-                    .replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toUpperCase();
+            if (letterType.endsWith("upper")) {
+                return Normalizer.normalize(input, Normalizer.Form.NFD)
+                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toUpperCase();
+            } else if (letterType.endsWith("lower")) {
+                return Normalizer.normalize(input, Normalizer.Form.NFD)
+                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
+            } else {
+                return Normalizer.normalize(input, Normalizer.Form.NFD)
+                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+            }
         } catch (RuntimeException re) {
             log.error("Normalize Error: " + re.getMessage());
             throw new RuntimeException(re.getMessage());

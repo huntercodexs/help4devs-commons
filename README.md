@@ -903,7 +903,80 @@ The result probably will be something like below
 
 - String sanitizePath(String path)
 
+This method simply make a clean in the specified path like showed below
+
+<pre>
+    public static String sanitizePath(String path) {
+        return path.replaceAll("/$", "") + "/";
+    }
+</pre>
+
+<pre>
+    @Test
+    public void sanitizePathTest() {
+        String result = sanitizePath("/home/user/test/");
+        System.out.println("RESULT IS: " + result);
+
+        result = sanitizePath("/home/user/test");
+        System.out.println("RESULT IS: " + result);
+    }
+</pre>
+
+The result should be something like that
+
+<pre>
+RESULT IS: /home/user/test/
+RESULT IS: /home/user/test/
+</pre>
+
 - String sanitizeAscii(String input)
+
+Use this method to remove special characters that can broken your database or the correctly words format.
+This is a useful method when you don't know about the data source from your customers or services, and you need 
+guarantee the perfect form for the words in the phrases.
+
+<pre>
+    public static String sanitizeAscii(String input, String letterType) {
+        if (letterType == null) letterType = "";
+        try {
+            if (letterType.endsWith("upper")) {
+                return Normalizer.normalize(input, Normalizer.Form.NFD)
+                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toUpperCase();
+            } else if (letterType.endsWith("lower")) {
+                return Normalizer.normalize(input, Normalizer.Form.NFD)
+                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
+            } else {
+                return Normalizer.normalize(input, Normalizer.Form.NFD)
+                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+            }
+        } catch (RuntimeException re) {
+            log.error("Normalize Error: " + re.getMessage());
+            throw new RuntimeException(re.getMessage());
+        }
+    }
+</pre>
+
+<pre>
+    @Test
+    public void sanitizeAsciiTest() {
+        String result = sanitizeAscii("Teste com acentuação é inevital !", "upper");
+        System.out.println("RESULT IS: " + result);
+
+        result = sanitizeAscii("Teste com acentuação é inevital !", "lower");
+        System.out.println("RESULT IS: " + result);
+
+        result = sanitizeAscii("Teste com acentuação é inevital !", null);
+        System.out.println("RESULT IS: " + result);
+    }
+</pre>
+
+Below we can see a result
+
+<pre>
+RESULT IS: TESTE COM ACENTUACAO E INEVITAL !
+RESULT IS: teste com acentuacao e inevital !
+RESULT IS: Teste com acentuacao e inevital !
+</pre>
 
 # StringHandler
 
