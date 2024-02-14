@@ -17,8 +17,8 @@ The content that you will find out in this project are:
 - <a href="#filereader">FileReader</a>
 - <a href="#path">Path</a>
 - <a href="#stringhandler">StringHandler</a>
-- <a href="#tools">Tools</a>
 - <a href="#validator">Validator</a>
+- <a href="#tools">Tools</a>
 
 > IMPORTANT NOTE:<br>
 > All methods and functionalities are placed int the project scope in the path src/main/java/com/huntercodexs/demo/services
@@ -984,11 +984,165 @@ RESULT IS: Teste com acentuacao e inevital !
 
 - String queryStringBuilder(Object input)
 
+If you have any string like showed below, be on JSON format or any other format, you can need transform this data to one 
+specific type of string before send by webclient or any request to any API, maybe this format should be a query string, 
+so you can use this method to do it.
+
+<pre>
+    public static String queryStringBuilder(Object input) {
+        return input.toString().split("},")[0]
+                .replaceAll("[]}{\\[\"']", "")
+                .replaceAll(", ", "&")
+                .replaceAll(",", "&")
+                .replaceAll(":", "=")
+                .replaceAll("= ", "=");
+    }
+</pre>
+
+<pre>
+    @Test
+    public void queryStringBuilderTest() {
+        String result = queryStringBuilder("[{age: 40, gender: female},{age: 30, gender: female}]");
+        System.out.println("RESULT IS: " + result);
+
+        result = queryStringBuilder("[{age: 40, gender: female}]");
+        System.out.println("RESULT IS: " + result);
+
+        result = queryStringBuilder("{age: 40, gender: female}");
+        System.out.println("RESULT IS: " + result);
+
+        result = queryStringBuilder("{'age': '40', 'gender': 'female'}");
+        System.out.println("RESULT IS: " + result);
+
+        result = queryStringBuilder("{\"age\": \"40\", \"gender\": \"female\"}");
+        System.out.println("RESULT IS: " + result);
+    }
+</pre>
+
+The result should be something like that
+
+<pre>
+RESULT IS: age=40&gender=female
+RESULT IS: age=40&gender=female
+RESULT IS: age=40&gender=female
+RESULT IS: age=40&gender=female
+RESULT IS: age=40&gender=female
+</pre>
+
 - String getDataFromQueryString(String queryString, String field)
+
+In this case, whether you need to get one specific data from one query string, so just use this method, and make your 
+life easier.
+
+<pre>
+    public static String getDataFromQueryString(String queryString, String field) {
+
+        String str = (queryString.split(field+"=")[1]);
+
+        if (str.contains("&")) {
+            str = str.split("&")[0];
+        }
+
+        return str;
+    }
+</pre>
+
+<pre>
+    @Test
+    public void getDataFromQueryStringTest() {
+        String queryString = queryStringBuilder("[{age: 40, gender: female}]");
+        String result = getDataFromQueryString(queryString, "age");
+        System.out.println("RESULT IS: " + result);
+    }
+</pre>
+
+The result can be seen below
+
+<pre>
+RESULT IS: 40
+</pre>
 
 - JSONObject queryStringToJson(String input)
 
+With this method it's possible to convert one query string to json string format, look the example below
+
+<pre>
+    public static JSONObject queryStringToJson(String input) {
+
+        System.out.println("INPUT STRING: " + input);
+
+        String[] splitter = input.split("&");
+        JSONObject jsonData = new JSONObject();
+
+        for (String split : splitter) {
+            String[] splitter2 = split.split("=");
+            jsonData.appendField(splitter2[0].trim(), splitter2[1].trim());
+        }
+
+        return jsonData;
+
+    }
+</pre>
+
+<pre>
+    @Test
+    public void queryStringToJsonTest() {
+        String queryString = queryStringBuilder("[{age: 40, gender: female}]");
+        JSONObject result = queryStringToJson(queryString);
+        System.out.println("RESULT IS: " + result);
+    }
+</pre>
+
+The result
+
+<pre>
+INPUT STRING: age=40&gender=female
+RESULT IS: {"gender":"female","age":"40"}
+</pre>
+
 - JSONObject stringToJson(String str)
+
+The similar method to queryStringToJson, the stringToJson can convert one string to json format
+
+<pre>
+    public static JSONObject stringToJson(String str) {
+
+        JSONObject jsonData = new JSONObject();
+        String strClean = str.replaceAll("([\"{\\[\\]}'/\\\\]+)", "");
+
+        try {
+            String[] splitter = strClean.split(",");
+
+            for (String split : splitter) {
+                String[] splitter2 = split.split(":");
+                jsonData.appendField(splitter2[0].trim(), splitter2[1].trim());
+            }
+        } catch (Exception e) {
+            try {
+                String[] splitter = strClean.split(":");
+                jsonData.appendField(splitter[0].trim(), splitter[1].trim());
+            } catch (Exception er) {
+                jsonData.appendField("message", null);
+            }
+        }
+
+        return jsonData;
+    }
+</pre>
+
+<pre>
+    @Test
+    public void stringToJsonTest() {
+        JSONObject result = stringToJson("{\"age\": \"40\", \"gender\": \"female\"}");
+        System.out.println("RESULT IS: " + result);
+    }
+</pre>
+
+Result
+
+<pre>
+RESULT IS: {"gender":"female","age":"40"}
+</pre>
 
 # Tools
 
