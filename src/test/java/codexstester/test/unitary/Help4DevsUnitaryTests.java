@@ -88,13 +88,71 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void fileToDataSourceTest() throws IOException {
         ByteArrayDataSource result = fileToDataSource("./src/test/resources/help4devs/", "external.tests.properties");
-        System.out.println("RESULT IS: " + result);
+        System.out.println("RESULT");
+        System.out.println(result);
     }
 
     @Test
     public void fileToStringTest() throws IOException {
         String result = fileToString("./src/test/resources/help4devs/", "external.tests.properties");
-        System.out.println("RESULT IS: " + result);
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringConfTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.conf");
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringCsvTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.csv");
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringDocTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.doc");
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringJpgTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.jpg");
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringPngTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.png");
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringPdfTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.pdf");
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringTxtTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.txt");
+        System.out.println("RESULT");
+        System.out.println(result);
+    }
+
+    @Test
+    public void fileToStringXlsTest() throws IOException {
+        String result = fileToString("./src/main/resources/", "attach.xls");
+        System.out.println("RESULT");
+        System.out.println(result);
     }
 
     @Test
