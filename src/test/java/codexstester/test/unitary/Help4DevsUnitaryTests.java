@@ -1,6 +1,12 @@
 package codexstester.test.unitary;
 
+import codexstester.engine.util.CodexsHelperTests;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
+import com.huntercodexs.demo.enumerator.UfTable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 
@@ -11,6 +17,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Properties;
 
 import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
@@ -24,6 +31,7 @@ import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.guide;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.md5;
 import static com.huntercodexs.demo.services.Help4DevsValidatorService.*;
+import static java.lang.Math.ceil;
 
 public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
@@ -214,11 +222,23 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void rgFormatterTest() {
-        System.out.println(" > ["+ rgFormatter("9090909090", "CNH")+"]");
-        System.out.println(" > ["+ rgFormatter("7878787878", "SSP SC")+"]");
-        System.out.println(" > ["+ rgFormatter("6767676767", "SSPSP")+"]");
-        System.out.println(" > ["+ rgFormatter("1212121212", "SSCMG")+"]");
-        System.out.println(" > ["+ rgFormatter("2020202020", "SSP/RJ")+"]");
+        System.out.println("RJ    > ["+ rgFormatter("231048415", "RJ", true)+"]");
+        System.out.println("MG    > ["+ rgFormatter("2310484159", "MG", true)+"]");
+        System.out.println("SP    > ["+ rgFormatter("2310484150", "SP", true)+"]");
+        System.out.println("SSPSP > ["+ rgFormatter("2310484150", "SSPSP", true)+"]");
+        System.out.println("SSPTO > ["+ rgFormatter("2310484150", "SSPTO", true)+"]");
+        System.out.println("SSPSC > ["+ rgFormatter("2310484150", "SSPSC", true)+"]");
+        System.out.println("CNH   > ["+ rgFormatter("2310484150", "CNH", true)+"]");
+        System.out.println("DOC   > ["+ rgFormatter("2310484150", "DOC", true)+"]");
+
+        System.out.println("RJ    > ["+ rgFormatter("231048415", "RJ", false)+"]");
+        System.out.println("MG    > ["+ rgFormatter("2310484159", "MG", false)+"]");
+        System.out.println("SP    > ["+ rgFormatter("2310484150", "SP", false)+"]");
+        System.out.println("SSPSP > ["+ rgFormatter("2310484150", "SSPSP", false)+"]");
+        System.out.println("SSPTO > ["+ rgFormatter("2310484150", "SSPTO", false)+"]");
+        System.out.println("SSPSC > ["+ rgFormatter("2310484150", "SSPSC", false)+"]");
+        System.out.println("CNH   > ["+ rgFormatter("2310484150", "CNH", false)+"]");
+        System.out.println("DOC   > ["+ rgFormatter("2310484150", "DOC", false)+"]");
     }
 
     /**
@@ -443,6 +463,69 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertText("invalid date format", localDate);
     }
 
+    public static String timeConversion(String s) {
+
+        String result = null;
+        int militaryHour = 12;
+        String[] matches = s.replaceAll("(PM|AM)$", "").split(":");
+
+        if (s.matches("(.*)PM$")) {
+
+            if (!matches[0].equals("12")) {
+                militaryHour = Integer.parseInt(matches[0]) + 12;
+            }
+            result = militaryHour +":"+ matches[1] +":"+ matches[2];
+
+        } else if (s.matches("(.*)AM")) {
+
+            if (matches[0].equals("12")) {
+                matches[0] = "00";
+            }
+            result = matches[0] +":"+ matches[1] +":"+ matches[2];
+        }
+
+        return result;
+    }
+    @Test
+    public void militaryTimeConversionTest() {
+        System.out.println("12:00:00PM = " +timeConversion("12:00:00PM"));
+        System.out.println("12:00:00AM = " +timeConversion("12:00:00AM"));
+        System.out.println("06:00:00AM = " +timeConversion("06:00:00AM"));
+        System.out.println("06:00:00PM = " +timeConversion("06:00:00PM"));
+        System.out.println("12:24:00PM = " +timeConversion("12:24:00PM"));
+        System.out.println("12:45:00AM = " +timeConversion("12:45:00AM"));
+        System.out.println("06:59:00AM = " +timeConversion("06:59:00AM"));
+        System.out.println("06:30:00PM = " +timeConversion("06:30:00PM"));
+    }
+
+    /**
+     * Address Tests
+     */
+
+    @Test
+    public void checkUfExistsTest() {
+        codexsTesterAssertBool(true, UfTable.checkUfExists("SP"));
+        codexsTesterAssertBool(false, UfTable.checkUfExists("NN"));
+    }
+
+    @Test
+    public void checkUfCodeExistsTest() {
+        codexsTesterAssertBool(true, UfTable.checkUfCodeExists("35"));
+        codexsTesterAssertBool(false, UfTable.checkUfCodeExists("99"));
+    }
+
+    @Test
+    public void checkUfNameExistsTest() {
+        codexsTesterAssertBool(true, UfTable.checkUfNameExists("São Paulo"));
+        codexsTesterAssertBool(false, UfTable.checkUfNameExists("Sao Test"));
+    }
+
+    @Test
+    public void checkRgSspExistsTest() {
+        codexsTesterAssertBool(true, UfTable.checkRgSspExists("SSPSP"));
+        codexsTesterAssertBool(false, UfTable.checkRgSspExists("SSPLL"));
+    }
+
     /**
      * Validator Tests
      */
@@ -482,6 +565,39 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         boolean result3 = phoneValidator("551187722212", "br");
         System.out.println("RESULT IS: " + result3);
         codexsTesterAssertBool(result3, true);
+    }
+
+    @Test
+    public void cvvValidatorTest() {
+        codexsTesterAssertBool(false, cvvValidator("1111"));
+        codexsTesterAssertBool(false, cvvValidator("a99"));
+        codexsTesterAssertBool(false, cvvValidator("aaa"));
+        codexsTesterAssertBool(true, cvvValidator("999"));
+        codexsTesterAssertBool(true, cvvValidator("123"));
+        codexsTesterAssertBool(true, cvvValidator("765"));
+    }
+
+    @Test
+    public void cardNumberValidatorTest() {
+        codexsTesterAssertBool(false, cardNumberValidator("xxxx-eeee-1111-zzzz"));
+        codexsTesterAssertBool(false, cardNumberValidator("11e1-1111-1111-1e11"));
+        codexsTesterAssertBool(true, cardNumberValidator("1111-1111-1111-1111"));
+        codexsTesterAssertBool(true, cardNumberValidator("4544-8909-7865-6768"));
+    }
+
+    @Test
+    public void cardNumberMaskedTest() {
+        String mask1 = cardNumberMasked("1234-3456-8982-8908", "*");
+        CodexsHelperTests.codexsHelperLogTerm("MASK1", mask1, true);
+        codexsTesterAssertText("1234-****-****-8908", mask1);
+
+        String mask2 = cardNumberMasked("1234345689828908", "X");
+        CodexsHelperTests.codexsHelperLogTerm("MASK2", mask2, true);
+        codexsTesterAssertText("1234XXXXXXXX8908", mask2);
+
+        String mask3 = cardNumberMasked("1234 3456 8982 8908", "@");
+        CodexsHelperTests.codexsHelperLogTerm("MASK3", mask3, true);
+        codexsTesterAssertText("1234 @@@@ @@@@ 8908", mask3);
     }
 
     /**
@@ -540,6 +656,90 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
     public void guideTest() {
         String result = guide(null);
         System.out.println("RESULT IS: " + result);
+    }
+
+    /**
+     * Generic Tests
+     */
+
+    @Test
+    public void substringTest() {
+        String register = "000222229999999999220324";
+        System.out.println(register.substring(0, 8).trim());
+    }
+
+    @Test
+    public void ceilTest() {
+
+        int splitter1 = (int) ceil((double) 5500 / 500);
+        System.out.println(splitter1);
+
+        int splitter2 = (int) ceil((double) 500 / 500);
+        System.out.println(splitter2);
+
+        int splitter3 = (int) ceil((double) 1200 / 500);
+        System.out.println(splitter3);
+
+        int splitter4 = (int) ceil((double) 800 / 500);
+        System.out.println(splitter4);
+
+    }
+
+    @Test
+    public void loopTest() {
+
+        int maxSizeReport = 500;
+        int splitter = (int) ceil((double) 5500 / 500);
+
+        for (int i = 0; i < splitter; i++) {
+
+            System.out.println("INT I: " + i);
+
+            for (int j = i*maxSizeReport; j < (i*maxSizeReport)+maxSizeReport; j++) {
+                System.out.println("INT J: " + j);
+            }
+        }
+    }
+
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SampleDto {
+        int id;
+        String name;
+    }
+
+    private List<? extends SampleDto> listDto() {
+
+        List<SampleDto> sampleDtoList = new ArrayList<>();
+
+        for (int k = 0; k < 1000; k++) {
+            SampleDto sampleDto = new SampleDto();
+            sampleDto.setId(k);
+            sampleDto.setName("Testing... " + k);
+            sampleDtoList.add(sampleDto);
+        }
+
+        return sampleDtoList;
+    }
+
+    @Test
+    public void loopListDtoTest() {
+        List<? extends SampleDto> sampleDto = listDto();
+        System.out.println(sampleDto);
+
+        int maxSizeReport = 100;
+
+        int splitter = (int) ceil((double) sampleDto.size() / maxSizeReport);
+
+        for (int i = 0; i < splitter; i++) {
+            List<? extends SampleDto> sampleDtoCurrent = sampleDto.subList(i*maxSizeReport,(i*maxSizeReport)+maxSizeReport);
+
+            System.out.println("I: " + i);
+            System.out.println(("["+(i*maxSizeReport)+"]:["+((i*maxSizeReport)+maxSizeReport))+"]");
+            System.out.println(sampleDtoCurrent);
+        }
     }
 
 }

@@ -8,6 +8,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class Help4DevsStringHandlerService {
 
+    /**
+     * @implNote Java 1.8 or minor
+     * */
+    public static String repeat(String str, int len) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            stringBuilder.append(str);
+        }
+        return String.valueOf(stringBuilder);
+    }
+
     public static String queryStringBuilder(Object input) {
         return input.toString().split("},")[0]
                 .replaceAll("[]}{\\[\"']", "")

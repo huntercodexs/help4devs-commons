@@ -1,5 +1,6 @@
 package com.huntercodexs.demo.services;
 
+import com.huntercodexs.demo.enumerator.UfTable;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -49,22 +50,27 @@ public class Help4DevsBaseService {
         return formatted;
     }
 
-    public static String rgFormatter(String value, String rgUf) {
-        if (value == null || value.equals("")) return "";
+    public static String rgFormatter(String value, String rgUf, boolean rgPrefix) {
+        if (value == null || value.isEmpty()) return "";
         if (rgUf == null) rgUf = "";
-        if (!rgUf.contains("SSP") && !rgUf.equals("")) return "";
+        if (rgUf.isEmpty()) rgUf = "";
+        if (rgUf.length() == 1) rgUf = "";
 
-        //SSP CP = SSPSC, SSP/SP = SSPSP
         rgUf = rgUf.replaceAll("[^A-Z]+", "");
 
-        if (rgUf.equals("SSPSP") || rgUf.equals("SP")) {
+        if (!UfTable.checkUfExists(rgUf) && !UfTable.checkRgSspExists(rgUf)) {
             rgUf = "";
-        } else {
-            //SSPCRJ = RJ, SSPSC = SC
-            rgUf = rgUf.replaceAll("SSP", "");
         }
 
-        return "RG"+value.replaceAll("[^0-9]+", "")+rgUf;
+        rgUf = rgUf.replaceAll("SSP", "").replaceAll("SP", "");
+
+        if (value.equals("0")) return "";
+
+        if (rgPrefix) {
+            return "RG" + value.replaceAll("[^0-9]+", "") + rgUf;
+        }
+
+        return value.replaceAll("[^0-9]+", "");
     }
 
 }
