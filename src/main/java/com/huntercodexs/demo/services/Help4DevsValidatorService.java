@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
-
 @Slf4j
 @Service
 public class Help4DevsValidatorService {
@@ -105,13 +103,6 @@ public class Help4DevsValidatorService {
     public static boolean cardNumberValidator(String cardNumber) {
         /*NOTA: Esse validator nao considera a mascara de cartoes das bandeiras: VISA, Mastercard, CIELO,...*/
         return (cardNumber.matches("[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}"));
-    }
-
-    public static String cardNumberMasked(String cardNumber, String mask) {
-        if (mask.isEmpty()) mask = "*";
-        mask = repeat(mask, 4);
-        String regexCard = "([0-9]{4})([- ]?)([0-9]{4})([- ]?)([0-9]{4})([- ]?)([0-9]{4})";
-        return cardNumber.replaceAll(regexCard, "$1$2"+mask+"$4"+mask+"$6$7");
     }
 
 }

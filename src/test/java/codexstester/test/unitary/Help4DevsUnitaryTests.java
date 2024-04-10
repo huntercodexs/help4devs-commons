@@ -25,6 +25,7 @@ import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
 import static com.huntercodexs.demo.services.Help4DevsDateService.*;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
 import static com.huntercodexs.demo.services.Help4DevsFileReaderService.getFileContentByMatch;
+import static com.huntercodexs.demo.services.Help4DevsMaskedService.cardNumberMasked;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizeAscii;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
@@ -343,6 +344,103 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         System.out.println(brCurrency(resulted4));
     }
 
+    @Test
+    public void currencyFormatRealTest() {
+        codexsTesterAssertText("R$ 1,00", currencyFormatReal(1));
+        codexsTesterAssertText("R$ 10,00", currencyFormatReal(10));
+        codexsTesterAssertText("R$ 100,00", currencyFormatReal(100));
+        codexsTesterAssertText("R$ 1.000,00", currencyFormatReal(1000));
+        codexsTesterAssertText("R$ 10.000,00", currencyFormatReal(10000));
+        codexsTesterAssertText("R$ 100.000,00", currencyFormatReal(100000));
+        codexsTesterAssertText("R$ 1.000.000,00", currencyFormatReal(1000000));
+        codexsTesterAssertText("R$ 10.000.000,00", currencyFormatReal(10000000));
+        codexsTesterAssertText("R$ 100.000.000,00", currencyFormatReal(100000000));
+        codexsTesterAssertText("R$ 1.000.000.000,00", currencyFormatReal(1000000000));
+
+        codexsTesterAssertText("R$ 1,00", currencyFormatReal("1"));
+        codexsTesterAssertText("R$ 10,00", currencyFormatReal("10"));
+        codexsTesterAssertText("R$ 100,00", currencyFormatReal("100"));
+        codexsTesterAssertText("R$ 1.000,00", currencyFormatReal("1000"));
+        codexsTesterAssertText("R$ 10.000,00", currencyFormatReal("10000"));
+        codexsTesterAssertText("R$ 100.000,00", currencyFormatReal("100000"));
+        codexsTesterAssertText("R$ 1.000.000,00", currencyFormatReal("1000000"));
+        codexsTesterAssertText("R$ 10.000.000,00", currencyFormatReal("10000000"));
+        codexsTesterAssertText("R$ 100.000.000,00", currencyFormatReal("100000000"));
+        codexsTesterAssertText("R$ 1.000.000.000,00", currencyFormatReal("1000000000"));
+    }
+
+    @Test
+    public void currencyFormatDollarTest() {
+        codexsTesterAssertText("$ 1.00", currencyFormatDollar(1));
+        codexsTesterAssertText("$ 10.00", currencyFormatDollar(10));
+        codexsTesterAssertText("$ 100.00", currencyFormatDollar(100));
+        codexsTesterAssertText("$ 1,000.00", currencyFormatDollar(1000));
+        codexsTesterAssertText("$ 10,000.00", currencyFormatDollar(10000));
+        codexsTesterAssertText("$ 100,000.00", currencyFormatDollar(100000));
+        codexsTesterAssertText("$ 1,000,000.00", currencyFormatDollar(1000000));
+        codexsTesterAssertText("$ 10,000,000.00", currencyFormatDollar(10000000));
+        codexsTesterAssertText("$ 100,000,000.00", currencyFormatDollar(100000000));
+        codexsTesterAssertText("$ 1,000,000,000.00", currencyFormatDollar(1000000000));
+
+        codexsTesterAssertText("$ 1.00", currencyFormatDollar("1"));
+        codexsTesterAssertText("$ 10.00", currencyFormatDollar("10"));
+        codexsTesterAssertText("$ 100.00", currencyFormatDollar("100"));
+        codexsTesterAssertText("$ 1,000.00", currencyFormatDollar("1000"));
+        codexsTesterAssertText("$ 10,000.00", currencyFormatDollar("10000"));
+        codexsTesterAssertText("$ 100,000.00", currencyFormatDollar("100000"));
+        codexsTesterAssertText("$ 1,000,000.00", currencyFormatDollar("1000000"));
+        codexsTesterAssertText("$ 10,000,000.00", currencyFormatDollar("10000000"));
+        codexsTesterAssertText("$ 100,000,000.00", currencyFormatDollar("100000000"));
+        codexsTesterAssertText("$ 1,000,000,000.00", currencyFormatDollar("1000000000"));
+    }
+
+    @Test
+    public void currencyFormatEuroTest() {
+        codexsTesterAssertText("1,00 EUR", currencyFormatEuro(1, false));
+        codexsTesterAssertText("10,00 EUR", currencyFormatEuro(10, false));
+        codexsTesterAssertText("100,00 EUR", currencyFormatEuro(100, false));
+        codexsTesterAssertText("1 000,00 EUR", currencyFormatEuro(1000, false));
+        codexsTesterAssertText("10 000,00 EUR", currencyFormatEuro(10000, false));
+        codexsTesterAssertText("100 000,00 EUR", currencyFormatEuro(100000, false));
+        codexsTesterAssertText("1 000 000,00 EUR", currencyFormatEuro(1000000, false));
+        codexsTesterAssertText("10 000 000,00 EUR", currencyFormatEuro(10000000, false));
+        codexsTesterAssertText("100 000 000,00 EUR", currencyFormatEuro(100000000, false));
+        codexsTesterAssertText("1 000 000 000,00 EUR", currencyFormatEuro(1000000000, false));
+
+        codexsTesterAssertText("1,00 EUR", currencyFormatEuro("1", false));
+        codexsTesterAssertText("10,00 EUR", currencyFormatEuro("10", false));
+        codexsTesterAssertText("100,00 EUR", currencyFormatEuro("100", false));
+        codexsTesterAssertText("1 000,00 EUR", currencyFormatEuro("1000", false));
+        codexsTesterAssertText("10 000,00 EUR", currencyFormatEuro("10000", false));
+        codexsTesterAssertText("100 000,00 EUR", currencyFormatEuro("100000", false));
+        codexsTesterAssertText("1 000 000,00 EUR", currencyFormatEuro("1000000", false));
+        codexsTesterAssertText("10 000 000,00 EUR", currencyFormatEuro("10000000", false));
+        codexsTesterAssertText("100 000 000,00 EUR", currencyFormatEuro("100000000", false));
+        codexsTesterAssertText("1 000 000 000,00 EUR", currencyFormatEuro("1000000000", false));
+
+        codexsTesterAssertText("1,00 €", currencyFormatEuro(1, true));
+        codexsTesterAssertText("10,00 €", currencyFormatEuro(10, true));
+        codexsTesterAssertText("100,00 €", currencyFormatEuro(100, true));
+        codexsTesterAssertText("1 000,00 €", currencyFormatEuro(1000, true));
+        codexsTesterAssertText("10 000,00 €", currencyFormatEuro(10000, true));
+        codexsTesterAssertText("100 000,00 €", currencyFormatEuro(100000, true));
+        codexsTesterAssertText("1 000 000,00 €", currencyFormatEuro(1000000, true));
+        codexsTesterAssertText("10 000 000,00 €", currencyFormatEuro(10000000, true));
+        codexsTesterAssertText("100 000 000,00 €", currencyFormatEuro(100000000, true));
+        codexsTesterAssertText("1 000 000 000,00 €", currencyFormatEuro(1000000000, true));
+
+        codexsTesterAssertText("1,00 €", currencyFormatEuro("1", true));
+        codexsTesterAssertText("10,00 €", currencyFormatEuro("10", true));
+        codexsTesterAssertText("100,00 €", currencyFormatEuro("100", true));
+        codexsTesterAssertText("1 000,00 €", currencyFormatEuro("1000", true));
+        codexsTesterAssertText("10 000,00 €", currencyFormatEuro("10000", true));
+        codexsTesterAssertText("100 000,00 €", currencyFormatEuro("100000", true));
+        codexsTesterAssertText("1 000 000,00 €", currencyFormatEuro("1000000", true));
+        codexsTesterAssertText("10 000 000,00 €", currencyFormatEuro("10000000", true));
+        codexsTesterAssertText("100 000 000,00 €", currencyFormatEuro("100000000", true));
+        codexsTesterAssertText("1 000 000 000,00 €", currencyFormatEuro("1000000000", true));
+    }
+
     /**
      * Date Tests
      */
@@ -584,6 +682,10 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertBool(true, cardNumberValidator("1111-1111-1111-1111"));
         codexsTesterAssertBool(true, cardNumberValidator("4544-8909-7865-6768"));
     }
+
+    /**
+     * Masked Tests
+     */
 
     @Test
     public void cardNumberMaskedTest() {
