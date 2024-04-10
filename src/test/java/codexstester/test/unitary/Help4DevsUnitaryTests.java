@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
 import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
@@ -29,8 +26,7 @@ import static com.huntercodexs.demo.services.Help4DevsMaskedService.cardNumberMa
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizeAscii;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.guide;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.md5;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.*;
 import static com.huntercodexs.demo.services.Help4DevsValidatorService.*;
 import static java.lang.Math.ceil;
 
@@ -842,6 +838,17 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
             System.out.println(("["+(i*maxSizeReport)+"]:["+((i*maxSizeReport)+maxSizeReport))+"]");
             System.out.println(sampleDtoCurrent);
         }
+    }
+
+    @Test
+    public void pangramsTest() {
+
+        String pangram = ("We promptly judged antique ivory buckles for the next prize".toLowerCase());
+        String notPangram = ("The promptly judged antique ivory buckles for the next prize").toLowerCase();
+
+        codexsTesterAssertBool(true, isPangram(pangram, "en"));
+        codexsTesterAssertBool(false, isPangram(notPangram, "en"));
+
     }
 
 }
