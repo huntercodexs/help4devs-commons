@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -14,8 +13,6 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 @Service
 public class Help4DevsHttpService {
-
-    private final RestTemplate restTemplate = new RestTemplate();
 
     private static HttpClientErrorException continue100(Object responseSimulate) {
 
@@ -433,7 +430,8 @@ public class Help4DevsHttpService {
                 "another URI with the same method that was used in the prior request. This has the same " +
                 "semantics as the 302 Found HTTP response code, with the exception that the user agent must " +
                 "not change the HTTP method used: if a POST was used in the first request, a POST must be " +
-                "used in the second request. [Mozilla MDN]").getBytes(StandardCharsets.UTF_8);
+                "used in the second request. " +
+                "[Mozilla MDN]").getBytes(StandardCharsets.UTF_8);
 
         if (responseSimulate != null) {
             bodyString = responseSimulate.toString().getBytes(StandardCharsets.UTF_8);
@@ -574,8 +572,8 @@ public class Help4DevsHttpService {
 
         String statusText = "405 Method Not Allowed";
         byte[] bodyString = ("The request method is known by the server but is not supported by the target resource. " +
-                "For example, an API may not allow calling DELETE to remove a " +
-                "resource. [Mozilla MDN]").getBytes(StandardCharsets.UTF_8);
+                "For example, an API may not allow calling DELETE to remove a resource. " +
+                "[Mozilla MDN]").getBytes(StandardCharsets.UTF_8);
 
         if (responseSimulate != null) {
             bodyString = responseSimulate.toString().getBytes(StandardCharsets.UTF_8);
@@ -841,7 +839,8 @@ public class Help4DevsHttpService {
         String statusText = "421 Misdirected Request";
         byte[] bodyString = ("The request was directed at a server that is not able to produce a response. This can be " +
                 "sent by a server that is not configured to produce responses for the combination of scheme and " +
-                "authority that are included in the request URI. [Mozilla MDN]").getBytes(StandardCharsets.UTF_8);
+                "authority that are included in the request URI. " +
+                "[Mozilla MDN]").getBytes(StandardCharsets.UTF_8);
 
         if (responseSimulate != null) {
             bodyString = responseSimulate.toString().getBytes(StandardCharsets.UTF_8);

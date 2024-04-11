@@ -7,6 +7,7 @@ import com.huntercodexs.demo.enumerator.UfTable;
 import lombok.*;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -32,6 +33,7 @@ import static com.huntercodexs.demo.services.Help4DevsHttpService.restResponseSi
 import static com.huntercodexs.demo.services.Help4DevsMaskedService.cardNumberMasked;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizeAscii;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
+import static com.huntercodexs.demo.services.Help4DevsResponseEntityService.responseEntitySimulate;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.*;
 import static com.huntercodexs.demo.services.Help4DevsValidatorService.*;
@@ -864,6 +866,18 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         HttpClientErrorException response = restResponseSimulate(404, false, restResponseSimulateDto);
         String extract = httpResponseErrorExtractor(response);
         codexsTesterAssertText(extract, "Body{Help4DevsUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)} StatusText{404 Not Found} StatusCode{404 NOT_FOUND} Headers{[]}");
+    }
+
+    @Test
+    public void responseEntitySimulateTests() {
+        RestResponseSimulateDto restResponseSimulateDto = new RestResponseSimulateDto();
+        restResponseSimulateDto.setCode("404");
+        restResponseSimulateDto.setMessage("Resource Not Found");
+
+        ResponseEntity<?> result = responseEntitySimulate(404, restResponseSimulateDto);
+        RestResponseSimulateDto resultDto = (RestResponseSimulateDto) result.getBody();
+        codexsTesterAssertNotNull(resultDto.getCode());
+        codexsTesterAssertText("Resource Not Found", resultDto.getMessage());
     }
 
     /**
