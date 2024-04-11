@@ -2,26 +2,33 @@ package codexstester.test.unitary;
 
 import codexstester.engine.util.CodexsHelperTests;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
+import com.huntercodexs.demo.enumerator.DataMasked;
 import com.huntercodexs.demo.enumerator.UfTable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.mail.util.ByteArrayDataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
 
+import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
 import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
+import static com.huntercodexs.demo.services.Help4DevsChallengeService.isPangram;
 import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
 import static com.huntercodexs.demo.services.Help4DevsDateService.*;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
 import static com.huntercodexs.demo.services.Help4DevsFileReaderService.getFileContentByMatch;
+import static com.huntercodexs.demo.services.Help4DevsHttpService.httpResponseErrorExtractor;
+import static com.huntercodexs.demo.services.Help4DevsHttpService.restResponseSimulate;
 import static com.huntercodexs.demo.services.Help4DevsMaskedService.cardNumberMasked;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizeAscii;
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
@@ -698,6 +705,15 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertText("1234 @@@@ @@@@ 8908", mask3);
     }
 
+    @Test
+    public void dataMaskedTest() {
+        String cardMasked = dataMasked("1234-3456-8982-8908", "*", DataMasked.CARD_NUMBER_MASK);
+        codexsTesterAssertText("1234-****-****-8908", cardMasked);
+
+        String cpfMasked = dataMasked("897.654.058-23", "*", DataMasked.CPF_NUMBER_MASK);
+        codexsTesterAssertText("***.***.058-23", cpfMasked);
+    }
+
     /**
      * String Tests
      */
@@ -756,15 +772,103 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         System.out.println("RESULT IS: " + result);
     }
 
+    @Test
+    public void infoLogTest() {
+        infoLog("This is a infoLog", "This is a infoLog");
+    }
+
+    @Test
+    public void errLogTest() {
+        errLog("This is a errLog", "This is a errLog");
+    }
+
+    @Test
+    public void debugLogTest() {
+        debugLog("This is a debugLog", "This is a debugLog");
+    }
+
+    @Test
+    public void stdoutLogTest() {
+        stdout("This is a stdout", "This is a stdout");
+    }
+
     /**
-     * Generic Tests
+     * Challenge Tests
      */
 
     @Test
-    public void substringTest() {
-        String register = "000222229999999999220324";
-        System.out.println(register.substring(0, 8).trim());
+    public void pangramsTest() {
+
+        String pangram = ("We promptly judged antique ivory buckles for the next prize".toLowerCase());
+        String notPangram = ("The promptly judged antique ivory buckles for the next prize").toLowerCase();
+
+        codexsTesterAssertBool(true, isPangram(pangram, "en"));
+        codexsTesterAssertBool(false, isPangram(notPangram, "en"));
+
     }
+
+    /**
+     * Http Tests
+     */
+
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class RestResponseSimulateDto {
+        String code;
+        String message;
+    }
+
+    @Test
+    public void restResponseSimulateTest() {
+        RestResponseSimulateDto restResponseSimulateDto = new RestResponseSimulateDto();
+        restResponseSimulateDto.setCode("404");
+        restResponseSimulateDto.setMessage("Resource Not Found");
+
+        HttpClientErrorException result = restResponseSimulate(404, false, restResponseSimulateDto);
+
+        codexsTesterAssertText(String.valueOf(result.getStatusCode()), "404 NOT_FOUND");
+        codexsTesterAssertText(result.getStatusText(), "404 Not Found");
+        codexsTesterAssertText(String.valueOf(result.getRawStatusCode()), "404");
+        codexsTesterAssertText(result.getResponseBodyAsString(), "Help4DevsUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)");
+    }
+
+    @Test
+    public void restResponseSimulateThrowTest() {
+
+        RestResponseSimulateDto restResponseSimulateDto = new RestResponseSimulateDto();
+        restResponseSimulateDto.setCode("404");
+        restResponseSimulateDto.setMessage("Resource Not Found");
+
+        try {
+
+            HttpClientErrorException result = restResponseSimulate(404, true, restResponseSimulateDto);
+            System.out.println(result.getResponseBodyAsString());
+
+        } catch (HttpClientErrorException | HttpServerErrorException he) {
+            codexsTesterAssertText(String.valueOf(he.getStatusCode()), "404 NOT_FOUND");
+            codexsTesterAssertText(he.getStatusText(), "404 Not Found");
+            codexsTesterAssertText(String.valueOf(he.getRawStatusCode()), "404");
+            codexsTesterAssertText(he.getResponseBodyAsString(), "Help4DevsUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)");
+        }
+    }
+
+    @Test
+    public void httpResponseErrorExtractorTest() {
+        RestResponseSimulateDto restResponseSimulateDto = new RestResponseSimulateDto();
+        restResponseSimulateDto.setCode("404");
+        restResponseSimulateDto.setMessage("Resource Not Found");
+
+        HttpClientErrorException response = restResponseSimulate(404, false, restResponseSimulateDto);
+        String extract = httpResponseErrorExtractor(response);
+        codexsTesterAssertText(extract, "Body{Help4DevsUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)} StatusText{404 Not Found} StatusCode{404 NOT_FOUND} Headers{[]}");
+    }
+
+    /**
+     * Math Tests
+     */
 
     @Test
     public void ceilTest() {
@@ -781,6 +885,16 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         int splitter4 = (int) ceil((double) 800 / 500);
         System.out.println(splitter4);
 
+    }
+
+    /**
+     * Generic Tests
+     */
+
+    @Test
+    public void substringTest() {
+        String register = "000222229999999999220324";
+        System.out.println(register.substring(0, 8).trim());
     }
 
     @Test
@@ -838,17 +952,6 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
             System.out.println(("["+(i*maxSizeReport)+"]:["+((i*maxSizeReport)+maxSizeReport))+"]");
             System.out.println(sampleDtoCurrent);
         }
-    }
-
-    @Test
-    public void pangramsTest() {
-
-        String pangram = ("We promptly judged antique ivory buckles for the next prize".toLowerCase());
-        String notPangram = ("The promptly judged antique ivory buckles for the next prize").toLowerCase();
-
-        codexsTesterAssertBool(true, isPangram(pangram, "en"));
-        codexsTesterAssertBool(false, isPangram(notPangram, "en"));
-
     }
 
 }

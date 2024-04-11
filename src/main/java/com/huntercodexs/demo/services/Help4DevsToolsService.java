@@ -21,21 +21,31 @@ public class Help4DevsToolsService {
         return tcn;
     }
 
-    public static boolean isPangram(String input, String language) {
-
-        String[] englishAlphabet = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-
-        String pangram = input.toLowerCase();
-        int alphabetSize = englishAlphabet.length;
-        int pangramCounter = 0;
-
-        for (String s : englishAlphabet) {
-            if (pangram.contains(s)) {
-                pangramCounter += 1;
+    public static void infoLog(String... input) {
+        if (log.isInfoEnabled()) {
+            for (String text : input) {
+                log.info(text);
             }
         }
+    }
 
-        return pangramCounter == alphabetSize;
+    public static void errLog(String... input) {
+        for (String text : input) {
+            log.error(text);
+        }
+    }
 
+    public static void debugLog(String... input) {
+        if (log.isDebugEnabled()) {
+            for (String text : input) {
+                log.debug(text);
+            }
+        }
+    }
+
+    public static void stdout(String... input) {
+        for (String text : input) {
+            System.out.println(text);
+        }
     }
 }

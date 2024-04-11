@@ -16,9 +16,4 @@ public class Help4DevsMaskedService {
         return cardNumber.replaceAll(regexCard, "$1$2"+mask+"$4"+mask+"$6$7");
     }
 
-    //CPF
-    //RG
-    //CNPJ
-    //RANDOM
-
 }
