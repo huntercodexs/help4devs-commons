@@ -63,11 +63,16 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
         if (requestDto.getId() != null && !requestDto.getId().equals("")) uri = uri +"/"+ requestDto.getId();
 
         String url = externalUrlBaseTest + uri;
-        HttpEntity<?> httpEntity = new HttpEntity<>(requestDto.getDataRequest(), externalBuilderHeaders(requestDto, headersDto));
+
+        if (requestDto.getUrl() != null && !requestDto.getUrl().equals("")) {
+            url = requestDto.getUrl() + uri;
+        }
 
         if (externalUrlQueryParameters != null && !externalUrlQueryParameters.equals("")) {
             url = url + "?" + externalUrlQueryParameters;
         }
+
+        HttpEntity<?> httpEntity = new HttpEntity<>(requestDto.getDataRequest(), externalBuilderHeaders(requestDto, headersDto));
 
         codexsHelperLogTerm("EXTERNAL REQUEST URL IS", url, true);
         codexsHelperLogTerm("HTTP METHOD IS", method, true);
@@ -83,32 +88,32 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
 
             switch (method) {
                 case HTTP_METHOD_GET:
-                    codexsHelperLogTerm("SEND REQUEST BY exchange GET [Object]", url, true);
+                    codexsHelperLogTerm("SEND REQUEST BY exchange GET ["+responseType+"]", url, true);
                     response = genericRestTemplate.exchange(url, HttpMethod.GET, httpEntity, responseType);
                     break;
                 case HTTP_METHOD_POST:
-                    codexsHelperLogTerm("SEND REQUEST BY postForEntity POST [Object]", url, true);
+                    codexsHelperLogTerm("SEND REQUEST BY exchange POST ["+responseType+"]", url, true);
                     response = genericRestTemplate.postForEntity(url, httpEntity, responseType);
                     break;
                 case HTTP_METHOD_DELETE:
-                    codexsHelperLogTerm("SEND REQUEST BY exchange DELETE [Object]", url, true);
+                    codexsHelperLogTerm("SEND REQUEST BY exchange DELETE ["+responseType+"]", url, true);
                     response = genericRestTemplate.exchange(url, HttpMethod.DELETE, httpEntity, responseType);
                     break;
                 case HTTP_METHOD_PUT:
-                    codexsHelperLogTerm("SEND REQUEST BY exchange PUT [Object]", url, true);
+                    codexsHelperLogTerm("SEND REQUEST BY exchange PUT ["+responseType+"]", url, true);
                     response = genericRestTemplate.exchange(url, HttpMethod.PUT, httpEntity, responseType);
                     break;
                 case HTTP_METHOD_PATCH:
                     genericRestTemplate.setRequestFactory(externalHttpClientFactory());
-                    codexsHelperLogTerm("SEND REQUEST BY exchange PATCH [Object]", url, true);
+                    codexsHelperLogTerm("SEND REQUEST BY exchange PATCH ["+responseType+"]", url, true);
                     response = genericRestTemplate.exchange(url, HttpMethod.PATCH, httpEntity, responseType);
                     break;
                 case HTTP_METHOD_HEAD:
-                    codexsHelperLogTerm("SEND REQUEST BY exchange HEAD [Object]", url, true);
+                    codexsHelperLogTerm("SEND REQUEST BY exchange HEAD ["+responseType+"]", url, true);
                     response = genericRestTemplate.exchange(url, HttpMethod.HEAD, httpEntity, responseType);
                     break;
                 case HTTP_METHOD_OPTIONS:
-                    codexsHelperLogTerm("SEND REQUEST BY exchange OPTIONS [Object]", url, true);
+                    codexsHelperLogTerm("SEND REQUEST BY exchange OPTIONS ["+responseType+"]", url, true);
                     response = genericRestTemplate.exchange(url, HttpMethod.OPTIONS, httpEntity, responseType);
                     break;
                 default:
@@ -128,9 +133,9 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
 
         } catch (HttpClientErrorException ex) {
 
-            codexsHelperLogTerm("HttpClientErrorException[MESSAGE]:", ex.getMessage(), true);
-            codexsHelperLogTerm("HttpClientErrorException[BODY]:", ex.getResponseBodyAsString(), true);
             codexsHelperLogTerm("HttpClientErrorException[CODE]:", ex.getStatusCode(), true);
+            codexsHelperLogTerm("HttpClientErrorException[BODY]:", ex.getResponseBodyAsString(), true);
+            codexsHelperLogTerm("HttpClientErrorException[MESSAGE]:", ex.getMessage(), true);
 
             Assert.assertEquals(requestDto.getExpectedCode(), ex.getRawStatusCode());
 
@@ -153,9 +158,9 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
 
         } catch (HttpServerErrorException se) {
 
-            codexsHelperLogTerm("HttpServerErrorException[MESSAGE]:", se.getMessage(), true);
-            codexsHelperLogTerm("HttpServerErrorException[BODY]:", se.getResponseBodyAsString(), true);
             codexsHelperLogTerm("HttpServerErrorException[CODE]:", se.getStatusCode(), true);
+            codexsHelperLogTerm("HttpServerErrorException[BODY]:", se.getResponseBodyAsString(), true);
+            codexsHelperLogTerm("HttpServerErrorException[MESSAGE]:", se.getMessage(), true);
 
             Assert.assertEquals(requestDto.getExpectedCode(), se.getRawStatusCode());
 

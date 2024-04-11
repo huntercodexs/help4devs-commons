@@ -116,7 +116,7 @@ public abstract class AbstractInternalRequestTests extends AvailableHttpMethodTe
         try {
             result = genericMockMvc.perform(
                     requestBuilder
-                            .content(requestDto.getDataRequest())
+                            .content(String.valueOf(requestDto.getDataRequest()))
                             .contentType(cType)
                             .accept(aType)
                             .headers(internalBuilderHeaders(requestDto, headersDto))

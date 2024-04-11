@@ -20,7 +20,7 @@ public abstract class CodexsTesterIgnitionTests extends AdvancedSetupTests {
 
     protected void setUp() {
 
-        String release = "1.0.6";
+        String release = "1.0.8";
         String welcome = "\n" +
                 "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| \n" +
                 " \n" +
