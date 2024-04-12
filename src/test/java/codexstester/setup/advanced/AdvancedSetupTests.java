@@ -326,4 +326,47 @@ public class AdvancedSetupTests {
         };
     }
 
+    public static Object[][] expectedJsonSerproDataTree() {
+
+        String cpf = "";
+        String name = "";
+        String code = "";
+        String situation = "";
+        String bornDate = "";
+        String tcn = "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}";
+
+        return new Object[][]{
+                {"cpf",        cpf,       String.class},
+                {"nome",       name,      String.class},
+                {"codigo",     code,      String.class},
+                {"situacao",   situation, String.class},
+                {"nascimento", bornDate,  String.class},
+                {"tcn",        tcn,       String.class}
+        };
+    }
+
+    public static Object[][] expectedDtoSerproDataTree() {
+        return new Object[][]{
+                {"contentType", "application/json", String.class},
+                {"accepted", "null", String.class},
+                {"httpMethod", "POST", String.class},
+                {"statusCode", "null", String.class},
+                {"crossOrigin", "null", String.class},
+                {"origin", "null", String.class},
+                {"hostname", "null", String.class},
+                {"ip", "null", String.class},
+                {"osName", "null", String.class},
+                {"authorizationBasic", "null", String.class},
+                {"authorizationBearer", "null", String.class},
+                {"apiKeyToken", "null", String.class},
+                {"apiKeyAppName", "null", String.class},
+                {"apiKeySecret", "null", String.class},
+                {"apiKeyValue", "null", String.class},
+                {"apiKeyGeneric", "null", String.class},
+                {"additionalName", "null", String.class},
+                {"additionalValue", "null", String.class},
+                {"bodyParameters", "{name=value1}", Map.class}
+        };
+    }
+
 }

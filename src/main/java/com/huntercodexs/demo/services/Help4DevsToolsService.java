@@ -21,30 +21,30 @@ public class Help4DevsToolsService {
         return tcn;
     }
 
-    public static void infoLog(String... input) {
+    public static void infoLog(String... inputs) {
         if (log.isInfoEnabled()) {
-            for (String text : input) {
+            for (String text : inputs) {
                 log.info(text);
             }
         }
     }
 
-    public static void errLog(String... input) {
-        for (String text : input) {
+    public static void errLog(String... inputs) {
+        for (String text : inputs) {
             log.error(text);
         }
     }
 
-    public static void debugLog(String... input) {
+    public static void debugLog(String... inputs) {
         if (log.isDebugEnabled()) {
-            for (String text : input) {
+            for (String text : inputs) {
                 log.debug(text);
             }
         }
     }
 
-    public static void stdout(String... input) {
-        for (String text : input) {
+    public static void stdout(String... inputs) {
+        for (String text : inputs) {
             System.out.println(text);
         }
     }
