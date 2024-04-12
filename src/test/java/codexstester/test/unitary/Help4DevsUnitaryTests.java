@@ -5,6 +5,7 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.enumerator.DataMasked;
 import com.huntercodexs.demo.enumerator.UfTable;
 import com.huntercodexs.demo.services.Help4DevsHttpClientService;
+import com.huntercodexs.demo.services.Help4DevsOauth2Service;
 import lombok.*;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
@@ -776,6 +777,13 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void base64Test() {
+        codexsTesterAssertText(
+                "Y2xpZW50X2lkOmFiZmNjNzRiLTA3Y2QtNDI1Yi05MDZiLWFiYmNkOGZhMWJlYw==",
+                base64("client_id:abfcc74b-07cd-425b-906b-abbcd8fa1bec"));
+    }
+
+    @Test
     public void infoLogTest() {
         infoLog("This is a infoLog", "This is a infoLog");
     }
@@ -969,6 +977,35 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
                 false,
                 "none",
                 true);
+    }
+
+    /**
+     * Authorization Tests
+     * */
+
+    @Autowired
+    Help4DevsOauth2Service help4DevsOauth2Service;
+
+    @Test
+    public void oauth2TokenTest() {
+        help4DevsOauth2Service.setUrlOauth2Token("http://localhost:33001/huntercodexs/arch-demo/service-authorizator/api/rest/oauth/v1/oauth/token");
+        help4DevsOauth2Service.setUsername("OAUTH2DEMO_USER");
+        help4DevsOauth2Service.setPassword("1234567890");
+        help4DevsOauth2Service.setGrant("password");
+        help4DevsOauth2Service.setClientId("client_id");
+        help4DevsOauth2Service.setSecret("abfcc74b-07cd-425b-906b-abbcd8fa1bec");
+        String token = help4DevsOauth2Service.token();
+        System.out.println(token);
+    }
+
+    @Test
+    public void oauth2TokenCheckTest() {
+        String token = "8d09dad8-2a1a-4091-bfe7-0c59c20eafdf";
+        help4DevsOauth2Service.setUrlOauth2CheckToken("http://localhost:32943/huntercodexs/arch-demo/service-authorizator/api/rest/oauth/v1/oauth/check_token");
+        help4DevsOauth2Service.setToken(token);
+        help4DevsOauth2Service.setClientId("client_id");
+        help4DevsOauth2Service.setSecret("abfcc74b-07cd-425b-906b-abbcd8fa1bec");
+        codexsTesterAssertBool(true, help4DevsOauth2Service.check());
     }
 
     /**

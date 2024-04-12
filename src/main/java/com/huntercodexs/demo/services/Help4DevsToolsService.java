@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.Base64;
 import java.util.UUID;
 
 @Slf4j
@@ -19,6 +20,12 @@ public class Help4DevsToolsService {
             return UUID.randomUUID().toString();
         }
         return tcn;
+    }
+
+    public static String base64(String input) {
+        byte[] inputBytes = input.getBytes();
+        byte[] base64InputBytes = Base64.getEncoder().encode(inputBytes);
+        return new String(base64InputBytes);
     }
 
     public static void infoLog(String... inputs) {
