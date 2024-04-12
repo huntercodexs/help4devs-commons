@@ -4,9 +4,11 @@ import codexstester.engine.util.CodexsHelperTests;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.enumerator.DataMasked;
 import com.huntercodexs.demo.enumerator.UfTable;
+import com.huntercodexs.demo.services.Help4DevsHttpClientService;
 import lombok.*;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -16,11 +18,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
+import static codexstester.engine.util.CodexsHelperTests.codexsHelperToPrivateMethods;
 import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
 import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
 import static com.huntercodexs.demo.services.Help4DevsChallengeService.isPangram;
@@ -878,6 +878,35 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         RestResponseSimulateDto resultDto = (RestResponseSimulateDto) result.getBody();
         codexsTesterAssertNotNull(resultDto.getCode());
         codexsTesterAssertText("Resource Not Found", resultDto.getMessage());
+    }
+
+    private static List<LinkedHashMap<String, String>> getHeaders() {
+        List<LinkedHashMap<String, String>> headerList = new ArrayList<>();
+
+        LinkedHashMap<String, String> linkedHashMap1 = new LinkedHashMap<>();
+        linkedHashMap1.put("header", "Authorization");
+        linkedHashMap1.put("value", "Bearer 89237128931289371289372183927189");
+        headerList.add(linkedHashMap1);
+
+        LinkedHashMap<String, String> linkedHashMap2 = new LinkedHashMap<>();
+        linkedHashMap2.put("header", "X-Api-Key");
+        linkedHashMap2.put("value", "09x890x8x908x9x08");
+        headerList.add(linkedHashMap2);
+        return headerList;
+    }
+
+    @Test
+    public void httpHeadersCreateTest() {
+        List<LinkedHashMap<String, String>> headerList = getHeaders();
+
+        HttpHeaders result = (HttpHeaders) codexsHelperToPrivateMethods(
+                new Help4DevsHttpClientService(),
+                "httpHeadersCreate",
+                Collections.singletonList(headerList));
+
+        codexsTesterAssertText("Bearer 89237128931289371289372183927189", result.get("Authorization").get(0));
+        codexsTesterAssertText("09x890x8x908x9x08", result.get("X-Api-Key").get(0));
+
     }
 
     /**
