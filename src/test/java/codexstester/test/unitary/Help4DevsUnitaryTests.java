@@ -26,6 +26,8 @@ import static codexstester.engine.util.CodexsHelperTests.*;
 import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
 import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
 import static com.huntercodexs.demo.services.Help4DevsChallengeService.isPangram;
+import static com.huntercodexs.demo.services.Help4DevsCryptographyService.decryptAesCbc256;
+import static com.huntercodexs.demo.services.Help4DevsCryptographyService.encryptAesCbc256;
 import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
 import static com.huntercodexs.demo.services.Help4DevsDateService.*;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
@@ -1027,6 +1029,32 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         int splitter4 = (int) ceil((double) 800 / 500);
         System.out.println(splitter4);
 
+    }
+
+    /**
+     * Cryptography Tests
+     */
+
+    private final String secretKey = "F1F2F3F4F5F6F7F8F1F2F3F4F5F6F7F8";
+    private final String salt = "1";
+
+    @Test
+    public void encryptAES256CBCTest() {
+        String secretMessageClear = "This is a secret message, please don't break it !";
+        String result = encryptAesCbc256(secretMessageClear, secretKey, salt);
+        codexsHelperLogTerm("Encrypt AES256CBC", result, true);
+
+        /*Result Samples*/
+        //FW9UsuVZAky/yMkpX8JtkviJ+KQw/bfZC2Aces1HOVQ0BBlqY6rqdfXiFpNzlN6HlQkx7yRCGYRwqvhC52zf/FK/4gkG1ikk/zYyVKExKIM=
+        //cSwH5G8anjQ56p28kEyWzufYF1wm6Xjk0NyzjpYjvuBiHcW2C19UhCD23f7qo0RwSfXFqfc6h66OCOnQ+sJCfbjZ/yU2msCKzcBVDeCOA/k=
+        //EF8oNXRoH4WhHWfvayGa01X7RS7RjrNuwxfT95YIiKI56Cs5TLIHVhsUprpahuWRQ+KHpnLoroBqgPj3xRLusx18zIZaEJMCCFXCZ4IfrCw=
+    }
+
+    @Test
+    public void decryptAES256CBCTest() {
+        String secretMessageEncrypted = "i85+PwYB5tNlw38hFn2EQi4iTI38whZ/EBleGF/xvHj4Qih7/l6GA4k/en2BuPSPEFWJ4mXWT8tPSdb0XUWz2TTzCQMyO6+h7FeYtC0afAM=";
+        String result = decryptAesCbc256(secretMessageEncrypted, secretKey, salt);
+        codexsHelperLogTerm("Decrypt AES256CBC", result, true);
     }
 
     /**
