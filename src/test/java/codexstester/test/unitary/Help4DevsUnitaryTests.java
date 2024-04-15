@@ -26,8 +26,7 @@ import static codexstester.engine.util.CodexsHelperTests.*;
 import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
 import static com.huntercodexs.demo.services.Help4DevsBaseService.*;
 import static com.huntercodexs.demo.services.Help4DevsChallengeService.isPangram;
-import static com.huntercodexs.demo.services.Help4DevsCryptographyService.decryptAesCbc256;
-import static com.huntercodexs.demo.services.Help4DevsCryptographyService.encryptAesCbc256;
+import static com.huntercodexs.demo.services.Help4DevsCryptographyService.*;
 import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
 import static com.huntercodexs.demo.services.Help4DevsDateService.*;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
@@ -1055,6 +1054,30 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
         String secretMessageEncrypted = "i85+PwYB5tNlw38hFn2EQi4iTI38whZ/EBleGF/xvHj4Qih7/l6GA4k/en2BuPSPEFWJ4mXWT8tPSdb0XUWz2TTzCQMyO6+h7FeYtC0afAM=";
         String result = decryptAesCbc256(secretMessageEncrypted, secretKey, salt);
         codexsHelperLogTerm("Decrypt AES256CBC", result, true);
+    }
+
+    @Test
+    public void encrypt3DesEdeTest() throws Exception {
+        String secretMessage = "This is a secret message, please don't break it !";
+        String secretKey = "F1F2F3F4F5F6F7F8F9F00000"; /*Must have 24 bytes*/
+
+        String encrypted = encrypt3desEde(secretMessage, secretKey);
+
+        codexsHelperLogTerm("SECRET MESSAGE CLEAR", secretMessage, true);
+        codexsHelperLogTerm("ENCRYPTED 3DES-EDE" , encrypted, true);
+
+        /*Result Samples*/
+        //k4ksamLyPl+YhK0HafiFd2mbz0pt7DjvWqBX2ogtn6tPwpOfJ3m2IlmXsPSAwF+k12Poe0VUPQU=
+    }
+
+    @Test
+    public void decrypt3DesEdeTest() throws Exception {
+        String encrypted = "k4ksamLyPl+YhK0HafiFd2mbz0pt7DjvWqBX2ogtn6tPwpOfJ3m2IlmXsPSAwF+k12Poe0VUPQU=";
+        String secretKey = "F1F2F3F4F5F6F7F8F9F00000"; /*Must have 24 bytes*/
+        String decrypted = decrypt3DedEde(encrypted, secretKey);
+
+        codexsHelperLogTerm("SECRET MESSAGE ENCRYPTED", encrypted, true);
+        codexsHelperLogTerm("DECRYPTED 3DES-EDE" , decrypted, true);
     }
 
     /**

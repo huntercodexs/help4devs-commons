@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESedeKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -20,6 +21,7 @@ public class Help4DevsCryptographyService {
 
     private static final int KEY_LENGTH = 256;
     private static final int ITERATION_COUNT = 65536;
+    public static final String ENCRYPTION_DES_SCHEME = "DESede";
 
     public static String encryptAesCbc256(String strToEncrypt, String secretKey, String salt) {
         try {
@@ -75,6 +77,44 @@ public class Help4DevsCryptographyService {
         } catch (Exception e) {
             System.out.println("Decrypt Exception: " + e.getMessage());
             return null;
+        }
+    }
+
+    public static String encrypt3desEde(String inputClear, String secretKey) {
+        try {
+
+            byte[] arrayBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+            KeySpec ks = new DESedeKeySpec(arrayBytes);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(ENCRYPTION_DES_SCHEME);
+            Cipher cipher = Cipher.getInstance(ENCRYPTION_DES_SCHEME);
+            SecretKey key = skf.generateSecret(ks);
+
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] plainText = inputClear.getBytes(StandardCharsets.UTF_8);
+            byte[] encryptedText = cipher.doFinal(plainText);
+            return new String(Base64.getEncoder().encode(encryptedText));
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public static String decrypt3DedEde(String inputCipher, String secretKey) {
+        try {
+
+            byte[] arrayBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+            KeySpec ks = new DESedeKeySpec(arrayBytes);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(ENCRYPTION_DES_SCHEME);
+            Cipher cipher = Cipher.getInstance(ENCRYPTION_DES_SCHEME);
+            SecretKey key = skf.generateSecret(ks);
+
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] encryptedText = Base64.getDecoder().decode(inputCipher);
+            byte[] plainText = cipher.doFinal(encryptedText);
+            return new String(plainText);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
