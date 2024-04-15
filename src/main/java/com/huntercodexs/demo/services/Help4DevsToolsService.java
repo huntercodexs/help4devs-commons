@@ -1,6 +1,9 @@
 package com.huntercodexs.demo.services;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -26,6 +29,24 @@ public class Help4DevsToolsService {
         byte[] inputBytes = input.getBytes();
         byte[] base64InputBytes = Base64.getEncoder().encode(inputBytes);
         return new String(base64InputBytes);
+    }
+
+    public static String bcrypt(String data) {
+        return BCrypt.hashpw(data, BCrypt.gensalt(12));
+    }
+
+    public static boolean bcrypt(String dataEncrypted, String dataToCompare) {
+        return BCrypt.checkpw(dataToCompare, dataEncrypted);
+    }
+
+    public static String bcryptPassword(String data) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.encode(data);
+    }
+
+    public static boolean bcryptPassword(String dataToCompare, String dataFromDatabase) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(dataToCompare, dataFromDatabase);
     }
 
     public static void infoLog(String... inputs) {

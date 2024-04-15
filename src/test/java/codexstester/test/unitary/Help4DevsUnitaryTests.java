@@ -785,6 +785,24 @@ public class Help4DevsUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void bcryptTest() {
+        String result = bcrypt("password");
+        codexsHelperLogTerm("BCRYPT", result, true);
+
+        boolean match = bcrypt(result, "password");
+        codexsHelperLogTerm("MATCH", match, true);
+    }
+
+    @Test
+    public void bcryptPasswordTest() {
+        String result = bcryptPassword("password");
+        codexsHelperLogTerm("BCRYPT", result, true);
+
+        boolean match = bcryptPassword("password", result);
+        codexsHelperLogTerm("CHECK BCRYPT", match, true);
+    }
+
+    @Test
     public void infoLogTest() {
         infoLog("This is a infoLog", "This is a infoLog");
     }
