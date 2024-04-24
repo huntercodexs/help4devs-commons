@@ -89,11 +89,14 @@ public class Help4DevsValidatorService {
     }
 
     public static String phoneRegex(String country) {
-        return switch (country) {
-            case "us" -> "^[+]?1[0-9]{2}9?[0-9]{8}$";
-            case "br" -> "^[+]?55[0-9]{2}9?[0-9]{8}$";
-            default -> throw new RuntimeException("Invalid Country ID");
-        };
+        switch (country) {
+            case "us":
+                return "^[+]?1[0-9]{2}9?[0-9]{8}$";
+            case "br":
+                return "^[+]?55[0-9]{2}9?[0-9]{8}$";
+            default:
+                throw new RuntimeException("Invalid Country ID");
+        }
     }
 
     public static boolean cvvValidator(String cvv) {

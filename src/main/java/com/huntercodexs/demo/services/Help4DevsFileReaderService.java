@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
+
 @Slf4j
 @Service
 public class Help4DevsFileReaderService {
@@ -51,7 +53,7 @@ public class Help4DevsFileReaderService {
     public static void close(FileReader activateFile, String filepath) throws IOException, InterruptedException {
 
         System.out.println("[INFO] << Closing file: " + filepath);
-        System.out.println(("-").repeat(120));
+        System.out.println(repeat("-", 120));
 
         activateFile.close();
         System.out.flush();

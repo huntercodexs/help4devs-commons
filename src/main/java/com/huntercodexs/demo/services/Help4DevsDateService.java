@@ -136,20 +136,37 @@ public class Help4DevsDateService {
         LocalDateTime dateTimeNow = LocalDateTime.now();
         String dateTimeFormat = dateTimeNow.format(formatter);
         LocalDateTime dateTimeNowFormatter = LocalDateTime.parse(dateTimeFormat, formatter);
-
         LocalDateTime dateTimeRef = LocalDateTime.parse(reverseDate(date, "-"), formatter);
+        LocalDateTime timeLimit = null;
 
-        LocalDateTime timeLimit = switch (metricType) {
-            case "nano" -> dateTimeRef.plusNanos(time);
-            case "second" -> dateTimeRef.plusSeconds(time);
-            case "minute" -> dateTimeRef.plusMinutes(time);
-            case "hour" -> dateTimeRef.plusHours(time);
-            case "day" -> dateTimeRef.plusDays(time);
-            case "week" -> dateTimeRef.plusWeeks(time);
-            case "month" -> dateTimeRef.plusMonths(time);
-            case "year" -> dateTimeRef.plusYears(time);
-            default -> throw new RuntimeException("Invalid period to expiredDate");
-        };
+        switch (metricType) {
+            case "nano":
+                timeLimit = dateTimeRef.plusNanos(time);
+                break;
+            case "second":
+                timeLimit = dateTimeRef.plusSeconds(time);
+                break;
+            case "minute":
+                timeLimit = dateTimeRef.plusMinutes(time);
+                break;
+            case "hour":
+                timeLimit = dateTimeRef.plusHours(time);
+                break;
+            case "day":
+                timeLimit = dateTimeRef.plusDays(time);
+                break;
+            case "week":
+                timeLimit = dateTimeRef.plusWeeks(time);
+                break;
+            case "month":
+                timeLimit = dateTimeRef.plusMonths(time);
+                break;
+            case "year":
+                timeLimit = dateTimeRef.plusYears(time);
+                break;
+            default:
+                throw new RuntimeException("Invalid period to expiredDate");
+        }
 
         int diffTime = dateTimeNowFormatter.compareTo(timeLimit);
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class Help4DevsChallengeService {
+public class Help4DevsHackerRankService {
 
     public static boolean isPangram(String input, String language) {
 

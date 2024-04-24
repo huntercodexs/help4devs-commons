@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
+
 @Slf4j
 @Service
 public class Help4DevsBaseService {
@@ -39,7 +41,7 @@ public class Help4DevsBaseService {
 
         int lenValue = input.length();
         int lenFill = size - lenValue;
-        String repeat = fill.repeat(lenFill);
+        String repeat = repeat(fill, lenFill);
 
         if (align.equals("left")) {
             formatted = input + repeat;

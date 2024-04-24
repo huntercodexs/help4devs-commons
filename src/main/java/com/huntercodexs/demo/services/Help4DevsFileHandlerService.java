@@ -47,7 +47,7 @@ public class Help4DevsFileHandlerService {
 
     public static byte[] byteConvert(InputStream fileArray) throws IOException {
         ByteArrayOutputStream bytArrayOutputStream = new ByteArrayOutputStream();
-        bytArrayOutputStream.write(fileArray.readAllBytes());
+        bytArrayOutputStream.write(fileArray.read());
         return bytArrayOutputStream.toByteArray();
     }
 

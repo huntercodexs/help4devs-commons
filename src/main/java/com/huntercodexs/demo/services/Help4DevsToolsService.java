@@ -63,6 +63,14 @@ public class Help4DevsToolsService {
         }
     }
 
+    public static void traceLog(String... inputs) {
+        if (log.isTraceEnabled()) {
+            for (String text : inputs) {
+                log.trace(text);
+            }
+        }
+    }
+
     public static void debugLog(String... inputs) {
         if (log.isDebugEnabled()) {
             for (String text : inputs) {

@@ -3,9 +3,9 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsChallengeService.isPangram;
+import static com.huntercodexs.demo.services.Help4DevsHackerRankService.isPangram;
 
-public class Help4DevsChallengeUnitaryTests extends Help4DevsBridgeTests {
+public class Help4DevsHackerRankUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pangramsTest() {
