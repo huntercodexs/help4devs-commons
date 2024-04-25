@@ -62,8 +62,33 @@ public enum DataMasked {
         this.repeat = repeat;
     }
 
+    private static String defaultMask(String input, DataMasked dataMasked) {
+        switch (dataMasked.name()) {
+            case "CARD_NUMBER_MASK":
+                return repeat("0", 16);
+            case "CPF_NUMBER_MASK":
+                return repeat("0", 11);
+            case "CNPJ_NUMBER_MASK":
+                return repeat("0", 14);
+            case "RG_NUMBER_SSPSP_MASK":
+                return repeat("0", 9);
+            case "EMAIL_ADDRESS_MASK":
+                return "******@*mail.com";
+            case "PHONE_NUMBER_MASK":
+                return repeat("0", 13);
+            case "GENERIC_MASK":
+                return repeat("*", 8);
+            default:
+                throw new RuntimeException("Wrong Data Mask Name");
+        }
+    }
+
     public static String dataMasked(String data, String mask, DataMasked dataMasked) {
         if (mask.isEmpty()) mask = "*";
+
+        if (data == null || data.isEmpty()) {
+            data = defaultMask(data, dataMasked);
+        }
 
         if (dataMasked.name().equals("PHONE_NUMBER_MASK")) {
             data = data.replaceAll("[^0-9]", "");
