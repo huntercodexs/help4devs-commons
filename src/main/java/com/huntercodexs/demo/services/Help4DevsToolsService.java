@@ -57,6 +57,14 @@ public class Help4DevsToolsService {
         }
     }
 
+    public static void warnLog(String... inputs) {
+        if (log.isWarnEnabled()) {
+            for (String text : inputs) {
+                log.warn(text);
+            }
+        }
+    }
+
     public static void errLog(String... inputs) {
         for (String text : inputs) {
             log.error(text);

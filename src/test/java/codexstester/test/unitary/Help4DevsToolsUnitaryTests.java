@@ -45,6 +45,18 @@ public class Help4DevsToolsUnitaryTests extends Help4DevsBridgeTests {
         codexsHelperLogTerm("CHECK BCRYPT", match, true);
     }
 
+    /**
+     * @implNote Make sure the log42j.xml is correctly set to execute this test successfully
+     * */
+    @Test
+    public void logLeveTest() {
+        errLog("ERROR TEST"); /*[ERROR]*/
+        warnLog("WARN TEST"); /*[ERROR, WARN]*/
+        infoLog("INFO TEST"); /*[ERROR, INFO, WARN]*/
+        debugLog("DEBUG TEST"); /*[ERROR, INFO, DEBUG, WARN]*/
+        traceLog("TRACE TEST"); /*[ERROR, INFO, DEBUG, TRACE, WARN]*/
+    }
+
     @Test
     public void infoLogTest() {
         infoLog("This is a infoLog", "This is a infoLog");
