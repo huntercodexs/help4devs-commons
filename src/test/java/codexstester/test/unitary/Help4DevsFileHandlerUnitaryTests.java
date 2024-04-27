@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
+import static com.huntercodexs.demo.services.Help4DevsFileReaderService.exists;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
@@ -112,6 +113,15 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
     public void fileInputStreamTest() throws IOException {
         String stream = fileInputStream("src/test/resources/help4devs/file.txt");
         stdout(stream);
+    }
+
+    @Test
+    public void existsTest() {
+        if (exists("/home/jereelton/logs/.lock")) {
+            stdout("LOG NOT ALLOWED");
+        } else {
+            stdout("LOG ALLOWED");
+        }
     }
 
 }

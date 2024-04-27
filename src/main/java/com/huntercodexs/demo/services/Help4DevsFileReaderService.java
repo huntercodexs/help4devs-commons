@@ -3,16 +3,24 @@ package com.huntercodexs.demo.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.errLog;
 
 @Slf4j
 @Service
 public class Help4DevsFileReaderService {
+
+    public static boolean exists(String filepath) {
+        try {
+            File file = new File(filepath);
+            return file.exists();
+        } catch (Exception e) {
+            errLog(e.getMessage());
+            return false;
+        }
+    }
 
     public static FileReader open(String filepath) {
 
