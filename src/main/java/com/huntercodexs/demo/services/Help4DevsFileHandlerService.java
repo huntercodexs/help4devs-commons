@@ -1,6 +1,7 @@
 package com.huntercodexs.demo.services;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -102,6 +103,11 @@ public class Help4DevsFileHandlerService {
             throw new RuntimeException("FILE READER EXCEPTION: " + e.getMessage());
         }
 
+    }
+
+    public static String fileInputStream(String path) throws IOException {
+        FileInputStream fis = new FileInputStream(path);
+        return IOUtils.toString(fis, StandardCharsets.UTF_8);
     }
 
 }

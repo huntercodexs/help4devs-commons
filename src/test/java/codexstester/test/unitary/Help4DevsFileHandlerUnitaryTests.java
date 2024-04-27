@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
 
@@ -105,6 +106,12 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
     public void fileToArrayTest() throws IOException {
         ArrayList<String> result = fileToArray("./src/test/resources/help4devs/", "external.tests.properties");
         System.out.println("RESULT IS: " + result);
+    }
+
+    @Test
+    public void fileInputStreamTest() throws IOException {
+        String stream = fileInputStream("src/test/resources/help4devs/file.txt");
+        stdout(stream);
     }
 
 }
