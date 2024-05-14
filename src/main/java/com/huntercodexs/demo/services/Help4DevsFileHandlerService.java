@@ -110,4 +110,14 @@ public class Help4DevsFileHandlerService {
         return IOUtils.toString(fis, StandardCharsets.UTF_8);
     }
 
+    public static byte[] byteFile(String filenamePath) throws IOException {
+        FileInputStream fis = new FileInputStream(filenamePath);
+        return IOUtils.toByteArray(fis);
+    }
+
+    public static String binFile(String filenamePath) throws IOException {
+        FileInputStream fis = new FileInputStream(filenamePath);
+        return new String(IOUtils.toByteArray(fis), StandardCharsets.UTF_8);
+    }
+
 }

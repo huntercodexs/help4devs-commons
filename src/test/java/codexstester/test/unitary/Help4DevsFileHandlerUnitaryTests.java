@@ -7,6 +7,7 @@ import javax.mail.util.ByteArrayDataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
@@ -113,6 +114,16 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
     public void fileInputStreamTest() throws IOException {
         String stream = fileInputStream("src/test/resources/help4devs/file.txt");
         stdout(stream);
+    }
+
+    @Test
+    public void byteFileTest() throws IOException {
+        System.out.println(Arrays.toString(byteFile("src/test/resources/help4devs/images/file2.jpg")));
+    }
+
+    @Test
+    public void binFileTest() throws IOException {
+        System.out.println(binFile("src/test/resources/help4devs/images/11-pdf/file.pdf"));
     }
 
     @Test
