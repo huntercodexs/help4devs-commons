@@ -24,6 +24,10 @@ public class Help4DevsMathUnitaryTests extends Help4DevsBridgeTests {
 
     }
 
+    @Test
+    public void xorTest() {
+    }
+
 }
 
 

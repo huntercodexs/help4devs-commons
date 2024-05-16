@@ -335,24 +335,70 @@ public class Help4DevsImageService {
         return new String(Base64.getDecoder().decode(encodedImage));
     }
 
+    protected String[] arrayCodes(String returnCodes) {
+        return returnCodes.split("(?<=\\G.{2})");
+    }
+
     /**
      * @return String (Image Encrypted: Base64(AES-256-CBC))
-     * @implNote Encrypt one image from byte[] data using AES-256-CBC method
+     * @implNote Encrypt one image from byte[] data
      * @see <a href="https://github.com/huntercodexs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String imageEncrypted(byte[] byteImageToEncrypt, String secretKey, String salt) {
+    public static String imageEncrypted(
+            byte[] byteImageToEncrypt,
+            String secretKey,
+            String salt,
+            boolean blockChain
+    ) {
         System.out.println("Working on Image Encryption");
         long start = Calendar.getInstance().getTimeInMillis();
 
         String encode = imageEncode(byteImageToEncrypt);
-        String imageEncrypted = encryptAesCbc256(encode, secretKey, salt);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (blockChain) {
+
+            String[] blocks = encode.split("(?<=\\G.{" + IMAGE_BLOCK_SIZE + "})");
+
+            for (String block : blocks) {
+                try {
+                    stringBuilder
+                            .append(encryptAesCbc256(block, secretKey, salt))
+                            .append("\n");
+                } catch (Exception ex) {
+                    stringBuilder.append(encryptAesCbc256(block, secretKey, salt));
+                }
+            }
+            System.out.println("Blocks: " + blocks.length);
+
+            /*int cut = 0;
+            int encodeLength = encode.length();
+            int blocks = (int) Math.ceil((double) encodeLength / IMAGE_BLOCK_SIZE);
+
+            for (int n = 0; n < blocks; n++) {
+                try {
+                    stringBuilder
+                            .append(encryptAesCbc256(encode.substring(cut, cut + IMAGE_BLOCK_SIZE), secretKey, salt))
+                            .append("\n");
+                } catch (Exception ex) {
+                    stringBuilder.append(encryptAesCbc256(encode.substring(cut), secretKey, salt));
+                }
+                cut = cut + IMAGE_BLOCK_SIZE;
+            }
+            System.out.println("Blocks: " + blocks);*/
+
+            System.out.println("Blocks Size: " + IMAGE_BLOCK_SIZE + " bytes");
+
+        } else {
+            stringBuilder.append(encryptAesCbc256(encode, secretKey, salt));
+        }
 
         long time = ((Calendar.getInstance().getTimeInMillis() - start) / 1000);
         System.out.println("Elapsed Time: " + time + " seconds");
         System.out.println("Finishing Image Encryption");
 
-        return String.valueOf(imageEncrypted);
+        return String.valueOf(stringBuilder);
     }
 
     /**
@@ -361,16 +407,27 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String imageDecrypted(String base64ImageToDecrypt, String secretKey, String salt) {
+    public static String imageDecrypted(
+            String base64ImageToDecrypt,
+            String secretKey,
+            String salt,
+            boolean blockChain
+    ) {
         System.out.println("Working on Image Decryption");
         long start = Calendar.getInstance().getTimeInMillis();
 
-        String imageDecrypted = decryptAesCbc256(base64ImageToDecrypt, secretKey, salt);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (blockChain) {
+            stringBuilder.append("false");
+        } else {
+            stringBuilder.append(decryptAesCbc256(base64ImageToDecrypt, secretKey, salt));
+        }
 
         long time = ((Calendar.getInstance().getTimeInMillis() - start) / 1000);
         System.out.println("Finishing Image Decryption, elapsed time: " + time + " seconds");
 
-        return String.valueOf(imageDecrypted);
+        return String.valueOf(stringBuilder);
     }
 
     /**

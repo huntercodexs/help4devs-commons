@@ -8,14 +8,16 @@ import java.io.IOException;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.byteFile;
-import static com.huntercodexs.demo.services.Help4DevsImageService.ImageType.*;
 import static com.huntercodexs.demo.services.Help4DevsImageService.*;
+import static com.huntercodexs.demo.services.Help4DevsImageService.ImageType.*;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 
-    public static String path = "src/test/resources/help4devs/images";
+    private static final String path = "src/test/resources/help4devs/images";
+    private static final String key = "F1F2F3F4F5F6F7F8F9F00000";
+    private static final String salt = "1";
 
     @Test
     public void isAcceptedTest() {
@@ -318,4 +320,44 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
         stdout(imageDecode(imageEncode(byteFile(path + "/5-jpg/file1.jpg"))));
     }
 
+    @Test
+    public void imageEncryptedTest() throws IOException {
+        String imgEnc;
+        imgEnc = imageEncrypted(byteFile(path + "/1-bmp/file.bmp"), key, salt);
+        //stdout(imgEnc);
+        imgEnc = imageEncrypted(byteFile(path + "/2-gif/file.gif"), key, salt);
+        //stdout(imgEnc);
+        imgEnc = imageEncrypted(byteFile(path + "/3-png/file.png"), key, salt);
+        //stdout(imgEnc);
+        imgEnc = imageEncrypted(byteFile(path + "/3-png/file-sample-1.png"), key, salt);
+        //stdout(imgEnc);
+        imgEnc = imageEncrypted(byteFile(path + "/5-jpg/file1.jpg"), key, salt);
+        //stdout(imgEnc);
+    }
+
+    @Test
+    public void imageDecryptedTest() throws IOException {
+        String imgEnc;
+        String imgDec;
+
+        imgEnc = imageEncrypted(byteFile(path + "/1-bmp/file.bmp"), key, salt);
+        imgDec = imageDecrypted(imgEnc, key, salt);
+        //stdout(imgDec);
+
+        imgEnc = imageEncrypted(byteFile(path + "/2-gif/file.gif"), key, salt);
+        imgDec = imageDecrypted(imgEnc, key, salt);
+        //stdout(imgDec);
+
+        imgEnc = imageEncrypted(byteFile(path + "/3-png/file.png"), key, salt);
+        imgDec = imageDecrypted(imgEnc, key, salt);
+        //stdout(imgDec);
+
+        imgEnc = imageEncrypted(byteFile(path + "/3-png/file-sample-1.png"), key, salt);
+        imgDec = imageDecrypted(imgEnc, key, salt);
+        //stdout(imgDec);
+
+        imgEnc = imageEncrypted(byteFile(path + "/5-jpg/file1.jpg"), key, salt);
+        imgDec = imageDecrypted(imgEnc, key, salt);
+        //stdout(imgDec);
+    }
 }

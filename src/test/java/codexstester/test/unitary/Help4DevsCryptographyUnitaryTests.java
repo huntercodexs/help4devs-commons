@@ -48,7 +48,7 @@ public class Help4DevsCryptographyUnitaryTests extends Help4DevsBridgeTests {
     public void decrypt3DesEdeTest() throws Exception {
         String encrypted = "k4ksamLyPl+YhK0HafiFd2mbz0pt7DjvWqBX2ogtn6tPwpOfJ3m2IlmXsPSAwF+k12Poe0VUPQU=";
         String secretKey = "F1F2F3F4F5F6F7F8F9F00000"; /*Must have 24 bytes*/
-        String decrypted = decrypt3DedEde(encrypted, secretKey);
+        String decrypted = decrypt3DesEde(encrypted, secretKey);
 
         codexsHelperLogTerm("SECRET MESSAGE ENCRYPTED", encrypted, true);
         codexsHelperLogTerm("DECRYPTED 3DES-EDE" , decrypted, true);

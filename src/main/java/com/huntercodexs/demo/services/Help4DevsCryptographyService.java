@@ -99,7 +99,7 @@ public class Help4DevsCryptographyService {
         }
     }
 
-    public static String decrypt3DedEde(String inputCipher, String secretKey) {
+    public static String decrypt3DesEde(String inputCipher, String secretKey) {
         try {
 
             byte[] arrayBytes = secretKey.getBytes(StandardCharsets.UTF_8);
