@@ -360,4 +360,21 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
         imgDec = imageDecrypted(imgEnc, key, salt);
         //stdout(imgDec);
     }
+
+    @Test
+    public void imageToMatrixTest() throws IOException {
+        String imgEnc;
+        imgEnc = imageToMatrix(byteFile(path + "/1-bmp/file.bmp"), 10);
+        //stdout(imgEnc);
+        imgEnc = imageToMatrix(byteFile(path + "/2-gif/file.gif"), 5);
+        //stdout(imgEnc);
+        imgEnc = imageToMatrix(byteFile(path + "/3-png/file.png"), 5);
+        //stdout(imgEnc);
+        imgEnc = imageToMatrix(byteFile(path + "/3-png/file-sample-1.png"), 20);
+        //stdout(imgEnc);
+        imgEnc = imageToMatrix(byteFile(path + "/5-jpg/file1.jpg"), 5);
+        //stdout(imgEnc);
+        imgEnc = imageToMatrix(byteFile(path + "/5-jpg/file-sample-1.jpg"), 10);
+        //stdout(imgEnc);
+    }
 }

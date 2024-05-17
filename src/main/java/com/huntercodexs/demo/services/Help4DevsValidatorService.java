@@ -104,7 +104,7 @@ public class Help4DevsValidatorService {
     }
 
     public static boolean cardNumberValidator(String cardNumber) {
-        /*NOTA: Esse validator nao considera a mascara de cartoes das bandeiras: VISA, Mastercard, CIELO,...*/
+        /*NOTE: This validator does not consider the card mask of the brands: VISA, Mastercard, CIELO,...*/
         return (cardNumber.matches("[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}"));
     }
 

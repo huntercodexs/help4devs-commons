@@ -46,6 +46,18 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
         System.out.println("RESULT IS: " + result);
     }
 
+    @Test
+    public void sanitizeAsciiTest() {
+        String result = sanitizeAscii("Teste com acentuação é inevital !", "upper");
+        System.out.println("RESULT IS: " + result);
+
+        result = sanitizeAscii("Teste com acentuação é inevital !", "lower");
+        System.out.println("RESULT IS: " + result);
+
+        result = sanitizeAscii("Teste com acentuação é inevital !", null);
+        System.out.println("RESULT IS: " + result);
+    }
+
 }
 
 

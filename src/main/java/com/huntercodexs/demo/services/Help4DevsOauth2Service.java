@@ -17,34 +17,6 @@ import java.util.List;
 @Service
 public class Help4DevsOauth2Service {
 
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    static class Oauth2ResponseTokenDto {
-        String access_token;
-        String refresh_token;
-        String scope;
-        String token_type;
-        String expires_in;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    static class Oauth2ResponseTokenCheckDto {
-        List<String> aud;
-        String user_name;
-        List<String> scope;
-        boolean active;
-        long exp;
-        List<String> authorities;
-        String client_id;
-    }
-
     private String urlOauth2Token;
     private String urlOauth2CheckToken;
     private String clientId;
@@ -155,6 +127,34 @@ public class Help4DevsOauth2Service {
             return response.getBody().isActive();
         }
         return false;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    static class Oauth2ResponseTokenDto {
+        String access_token;
+        String refresh_token;
+        String scope;
+        String token_type;
+        String expires_in;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    static class Oauth2ResponseTokenCheckDto {
+        List<String> aud;
+        String user_name;
+        List<String> scope;
+        boolean active;
+        long exp;
+        List<String> authorities;
+        String client_id;
     }
 
 }

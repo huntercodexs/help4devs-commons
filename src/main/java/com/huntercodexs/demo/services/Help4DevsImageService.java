@@ -30,7 +30,6 @@ public class Help4DevsImageService {
 
     private static final int KEY_LENGTH = 256;
     private static final int ITERATION_COUNT = 65536;
-    private static final int IMAGE_BLOCK_SIZE = 128;
 
     private static String encryptAesCbc256(String strToEncrypt, String secretKey, String salt) {
         try {
@@ -161,7 +160,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Simulate one image length in bytes from an Integer value
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String simulateCalculateBytesTest(int bytesLength) {
@@ -171,7 +170,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Simulate one image length in kilobytes from an Integer value
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String simulateCalculateKilobytesTest(int bytesLength) {
@@ -181,7 +180,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Simulate one image length in megabytes from an Integer value
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String simulateCalculateMegabytesTest(int bytesLength) {
@@ -191,7 +190,7 @@ public class Help4DevsImageService {
     /**
      * @return boolean
      * @implNote Check if the image is in the accepted formats
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean isAnAcceptedImage(String imageType) {
@@ -206,7 +205,7 @@ public class Help4DevsImageService {
     /**
      * @return boolean
      * @implNote Check if the current file is really a valid image
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean isAnImage(byte[] image) {
@@ -222,7 +221,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Type)
      * @implNote Get the type of image from a byte source
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageType(byte[] byteImage) {
@@ -235,7 +234,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Type)
      * @implNote Get the type of image from string source
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageType(String binaryImage) {
@@ -248,7 +247,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Format)
      * @implNote Get the image format from byte[] image (same that imageType)
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageFormat(byte[] image) throws IOException {
@@ -267,7 +266,7 @@ public class Help4DevsImageService {
     /**
      * @return Dimension (Image Dimension)
      * @implNote Get the image size (height x width) from byte[] image
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static Dimension imageDimension(byte[] image) throws IOException {
@@ -291,7 +290,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Get the image length in {"bytes", "kilobytes", "megabytes"} from byte[] image
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageSize(byte[] image) {
@@ -318,7 +317,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image File encoded in Base64)
      * @implNote Encode an image in base64 format from a byte data source
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageEncode(byte[] imageToEncode) {
@@ -328,7 +327,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image File Binary)
      * @implNote Decode data from a string bas64 data source
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageDecode(String encodedImage) {
@@ -338,7 +337,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Encrypted: Base64(AES-256-CBC))
      * @implNote Encrypt one image from byte[] data using AES-256-CBC method
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageEncrypted(byte[] byteImageToEncrypt, String secretKey, String salt) {
@@ -358,7 +357,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Decrypted: Base64())
      * @implNote Decrypt on image from String data (previously encrypted with imageEncrypted method)
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageDecrypted(String base64ImageToDecrypt, String secretKey, String salt) {
@@ -376,37 +375,43 @@ public class Help4DevsImageService {
     /**
      * @return
      * @implNote
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageRotate() {
+    public static String imageToMatrix(byte[] byteImageToMatrix, int matrixSize) {
+        String encode = imageEncode(byteImageToMatrix);
+        int encodeLength = encode.length();
+        int adjustment = encodeLength % matrixSize;
+        int bytesLength = (encodeLength+adjustment) / matrixSize;
+        String[] blocks = encode.split("(?<=\\G.{" + bytesLength + "})");
+
+        System.out.println("#########################################################################################");
+        System.out.println("IMAGE TO MATRIX DETAILS");
+        System.out.println("#########################################################################################");
+        System.out.println("TYPE: " + imageType(byteImageToMatrix));
+        System.out.println("SIZE: " + imageSize(byteImageToMatrix));
+        System.out.println("CALC: " + encodeLength+"/"+matrixSize+"="+bytesLength);
+        System.out.println("FIXE: " + adjustment);
+        System.out.println("BLOC: " + blocks.length);
+        System.out.println("LAST: " + blocks[blocks.length-1].substring(0, adjustment));
+
+        return null;
+    }
+
+    /**
+     * @return
+     * @implNote
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static void imageFromMatrix(String base64ImageFromMatrix) {
 
     }
 
     /**
      * @return
      * @implNote
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
-     * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void imageFlip() {
-
-    }
-
-    /**
-     * @return
-     * @implNote
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
-     * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void imageCrop() {
-
-    }
-
-    /**
-     * @return
-     * @implNote
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static void imageResize() {
@@ -416,33 +421,41 @@ public class Help4DevsImageService {
     /**
      * @return
      * @implNote
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageToMatrix() {
+    public static void imageRotate() {
 
     }
 
     /**
      * @return
      * @implNote
-     * @see <a href="https://github.com/huntercodexs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageFromMatrix() {
+    public static void imageFlip() {
 
     }
 
-    @Getter
-    @Setter
-    public static class Dimension {
-        int width;
-        int height;
+    /**
+     * @return
+     * @implNote
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static void imageCrop() {
 
-        public Dimension(int width, int height) {
-            this.width = width;
-            this.height = height;
-        }
+    }
+
+    /**
+     * @return
+     * @implNote
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static void imageClone() {
+
     }
 
     @Getter
@@ -465,6 +478,18 @@ public class Help4DevsImageService {
         ImageType(boolean accepted, String description) {
             this.accepted = accepted;
             this.description = description;
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class Dimension {
+        int width;
+        int height;
+
+        public Dimension(int width, int height) {
+            this.width = width;
+            this.height = height;
         }
     }
 
