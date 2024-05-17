@@ -49,6 +49,7 @@ public class Help4DevsDataRandomService {
 
     public static String randomId(String prefix) {
         sleep();
+        if (prefix == null) prefix = "";
         return prefix+(randomNumber(6));
     }
 
