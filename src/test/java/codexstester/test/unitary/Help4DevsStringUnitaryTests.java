@@ -4,7 +4,9 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 
+import static com.huntercodexs.demo.services.Help4DevsDataRandomService.randomCardNumber;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 
@@ -56,6 +58,11 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 
         result = sanitizeAscii("Teste com acentuação é inevital !", null);
         System.out.println("RESULT IS: " + result);
+    }
+
+    @Test
+    public void queryExtractorTest() {
+        stdout(queryExtractor(randomCardNumber("-"), 15, 19));
     }
 
 }

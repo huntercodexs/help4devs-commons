@@ -100,4 +100,11 @@ public class Help4DevsStringHandlerService {
         }
     }
 
+    public static String queryExtractor(String input, int begin, int end) {
+        if (begin > input.length() || end > input.length()) {
+            return input;
+        }
+        return input.substring(begin, end);
+    }
+
 }
