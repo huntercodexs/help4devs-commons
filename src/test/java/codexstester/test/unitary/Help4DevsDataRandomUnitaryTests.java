@@ -157,4 +157,14 @@ public class Help4DevsDataRandomUnitaryTests extends Help4DevsBridgeTests {
             }
         }
     }
+
+    @Test
+    public void randomDateTest() {
+        stdout(randomDate());
+    }
+
+    @Test
+    public void randomDateTimeTest() {
+        stdout(randomDateTime());
+    }
 }

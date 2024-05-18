@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
@@ -147,6 +149,18 @@ public class Help4DevsDataRandomService {
         String cnpjThousandInverted = "0001";
         int cnpjDigitNumber = randomNumber(2);
         return cnpjInitialNumber+"."+cnpjParts[0]+"."+cnpjParts[1]+"/"+cnpjThousandInverted+"-"+cnpjDigitNumber;
+    }
+
+    public static String randomDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+        LocalDateTime dateTimeNow = LocalDateTime.now().minusYears(randomNumber(1));
+        return dateTimeNow.format(formatter);
+    }
+
+    public static String randomDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+        LocalDateTime dateTimeNow = LocalDateTime.now().minusMinutes(randomNumber(3)).minusYears(randomNumber(1));
+        return dateTimeNow.format(formatter);
     }
 
 }
