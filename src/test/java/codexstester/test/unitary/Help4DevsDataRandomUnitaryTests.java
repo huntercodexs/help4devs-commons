@@ -31,6 +31,49 @@ public class Help4DevsDataRandomUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void randomMoneyTest() {
+        int control = 0;
+        while (control < 5) {
+            try {
+                Thread.sleep(1000);
+                stdout("REAL R$");
+                stdout(randomMoney(1, "real")); /*dollar, euro, real*/
+                stdout(randomMoney(2, "real"));
+                stdout(randomMoney(3, "real"));
+                stdout(randomMoney(4, "real"));
+                stdout(randomMoney(5, "real"));
+                stdout(randomMoney(6, "real"));
+                stdout(randomMoney(7, "real"));
+                stdout(randomMoney(8, "real"));
+                stdout(randomMoney(9, "real"));
+                stdout("DOLLAR $$");
+                stdout(randomMoney(1, "dollar")); /*dollar, euro, real*/
+                stdout(randomMoney(2, "dollar"));
+                stdout(randomMoney(3, "dollar"));
+                stdout(randomMoney(4, "dollar"));
+                stdout(randomMoney(5, "dollar"));
+                stdout(randomMoney(6, "dollar"));
+                stdout(randomMoney(7, "dollar"));
+                stdout(randomMoney(8, "dollar"));
+                stdout(randomMoney(9, "dollar"));
+                stdout("EURO €");
+                stdout(randomMoney(1, "euro")); /*dollar, euro, real*/
+                stdout(randomMoney(2, "euro"));
+                stdout(randomMoney(3, "euro"));
+                stdout(randomMoney(4, "euro"));
+                stdout(randomMoney(5, "euro"));
+                stdout(randomMoney(6, "euro"));
+                stdout(randomMoney(7, "euro"));
+                stdout(randomMoney(8, "euro"));
+                stdout(randomMoney(9, "euro"));
+                control += 1;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Test
     public void randomCardNumberTest() {
         codexsTesterAssertRegExp("[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}", randomCardNumber(" "));
         codexsTesterAssertRegExp("[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}", randomCardNumber(" "));

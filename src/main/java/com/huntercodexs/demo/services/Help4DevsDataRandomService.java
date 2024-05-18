@@ -10,6 +10,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
+import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.md5;
 
 @Slf4j
@@ -32,6 +33,25 @@ public class Help4DevsDataRandomService {
         }
         String randomNumber = (number + number).substring(0, digits);
         return Integer.parseInt(randomNumber);
+    }
+
+    public static String randomMoney(int digits, String currency) {
+        Date date = new Date();
+        String number = md5(String.valueOf(date.getTime())).replaceAll("[^0-9]", "");
+        if (number.startsWith("0")) {
+            number = String.valueOf(randomNumber(digits));
+        }
+
+        String value = (number + number).substring(0, digits);
+
+        switch (currency) {
+            case "real":
+                return currencyFormatReal(value);
+            case "euro":
+                return currencyFormatEuro(value, false);
+            default:
+                return currencyFormatDollar(value);
+        }
     }
 
     public static String randomCardNumber(String separator) {
