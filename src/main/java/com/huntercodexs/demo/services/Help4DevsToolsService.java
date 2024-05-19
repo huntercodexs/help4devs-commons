@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -90,6 +91,39 @@ public class Help4DevsToolsService {
     public static void stdout(String... inputs) {
         for (String text : inputs) {
             System.out.println(text);
+        }
+    }
+
+    public static void matrixPrinter(List<List<String>> matrix, int columnSize) {
+        if (columnSize == 1) {
+            System.out.println("MATRIX PRINTER SAY: ERROR MATRIX IS NOT A MATRIX (1X1)");
+            return;
+        }
+
+        System.out.println("[MATRIX PRINTER]");
+        for (List<String> line : matrix) {
+            System.out.print("[");
+            int columnCounter = 0;
+
+            for (String column : line) {
+
+                if (columnSize > 1) {
+                    if (columnCounter < line.size()-1) {
+                        System.out.print(column.substring(0, columnSize) + ", ");
+                    } else {
+                        System.out.print(column.substring(0, columnSize));
+                    }
+                } else {
+                    if (columnCounter < line.size()-1) {
+                        System.out.print(column + ", ");
+                    } else {
+                        System.out.print(column);
+                    }
+                }
+
+                columnCounter++;
+            }
+            System.out.println("]");
         }
     }
 }

@@ -5,12 +5,14 @@ import com.huntercodexs.demo.services.Help4DevsImageService;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.byteFile;
 import static com.huntercodexs.demo.services.Help4DevsImageService.*;
 import static com.huntercodexs.demo.services.Help4DevsImageService.ImageType.*;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.matrixPrinter;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
@@ -363,18 +365,42 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void imageToMatrixTest() throws IOException {
-        String imgEnc;
-        imgEnc = imageToMatrix(byteFile(path + "/1-bmp/file.bmp"), 10);
-        //stdout(imgEnc);
-        imgEnc = imageToMatrix(byteFile(path + "/2-gif/file.gif"), 5);
-        //stdout(imgEnc);
-        imgEnc = imageToMatrix(byteFile(path + "/3-png/file.png"), 5);
-        //stdout(imgEnc);
-        imgEnc = imageToMatrix(byteFile(path + "/3-png/file-sample-1.png"), 20);
-        //stdout(imgEnc);
-        imgEnc = imageToMatrix(byteFile(path + "/5-jpg/file1.jpg"), 5);
-        //stdout(imgEnc);
-        imgEnc = imageToMatrix(byteFile(path + "/5-jpg/file-sample-1.jpg"), 10);
-        //stdout(imgEnc);
+        List<List<String>> imageToMatrix;
+        imageToMatrix = imageToMatrix(byteFile(path + "/1-bmp/file.bmp"), 10);
+        matrixPrinter(imageToMatrix, 3);
+        imageToMatrix = imageToMatrix(byteFile(path + "/2-gif/file.gif"), 5);
+        matrixPrinter(imageToMatrix, 3);
+        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file.png"), 5);
+        matrixPrinter(imageToMatrix, 3);
+        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file-sample-1.png"), 20);
+        matrixPrinter(imageToMatrix, 3);
+        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file1.jpg"), 5);
+        matrixPrinter(imageToMatrix, 3);
+        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file-sample-1.jpg"), 10);
+        matrixPrinter(imageToMatrix, 3);
+    }
+
+    @Test
+    public void imageFromMatrixTest() throws IOException {
+        List<List<String>> imageToMatrix;
+
+        imageToMatrix = imageToMatrix(byteFile(path + "/1-bmp/file.bmp"), 10);
+        stdout(imageFromMatrix(imageToMatrix));
+
+        imageToMatrix = imageToMatrix(byteFile(path + "/2-gif/file.gif"), 5);
+        stdout(imageFromMatrix(imageToMatrix));
+
+        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file.png"), 5);
+        stdout(imageFromMatrix(imageToMatrix));
+
+        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file-sample-1.png"), 20);
+        stdout(imageFromMatrix(imageToMatrix));
+
+        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file1.jpg"), 5);
+        stdout(String.valueOf(imageToMatrix));
+        stdout(imageFromMatrix(imageToMatrix));
+
+        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file-sample-1.jpg"), 10);
+        stdout(imageFromMatrix(imageToMatrix));
     }
 }

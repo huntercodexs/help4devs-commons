@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Iterator;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -373,29 +371,62 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return
-     * @implNote
+     * @return List<List<String>> (Image Matrix: Base64)
+     * @implNote This method convert an image file (from bytes) in one matrix with base64 values
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     */
+    public static List<List<String>> imageToMatrix(byte[] byteImageToMatrix, int matrixSize) {
+        if (matrixSize <= 1) {
+            return null;
+        }
+
+        String encode = imageEncode(byteImageToMatrix);
+        int encodeLength = encode.length();
+        int bytesLength = (encodeLength+matrixSize) / matrixSize;
+        String[] lines = encode.split("(?<=\\G.{" + bytesLength + "})");
+
+        List<List<String>> imageMatrix = new ArrayList<>();
+
+        for (String line : lines) {
+
+            List<String> matrixColumns = new ArrayList<>();
+
+            int lineLength = line.length();
+            int columnsLength = (lineLength+matrixSize) / matrixSize;
+            String[] columns = line.split("(?<=\\G.{" + columnsLength + "})");
+
+            Collections.addAll(matrixColumns, columns);
+
+            imageMatrix.add(matrixColumns);
+        }
+
+        return imageMatrix;
+    }
+
+    /**
+     * @return String (Image From Matrix: Base64)
+     * @implNote This method revert a conversion made by imageToMatrix method from this class
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String imageToMatrix(byte[] byteImageToMatrix, int matrixSize) {
-        String encode = imageEncode(byteImageToMatrix);
-        int encodeLength = encode.length();
-        int adjustment = encodeLength % matrixSize;
-        int bytesLength = (encodeLength+adjustment) / matrixSize;
-        String[] blocks = encode.split("(?<=\\G.{" + bytesLength + "})");
+    public static String imageFromMatrix(List<List<String>> imageMatrix) {
 
-        System.out.println("#########################################################################################");
-        System.out.println("IMAGE TO MATRIX DETAILS");
-        System.out.println("#########################################################################################");
-        System.out.println("TYPE: " + imageType(byteImageToMatrix));
-        System.out.println("SIZE: " + imageSize(byteImageToMatrix));
-        System.out.println("CALC: " + encodeLength+"/"+matrixSize+"="+bytesLength);
-        System.out.println("FIXE: " + adjustment);
-        System.out.println("BLOC: " + blocks.length);
-        System.out.println("LAST: " + blocks[blocks.length-1].substring(0, adjustment));
+        StringBuilder stringBuilder = new StringBuilder();
+        int matrixSize = imageMatrix.size();
 
-        return null;
+        for (List<String> matrixLine : imageMatrix) {
+            if (matrixLine.size() != matrixSize) {
+                throw new RuntimeException("WRONG MATRIX SIZE: " + matrixSize +"x"+ matrixLine.size());
+            }
+
+            for (String matrixColumn : matrixLine) {
+                stringBuilder.append(matrixColumn);
+            }
+
+        }
+
+        return String.valueOf(stringBuilder);
     }
 
     /**
@@ -404,7 +435,17 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageFromMatrix(String base64ImageFromMatrix) {
+    public static void imageCompact() {
+
+    }
+
+    /**
+     * @return
+     * @implNote
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static void imageExtract() {
 
     }
 
