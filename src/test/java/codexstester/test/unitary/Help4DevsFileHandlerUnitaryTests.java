@@ -135,6 +135,30 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
         }
     }
 
+    @Test
+    public void folderCreateTest() {
+        codexsTesterAssertBool(true, folderCreate("/home/jereelton/tmp/folder-created-from-java-tests"));
+    }
+
+    @Test
+    public void fileDeleteTest() {
+        codexsTesterAssertBool(true, fileDelete("/home/jereelton/tmp/folder-created-from-java-tests"));
+    }
+
+    @Test
+    public void fileMoveTest() {
+        codexsTesterAssertBool(true, fileMove(
+                "/home/jereelton/tmp/folder-created-from-java-tests",
+                "/home/jereelton/tmp/folder-moved-from-java-tests"));
+    }
+
+    @Test
+    public void fileWriterTest() {
+        String textTest = "This is only a test!\n";
+        byte[] bytes = textTest.getBytes();
+        codexsTesterAssertBool(true, fileWriter(bytes,"/home/jereelton/tmp/file-tests.txt"));
+    }
+
 }
 
 

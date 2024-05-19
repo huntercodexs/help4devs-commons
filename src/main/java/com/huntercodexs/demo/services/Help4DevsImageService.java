@@ -430,6 +430,16 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @return boolean
+     * @implNote Save data image in disk from memory
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static boolean imageSave() {
+        return false;
+    }
+
+    /**
      * @return
      * @implNote
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>

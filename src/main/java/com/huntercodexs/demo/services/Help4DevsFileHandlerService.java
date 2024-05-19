@@ -120,4 +120,74 @@ public class Help4DevsFileHandlerService {
         return new String(IOUtils.toByteArray(fis), StandardCharsets.UTF_8);
     }
 
+    public static boolean folderCreate(String path) {
+        try {
+
+            File file = new File(path);
+
+            if (file.mkdirs()) {
+                return true;
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException("EXCEPTION: Folder not created: " + ex.getMessage());
+        }
+
+        System.out.println("ERROR: Folder not created: " + path);
+        return false;
+    }
+
+    public static boolean fileDelete(String path) {
+        try {
+
+            File file = new File(path);
+
+            if (file.exists()) {
+                if (file.delete()) {
+                    return true;
+                }
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException("EXCEPTION: File not deleted: " + ex.getMessage());
+        }
+
+        System.out.println("ERROR: File not deleted: " + path);
+        return false;
+    }
+
+    public static boolean fileMove(String path, String newPath) {
+        try {
+
+            File file = new File(path);
+            File newFile = new File(newPath);
+
+            if (file.exists()) {
+                if (file.renameTo(newFile)) {
+                    return true;
+                }
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException("EXCEPTION: File not moved: " + ex.getMessage());
+        }
+
+        System.out.println("ERROR: File not moved: " + path);
+        return false;
+    }
+
+    public static boolean fileWriter(byte[] data, String path) {
+        try {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
+            fileOutputStream.write(data);
+            fileOutputStream.close();
+
+        } catch (Exception ex) {
+            throw new RuntimeException("ERROR: Is not possible to write in the file: " + ex.getMessage());
+        }
+
+        return true;
+    }
+
 }

@@ -24,9 +24,7 @@ public class Help4DevsFileReaderService {
 
     public static FileReader open(String filepath) {
 
-        System.out.println("[INFO] >> Opening file: " + filepath);
-
-        FileReader activateFile = null;
+        FileReader activateFile;
 
         try {
             activateFile = new FileReader(filepath);
@@ -42,7 +40,7 @@ public class Help4DevsFileReaderService {
     }
 
     public static String reader(BufferedReader readActivateFile) throws InterruptedException {
-        String lineFile = "";
+        String lineFile;
 
         try {
             Thread.sleep(1000);
