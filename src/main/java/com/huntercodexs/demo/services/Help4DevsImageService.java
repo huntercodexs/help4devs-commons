@@ -3,6 +3,7 @@ package com.huntercodexs.demo.services;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
@@ -15,8 +16,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
@@ -153,6 +153,25 @@ public class Help4DevsImageService {
             return calculateResult(size.split("\\."), "MB");
         }
         return null;
+    }
+
+    private static byte[] byteFile(String filenamePath) throws IOException {
+        FileInputStream fis = new FileInputStream(filenamePath);
+        return IOUtils.toByteArray(fis);
+    }
+
+    private static boolean fileWriter(byte[] data, String path) {
+        try {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
+            fileOutputStream.write(data);
+            fileOutputStream.close();
+
+        } catch (Exception ex) {
+            throw new RuntimeException("[EXCEPTION] Is not possible to write in the file: " + ex.getMessage());
+        }
+
+        return true;
     }
 
     /**
@@ -431,12 +450,37 @@ public class Help4DevsImageService {
 
     /**
      * @return boolean
-     * @implNote Save data image in disk from memory
+     * @implNote Save data image in disk from memory (Bytes -> Base64)
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static boolean imageSave() {
-        return false;
+    public static boolean imageSave(String filenamePath, byte[] data) {
+        try {
+            ImageFileWriter imageFileWriter = new ImageFileWriter();
+            imageFileWriter.fileCreate(filenamePath);
+            imageFileWriter.fileWrite(imageEncode(data));
+            imageFileWriter.fileClose();
+            return true;
+        } catch (IOException e) {
+            throw new RuntimeException("[EXCEPTION] IMAGE SAVE: " + e.getMessage());
+        }
+    }
+
+    /**
+     * @return boolean
+     * @implNote
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static boolean imageCopy(String dataOrigin, String dataDestiny) {
+        try {
+            byte[] origin = byteFile(dataOrigin);
+            String imageType = imageType(origin);
+            String filenamePahFix = dataDestiny.split("\\.")[0]+"."+imageType;
+            return fileWriter(origin, filenamePahFix);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -499,16 +543,6 @@ public class Help4DevsImageService {
 
     }
 
-    /**
-     * @return
-     * @implNote
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
-     * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void imageClone() {
-
-    }
-
     @Getter
     public enum ImageType {
         BMP(true, "Bitmap"),
@@ -541,6 +575,39 @@ public class Help4DevsImageService {
         public Dimension(int width, int height) {
             this.width = width;
             this.height = height;
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class ImageFileWriter {
+
+        public BufferedWriter bufferedWriter;
+
+        public void fileCreate(String filepath) throws FileNotFoundException {
+            File file = new File(filepath);
+
+            if (file.exists()) {
+                if (!file.delete()) {
+                    System.out.println("ERROR: File Not deleted: " + filepath);
+                }
+            }
+
+            OutputStream os = new FileOutputStream(filepath, true);
+            Writer wr = new OutputStreamWriter(os);
+            this.bufferedWriter = new BufferedWriter(wr);
+        }
+
+        public void fileWrite(String data) {
+            try {
+                this.bufferedWriter.write(data);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public void fileClose() throws IOException {
+            this.bufferedWriter.close();
         }
     }
 

@@ -16,98 +16,100 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
 
+    private static final String pathImages = "src/test/resources/help4devs/images";
+
     @Test
     public void loadPropsTest() {
         Properties props = loadProps("classpath:application.properties");
-        System.out.println(props);
+        stdout(String.valueOf(props));
     }
 
     @Test
     public void bytesExtractorShipmentFileTest() throws IOException {
         InputStream result = bytesFileExtractor("./src/test/resources/help4devs/", "external.tests.properties");
-        System.out.println("RESULT IS: " + result);
+        stdout("RESULT IS: " + result);
     }
 
     @Test
     public void fileToByteArrayTest() throws IOException {
         InputStream result = fileToByteArray("./src/test/resources/help4devs/", "external.tests.properties");
-        System.out.println("RESULT IS: " + result);
+        stdout("RESULT IS: " + result);
     }
 
     @Test
     public void fileToDataSourceTest() throws IOException {
         ByteArrayDataSource result = fileToDataSource("./src/test/resources/help4devs/", "external.tests.properties");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(String.valueOf(result));
     }
 
     @Test
     public void fileToStringTest() throws IOException {
         String result = fileToString("./src/test/resources/help4devs/", "external.tests.properties");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringConfTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.conf");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringCsvTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.csv");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringDocTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.doc");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringJpgTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.jpg");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringPngTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.png");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringPdfTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.pdf");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringTxtTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.txt");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToStringXlsTest() throws IOException {
         String result = fileToString("./src/main/resources/", "attach.xls");
-        System.out.println("RESULT");
-        System.out.println(result);
+        stdout("RESULT");
+        stdout(result);
     }
 
     @Test
     public void fileToArrayTest() throws IOException {
         ArrayList<String> result = fileToArray("./src/test/resources/help4devs/", "external.tests.properties");
-        System.out.println("RESULT IS: " + result);
+        stdout("RESULT IS: " + result);
     }
 
     @Test
@@ -118,12 +120,17 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void byteFileTest() throws IOException {
-        System.out.println(Arrays.toString(byteFile("src/test/resources/help4devs/images/file2.jpg")));
+        stdout(Arrays.toString(byteFile("src/test/resources/help4devs/images/file2.jpg")));
+    }
+
+    @Test
+    public void ioFileTest() throws IOException {
+        stdout(ioFile(pathImages + "/5-jpg/file1.jpg"));
     }
 
     @Test
     public void binFileTest() throws IOException {
-        System.out.println(binFile("src/test/resources/help4devs/images/11-pdf/file.pdf"));
+        stdout(binFile("src/test/resources/help4devs/images/11-pdf/file.pdf"));
     }
 
     @Test
@@ -156,7 +163,7 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
     public void fileWriterTest() {
         String textTest = "This is only a test!\n";
         byte[] bytes = textTest.getBytes();
-        codexsTesterAssertBool(true, fileWriter(bytes,"/home/jereelton/tmp/file-tests.txt"));
+        codexsTesterAssertBool(true, fileWriter(bytes,"/home/jereelton/tmp/file-tests-2.txt"));
     }
 
 }

@@ -7,8 +7,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.byteFile;
+import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
 import static com.huntercodexs.demo.services.Help4DevsImageService.*;
 import static com.huntercodexs.demo.services.Help4DevsImageService.ImageType.*;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
@@ -17,7 +16,7 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 
-    private static final String path = "src/test/resources/help4devs/images";
+    private static final String pathImages = "src/test/resources/help4devs/images";
     private static final String key = "F1F2F3F4F5F6F7F8F9F00000";
     private static final String salt = "1";
 
@@ -38,20 +37,20 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void isImageTest() throws IOException {
-        boolean bmpResult = isAnImage(byteFile(path+"/1-bmp/file.bmp"));
-        boolean gifResult = isAnImage(byteFile(path+"/2-gif/file.gif"));
-        boolean pngResult = isAnImage(byteFile(path+"/3-png/file.png"));
-        boolean jpeg1Result = isAnImage(byteFile(path+"/4-jpeg/file1.jpeg"));
-        boolean jpeg2Result = isAnImage(byteFile(path+"/4-jpeg/file2.jpeg"));
-        boolean jpeg3Result = isAnImage(byteFile(path+"/4-jpeg/file3.jpeg"));
-        boolean jpg1Result = isAnImage(byteFile(path+"/5-jpg/file1.jpg"));
-        boolean jpg2Result = isAnImage(byteFile(path+"/5-jpg/file2.jpg"));
-        boolean tiffResult = isAnImage(byteFile(path+"/6-tiff/file.tiff"));
-        boolean psdResult = isAnImage(byteFile(path+"/7-psd/file.psd"));
-        boolean svgResult = isAnImage(byteFile(path+"/8-svg/file.svg"));
-        boolean webpResult = isAnImage(byteFile(path+"/9-webp/file.webp"));
-        boolean nefResult = isAnImage(byteFile(path+"/10-nef/file.NEF"));
-        boolean pdfResult = isAnImage(byteFile(path+"/11-pdf/file.pdf"));
+        boolean bmpResult = isAnImage(byteFile(pathImages +"/1-bmp/file.bmp"));
+        boolean gifResult = isAnImage(byteFile(pathImages +"/2-gif/file.gif"));
+        boolean pngResult = isAnImage(byteFile(pathImages +"/3-png/file.png"));
+        boolean jpeg1Result = isAnImage(byteFile(pathImages +"/4-jpeg/file1.jpeg"));
+        boolean jpeg2Result = isAnImage(byteFile(pathImages +"/4-jpeg/file2.jpeg"));
+        boolean jpeg3Result = isAnImage(byteFile(pathImages +"/4-jpeg/file3.jpeg"));
+        boolean jpg1Result = isAnImage(byteFile(pathImages +"/5-jpg/file1.jpg"));
+        boolean jpg2Result = isAnImage(byteFile(pathImages +"/5-jpg/file2.jpg"));
+        boolean tiffResult = isAnImage(byteFile(pathImages +"/6-tiff/file.tiff"));
+        boolean psdResult = isAnImage(byteFile(pathImages +"/7-psd/file.psd"));
+        boolean svgResult = isAnImage(byteFile(pathImages +"/8-svg/file.svg"));
+        boolean webpResult = isAnImage(byteFile(pathImages +"/9-webp/file.webp"));
+        boolean nefResult = isAnImage(byteFile(pathImages +"/10-nef/file.NEF"));
+        boolean pdfResult = isAnImage(byteFile(pathImages +"/11-pdf/file.pdf"));
 
         codexsTesterAssertBool(true, bmpResult);
         codexsTesterAssertBool(true, gifResult);
@@ -73,59 +72,59 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
     public void imageTypeTest() throws IOException {
 
         stdout("FILE BMP");
-        codexsTesterAssertText(BMP.name(), imageType(byteFile(path+"/1-bmp/file.bmp")));
+        codexsTesterAssertText(BMP.name(), imageType(byteFile(pathImages +"/1-bmp/file.bmp")));
         stdout(repeat("-", 120));
 
         stdout("FILE GIF");
-        codexsTesterAssertText(GIF.name(), imageType(byteFile(path+"/2-gif/file.gif")));
+        codexsTesterAssertText(GIF.name(), imageType(byteFile(pathImages +"/2-gif/file.gif")));
         stdout(repeat("-", 120));
 
         stdout("FILE PNG");
-        codexsTesterAssertText(PNG.name(), imageType(byteFile(path+"/3-png/file.png")));
+        codexsTesterAssertText(PNG.name(), imageType(byteFile(pathImages +"/3-png/file.png")));
         stdout(repeat("-", 120));
 
         stdout("FILE 1 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageType(byteFile(path+"/4-jpeg/file1.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageType(byteFile(pathImages +"/4-jpeg/file1.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 2 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageType(byteFile(path+"/4-jpeg/file2.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageType(byteFile(pathImages +"/4-jpeg/file2.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 3 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageType(byteFile(path+"/4-jpeg/file3.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageType(byteFile(pathImages +"/4-jpeg/file3.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 1 JPG");
-        codexsTesterAssertText(JPEG.name(), imageType(byteFile(path+"/5-jpg/file1.jpg")));
+        codexsTesterAssertText(JPEG.name(), imageType(byteFile(pathImages +"/5-jpg/file1.jpg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 2 JPG");
-        codexsTesterAssertText(JPG.name(), imageType(byteFile(path+"/5-jpg/file2.jpg")));
+        codexsTesterAssertText(JPG.name(), imageType(byteFile(pathImages +"/5-jpg/file2.jpg")));
         stdout(repeat("-", 120));
 
         stdout("FILE TIFF");
-        codexsTesterAssertText(TIFF.name(), imageType(byteFile(path+"/6-tiff/file.tiff")));
+        codexsTesterAssertText(TIFF.name(), imageType(byteFile(pathImages +"/6-tiff/file.tiff")));
         stdout(repeat("-", 120));
 
         stdout("FILE PSD");
-        codexsTesterAssertText(PSD.name(), imageType(byteFile(path+"/7-psd/file.psd")));
+        codexsTesterAssertText(PSD.name(), imageType(byteFile(pathImages +"/7-psd/file.psd")));
         stdout(repeat("-", 120));
 
         stdout("FILE SVG");
-        codexsTesterAssertText(SVG.name(), imageType(byteFile(path+"/8-svg/file.svg")));
+        codexsTesterAssertText(SVG.name(), imageType(byteFile(pathImages +"/8-svg/file.svg")));
         stdout(repeat("-", 120));
 
         stdout("FILE WEBP");
-        codexsTesterAssertText(WEBP.name(), imageType(byteFile(path+"/9-webp/file.webp")));
+        codexsTesterAssertText(WEBP.name(), imageType(byteFile(pathImages +"/9-webp/file.webp")));
         stdout(repeat("-", 120));
 
         stdout("FILE NEF");
-        codexsTesterAssertText(NEF.name(), imageType(byteFile(path+"/10-nef/file.NEF")));
+        codexsTesterAssertText(NEF.name(), imageType(byteFile(pathImages +"/10-nef/file.NEF")));
         stdout(repeat("-", 120));
 
         stdout("FILE PDF");
-        codexsTesterAssertText(PDF.name(), imageType(byteFile(path+"/11-pdf/file.pdf")));
+        codexsTesterAssertText(PDF.name(), imageType(byteFile(pathImages +"/11-pdf/file.pdf")));
         stdout(repeat("-", 120));
     }
 
@@ -133,59 +132,59 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
     public void imageTypeBinaryTest() throws IOException {
 
         stdout("FILE BMP");
-        codexsTesterAssertText(BMP.name(), imageType(binFile(path+"/1-bmp/file.bmp")));
+        codexsTesterAssertText(BMP.name(), imageType(binFile(pathImages +"/1-bmp/file.bmp")));
         stdout(repeat("-", 120));
 
         stdout("FILE GIF");
-        codexsTesterAssertText(GIF.name(), imageType(binFile(path+"/2-gif/file.gif")));
+        codexsTesterAssertText(GIF.name(), imageType(binFile(pathImages +"/2-gif/file.gif")));
         stdout(repeat("-", 120));
 
         stdout("FILE PNG");
-        codexsTesterAssertText(PNG.name(), imageType(binFile(path+"/3-png/file.png")));
+        codexsTesterAssertText(PNG.name(), imageType(binFile(pathImages +"/3-png/file.png")));
         stdout(repeat("-", 120));
 
         stdout("FILE 1 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageType(binFile(path+"/4-jpeg/file1.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageType(binFile(pathImages +"/4-jpeg/file1.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 2 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageType(binFile(path+"/4-jpeg/file2.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageType(binFile(pathImages +"/4-jpeg/file2.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 3 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageType(binFile(path+"/4-jpeg/file3.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageType(binFile(pathImages +"/4-jpeg/file3.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 1 JPG");
-        codexsTesterAssertText(JPEG.name(), imageType(binFile(path+"/5-jpg/file1.jpg")));
+        codexsTesterAssertText(JPEG.name(), imageType(binFile(pathImages +"/5-jpg/file1.jpg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 2 JPG");
-        codexsTesterAssertText(JPG.name(), imageType(binFile(path+"/5-jpg/file2.jpg")));
+        codexsTesterAssertText(JPG.name(), imageType(binFile(pathImages +"/5-jpg/file2.jpg")));
         stdout(repeat("-", 120));
 
         stdout("FILE TIFF");
-        codexsTesterAssertText(TIFF.name(), imageType(binFile(path+"/6-tiff/file.tiff")));
+        codexsTesterAssertText(TIFF.name(), imageType(binFile(pathImages +"/6-tiff/file.tiff")));
         stdout(repeat("-", 120));
 
         stdout("FILE PSD");
-        codexsTesterAssertText(PSD.name(), imageType(binFile(path+"/7-psd/file.psd")));
+        codexsTesterAssertText(PSD.name(), imageType(binFile(pathImages +"/7-psd/file.psd")));
         stdout(repeat("-", 120));
 
         stdout("FILE SVG");
-        codexsTesterAssertText(SVG.name(), imageType(binFile(path+"/8-svg/file.svg")));
+        codexsTesterAssertText(SVG.name(), imageType(binFile(pathImages +"/8-svg/file.svg")));
         stdout(repeat("-", 120));
 
         stdout("FILE WEBP");
-        codexsTesterAssertText(WEBP.name(), imageType(binFile(path+"/9-webp/file.webp")));
+        codexsTesterAssertText(WEBP.name(), imageType(binFile(pathImages +"/9-webp/file.webp")));
         stdout(repeat("-", 120));
 
         stdout("FILE NEF");
-        codexsTesterAssertText(NEF.name(), imageType(binFile(path+"/10-nef/file.NEF")));
+        codexsTesterAssertText(NEF.name(), imageType(binFile(pathImages +"/10-nef/file.NEF")));
         stdout(repeat("-", 120));
 
         stdout("FILE PDF");
-        codexsTesterAssertText(PDF.name(), imageType(binFile(path+"/11-pdf/file.pdf")));
+        codexsTesterAssertText(PDF.name(), imageType(binFile(pathImages +"/11-pdf/file.pdf")));
         stdout(repeat("-", 120));
     }
 
@@ -193,74 +192,74 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
     public void imageFormatTest() throws IOException {
 
         stdout("FILE BMP");
-        codexsTesterAssertText(BMP.name(), imageFormat(byteFile(path+"/1-bmp/file.bmp")));
+        codexsTesterAssertText(BMP.name(), imageFormat(byteFile(pathImages +"/1-bmp/file.bmp")));
         stdout(repeat("-", 120));
 
         stdout("FILE GIF");
-        codexsTesterAssertText(GIF.name(), imageFormat(byteFile(path+"/2-gif/file.gif")));
+        codexsTesterAssertText(GIF.name(), imageFormat(byteFile(pathImages +"/2-gif/file.gif")));
         stdout(repeat("-", 120));
 
         stdout("FILE PNG");
-        codexsTesterAssertText(PNG.name(), imageFormat(byteFile(path+"/3-png/file.png")));
+        codexsTesterAssertText(PNG.name(), imageFormat(byteFile(pathImages +"/3-png/file.png")));
         stdout(repeat("-", 120));
 
         stdout("FILE 1 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(path+"/4-jpeg/file1.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(pathImages +"/4-jpeg/file1.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 2 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(path+"/4-jpeg/file2.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(pathImages +"/4-jpeg/file2.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 3 JPEG");
-        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(path+"/4-jpeg/file3.jpeg")));
+        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(pathImages +"/4-jpeg/file3.jpeg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 1 JPG");
-        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(path+"/5-jpg/file1.jpg")));
+        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(pathImages +"/5-jpg/file1.jpg")));
         stdout(repeat("-", 120));
 
         stdout("FILE 2 JPG");
-        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(path+"/5-jpg/file2.jpg")));
+        codexsTesterAssertText(JPEG.name(), imageFormat(byteFile(pathImages +"/5-jpg/file2.jpg")));
         stdout(repeat("-", 120));
 
         stdout("FILE TIFF");
-        stdout(imageFormat(byteFile(path+"/6-tiff/file.tiff")));
+        stdout(imageFormat(byteFile(pathImages +"/6-tiff/file.tiff")));
         stdout(repeat("-", 120));
 
         stdout("FILE PSD");
-        stdout(imageFormat(byteFile(path+"/7-psd/file.psd")));
+        stdout(imageFormat(byteFile(pathImages +"/7-psd/file.psd")));
         stdout(repeat("-", 120));
 
         stdout("FILE SVG");
-        stdout(imageFormat(byteFile(path+"/8-svg/file.svg")));
+        stdout(imageFormat(byteFile(pathImages +"/8-svg/file.svg")));
         stdout(repeat("-", 120));
 
         stdout("FILE WEBP");
-        stdout(imageFormat(byteFile(path+"/9-webp/file.webp")));
+        stdout(imageFormat(byteFile(pathImages +"/9-webp/file.webp")));
         stdout(repeat("-", 120));
 
         stdout("FILE NEF");
-        stdout(imageFormat(byteFile(path+"/10-nef/file.NEF")));
+        stdout(imageFormat(byteFile(pathImages +"/10-nef/file.NEF")));
         stdout(repeat("-", 120));
 
         stdout("FILE PDF");
-        stdout(imageFormat(byteFile(path+"/11-pdf/file.pdf")));
+        stdout(imageFormat(byteFile(pathImages +"/11-pdf/file.pdf")));
         stdout(repeat("-", 120));
     }
 
     @Test
     public void imageDimensionTest() throws IOException {
-        Dimension dimensionBmp = imageDimension(byteFile(path+"/1-bmp/file.bmp"));
+        Dimension dimensionBmp = imageDimension(byteFile(pathImages +"/1-bmp/file.bmp"));
         codexsTesterAssertText("1419x1001", dimensionBmp.getWidth()+"x"+dimensionBmp.getHeight());
 
-        Dimension dimensionGif = imageDimension(byteFile(path+"/2-gif/file.gif"));
+        Dimension dimensionGif = imageDimension(byteFile(pathImages +"/2-gif/file.gif"));
         codexsTesterAssertText("320x320", dimensionGif.getWidth()+"x"+dimensionGif.getHeight());
 
-        Dimension dimensionPng = imageDimension(byteFile(path+"/3-png/file.png"));
+        Dimension dimensionPng = imageDimension(byteFile(pathImages +"/3-png/file.png"));
         codexsTesterAssertText("512x205", dimensionPng.getWidth()+"x"+dimensionPng.getHeight());
 
-        Dimension dimensionJpeg = imageDimension(byteFile(path+"/4-jpeg/file1.jpeg"));
+        Dimension dimensionJpeg = imageDimension(byteFile(pathImages +"/4-jpeg/file1.jpeg"));
         codexsTesterAssertText("273x184", dimensionJpeg.getWidth()+"x"+dimensionJpeg.getHeight());
     }
 
@@ -301,39 +300,39 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void imageSizeTest() throws IOException {
-        stdout("BMP  " + imageSize(byteFile(path+"/1-bmp/file.bmp")));
-        stdout("GIF  " + imageSize(byteFile(path+"/2-gif/file.gif")));
-        stdout("PNG  " + imageSize(byteFile(path+"/3-png/file.png")));
-        stdout("PNG  " + imageSize(byteFile(path+"/3-png/file-sample-1.png")));
-        stdout("JPEG " + imageSize(byteFile(path+"/4-jpeg/file1.jpeg")));
-        stdout("JPEG " + imageSize(byteFile(path+"/4-jpeg/file2.jpeg")));
-        stdout("JPEG " + imageSize(byteFile(path+"/4-jpeg/file3.jpeg")));
-        stdout("JPG " + imageSize(byteFile(path+"/5-jpg/file-sample-1.jpg")));
-        stdout("JPG " + imageSize(byteFile(path+"/5-jpg/file-sample-2.jpg")));
+        stdout("BMP  " + imageSize(byteFile(pathImages +"/1-bmp/file.bmp")));
+        stdout("GIF  " + imageSize(byteFile(pathImages +"/2-gif/file.gif")));
+        stdout("PNG  " + imageSize(byteFile(pathImages +"/3-png/file.png")));
+        stdout("PNG  " + imageSize(byteFile(pathImages +"/3-png/file-sample-1.png")));
+        stdout("JPEG " + imageSize(byteFile(pathImages +"/4-jpeg/file1.jpeg")));
+        stdout("JPEG " + imageSize(byteFile(pathImages +"/4-jpeg/file2.jpeg")));
+        stdout("JPEG " + imageSize(byteFile(pathImages +"/4-jpeg/file3.jpeg")));
+        stdout("JPG " + imageSize(byteFile(pathImages +"/5-jpg/file-sample-1.jpg")));
+        stdout("JPG " + imageSize(byteFile(pathImages +"/5-jpg/file-sample-2.jpg")));
     }
 
     @Test
     public void imageEncodeTest() throws IOException {
-        stdout(imageEncode(byteFile(path+"/5-jpg/file1.jpg")));
+        stdout(imageEncode(byteFile(pathImages +"/5-jpg/file1.jpg")));
     }
 
     @Test
     public void imageDecodeTest() throws IOException {
-        stdout(imageDecode(imageEncode(byteFile(path + "/5-jpg/file1.jpg"))));
+        stdout(imageDecode(imageEncode(byteFile(pathImages + "/5-jpg/file1.jpg"))));
     }
 
     @Test
     public void imageEncryptedTest() throws IOException {
         String imgEnc;
-        imgEnc = imageEncrypted(byteFile(path + "/1-bmp/file.bmp"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/1-bmp/file.bmp"), key, salt);
         //stdout(imgEnc);
-        imgEnc = imageEncrypted(byteFile(path + "/2-gif/file.gif"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/2-gif/file.gif"), key, salt);
         //stdout(imgEnc);
-        imgEnc = imageEncrypted(byteFile(path + "/3-png/file.png"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/3-png/file.png"), key, salt);
         //stdout(imgEnc);
-        imgEnc = imageEncrypted(byteFile(path + "/3-png/file-sample-1.png"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/3-png/file-sample-1.png"), key, salt);
         //stdout(imgEnc);
-        imgEnc = imageEncrypted(byteFile(path + "/5-jpg/file1.jpg"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/5-jpg/file1.jpg"), key, salt);
         //stdout(imgEnc);
     }
 
@@ -342,23 +341,23 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
         String imgEnc;
         String imgDec;
 
-        imgEnc = imageEncrypted(byteFile(path + "/1-bmp/file.bmp"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/1-bmp/file.bmp"), key, salt);
         imgDec = imageDecrypted(imgEnc, key, salt);
         //stdout(imgDec);
 
-        imgEnc = imageEncrypted(byteFile(path + "/2-gif/file.gif"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/2-gif/file.gif"), key, salt);
         imgDec = imageDecrypted(imgEnc, key, salt);
         //stdout(imgDec);
 
-        imgEnc = imageEncrypted(byteFile(path + "/3-png/file.png"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/3-png/file.png"), key, salt);
         imgDec = imageDecrypted(imgEnc, key, salt);
         //stdout(imgDec);
 
-        imgEnc = imageEncrypted(byteFile(path + "/3-png/file-sample-1.png"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/3-png/file-sample-1.png"), key, salt);
         imgDec = imageDecrypted(imgEnc, key, salt);
         //stdout(imgDec);
 
-        imgEnc = imageEncrypted(byteFile(path + "/5-jpg/file1.jpg"), key, salt);
+        imgEnc = imageEncrypted(byteFile(pathImages + "/5-jpg/file1.jpg"), key, salt);
         imgDec = imageDecrypted(imgEnc, key, salt);
         //stdout(imgDec);
     }
@@ -366,17 +365,17 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void imageToMatrixTest() throws IOException {
         List<List<String>> imageToMatrix;
-        imageToMatrix = imageToMatrix(byteFile(path + "/1-bmp/file.bmp"), 10);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/1-bmp/file.bmp"), 10);
         matrixPrinter(imageToMatrix, 3);
-        imageToMatrix = imageToMatrix(byteFile(path + "/2-gif/file.gif"), 5);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/2-gif/file.gif"), 5);
         matrixPrinter(imageToMatrix, 3);
-        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file.png"), 5);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/3-png/file.png"), 5);
         matrixPrinter(imageToMatrix, 3);
-        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file-sample-1.png"), 20);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/3-png/file-sample-1.png"), 20);
         matrixPrinter(imageToMatrix, 3);
-        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file1.jpg"), 5);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/5-jpg/file1.jpg"), 5);
         matrixPrinter(imageToMatrix, 3);
-        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file-sample-1.jpg"), 10);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/5-jpg/file-sample-1.jpg"), 10);
         matrixPrinter(imageToMatrix, 3);
     }
 
@@ -384,23 +383,38 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
     public void imageFromMatrixTest() throws IOException {
         List<List<String>> imageToMatrix;
 
-        imageToMatrix = imageToMatrix(byteFile(path + "/1-bmp/file.bmp"), 10);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/1-bmp/file.bmp"), 10);
         stdout(imageFromMatrix(imageToMatrix));
 
-        imageToMatrix = imageToMatrix(byteFile(path + "/2-gif/file.gif"), 5);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/2-gif/file.gif"), 5);
         stdout(imageFromMatrix(imageToMatrix));
 
-        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file.png"), 5);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/3-png/file.png"), 5);
         stdout(imageFromMatrix(imageToMatrix));
 
-        imageToMatrix = imageToMatrix(byteFile(path + "/3-png/file-sample-1.png"), 20);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/3-png/file-sample-1.png"), 20);
         stdout(imageFromMatrix(imageToMatrix));
 
-        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file1.jpg"), 5);
-        stdout(String.valueOf(imageToMatrix));
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/5-jpg/file1.jpg"), 5);
         stdout(imageFromMatrix(imageToMatrix));
 
-        imageToMatrix = imageToMatrix(byteFile(path + "/5-jpg/file-sample-1.jpg"), 10);
+        imageToMatrix = imageToMatrix(byteFile(pathImages + "/5-jpg/file-sample-1.jpg"), 10);
         stdout(imageFromMatrix(imageToMatrix));
+    }
+
+    @Test
+    public void imageSaveTest() throws IOException {
+        codexsTesterAssertBool(true,
+                imageSave(
+                        "/home/jereelton/tmp/java-tests/5-jpg-file1.txt",
+                        byteFile(pathImages + "/5-jpg/file1.jpg")));
+    }
+
+    @Test
+    public void imageCopyTest() throws IOException {
+        codexsTesterAssertBool(true,
+                imageCopy(
+                        pathImages + "/5-jpg/file1.jpg",
+                        "/home/jereelton/tmp/java-tests/5-jpg-file1.txt"));
     }
 }

@@ -21,10 +21,10 @@ public class Help4DevsFileWriterService {
             }
 
         } catch (Exception ex) {
-            throw new RuntimeException("EXCEPTION: Folder not created: " + ex.getMessage());
+            throw new RuntimeException("[EXCEPTION] Folder not created: " + ex.getMessage());
         }
 
-        System.out.println("ERROR: Folder not created: " + path);
+        System.out.println("[ERROR] Folder not created: " + path);
         return false;
     }
 
@@ -40,10 +40,10 @@ public class Help4DevsFileWriterService {
             }
 
         } catch (Exception ex) {
-            throw new RuntimeException("EXCEPTION: File not deleted: " + ex.getMessage());
+            throw new RuntimeException("[EXCEPTION] File not deleted: " + ex.getMessage());
         }
 
-        System.out.println("ERROR: File not deleted: " + path);
+        System.out.println("[ERROR] File not deleted: " + path);
         return false;
     }
 
@@ -60,10 +60,10 @@ public class Help4DevsFileWriterService {
             }
 
         } catch (Exception ex) {
-            throw new RuntimeException("EXCEPTION: File not moved: " + ex.getMessage());
+            throw new RuntimeException("[EXCEPTION] File not moved: " + ex.getMessage());
         }
 
-        System.out.println("ERROR: File not moved: " + path);
+        System.out.println("[ERROR] File not moved: " + path);
         return false;
     }
 
@@ -81,9 +81,9 @@ public class Help4DevsFileWriterService {
         this.bufferedWriter = new BufferedWriter(wr);
     }
 
-    public void fileWrite(Object data) {
+    public void fileWrite(String data) {
         try {
-            this.bufferedWriter.write(String.valueOf(data));
+            this.bufferedWriter.write(data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -72,8 +72,7 @@ public class Help4DevsFileHandlerService {
             return fileContent.toString();
 
         } catch (IOException e) {
-            log.error("fileToString: Exception: " + e.getMessage());
-            throw new RuntimeException("FILE READER EXCEPTION: " + e.getMessage());
+            throw new RuntimeException("[EXCEPTION] FILE READER: " + e.getMessage());
         }
 
     }
@@ -98,9 +97,7 @@ public class Help4DevsFileHandlerService {
             return arrayFile;
 
         } catch (IOException e) {
-            log.error("!!! E R R O R !!!");
-            log.error("ScpcBoaVistaFileHandler > arrayFileReader: Exception: " + e.getMessage());
-            throw new RuntimeException("FILE READER EXCEPTION: " + e.getMessage());
+            throw new RuntimeException("[EXCEPTION] FILE READER: " + e.getMessage());
         }
 
     }
@@ -113,6 +110,11 @@ public class Help4DevsFileHandlerService {
     public static byte[] byteFile(String filenamePath) throws IOException {
         FileInputStream fis = new FileInputStream(filenamePath);
         return IOUtils.toByteArray(fis);
+    }
+
+    public static String ioFile(String filenamePath) throws IOException {
+        FileInputStream fis = new FileInputStream(filenamePath);
+        return IOUtils.toString(fis);
     }
 
     public static String binFile(String filenamePath) throws IOException {
@@ -130,7 +132,7 @@ public class Help4DevsFileHandlerService {
             }
 
         } catch (Exception ex) {
-            throw new RuntimeException("EXCEPTION: Folder not created: " + ex.getMessage());
+            throw new RuntimeException("[EXCEPTION] Folder not created: " + ex.getMessage());
         }
 
         System.out.println("ERROR: Folder not created: " + path);
@@ -149,7 +151,7 @@ public class Help4DevsFileHandlerService {
             }
 
         } catch (Exception ex) {
-            throw new RuntimeException("EXCEPTION: File not deleted: " + ex.getMessage());
+            throw new RuntimeException("[EXCEPTION] File not deleted: " + ex.getMessage());
         }
 
         System.out.println("ERROR: File not deleted: " + path);
@@ -169,7 +171,7 @@ public class Help4DevsFileHandlerService {
             }
 
         } catch (Exception ex) {
-            throw new RuntimeException("EXCEPTION: File not moved: " + ex.getMessage());
+            throw new RuntimeException("[EXCEPTION] File not moved: " + ex.getMessage());
         }
 
         System.out.println("ERROR: File not moved: " + path);
@@ -184,7 +186,7 @@ public class Help4DevsFileHandlerService {
             fileOutputStream.close();
 
         } catch (Exception ex) {
-            throw new RuntimeException("ERROR: Is not possible to write in the file: " + ex.getMessage());
+            throw new RuntimeException("[EXCEPTION] Is not possible to write in the file: " + ex.getMessage());
         }
 
         return true;
