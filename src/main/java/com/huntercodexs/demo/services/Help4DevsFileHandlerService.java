@@ -139,6 +139,17 @@ public class Help4DevsFileHandlerService {
         return false;
     }
 
+    public static String[] fileList(String filePath, String regExpFilter) {
+        File file = new File(filePath);
+
+        return file.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.toLowerCase().matches(regExpFilter);
+            }
+        });
+    }
+
     public static boolean fileDelete(String path) {
         try {
 

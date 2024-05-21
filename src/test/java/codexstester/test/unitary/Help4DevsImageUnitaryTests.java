@@ -1,13 +1,15 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
+import com.huntercodexs.demo.services.Help4DevsFileWriterService;
 import com.huntercodexs.demo.services.Help4DevsImageService;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
+import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
+import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.byteFile;
 import static com.huntercodexs.demo.services.Help4DevsImageService.*;
 import static com.huntercodexs.demo.services.Help4DevsImageService.ImageType.*;
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
@@ -416,5 +418,32 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
                 imageCopy(
                         pathImages + "/5-jpg/file1.jpg",
                         "/home/jereelton/tmp/java-tests/5-jpg-file1.txt"));
+    }
+
+    @Test
+    public void imageFragmentTest() throws IOException {
+        codexsTesterAssertRegExp("[0-9a-z]{32}_[a-z]{3,4}",
+                imageFragment(
+                        byteFile(pathImages + "/1-bmp/file.bmp"),
+                        "/home/jereelton/tmp/java-tests/"));
+
+        codexsTesterAssertRegExp("[0-9a-z]{32}_[a-z]{3,4}",
+                imageFragment(
+                        byteFile(pathImages + "/5-jpg/file1.jpg"),
+                        "/home/jereelton/tmp/java-tests/"));
+    }
+
+    @Test
+    public void imageFragmentRevertTest() {
+        String filePath = "/home/jereelton/tmp/java-tests/453b1c4f85b6a5531c50e186516abd2e_jpeg";
+        Help4DevsFileWriterService help4DevsFileWriterService = new Help4DevsFileWriterService();
+        try {
+
+            help4DevsFileWriterService.fileCreate(filePath+".txt");
+            help4DevsFileWriterService.fileWrite(imageFragmentRevert(filePath));help4DevsFileWriterService.fileClose();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

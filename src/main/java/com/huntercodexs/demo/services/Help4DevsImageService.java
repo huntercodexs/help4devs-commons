@@ -21,6 +21,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.*;
+import java.util.stream.Stream;
+
+import static com.huntercodexs.demo.services.Help4DevsToolsService.md5;
 
 @Slf4j
 @Service
@@ -158,6 +161,11 @@ public class Help4DevsImageService {
     private static byte[] byteFile(String filenamePath) throws IOException {
         FileInputStream fis = new FileInputStream(filenamePath);
         return IOUtils.toByteArray(fis);
+    }
+
+    private static String ioFile(String filenamePath) throws IOException {
+        FileInputStream fis = new FileInputStream(filenamePath);
+        return IOUtils.toString(fis);
     }
 
     private static boolean fileWriter(byte[] data, String path) {
@@ -484,23 +492,73 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return
-     * @implNote
+     * @return String (Folder Name: 4f37594a8968dac79a652e6a792b07fe_bmp)
+     * @implNote Split one image in the matrix 20x20 format from a data byte image
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageCompact() {
+    public static String imageFragment(byte[] image, String pathToSave) {
+        Date date = new Date();
 
+        String imageType = imageType(image).toLowerCase();
+        String folderName = md5(String.valueOf(date.getTime()))+"_"+imageType;
+        String filePath = pathToSave.replaceAll("/$", "") + "/" + folderName;
+
+        ImageFileWriter imageFileWriter = new ImageFileWriter();
+        imageFileWriter.folderCreate(filePath);
+
+        List<List<String>> imageMatrix = imageToMatrix(image, 20);
+
+        if (imageMatrix == null) {
+            throw new RuntimeException("[ERROR] Image Matrix is null");
+        }
+
+        int index = 0;
+        for (List<String> matrixLine : imageMatrix) {
+            for (String matrixColumn : matrixLine) {
+                index++;
+                try {
+                    imageFileWriter.fileCreate(filePath+"/"+folderName+"_"+String.format("%03d", index)+".txt");
+                    imageFileWriter.fileWrite(matrixColumn);
+                    imageFileWriter.fileClose();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        return folderName;
     }
 
     /**
-     * @return
-     * @implNote
+     * @return String (Image: Base64)
+     * @implNote Revert the image fragmentation from imageFragment method in this class
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageExtract() {
+    public static String imageFragmentRevert(String filePath) {
+        File file = new File(filePath);
 
+        String[] filenames = file.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.toLowerCase().matches("[0-9a-z]{32}_[a-z]{3,4}_[0-9]{1,3}\\.txt");
+            }
+        });
+
+        Stream<String> filesSorted = Arrays.stream(filenames).sorted(Comparator.naturalOrder());
+
+        StringBuilder stringBuilder = new StringBuilder();
+        filesSorted.forEach(current -> {
+            try {
+                stringBuilder.append(ioFile(filePath+"/"+current));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
+        return String.valueOf(stringBuilder);
     }
 
     /**
@@ -583,6 +641,23 @@ public class Help4DevsImageService {
     public static class ImageFileWriter {
 
         public BufferedWriter bufferedWriter;
+
+        public boolean folderCreate(String path) {
+            try {
+
+                File file = new File(path);
+
+                if (file.mkdirs()) {
+                    return true;
+                }
+
+            } catch (Exception ex) {
+                throw new RuntimeException("[EXCEPTION] Folder not created: " + ex.getMessage());
+            }
+
+            System.out.println("[ERROR] Folder not created: " + path);
+            return false;
+        }
 
         public void fileCreate(String filepath) throws FileNotFoundException {
             File file = new File(filepath);
