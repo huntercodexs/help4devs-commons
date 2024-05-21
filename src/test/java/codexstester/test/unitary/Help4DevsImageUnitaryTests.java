@@ -465,4 +465,10 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
         String filePath = "/home/jereelton/tmp/java-tests/file1-rotate-180.jpg";
         Help4DevsFileHandlerService.fileWriter(imageRotate(byteFile(pathImages + "/5-jpg/file1.jpg")), filePath);
     }
+
+    @Test
+    public void imageResizeTest() throws IOException {
+        String filePath = "/home/jereelton/tmp/java-tests/file1-resize.jpg";
+        Help4DevsFileHandlerService.fileWriter(imageResize(byteFile(pathImages + "/5-jpg/file1.jpg"), 109, 37), filePath);
+    }
 }

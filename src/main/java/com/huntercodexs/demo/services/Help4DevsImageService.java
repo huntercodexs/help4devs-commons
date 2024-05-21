@@ -15,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
+import java.util.List;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -673,13 +675,29 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return
-     * @implNote
+     * @return byte[] (Image Resized)
+     * @implNote Resize an image in a specific size delimited by width x height
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageResize() {
+    public static byte[] imageResize(byte[] image, int width, int height) {
+        try {
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
+            BufferedImage originalImage = ImageIO.read(imageStream);
 
+            String imageType = imageType(image).toLowerCase();
+
+            Image newImage = originalImage.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+            BufferedImage destinationImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            destinationImage.getGraphics().drawImage(newImage, 0, 0, null);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(destinationImage, imageType, byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
