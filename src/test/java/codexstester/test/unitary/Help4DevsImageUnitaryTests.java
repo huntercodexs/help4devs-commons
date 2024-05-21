@@ -1,6 +1,7 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
+import com.huntercodexs.demo.services.Help4DevsFileHandlerService;
 import com.huntercodexs.demo.services.Help4DevsFileWriterService;
 import com.huntercodexs.demo.services.Help4DevsImageService;
 import org.junit.Test;
@@ -405,9 +406,9 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void imageSaveTest() throws IOException {
+    public void imageBse64SaveTest() throws IOException {
         codexsTesterAssertBool(true,
-                imageSave(
+                imageBse64Save(
                         "/home/jereelton/tmp/java-tests/5-jpg-file1.txt",
                         byteFile(pathImages + "/5-jpg/file1.jpg")));
     }
@@ -445,5 +446,17 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void imageFlipXTest() throws IOException {
+        String filePath = "/home/jereelton/tmp/java-tests/file1-flip-x.jpg";
+        Help4DevsFileHandlerService.fileWriter(imageFlipX(byteFile(pathImages + "/5-jpg/file1.jpg")), filePath);
+    }
+
+    @Test
+    public void imageFlipYTest() throws IOException {
+        String filePath = "/home/jereelton/tmp/java-tests/file1-flip-y.jpg";
+        Help4DevsFileHandlerService.fileWriter(imageFlipY(byteFile(pathImages + "/5-jpg/file1.jpg")), filePath);
     }
 }

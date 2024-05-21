@@ -15,6 +15,8 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -249,10 +251,10 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String imageType(byte[] byteImage) {
-        String imageInfo = new String(byteImage).substring(0, 255);
-        String imageInfo4 = new String(byteImage).substring(0, 4);
-        String imageInfo15 = new String(byteImage).substring(6, 10);
+    public static String imageType(byte[] image) {
+        String imageInfo = new String(image).substring(0, 255);
+        String imageInfo4 = new String(image).substring(0, 4);
+        String imageInfo15 = new String(image).substring(6, 10);
         return imageTypeCheck(imageInfo, imageInfo4, imageInfo15);
     }
 
@@ -345,8 +347,8 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String imageEncode(byte[] imageToEncode) {
-        return new String(Base64.getEncoder().encode(imageToEncode));
+    public static String imageEncode(byte[] image) {
+        return new String(Base64.getEncoder().encode(image));
     }
 
     /**
@@ -365,11 +367,11 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String imageEncrypted(byte[] byteImageToEncrypt, String secretKey, String salt) {
+    public static String imageEncrypted(byte[] image, String secretKey, String salt) {
         System.out.println("Working on Image Encryption");
         long start = Calendar.getInstance().getTimeInMillis();
 
-        String encode = imageEncode(byteImageToEncrypt);
+        String encode = imageEncode(image);
         String imageEncrypted = encryptAesCbc256(encode, secretKey, salt);
 
         long time = ((Calendar.getInstance().getTimeInMillis() - start) / 1000);
@@ -403,12 +405,12 @@ public class Help4DevsImageService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      */
-    public static List<List<String>> imageToMatrix(byte[] byteImageToMatrix, int matrixSize) {
+    public static List<List<String>> imageToMatrix(byte[] image, int matrixSize) {
         if (matrixSize <= 1) {
             return null;
         }
 
-        String encode = imageEncode(byteImageToMatrix);
+        String encode = imageEncode(image);
         int encodeLength = encode.length();
         int bytesLength = (encodeLength+matrixSize) / matrixSize;
         String[] lines = encode.split("(?<=\\G.{" + bytesLength + "})");
@@ -462,11 +464,11 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static boolean imageSave(String filenamePath, byte[] data) {
+    public static boolean imageBse64Save(String filenamePath, byte[] image) {
         try {
             ImageFileWriter imageFileWriter = new ImageFileWriter();
             imageFileWriter.fileCreate(filenamePath);
-            imageFileWriter.fileWrite(imageEncode(data));
+            imageFileWriter.fileWrite(imageEncode(image));
             imageFileWriter.fileClose();
             return true;
         } catch (IOException e) {
@@ -562,13 +564,75 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return
-     * @implNote
+     * @return byte[] (Image Flipped: X axis)
+     * @implNote Flip one image in X axis with true color support
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageResize() {
+    public static byte[] imageFlipX(byte[] image) {
+        try {
 
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
+            BufferedImage originalImage = ImageIO.read(imageStream);
+
+            int originalWidth = originalImage.getWidth();
+            int originalHeight = originalImage.getHeight();
+            int originalType = originalImage.getType();
+            int width = imageDimension(image).getWidth();
+            String imageType = imageType(image).toLowerCase();
+
+            /*Flip X*/
+            AffineTransform affineTransform = new AffineTransform();
+            affineTransform.scale(-1.0, 1.0);
+            affineTransform.translate(-width, 0);
+
+            BufferedImage destinationImage = new BufferedImage(originalWidth, originalHeight, originalType);
+            AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BICUBIC);
+            destinationImage = affineTransformOp.filter(originalImage, destinationImage);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(destinationImage, imageType, byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+
+        } catch (Exception ex) {
+            throw new RuntimeException("[EXCEPTION] Image Flip X: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * @return byte[] (Image Flipped: Y axis)
+     * @implNote Flip one image in Y axis with true color support
+     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static byte[] imageFlipY(byte[] image) {
+        try {
+
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
+            BufferedImage originalImage = ImageIO.read(imageStream);
+
+            int originalWidth = originalImage.getWidth();
+            int originalHeight = originalImage.getHeight();
+            int originalType = originalImage.getType();
+            int height = imageDimension(image).getHeight();
+            String imageType = imageType(image).toLowerCase();
+
+            /*Flip X*/
+            AffineTransform affineTransform = new AffineTransform();
+            affineTransform.scale(1.0, -1.0);
+            affineTransform.translate(0, -height);
+
+            BufferedImage destinationImage = new BufferedImage(originalWidth, originalHeight, originalType);
+            AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BICUBIC);
+            destinationImage = affineTransformOp.filter(originalImage, destinationImage);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(destinationImage, imageType, byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+
+        } catch (Exception ex) {
+            throw new RuntimeException("[EXCEPTION] Image Flip Y: " + ex.getMessage());
+        }
     }
 
     /**
@@ -587,7 +651,7 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageFlip() {
+    public static void imageResize() {
 
     }
 
