@@ -617,7 +617,7 @@ public class Help4DevsImageService {
             int height = imageDimension(image).getHeight();
             String imageType = imageType(image).toLowerCase();
 
-            /*Flip X*/
+            /*Flip Y*/
             AffineTransform affineTransform = new AffineTransform();
             affineTransform.scale(1.0, -1.0);
             affineTransform.translate(0, -height);
@@ -636,13 +636,40 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return
-     * @implNote
+     * @return byte[] (Image Rotate)
+     * @implNote Rotate an image in 180 degrees
      * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void imageRotate() {
+    public static byte[] imageRotate(byte[] image) {
+        try {
 
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
+            BufferedImage originalImage = ImageIO.read(imageStream);
+
+            int originalWidth = originalImage.getWidth();
+            int originalHeight = originalImage.getHeight();
+            int originalType = originalImage.getType();
+            int width = imageDimension(image).getWidth();
+            int height = imageDimension(image).getHeight();
+            String imageType = imageType(image).toLowerCase();
+
+            /*Rotate - 180 degrees*/
+            AffineTransform affineTransform = new AffineTransform();
+            affineTransform.translate(width, height);
+            affineTransform.rotate(Math.PI);
+
+            BufferedImage destinationImage = new BufferedImage(originalWidth, originalHeight, originalType);
+            AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BICUBIC);
+            destinationImage = affineTransformOp.filter(originalImage, destinationImage);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(destinationImage, imageType, byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+
+        } catch (Exception ex) {
+            throw new RuntimeException("[EXCEPTION] Image Rotate: " + ex.getMessage());
+        }
     }
 
     /**
