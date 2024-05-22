@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
 import static com.huntercodexs.demo.services.Help4DevsMaskedService.cardNumberMasked;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
 
@@ -80,6 +81,12 @@ public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
 
         phoneMasked = dataMasked("82277653", "*", DataMasked.PHONE_NUMBER_MASK);
         codexsTesterAssertText("****7653", phoneMasked);
+    }
+
+    @Test
+    public void dataMaskedGuidTest() {
+        String guidMasked = dataMasked("b642fd04-86e2-42e1-9b2c-2ba6d0b383cc", "*", DataMasked.GUID_MASK);
+        codexsTesterAssertText("b642****-****-****-****-2ba6****83cc", guidMasked);
     }
 
     @Test

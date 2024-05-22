@@ -2,13 +2,13 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import net.minidev.json.JSONObject;
-import org.json.JSONException;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.Help4DevsParserService.*;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsParserUnitaryTests extends Help4DevsBridgeTests {
 
@@ -59,16 +59,17 @@ public class Help4DevsParserUnitaryTests extends Help4DevsBridgeTests {
         stringNumbers.add("m4");
         json1.put("stringNumbers", stringNumbers);
 
-        Object object1 = json1;
-        System.out.println("JSON 1");
-        System.out.println(json1);
-        String string1 = json1.toString();
-        System.out.println("OBJECT 1");
-        System.out.println(object1);
-        System.out.println("STRING 1");
-        System.out.println(string1);
+//        Object object1 = json1;
+//        System.out.println("JSON 1");
+//        System.out.println(json1);
+//        String string1 = json1.toString();
+//        System.out.println("OBJECT 1");
+//        System.out.println(object1);
+//        System.out.println("STRING 1");
+//        System.out.println(string1);
 
-        jsonRefactor("complex", object1);
+        String result = jsonRefactor("complex", json1);
+        stdout(result);
     }
 
 }

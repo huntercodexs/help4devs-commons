@@ -46,6 +46,12 @@ public enum DataMasked {
             "$1$2$3@masked$5",
             4),
 
+    //[b642fd04-86e2-42e1-9b2c-2ba6d0b383cc]
+    GUID_MASK(
+            "([0-9a-z]{4})([0-9a-z]{4})(-)([0-9a-z]{4})(-)([0-9a-z]{4})(-)([0-9a-z]{4})(-)([0-9a-z]{4})([0-9a-z]{4})([0-9a-z]{4})",
+            "$1@masked$3@masked$5@masked$7@masked$9$10@masked$12",
+            4),
+
     //[only a test], [82394832948329], [19/10/1988], [new], [InnovationDevs], [Argument-1099]
     GENERIC_MASK(
             "([0-9a-zA-Z]{1})(.*)([0-9a-zA-Z]{1})",
