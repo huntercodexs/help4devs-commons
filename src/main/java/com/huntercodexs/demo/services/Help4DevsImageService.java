@@ -189,7 +189,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Simulate one image length in bytes from an Integer value
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String simulateCalculateBytesTest(int bytesLength) {
@@ -199,7 +199,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Simulate one image length in kilobytes from an Integer value
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String simulateCalculateKilobytesTest(int bytesLength) {
@@ -209,7 +209,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Simulate one image length in megabytes from an Integer value
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String simulateCalculateMegabytesTest(int bytesLength) {
@@ -219,7 +219,7 @@ public class Help4DevsImageService {
     /**
      * @return boolean
      * @implNote Check if the image is in the accepted formats
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean isAnAcceptedImage(String imageType) {
@@ -234,7 +234,7 @@ public class Help4DevsImageService {
     /**
      * @return boolean
      * @implNote Check if the current file is really a valid image
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean isAnImage(byte[] image) {
@@ -250,7 +250,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Type)
      * @implNote Get the type of image from a byte source
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageType(byte[] image) {
@@ -263,7 +263,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Type)
      * @implNote Get the type of image from string source
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageType(String binaryImage) {
@@ -276,7 +276,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Format)
      * @implNote Get the image format from byte[] image (same that imageType)
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageFormat(byte[] image) throws IOException {
@@ -295,7 +295,7 @@ public class Help4DevsImageService {
     /**
      * @return Dimension (Image Dimension)
      * @implNote Get the image size (height x width) from byte[] image
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static Dimension imageDimension(byte[] image) throws IOException {
@@ -319,7 +319,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Size)
      * @implNote Get the image length in {"bytes", "kilobytes", "megabytes"} from byte[] image
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageSize(byte[] image) {
@@ -346,7 +346,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image File encoded in Base64)
      * @implNote Encode an image in base64 format from a byte data source
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageEncode(byte[] image) {
@@ -356,7 +356,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image File Binary)
      * @implNote Decode data from a string bas64 data source
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageDecode(String encodedImage) {
@@ -366,7 +366,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Encrypted: Base64(AES-256-CBC))
      * @implNote Encrypt one image from byte[] data using AES-256-CBC method
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageEncrypted(byte[] image, String secretKey, String salt) {
@@ -386,7 +386,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image Decrypted: Base64())
      * @implNote Decrypt on image from String data (previously encrypted with imageEncrypted method)
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageDecrypted(String base64ImageToDecrypt, String secretKey, String salt) {
@@ -405,7 +405,7 @@ public class Help4DevsImageService {
      * @return List<List<String>> (Image Matrix: Base64)
      * @implNote This method convert an image file (from bytes) in one matrix with base64 values
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      */
     public static List<List<String>> imageToMatrix(byte[] image, int matrixSize) {
         if (matrixSize <= 1) {
@@ -438,7 +438,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image From Matrix: Base64)
      * @implNote This method revert a conversion made by imageToMatrix method from this class
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageFromMatrix(List<List<String>> imageMatrix) {
@@ -463,7 +463,7 @@ public class Help4DevsImageService {
     /**
      * @return boolean
      * @implNote Save data image in disk from memory (Bytes -> Base64)
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean imageBse64Save(String filenamePath, byte[] image) {
@@ -481,7 +481,7 @@ public class Help4DevsImageService {
     /**
      * @return boolean
      * @implNote
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean imageCopy(String dataOrigin, String dataDestiny) {
@@ -498,7 +498,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Folder Name: 4f37594a8968dac79a652e6a792b07fe_bmp)
      * @implNote Split one image in the matrix 20x20 format from a data byte image
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageFragment(byte[] image, String pathToSave) {
@@ -537,7 +537,7 @@ public class Help4DevsImageService {
     /**
      * @return String (Image: Base64)
      * @implNote Revert the image fragmentation from imageFragment method in this class
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String imageFragmentRevert(String filePath) {
@@ -568,7 +568,7 @@ public class Help4DevsImageService {
     /**
      * @return byte[] (Image Flipped: X axis)
      * @implNote Flip one image in X axis with true color support
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static byte[] imageFlipX(byte[] image) {
@@ -604,7 +604,7 @@ public class Help4DevsImageService {
     /**
      * @return byte[] (Image Flipped: Y axis)
      * @implNote Flip one image in Y axis with true color support
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static byte[] imageFlipY(byte[] image) {
@@ -640,7 +640,7 @@ public class Help4DevsImageService {
     /**
      * @return byte[] (Image Rotate)
      * @implNote Rotate an image in 180 degrees
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static byte[] imageRotate(byte[] image) {
@@ -677,7 +677,7 @@ public class Help4DevsImageService {
     /**
      * @return byte[] (Image Resized)
      * @implNote Resize an image in a specific size delimited by width x height
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static byte[] imageResize(byte[] image, int width, int height) {
@@ -701,13 +701,34 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return
-     * @implNote
-     * @see <a href="https://github.com/huntercodexs/help4devs">GitHub</a>
+     * @return byte[] (Image Cropped)
+     * @implNote Crop an image in a specific point delimited by parameters
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
+     * @param image File Image in bytes[]
+     * @param xAxis Position in the Image to begin the crop - axis X
+     * @param yAxis Position in the Image to begin the crop - axis Y
+     * @param cropWidth Width size to crop
+     * @param cropHeight Height size to crop
      * */
-    public static void imageCrop() {
+    public static byte[] imageCrop(byte[] image, int xAxis, int yAxis, int cropWidth, int cropHeight) {
+        try {
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
+            BufferedImage originalImage = ImageIO.read(imageStream);
 
+            String imageType = imageType(image).toLowerCase();
+
+            Image newImage = originalImage.getSubimage(xAxis, yAxis, cropWidth, cropHeight);
+            BufferedImage destinationImage = new BufferedImage(cropWidth, cropHeight, BufferedImage.TYPE_INT_RGB);
+            destinationImage.getGraphics().drawImage(newImage, 0, 0, null);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(destinationImage, imageType, byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Getter

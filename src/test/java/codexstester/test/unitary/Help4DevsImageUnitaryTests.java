@@ -471,4 +471,16 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
         String filePath = "/home/jereelton/tmp/java-tests/file1-resize.jpg";
         Help4DevsFileHandlerService.fileWriter(imageResize(byteFile(pathImages + "/5-jpg/file1.jpg"), 109, 37), filePath);
     }
+
+    @Test
+    public void imageCropTest() throws IOException {
+        String filePath = "/home/jereelton/tmp/java-tests/file-crop.bmp";
+        Help4DevsFileHandlerService.fileWriter(
+                imageCrop(
+                        byteFile(pathImages + "/1-bmp/file.bmp"),
+                        200,
+                        200,
+                        300,
+                        300), filePath);
+    }
 }
