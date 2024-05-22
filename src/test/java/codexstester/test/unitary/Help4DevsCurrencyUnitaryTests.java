@@ -206,8 +206,3 @@ public class Help4DevsCurrencyUnitaryTests extends Help4DevsBridgeTests {
     }
 
 }
-
-
-
-
-

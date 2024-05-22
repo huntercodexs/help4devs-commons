@@ -33,8 +33,3 @@ public class Help4DevsFileWriterUnitaryTests extends Help4DevsBridgeTests {
     }
 
 }
-
-
-
-
-
