@@ -701,15 +701,15 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return byte[] (Image Cropped)
-     * @implNote Crop an image in a specific point delimited by parameters
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
-     * @author huntercodexs (powered by jereelton-devel)
      * @param image File Image in bytes[]
      * @param xAxis Position in the Image to begin the crop - axis X
      * @param yAxis Position in the Image to begin the crop - axis Y
      * @param cropWidth Width size to crop
      * @param cropHeight Height size to crop
+     * @return byte[] (Image Cropped)
+     * @implNote Crop an image in a specific point delimited by parameters
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
      * */
     public static byte[] imageCrop(byte[] image, int xAxis, int yAxis, int cropWidth, int cropHeight) {
         try {
