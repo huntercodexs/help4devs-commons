@@ -214,6 +214,7 @@ public class Help4DevsFormatterService {
 
             if (
                     (dateFormat.startsWith("dd-MM-yy ") || dateFormat.endsWith("dd-MM-yy")) ||
+                    (dateFormat.startsWith("dd/MM/yy ") || dateFormat.endsWith("dd/MM/yy")) ||
                     (dateFormat.startsWith("ddMMyy") && dateFormat.endsWith("ddMMyy")) ||
                     (dateFormat.startsWith("ddMMyyHH") || dateFormat.startsWith("yyMMddHH"))
             ) {
@@ -227,7 +228,7 @@ public class Help4DevsFormatterService {
 
         } else {
 
-            if (dateFormat.startsWith("yy-") || dateFormat.startsWith("yyMMdd")) {
+            if (dateFormat.startsWith("yy-") || dateFormat.startsWith("yy/") || dateFormat.startsWith("yyMMdd")) {
                 formatter = formatter.replaceAll("(yy)", "([0-9]{2})");
                 cut2Digits = true;
             } else {
