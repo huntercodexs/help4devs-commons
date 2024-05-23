@@ -6,17 +6,32 @@ import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
 
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 @Slf4j
 @Service
 public class Help4DevsFormatterService {
 
+    /**
+     * @param cpf (String: the document value to format)
+     * @return String (CPF Formatted)
+     * @implNote Format the CPF number in the correct format
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String cpfFormatter(String cpf) {
         return cpf
                 .replaceAll("[^0-9]", "")
                 .replaceAll("^(\\d{3})(\\d{3})(\\d{3})(\\d{2})$", "$1.$2.$3-$4");
     }
 
+    /**
+     * @param cnpj (String: the document value to format)
+     * @return String (CNPJ Formatted)
+     * @implNote Format the CNPJ number in the correct format
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String cnpjFormatter(String cnpj) {
         return cnpj
                 .replaceAll("[^0-9]", "")
@@ -143,19 +158,21 @@ public class Help4DevsFormatterService {
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String dateFormatter(String dateInput, String dateFormat) {
+    public static String dateFormatter(String dateInput, String dateFormat, boolean debug) {
 
         String separator = "-";
         String replacement = "";
         boolean reverseDate = false;
         boolean cut2Digits = false;
         boolean gmt = false;
+        boolean onlyNumbers = false;
         boolean includeHour = false;
         boolean includeMinutes = false;
         boolean includeSeconds = false;
         boolean includeMilliSeconds = false;
         String dateOutput = dateInput.trim();
 
+        /*Formatter*/
         String formatter = dateFormat.trim()
                 .replaceAll("[/-]", "([-/])?")
                 .replaceAll("[ TZ]", "([ ])?")
@@ -163,6 +180,7 @@ public class Help4DevsFormatterService {
                 .replaceAll("\\.", "([.])?")
                 .trim();
 
+        /*Separator*/
         if (dateFormat.contains("/")) {
             separator = "/";
         } else if (dateFormat.contains("-")) {
@@ -177,18 +195,28 @@ public class Help4DevsFormatterService {
             dateOutput = dateOutput.replaceAll("[TZ]", " ").trim();
         }
 
+        /*Only Numbers*/
         if (separator.isEmpty()) {
-            dateOutput = dateOutput.replaceAll("[^0-9]", "");
+            onlyNumbers = true;
+            dateOutput = dateOutput.replaceAll("[^0-9]+", "");
+            formatter = dateFormat.trim();
         }
 
+        /*Default Replacement*/
+        replacement = "$1" + separator + "$3" + separator + "$5";
+
         /*Date*/
-        if (dateFormat.startsWith("dd-")) {
+        if (dateFormat.startsWith("dd")) {
 
             formatter = formatter
                     .replaceAll("dd", "([0-9]{2})")
                     .replaceAll("MM", "([0-9]{2})");
 
-            if (dateFormat.startsWith("dd-MM-yy ") || dateFormat.endsWith("dd-MM-yy")) {
+            if (
+                    (dateFormat.startsWith("dd-MM-yy ") || dateFormat.endsWith("dd-MM-yy")) ||
+                    (dateFormat.startsWith("ddMMyy") && dateFormat.endsWith("ddMMyy")) ||
+                    (dateFormat.startsWith("ddMMyyHH") || dateFormat.startsWith("yyMMddHH"))
+            ) {
                 formatter = formatter.replaceAll("(yy)", "([0-9]{2})");
                 cut2Digits = true;
             } else {
@@ -199,8 +227,8 @@ public class Help4DevsFormatterService {
 
         } else {
 
-            if (dateFormat.startsWith("yy-")) {
-                formatter = formatter.replaceAll("(yy)", "([0-9]{4})");
+            if (dateFormat.startsWith("yy-") || dateFormat.startsWith("yyMMdd")) {
+                formatter = formatter.replaceAll("(yy)", "([0-9]{2})");
                 cut2Digits = true;
             } else {
                 formatter = formatter.replaceAll("(yyyy|yyy)", "([0-9]{4})");
@@ -212,51 +240,86 @@ public class Help4DevsFormatterService {
 
         }
 
-        /*Default Replacement*/
-        replacement = "$1" + separator + "$3" + separator + "$5";
-
         /*Time*/
         if (dateFormat.contains("HH:mm:ss.ms")) {
             formatter = formatter.replaceAll("ms", "([0-9]{1,3})?");
-            replacement = "$1" + separator + "$3" + separator + "$5$6$7$8$9$10$11$12$13";
+            replacement = replacement + "$6$7$8$9$10$11$12$13";
             includeMilliSeconds = true;
 
         } else if (dateFormat.contains("HH:mm:ss")) {
             formatter = formatter.replaceAll("ss", "([0-9]{2})?");
-            replacement = "$1" + separator + "$3" + separator + "$5$6$7$8$9$10$11";
+            replacement = replacement + "$6$7$8$9$10$11";
             includeSeconds = true;
 
         } else if (dateFormat.contains("HH:mm")) {
             formatter = formatter.replaceAll("mm", "([0-9]{2})?");
-            replacement = "$1" + separator + "$3" + separator + "$5$6$7$8";
+            replacement = replacement + "$6$7$8";
+            includeMinutes = true;
+
+        } else if (dateFormat.contains("HHmmssms")) {
+            formatter = formatter.replaceAll("ms", "([0-9]{1,3})?");
+            replacement = replacement + "$6$7$8$9$10$11";
+            includeMilliSeconds = true;
+
+        } else if (dateFormat.contains("HHmmss")) {
+            formatter = formatter.replaceAll("ss", "([0-9]{2})?");
+            replacement = replacement + "$6$7$8$9";
+            includeSeconds = true;
+
+        } else if (dateFormat.contains("HHmm")) {
+            formatter = formatter.replaceAll("mm", "([0-9]{2})?");
+            replacement = replacement + "$6$7";
             includeMinutes = true;
 
         } else if (dateFormat.contains("HH")) {
             formatter = formatter.replaceAll("HH", "([0-9]{2})?");
-            replacement = "$1" + separator + "$3" + separator + "$5$6$7";
+            replacement = replacement + "$6$7";
             includeHour = true;
         }
 
+        /*Output*/
         if (reverseDate) {
 
-            String dateTmp = dateOutput.split(" ")[0].replaceAll("[^0-9]", "");
-            String hourTmp = dateOutput.split(" ")[1];
+            String dateTmp;
+            String hourTmp;
+
+            if (onlyNumbers) {
+                dateTmp = dateOutput.substring(0, 8);
+                hourTmp = dateOutput.substring(8);
+            } else {
+                dateTmp = dateOutput.split(" ")[0].replaceAll("[^0-9]", "");
+                hourTmp = dateOutput.split(" ")[1];
+            }
+
             String day = dateTmp.substring(6, 8);
             String month = dateTmp.substring(4, 6);
             String year = dateTmp.substring(0, 4);
 
             if (hourTmp != null &&! hourTmp.isEmpty()) {
-
-                if (includeMilliSeconds) {
-                    hourTmp = hourTmp;
-                } else if (includeSeconds) {
-                    hourTmp = hourTmp.split("\\.")[0];
-                } else if (includeMinutes) {
-                    hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}$", "");
-                } else if (includeHour) {
-                    hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}:[0-9]{2}$", "");
+                if (!onlyNumbers) {
+                    if (includeMilliSeconds) {
+                        hourTmp = hourTmp;
+                    } else if (includeSeconds) {
+                        hourTmp = hourTmp.split("\\.")[0];
+                    } else if (includeMinutes) {
+                        hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}$", "");
+                    } else if (includeHour) {
+                        hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}:[0-9]{2}$", "");
+                    } else {
+                        hourTmp = "";
+                    }
                 } else {
-                    hourTmp = "";
+                    if (includeMilliSeconds) {
+                        hourTmp = hourTmp.replaceAll("[^0-9]+", "");
+                    } else if (includeSeconds) {
+                        hourTmp = hourTmp.substring(0, 6);
+                    } else if (includeMinutes) {
+                        hourTmp = hourTmp.substring(0, 4);
+                    } else if (includeHour) {
+                        hourTmp = hourTmp.substring(0, 2);
+                    } else {
+                        hourTmp = "";
+                    }
                 }
             }
 
@@ -268,24 +331,46 @@ public class Help4DevsFormatterService {
 
         } else if (cut2Digits) {
 
-            String dateTmp = dateOutput.split(" ")[0].replaceAll("[^0-9]", "");
-            String hourTmp = dateOutput.split(" ")[1];
+            String dateTmp;
+            String hourTmp;
+
+            if (onlyNumbers) {
+                dateTmp = dateOutput.substring(0, 8);
+                hourTmp = dateOutput.substring(8);
+            } else {
+                dateTmp = dateOutput.split(" ")[0].replaceAll("[^0-9]", "");
+                hourTmp = dateOutput.split(" ")[1];
+            }
+
             String year = dateTmp.substring(0, 4).substring(2, 4);
             String day = dateTmp.substring(6, 8);
             String month = dateTmp.substring(4, 6);
 
             if (hourTmp != null &&! hourTmp.isEmpty()) {
-
-                if (includeMilliSeconds) {
-                    hourTmp = hourTmp;
-                } else if (includeSeconds) {
-                    hourTmp = hourTmp.split("\\.")[0];
-                } else if (includeMinutes) {
-                    hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}$", "");
-                } else if (includeHour) {
-                    hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}:[0-9]{2}$", "");
+                if (!onlyNumbers) {
+                    if (includeMilliSeconds) {
+                        hourTmp = hourTmp;
+                    } else if (includeSeconds) {
+                        hourTmp = hourTmp.split("\\.")[0];
+                    } else if (includeMinutes) {
+                        hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}$", "");
+                    } else if (includeHour) {
+                        hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}:[0-9]{2}$", "");
+                    } else {
+                        hourTmp = "";
+                    }
                 } else {
-                    hourTmp = "";
+                    if (includeMilliSeconds) {
+                        hourTmp = hourTmp.replaceAll("[^0-9]+", "");
+                    } else if (includeSeconds) {
+                        hourTmp = hourTmp.substring(0, 6);
+                    } else if (includeMinutes) {
+                        hourTmp = hourTmp.substring(0, 4);
+                    } else if (includeHour) {
+                        hourTmp = hourTmp.substring(0, 2);
+                    } else {
+                        hourTmp = "";
+                    }
                 }
             }
 
@@ -293,25 +378,47 @@ public class Help4DevsFormatterService {
 
         } else {
 
-            String dateTmp = dateOutput.split(" ")[0];
-            String hourTmp = dateOutput.split(" ")[1];
+            String dateTmp;
+            String hourTmp;
 
-            if (hourTmp != null &&! hourTmp.isEmpty()) {
+            if (onlyNumbers) {
+                dateTmp = dateOutput.substring(0, 8);
+                hourTmp = dateOutput.substring(8);
+            } else {
+                dateTmp = dateOutput.split(" ")[0];
+                hourTmp = dateOutput.split(" ")[1];
+            }
 
-                if (includeMilliSeconds) {
-                    hourTmp = hourTmp;
-                } else if (includeSeconds) {
-                    hourTmp = hourTmp.split("\\.")[0];
-                } else if (includeMinutes) {
-                    hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}$", "");
-                } else if (includeHour) {
-                    hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}:[0-9]{2}$", "");
+            if (hourTmp != null && !hourTmp.isEmpty()) {
+                if (!onlyNumbers) {
+                    if (includeMilliSeconds) {
+                        hourTmp = hourTmp;
+                    } else if (includeSeconds) {
+                        hourTmp = hourTmp.split("\\.")[0];
+                    } else if (includeMinutes) {
+                        hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}$", "");
+                    } else if (includeHour) {
+                        hourTmp = hourTmp.split("\\.")[0].replaceAll(":[0-9]{2}:[0-9]{2}$", "");
+                    } else {
+                        hourTmp = "";
+                    }
                 } else {
-                    hourTmp = "";
+                    if (includeMilliSeconds) {
+                        hourTmp = hourTmp.replaceAll("[^0-9]+", "");
+                    } else if (includeSeconds) {
+                        hourTmp = hourTmp.substring(0, 6);
+                    } else if (includeMinutes) {
+                        hourTmp = hourTmp.substring(0, 4);
+                    } else if (includeHour) {
+                        hourTmp = hourTmp.substring(0, 2);
+                    } else {
+                        hourTmp = "";
+                    }
                 }
             }
 
             dateOutput = dateTmp.replaceAll("[/-]", separator)+" "+hourTmp;
+
         }
 
         dateOutput = dateOutput.replaceAll("^" + formatter + "$", replacement).trim();
@@ -320,19 +427,20 @@ public class Help4DevsFormatterService {
             dateOutput = (dateOutput.replaceAll(" ", "T")+"Z").replaceAll("TZ$", "");
         }
 
-        System.out.println(repeat("-", 120));
-        System.out.println("REVERSE-DATE: "+reverseDate);
-        System.out.println("CUT-2-DIGITS: "+cut2Digits);
-        System.out.println("GMT: "+gmt);
-        System.out.println("HOUR: "+includeHour);
-        System.out.println("MINUTE: "+includeMinutes);
-        System.out.println("SECONDS: "+includeSeconds);
-        System.out.println("MILLISECONDS: "+includeMilliSeconds);
-        System.out.println(dateFormat);
-        System.out.println(formatter);
-        System.out.println(replacement);
-        System.out.println("IN PUT: " + dateInput);
-        System.out.println("OUTPUT: " + dateOutput);
+        if (onlyNumbers) {
+            dateOutput = dateOutput.replaceAll("[^0-9]", "");
+        }
+
+        /*Debug*/
+        if (debug) {
+            stdout(repeat("-", 120));
+            stdout("REVERSE-DATE: " + reverseDate + ", CUT-2-DIGITS: " + cut2Digits + ", GMT: " + gmt + ", ONLY-NUMBERS: " + onlyNumbers);
+            stdout("HOUR: " + includeHour + ", MINUTE: " + includeMinutes + ", SECONDS: " + includeSeconds + ", MILLISECONDS: " + includeMilliSeconds);
+            stdout(dateFormat);
+            stdout(formatter);
+            stdout(replacement);
+            stdout("IN PUT: " + dateInput + ", OUTPUT: " + dateOutput);
+        }
 
         return dateOutput;
 
