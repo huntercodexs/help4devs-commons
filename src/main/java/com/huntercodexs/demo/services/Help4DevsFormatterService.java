@@ -1,5 +1,6 @@
 package com.huntercodexs.demo.services;
 
+import com.huntercodexs.demo.enumerator.UfTable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,99 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 @Slf4j
 @Service
 public class Help4DevsFormatterService {
+
+    /**
+     * @param input (int: Number to format)
+     * @param format (String: Format to apply in the input)
+     * @return String (Number Formatted)
+     * @implNote Format the number in the specified format
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String numberFormatter(int input, String format) {
+        return String.format(format, input);
+    }
+
+    /**
+     * @param input (String: String to format)
+     * @param format (String: Format to apply in the input)
+     * @return String (String Formatted)
+     * @implNote Format the String in the specified format
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String stringFormatter(String input, String format) {
+        return String.format(format, input);
+    }
+
+    /**
+     * @param input (String: Data to apply the format)
+     * @param fill (String: Char to fill and format the input)
+     * @param align (String: Direction to align the input [left, right])
+     * @param size (int: Size to apply the fill in the input)
+     * @return String (Formatted and Filled Input)
+     * @implNote Format a data input with a specified parameters
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String fillerFormatter(String input, String fill, String align, int size) {
+
+        if (!align.equals("left") && !align.equals("right")) {
+            System.out.println("Error: use left or right to param [align]");
+            return null;
+        }
+
+        if (size < 0) {
+            System.out.println("Error: use size > 0");
+            return null;
+        }
+
+        String formatted = input;
+
+        int lenValue = input.length();
+        int lenFill = size - lenValue;
+        String repeat = repeat(fill, lenFill);
+
+        if (align.equals("left")) {
+            formatted = input + repeat;
+        } else {
+            formatted = repeat + input;
+        }
+
+        return formatted;
+    }
+
+    /**
+     * @param value (String: The document value to format)
+     * @param rgUf (String: The document uf)
+     * @param rgPrefix (String: The document prefix)
+     * @return String (RG Formatted)
+     * @implNote Format the RG number in the specified format
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String rgFormatter(String value, String rgUf, boolean rgPrefix) {
+        if (value == null || value.isEmpty()) return "";
+        if (rgUf == null) rgUf = "";
+        if (rgUf.isEmpty()) rgUf = "";
+        if (rgUf.length() == 1) rgUf = "";
+
+        rgUf = rgUf.replaceAll("[^A-Z]+", "");
+
+        if (!UfTable.checkUfExists(rgUf) && !UfTable.checkRgSspExists(rgUf)) {
+            rgUf = "";
+        }
+
+        rgUf = rgUf.replaceAll("SSP", "").replaceAll("SP", "");
+
+        if (value.equals("0")) return "";
+
+        if (rgPrefix) {
+            return "RG" + value.replaceAll("[^0-9]+", "") + rgUf;
+        }
+
+        return value.replaceAll("[^0-9]+", "");
+    }
 
     /**
      * @param cpf (String: the document value to format)

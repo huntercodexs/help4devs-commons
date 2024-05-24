@@ -27,6 +27,13 @@ public class Help4DevsDataRandomService {
         }
     }
 
+    /**
+     * @param digits (int: Quantities of digits to generate random number)
+     * @return int (Random Number)
+     * @implNote Generate a random number with a specified number of digits given in the parameters
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static int randomNumber(int digits) {
         Date date = new Date();
         String number = md5(String.valueOf(date.getTime())).replaceAll("[^0-9]", "");
@@ -37,6 +44,15 @@ public class Help4DevsDataRandomService {
         return Integer.parseInt(randomNumber);
     }
 
+    /**
+     * @param digits (int: Quantities of digits to generate random money)
+     * @param currency (String: Currency Format [real, euro, default:dollar])
+     * @return String (Random Money)
+     * @implNote Generate random money with a specified number of digits and the currency format,
+     * both given in the parameters
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomMoney(int digits, String currency) {
         Date date = new Date();
         String number = md5(String.valueOf(date.getTime())).replaceAll("[^0-9]", "");
@@ -56,6 +72,13 @@ public class Help4DevsDataRandomService {
         }
     }
 
+    /**
+     * @param separator (String: Type of separator to card number [-,., ])
+     * @return String (Random Card Number)
+     * @implNote Generate random card number with a specified separator
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomCardNumber(String separator) {
         if (separator == null) separator = " ";
         sleep();
@@ -69,28 +92,54 @@ public class Help4DevsDataRandomService {
         return part1+separator+part2+separator+part3+separator+part4;
     }
 
+    /**
+     * @param prefix (String: Specific Prefix to ID)
+     * @return String (Random ID)
+     * @implNote Generate random ID with 6 digits and Prefix if given in the parameters
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomId(String prefix) {
         sleep();
         if (prefix == null) prefix = "";
         return prefix+(randomNumber(6));
     }
 
+    /**
+     * @return String (GUID)
+     * @implNote Generate random GUID
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomGuid() {
         return UUID.randomUUID().toString();
     }
 
-    public static String randomToken(int len) {
+    /**
+     * @param length (int: Size of token)
+     * @return String (Random Token with a specified length)
+     * @implNote Generate random Token with a size specified in the parameter
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String randomToken(int length) {
         SecureRandom secureRandom = new SecureRandom();
-        StringBuilder stringBuilder = new StringBuilder(len);
+        StringBuilder stringBuilder = new StringBuilder(length);
         String alphaNumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < length; i++) {
             stringBuilder.append(alphaNumeric.charAt(secureRandom.nextInt(alphaNumeric.length())));
         }
 
         return stringBuilder.toString();
     }
 
+    /**
+     * @return String (Random JWT)
+     * @implNote Generate random JWT to simulate requests using JSON WEB TOKEN
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomJwt() {
         Date date = new Date();
         JSONObject jsonObject1 = new JSONObject();
@@ -111,12 +160,24 @@ public class Help4DevsDataRandomService {
                 randomToken(64);
     }
 
+    /**
+     * @return String (Random Hash)
+     * @implNote Generate random Hash (md5)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomHash() {
         sleep();
         Date date = new Date();
         return md5(String.valueOf(date.getTime()));
     }
 
+    /**
+     * @return String (Random Data Binary)
+     * @implNote Generate random data binary to simulate binary operation
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomBinary(int size) {
         sleep();
         Date date = new Date();
@@ -133,6 +194,12 @@ public class Help4DevsDataRandomService {
         return digits;
     }
 
+    /**
+     * @return String (Random CPF)
+     * @implNote Generate random CPF without valid and correct digits verifier
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomCpf() {
         sleep();
         int cpfNumber = randomNumber(9);
@@ -141,6 +208,12 @@ public class Help4DevsDataRandomService {
         return cpfParts[0]+"."+cpfParts[1]+"."+cpfParts[2]+"-"+cpfDigit;
     }
 
+    /**
+     * @return String (Random CNPJ)
+     * @implNote Generate random CNPJ - Brazil
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomCnpj() {
         sleep();
         int cnpjInitialNumber = randomNumber(2);
@@ -151,12 +224,24 @@ public class Help4DevsDataRandomService {
         return cnpjInitialNumber+"."+cnpjParts[0]+"."+cnpjParts[1]+"/"+cnpjThousandInverted+"-"+cnpjDigitNumber;
     }
 
+    /**
+     * @return String (Random Date)
+     * @implNote Generate random date with the format: uuuu-MM-dd
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
         LocalDateTime dateTimeNow = LocalDateTime.now().minusYears(randomNumber(1));
         return dateTimeNow.format(formatter);
     }
 
+    /**
+     * @return String (Random Datetime)
+     * @implNote Generate random datetime with the format: uuuu-MM-dd HH:mm:ss
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String randomDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
         LocalDateTime dateTimeNow = LocalDateTime.now().minusMinutes(randomNumber(3)).minusYears(randomNumber(1));

@@ -23,6 +23,15 @@ public class Help4DevsCryptographyService {
     private static final int ITERATION_COUNT = 65536;
     public static final String ENCRYPTION_DES_SCHEME = "DESede";
 
+    /**
+     * @param strToEncrypt (String: Data to encrypt)
+     * @param secretKey (String: Secret Key to Data encrypt)
+     * @param salt (String: Salt to apply in the Secret Key)
+     * @return String (Data Encrypted)
+     * @implNote Data Encrypt using the algorithm AES-256-CBC
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String encryptAesCbc256(String strToEncrypt, String secretKey, String salt) {
         try {
 
@@ -52,6 +61,15 @@ public class Help4DevsCryptographyService {
         }
     }
 
+    /**
+     * @param strToDecrypt (String: Data to decrypt)
+     * @param secretKey (String: Secret Key to Data decrypt)
+     * @param salt (String: Salt to apply in the Secret Key)
+     * @return String (Data Decrypted)
+     * @implNote Data Decrypt using the algorithm AES-256-CBC
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String decryptAesCbc256(String strToDecrypt, String secretKey, String salt) {
         try {
 
@@ -80,6 +98,14 @@ public class Help4DevsCryptographyService {
         }
     }
 
+    /**
+     * @param inputClear (String: Data to encrypt)
+     * @param secretKey (String: Secret Key to Data encrypt)
+     * @return String (Data Encrypted)
+     * @implNote Data Encrypt using the algorithm 3DES-EDE
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String encrypt3desEde(String inputClear, String secretKey) {
         try {
 
@@ -99,6 +125,14 @@ public class Help4DevsCryptographyService {
         }
     }
 
+    /**
+     * @param inputCipher (String: Data to decrypt)
+     * @param secretKey (String: Secret Key to Data decrypt)
+     * @return String (Data Decrypted)
+     * @implNote Data Decrypt using the algorithm 3DES-EDE
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String decrypt3DesEde(String inputCipher, String secretKey) {
         try {
 

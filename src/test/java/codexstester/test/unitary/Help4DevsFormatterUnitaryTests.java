@@ -11,6 +11,47 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 public class Help4DevsFormatterUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
+    public void numberFormatterTest() {
+        codexsTesterAssertExact("000000001", numberFormatter(1, "%09d"));
+    }
+
+    @Test
+    public void stringFormatterTest() {
+        codexsTesterAssertExact("       XXX", stringFormatter("XXX", "%10s"));
+        codexsTesterAssertExact("XXX       ", stringFormatter("XXX", "%-10s"));
+    }
+
+    @Test
+    public void fillerFormatterTest() {
+        codexsTesterAssertExact("XXXFFFFFFFFFFFFFFFFF", fillerFormatter("XXX", "F", "left", 20));
+        codexsTesterAssertExact("FFFFFFFFFFFFFFFFFXXX", fillerFormatter("XXX", "F", "right", 20));
+        codexsTesterAssertExact("ZZZ88888888888888888", fillerFormatter("ZZZ", "8", "left", 20));
+        codexsTesterAssertExact("88888888888888888ZZZ", fillerFormatter("ZZZ", "8", "right", 20));
+        codexsTesterAssertNull( fillerFormatter("YYY", "A", "left", -20));
+        codexsTesterAssertNull(fillerFormatter("YYY", "A", "right", -20));
+    }
+
+    @Test
+    public void rgFormatterTest() {
+        codexsTesterAssertExact("RG231048415RJ", rgFormatter("231048415", "RJ", true));
+        codexsTesterAssertExact("RG2310484159MG", rgFormatter("2310484159", "MG", true));
+        codexsTesterAssertExact("RG2310484150", rgFormatter("2310484150", "SP", true));
+        codexsTesterAssertExact("RG2310484150", rgFormatter("2310484150", "SSPSP", true));
+        codexsTesterAssertExact("RG2310484150TO", rgFormatter("2310484150", "SSPTO", true));
+        codexsTesterAssertExact("RG2310484150SC", rgFormatter("2310484150", "SSPSC", true));
+        codexsTesterAssertExact("RG2310484150", rgFormatter("2310484150", "CNH", true));
+        codexsTesterAssertExact("RG2310484150", rgFormatter("2310484150", "DOC", true));
+        codexsTesterAssertExact("231048415", rgFormatter("231048415", "RJ", false));
+        codexsTesterAssertExact("2310484159", rgFormatter("2310484159", "MG", false));
+        codexsTesterAssertExact("2310484150", rgFormatter("2310484150", "SP", false));
+        codexsTesterAssertExact("2310484150", rgFormatter("2310484150", "SSPSP", false));
+        codexsTesterAssertExact("2310484150", rgFormatter("2310484150", "SSPTO", false));
+        codexsTesterAssertExact("2310484150", rgFormatter("2310484150", "SSPSC", false));
+        codexsTesterAssertExact("2310484150", rgFormatter("2310484150", "CNH", false));
+        codexsTesterAssertExact("2310484150", rgFormatter("2310484150", "DOC", false));
+    }
+
+    @Test
     public void cpfFormatterTest() {
         stdout(cpfFormatter(randomCpf().replaceAll("[^0-9]", "")));
     }

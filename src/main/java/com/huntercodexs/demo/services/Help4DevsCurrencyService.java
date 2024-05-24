@@ -43,6 +43,13 @@ public class Help4DevsCurrencyService {
         return sum;
     }
 
+    /**
+     * @param value (Object: Data to Format)
+     * @return String (Data Formatter: Real Currency R$)
+     * @implNote This method can be used to get currency real format - BRL
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String currencyFormatReal(Object value) {
         DecimalFormat formatter = new DecimalFormat("R$ #,##0.00");
         return formatter.format(Integer.parseInt(value.toString().replaceAll("[^0-9]", "")))
@@ -51,6 +58,13 @@ public class Help4DevsCurrencyService {
                 .replaceAll("\\+", ",");
     }
 
+    /**
+     * @param value (Object: Data to Format)
+     * @return String (Data Formatter: Dollar Currency $)
+     * @implNote This method can be used to get currency dollar format
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String currencyFormatDollar(Object value) {
         DecimalFormat formatter = new DecimalFormat("$ #,##0.00");
         return formatter.format(Integer.parseInt(value.toString().replaceAll("[^0-9]", "")))
@@ -59,6 +73,15 @@ public class Help4DevsCurrencyService {
                 .replaceAll("\\+", ".");
     }
 
+    /**
+     * @param value (Object: Data to Format)
+     * @param postfix (Boolean: Set the symbol € in the result)
+     * @return String (Data Formatter: Euro Currency [EUR, €])
+     * @implNote This method can be used to get currency euro format, when postfix is true the
+     * currency format result in the something like 1,00 €
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String currencyFormatEuro(Object value, boolean postfix) {
         String euroChar = "€"; //1 234,56 €
         String euroAcronym = "EUR"; //1 234,56 EUR
