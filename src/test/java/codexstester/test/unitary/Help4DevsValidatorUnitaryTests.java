@@ -3,44 +3,41 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
+import static com.huntercodexs.demo.services.Help4DevsDataRandomService.randomCpf;
 import static com.huntercodexs.demo.services.Help4DevsValidatorService.*;
 
 public class Help4DevsValidatorUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
-    public void mailValidatorTest() throws Exception {
-        boolean result = mailValidator("marcos_portela@yahoo.com.br");
-        System.out.println("RESULT IS: " + result);
-        codexsTesterAssertBool(result, true);
-
-        result = mailValidator("johnsmith23@email.com");
-        System.out.println("RESULT IS: " + result);
-        codexsTesterAssertBool(result, true);
-    }
-
-    @Test
     public void cpfValidatorTest() {
         boolean result = cpfValidator("07365238801");
-        System.out.println("RESULT IS: " + result);
         codexsTesterAssertBool(result, true);
 
         boolean result2 = cpfValidator("07365238899");
-        System.out.println("RESULT IS: " + result2);
         codexsTesterAssertBool(result2, false);
+
+        boolean result3 = cpfValidator(randomCpf());
+        codexsTesterAssertBool(result3, true);
+    }
+
+    @Test
+    public void mailValidatorTest() throws Exception {
+        boolean result = mailValidator("marcos_portela@yahoo.com.br");
+        codexsTesterAssertBool(result, true);
+
+        result = mailValidator("johnsmith23@email.com");
+        codexsTesterAssertBool(result, true);
     }
 
     @Test
     public void phoneValidatorTest() {
         boolean result = phoneValidator("5511982772389", "br");
-        System.out.println("RESULT IS: " + result);
         codexsTesterAssertBool(result, true);
 
         boolean result2 = phoneValidator("5511982772", "br");
-        System.out.println("RESULT IS: " + result2);
         codexsTesterAssertBool(result2, false);
 
         boolean result3 = phoneValidator("551187722212", "br");
-        System.out.println("RESULT IS: " + result3);
         codexsTesterAssertBool(result3, true);
     }
 

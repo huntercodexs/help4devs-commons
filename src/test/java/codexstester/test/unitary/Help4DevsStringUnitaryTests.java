@@ -11,58 +11,71 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
+    public void repeatTest() {
+        codexsTesterAssertText("*****", repeat("*", 5));
+        codexsTesterAssertText("++++++++++", repeat("+", 10));
+        codexsTesterAssertText("XYZXYZXYZ", repeat("XYZ", 3));
+    }
+
+    @Test
     public void queryStringBuilderTest() {
-        String result = queryStringBuilder("[{age: 40, gender: female},{age: 30, gender: female}]");
-        System.out.println("RESULT IS: " + result);
+        String result = queryStringBuilder("[ {age: 40, gender: female},{age: 30, gender: female}]");
+        codexsTesterAssertExact("age=40&gender=female&age=30&gender=female", result);
 
         result = queryStringBuilder("[{age: 40, gender: female}]");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact("age=40&gender=female", result);
 
         result = queryStringBuilder("{age: 40, gender: female}");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact("age=40&gender=female", result);
 
         result = queryStringBuilder("{'age': '40', 'gender': 'female'}");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact("age=40&gender=female", result);
 
         result = queryStringBuilder("{\"age\": \"40\", \"gender\": \"female\"}");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact("age=40&gender=female", result);
     }
 
     @Test
     public void getDataFromQueryStringTest() {
         String queryString = queryStringBuilder("[{age: 40, gender: female}]");
-        String result = getDataFromQueryString(queryString, "age");
-        System.out.println("RESULT IS: " + result);
+        Object result = getDataFromQueryString(queryString, "age");
+        codexsTesterAssertExact("40", result.toString());
     }
 
     @Test
     public void queryStringToJsonTest() {
         String queryString = queryStringBuilder("[{age: 40, gender: female}]");
         JSONObject result = queryStringToJson(queryString);
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact(
+                "{\"gender\":\"female\",\"age\":\"40\"}",
+                result.toJSONString());
     }
 
     @Test
     public void stringToJsonTest() {
         JSONObject result = stringToJson("{\"age\": \"40\", \"gender\": \"female\"}");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact(
+                "{\"gender\":\"female\",\"age\":\"40\"}",
+                result.toJSONString());
     }
 
     @Test
     public void sanitizeAsciiTest() {
         String result = sanitizeAscii("Teste com acentuação é inevital !", "upper");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact("TESTE COM ACENTUACAO E INEVITAL !", result);
 
         result = sanitizeAscii("Teste com acentuação é inevital !", "lower");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact("teste com acentuacao e inevital !", result);
 
         result = sanitizeAscii("Teste com acentuação é inevital !", null);
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertExact("Teste com acentuacao e inevital !", result);
     }
 
     @Test
     public void queryExtractorTest() {
-        stdout(queryExtractor(randomCardNumber("-"), 15, 19));
+        codexsTesterAssertRegExp(
+                "[0-9]{4}",
+                queryExtractor(randomCardNumber("-"), 15, 19));
     }
 
 }

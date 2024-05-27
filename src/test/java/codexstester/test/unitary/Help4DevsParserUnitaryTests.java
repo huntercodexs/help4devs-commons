@@ -5,6 +5,8 @@ import net.minidev.json.JSONObject;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.Help4DevsParserService.*;
@@ -70,6 +72,52 @@ public class Help4DevsParserUnitaryTests extends Help4DevsBridgeTests {
 
         String result = jsonRefactor("complex", json1);
         stdout(result);
+        codexsTesterAssertText(
+                "{\"site\":\"http://www.johnsmith.com\",\"mail\":\"john@testmail.com\",\"strings\":[1,2,3,4],\"stringNumbers\":[\"n1\",\"x2\",\"e3\",\"m4\"],\"interest\":[\"Soccer\",\"Run\",\"Cycle\",\"Films\"],\"name\":\"John\",\"numbers\":[1893,293,39,3],\"strings2\":[1,2,3,4,\"5 \",6,\"123 345 987 345\"],\"age\":34}",
+                result);
+    }
+
+    @Test
+    public void objectToNetJsonTest() throws Exception {
+        Object object = new Object();
+        object = "name=James,id=111,test=1";
+        System.out.println(objectToNetJson(object));
+    }
+
+    @Test
+    public void jsonFromLinkedHashMapTest() {
+        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
+
+        List<String> addressList = new ArrayList<>();
+        List<HashMap<String, String>> arrayList = new ArrayList<>();
+        HashMap<String, String> contact = new HashMap<>();
+
+        addressList.add("Street One");
+        addressList.add("100");
+        linkedHashMap.put("name", "James");
+        linkedHashMap.put("address", addressList);
+
+        contact.put("phone", "12345678890");
+        contact.put("email", "email@email.com");
+        arrayList.add(contact);
+        linkedHashMap.put("contacts", arrayList);
+
+        Object[] fields = new Object[]{"name", "contacts"};
+
+        JSONObject jsonResult = jsonFromLinkedHashMap(linkedHashMap, fields);
+
+        /*Specific fields*/
+        codexsTesterAssertText(
+                "{\"name\":\"James\",\"contacts\":[{\"phone\":\"12345678890\",\"email\":\"email@email.com\"}]}",
+                jsonResult.toJSONString());
+
+        jsonResult = jsonFromLinkedHashMap(linkedHashMap, null);
+
+        /*All fields*/
+        codexsTesterAssertText(
+                "{\"address\":[\"Street One\",\"100\"],\"name\":\"James\",\"contacts\":[{\"phone\":\"12345678890\",\"email\":\"email@email.com\"}]}",
+                jsonResult.toJSONString());
+
     }
 
 }

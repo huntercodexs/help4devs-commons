@@ -32,7 +32,9 @@ public class Help4DevsHttpSimulatorUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertText(String.valueOf(result.getStatusCode()), "404 NOT_FOUND");
         codexsTesterAssertText(result.getStatusText(), "404 Not Found");
         codexsTesterAssertText(String.valueOf(result.getRawStatusCode()), "404");
-        codexsTesterAssertText(result.getResponseBodyAsString(), "Help4DevsUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)");
+        codexsTesterAssertText(
+                "Help4DevsHttpSimulatorUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)",
+                result.getResponseBodyAsString());
     }
 
     @Test
@@ -51,7 +53,9 @@ public class Help4DevsHttpSimulatorUnitaryTests extends Help4DevsBridgeTests {
             codexsTesterAssertText(String.valueOf(he.getStatusCode()), "404 NOT_FOUND");
             codexsTesterAssertText(he.getStatusText(), "404 Not Found");
             codexsTesterAssertText(String.valueOf(he.getRawStatusCode()), "404");
-            codexsTesterAssertText(he.getResponseBodyAsString(), "Help4DevsUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)");
+            codexsTesterAssertText(
+                    "Help4DevsHttpSimulatorUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)",
+                    he.getResponseBodyAsString());
         }
     }
 
@@ -63,7 +67,9 @@ public class Help4DevsHttpSimulatorUnitaryTests extends Help4DevsBridgeTests {
 
         HttpClientErrorException response = restResponseSimulate(404, false, restResponseSimulateDto);
         String extract = httpResponseErrorExtractor(response);
-        codexsTesterAssertText(extract, "Body{Help4DevsUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)} StatusText{404 Not Found} StatusCode{404 NOT_FOUND} Headers{[]}");
+        codexsTesterAssertText(
+                "Body{Help4DevsHttpSimulatorUnitaryTests.RestResponseSimulateDto(code=404, message=Resource Not Found)} StatusText{404 Not Found} StatusCode{404 NOT_FOUND} Headers{[]}",
+                extract);
     }
 
 }

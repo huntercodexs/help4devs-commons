@@ -187,6 +187,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param bytesLength (int)
      * @return String (Image Size)
      * @implNote Simulate one image length in bytes from an Integer value
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -197,6 +198,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param bytesLength (int)
      * @return String (Image Size)
      * @implNote Simulate one image length in kilobytes from an Integer value
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -207,6 +209,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param bytesLength (int)
      * @return String (Image Size)
      * @implNote Simulate one image length in megabytes from an Integer value
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -217,6 +220,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param imageType (String: Image type [JPG, PNG, GIF etc...])
      * @return boolean
      * @implNote Check if the image is in the accepted formats
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -232,6 +236,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image Content in bytes)
      * @return boolean
      * @implNote Check if the current file is really a valid image
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -248,6 +253,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image Content in bytes)
      * @return String (Image Type)
      * @implNote Get the type of image from a byte source
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -261,6 +267,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param binaryImage (String: Binary Image)
      * @return String (Image Type)
      * @implNote Get the type of image from string source
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -274,6 +281,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image Content in bytes)
      * @return String (Image Format)
      * @implNote Get the image format from byte[] image (same that imageType)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -293,6 +301,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image Content in bytes)
      * @return Dimension (Image Dimension)
      * @implNote Get the image size (height x width) from byte[] image
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -317,6 +326,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image Content in bytes)
      * @return String (Image Size)
      * @implNote Get the image length in {"bytes", "kilobytes", "megabytes"} from byte[] image
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -344,6 +354,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image Content in bytes to encode)
      * @return String (Image File encoded in Base64)
      * @implNote Encode an image in base64 format from a byte data source
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -354,6 +365,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param encodedImage (String: Encoded image to decode)
      * @return String (Image File Binary)
      * @implNote Decode data from a string bas64 data source
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -364,6 +376,9 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image File in bytes to encrypt)
+     * @param secretKey (String: Key to use in to encrypt)
+     * @param salt (String: Salt to apply in to encrypt)
      * @return String (Image Encrypted: Base64(AES-256-CBC))
      * @implNote Encrypt one image from byte[] data using AES-256-CBC method
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -384,6 +399,9 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param base64ImageToDecrypt (byte[]: Image File in bytes to decrypt)
+     * @param secretKey (String: Key to use in to decrypt)
+     * @param salt (String: Salt to apply in to decrypt)
      * @return String (Image Decrypted: Base64())
      * @implNote Decrypt on image from String data (previously encrypted with imageEncrypted method)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -402,7 +420,9 @@ public class Help4DevsImageService {
     }
 
     /**
-     * @return List<List<String>> (Image Matrix: Base64)
+     * @param image (byte[]: Image File in bytes)
+     * @param matrixSize (int: Size to create a matrix, example [2=2x2, 3=3x3, 10=10x10])
+     * @return List&lt;List&lt;String&gt;&gt; (Image Matrix: Base64)
      * @implNote This method convert an image file (from bytes) in one matrix with base64 values
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -436,6 +456,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param imageMatrix (List&lt;List&lt;String&gt;&gt;: Matrix)
      * @return String (Image From Matrix: Base64)
      * @implNote This method revert a conversion made by imageToMatrix method from this class
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -461,6 +482,8 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param filenamePath (String: Where the image should be saved)
+     * @param image (byte[]: Image file to save)
      * @return boolean
      * @implNote Save data image in disk from memory (Bytes -> Base64)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -479,14 +502,16 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param imageSource (String: Image File Origin)
+     * @param dataDestiny (String: Image File Target)
      * @return boolean
-     * @implNote
+     * @implNote Copy one image from one origin to any destiny
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static boolean imageCopy(String dataOrigin, String dataDestiny) {
+    public static boolean imageCopy(String imageSource, String dataDestiny) {
         try {
-            byte[] origin = byteFile(dataOrigin);
+            byte[] origin = byteFile(imageSource);
             String imageType = imageType(origin);
             String filenamePahFix = dataDestiny.split("\\.")[0]+"."+imageType;
             return fileWriter(origin, filenamePahFix);
@@ -496,6 +521,8 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image File in bytes)
+     * @param pathToSave (String: Path to save fragmented image)
      * @return String (Folder Name: 4f37594a8968dac79a652e6a792b07fe_bmp)
      * @implNote Split one image in the matrix 20x20 format from a data byte image
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -535,6 +562,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param filePath (String: Path where the image was previously fragmented)
      * @return String (Image: Base64)
      * @implNote Revert the image fragmentation from imageFragment method in this class
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -566,6 +594,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image File in bytes)
      * @return byte[] (Image Flipped: X axis)
      * @implNote Flip one image in X axis with true color support
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -602,6 +631,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image File in bytes)
      * @return byte[] (Image Flipped: Y axis)
      * @implNote Flip one image in Y axis with true color support
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -638,6 +668,7 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image File in bytes)
      * @return byte[] (Image Rotate)
      * @implNote Rotate an image in 180 degrees
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
@@ -675,6 +706,9 @@ public class Help4DevsImageService {
     }
 
     /**
+     * @param image (byte[]: Image File in bytes)
+     * @param width (int: Image width to resize)
+     * @param height (int: Image height to resize)
      * @return byte[] (Image Resized)
      * @implNote Resize an image in a specific size delimited by width x height
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>

@@ -1167,6 +1167,14 @@ public class Help4DevsResponseEntityService {
                 .body(bodyString);
     }
 
+    /**
+     * @param httpCode (int: The HTTP Code to simulate)
+     * @param bodySimulate (Object: The Data value to simulate)
+     * @return ResponseEntity (Http Object Response simulate)
+     * @implNote Simulate a Rest Response using an HTTP Status Code and Body
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static ResponseEntity<?> responseEntitySimulate(int httpCode, Object bodySimulate) {
 
         if (httpCode == 100) {

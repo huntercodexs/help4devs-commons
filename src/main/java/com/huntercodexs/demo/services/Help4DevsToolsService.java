@@ -96,7 +96,7 @@ public class Help4DevsToolsService {
 
     public static void matrixPrinter(List<List<String>> matrix, int columnSize) {
         if (columnSize == 1) {
-            System.out.println("MATRIX PRINTER SAY: ERROR MATRIX IS NOT A MATRIX (1X1)");
+            System.out.println("MATRIX PRINTER SAY: [ERROR] MATRIX IS NOT A MATRIX (3X3)");
             return;
         }
 

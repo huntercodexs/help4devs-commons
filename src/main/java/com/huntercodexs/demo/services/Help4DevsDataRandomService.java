@@ -1,6 +1,7 @@
 package com.huntercodexs.demo.services;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -204,8 +205,37 @@ public class Help4DevsDataRandomService {
         sleep();
         int cpfNumber = randomNumber(9);
         String[] cpfParts = String.valueOf(cpfNumber).split("(?<=\\G.{" + 3 + "})");
-        int cpfDigit = randomNumber(2);
-        return cpfParts[0]+"."+cpfParts[1]+"."+cpfParts[2]+"-"+cpfDigit;
+
+        int cpfDigit;
+        int d1 = 0, d2 = 0;
+        int digit1, digit2, rest = 0;
+        String nDigResult;
+
+        for (int i = 0; i < String.valueOf(cpfNumber).length(); i++) {
+            cpfDigit = Integer.parseInt(String.valueOf(String.valueOf(cpfNumber).charAt(i)));
+            d1 = d1 + ((11 - (i + 1)) * cpfDigit);
+            d2 = d2 + ((12 - (i + 1)) * cpfDigit);
+        }
+
+        rest = (d1 % 11);
+
+        if (rest < 2)
+            digit1 = 0;
+        else
+            digit1 = 11 - rest;
+
+        d2 += 2 * digit1;
+
+        rest = (d2 % 11);
+
+        if (rest < 2)
+            digit2 = 0;
+        else
+            digit2 = 11 - rest;
+
+        nDigResult = String.valueOf(digit1) + String.valueOf(digit2);
+
+        return cpfParts[0]+"."+cpfParts[1]+"."+cpfParts[2]+"-"+nDigResult;
     }
 
     /**

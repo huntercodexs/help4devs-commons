@@ -17,7 +17,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorUrl(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
 
         return jsonString.toString()
                 .replaceAll("http(s)?:([\\\\/\\\\/]+)", "http$1://")
@@ -25,7 +25,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorEscapeChars(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
 
         return jsonString.toString()
                 .replaceAll("\\\\+\"", "\"")
@@ -34,7 +34,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorSpaces(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
 
         return jsonString.toString()
                 .replaceAll(", \\{", ",{")
@@ -44,7 +44,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorArrayFix(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
         return jsonString.toString()
                 .replaceAll("\"\\[", "[")
                 .replaceAll("]\"", "]")
@@ -58,7 +58,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorComplexArray(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
 
         String json = JsonRefactorArrayFix(jsonString);
 
@@ -74,7 +74,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorObjects(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
 
         return jsonString.toString()
                 .replaceAll("([ ,{])([0-9a-zA-Z_]+)=([0-9a-zA-Z- \\\\/?%=.@#$!&*)(:]+)(,)?", "$1\"$2\":\"$3\"$4")
@@ -90,7 +90,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorArrayFromString(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
 
         return jsonString.toString()
                 .replaceAll("( )?([0-9a-zA-Z- !@#$%&*)'(+=;:./\\\\|]+)\"\\](,)?", "\"$2\"]$3")
@@ -103,7 +103,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorDatetime(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
         return jsonString.toString()
                 .replaceAll(
                         "(\\\")( ?: ?)([0-9]+[-/.][0-9]+[-/.][0-9]+)( [0-9]+:[0-9]+:[0-9]+)?(,)?",
@@ -111,7 +111,7 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorSanitize(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
 
         return jsonString.toString()
                 .replaceAll("\\[([0-9a-zA-Z ]+\")", "[\"$1")
@@ -136,11 +136,11 @@ public class Help4DevsParserService {
     }
 
     private static String JsonRefactorArrayNumber(Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (!checkJsonCompatibility(jsonString)) return jsonString.toString();
         return jsonString.toString().replaceAll("(\")([0-9]+)(\")", "$2");
     }
 
-    private static boolean isItJsonCompatible(Object jsonString) throws Exception {
+    private static boolean checkJsonCompatibility(Object jsonString) throws Exception {
 
         String[] compatibleTypes = new String[]{
                 "java.util.ArrayList",
@@ -222,46 +222,57 @@ public class Help4DevsParserService {
     }
 
     public static String jsonRefactor(String refactorMode, Object jsonString) throws Exception {
-        if (!isItJsonCompatible(jsonString)) return jsonString.toString();
+        if (checkJsonCompatibility(jsonString)) {
 
-        String jsonRefactor = jsonString.toString();
+            String jsonRefactor = jsonString.toString();
 
-        switch (refactorMode) {
-            case "easy":
-                jsonRefactor = JsonRefactorUrl(jsonRefactor);
-                break;
-            case "middle":
-                jsonRefactor = JsonRefactorUrl(jsonRefactor);
-                jsonRefactor = JsonRefactorEscapeChars(jsonRefactor);
-                jsonRefactor = JsonRefactorSpaces(jsonRefactor);
-                jsonRefactor = JsonRefactorSanitize(jsonRefactor);
-                break;
-            case "regular":
-                jsonRefactor = JsonRefactorUrl(jsonRefactor);
-                jsonRefactor = JsonRefactorEscapeChars(jsonRefactor);
-                jsonRefactor = JsonRefactorComplexArray(jsonRefactor);
-                jsonRefactor = JsonRefactorObjects(jsonRefactor);
-                jsonRefactor = JsonRefactorSanitize(jsonRefactor);
-                break;
-            case "complex":
-                jsonRefactor = JsonRefactorUrl(jsonRefactor);
-                jsonRefactor = JsonRefactorEscapeChars(jsonRefactor);
-                jsonRefactor = JsonRefactorSpaces(jsonRefactor);
-                jsonRefactor = JsonRefactorComplexArray(jsonRefactor);
-                jsonRefactor = JsonRefactorObjects(jsonRefactor);
-                jsonRefactor = JsonRefactorArrayFromString(jsonRefactor);
-                jsonRefactor = JsonRefactorSanitize(jsonRefactor);
-                jsonRefactor = JsonRefactorArrayNumber(jsonRefactor);
-                break;
-            default:
-                String error = "\n[EXCEPTION] Invalid refactorMode, use: [easy, middle, regular, complex]\n";
-                error += "See the README.md documentation in github project to more details\n";
-                throw new RuntimeException(error);
+            switch (refactorMode) {
+                case "easy":
+                    jsonRefactor = JsonRefactorUrl(jsonRefactor);
+                    break;
+                case "middle":
+                    jsonRefactor = JsonRefactorUrl(jsonRefactor);
+                    jsonRefactor = JsonRefactorEscapeChars(jsonRefactor);
+                    jsonRefactor = JsonRefactorSpaces(jsonRefactor);
+                    jsonRefactor = JsonRefactorSanitize(jsonRefactor);
+                    break;
+                case "regular":
+                    jsonRefactor = JsonRefactorUrl(jsonRefactor);
+                    jsonRefactor = JsonRefactorEscapeChars(jsonRefactor);
+                    jsonRefactor = JsonRefactorComplexArray(jsonRefactor);
+                    jsonRefactor = JsonRefactorObjects(jsonRefactor);
+                    jsonRefactor = JsonRefactorSanitize(jsonRefactor);
+                    break;
+                case "complex":
+                    jsonRefactor = JsonRefactorUrl(jsonRefactor);
+                    jsonRefactor = JsonRefactorEscapeChars(jsonRefactor);
+                    jsonRefactor = JsonRefactorSpaces(jsonRefactor);
+                    jsonRefactor = JsonRefactorComplexArray(jsonRefactor);
+                    jsonRefactor = JsonRefactorObjects(jsonRefactor);
+                    jsonRefactor = JsonRefactorArrayFromString(jsonRefactor);
+                    jsonRefactor = JsonRefactorSanitize(jsonRefactor);
+                    jsonRefactor = JsonRefactorArrayNumber(jsonRefactor);
+                    break;
+                default:
+                    String error = "\n[EXCEPTION] Invalid refactorMode, use: [easy, middle, regular, complex]\n";
+                    error += "See the README.md documentation in github project to more details\n";
+                    throw new RuntimeException(error);
+            }
+
+            return jsonRefactor;
+
+        } else {
+            return jsonString.toString();
         }
-
-        return jsonRefactor;
     }
 
+    /**
+     * @param object (Object: Data to convert)
+     * @return JSONObject (JSON Data from Object)
+     * @implNote Convert a Object Data to JSONObject
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static JSONObject objectToNetJson(Object object) throws Exception {
 
         String json = object.toString()
@@ -283,17 +294,34 @@ public class Help4DevsParserService {
         return parseNetJsonObject(json);
     }
 
-    public static JSONObject JsonFromLinkedHashMap(
+    /**
+     * @param linkedHashMap (LinkedHashMap: Data to convert)
+     * @param expectedFields (Object[]: Fields to be considered in the conversion)
+     * @return JSONObject (JSON Data from Linked Hash Map)
+     * @implNote Convert a Linked Hash Map Data to JSONObject
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static JSONObject jsonFromLinkedHashMap(
             LinkedHashMap<?, ?> linkedHashMap,
             Object[] expectedFields
     ) {
 
         JSONObject jsonResponse = new JSONObject();
 
-        for (Object field : expectedFields) {
-            if (linkedHashMap.containsKey(field.toString())) {
-                jsonResponse.put(field.toString(), linkedHashMap.get(field.toString()));
+        if (expectedFields != null && expectedFields.length > 0) {
+
+            for (Object field : expectedFields) {
+                if (linkedHashMap.containsKey(field.toString())) {
+                    jsonResponse.put(field.toString(), linkedHashMap.get(field.toString()));
+                }
             }
+
+        } else {
+
+            linkedHashMap.forEach((field, value) -> {
+                jsonResponse.put((String) field, value);
+            });
         }
 
         return jsonResponse;

@@ -1233,6 +1233,14 @@ public class Help4DevsHttpSimulatorService {
                 Charset.defaultCharset());
     }
 
+    /**
+     * @param httpCode (int: The HTTP Code to simulate)
+     * @param throwable (boolean: Means if to simulate a throw exception)
+     * @param responseSimulate (Object: The field value)
+     * @implNote Simulate a Rest Response using an HTTP Status Code and Body
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static HttpClientErrorException restResponseSimulate(
             int httpCode,
             boolean throwable,
@@ -1683,6 +1691,12 @@ public class Help4DevsHttpSimulatorService {
         throw new RuntimeException("[restResponseSimulate] Wrong/Unknown HTTP Code");
     }
 
+    /**
+     * @param hc (HttpStatusCodeException)
+     * @implNote Extract the data content from HTTP Response
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String httpResponseErrorExtractor(HttpStatusCodeException hc) {
 
         String bodyString = hc.getResponseBodyAsString();

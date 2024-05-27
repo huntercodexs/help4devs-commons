@@ -10,10 +10,19 @@ public class Help4DevsPathUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void sanitizePathTest() {
         String result = sanitizePath("/home/user/test/");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertText("/home/user/test/", result);
 
         result = sanitizePath("/home/user/test");
-        System.out.println("RESULT IS: " + result);
+        codexsTesterAssertText("/home/user/test", result);
+
+        result = sanitizePath("/home/user/test/text.txt");
+        codexsTesterAssertText("/home/user/test/text.txt", result);
+
+        result = sanitizePath("text.txt");
+        codexsTesterAssertText("text.txt", result);
+
+        result = sanitizePath("text");
+        codexsTesterAssertText("text", result);
     }
 
 }
