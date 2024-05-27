@@ -5,12 +5,30 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 
+/**
+ * @implNote Create a instance of Help4DevsFileWriterService to writer a file,
+ * the annotation @Autowired also can be used:
+ * <br /><br />use: <br />@Autowired
+ *     <br />Help4DevsFileWriterService help4DevsFileWriterService;
+ * <br /><br />or:
+ *      <br />Help4DevsFileWriterService help4DevsFileWriterService = new Help4DevsFileWriterService()
+ *
+ * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+ * @author huntercodexs (powered by jereelton-devel)
+ * */
 @Slf4j
 @Service
 public class Help4DevsFileWriterService {
 
     public BufferedWriter bufferedWriter;
 
+    /**
+     * @param path (String: The path to create a target folder)
+     * @return boolean
+     * @implNote Create a folder in the specific path
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public boolean folderCreate(String path) {
         try {
 
@@ -28,6 +46,13 @@ public class Help4DevsFileWriterService {
         return false;
     }
 
+    /**
+     * @param path (String: The path to delete a target file)
+     * @return boolean
+     * @implNote Delete one file in the specific path
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public boolean fileDelete(String path) {
         try {
 
@@ -47,6 +72,14 @@ public class Help4DevsFileWriterService {
         return false;
     }
 
+    /**
+     * @param path (String: The path to rename a target file)
+     * @param newPath (String: The new path to rename a target file)
+     * @return boolean
+     * @implNote Rename file to specific filename passed in the parameters
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public boolean fileMove(String path, String newPath) {
         try {
 
@@ -67,6 +100,12 @@ public class Help4DevsFileWriterService {
         return false;
     }
 
+    /**
+     * @param filepath (String: The path to create a target file)
+     * @implNote Create a target file
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public void fileCreate(String filepath) throws FileNotFoundException {
         File file = new File(filepath);
 
@@ -81,6 +120,12 @@ public class Help4DevsFileWriterService {
         this.bufferedWriter = new BufferedWriter(wr);
     }
 
+    /**
+     * @param data (String: Data to write in the file)
+     * @implNote Write in the target file
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public void fileWrite(String data) {
         try {
             this.bufferedWriter.write(data);
@@ -89,6 +134,11 @@ public class Help4DevsFileWriterService {
         }
     }
 
+    /**
+     * @implNote Append new line in the target file
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public void fileNewLine() {
         try {
             this.bufferedWriter.newLine();
@@ -97,7 +147,13 @@ public class Help4DevsFileWriterService {
         }
     }
 
+    /**
+     * @implNote Close the target file
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public void fileClose() throws IOException {
         this.bufferedWriter.close();
     }
+
 }

@@ -11,18 +11,11 @@ import java.util.Arrays;
 import java.util.Properties;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
-import static com.huntercodexs.demo.services.Help4DevsFileReaderService.exists;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
 
     private static final String pathImages = "src/test/resources/help4devs/images";
-
-    @Test
-    public void loadPropsTest() {
-        Properties props = loadProps("classpath:application.properties");
-        stdout(String.valueOf(props));
-    }
 
     @Test
     public void bytesExtractorShipmentFileTest() throws IOException {
@@ -41,6 +34,12 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
         ByteArrayDataSource result = fileToDataSource("./src/test/resources/help4devs/", "external.tests.properties");
         stdout("RESULT");
         stdout(String.valueOf(result));
+    }
+
+    @Test
+    public void loadPropsTest() {
+        Properties props = loadProps("classpath:application.properties");
+        codexsTesterAssertExact("HELPER4DEVS", props.getProperty("spring.application.name"));
     }
 
     @Test
@@ -120,7 +119,7 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void byteFileTest() throws IOException {
-        stdout(Arrays.toString(byteFile("src/test/resources/help4devs/images/file2.jpg")));
+        stdout(Arrays.toString(byteFile("src/test/resources/help4devs/images/5-jpg/file2.jpg")));
     }
 
     @Test
@@ -148,15 +147,22 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void fileListTest() {
+        stdout(fileList("/home/jereelton/tmp", ".*.txt"));
+    }
+
+    @Test
     public void fileDeleteTest() {
         codexsTesterAssertBool(true, fileDelete("/home/jereelton/tmp/folder-created-from-java-tests"));
     }
 
     @Test
     public void fileMoveTest() {
-        codexsTesterAssertBool(true, fileMove(
-                "/home/jereelton/tmp/folder-created-from-java-tests",
-                "/home/jereelton/tmp/folder-moved-from-java-tests"));
+        codexsTesterAssertBool(
+                true,
+                fileMove(
+                        "/home/jereelton/tmp/folder-created-from-java-tests",
+                        "/home/jereelton/tmp/folder-moved-from-java-tests"));
     }
 
     @Test

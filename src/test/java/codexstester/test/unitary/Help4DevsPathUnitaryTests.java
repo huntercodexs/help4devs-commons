@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
 
-public class Help4DevsFilePathUnitaryTests extends Help4DevsBridgeTests {
+public class Help4DevsPathUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void sanitizePathTest() {

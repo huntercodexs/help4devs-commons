@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Service
-public class Help4DevsHttpService {
+public class Help4DevsHttpSimulatorService {
 
     private static HttpClientErrorException continue100(Object responseSimulate) {
 
