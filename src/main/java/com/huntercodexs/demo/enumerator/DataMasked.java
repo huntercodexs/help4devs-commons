@@ -90,11 +90,14 @@ public enum DataMasked {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">dataMasked</h6>
+     *
+     * <p style="color: #CDCDCD">This method make a mask in the data input according the parameter dataMasked</p>
+     *
      * @param data (String: the data value to apply mask)
      * @param mask (String: the type of mask [*, #, $, @...])
      * @param dataMasked (DataMasked Enum: the name of mask to apply in the current data)
      * @return String (Data Masked)
-     * @implNote This method make a mask in the data input according the parameter dataMasked
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

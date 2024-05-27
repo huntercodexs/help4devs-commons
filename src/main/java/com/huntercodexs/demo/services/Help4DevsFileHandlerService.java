@@ -55,9 +55,12 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">loadProps</h6>
+     *
+     * <p style="color: #CDCDCD">Get all data from application properties file passed in the classpath parameter</p>
+     *
      * @param classpath (String: The path where the application properties file is placed)
      * @return Properties (Application Properties Details)
-     * @implNote Get all data from application properties file passed in the classpath parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -76,9 +79,12 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">byteConvert</h6>
+     *
+     * <p style="color: #CDCDCD">Convert the InputStream in the bytes</p>
+     *
      * @param fileArray (InputStream: File Content in Array Format)
      * @return byte (The file content un bytes)
-     * @implNote Convert the InputStream in the bytes
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -89,10 +95,13 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileToString</h6>
+     *
+     * <p style="color: #CDCDCD">Get the content file in the string format</p>
+     *
      * @param targetPath (String: Pathname target)
      * @param targetFile (String: Filename target)
      * @return String (File Content)
-     * @implNote Get the content file in the string format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -122,10 +131,13 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileToArray</h6>
+     *
+     * <p style="color: #CDCDCD">Convert a txt file into an array</p>
+     *
      * @param targetPath (String: Pathname target)
      * @param targetFile (String: Filename target)
      * @return ArrayList (File Content in ArrayList)
-     * @implNote Convert a txt file into an array
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -155,9 +167,12 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">byteFile</h6>
+     *
+     * <p style="color: #CDCDCD">Read a file and get the content in bytes format</p>
+     *
      * @param filenamePath (String: The absolute filename path to open and read the file)
      * @return byte[] (File Content in bytes)
-     * @implNote Read a file and get the content in bytes format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -167,9 +182,12 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">ioFile</h6>
+     *
+     * <p style="color: #CDCDCD">Read a file and get the content in string format</p>
+     *
      * @param filenamePath (String: The absolute filename path to open and read the file)
      * @return String (File Content)
-     * @implNote Read a file and get the content in string format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -179,9 +197,12 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">binFile</h6>
+     *
+     * <p style="color: #CDCDCD">Read a file and get the content in binary format</p>
+     *
      * @param filenamePath (String: The absolute filename path to open and read the file)
      * @return String (File Binary Content)
-     * @implNote Read a file and get the content in binary format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -191,9 +212,12 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">folderCreate</h6>
+     *
+     * <p style="color: #CDCDCD">Create a folder according to path parameter</p>
+     *
      * @param path (String: The current path to create folder)
      * @return boolean
-     * @implNote Create a folder according to path parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -215,10 +239,13 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileList</h6>
+     *
+     * <p style="color: #CDCDCD">List files in the specific directory according to filepath parameter</p>
+     *
      * @param filePath (String: The current path to list files)
      * @param regExpFilter (String: The regular expression to match files)
      * @return String[]
-     * @implNote List files in the specific directory according to filepath parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -234,9 +261,12 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileDelete</h6>
+     *
+     * <p style="color: #CDCDCD">Delete on file or directory simply passing the path in the parameters</p>
+     *
      * @param path (String: The current file or directory path to delete)
      * @return boolean
-     * @implNote Delete on file or directory simply passing the path in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -260,10 +290,13 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileMove</h6>
+     *
+     * <p style="color: #CDCDCD">Rename on file or directory simply passing the old and new path in the parameters</p>
+     *
      * @param path (String: The current file or directory path)
      * @param newPath (String: The new path that should be applied in the file or directory target)
      * @return boolean
-     * @implNote Rename on file or directory simply passing the old and new path in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -288,11 +321,15 @@ public class Help4DevsFileHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileWriter</h6>
+     *
+     * <p style="color: #CDCDCD">Write in some file according data parameters, if the process not end up with success
+     *      then one exception will be thrown
+     * </p>
+     *
      * @param data (byte[]: The content in bytes to write in the target file)
      * @param path (String: The path where the file to write is located)
      * @return boolean
-     * @implNote Write in some file according data parameters, if the process not end up with success
-     * then one exception will be thrown
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

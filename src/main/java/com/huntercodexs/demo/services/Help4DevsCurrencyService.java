@@ -16,7 +16,7 @@ public class Help4DevsCurrencyService {
         Locale localBrazil = new Locale("pt", "BR");
         NumberFormat brCurrency = NumberFormat.getCurrencyInstance(localBrazil);
         return brCurrency.format(value)
-                .replaceAll("[^0-9R$., ]+", "")
+                .replaceAll("[^0-9R$.,]+", "")
                 .replaceAll("R[$]", "R\\$ ");
     }
 
@@ -25,7 +25,7 @@ public class Help4DevsCurrencyService {
         Locale localBrazil = new Locale("pt", "BR");
         NumberFormat brCurrency = NumberFormat.getCurrencyInstance(localBrazil);
         return brCurrency.format(value)
-                .replaceAll("[^0-9R$., ]+", "")
+                .replaceAll("[^0-9R$.,]+", "")
                 .replaceAll("R[$]", "R\\$ ");
     }
 
@@ -44,9 +44,12 @@ public class Help4DevsCurrencyService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">currencyFormatReal</h6>
+     *
+     * <p style="color: #CDCDCD">This method can be used to get currency real format - BRL</p>
+     *
      * @param value (Object: Data to Format)
      * @return String (Data Formatter: Real Currency R$)
-     * @implNote This method can be used to get currency real format - BRL
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -59,9 +62,12 @@ public class Help4DevsCurrencyService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">currencyFormatDollar</h6>
+     *
+     * <p style="color: #CDCDCD">This method can be used to get currency dollar format</p>
+     *
      * @param value (Object: Data to Format)
      * @return String (Data Formatter: Dollar Currency $)
-     * @implNote This method can be used to get currency dollar format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -74,10 +80,13 @@ public class Help4DevsCurrencyService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">currencyFormatEuro</h6>
+     *
+     * <p style="color: #CDCDCD">This method can be used to get currency euro format, when postfix is true the</p>
+     *
      * @param value (Object: Data to Format)
      * @param postfix (Boolean: Set the symbol € in the result)
      * @return String (Data Formatter: Euro Currency [EUR, €])
-     * @implNote This method can be used to get currency euro format, when postfix is true the
      * currency format result in the something like 1,00 €
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)

@@ -19,9 +19,12 @@ public class Help4DevsJwtService {
     JwtHelper jwtHelper;
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">create</h6>
+     *
+     * <p style="color: #CDCDCD">Create a JWT Token</p>
+     *
      * @param subject (String)
      * @return String (JWT)
-     * @implNote Create a JWT Token
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -32,9 +35,12 @@ public class Help4DevsJwtService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">get</h6>
+     *
+     * <p style="color: #CDCDCD">Get the JWT Token from the HTTP Header Request HttpServletRequest</p>
+     *
      * @param bearerToken (String)
      * @return String (JWT Token)
-     * @implNote Get the JWT Token from the HTTP Header Request HttpServletRequest
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -48,9 +54,12 @@ public class Help4DevsJwtService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">type</h6>
+     *
+     * <p style="color: #CDCDCD">Get the JWT Token Type from type field in the Headers Request HttpServletRequest</p>
+     *
      * @param jwt (String)
      * @return String (JWT Token)
-     * @implNote Get the JWT Token Type from type field in the Headers Request HttpServletRequest
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -60,9 +69,12 @@ public class Help4DevsJwtService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">subject</h6>
+     *
+     * <p style="color: #CDCDCD">Get the Subject from type field in the Headers Request HttpServletRequest</p>
+     *
      * @param jwt (String)
      * @return String (JWT Token)
-     * @implNote Get the Subject from type field in the Headers Request HttpServletRequest
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -72,11 +84,14 @@ public class Help4DevsJwtService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">identifier</h6>
+     *
+     * <p style="color: #CDCDCD">Check the JWT Token</p>
+     *
      * @param bearerToken (String)
      * @param tokenType (TokenType)
      * @param subject (String)
      * @return String (JWT Token)
-     * @implNote Check the JWT Token
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

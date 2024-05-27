@@ -1168,10 +1168,13 @@ public class Help4DevsResponseEntityService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">responseEntitySimulate</h6>
+     *
+     * <p style="color: #CDCDCD">Simulate a Rest Response using an HTTP Status Code and Body</p>
+     *
      * @param httpCode (int: The HTTP Code to simulate)
      * @param bodySimulate (Object: The Data value to simulate)
      * @return ResponseEntity (Http Object Response simulate)
-     * @implNote Simulate a Rest Response using an HTTP Status Code and Body
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

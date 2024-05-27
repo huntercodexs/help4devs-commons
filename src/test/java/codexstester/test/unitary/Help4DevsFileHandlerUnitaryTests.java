@@ -153,7 +153,8 @@ public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void fileDeleteTest() {
-        codexsTesterAssertBool(true, fileDelete("/home/jereelton/tmp/folder-created-from-java-tests"));
+        folderCreate("/home/jereelton/tmp/java-tests/delete-java-tests");
+        codexsTesterAssertBool(true, fileDelete("/home/jereelton/tmp/java-tests/delete-java-tests"));
     }
 
     @Test

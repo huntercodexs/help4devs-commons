@@ -14,10 +14,13 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 public class Help4DevsFormatterService {
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">numberFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the number in the specified format</p>
+     *
      * @param input (int: Number to format)
      * @param format (String: Format to apply in the input)
      * @return String (Number Formatted)
-     * @implNote Format the number in the specified format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -26,10 +29,13 @@ public class Help4DevsFormatterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stringFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the String in the specified format</p>
+     *
      * @param input (String: String to format)
      * @param format (String: Format to apply in the input)
      * @return String (String Formatted)
-     * @implNote Format the String in the specified format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -38,12 +44,15 @@ public class Help4DevsFormatterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fillerFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format a data input with a specified parameters</p>
+     *
      * @param input (String: Data to apply the format)
      * @param fill (String: Char to fill and format the input)
      * @param align (String: Direction to align the input [left, right])
      * @param size (int: Size to apply the fill in the input)
      * @return String (Formatted and Filled Input)
-     * @implNote Format a data input with a specified parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -75,11 +84,14 @@ public class Help4DevsFormatterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">rgFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the RG number in the specified format</p>
+     *
      * @param value (String: The document value to format)
      * @param rgUf (String: The document uf)
      * @param rgPrefix (String: The document prefix)
      * @return String (RG Formatted)
-     * @implNote Format the RG number in the specified format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -107,9 +119,12 @@ public class Help4DevsFormatterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">cpfFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the CPF number in the correct format</p>
+     *
      * @param cpf (String: the document value to format)
      * @return String (CPF Formatted)
-     * @implNote Format the CPF number in the correct format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -120,9 +135,12 @@ public class Help4DevsFormatterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">cnpjFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the CNPJ number in the correct format</p>
+     *
      * @param cnpj (String: the document value to format)
      * @return String (CNPJ Formatted)
-     * @implNote Format the CNPJ number in the correct format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -134,10 +152,13 @@ public class Help4DevsFormatterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">moneyFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the currency value in the specific currency format</p>
+     *
      * @param value (Object: the value or amount to format)
      * @param format (String: the currency target to format [real, dollar, euro])
      * @return String (Money Formatted)
-     * @implNote Format the currency value in the specific currency format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -184,6 +205,10 @@ public class Help4DevsFormatterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">dateFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the date in the specific format</p>
+     *
      * @param dateInput (String: the date to format)
      * @param dateFormat (String: the format to apply in the date [
      *                   <br />yyy-MM-dd HH:mm:ss.ms,
@@ -248,7 +273,6 @@ public class Help4DevsFormatterService {
      *                   <br />yyMMdd,
      *                   <br/>])
      * @return String (Date Formatted)
-     * @implNote Format the date in the specific format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

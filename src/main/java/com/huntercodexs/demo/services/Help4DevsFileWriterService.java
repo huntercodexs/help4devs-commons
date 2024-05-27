@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 
 /**
- * @implNote Create a instance of Help4DevsFileWriterService to writer a file,
+ * <h5>File Writer</h5>
+ * <p>Create a instance of Help4DevsFileWriterService to writer a file,
  * the annotation @Autowired also can be used:
  * <br /><br />use: <br />@Autowired
  *     <br />Help4DevsFileWriterService help4DevsFileWriterService;
  * <br /><br />or:
  *      <br />Help4DevsFileWriterService help4DevsFileWriterService = new Help4DevsFileWriterService()
+ * </p>
  *
  * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
  * @author huntercodexs (powered by jereelton-devel)
@@ -23,9 +25,12 @@ public class Help4DevsFileWriterService {
     public BufferedWriter bufferedWriter;
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">folderCreate</h6>
+     *
+     * <p style="color: #CDCDCD">Create a folder in the specific path</p>
+     *
      * @param path (String: The path to create a target folder)
      * @return boolean
-     * @implNote Create a folder in the specific path
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -47,9 +52,12 @@ public class Help4DevsFileWriterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileDelete</h6>
+     *
+     * <p style="color: #CDCDCD">Delete one file in the specific path</p>
+     *
      * @param path (String: The path to delete a target file)
      * @return boolean
-     * @implNote Delete one file in the specific path
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -73,10 +81,13 @@ public class Help4DevsFileWriterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileMove</h6>
+     *
+     * <p style="color: #CDCDCD">Rename file to specific filename passed in the parameters</p>
+     *
      * @param path (String: The path to rename a target file)
      * @param newPath (String: The new path to rename a target file)
      * @return boolean
-     * @implNote Rename file to specific filename passed in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -101,8 +112,11 @@ public class Help4DevsFileWriterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileCreate</h6>
+     *
+     * <p style="color: #CDCDCD">Create a target file</p>
+     *
      * @param filepath (String: The path to create a target file)
-     * @implNote Create a target file
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -121,8 +135,11 @@ public class Help4DevsFileWriterService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">fileWrite</h6>
+     *
+     * <p style="color: #CDCDCD">Write in the target file</p>
+     *
      * @param data (String: Data to write in the file)
-     * @implNote Write in the target file
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -135,7 +152,10 @@ public class Help4DevsFileWriterService {
     }
 
     /**
-     * @implNote Append new line in the target file
+     * <h6 style="color: #FFFF00; font-size: 11px">fileNewLine</h6>
+     *
+     * <p style="color: #CDCDCD">Append new line in the target file</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -148,7 +168,10 @@ public class Help4DevsFileWriterService {
     }
 
     /**
-     * @implNote Close the target file
+     * <h6 style="color: #FFFF00; font-size: 11px">fileClose</h6>
+     *
+     * <p style="color: #CDCDCD">Close the target file</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

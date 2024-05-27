@@ -13,11 +13,14 @@ import java.io.IOException;
 public class Help4DevsFileReaderService {
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">awaitFileContent</h6>
+     *
+     * <p style="color: #CDCDCD">Get the file content based input parameters - like a sentinel</p>
+     *
      * @param filepath (String: The filepath to reader the target file)
      * @param regex (String: The regular expression to interrupt the file reader process)
      * @param timeout (String: Time to automatically stop the file reader process)
      * @return String (File Content based on regular expression)
-     * @implNote Get the file content based input parameters - like a sentinel
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

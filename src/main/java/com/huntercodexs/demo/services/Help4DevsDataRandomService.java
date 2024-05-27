@@ -29,9 +29,12 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomNumber</h6>
+     *
+     * <p style="color: #CDCDCD">Generate a random number with a specified number of digits given in the parameters</p>
+     *
      * @param digits (int: Quantities of digits to generate random number)
      * @return int (Random Number)
-     * @implNote Generate a random number with a specified number of digits given in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -46,11 +49,14 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomMoney</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random money with a specified number of digits and the currency format,
+     * both given in the parameters</p>
+     *
      * @param digits (int: Quantities of digits to generate random money)
      * @param currency (String: Currency Format [real, euro, default:dollar])
      * @return String (Random Money)
-     * @implNote Generate random money with a specified number of digits and the currency format,
-     * both given in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -74,9 +80,12 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomCardNumber</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random card number with a specified separator</p>
+     *
      * @param separator (String: Type of separator to card number [-,., ])
      * @return String (Random Card Number)
-     * @implNote Generate random card number with a specified separator
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -94,9 +103,12 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomId</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random ID with 6 digits and Prefix if given in the parameters</p>
+     *
      * @param prefix (String: Specific Prefix to ID)
      * @return String (Random ID)
-     * @implNote Generate random ID with 6 digits and Prefix if given in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -107,8 +119,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomGuid</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random GUID</p>
+     *
      * @return String (GUID)
-     * @implNote Generate random GUID
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -117,9 +132,12 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomToken</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random Token with a size specified in the parameter</p>
+     *
      * @param length (int: Size of token)
      * @return String (Random Token with a specified length)
-     * @implNote Generate random Token with a size specified in the parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -136,8 +154,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomJwt</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random JWT to simulate requests using JSON WEB TOKEN</p>
+     *
      * @return String (Random JWT)
-     * @implNote Generate random JWT to simulate requests using JSON WEB TOKEN
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -162,8 +183,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomHash</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random Hash (md5)</p>
+     *
      * @return String (Random Hash)
-     * @implNote Generate random Hash (md5)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -174,8 +198,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomBinary</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random data binary to simulate binary operation</p>
+     *
      * @return String (Random Data Binary)
-     * @implNote Generate random data binary to simulate binary operation
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -196,8 +223,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomCpf</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random CPF without valid and correct digits verifier</p>
+     *
      * @return String (Random CPF)
-     * @implNote Generate random CPF without valid and correct digits verifier
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -239,8 +269,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomCnpj</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random CNPJ - Brazil</p>
+     *
      * @return String (Random CNPJ)
-     * @implNote Generate random CNPJ - Brazil
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -255,8 +288,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomDate</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random date with the format: uuuu-MM-dd</p>
+     *
      * @return String (Random Date)
-     * @implNote Generate random date with the format: uuuu-MM-dd
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -267,8 +303,11 @@ public class Help4DevsDataRandomService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomDateTime</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random datetime with the format: uuuu-MM-dd HH:mm:ss</p>
+     *
      * @return String (Random Datetime)
-     * @implNote Generate random datetime with the format: uuuu-MM-dd HH:mm:ss
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

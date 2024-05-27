@@ -16,12 +16,14 @@ import java.util.List;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.infoLog;
 
 /**
- * @implNote Create a instance of Help4DevsHttpClientService to writer a file,
+ * <h5>Http Client</h5>
+ * <p>Create a instance of Help4DevsHttpClientService to writer a file,
  * the annotation @Autowired also can be used:
  * <br /><br />use: <br />@Autowired
  *     <br />Help4DevsHttpClientService help4DevsHttpClientService;
  * <br /><br />or:
  *      <br />Help4DevsHttpClientService help4DevsHttpClientService = new Help4DevsHttpClientService()
+ * </p>
  *
  * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
  * @author huntercodexs (powered by jereelton-devel)
@@ -71,9 +73,12 @@ public class Help4DevsHttpClientService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">setHeaderList</h6>
+     *
+     * <p style="color: #CDCDCD">Set the header names and values to HTTP Requests</p>
+     *
      * @param headerName (String: The field name)
      * @param headerValue (String: The field value)
-     * @implNote Set the header names and values to HTTP Requests
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -85,9 +90,14 @@ public class Help4DevsHttpClientService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">setHttpMethod</h6>
+     *
+     * <p style="color: #CDCDCD">Call the http method setter and get the current instance of
+     *      this class where its possible to prepare a specific HTTP REQUEST METHOD and finally
+     *      call the request method.
+     * </p>
+     *
      * @return Help4DevsHttpClientService (this)
-     * @implNote Call the http method setter and get the current instance of this class where its possible
-     * to prepare a specific HTTP REQUEST METHOD and finally call the request method.
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -96,7 +106,10 @@ public class Help4DevsHttpClientService {
     }
 
     /**
-     * @implNote HTTP METHOD GET
+     * <h6 style="color: #FFFF00; font-size: 11px">httpGet</h6>
+     *
+     * <p style="color: #CDCDCD">HTTP METHOD GET</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -105,7 +118,10 @@ public class Help4DevsHttpClientService {
     }
 
     /**
-     * @implNote HTTP METHOD POST
+     * <h6 style="color: #FFFF00; font-size: 11px">httpPost</h6>
+     *
+     * <p style="color: #CDCDCD">HTTP METHOD POST</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -114,7 +130,10 @@ public class Help4DevsHttpClientService {
     }
 
     /**
-     * @implNote HTTP METHOD DELETE
+     * <h6 style="color: #FFFF00; font-size: 11px">httpDelete</h6>
+     *
+     * <p style="color: #CDCDCD">HTTP METHOD DELETE</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -123,7 +142,10 @@ public class Help4DevsHttpClientService {
     }
 
     /**
-     * @implNote HTTP METHOD PUT
+     * <h6 style="color: #FFFF00; font-size: 11px">httpPut</h6>
+     *
+     * <p style="color: #CDCDCD">HTTP METHOD PUT</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -132,7 +154,10 @@ public class Help4DevsHttpClientService {
     }
 
     /**
-     * @implNote HTTP METHOD PATCH
+     * <h6 style="color: #FFFF00; font-size: 11px">httpPatch</h6>
+     *
+     * <p style="color: #CDCDCD">HTTP METHOD PATCH</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -141,7 +166,10 @@ public class Help4DevsHttpClientService {
     }
 
     /**
-     * @implNote HTTP METHOD OPTIONS
+     * <h6 style="color: #FFFF00; font-size: 11px">httpOptions</h6>
+     *
+     * <p style="color: #CDCDCD">HTTP METHOD OPTIONS</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -150,7 +178,10 @@ public class Help4DevsHttpClientService {
     }
 
     /**
-     * @implNote HTTP METHOD HEAD
+     * <h6 style="color: #FFFF00; font-size: 11px">httpHead</h6>
+     *
+     * <p style="color: #CDCDCD">HTTP METHOD HEAD</p>
+     *
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -159,8 +190,11 @@ public class Help4DevsHttpClientService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">request</h6>
+     *
+     * <p style="color: #CDCDCD">Execute the HTTP Request previously configured in the current instance</p>
+     *
      * @return ResponseEntity
-     * @implNote Execute the HTTP Request previously configured in the current instance
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

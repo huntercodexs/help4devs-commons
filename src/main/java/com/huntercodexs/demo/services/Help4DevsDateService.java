@@ -20,10 +20,13 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 public class Help4DevsDateService {
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">dateReverse</h6>
+     *
+     * <p style="color: #CDCDCD">Reverse the date informed in the parameters</p>
+     *
      * @param inputDate (String: The date to reverse)
      * @param separator (String: The kind of separator for the date)
      * @return String (Date Reversed)
-     * @implNote Reverse the date informed in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -142,11 +145,14 @@ public class Help4DevsDateService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">dateExpired</h6>
+     *
+     * <p style="color: #CDCDCD">Check if one specific date is expired based on parameters</p>
+     *
      * @param date (String: The date to check expires)
      * @param time (int: The time to apply in the check expires)
      * @param metricType (String: The quantity in time to use in calculate)
      * @return boolean (Date Expired)
-     * @implNote Check if one specific date is expired based on parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -199,21 +205,26 @@ public class Help4DevsDateService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">dateQuantify</h6>
+     *
+     * <p style="color: #CDCDCD">
+     *     Get the date quantity difference between two dates (initial - final). The return values will be
+     *      * something like this: [1, 2, 3, 4, 5, 6, 7], where:
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : is a List< Long > with seven (7) index: 0-6
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : 1 is a quantity of years
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : 2 is a quantity of months
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : 3 is a quantity of days
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : 4 is a quantity of hours
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : 5 is a quantity of minutes
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : 6 is a quantity of seconds
+     *      * <br />[1, 2, 3, 4, 5, 6, 7] : 7 is a quantity of milliseconds
+     *      * <br /> In resume the value can be interpreted like this:
+     *      * 1 years, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds, 7 milliseconds
+     * </p>
+     *
      * @param initialDate (String: Initial Date to calculate)
      * @param finalDate (String: Final Date to calculate)
      * @return List (Date Quantify values - List of Long)
-     * @implNote Get the date quantity difference between two dates (initial - final). The return values will be
-     * something like this: [1, 2, 3, 4, 5, 6, 7], where:
-     * <br />[1, 2, 3, 4, 5, 6, 7] : is a List< Long > with seven (7) index: 0-6
-     * <br />[1, 2, 3, 4, 5, 6, 7] : 1 is a quantity of years
-     * <br />[1, 2, 3, 4, 5, 6, 7] : 2 is a quantity of months
-     * <br />[1, 2, 3, 4, 5, 6, 7] : 3 is a quantity of days
-     * <br />[1, 2, 3, 4, 5, 6, 7] : 4 is a quantity of hours
-     * <br />[1, 2, 3, 4, 5, 6, 7] : 5 is a quantity of minutes
-     * <br />[1, 2, 3, 4, 5, 6, 7] : 6 is a quantity of seconds
-     * <br />[1, 2, 3, 4, 5, 6, 7] : 7 is a quantity of milliseconds
-     * <br /> In resume the value can be interpreted like this:
-     * 1 years, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds, 7 milliseconds
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -258,10 +269,13 @@ public class Help4DevsDateService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">quantifyMillisDate</h6>
+     *
+     * <p style="color: #CDCDCD">Get the simple difference between two dates</p>
+     *
      * @param startDate (long: Initial Date to quantify)
      * @param endDate (long: Final Date to quantify)
      * @return long (Date Quantify in long value)
-     * @implNote Get the simple difference between two dates
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -270,10 +284,13 @@ public class Help4DevsDateService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">quantifyMillisParamsDate</h6>
+     *
+     * <p style="color: #CDCDCD">Get the difference in milliseconds between two dates given in the parameters</p>
+     *
      * @param start (String: Initial Date to quantify)
      * @param end (String: Final Date to quantify)
      * @return long (Date Quantify in long value)
-     * @implNote Get the difference in milliseconds between two dates given in the parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -356,11 +373,14 @@ public class Help4DevsDateService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">localDateFromGmtDate</h6>
+     *
+     * <p style="color: #CDCDCD">Get locale date from a GMT date setting up by parameters</p>
+     *
      * @param gmtDate (String: Date in GMT)
      * @param operation (String: Type of operation [+, -])
      * @param time (String: Time to apply in the GMT calculate)
      * @return String (Date Locale)
-     * @implNote Get locale date from a GMT date setting up by parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -406,9 +426,12 @@ public class Help4DevsDateService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">militaryHour</h6>
+     *
+     * <p style="color: #CDCDCD">Get the military hour according the inputHour informed in the parameter</p>
+     *
      * @param inputHour (String: Date)
      * @return String (Date Military Format)
-     * @implNote Get the military hour according the inputHour informed in the parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -437,6 +460,10 @@ public class Help4DevsDateService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">dateFormatter</h6>
+     *
+     * <p style="color: #CDCDCD">Format the date in the specific format</p>
+     *
      * @param dateInput (String: the date to format)
      * @param dateFormat (String: the format to apply in the date [
      *                   <br />yyy-MM-dd HH:mm:ss.ms,
@@ -501,7 +528,6 @@ public class Help4DevsDateService {
      *                   <br />yyMMdd,
      *                   <br/>])
      * @return String (Date Formatted)
-     * @implNote Format the date in the specific format
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

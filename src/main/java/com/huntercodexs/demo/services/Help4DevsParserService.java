@@ -267,9 +267,12 @@ public class Help4DevsParserService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">objectToNetJson</h6>
+     *
+     * <p style="color: #CDCDCD">Convert a Object Data to JSONObject</p>
+     *
      * @param object (Object: Data to convert)
      * @return JSONObject (JSON Data from Object)
-     * @implNote Convert a Object Data to JSONObject
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -295,10 +298,13 @@ public class Help4DevsParserService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jsonFromLinkedHashMap</h6>
+     *
+     * <p style="color: #CDCDCD">Convert a Linked Hash Map Data to JSONObject</p>
+     *
      * @param linkedHashMap (LinkedHashMap: Data to convert)
      * @param expectedFields (Object[]: Fields to be considered in the conversion)
      * @return JSONObject (JSON Data from Linked Hash Map)
-     * @implNote Convert a Linked Hash Map Data to JSONObject
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

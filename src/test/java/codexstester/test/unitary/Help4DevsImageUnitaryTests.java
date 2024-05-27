@@ -436,12 +436,15 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void imageFragmentRevertTest() {
-        String filePath = "/home/jereelton/tmp/java-tests/453b1c4f85b6a5531c50e186516abd2e_jpeg";
-        Help4DevsFileWriterService help4DevsFileWriterService = new Help4DevsFileWriterService();
         try {
+            String filePath = "/home/jereelton/tmp/java-tests/";
+            Help4DevsFileWriterService help4DevsFileWriterService = new Help4DevsFileWriterService();
 
-            help4DevsFileWriterService.fileCreate(filePath+".txt");
-            help4DevsFileWriterService.fileWrite(imageFragmentRevert(filePath));help4DevsFileWriterService.fileClose();
+            String folder = imageFragment(byteFile(pathImages + "/5-jpg/file1.jpg"), filePath);
+
+            help4DevsFileWriterService.fileCreate(filePath+folder+".txt");
+            help4DevsFileWriterService.fileWrite(imageFragmentRevert(filePath+folder));
+            help4DevsFileWriterService.fileClose();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

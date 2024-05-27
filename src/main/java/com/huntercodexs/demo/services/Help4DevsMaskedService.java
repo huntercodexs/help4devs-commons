@@ -10,10 +10,13 @@ import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repea
 public class Help4DevsMaskedService {
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">cardNumberMasked</h6>
+     *
+     * <p style="color: #CDCDCD">Mask a card number with a specific mask</p>
+     *
      * @param cardNumber (String)
      * @param mask (String)
      * @return String (Masked Card Number)
-     * @implNote Mask a card number with a specific mask
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

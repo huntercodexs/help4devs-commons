@@ -24,11 +24,15 @@ public class Help4DevsCryptographyService {
     public static final String ENCRYPTION_DES_SCHEME = "DESede";
 
     /**
+     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">encryptAesCbc256</h6>
+     *
+     * <p style="color: #CDCDCD">Data Encrypt using the algorithm AES-256-CBC</p>
+     *
      * @param strToEncrypt (String: Data to encrypt)
      * @param secretKey (String: Secret Key to Data encrypt)
      * @param salt (String: Salt to apply in the Secret Key)
      * @return String (Data Encrypted)
-     * @implNote Data Encrypt using the algorithm AES-256-CBC
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -62,11 +66,14 @@ public class Help4DevsCryptographyService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">decryptAesCbc256</h6>
+     *
+     * <p style="color: #CDCDCD">Data Decrypt using the algorithm AES-256-CBC</p>
+     *
      * @param strToDecrypt (String: Data to decrypt)
      * @param secretKey (String: Secret Key to Data decrypt)
      * @param salt (String: Salt to apply in the Secret Key)
      * @return String (Data Decrypted)
-     * @implNote Data Decrypt using the algorithm AES-256-CBC
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -99,10 +106,13 @@ public class Help4DevsCryptographyService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">encrypt3desEde</h6>
+     *
+     * <p style="color: #CDCDCD">Data Encrypt using the algorithm 3DES-EDE</p>
+     *
      * @param inputClear (String: Data to encrypt)
      * @param secretKey (String: Secret Key to Data encrypt)
      * @return String (Data Encrypted)
-     * @implNote Data Encrypt using the algorithm 3DES-EDE
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -126,10 +136,13 @@ public class Help4DevsCryptographyService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">decrypt3DesEde</h6>
+     *
+     * <p style="color: #CDCDCD">Data Decrypt using the algorithm 3DES-EDE</p>
+     *
      * @param inputCipher (String: Data to decrypt)
      * @param secretKey (String: Secret Key to Data decrypt)
      * @return String (Data Decrypted)
-     * @implNote Data Decrypt using the algorithm 3DES-EDE
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

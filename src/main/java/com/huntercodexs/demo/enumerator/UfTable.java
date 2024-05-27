@@ -47,9 +47,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">ufCode</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the code from the federate unity according uf parameter</p>
+     *
      * @param uf (String: the identification code of state - federate unity)
      * @return int (UF Code)
-     * @implNote This method return the code from the federate unity according uf parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -58,9 +61,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stateName</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the name of the federate unity according uf parameter</p>
+     *
      * @param uf (String: the identification code of state - federate unity)
      * @return String (UF name)
-     * @implNote This method return the name of the federate unity according uf parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -69,9 +75,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stateNameClear</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the name of the federate unity according uf parameter</p>
+     *
      * @param uf (String: the identification code of state - federate unity)
      * @return String (UF name without points or special characters)
-     * @implNote This method return the name of the federate unity according uf parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -80,9 +89,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">rgSspCode</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the rg state of the federate unity according uf parameter</p>
+     *
      * @param uf (String: the identification code of state - federate unity)
      * @return String (RG state name)
-     * @implNote This method return the rg state of the federate unity according uf parameter
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -91,9 +103,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkUfExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if on federate unity exists</p>
+     *
      * @param uf (String: the identification code of state - federate unity)
      * @return boolean
-     * @implNote This method check if on federate unity exists
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -107,9 +122,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkUfCodeExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if exists the uf code</p>
+     *
      * @param code (String)
      * @return boolean
-     * @implNote This method check if exists the uf code
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -123,9 +141,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkUfNameExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if exists the uf name</p>
+     *
      * @param ufName (String)
      * @return boolean
-     * @implNote This method check if exists the uf name
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -139,9 +160,12 @@ public enum UfTable {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkRgSspExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if exists the rg ssp in the list of states</p>
+     *
      * @param rgsSsp (String)
      * @return boolean
-     * @implNote This method check if exists the rg ssp in the list of states
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

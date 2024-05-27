@@ -11,8 +11,11 @@ import java.util.Arrays;
 public class Help4DevsBaseService {
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">params</h6>
+     *
+     * <p style="color: #CDCDCD">Sample method to show how to work and use the grouped parameters</p>
+     *
      * @param jsonObjects (JSONObject: Sample)
-     * @implNote Sample method to show how to work and use the grouped parameters
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

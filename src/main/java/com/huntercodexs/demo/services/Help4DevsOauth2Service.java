@@ -13,12 +13,15 @@ import java.util.Base64;
 import java.util.List;
 
 /**
- * @implNote Create a instance of Help4DevsOauth2Service to writer a file,
+ * <h5>OAuth2 Service</h5>
+ *
+ * <p>Create a instance of Help4DevsOauth2Service to writer a file,
  * the annotation @Autowired also can be used:
  * <br /><br />use: <br />@Autowired
  *     <br />Help4DevsOauth2Service help4DevsOauth2Service;
  * <br /><br />or:
  *      <br />Help4DevsOauth2Service help4DevsOauth2Service = new Help4DevsOauth2Service()
+ * </p>
  *
  * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
  * @author huntercodexs (powered by jereelton-devel)
@@ -119,8 +122,11 @@ public class Help4DevsOauth2Service {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">token</h6>
+     *
+     * <p style="color: #CDCDCD">Get a token from an OAUTH2 Server</p>
+     *
      * @return String (OAuth2 Token)
-     * @implNote Get a token from an OAUTH2 Server
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -135,8 +141,11 @@ public class Help4DevsOauth2Service {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">check</h6>
+     *
+     * <p style="color: #CDCDCD">Check a token from an OAUTH2 Server</p>
+     *
      * @return boolean
-     * @implNote Check a token from an OAUTH2 Server
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
