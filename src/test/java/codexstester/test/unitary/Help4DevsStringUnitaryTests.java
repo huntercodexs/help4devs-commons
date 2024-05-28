@@ -18,6 +18,12 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void reverseTest() {
+        codexsTesterAssertExact("0987654321", reverse("1234567890"));
+        codexsTesterAssertExact("JIHGFEDCBA", reverse("ABCDEFGHIJ"));
+    }
+
+    @Test
     public void queryStringBuilderTest() {
         String result = queryStringBuilder("[ {age: 40, gender: female},{age: 30, gender: female}]");
         codexsTesterAssertExact("age=40&gender=female&age=30&gender=female", result);

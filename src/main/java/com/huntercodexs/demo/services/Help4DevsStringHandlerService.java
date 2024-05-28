@@ -30,6 +30,24 @@ public class Help4DevsStringHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">reverse</h6>
+     *
+     * <p style="color: #CDCDCD">Reverse a string - Java 1.8 or minor</p>
+     *
+     * @param str (String: Data to reverse)
+     * @return String (Data reversed)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String reverse(String str) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = str.length()-1; i >= 0; i--) {
+            stringBuilder.append(str.charAt(i));
+        }
+        return String.valueOf(stringBuilder);
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">queryStringBuilder</h6>
      *
      * <p style="color: #CDCDCD">Create a query string from Data JSON or List structures</p>
