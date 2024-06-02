@@ -37,35 +37,51 @@ public class Help4DevsDataRandomUnitaryTests extends Help4DevsBridgeTests {
             try {
                 Thread.sleep(1000);
                 stdout("REAL R$");
-                stdout(randomMoney(1, "real")); /*dollar, euro, real*/
-                stdout(randomMoney(2, "real"));
-                stdout(randomMoney(3, "real"));
-                stdout(randomMoney(4, "real"));
-                stdout(randomMoney(5, "real"));
-                stdout(randomMoney(6, "real"));
-                stdout(randomMoney(7, "real"));
-                stdout(randomMoney(8, "real"));
-                stdout(randomMoney(9, "real"));
-                stdout("DOLLAR $$");
-                stdout(randomMoney(1, "dollar")); /*dollar, euro, real*/
-                stdout(randomMoney(2, "dollar"));
-                stdout(randomMoney(3, "dollar"));
-                stdout(randomMoney(4, "dollar"));
-                stdout(randomMoney(5, "dollar"));
-                stdout(randomMoney(6, "dollar"));
-                stdout(randomMoney(7, "dollar"));
-                stdout(randomMoney(8, "dollar"));
-                stdout(randomMoney(9, "dollar"));
+                codexsTesterAssertRegExp("R\\$ [0-9],00", randomMoney(1, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]{2},00", randomMoney(2, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]{3},00", randomMoney(3, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]\\.[0-9]{3},00", randomMoney(4, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]{2}\\.[0-9]{3},00", randomMoney(5, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]{3}\\.[0-9]{3},00", randomMoney(6, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]\\.[0-9]{3}\\.[0-9]{3},00", randomMoney(7, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]{2}\\.[0-9]{3}\\.[0-9]{3},00", randomMoney(8, "real"));
+                codexsTesterAssertRegExp("R\\$ [0-9]{3}\\.[0-9]{3}\\.[0-9]{3},00", randomMoney(9, "real"));
+                stdout("DOLLAR $");
+                codexsTesterAssertRegExp("\\$ [0-9]\\.00", randomMoney(1, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9]{2}\\.00", randomMoney(2, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9]{3}\\.00", randomMoney(3, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9],[0-9]{3}\\.00", randomMoney(4, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9]{2},[0-9]{3}\\.00", randomMoney(5, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9]{3},[0-9]{3}\\.00", randomMoney(6, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9],[0-9]{3},[0-9]{3}\\.00", randomMoney(7, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9]{2},[0-9]{3},[0-9]{3}\\.00", randomMoney(8, "dollar"));
+                codexsTesterAssertRegExp("\\$ [0-9]{3},[0-9]{3},[0-9]{3}\\.00", randomMoney(9, "dollar"));
                 stdout("EURO €");
-                stdout(randomMoney(1, "euro")); /*dollar, euro, real*/
-                stdout(randomMoney(2, "euro"));
-                stdout(randomMoney(3, "euro"));
-                stdout(randomMoney(4, "euro"));
-                stdout(randomMoney(5, "euro"));
-                stdout(randomMoney(6, "euro"));
-                stdout(randomMoney(7, "euro"));
-                stdout(randomMoney(8, "euro"));
-                stdout(randomMoney(9, "euro"));
+                codexsTesterAssertRegExp("[0-9],00 EUR", randomMoney(1, "euro"));
+                codexsTesterAssertRegExp("[0-9]{2},00 EUR", randomMoney(2, "euro"));
+                codexsTesterAssertRegExp("[0-9]{3},00 EUR", randomMoney(3, "euro"));
+                codexsTesterAssertRegExp("[0-9] [0-9]{3},00 EUR", randomMoney(4, "euro"));
+                codexsTesterAssertRegExp("[0-9]{2} [0-9]{3},00 EUR", randomMoney(5, "euro"));
+                codexsTesterAssertRegExp("[0-9]{3} [0-9]{3},00 EUR", randomMoney(6, "euro"));
+                codexsTesterAssertRegExp("[0-9] [0-9]{3} [0-9]{3},00 EUR", randomMoney(7, "euro"));
+                codexsTesterAssertRegExp("[0-9]{2} [0-9]{3} [0-9]{3},00 EUR", randomMoney(8, "euro"));
+                codexsTesterAssertRegExp("[0-9]{3} [0-9]{3} [0-9]{3},00 EUR", randomMoney(9, "euro"));
+                control += 1;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Test
+    public void randomCentsTest() {
+        int control = 0;
+        while (control < 5) {
+            try {
+                Thread.sleep(1000);
+                stdout(randomCents("dollar"));
+                stdout(randomCents("euro"));
+                stdout(randomCents( "real"));
                 control += 1;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

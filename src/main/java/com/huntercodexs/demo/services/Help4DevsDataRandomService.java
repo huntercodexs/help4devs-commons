@@ -1,7 +1,6 @@
 package com.huntercodexs.demo.services;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +75,35 @@ public class Help4DevsDataRandomService {
                 return currencyFormatEuro(value, false);
             default:
                 return currencyFormatDollar(value);
+        }
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">randomCents</h6>
+     *
+     * <p style="color: #CDCDCD">Generate random cents money based on currency in the parameter</p>
+     *
+     * @param currency (String: Currency Format [real, euro, default:dollar])
+     * @return String (Random Money)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String randomCents(String currency) {
+        Date date = new Date();
+        String number = md5(String.valueOf(date.getTime())).replaceAll("[^0-9]", "");
+        if (number.startsWith("0")) {
+            number = String.valueOf(randomNumber(2));
+        }
+
+        String value = (number + number).substring(0, 2);
+
+        switch (currency) {
+            case "real":
+                return "R$ 0,"+String.format("%02d", Integer.parseInt(value));
+            case "euro":
+                return "0," +String.format("%02d", Integer.parseInt(value))+ " EUR";
+            default:
+                return "$ 0."+String.format("%02d", Integer.parseInt(value));
         }
     }
 
