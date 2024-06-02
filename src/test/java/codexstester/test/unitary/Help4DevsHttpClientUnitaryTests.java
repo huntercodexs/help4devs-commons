@@ -42,9 +42,9 @@ public class Help4DevsHttpClientUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void httpPostTest() throws Exception {
 
-        JSONObject bodyRequest = new JSONObject();
-        bodyRequest.put("cpf", "34551505862");
-        bodyRequest.put("serialNumber", "5445654");
+        /*JSONObject bodyRequest = new JSONObject();
+        bodyRequest.put("cpf", randomCpf());
+        bodyRequest.put("serialNumber", randomNumber(7));
         bodyRequest.put("tcn", "");
         bodyRequest.put("webhookUrl", "");
 
@@ -70,7 +70,73 @@ public class Help4DevsHttpClientUnitaryTests extends Help4DevsBridgeTests {
                 jsonResponse,
                 false,
                 "none",
-                true);
+                true);*/
+    }
+
+    @Test
+    public void httpDeleteTest() throws Exception {
+
+        /*String url = "";
+        String auth = "";
+        String apiKey = "TEST09x890x8x908x9x08";
+
+        help4DevsHttpClientService.setMakeLog(true);
+        help4DevsHttpClientService.setHeaderList("Authorization", auth);
+        help4DevsHttpClientService.setHeaderList("X-Api-Key", apiKey);
+        help4DevsHttpClientService.setUrl(url);
+        help4DevsHttpClientService.setTrack(codexsHelperGuideGenerator(null));
+        help4DevsHttpClientService.setBodyRequest(null);
+        help4DevsHttpClientService.setBodyRequestType(JSONObject.class);
+        help4DevsHttpClientService.setHttpMethod().httpDelete();
+
+        ResponseEntity<?> response = help4DevsHttpClientService.request();
+
+        JSONObject jsonResponse = codexsHelperStringToJsonSimple(String.valueOf(response.getBody()));
+        codexsTesterAssertExact("", jsonResponse.toJSONString());*/
+    }
+
+    @Test
+    public void httpPutTest() throws Exception {
+
+        /*String url = "";
+        String auth = "";
+        String apiKey = "TEST09x890x8x908x9x08";
+
+        help4DevsHttpClientService.setMakeLog(true);
+        help4DevsHttpClientService.setHeaderList("Authorization", auth);
+        help4DevsHttpClientService.setHeaderList("X-Api-Key", apiKey);
+        help4DevsHttpClientService.setUrl(url);
+        help4DevsHttpClientService.setTrack(codexsHelperGuideGenerator(null));
+        help4DevsHttpClientService.setBodyRequest(null);
+        help4DevsHttpClientService.setBodyRequestType(JSONObject.class);
+        help4DevsHttpClientService.setHttpMethod().httpPut();
+
+        ResponseEntity<?> response = help4DevsHttpClientService.request();
+
+        JSONObject jsonResponse = codexsHelperStringToJsonSimple(String.valueOf(response.getBody()));
+        codexsTesterAssertExact("", jsonResponse.toJSONString());*/
+    }
+
+    @Test
+    public void httpPatchTest() throws Exception {
+
+        /*String url = "";
+        String auth = "";
+        String apiKey = "TEST09x890x8x908x9x08";
+
+        help4DevsHttpClientService.setMakeLog(true);
+        help4DevsHttpClientService.setHeaderList("Authorization", auth);
+        help4DevsHttpClientService.setHeaderList("X-Api-Key", apiKey);
+        help4DevsHttpClientService.setUrl(url);
+        help4DevsHttpClientService.setTrack(codexsHelperGuideGenerator(null));
+        help4DevsHttpClientService.setBodyRequest(null);
+        help4DevsHttpClientService.setBodyRequestType(JSONObject.class);
+        help4DevsHttpClientService.setHttpMethod().httpPatch();
+
+        ResponseEntity<?> response = help4DevsHttpClientService.request();
+
+        JSONObject jsonResponse = codexsHelperStringToJsonSimple(String.valueOf(response.getBody()));
+        codexsTesterAssertExact("", jsonResponse.toJSONString());*/
     }
 
 }

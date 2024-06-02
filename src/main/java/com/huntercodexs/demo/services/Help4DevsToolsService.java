@@ -1,5 +1,7 @@
 package com.huntercodexs.demo.services;
 
+import com.huntercodexs.demo.enumerator.DataMasked;
+import com.huntercodexs.demo.enumerator.TraceType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +12,8 @@ import org.springframework.util.DigestUtils;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
+
+import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
 
 @Slf4j
 @Service
@@ -92,6 +96,37 @@ public class Help4DevsToolsService {
         for (String text : inputs) {
             System.out.println(text);
         }
+    }
+
+    /**
+     *
+     * <h6 style="color: #FFFF00; font-size: 11px">trace</h6>
+     *
+     * <p style="color: #CDCDCD">This method is used to make a total trace and tracking in the idp
+     * transaction flow where the result can be applied to information or error log level</p>
+     *
+     * @param track (String: Tracking log)
+     * @param id (String: User or resource identifier)
+     * @param message (String: Message to trace in log)
+     * @param label (TraceType: label to stick the log detail and give an emphasis in the target message)
+     * @param type (String: Type of log [info, error])
+     * @return trace (String - trace detail)
+     * */
+    public static String trace(String track, String id, String message, TraceType label, String type) {
+
+        if (track == null || track.isEmpty()) track = "........-....-....-....-............";
+        if (label == null) label = TraceType.UNKNOWN;
+        if (type == null) type = "";
+
+        String idMasked = dataMasked(id, "*", DataMasked.GENERIC_MASK);
+        String trace = "TCN ["+track+"] ["+idMasked+"] ["+label.name().toUpperCase()+"]";
+
+        if (type.equals("error")) {
+            errLog(trace + " " + message);
+        } else {
+            infoLog(trace + " " + message);
+        }
+        return trace;
     }
 
     public static void matrixPrinter(List<List<String>> matrix, int columnSize) {
