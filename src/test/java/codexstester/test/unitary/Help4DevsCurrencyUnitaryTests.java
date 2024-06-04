@@ -205,4 +205,13 @@ public class Help4DevsCurrencyUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertText("1 000 000 000,00 €", currencyFormatEuro("1000000000", true));
     }
 
+    @Test
+    public void convertToCentsTest() {
+        codexsTesterAssertInt(500, convertToCents("R$ 5,00"));
+        codexsTesterAssertInt(1100, convertToCents("R$ 11,00"));
+        codexsTesterAssertInt(19200, convertToCents("R$ 192,00"));
+        codexsTesterAssertInt(219200, convertToCents("R$ 2192,00"));
+        codexsTesterAssertInt(8219200, convertToCents("R$ 82.192,00"));
+    }
+
 }

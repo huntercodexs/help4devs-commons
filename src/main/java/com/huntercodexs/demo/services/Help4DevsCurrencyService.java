@@ -109,4 +109,18 @@ public class Help4DevsCurrencyService {
         return euroAmount +" "+ euroAcronym;
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">convertToCents</h6>
+     *
+     * <p style="color: #CDCDCD">Convert a monetary value from dollar, real or euro into cents</p>
+     *
+     * @param value (Object: Data to Convert)
+     * @return String (Data Converted in cents)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static int convertToCents(Object value) {
+        return Integer.parseInt(value.toString().replaceAll("[^0-9]", ""));
+    }
+
 }
