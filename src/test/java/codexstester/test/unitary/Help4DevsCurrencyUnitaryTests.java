@@ -207,6 +207,7 @@ public class Help4DevsCurrencyUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void convertToCentsTest() {
+        codexsTesterAssertInt(34, convertToCents("R$ 0,34"));
         codexsTesterAssertInt(500, convertToCents("R$ 5,00"));
         codexsTesterAssertInt(1100, convertToCents("R$ 11,00"));
         codexsTesterAssertInt(19200, convertToCents("R$ 192,00"));
