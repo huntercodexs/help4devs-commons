@@ -79,6 +79,7 @@ public enum DataMasked {
             case "CARD_NUMBER_MASK":
                 return repeat("0", 16);
             case "CPF_NUMBER_MASK":
+            case "CPF_NUMBER_DIGIT_MASK":
                 return repeat("0", 11);
             case "CNPJ_NUMBER_MASK":
                 return repeat("0", 14);
