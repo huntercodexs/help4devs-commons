@@ -22,6 +22,12 @@ public enum DataMasked {
             "@masked$2@masked$4$5$6$7",
             3),
 
+    //[89765405823], [897-654-058-23], [897.654.058-23], [897.654.058.23], [897 654 058-23], [897 654 058 23]
+    CPF_NUMBER_DIGIT_MASK(
+            "([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{2})",
+            "@masked$2$3$4$5$6@masked",
+            3),
+
     //[39582423000100], [39-676-876-0001-53], [39-676-876/0001-53], [39.676.876.0001.53], [39.676.876/0001.53], [39 676 876 0001 53], [39 676 876 0001-53]
     CNPJ_NUMBER_MASK(
             "([0-9]{2})([-. ]?)([0-9]{3})([-. ]?)([0-9]{3})([-. \\/]?)(000)(1)([-. ]?)([0-9]{2})",
@@ -124,6 +130,10 @@ public enum DataMasked {
 
         if (result.equals(data)) {
             infoLog("dataMasked say: Nothing to do ["+result+"]");
+        }
+
+        if (dataMasked.name().equals(DataMasked.CPF_NUMBER_DIGIT_MASK.name())) {
+            result = result.substring(0, result.length()-1);
         }
 
         return result;

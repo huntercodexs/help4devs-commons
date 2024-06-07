@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
 import static com.huntercodexs.demo.services.Help4DevsMaskedService.cardNumberMasked;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
 
@@ -35,7 +34,10 @@ public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void dataMaskedCpfTest() {
         String cpfMasked = dataMasked("447.359.437-81", "*", DataMasked.CPF_NUMBER_MASK);
-        codexsTesterAssertText("***.***.437-81", cpfMasked);
+        codexsTesterAssertExact("***.***.437-81", cpfMasked);
+
+        cpfMasked = dataMasked("447.359.437-81", "*", DataMasked.CPF_NUMBER_DIGIT_MASK);
+        codexsTesterAssertExact("***.359.437-**", cpfMasked);
     }
 
     @Test
