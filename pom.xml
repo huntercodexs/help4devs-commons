@@ -20,6 +20,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<!--<java.version>17</java.version>-->
+		<itext.version>8.0.4</itext.version>
 	</properties>
 
 	<dependencies>
@@ -207,6 +208,19 @@
 			<version>1.4.6</version>
 		</dependency>
 
+		<!--PDF: iText-->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext-core</artifactId>
+			<version>${itext.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>bouncy-castle-adapter</artifactId>
+			<version>${itext.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<pluginRepositories>
@@ -237,5 +251,12 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>maven_central</id>
+			<name>Maven Central</name>
+			<url>https://repo.maven.apache.org/maven2/</url>
+		</repository>
+	</repositories>
 
 </project>

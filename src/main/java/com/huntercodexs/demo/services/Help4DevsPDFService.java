@@ -1,9 +1,22 @@
 package com.huntercodexs.demo.services;
 
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+
+/**
+ * This class use as "iText" base process to PDF files handler
+ * */
 @Slf4j
 @Service
 public class Help4DevsPDFService {
@@ -14,11 +27,72 @@ public class Help4DevsPDFService {
      * <p style="color: #CDCDCD">Create a PDF file quickly</p>
      *
      * @param data (String: Data to PDF create)
-     * @param dataType (String: Data Type to PDF create)
+     * @param filenamePath (String: Path filename)
+     * @param fontSize (String: Font Size [small, normal, large])
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void pdfCreate(String data, String dataType) {
+    public static void pdfCreate(String data, String filenamePath, String fontSize) throws FileNotFoundException {
+
+        PdfWriter pdfWriter = new PdfWriter(filenamePath);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        Document document = new Document(pdfDocument);
+
+        int sizeFont = 0;
+
+        switch (fontSize) {
+            case "small":
+                sizeFont = 8;
+                break;
+            case "normal":
+                sizeFont = 11;
+                break;
+            case "large":
+                sizeFont = 16;
+                break;
+        }
+
+        document.setFontSize(sizeFont);
+        document.add(new Paragraph(data));
+        document.close();
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfFromImage</h6>
+     *
+     * <p style="color: #CDCDCD">Create a PDF file from image</p>
+     *
+     * @param imagePath (String: Image path to PDF create)
+     * @param filenamePath (String: Path filename to save file)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static void pdfFromImage(String imagePath, String filenamePath) throws FileNotFoundException, MalformedURLException {
+
+        PdfWriter pdfWriter = new PdfWriter(filenamePath);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+
+        Image image = new Image(ImageDataFactory.create(imagePath));
+
+        Document document = new Document(pdfDocument, new PageSize(image.getImageWidth(), image.getImageHeight()));
+        document.setMargins(0,0,0,0);
+        document.add(image);
+        document.close();
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfFromDoc</h6>
+     *
+     * <p style="color: #CDCDCD">Create a PDF file from doc</p>
+     *
+     * @param docPath (String: Doc path to PDF create)
+     * @param filenamePath (String: Path filename to save file)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static void pdfFromDoc(String docPath, String filenamePath) throws FileNotFoundException, MalformedURLException {
 
     }
 

@@ -1,0 +1,24 @@
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [PAYMENT_POS] Liveness Validation is finished
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Throw If Not Thresholds is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [PAYMENT_POS] [PPP] Authorization Sys is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Facial Recognition Sys is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Facial Recognition Sys Request: https://api.test.request/api/test
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Facial Recognition Sys has finished
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Sys Candidate Score Check is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Expected Minimum Score: 1.5
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Candidate found
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Index: ***123456**
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Score: 42.39008331298828
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Facial Recognition Found with score: 42.39008331298828
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Index Candidate Identified is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Index-Candidate OK
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Index Candidate Identified finished: ***123456**
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [PAYMENT_POS] [PPP] Authorization Sys finished
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [TRANSACTION] Find Login is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [TRANSACTION] Login Found Successfully
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [PAYMENT_POS] Find Start is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [PAYMENT_POS] Find Card is running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [PAYMENT_POS] Submit Payment POS Authorized By Facial Recognition
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Bco Payment running
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [CLIENT] Payment Request: https://api.test.request/api/test
+TCN [21e8615e-20a6-4db3-a51d-d8dc451b0712] [***123456**] [PAYMENT_POS] Submit Payment POS is finished
