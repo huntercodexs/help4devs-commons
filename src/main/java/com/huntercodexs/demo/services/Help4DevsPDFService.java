@@ -1,5 +1,8 @@
 package com.huntercodexs.demo.services;
 
+import com.documents4j.api.DocumentType;
+import com.documents4j.api.IConverter;
+import com.documents4j.job.LocalConverter;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -8,11 +11,17 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class use as "iText" base process to PDF files handler
@@ -91,9 +100,44 @@ public class Help4DevsPDFService {
      * @param filenamePath (String: Path filename to save file)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
+     * @implNote For Windows + MS Office Word
      * */
-    public static void pdfFromDoc(String docPath, String filenamePath) throws FileNotFoundException, MalformedURLException {
+    public static void pdfFromDoc(String docPath, String filenamePath)
+            throws IOException, ExecutionException, InterruptedException
+    {
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            InputStream inputStream = new BufferedInputStream(Files.newInputStream(Paths.get(docPath)));
+            String folderConverter = "C:\\\\IConverter";
+            new File(folderConverter).mkdirs();
 
+            IConverter converter = LocalConverter
+                    .builder()
+                    .baseFolder(new File(folderConverter))
+                    .workerPool(20, 25, 2, TimeUnit.SECONDS)
+                    .processTimeout(5, TimeUnit.SECONDS)
+                    .build();
+
+            Future<Boolean> conversion = converter
+                    .convert(inputStream).as(DocumentType.MS_WORD)
+                    .to(bo).as(DocumentType.PDF)
+                    .prioritizeWith(1000)
+                    .schedule();
+
+            conversion.get();
+
+            try (OutputStream outputStream = Files.newOutputStream(Paths.get(filenamePath))) {
+                bo.writeTo(outputStream);
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+
+            inputStream.close();
+            bo.close();
+
+        } catch (RuntimeException re) {
+            System.out.println(re.getMessage());
+        }
     }
 
     /**

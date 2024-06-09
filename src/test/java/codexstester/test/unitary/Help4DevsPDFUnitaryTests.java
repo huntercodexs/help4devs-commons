@@ -4,6 +4,7 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.Help4DevsPDFService.*;
@@ -36,9 +37,9 @@ public class Help4DevsPDFUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void pdfFromDocTest() throws IOException {
-        pdfFromDoc(binFile(
-                "src/test/resources/help4devs/files/doc/file.doc"),
+    public void pdfFromDocTest() throws IOException, ExecutionException, InterruptedException {
+        pdfFromDoc(
+                "src/test/resources/help4devs/files/doc/file.doc",
                 "./hello-world-doc.pdf");
     }
 
