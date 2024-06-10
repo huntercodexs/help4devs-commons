@@ -4,10 +4,12 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.Help4DevsPDFService.*;
+import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsPDFUnitaryTests extends Help4DevsBridgeTests {
 
@@ -43,4 +45,36 @@ public class Help4DevsPDFUnitaryTests extends Help4DevsBridgeTests {
                 "./hello-world-doc.pdf");
     }
 
+    @Test
+    public void pdfReaderTest() {
+        stdout(pdfReader("./hello-world-small.pdf", 1));
+    }
+
+    @Test
+    public void pdfDetailsTest() {
+        PDFDetails details = pdfDetails("./hello-world-small.pdf");
+
+        stdout(details.getId());
+        stdout(details.getNumberOfPages());
+        stdout(details.getWidth());
+        stdout(details.getHeight());
+        stdout(details.getVersion());
+        stdout(details.getAuthor());
+        stdout(details.getCreator());
+        stdout(details.getTitle());
+        stdout(details.getSubject());
+        stdout(details.getTrapped());
+        stdout(details.getKeywords());
+        stdout(Arrays.toString(details.getLabels()));
+        stdout(details.getPageSize());
+        stdout(details.getFontName());
+        stdout(details.getAssocFiles());
+        stdout(details.getFirstPage());
+        stdout(details.getLastPage());
+    }
+
+    @Test
+    public void pdfCopyTest() {
+        pdfCopy("./hello-world-small.pdf", "./hello-world-small-copy.pdf");
+    }
 }

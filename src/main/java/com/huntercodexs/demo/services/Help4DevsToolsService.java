@@ -92,9 +92,9 @@ public class Help4DevsToolsService {
         }
     }
 
-    public static void stdout(String... inputs) {
-        for (String text : inputs) {
-            System.out.println(text);
+    public static void stdout(Object... inputs) {
+        for (Object input : inputs) {
+            System.out.println(input);
         }
     }
 
