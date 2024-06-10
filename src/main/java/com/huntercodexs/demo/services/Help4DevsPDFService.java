@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
@@ -267,17 +268,65 @@ public class Help4DevsPDFService {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">pdfEncrypt</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfProtect</h6>
      *
      * <p style="color: #CDCDCD">Encrypt one PDF file to data protection</p>
      *
-     * @param pdfData (String: Data to write in the PDF encrypted)
      * @param pdfPath (String: Path where the PDF file should be saved)
-     * @param secretKey (String: key to use in the PDF encrypt)
+     * @param password (String: key to use in the PDF encrypt)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void pdfEncrypt(String pdfData, String pdfPath, String secretKey) {
+    public static void pdfProtect(String pdfPath, String password) throws IOException {
+
+        String pathSave = "";
+        if (pdfPath.startsWith("./")) {
+            pdfPath = pdfPath.replaceFirst("\\./", "");
+            pathSave = "./";
+        }
+
+        String[] path = pdfPath.split("\\.");
+        File file = new File(pathSave+path[0]+"-enc.pdf");
+        PdfReader pdfReader = new PdfReader(pdfPath);
+
+        PdfWriter pdfWriter = new PdfWriter(file.getAbsolutePath(), new WriterProperties().setStandardEncryption(
+                password.getBytes(),
+                password.getBytes(),
+                EncryptionConstants.ALLOW_PRINTING | EncryptionConstants.ALLOW_COPY,
+                EncryptionConstants.ENCRYPTION_AES_128 | EncryptionConstants.DO_NOT_ENCRYPT_METADATA
+        ));
+
+        PdfDocument pdfDocument = new PdfDocument(pdfReader, pdfWriter);
+        pdfDocument.close();
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfUnprotect</h6>
+     *
+     * <p style="color: #CDCDCD">Unprotect PDF file</p>
+     *
+     * @param pdfSource (String: Path refer to PDF encrypted)
+     * @param pdfTarget (String: Path to save the PDF File decrypted)
+     * @param currentPassword (String: key to use in the PDF decrypt)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static void pdfUnprotect(String pdfSource, String pdfTarget, String currentPassword) throws IOException {
+
+        try {
+
+            File file = new File(pdfTarget);
+            PdfReader pdfReader = new PdfReader(
+                    pdfSource,
+                    new ReaderProperties().setPassword(currentPassword.getBytes(StandardCharsets.UTF_8)));
+            PdfWriter pdfWriter = new PdfWriter(file.getAbsolutePath());
+            PdfDocument pdfDocument = new PdfDocument(pdfReader, pdfWriter);
+            pdfDocument.close();
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
 
     }
 

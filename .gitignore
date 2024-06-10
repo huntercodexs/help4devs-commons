@@ -1,6 +1,10 @@
+
+*.vbs
+*.log
+
+./*.pdf
+
 target/
 trash/
 .idea/
 
-*.pdf
-*.vbs
