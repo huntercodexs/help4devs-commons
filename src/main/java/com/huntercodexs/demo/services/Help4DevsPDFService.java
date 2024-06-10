@@ -43,12 +43,26 @@ public class Help4DevsPDFService {
      * @param data (String: Data to PDF create)
      * @param filenamePath (String: Path filename)
      * @param fontSize (String: Font Size [small, normal, large])
+     * @param password (String: Password to protect file)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void pdfCreate(String data, String filenamePath, String fontSize) throws FileNotFoundException {
+    public static void pdfCreate(String data, String filenamePath, String fontSize, String password)
+            throws FileNotFoundException
+    {
+        PdfWriter pdfWriter;
 
-        PdfWriter pdfWriter = new PdfWriter(filenamePath);
+        if (password != null && !password.isEmpty()) {
+            pdfWriter = new PdfWriter(filenamePath, new WriterProperties().setStandardEncryption(
+                    password.getBytes(),
+                    password.getBytes(),
+                    EncryptionConstants.ALLOW_PRINTING | EncryptionConstants.ALLOW_COPY,
+                    EncryptionConstants.ENCRYPTION_AES_128 | EncryptionConstants.DO_NOT_ENCRYPT_METADATA
+            ));
+        } else {
+            pdfWriter = new PdfWriter(filenamePath);
+        }
+
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
 
@@ -79,17 +93,29 @@ public class Help4DevsPDFService {
      *
      * @param imagePath (String: Image path to PDF create)
      * @param filenamePath (String: Path filename to save file)
+     * @param password (String: Password to protect file)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static void pdfFromImage(String imagePath, String filenamePath) throws FileNotFoundException, MalformedURLException {
+    public static void pdfFromImage(String imagePath, String filenamePath, String password) throws FileNotFoundException, MalformedURLException {
 
-        PdfWriter pdfWriter = new PdfWriter(filenamePath);
+        PdfWriter pdfWriter;
+
+        if (password != null && !password.isEmpty()) {
+            pdfWriter = new PdfWriter(filenamePath, new WriterProperties().setStandardEncryption(
+                    password.getBytes(),
+                    password.getBytes(),
+                    EncryptionConstants.ALLOW_PRINTING | EncryptionConstants.ALLOW_COPY,
+                    EncryptionConstants.ENCRYPTION_AES_128 | EncryptionConstants.DO_NOT_ENCRYPT_METADATA
+            ));
+        } else {
+            pdfWriter = new PdfWriter(filenamePath);
+        }
+
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
-
         Image image = new Image(ImageDataFactory.create(imagePath));
-
         Document document = new Document(pdfDocument, new PageSize(image.getImageWidth(), image.getImageHeight()));
+
         document.setMargins(0,0,0,0);
         document.add(image);
         document.close();

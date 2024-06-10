@@ -18,24 +18,57 @@ public class Help4DevsPDFUnitaryTests extends Help4DevsBridgeTests {
         pdfCreate(binFile(
                 "./src/test/resources/help4devs/files/txt/file.txt"),
                 "./src/test/resources/help4devs/files/pdf/hello-world-small.pdf",
-                "small");
+                "small",
+                null);
 
         pdfCreate(binFile(
                 "./src/test/resources/help4devs/files/txt/file.txt"),
                 "./src/test/resources/help4devs/files/pdf/hello-world-normal.pdf",
-                "normal");
+                "normal",
+                null);
 
         pdfCreate(binFile(
                 "./src/test/resources/help4devs/files/txt/file.txt"),
                 "./src/test/resources/help4devs/files/pdf/hello-world-large.pdf",
-                "large");
+                "large",
+                null);
+    }
+
+    @Test
+    public void pdfCreateUsingPasswordTest() throws IOException {
+        pdfCreate(binFile(
+                        "./src/test/resources/help4devs/files/txt/file.txt"),
+                "./src/test/resources/help4devs/files/pdf/hello-world-small-password.pdf",
+                "small",
+                "password");
+
+        pdfCreate(binFile(
+                        "./src/test/resources/help4devs/files/txt/file.txt"),
+                "./src/test/resources/help4devs/files/pdf/hello-world-normal-password.pdf",
+                "normal",
+                "password");
+
+        pdfCreate(binFile(
+                        "./src/test/resources/help4devs/files/txt/file.txt"),
+                "./src/test/resources/help4devs/files/pdf/hello-world-large-password.pdf",
+                "large",
+                "password");
     }
 
     @Test
     public void pdfFromImageTest() throws IOException {
         pdfFromImage(
                 "./src/test/resources/help4devs/images/ads/img.png",
-                "./src/test/resources/help4devs/files/pdf/pdf-from-image.pdf");
+                "./src/test/resources/help4devs/files/pdf/pdf-from-image.pdf",
+                null);
+    }
+
+    @Test
+    public void pdfFromImageUsingPasswordTest() throws IOException {
+        pdfFromImage(
+                "./src/test/resources/help4devs/images/ads/img.png",
+                "./src/test/resources/help4devs/files/pdf/pdf-from-image-password.pdf",
+                "password");
     }
 
     @Test
