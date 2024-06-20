@@ -1,5 +1,5 @@
 
-# MFA + LINUX + EC2
+# MFA + LINUX
 
 ### Requisites
 
@@ -13,7 +13,7 @@
 
 ### UBUNTU 2004 INSTALLATION
 
-###### Step 1: Install the Google Authenticator Library (PAM: Plugable Authentication Modules)
+###### Step 1: Install the Google Authenticator Library (PAM: Pluggable Authentication Modules)
 
 <pre>
 sudo apt install libpam-google-authenticator
@@ -207,7 +207,7 @@ sudo vi /etc/ssh/sshd_config
 #ChallengeResponseAuthentication no
 ChallengeResponseAuthentication yes
 AuthenticationMethods publickey,keyboard-interactive
-</pre>pre>
+</pre>
 
 ###### Step 5: Install Google Authenticator APP in your phone device (IOS or Android)
 
