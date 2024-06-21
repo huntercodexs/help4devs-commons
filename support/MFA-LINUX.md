@@ -5,21 +5,29 @@
 
 - SETUP CORRECTLY THE SSHD SERVICE
 - GOOGLE AUTHENTICATOR APP IS REQUIRED
+
+### Tested Distros
+
 - UBUNTU 20.04
+- FEDORA 31
 - FEDORA 40
 - REDHAT 9
+- ALMA LINUX 8.10
+- ALMA LINUX 9.4
 
-> Note: It can be applied in the EC2 instances
+> Note: It can be applied in the EC2 instances as well
 
+***********************************************************************************************************************
 ### UBUNTU 2004 INSTALLATION
+***********************************************************************************************************************
 
-###### Step 1: Install the Google Authenticator Library (PAM: Pluggable Authentication Modules)
+###### Install the Google Authenticator PAM Library (PAM: Pluggable Authentication Modules)
 
 <pre>
 sudo apt install libpam-google-authenticator
 </pre>
 
-###### Step 2: Configure Google Authenticator for the current user
+###### Configure Google Authenticator for the current user
 
 <pre>
 google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
@@ -28,7 +36,7 @@ google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
 - Answer the questions: y for all questions
 - Scan the QR Code by your phone device
 
-###### Step 3: Configure SSH with MFA
+###### Configure SSH with MFA
 
 <pre>
 sudo vi /etc/pam.d/sshd
@@ -56,7 +64,7 @@ ChallengeResponseAuthentication yes
 sudo service sshd restart
 </pre>
 
-###### Step 4: Configure Console with MFA
+###### Configure Console with MFA
 
 <pre>
 sudo vi /etc/pam.d/common-session
@@ -70,7 +78,7 @@ auth required pam_google_authenticator.so
 
 - Make logout session and login new session
 
-###### Step 5: Configure SUDO with MFA
+###### Configure SUDO with MFA
 
 <pre>
 sudo vi /etc/pam.d/common-auth
@@ -84,25 +92,27 @@ auth required pam_google_authenticator.so nullok
 
 - Make logout session and login new session, try run the command sudo -i (you should be prompted by the verification code)
 
-----
+***********************************************************************************************************************
+### FEDORA 31 INSTALLATION
+***********************************************************************************************************************
 
-### FEDORA 40 INSTALLATION
-
-###### Step 1: Install libraries
+###### Update the system and install Google Authenticator libraries
 
 <pre>
+sudo yum update
 sudo dnf install google-authenticator qrencode-libs
 </pre>
 
-###### Step 2: Edit the SSH files configuration
+###### Edit the SSH files configuration
 
 <pre>
 sudo vi /etc/pam.d/sshd
 </pre>
 
+The sshd file should be like below
 <pre>
 #%PAM-1.0
-#auth       substack     password-auth << COMMENT THIS LINE
+auth       substack     password-auth
 auth       include      postlogin
 account    required     pam_sepermit.so
 account    required     pam_nologin.so
@@ -118,125 +128,389 @@ session    optional     pam_keyinit.so force revoke
 session    optional     pam_motd.so
 session    include      password-auth
 session    include      postlogin
-auth required pam_google_authenticator.so secret=/home/${USER}/.ssh/.google_authenticator nullok << ADD THIS LINE
+auth required pam_google_authenticator.so secret=/home/${USER}/.ssh/.google_authenticator nullok
 </pre>
 
 <pre>
 sudo vi /etc/ssh/sshd_config
 </pre>
 
+The file sshd_config should be changed in the fields described below
+
 <pre>
-# Change to no to disable s/key passwords
-#KbdInteractiveAuthentication yes
-KbdInteractiveAuthentication yes
 ChallengeResponseAuthentication yes
 UsePAM yes
 </pre>
 
-###### Step 3: Restart SSH service
+###### Restart SSH service
 
 <pre>
 sudo systemctl restart sshd
 sudo systemctl status sshd
 </pre>
 
-###### Step 4: Make sure thar the directory .ssh exists
+###### Make sure thar the directory .ssh exists
 
 <pre>
 mkdir -p /home/${USER}/.ssh/
 chmod 755 /home/${USER}/.ssh/
 </pre>
 
-###### Step 5: Generate the QR Google Authentication Code
+###### Generate the QR Google Authentication Code
 
 <pre>
 google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
 </pre>
 
-###### Step 6: Read the QR Code in the Google Authenticator App
+###### Read the QR Code in the Google Authenticator App
 
-- Insert code in the app google authenticator
+- Scan the QR code in the app google authenticator
 
-----
+***DONE***
 
-## REDHAT 9 INSTALLATION
+***********************************************************************************************************************
+### FEDORA 40 INSTALLATION
+***********************************************************************************************************************
 
-###### Step 1: Install EPEL Repo
-
-<pre>
-sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-</pre>
-
-###### Step 2: Install Google Authenticator
+###### Update system and install Google Authenticator libraries
 
 <pre>
-sudo yum install google-authenticator.x86_64 -y
-sudo yum install qrencode-libs
+sudo yum update
+sudo yum install net-tools
+sudo yum install pam-devel
+sudo dnf install google-authenticator qrencode-libs
 </pre>
 
-The qrencode-libs will provided the libraries to qr code generation, to be used in the time when the command 
-google-authentication will be executed
-
-###### Step 3: Configure SSH to use Google Authentication module
+###### Edit the SSH files configuration
 
 <pre>
 sudo vi /etc/pam.d/sshd
 </pre>
 
-- Add this entry line below
+The sshd file should be like below
 
 <pre>
+#%PAM-1.0
+auth       substack     password-auth
+auth       include      postlogin
+account    required     pam_sepermit.so
+account    required     pam_nologin.so
+account    include      password-auth
+password   include      password-auth
+# pam_selinux.so close should be the first session rule
+session    required     pam_selinux.so close
+session    required     pam_loginuid.so
+# pam_selinux.so open should only be followed by sessions to be executed in the user context
+session    required     pam_selinux.so open env_params
+session    required     pam_namespace.so
+session    optional     pam_keyinit.so force revoke
+session    optional     pam_motd.so
+session    include      password-auth
+session    include      postlogin
 auth required pam_google_authenticator.so secret=/home/${USER}/.ssh/.google_authenticator nullok
 </pre>
 
-- Comment out the password requirement as we want to use only the key-based authentication (in the very first line).
-
 <pre>
-#auth       substack     password-auth
+sudo vi /etc/ssh/sshd_config
 </pre>
 
-###### Step 4: Update the sshd configuration
+Change the field UsePAM in the sshd_config file
 
-- Edit the file as root:
+<pre>
+UsePAM yes
+</pre>
+
+> IMPORTANT: Change the 50-redhat.conf file
+
+<pre>
+sudo vi /etc/ssh/sshd_config.d/50-redhat.conf
+</pre>
+
+Set the field ChallengeResponseAuthentication according below
+
+<pre>
+ChallengeResponseAuthentication yes
+</pre>
+
+###### Restart SSH service
+
+<pre>
+sudo systemctl restart sshd
+sudo systemctl status sshd
+</pre>
+
+###### Make sure thar the directory .ssh exists
+
+<pre>
+mkdir -p /home/${USER}/.ssh/
+chmod 755 /home/${USER}/.ssh/
+</pre>
+
+###### Generate the QR Google Authentication Code
+
+<pre>
+google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
+</pre>
+
+###### Read the QR Code in the Google Authenticator App
+
+- Scan the QR code in the app google authenticator
+
+***DONE***
+
+***********************************************************************************************************************
+## REDHAT 9 INSTALLATION
+***********************************************************************************************************************
+
+###### Update system and install Google Authenticator libraries
+
+<pre>
+sudo yum update
+sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+sudo /usr/bin/crb enable
+sudo yum install net-tools
+sudo yum install pam-devel
+sudo dnf install google-authenticator qrencode-libs
+</pre>
+
+###### Edit the SSH files configuration
+
+<pre>
+sudo vi /etc/pam.d/sshd
+</pre>
+
+The sshd file should be like below
+
+<pre>
+#%PAM-1.0
+auth       substack     password-auth
+auth       include      postlogin
+account    required     pam_sepermit.so
+account    required     pam_nologin.so
+account    include      password-auth
+password   include      password-auth
+# pam_selinux.so close should be the first session rule
+session    required     pam_selinux.so close
+session    required     pam_loginuid.so
+# pam_selinux.so open should only be followed by sessions to be executed in the user context
+session    required     pam_selinux.so open env_params
+session    required     pam_namespace.so
+session    optional     pam_keyinit.so force revoke
+session    optional     pam_motd.so
+session    include      password-auth
+session    include      postlogin
+auth required pam_google_authenticator.so secret=/home/${USER}/.ssh/.google_authenticator nullok
+</pre>
+
+<pre>
+sudo vi /etc/ssh/sshd_config
+</pre>
+
+Change the field UsePAM in the sshd_config file
+
+<pre>
+UsePAM yes
+</pre>
+
+> IMPORTANT: Change the 50-redhat.conf file
+
+<pre>
+sudo vi /etc/ssh/sshd_config.d/50-redhat.conf
+</pre>
+
+Set the field ChallengeResponseAuthentication according below
+
+<pre>
+ChallengeResponseAuthentication yes
+</pre>
+
+###### Restart SSH service
+
+<pre>
+sudo systemctl restart sshd
+sudo systemctl status sshd
+</pre>
+
+###### Make sure thar the directory .ssh exists
+
+<pre>
+mkdir -p /home/${USER}/.ssh/
+chmod 755 /home/${USER}/.ssh/
+</pre>
+
+###### Generate the QR Google Authentication Code
+
+<pre>
+google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
+</pre>
+
+###### Read the QR Code in the Google Authenticator App
+
+- Scan the QR code in the app google authenticator
+
+***DONE***
+
+
+***********************************************************************************************************************
+### ALMALINUX 8.10 INSTALLATION
+***********************************************************************************************************************
+
+###### Update system and install Google Authenticator libraries
+
+<pre>
+sudo yum update
+sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo /usr/bin/crb enable
+sudo yum install net-tools
+sudo yum install pam-devel
+sudo dnf install google-authenticator qrencode-libs
+</pre>
+
+###### Edit the SSH files configuration
+
+<pre>
+sudo vi /etc/pam.d/sshd
+</pre>
+
+<pre>
+#%PAM-1.0
+auth       substack     password-auth
+auth       include      postlogin
+account    required     pam_sepermit.so
+account    required     pam_nologin.so
+account    include      password-auth
+password   include      password-auth
+# pam_selinux.so close should be the first session rule
+session    required     pam_selinux.so close
+session    required     pam_loginuid.so
+# pam_selinux.so open should only be followed by sessions to be executed in the user context
+session    required     pam_selinux.so open env_params
+session    required     pam_namespace.so
+session    optional     pam_keyinit.so force revoke
+session    optional     pam_motd.so
+session    include      password-auth
+session    include      postlogin
+auth required pam_google_authenticator.so secret=/home/${USER}/.ssh/.google_authenticator nullok
+</pre>
 
 <pre>
 sudo vi /etc/ssh/sshd_config
 </pre>
 
 <pre>
-#ChallengeResponseAuthentication no
 ChallengeResponseAuthentication yes
-AuthenticationMethods publickey,keyboard-interactive
+UsePAM yes
 </pre>
 
-###### Step 5: Install Google Authenticator APP in your phone device (IOS or Android)
+###### Restart SSH service
 
-###### Step 6: Configure Google Authenticator in the Linux
+<pre>
+sudo systemctl restart sshd
+sudo systemctl status sshd
+</pre>
 
-> Note:
-> This step has to be executed as the user to whom you want to set the MFA or Multi Factor Authentication. ec2-user or 
-> root or ubuntu  or even as your personal user id which you have created.
+###### Make sure thar the directory .ssh exists
+
 <pre>
 mkdir -p /home/${USER}/.ssh/
 chmod 755 /home/${USER}/.ssh/
+</pre>
+
+###### Generate the QR Google Authentication Code
+
+<pre>
 google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
 </pre>
 
-- After the first question, it would show you the QR code and the Secret Key
+###### Read the QR Code in the Google Authenticator App
 
-###### Step 7: Scan the Shown QR code in your Google Authenticator App
+- Scan the QR code in the app google authenticator
 
-Now take your mobile and go to Google Authenticator App and click on the plus sign in the bottom right corner
+***DONE***
 
-###### Step 8: Restart SSH services
+
+***********************************************************************************************************************
+### ALMALINUX 9.4 INSTALLATION
+***********************************************************************************************************************
+
+###### Update system and install Google Authenticator libraries
 
 <pre>
-sudo service sshd restart
+sudo yum update
+sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+sudo /usr/bin/crb enable
+sudo yum install net-tools
+sudo yum install pam-devel
+sudo dnf install google-authenticator qrencode-libs
 </pre>
 
-###### Step 9: Test the configuration
+###### Edit the SSH files configuration
 
-- Access the Linux terminal via SSH
+<pre>
+sudo vi /etc/pam.d/sshd
+</pre>
 
-ssh -i ~/.ssh/keyname.pem ec2-user@3.100.23.59
-Verification code:
+<pre>
+#%PAM-1.0
+auth       substack     password-auth
+auth       include      postlogin
+account    required     pam_sepermit.so
+account    required     pam_nologin.so
+account    include      password-auth
+password   include      password-auth
+# pam_selinux.so close should be the first session rule
+session    required     pam_selinux.so close
+session    required     pam_loginuid.so
+# pam_selinux.so open should only be followed by sessions to be executed in the user context
+session    required     pam_selinux.so open env_params
+session    required     pam_namespace.so
+session    optional     pam_keyinit.so force revoke
+session    optional     pam_motd.so
+session    include      password-auth
+session    include      postlogin
+auth       required pam_google_authenticator.so secret=/home/${USER}/.ssh/.google_authenticator nullok
+</pre>
+
+<pre>
+sudo vi /etc/ssh/sshd_config
+</pre>
+
+<pre>
+UsePAM yes
+</pre>
+
+<pre>
+sudo vi /etc/ssh/sshd_config.d/50-redhat.conf
+</pre>
+
+<pre>
+ChallengeResponseAuthentication yes
+</pre>
+
+###### Restart SSH service
+
+<pre>
+sudo systemctl restart sshd
+sudo systemctl status sshd
+</pre>
+
+###### Make sure thar the directory .ssh exists
+
+<pre>
+mkdir -p /home/${USER}/.ssh/
+chmod 755 /home/${USER}/.ssh/
+</pre>
+
+###### Generate the QR Google Authentication Code
+
+<pre>
+google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
+</pre>
+
+###### Read the QR Code in the Google Authenticator App
+
+- Scan the QR code in the app google authenticator
+
+***DONE***
+
+
