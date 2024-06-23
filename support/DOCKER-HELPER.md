@@ -1,5 +1,5 @@
 
-# DOCKER SETTINGS
+# DOCKER HELPER
 
 ### Docker Setup
 
@@ -78,7 +78,7 @@ docker system prune -a
     Are you sure you want to continue? [y/N] y
 </pre>
 
-- Some helpful docker compose commands
+### Some helpful docker compose commands
 
 <pre>
 docker-compose ps
@@ -93,3 +93,14 @@ docker-compose logs
 docker-compose pause
 docker-compose unpause
 </pre>
+
+### Example: Docker + Docker Compose - Using Private Subnet
+
+> One simple example of this environment can be seemed in the GitHub repository by the following link 
+> https://github.com/huntercodexs/docker-series/tree/nginx_reverse_proxy_python_mysql_separated
+
+### Example: Docker + Docker Compose - Using Public Subnet
+
+> Please use the repository "ELK PROMETHEUS GRAFANA ZIPKIN MYSQL" hosted in the GitHUB.
+> Just click on the link https://github.com/huntercodexs/docker-series/tree/elk_prometheus_grafana_zipkin_mysql_v1
+

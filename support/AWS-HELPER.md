@@ -93,4 +93,28 @@ To get start the Route 53 configuration have in hand the following information
 ssh -i "${KEYNAME}.pem" ${INSTANCE_URL}
 </pre>
 
+## COMPLETE AWS ENVIRONMENT
+
+- AWS CLOUD
+- REGION
+- VPC
+- INTERNET GATEWAY
+  - ROUTER
+    - AVAILABILITY ZONE
+    - PUBLIC ROUTER TABLE
+      - ACL
+        - PUBLIC SUBNET
+          - SECURITY GROUP 1
+            - MFA
+              - EC2 - MAINTENANCE
+          - SECURITY GROUP 2
+            - EC2 - NGINX REVERSE PROXY
+      - NAT INTERNET
+    - PRIVATE ROUTER TABLE
+        - ACL
+          - PRIVATE SUBNET
+            - SECURITY GROUP 3
+              - EC2 - MICROSERVICE
+              - DATABASE
+
 
