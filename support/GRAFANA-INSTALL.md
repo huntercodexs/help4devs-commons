@@ -5,7 +5,9 @@
 
 ### Ubuntu 20.04
 
-###### Installing from https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/
+###### Installing
+
+> Source: https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/
 
 <pre>
 sudo apt-get install -y apt-transport-https software-properties-common wget
@@ -18,7 +20,9 @@ sudo apt-get install grafana
 sudo apt-get install grafana --fix-missing
 </pre>
 
-###### Installing from https://grafana.com/grafana/download
+###### Installing from
+
+> Source : https://grafana.com/grafana/download
 
 <pre>
 sudo apt-get install -y adduser libfontconfig1 musl
@@ -38,7 +42,9 @@ Administration > Users and Access > Users > admin > Password > Edit > Save
 
 ### Almalinux 8.10
 
-###### Installing from https://grafana.com/grafana/download
+###### Installing
+
+> Source: https://grafana.com/grafana/download
 
 <pre>
 sudo yum install -y https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0-1.x86_64.rpm
