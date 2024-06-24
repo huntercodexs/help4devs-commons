@@ -1,5 +1,5 @@
 
-# SSH COMMANDS
+# SSH TIPS
 
 ###### Create the ssh key RSA
 

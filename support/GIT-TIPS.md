@@ -1,5 +1,5 @@
 
-# GIT COMMANDS
+# GIT TIPS
 
 ##### Commit configuration user
 

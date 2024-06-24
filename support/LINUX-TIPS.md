@@ -1,5 +1,5 @@
 
-# LINUX COMMANDS
+# LINUX TIPS
 
 ###### USER CREATE
 

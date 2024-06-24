@@ -1,5 +1,5 @@
 
-# MFA + LINUX
+# MFA & LINUX
 
 ### Requisites
 

@@ -1,5 +1,7 @@
 
-# CONVERT UBUNTU DESKTOP TO SERVER OR TEXT MODE ONLY
+# UBUNTU TIPS
+
+### Convert Ubuntu Desktop into Ubuntu Server
 
 ###### Change the GRUB file as below 
 
@@ -79,7 +81,7 @@ sudo apt-get --purge remove network-manager
 sudo reboot -n
 </pre>
 
-###### TIP: Extra configuration
+### Put Ubuntu in the text mode
 
 - In case that everything above has failed try the steps below
 

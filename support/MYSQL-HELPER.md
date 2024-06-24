@@ -1,5 +1,5 @@
 
-# MYSQL COMMANDS
+# MYSQL HELPER
 
 ###### Database connection:
 
