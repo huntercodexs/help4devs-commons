@@ -9,7 +9,7 @@
 
 > Source: https://www.cherryservers.com/blog/how-to-install-and-start-using-rabbitmq-on-ubuntu-22-04
 
-- Update System
+- System Update
 
 <pre>
 sudo apt-get update
@@ -144,7 +144,7 @@ exit
 
 > Source: https://www.rabbitmq.com/docs/install-rpm
 
-- Update System
+- System Update
 
 <pre>
 sudo dnf update -y

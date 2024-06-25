@@ -5,7 +5,7 @@
 	
 ###### Mysql Installing
 
-- Update System
+- System Update
 
 <pre>
 sudo apt update
@@ -83,7 +83,7 @@ sudo systemctl restart mysql
 
 ###### Mysql Installing
 
-- Update System
+- System Update
 
 <pre>
 sudo yum update

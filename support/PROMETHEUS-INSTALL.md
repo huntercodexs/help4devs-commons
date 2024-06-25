@@ -9,7 +9,7 @@
 
 > Source: https://www.cherryservers.com/blog/install-prometheus-ubuntu
 
-- Update System Packages
+- System Update Packages
 
 <pre>
 sudo apt update
@@ -167,7 +167,7 @@ exit
 
 > Source: https://idroot.us/install-prometheus-almalinux-8/
 
-- Update system.
+- System Update.
 
 <pre>
 sudo dnf clean all

@@ -172,7 +172,7 @@ google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
 ### FEDORA 40 INSTALLATION
 ***********************************************************************************************************************
 
-###### Update system and install Google Authenticator libraries
+###### System Update and install Google Authenticator libraries
 
 <pre>
 sudo yum update
@@ -262,7 +262,7 @@ google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
 ## REDHAT 9 INSTALLATION
 ***********************************************************************************************************************
 
-###### Update system and install Google Authenticator libraries
+###### System Update and install Google Authenticator libraries
 
 <pre>
 sudo yum update
@@ -355,7 +355,7 @@ google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
 ### ALMALINUX 8.10 INSTALLATION
 ***********************************************************************************************************************
 
-###### Update system and install Google Authenticator libraries
+###### System Update and install Google Authenticator libraries
 
 <pre>
 sudo yum update
@@ -433,7 +433,7 @@ google-authenticator -t -Q UTF8 -s /home/${USER}/.ssh/.google_authenticator
 ### ALMALINUX 9.4 INSTALLATION
 ***********************************************************************************************************************
 
-###### Update system and install Google Authenticator libraries
+###### System Update and install Google Authenticator libraries
 
 <pre>
 sudo yum update
