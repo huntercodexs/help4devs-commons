@@ -54,14 +54,16 @@ jdk-21.0.1
 - Install each version in the separated path
 
 <pre>
+sudo mkdir -p /usr/share/jdk/
+mv jdk1.8.0_212 jdk-11.0.1 jdk-17.0.1 jdk-21.0.1 /usr/share/jdk/
 pwd
 /usr/share/jdk
 ls -ltr
 total 16
-drwxr-xr-x 7 ubuntu-vbox ubuntu-vbox 4096 abr  2  2019 jdk1.8.0_212
-drwxrwxr-x 8 ubuntu-vbox ubuntu-vbox 4096 jun 25 17:45 jdk-11.0.1
-drwxrwxr-x 9 ubuntu-vbox ubuntu-vbox 4096 jun 25 17:45 jdk-17.0.1
-drwxrwxr-x 9 ubuntu-vbox ubuntu-vbox 4096 jun 25 17:45 jdk-21.0.1
+drwxr-xr-x 7 almalinux-vbox almalinux-vbox 4096 abr  2  2019 jdk1.8.0_212
+drwxrwxr-x 8 almalinux-vbox almalinux-vbox 4096 jun 25 17:45 jdk-11.0.1
+drwxrwxr-x 9 almalinux-vbox almalinux-vbox 4096 jun 25 17:45 jdk-17.0.1
+drwxrwxr-x 9 almalinux-vbox almalinux-vbox 4096 jun 25 17:45 jdk-21.0.1
 </pre>
 
 - Check java version for each package
@@ -119,7 +121,32 @@ java17 -version
 java21 -version
 </pre>
 
-> TIP: In some cases it's required to create a symlink in /usr/bin pointing to default java active in the 
+- Create the env variable
+
+> WARNING: The most important step is to create an JAVA_HOME environment variable because you need to set up 
+> at least one java version as a default, and this variable just support one version per time, so make sure that 
+> you have really known what you are doing when you do that.
+
+<pre>
+JAVA_HOME=/usr/share/jdk/jdk-17.0.1
+export JAVA_HOME
+PATH=$PATH:$JAVA_HOME/bin
+export PATH
+source /etc/profile
+echo "JAVA_HOME=/usr/share/jdk/jdk-17.0.1" >> ~/.bashrc
+source ~/.bashrc
+</pre>
+
+In this way you will set the environment as something like that
+
+<pre>
+$JAVA_HOME/bin/java -version
+java version "17.0.1" 2021-10-19 LTS
+Java(TM) SE Runtime Environment (build 17.0.1+12-LTS-39)
+Java HotSpot(TM) 64-Bit Server VM (build 17.0.1+12-LTS-39, mixed mode, sharing)
+</pre>
+
+> TIP: In some cases it's required to create a symlink in /usr/bin pointing to default java active in the
 current machine, so what you only need to do is
 
 <pre>
@@ -131,27 +158,4 @@ So the result should be something like that
 
 <pre>
 java -> /usr/share/jdk/jdk-17.0.1/bin/java
-</pre>
-
-- Create the env variable
-
-> WARNING: The most important step is to create an JAVA_HOME environment variable because you need to set up 
-> at least one java version as a default, and this variable just support one version per time, so make sure that 
-> you have really known what you are doing when you do that.
-
-<pre>
-export JAVA_HOME=/usr/share/jdk/jdk-17.0.1
-export PATH=$JAVA_HOME/bin:$PATH
-source /etc/profile
-echo "JAVA_HOME=/usr/share/jdk/jdk-17.0.1" >> ~/.bashrc
-source .bashrc
-</pre>
-
-In this way you will set the environment as something like that
-
-<pre>
-$JAVA_HOME/bin/java -version
-java version "17.0.1" 2021-10-19 LTS
-Java(TM) SE Runtime Environment (build 17.0.1+12-LTS-39)
-Java HotSpot(TM) 64-Bit Server VM (build 17.0.1+12-LTS-39, mixed mode, sharing)
 </pre>
