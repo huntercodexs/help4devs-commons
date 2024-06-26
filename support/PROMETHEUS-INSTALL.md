@@ -125,6 +125,10 @@ http://${IP-PROMETHEUS}:9090
 <pre>
 #!/bin/bash
 
+echo "This process can't to be undo, Continue ?"
+echo "Press [Enter] to continue, Press [Ctrl+C] to Abort "
+read OP
+
 echo "Locking firewall - port 9090"
 sudo ufw delete allow 9090/tcp
 
@@ -294,6 +298,10 @@ http://${IP-PROMETHEUS}:9090
 
 <pre>
 #!/bin/bash
+
+echo "This process can't to be undo, Continue ?"
+echo "Press [Enter] to continue, Press [Ctrl+C] to Abort "
+read OP
 
 echo "Locking firewall - port 9090"
 sudo firewall-cmd --zone=public --remove-port=9090/tcp

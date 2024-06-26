@@ -77,6 +77,10 @@ password: test
 <pre>
 #!/bin/bash
 
+echo "This process can't to be undo, Continue ?"
+echo "Press [Enter] to continue, Press [Ctrl+C] to Abort "
+read OP
+
 echo "Locking firewall - port 5672, 15672"
 sudo ufw delete allow 5672/tcp
 sudo ufw delete allow 15672/tcp
@@ -209,6 +213,10 @@ password: test
 
 <pre>
 #!/bin/bash
+
+echo "This process can't to be undo, Continue ?"
+echo "Press [Enter] to continue, Press [Ctrl+C] to Abort "
+read OP
 
 echo "Locking firewall - port 5672, 15672"
 sudo firewall-cmd --zone=public --remove-port=5672/tcp

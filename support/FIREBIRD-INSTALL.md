@@ -130,6 +130,10 @@ sudo ls -ltr /var/lib/firebird/3.0/system/security3.fdb
 <pre>
 #!/bin/bash
 
+echo "This process can't to be undo, Continue ?"
+echo "Press [Enter] to continue, Press [Ctrl+C] to Abort "
+read OP
+
 echo "Locking firewall - port 3050"
 sudo ufw delete allow 3050/tcp
 
@@ -354,6 +358,10 @@ Reference library file: Jaybird-3.0.12-JDK_1.8.zip (https://firebirdsql.org/en/j
 
 <pre>
 #!/bin/bash
+
+echo "This process can't to be undo, Continue ?"
+echo "Press [Enter] to continue, Press [Ctrl+C] to Abort "
+read OP
 
 echo "Locking firewall - port 3050"
 sudo firewall-cmd --zone=public --remove-port=3050/tcp
