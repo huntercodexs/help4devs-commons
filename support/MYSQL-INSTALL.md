@@ -76,6 +76,7 @@ mysqlx-bind-address     = 0.0.0.0
 <pre>
 sudo ufw allow 3306
 sudo ufw allow from 0.0.0.0 to any port 3306
+sudo ufw reload
 sudo systemctl restart mysql
 </pre>
 

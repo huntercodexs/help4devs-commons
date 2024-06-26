@@ -3,9 +3,17 @@
 
 ### EC2
 
+### ECS
+
+### EKS
+
 ### SQS
 
 ### RDS
+
+### DYNAMODB
+
+### API-GATEWAY
 
 ### LAMBDA FUNCTIONS
 

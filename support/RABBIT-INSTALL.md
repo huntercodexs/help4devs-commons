@@ -60,6 +60,7 @@ sudo rabbitmqctl authenticate_user test test
 <pre>
 sudo ufw allow 5672/tcp
 sudo ufw allow 15672/tcp
+sudo ufw reload
 </pre>
 
 - Access the RabbitMQ dashboard
@@ -84,6 +85,7 @@ read OP
 echo "Locking firewall - port 5672, 15672"
 sudo ufw delete allow 5672/tcp
 sudo ufw delete allow 15672/tcp
+sudo ufw reload
 
 sleep 2
 

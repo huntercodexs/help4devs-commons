@@ -62,6 +62,7 @@ Environment="JENKINS_PORT=8080"
 
 <pre>
 sudo ufw allow 8080/tcp
+sudo ufw reload
 </pre>
 
 - Enable Jenkins service
@@ -102,6 +103,7 @@ read OP
 
 echo "Locking firewall - port 8080"
 sudo ufw delete allow 8080/tcp
+sudo ufw reload
 
 sleep 2
 

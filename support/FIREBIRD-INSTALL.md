@@ -42,6 +42,7 @@ sudo systemctl status firebird3.0
 
 <pre>
 sudo ufw allow 3050/tcp
+sudo ufw reload
 </pre>
 
 - Create a database folder
@@ -136,6 +137,7 @@ read OP
 
 echo "Locking firewall - port 3050"
 sudo ufw delete allow 3050/tcp
+sudo ufw reload
 
 sleep 2
 

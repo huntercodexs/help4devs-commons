@@ -110,6 +110,7 @@ sudo systemctl status prometheus
 
 <pre>
 sudo ufw allow 9090/tcp
+sudo ufw reload
 </pre>
 
 - Access the prometheus dashboard
@@ -131,6 +132,7 @@ read OP
 
 echo "Locking firewall - port 9090"
 sudo ufw delete allow 9090/tcp
+sudo ufw reload
 
 sleep 2
 

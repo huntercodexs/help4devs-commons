@@ -32,6 +32,20 @@ sudo ssh -i /home/ec2-user/key/KEY-NAME-AWS.pem ec2-user@10.0.7.160
 sudo ssh -i /home/ec2-user/key/KEY-NAME-AWS.pem ubuntu@10.0.X.X
 </pre>
 
+###### CHECK UBUNTU RELEASE INFORMATION
+
+<pre>
+cat /etc/lsb-release
+</pre>
+
+<pre>
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=20.04
+DISTRIB_CODENAME=focal
+DISTRIB_DESCRIPTION="Ubuntu 20.04.6 LTS"
+</pre>
+
+
 ###### CHECK AVAILABLE PORTS
 
 <pre>
