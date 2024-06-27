@@ -161,7 +161,7 @@ echo "Removing user - prometheus"
 sudo userdel prometheus
 sudo rm -rf /home/prometheus
 sudo rm -rf /var/spool/mail/prometheus
-cd /home/almalinux-vbox
+cd /home/ubuntu-vbox
 
 sleep 2
 
