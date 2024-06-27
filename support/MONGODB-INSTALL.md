@@ -293,7 +293,6 @@ echo "DONE"
 exit
 </pre>
 
-
 ### Almalinux 8.10
 
 ###### Mongodb Installing
@@ -591,3 +590,4 @@ sleep 2
 echo "DONE"
 exit
 </pre>
+
