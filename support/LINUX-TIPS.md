@@ -32,19 +32,6 @@ sudo ssh -i /home/ec2-user/key/KEY-NAME-AWS.pem ec2-user@10.0.7.160
 sudo ssh -i /home/ec2-user/key/KEY-NAME-AWS.pem ubuntu@10.0.X.X
 </pre>
 
-##### CHECK UBUNTU RELEASE INFORMATION
-
-<pre>
-cat /etc/lsb-release
-</pre>
-
-<pre>
-DISTRIB_ID=Ubuntu
-DISTRIB_RELEASE=20.04
-DISTRIB_CODENAME=focal
-DISTRIB_DESCRIPTION="Ubuntu 20.04.6 LTS"
-</pre>
-
 ##### FIREWALL
 
 - Ubuntu 20.04
@@ -75,17 +62,154 @@ sudo firewall-cmd --runtime-to-permanent
 sudo firewall-cmd --reload
 </pre>
 
-##### CHECK AVAILABLE PORTS
+##### LINUX HARDWARE INFORMATION
+
+- Overall information
 
 <pre>
-sudo netstat
-sudo netstat -ano
-sudo netstat -tunl
-sudo netstat -tulpn
-sudo netstat -ano | grep 443
-sudo netstat -ano | egrep '443|I-Node'
-sudo netstat -na | grep tcp | grep -i listen
+sudo inxi -Fxz
+
+or
+
+sudo hwinfo
+sudo hwinfo --short
+
+or
+
+sudo lshw
+sudo lshw -short
 </pre>
+
+- CPU Details
+
+<pre>
+sudo lscpu
+
+sudo lshw -C cpu
+
+sudo lshw -C cpu | grep -i product
+</pre>
+
+- Memory Details
+
+<pre>
+sudo dmidecode -t memory
+sudo dmidecode -t memory | grep -i size
+
+or
+sudo lshw -short -C memory
+</pre>
+
+- Memory in use
+
+<pre>
+free -m
+</pre>
+
+- Watch the process in memory
+
+<pre>
+top
+</pre>
+
+- Maximum memory possible
+
+<pre>
+sudo dmidecode -t memory | grep -i max
+</pre>
+
+- Check if there is any slot empty to put a new memory stick
+
+<pre>
+sudo lshw -short -C memory | grep -i empty
+</pre>
+
+- GPU and VGA details
+
+<pre>
+lspci | grep -i vga
+lspci -v -s 00:02.0
+lspci -v -s 01:00.0
+</pre>
+
+- Disks, filesystems, and devices
+
+> Disk details information
+
+<pre>
+sudo lshw -short -C disk
+</pre>
+
+> LIst disk partitions
+
+<pre>
+lsblk
+
+# With more details
+sudo fdisk -l
+</pre>
+
+> List partition system (UUID)
+
+<pre>
+sudo blkid
+</pre>
+
+- USB Details
+
+<pre>
+sudo lsusb
+sudo lspci
+</pre>
+
+- Network devices details
+
+<pre>
+sudo lshw -C network
+</pre>
+
+##### CHECK RELEASE INFORMATION
+
+<pre>
+cat /etc/lsb-release
+</pre>
+
+<pre>
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=20.04
+DISTRIB_CODENAME=focal
+DISTRIB_DESCRIPTION="Ubuntu 20.04.6 LTS"
+</pre>
+
+##### CHECK AVAILABLE PORTS
+
+- sudo netstat
+- sudo netstat -ano
+- sudo netstat -tunl
+- sudo netstat -tulpn
+- sudo netstat -ano | grep 443
+- sudo netstat -ano | egrep '443|I-Node'
+- sudo netstat -na | grep tcp | grep -i listen
+
+##### DNS COMMANDS
+
+- nslookup
+- netstat
+
+##### NETWORK INTERFACE (LEGACY)
+
+- ifconfig (net-tools)
+
+##### TRACE A ADDRESS
+
+- traceroute
+
+##### IP ROUTE 2
+
+- ip addr
+- ip link
+- ip route
+- ss
 
 ##### KERNEL RECOVERY
 
@@ -268,7 +392,7 @@ i2c_algo_bit           16384  1 nvidiafb
 drm                   552960  6 nvidia
 </pre>
 
-##### Configure Program Startup at Linux boot (Ubuntu)
+##### STARTUP CONFIGURATION PROGRAMS
 
 To configure a bash program or script to "go up" along with the system boot, follow the instructions below:
 
@@ -307,3 +431,4 @@ sudo ln -s /etc/init.d/anydesk /etc/rc2.d/S99anydesk
 > <br />
 > In the case in question, AnyDesk is being tested, so when the system is loaded during the 
 > boot process, it will be possible to access the machine even if no login has been performed.
+
