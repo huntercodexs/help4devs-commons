@@ -217,6 +217,7 @@ sudo postgresql-setup --initdb
 </pre>
 
 - Allow firewall postgresql port
+- 
 <pre>
 sudo firewall-cmd --add-port=5432/tcp --permanent
 sudo firewall-cmd --reload
