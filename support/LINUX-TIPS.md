@@ -32,6 +32,18 @@ sudo ssh -i /home/ec2-user/key/KEY-NAME-AWS.pem ec2-user@10.0.7.160
 sudo ssh -i /home/ec2-user/key/KEY-NAME-AWS.pem ubuntu@10.0.X.X
 </pre>
 
+##### DISABLE SWAP
+
+<pre>
+sudo swapoff -a
+</pre>
+
+Check swap in the FSTAB system linux
+
+<pre>
+cat /etc/fstab
+</pre>
+
 ##### FIREWALL
 
 - Ubuntu 20.04

@@ -1,6 +1,23 @@
 
 # SSH TIPS
 
+###### Installing
+
+- Ubuntu 20.04
+
+<pre>
+sudo apt-get install ssh
+sudo apt install openssh-server -y
+sudo systemctl daemon-reload
+sudo systemctl enable ssh
+sudo systemctl stop ssh
+sudo systemctl start ssh
+sudo systemctl status ssh
+sudo ufw enable
+sudo ufw allow ssh
+sudo ufw delete allow ssh (delete ssh entry)
+</pre>
+
 ###### Create the ssh key RSA
 
 <pre>
