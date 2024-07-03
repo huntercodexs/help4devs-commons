@@ -421,3 +421,73 @@ exit
 </pre>
 
 > IMPORTANT: In some cases it will be necessary to restart the machine
+
+### EXTRAS
+
+###### Activate Rewrite Rules
+
+> Tomcat 8.5.41 or later
+
+When we have a application that needs to rewrite url, like Vue or Angular, we need to activate 
+the rewrite rules in the tomcat server, so use the following steps to make it
+
+- Go to tomcat path directory
+  - /opt/tomcat or /etc/tomcat
+- Open the server.xml file and put the content in it
+
+<code>
+
+    <Valve className="org.apache.catalina.valves.rewrite.RewriteValve" />
+
+</code>
+
+This content must be put in the Host section at the end of the server.xml file, for example:
+
+<code>
+    
+    <Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
+        
+        <Valve className="org.apache.catalina.valves.rewrite.RewriteValve" />
+    
+        <!-- SingleSignOn valve, share authentication between web applications Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+        
+        <!-- Access log processes all example.
+         Documentation at: /docs/config/valve.html
+         Note: The pattern used is equivalent to using pattern="common" -->
+        
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+           prefix="localhost_access_log" suffix=".txt"
+           pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+    
+    </Host>
+    
+</code>
+
+Also, you need to create a configuration file named rewrite.config in the catalina configuration path as showed below:
+
+<pre>
+sudo vi /opt/tomcat/conf/Catalina/localhost/rewrite.config
+</pre>
+
+Create a content similar like below
+
+<pre>
+RewriteCond %{REQUEST_PATH} !-f
+RewriteRule ^/application-name1/(.*) /application-name1/index.html
+RewriteCond %{REQUEST_PATH} !-f
+RewriteRule ^/application-name2/(.*) /application-name2/index.html
+RewriteCond %{REQUEST_PATH} !-f
+RewriteRule ^/application-name3/(.*) /application-name3/index.html
+</pre>
+
+And the application needs to be put in the following path
+
+<pre>
+/opt/tomcat/webapps/application-name1
+/opt/tomcat/webapps/application-name2
+/opt/tomcat/webapps/application-name3
+</pre>
+
