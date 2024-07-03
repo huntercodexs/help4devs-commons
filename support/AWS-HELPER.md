@@ -215,6 +215,51 @@ so for that follow the steps below
 - Select 'Terminate Instance'
 - Check the Instance state: Terminated
 
+### AMI - AMAZON MACHINE IMAGE
+
+--------------------------------------------------------------------------------------------------------------------
+
+To create an Amazon AMI and use in any EC2 instance follow the steps below:
+
+- Get Access to the target AWS account
+- Go to EC2 Instances Dashboard
+- Choose the EC2 to create an AMI
+- Click Actions in the top right screen
+- Choose Images and Models
+  - Create Image or Image Create
+- Review the AMI form to make proper configuration
+- Choose Create Image
+
+Now you can use this AMI to create others EC2 instances with the same configurations, installations, applications and 
+features, it can save a lot of time when you need to put the new services or machines online.
+
+- Go to AMI management
+- Choose the AMI
+- Click right button in the AMI
+- Choose Execute Instance in the AMI
+- Set up the Instance Details like
+  - [Name and tags]
+  - [Ami]
+  - [Instance type]
+  - [Key pairs]
+  - [Network settings]
+    - VPC
+    - Allow SSH traffic from: {Anywhere, My IP}
+    - Configure the use of SUB-NET
+    - Common security groups
+  - [Storage management]
+  - [Advanced Details]
+    - Termination Protection ?
+    - Shutdown behavior: {Stop, Terminate}
+- Click on the button Execute Instance
+- Check if the instance was generated in the EC2 Instances Dashboard
+
+--------------------------------------------------------------------------------------------------------------------
+
+### S3
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### ECS
 
 --------------------------------------------------------------------------------------------------------------------
@@ -321,11 +366,11 @@ To get start the Route 53 configuration have in hand the following information
 
 --------------------------------------------------------------------------------------------------------------------
 
-### S3
+### SECURITY GROUP
 
 --------------------------------------------------------------------------------------------------------------------
 
-### SG
+### COSTS ESTIMATES
 
 --------------------------------------------------------------------------------------------------------------------
 
