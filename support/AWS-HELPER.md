@@ -1,6 +1,8 @@
 # AWS HELPER
 A simple instructions to help developers in overall cases to make configurations int the AWS Services
 
+<br /><br />
+
 ## IAM
 
 ###### Create a user step by step
@@ -25,6 +27,7 @@ A simple instructions to help developers in overall cases to make configurations
 Now you will probably visualize the Users list with the last one that was created in this step by step.
 So make a logout from the current account and try login using the user that was created in the steps ago.
 
+<br /><br />
 
 ## BILLING
 
@@ -63,11 +66,13 @@ Now go to cloud watching and make the configurations as showed below
 
 > IMPORTANT: Check your email address to Confirm "Simple Notification Service" and active this resource
 
+<br /><br />
 
 ## CLOUD-SHELL
 
 > ABOUT: Access the terminal commands in the AWS Cloud
 
+<br /><br />
 
 ## AWS-CLI
 
@@ -132,6 +137,7 @@ aws ec2 describe-instances
 
 To get more details see the https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
 
+<br /><br />
 
 ## EC2
 
@@ -212,6 +218,7 @@ so for that follow the steps below
 - Select 'Terminate Instance'
 - Check the Instance state: Terminated
 
+<br /><br />
 
 ## AMI - AMAZON MACHINE IMAGE
 
@@ -254,6 +261,7 @@ features, it can save a lot of time when you need to put the new services or mac
 - Click on the button Execute Instance
 - Check if the instance was generated in the EC2 Instances Dashboard
 
+<br /><br />
 
 ## S3
 
@@ -560,6 +568,7 @@ Routing policy: Simple routing
 
 ![aws-route53-hosted-zone-sample.png](images/aws-route53-hosted-zone-sample.png)
 
+<br /><br />
 
 ## ROUTE 53
 
@@ -690,6 +699,7 @@ Routing policy: Simple routing
 
 > NOTE: You may need to wait a few moments for the redirection and feature activation to take effect.
 
+<br /><br />
 
 ## CLOUD FRONT
 
@@ -791,48 +801,61 @@ Routing policy: Simple routing
   - http://help4devs.com (should be redirected to HTTPS automatically)
   - https://help4devs.com
 
+<br /><br />
 
 ## SQS
 
+<br /><br />
 
 ## ECS
 
+<br /><br />
 
 ## EKS
 
+<br /><br />
 
 ## RDS
 
+<br /><br />
 
 ## DYNAMODB
 
+<br /><br />
 
 ## API-GATEWAY
 
+<br /><br />
 
 ## LAMBDA FUNCTIONS
 
+<br /><br />
 
 ## LOAD BALANCER
 
+<br /><br />
 
 ## ACM
 
+<br /><br />
 
 ## VPC
 
+<br /><br />
 
 ## ACL
 
+<br /><br />
 
 ## SECURITY GROUP
 
+<br /><br />
 
 ## COSTS ESTIMATES
 
+<br /><br />
 
 ## AWS NETWORKING
-
 
 In this topic we can see one small concept project to view how to work an environment based on AWS Cloud services.
 Belo is the overview image to presentation this subject in a quickly and understandably way.
@@ -870,6 +893,7 @@ follows below:
                         - DATABASE
                             - RDS: MYSQL
 
+<br /><br />
 
 ## S3 + ROUTE-53 + ACM + CLOUD-FRONT
 
