@@ -3,6 +3,47 @@ A simple instructions to help developers in overall cases to make configurations
 
 <br /><br />
 
+# SUMMARY
+
+- <a href="#IAM">IAM</a>
+  - <a href="#Create-a-user-step-by-step">Create a user step by step</a>
+- <a href="#BILLING">BILLING</a>
+  - <a href="#Manage-Billing-Alarm">Manage Billing Alarm</a>
+- <a href="#CLOUD-SHELL">CLOUD-SHELL</a>
+- <a href="#AWS-CLI">AWS-CLI</a>
+- <a href="#EC2 ">EC2 </a>
+  - <a href="#Create">Create</a> 
+  - <a href="#Destroy-Instance-EC2">Destroy Instance EC2</a>
+- <a href="#AMI-AMAZON-MACHINE-IMAGE">AMI - AMAZON MACHINE IMAGE</a>
+- <a href="#S3">S3</a>
+  - <a href="#Create-a-default-bucket-to-storage-files">Create a default bucket to storage files</a> 
+  - <a href="#Testing-bucket-access">Testing bucket access</a>
+  - <a href="#Hosting-Static-Website-Using-ACLs">Hosting Static Website - Using ACLs</a> 
+  - <a href="#Hosting-a-website-Using-Bucket-Policy">Hosting a website - Using Bucket Policy</a> 
+  - <a href="#Hosting-a-website-Using-friendly-name">Hosting a website - Using friendly name</a>
+- <a href="#ROUTE-53">ROUTE 53</a>
+  - <a href="#Create-Redirect-to-EC2-Instance">Create Redirect to EC2 Instance</a>
+  - <a href="#Create-a-Redirect-to-S3-AWS-Resource">Create a Redirect to S3 AWS Resource</a>
+<a href="#CLOUD-FRONT">CLOUD FRONT</a>
+  <a href="#Create-distribution">Create distribution</a>
+  <a href="#Testing-Distribution">Testing Distribution</a> 
+  <a href="#Create-a-new-record-in-the-Route-53">Create a new record in the Route-53</a>
+<a href="#SQS">SQS</a>
+<a href="#ECS">ECS</a>
+<a href="#EKS">EKS</a>
+<a href="#RDS">RDS</a>
+<a href="#DYNAMODB">DYNAMODB</a>
+<a href="#API-GATEWAY">API-GATEWAY</a>
+<a href="#LAMBDA-FUNCTIONS">LAMBDA FUNCTIONS</a>
+<a href="#LOAD-BALANCER">LOAD BALANCER</a>
+<a href="#ACM">ACM</a>
+<a href="#VPC">VPC</a>
+<a href="#ACL">ACL</a>
+<a href="#SECURITY-GROUP">SECURITY GROUP</a>
+<a href="#COSTS-ESTIMATES">COSTS ESTIMATES</a>
+<a href="#AWS-NETWORKING">AWS NETWORKING</a>
+<a href="#S3-ROUTE53-ACM-CLOUD-FRONT">S3 ROUTE53 ACM CLOUD FRONT</a>
+
 ## IAM
 
 ###### Create a user step by step
@@ -895,7 +936,7 @@ follows below:
 
 <br /><br />
 
-## S3 + ROUTE-53 + ACM + CLOUD-FRONT
+## S3 ROUTE53 ACM CLOUD-FRONT
 
 
 
