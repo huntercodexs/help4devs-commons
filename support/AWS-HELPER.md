@@ -109,7 +109,7 @@ First of all you need to create the AccessKey to configure the aws-cli, then fol
 
 - Click the Menu in the top right side in the screen
 - Choose Security credentials
-- Go down Access eys
+- Scroll down "Access key"
     - Click Create access key button link
     - Choose the Command Line Interface (CLI)
         - Mark the checkbox
@@ -149,43 +149,46 @@ screen, so you will fell down in EC2 Instances manager. Now you can follow the s
 - Click the "Launch instances" button in the top right screen
 - Fill the form with the settings like below
 
+<pre>
 [Name and tags]
 
-- Name: your-instance-ec2-name (temporary-test-ec2)
+Name: your-instance-ec2-name (temporary-test-ec2)
 
 [Application and OS Images (Amazon Machine Image)]
 
-- Select the instance image: Amazon Linux, macOS, Ubuntu, Windows...
-- Choose the AMI: Amazon Linux 2023
-- Choose the architecture: 64-bit (x86)
+Select the instance image: Amazon Linux, macOS, Ubuntu, Windows...
+Choose the AMI: Amazon Linux 2023
+Choose the architecture: 64-bit (x86)
 
 [Instance type]
 
-- Choose instance type: t2.micro (for Free tier eligible)
+Choose instance type: t2.micro (for Free tier eligible)
 
 [Key pair]
 
-- Create a key pair to SSH connections (don't forget to download and save it)
-    - Click Create key pair (temporary-test-ec2)
+Create a key pair to SSH connections (don't forget to download and save it)
+Click Create key pair (temporary-test-ec2)
 
 [Network settings]
 
-- Check VPC
-- Check Subnet
-- Check Public IP
-- Choose the Firewall (security groups)
-    - Create security group
-        - Allow SSH traffic from [Anywhere: 0.0.0.0/0] (just for tests)
-    - Select existing security group
-        - default or any other one available
+Check VPC
+Check Subnet
+Check Public IP
+Choose the Firewall (security groups)
+  Create security group
+    Allow SSH traffic from [Anywhere: 0.0.0.0/0] (just for tests)
+  Select existing security group
+    default or any other one available
 
 [Configure storage]
 
-- Add volume if necessary
+Add volume if necessary
 
 [Advanced details]
 
-- Check the advanced details if necessary
+Check the advanced details if necessary
+
+</pre>
 
 Finally, click the button "Launch instance" placed in the bottom right from the screen.
 Go back to the EC2 Instance list dashboard and check the instance status that was created in the steps ago.
@@ -207,7 +210,7 @@ ClientAliveCountMax	3
 
 ###### Destroy Instance EC2
 
-It's pretty important to terminate the instance to avoid charges and bills surprised,
+> NOTE: It's pretty important to terminate the instance to avoid charges and bills surprised,
 so for that follow the steps below
 
 - Go to your EC2 instance
