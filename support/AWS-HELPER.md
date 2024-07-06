@@ -24,25 +24,27 @@ A simple instructions to help developers in overall cases to make configurations
 - <a href="#ROUTE-53">ROUTE 53</a>
   - <a href="#Create-Redirect-to-EC2-Instance">Create Redirect to EC2 Instance</a>
   - <a href="#Create-a-Redirect-to-S3-AWS-Resource">Create a Redirect to S3 AWS Resource</a>
-<a href="#CLOUD-FRONT">CLOUD FRONT</a>
-  <a href="#Create-distribution">Create distribution</a>
-  <a href="#Testing-Distribution">Testing Distribution</a> 
-  <a href="#Create-a-new-record-in-the-Route-53">Create a new record in the Route-53</a>
-<a href="#SQS">SQS</a>
-<a href="#ECS">ECS</a>
-<a href="#EKS">EKS</a>
-<a href="#RDS">RDS</a>
-<a href="#DYNAMODB">DYNAMODB</a>
-<a href="#API-GATEWAY">API-GATEWAY</a>
-<a href="#LAMBDA-FUNCTIONS">LAMBDA FUNCTIONS</a>
-<a href="#LOAD-BALANCER">LOAD BALANCER</a>
-<a href="#ACM">ACM</a>
-<a href="#VPC">VPC</a>
-<a href="#ACL">ACL</a>
-<a href="#SECURITY-GROUP">SECURITY GROUP</a>
-<a href="#COSTS-ESTIMATES">COSTS ESTIMATES</a>
-<a href="#AWS-NETWORKING">AWS NETWORKING</a>
-<a href="#S3-ROUTE53-ACM-CLOUD-FRONT">S3 ROUTE53 ACM CLOUD FRONT</a>
+- <a href="#CLOUD-FRONT">CLOUD FRONT</a>
+  - <a href="#Create-distribution">Create distribution</a>
+  - <a href="#Testing-Distribution">Testing Distribution</a>
+  - <a href="#Create-a-new-record-in-the-Route-53">Create a new record in the Route-53</a>
+- <a href="#SQS">SQS</a>
+- <a href="#ECS">ECS</a>
+- <a href="#EKS">EKS</a>
+- <a href="#RDS">RDS</a>
+- <a href="#DYNAMODB">DYNAMODB</a>
+- <a href="#API-GATEWAY">API-GATEWAY</a>
+- <a href="#LAMBDA-FUNCTIONS">LAMBDA FUNCTIONS</a>
+- <a href="#LOAD-BALANCER">LOAD BALANCER</a>
+- <a href="#ACM">ACM</a>
+- <a href="#VPC">VPC</a>
+- <a href="#ACL">ACL</a>
+- <a href="#SECURITY-GROUP">SECURITY GROUP</a>
+- <a href="#COSTS-ESTIMATES">COSTS ESTIMATES</a>
+- <a href="#AWS-NETWORKING">AWS NETWORKING</a>
+- <a href="#S3-ROUTE53-ACM-CLOUD-FRONT">S3 ROUTE53 ACM CLOUD FRONT</a>
+
+<br /><br />
 
 ## IAM
 
