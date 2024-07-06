@@ -2,9 +2,8 @@
 # AWS HELPER
 
 
-## IAM
-
 --------------------------------------------------------------------------------------------------------------------
+## IAM
 
 ###### Create a user step by step
 
@@ -29,9 +28,8 @@ Now you will probably visualize the Users list with the last one that was create
 So make a logout from the current account and try login using the user that was created in the steps ago.
 
 
-## BILLING
-
 --------------------------------------------------------------------------------------------------------------------
+## BILLING
 
 ###### Manage Billing Alarm
 
@@ -69,16 +67,14 @@ Now go to cloud watching and make the configurations as showed below
 > IMPORTANT: Check your email address to Confirm "Simple Notification Service" and active this resource
 
 
-## CLOUD-SHELL
-
 --------------------------------------------------------------------------------------------------------------------
+## CLOUD-SHELL
 
 > ABOUT: Access the terminal commands in the AWS Cloud
 
 
-## AWS-CLI
-
 --------------------------------------------------------------------------------------------------------------------
+## AWS-CLI
 
 > CLI: Command Line Interface
 
@@ -142,9 +138,8 @@ aws ec2 describe-instances
 To get more details see the https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
 
 
-## EC2
-
 --------------------------------------------------------------------------------------------------------------------
+## EC2
 
 ###### Create
 
@@ -221,9 +216,8 @@ so for that follow the steps below
 - Check the Instance state: Terminated
 
 
-## AMI - AMAZON MACHINE IMAGE
-
 --------------------------------------------------------------------------------------------------------------------
+## AMI - AMAZON MACHINE IMAGE
 
 To create an Amazon AMI and use in any EC2 instance follow the steps below:
 
@@ -260,12 +254,9 @@ features, it can save a lot of time when you need to put the new services or mac
 - Click on the button Execute Instance
 - Check if the instance was generated in the EC2 Instances Dashboard
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## S3
-
---------------------------------------------------------------------------------------------------------------------
 
 #### Create a default bucket to storage files
 
@@ -621,9 +612,8 @@ Routing policy: Simple routing
 ![aws-route53-hosted-zone-sample.png](images/aws-route53-hosted-zone-sample.png)
 
 
-## ROUTE 53
-
 --------------------------------------------------------------------------------------------------------------------
+## ROUTE 53
 
 #### Create Redirect to EC2 Instance
 
@@ -753,9 +743,8 @@ Routing policy: Simple routing
 > NOTE: You may need to wait a few moments for the redirection and feature activation to take effect.
 
 
-## CLOUD FRONT
-
 --------------------------------------------------------------------------------------------------------------------
+## CLOUD FRONT
 
 #### Create distribution
 
@@ -856,74 +845,61 @@ Routing policy: Simple routing
   - https://help4devs.com
 
 
+--------------------------------------------------------------------------------------------------------------------
 ## SQS
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## ECS
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## EKS
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## RDS
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## DYNAMODB
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## API-GATEWAY
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## LAMBDA FUNCTIONS
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## LOAD BALANCER
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## ACM
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## VPC
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## ACL
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## SECURITY GROUP
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## COSTS ESTIMATES
 
+
 --------------------------------------------------------------------------------------------------------------------
-
-
 ## AWS NETWORKING
 
---------------------------------------------------------------------------------------------------------------------
 
 In this topic we can see one small concept project to view how to work an environment based on AWS Cloud services.
 Belo is the overview image to presentation this subject in a quickly and understandably way.
