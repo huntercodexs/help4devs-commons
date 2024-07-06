@@ -3,6 +3,7 @@
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## IAM
 
 ###### Create a user step by step
@@ -29,6 +30,7 @@ So make a logout from the current account and try login using the user that was 
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## BILLING
 
 ###### Manage Billing Alarm
@@ -68,12 +70,14 @@ Now go to cloud watching and make the configurations as showed below
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## CLOUD-SHELL
 
 > ABOUT: Access the terminal commands in the AWS Cloud
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## AWS-CLI
 
 > CLI: Command Line Interface
@@ -139,6 +143,7 @@ To get more details see the https://docs.aws.amazon.com/cli/latest/userguide/cli
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## EC2
 
 ###### Create
@@ -220,6 +225,7 @@ so for that follow the steps below
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## AMI - AMAZON MACHINE IMAGE
 
 To create an Amazon AMI and use in any EC2 instance follow the steps below:
@@ -240,25 +246,30 @@ features, it can save a lot of time when you need to put the new services or mac
 - Choose the AMI
 - Click right button in the AMI
 - Choose Execute Instance in the AMI
-- Set up the Instance Details like
-    - [Name and tags]
-    - [Ami]
-    - [Instance type]
-    - [Key pairs]
-    - [Network settings]
-        - VPC
-        - Allow SSH traffic from: {Anywhere, My IP}
-        - Configure the use of SUB-NET
-        - Common security groups
-    - [Storage management]
-    - [Advanced Details]
-        - Termination Protection ?
-        - Shutdown behavior: {Stop, Terminate}
+- Set up the Instance Details like below
+
+<pre>
+[Name and tags]
+[Ami]
+[Instance type]
+[Key pairs]
+[Network settings]
+    - VPC
+    - Allow SSH traffic from: {Anywhere, My IP}
+    - Configure the use of SUB-NET
+    - Common security groups
+[Storage management]
+[Advanced Details]
+    - Termination Protection ?
+    - Shutdown behavior: {Stop, Terminate}
+</pre>
+
 - Click on the button Execute Instance
 - Check if the instance was generated in the EC2 Instances Dashboard
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## S3
 
 #### Create a default bucket to storage files
@@ -269,40 +280,42 @@ in it to transfer any file to them follow the topics below
 - Access your aws account
 - Goto Amazon S3 in this link https://us-east-1.console.aws.amazon.com/s3/get-started?region=us-east-1
 - Click on the link Buckets placed at left side of screen
-- Choose Create bucket
+- Choose Create bucket and fill the information like below
 
-  [General configuration]
-    - AWS Region: US East (N. Virginia) us-east-1
-    - Bucket type: General purpose
-    - Bucket name: temporary-test-s3
+<pre>
+[General configuration]
+AWS Region: US East (N. Virginia) us-east-1
+Bucket type: General purpose
+Bucket name: temporary-test-s3
 
-  [Object Ownership]
-    - Select ACLs disabled (recommended)
+[Object Ownership]
+Select ACLs disabled (recommended)
 
-  [Block Public Access settings for this bucket]
-    - Mark the pertinent checkbox to set up the correct access to the bucket
-        - Block all public access [ ]
-            - keep this checkbox marked unless you know what you are doing, for example: website hosting, in this case
-              we are unmark this checkbox because we will test a single page in the S3 bucket
+[Block Public Access settings for this bucket]
+Mark the pertinent checkbox to set up the correct access to the bucket
+  Block all public access [ ]
+    keep this checkbox marked unless you know what you are doing, for example: website hosting, in this case
+    we are unmark this checkbox because we will test a single page in the S3 bucket
 
-  [Bucket Versioning]
-    - Bucket Versioning: Disable
+[Bucket Versioning]
+Bucket Versioning: Disable
 
-  [Tags - optional (0)]
-    - Let as is
+[Tags - optional (0)]
+Let as is
 
-  [Default encryption]
-    - Encryption type: Server-side encryption with Amazon S3 managed keys (SSE-S3)
-        - Bucket Key: Disable
+[Default encryption]
+Encryption type: Server-side encryption with Amazon S3 managed keys (SSE-S3)
+  Bucket Key: Disable
 
-  [Advanced settings]
-    - Object Lock: Disable
+[Advanced settings]
+Object Lock: Disable
+</pre>
 
 - Choose Create bucket button
 
-##### Testing bucket access
+Now go back to the Bucket lists in the menu placed at left side of screen to check if the bucket was created in there.
 
-Now go back to the Bucket lists in the menu placed at left side og screen to check if the bucket was created in there.
+##### Testing bucket access
 
 If everything is ok, you can upload and download files to the created bucket, and also you can use the sample Java
 project to transfer data for the bucket.
@@ -325,40 +338,38 @@ You can host one static website in the S3 bucket as following below.
 
 - Create one specific bucket to host static website:
 
+<pre>
 [General configuration]
 
-- AWS Region: US East (N. Virginia) us-east-1
-- Bucket Type: General purpose
-- Bucket name: temporary-website-test-s3
+AWS Region: US East (N. Virginia) us-east-1
+Bucket Type: General purpose
+Bucket name: temporary-website-test-s3
 
 [Object Ownership]
 
-- Choose ACLs enabled
-- Object Ownership
-  - Choose Object writer
-  - Unmark "Block Public Access settings for this bucket"
-    - Mark "I acknowledge that the current settings might result in this bucket and the objects within becoming public."
+Choose ACLs enabled
+Object Ownership
+  Choose Object writer
+  Unmark "Block Public Access settings for this bucket"
+    Mark "I acknowledge that the current settings might result in this bucket and the objects within becoming public."
 
 [Bucket Versioning]
+Let as is
 
-- Bucket Versioning:
-  - Mark Disable
+Bucket Versioning: Mark Disable
 
 [Tags - optional]
-
-> Let as is
+Let as is
 
 [Default encryption]
 
-- Encryption type:
-  - Mark "Server-side encryption with Amazon S3 managed keys (SSE-S3)"
-- Bucket Key:
-  - Mark Disable
+Encryption type:
+  Mark "Server-side encryption with Amazon S3 managed keys (SSE-S3)"
+Bucket Key: Disable
 
 [Advanced settings]
-
-- Object Lock:
-  - Mark Disable
+Object Lock: Disable
+</pre>
 
 - Choose Create bucket
 
@@ -366,31 +377,7 @@ Now you will be redirected automatically to bucket list and probably the bucket 
 So now you can click on the temporary-website-test-s3 to visualize all options to configure this bucket.
 
 - Choose the Upload button at middle of the screen to send the files into the bucket. 
-
-> HTML Example to help you in this test
-
-<code>
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Test</title>
-    </head>
-    <body>
-    
-    <h3>AWS S3 Bucket</h3>
-    
-    <p>
-        Hello AWS Services !!!
-    </p>
-    
-    </body>
-    </html>
-
-</code>
-
+- Select the files to upload
 - After file uploaded, just click on Upload button placed at the bottom screen
 - Also, you can upload one entirely folder that contains a website content
 - Go to the bucket files list and choose the Properties Tab
@@ -412,7 +399,7 @@ still need to make a few others changes in that bucket, so lets moving on.
 - Click on Actions menu
 - Choose "Making public using ACL"
 - Choose Make public button
-- OK
+- Click on OK button
 
 Since for now, if everything was configured correctly you will be able to access the application website from 
 the URL mentioned a few steps earlier, just for example:
@@ -432,71 +419,45 @@ name, sSo let's get started and hands on.
 - Click on Create bucket button to create one specific bucket to host static website:
 - Fill the form as follows
 
+<pre>
 [General configuration]
 
-- AWS Region: US East (N. Virginia) us-east-1
-- Bucket Type: General purpose
-- Bucket name: site.huntercodexs.com
+AWS Region: US East (N. Virginia) us-east-1
+Bucket Type: General purpose
+Bucket name: huntercodexs.com
 
 [Object Ownership]
 
-- Choose "ACLs disabled (recommended)"
-- Block Public Access settings for this bucket
-  - Mark "Block all public access"
+Choose "ACLs disabled (recommended)"
+Block Public Access settings for this bucket
+  Mark "Block all public access"
 
 [Bucket Versioning]
 
-- Bucket Versioning:
-    - Mark Disable
+Bucket Versioning:
+  Mark Disable
 
-[Tags - optional]
-
+[Tags optional]
 > Let as is
 
 [Default encryption]
 
-- Encryption type:
-    - Mark "Server-side encryption with Amazon S3 managed keys (SSE-S3)"
-- Bucket Key:
-    - Mark Enable
+Encryption type: Mark "Server-side encryption with Amazon S3 managed keys (SSE-S3)"
+Bucket Key: Enable
 
 [Advanced settings]
 
-- Object Lock:
-    - Mark Disable
+Object Lock: Disable
+</pre>
 
 - Choose Create bucket
 
 Now you will be redirected automatically to the bucket list and probably the created bucket it will be 
-listed in that one. So now, you can click on the site.huntercodexs.com to visualize all options and configure 
+listed in that one. So now, you can click on the huntercodexs.com to visualize all options and configure 
 this bucket.
 
 - Choose the Upload button at middle of the screen to send the files into the bucket.
-
-> HTML Example to help you in this test
-
-<code>
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Test</title>
-    </head>
-    <body>
-    
-    <h3>AWS S3 Bucket</h3>
-    
-    <p>
-        Hello AWS Services !!!
-    </p>
-    
-    </body>
-    </html>
-
-</code>
-
+- Upload files
 - Click on Upload button 
 - Go to S3 bucket details
 - Click "Properties Tab"
@@ -524,7 +485,7 @@ this bucket.
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::site.huntercodexs.com/*"
+            "Resource": "arn:aws:s3:::huntercodexs.com/*"
         }
     ]
 }
@@ -538,7 +499,7 @@ this bucket.
   - Give an index document name: index.html
   - Choose Save changes
 - Still in the "Properties Tab" scroll down again until "Static website hosting" and get the URL generated
-  - Example: http://site.huntercodexs.com.s3-website-us-east-1.amazonaws.com
+  - Example: http://huntercodexs.com.s3-website-us-east-1.amazonaws.com
   - If everything is ok, so you probably will receive the index.html page in your browser, do try it.
 
 #### Hosting a website - Using friendly name
@@ -547,7 +508,7 @@ this bucket.
 > see the section Route-53 along this documentation
 
 Since now, we are going to create a more friendly name to our static website because the current name that should 
-be something like that site.huntercodexs.com.s3-website-us-east-1.amazonaws.com, and it is very confusing, 
+be something like that huntercodexs.com.s3-website-us-east-1.amazonaws.com, and it is very confusing, 
 stranger and hard to understand and memorize, and for that we will use the Route-53 from AWS Services, so let's go.
 
 - Get access into Route-53
@@ -557,7 +518,7 @@ stranger and hard to understand and memorize, and for that we will use the Route
 - Fill the form with the following information
 
 <pre>
-Domain name: site.huntercodexs.com
+Domain name: huntercodexs.com
 Description (optional): 
 Type: Public hosted zone
 Tags:
@@ -568,7 +529,7 @@ Tags:
 > IMPORTANT: Don't forget to configure your DNS service provider with the NS name services available in the hosted
 > zone that you just have created, this information can be grabbed in the "Hosted zone details"
 
-- Now you will be probably redirected to site.huntercodexs.com hosted zone, where you will see one list of records to 
+- Now you will be probably redirected to huntercodexs.com hosted zone, where you will see one list of records to 
 routes and DNS configurations, so for now click on Create record and follow the steps below
 
 <pre>
@@ -586,7 +547,7 @@ Routing policy: Simple routing
 - Now, create another two record like below
 
 <pre>
-Record name: site (site.huntercodexs.com)
+Record name: site (huntercodexs.com)
 Record type: CNAME – routes traffic to another domain name and to some AWS resources
 Value: huntercodexs.com
 TTL(seconds): 300
@@ -605,7 +566,7 @@ Routing policy: Simple routing
 
 - Now, access the static website using the new name: 
   - http://huntercodexs.com
-  - http://site.huntercodexs.com
+  - http://huntercodexs.com
   - http://www.huntercodexs.com
 
 > NOTE: This can take a several times to be activated by your DNS service provider
@@ -616,6 +577,7 @@ Routing policy: Simple routing
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## ROUTE 53
 
 #### Create Redirect to EC2 Instance
@@ -747,6 +709,7 @@ Routing policy: Simple routing
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## CLOUD FRONT
 
 #### Create distribution
@@ -849,58 +812,72 @@ Routing policy: Simple routing
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## SQS
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## ECS
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## EKS
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## RDS
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## DYNAMODB
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## API-GATEWAY
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## LAMBDA FUNCTIONS
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## LOAD BALANCER
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## ACM
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## VPC
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## ACL
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## SECURITY GROUP
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## COSTS ESTIMATES
 
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## AWS NETWORKING
 
 
@@ -939,4 +916,20 @@ follows below:
                                 - SERVICE4 = hello-world-4.jar
                         - DATABASE
                             - RDS: MYSQL
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## S3 + ROUTE-53 + ACM + CLOUD-FRONT
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
