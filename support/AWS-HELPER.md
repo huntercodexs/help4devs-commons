@@ -55,21 +55,21 @@ A simple instructions to help developers in overall cases to make configurations
     - https://aws.amazon.com/
 - Go to IAM control panel:
     - https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-2
-- Click: in the Item Menu on the left side named Users
+- Click on the Item Menu on the left side named Users
     - Users
 - Specify user details
     - User name
     - Custom password
-- Click: Next
+- Click on Next button
     - Mark Attach policies directly
         - Choose the related permissions
             - AdministrativeAccess (for example)
-- Click: Next
-- Click: Create user
-- Click: Return to users list
+- Click on Next
+- Click on Create user
+- Click on Return to users list
 
 Now you will probably visualize the Users list with the last one that was created in this step by step.
-So make a logout from the current account and try login using the user that was created in the steps ago.
+So make a logout from the current account and try login using the new user that was created in the steps ago.
 
 <br /><br />
 <a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
@@ -81,18 +81,18 @@ So make a logout from the current account and try login using the user that was 
 This setup is important to have a better control in the account costs and avoid surprises in the bills. For that click
 on the link https://us-east-1.console.aws.amazon.com/billing/home#/preferences and check the following settings.
 
-- Click in the [Edit] button - Alert preferences
+- Click on the [Edit] button - Alert preferences
 - Mark the checkbox
     - Receive AWS Free Tier alerts
     - Receive CloudWatch billing alerts
-- Click: Update
+- Click on Update
 
 Now go to cloud watching and make the configurations as showed below
 
 > Cloud Watch: https://console.aws.amazon.com/cloudwatch/home
 
 - Click on the link Create alarms
-- Click: Create alarm (button)
+- Click on Create alarm (button)
 - Select Region: US East (N. Virginia)us-east-1
 - Select metric
 - Click on Billing link
@@ -103,13 +103,13 @@ Now go to cloud watching and make the configurations as showed below
 - Choose Next button
 - Select Notification Box
     - Fill the form to create a new Topic and inform the email to receive the alarm
-- Click Next
+- Click on Next
 - Give Alarm name
-- Click Next
+- Click on Next
 - Review the Configurations
 - Finally, click Create alarm button
 
-> IMPORTANT: Check your email address to Confirm "Simple Notification Service" and active this resource
+> IMPORTANT: Check your email address to Confirm "SNS - Simple Notification Service" and active this resource
 
 <br /><br />
 <a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
@@ -118,12 +118,15 @@ Now go to cloud watching and make the configurations as showed below
 
 > ABOUT: Access the terminal commands in the AWS Cloud
 
+It is pretty simple and doesn't need more details, just click in the Cloud Shell resource and begin the
+administration using a terminal in the browser.
+
 <br /><br />
 <a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## AWS-CLI
 
-> CLI: Command Line Interface
+> NOTE: CLI means Command Line Interface
 
 > To install and configure the amazon aws-cli follow the instructions in the follow page from AWS DOCS
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
@@ -154,16 +157,16 @@ aws --version
 
 First of all you need to create the AccessKey to configure the aws-cli, then follow the steps below
 
-- Click the Menu in the top right side in the screen
+- Click on the Menu in the top right side of the screen
 - Choose Security credentials
 - Scroll down "Access key"
-    - Click Create access key button link
+    - Click on Create access key button link
     - Choose the Command Line Interface (CLI)
         - Mark the checkbox
     - Click Next
     - Fill the questions in the form ahead
         - Save the generated Access Key and also the Secret access key
-    - Click Done
+    - Click on Done button
 
 - Execute the aws configuration steps
 
@@ -191,10 +194,12 @@ To get more details see the https://docs.aws.amazon.com/cli/latest/userguide/cli
 
 ###### Create
 
-To create an EC2 instance go to EC2 Dashboard and click in the item "Instance" placed at the Menu on the left side
-screen, so you will fell down in EC2 Instances manager. Now you can follow the steps below to create a new instance.
+To create an EC2 instance go to EC2 Dashboard and click on the item "Instance" placed at the Menu on the left side 
+of the screen, so you will fell down in EC2 Instances manager. 
 
-- Click the "Launch instances" button in the top right screen
+Now you can follow the steps below to create a new instance.
+
+- Click on "Launch instances" button on the top right of the screen
 - Fill the form with the settings like below
 
 <pre>
@@ -238,7 +243,7 @@ Check the advanced details if necessary
 
 </pre>
 
-Finally, click the button "Launch instance" placed in the bottom right from the screen.
+Finally, click on "Launch instance" button placed on the bottom right of the screen.
 Go back to the EC2 Instance list dashboard and check the instance status that was created in the steps ago.
 
 So now get the Public IP from the instance created and connect via SSH, for example
@@ -256,7 +261,7 @@ ClientAliveInterval	300
 ClientAliveCountMax	3
 </pre>
 
-###### Destroy Instance EC2
+###### Destroy EC2 Instance
 
 > NOTE: It's pretty important to terminate the instance to avoid charges and bills surprised,
 so for that follow the steps below
@@ -276,7 +281,7 @@ To create an Amazon AMI and use in any EC2 instance follow the steps below:
 - Get Access to the target AWS account
 - Go to EC2 Instances Dashboard
 - Choose the EC2 to create an AMI
-- Click Actions in the top right screen
+- Click on Actions button on the top right of the screen
 - Choose Images and Models
     - Create Image or Image Create
 - Review the AMI form to make proper configuration
@@ -307,7 +312,7 @@ features, it can save a lot of time when you need to put the new services or mac
     - Shutdown behavior: {Stop, Terminate}
 </pre>
 
-- Click on the button Execute Instance
+- Click on Execute Instance button
 - Check if the instance was generated in the EC2 Instances Dashboard
 
 <br /><br />
@@ -317,19 +322,19 @@ features, it can save a lot of time when you need to put the new services or mac
 
 #### Create a default bucket to storage files
 
-S3 is a storage service that Amazon offer to storage files, also known as S3 Bucket. So to create a bucket and connect
-in it to transfer any file to them follow the topics below
+S3 is a storage service that Amazon offer to storage files, also known as S3 Bucket.
+So to create a bucket and connect in it to transfer files for it, follow the topics below
 
 - Access your aws account
 - Goto Amazon S3 in this link https://us-east-1.console.aws.amazon.com/s3/get-started?region=us-east-1
-- Click on the link Buckets placed at left side of screen
+- Click on the link Buckets placed on left side of the screen
 - Choose Create bucket and fill the information like below
 
 <pre>
 [General configuration]
 AWS Region: US East (N. Virginia) us-east-1
 Bucket type: General purpose
-Bucket name: temporary-test-s3
+Bucket name: your-domain.com
 
 [Object Ownership]
 Select ACLs disabled (recommended)
@@ -356,7 +361,7 @@ Object Lock: Disable
 
 - Choose Create bucket button
 
-Now go back to the Bucket lists in the menu placed at left side of screen to check if the bucket was created in there.
+Now go back to the Bucket lists in the menu placed on left side of the screen to check if the bucket was created in there.
 
 ##### Testing bucket access
 
@@ -368,7 +373,7 @@ you just put the access_key_id and secret_access_key in the application properti
 
 <pre>
 ### S3 Bucket
-bucket.name=temporary-test-s3
+bucket.name=your-domain.com
 cloud.aws.stack.auto=false
 cloud.aws.region.static=us-east-1
 cloud.aws.credentials.accessKey=AKIA5FTZ.................
@@ -376,6 +381,8 @@ cloud.aws.credentials.secretKey=/N+htYqjH9cf68+1fVybO.....................
 </pre>
 
 #### Hosting Static Website - Using ACLs
+
+> WARNING: Not recommended
 
 You can host one static website in the S3 bucket as following below.
 
@@ -386,7 +393,7 @@ You can host one static website in the S3 bucket as following below.
 
 AWS Region: US East (N. Virginia) us-east-1
 Bucket Type: General purpose
-Bucket name: temporary-website-test-s3
+Bucket name: your-domain.com
 
 [Object Ownership]
 
@@ -417,7 +424,7 @@ Object Lock: Disable
 - Choose Create bucket
 
 Now you will be redirected automatically to bucket list and probably the bucket it will be listed in that one. 
-So now you can click on the temporary-website-test-s3 to visualize all options to configure this bucket.
+So now you can click on the your-domain.com to visualize all options to configure this bucket.
 
 - Choose the Upload button at middle of the screen to send the files into the bucket. 
 - Select the files to upload
@@ -430,7 +437,7 @@ So now you can click on the temporary-website-test-s3 to visualize all options t
   - Index document: index.html
 - Finally, click on Save changes
 - Check and take note the URL created to access the static website (at the bottom of screen)
-  - http://temporary-website-test-s3.s3-website-us-east-1.amazonaws.com
+  - http://your-domain.com.s3-website-us-east-1.amazonaws.com
 
 If you try to access the website right now, probably you will receive an HTTP error "403 Forbidden", because 
 still need to make a few others changes in that bucket, so lets moving on.
@@ -447,7 +454,7 @@ still need to make a few others changes in that bucket, so lets moving on.
 Since for now, if everything was configured correctly you will be able to access the application website from 
 the URL mentioned a few steps earlier, just for example:
 
-> http://temporary-website-test-s3.s3-website-us-east-1.amazonaws.com
+> http://your-domain.com.s3-website-us-east-1.amazonaws.com
 
 > NOTE: We don't have a DNS in this situation
 
@@ -969,18 +976,18 @@ To do that, it's required that you have previously registered one domain name se
 like Godaddy, Hostinger, Hostigator, among others.
 
 So in this, just for clarify and explain everything in a better way, we are going to use the help4devs.com domain, 
-that is a product from huntercodexs.com witch is maintained by jereelton-devel (that have been written this 
+that is a product from huntercodexs.com witch is maintained by jereelton-devel (witch have written this 
 documentation), so lets get started and hands on.
 
-First of all you need to keep in your mind the following parameters:
+First of all you need to keep in your mind the following considerations:
 
 - The name of the domain is: help4devs.com
 - The name of the S3 bucket it will be the same: help4dev.com
 - The hosted zone in the Route53 it will be the same as well: help4devs.com
 - The distribution in the Cloud Front also should be: help4devs.com
-- Finally, the Certificate should be requested by: help4devs.com and www.help4fevs.com
+- Finally, the Certificate should be requested for: help4devs.com and www.help4fevs.com
 
-> IMPORTANT: It is very important to check if your application can handle with browser cache, and 
+> IMPORTANT: It is very important to check if your application can handle the browser cache, and 
 > probably you will need to clear the cache in the web browser to get the expected result.
 
 > NOTE: The website must be a static website commonly using HTML, CSS, and JS, so ensure that 
@@ -1042,7 +1049,7 @@ in this process, so click in the bucket created and go further with the steps.
 [Static website hosting]
 
 Static website hosting: Enable
-Hosting type: HOst a static website
+Hosting type: Host a static website
 Index document: index.html
 Error document-optional:
 Redirection rules – optional: 
@@ -1054,7 +1061,7 @@ Redirection rules – optional:
 ![aws-s3-bucket-created.png](midias/images/s3-route53-acm-cloudfront/aws-s3-static-website-hosting.png)
 See that there is one default url generated by AWS witch can be used to access your static website in the web browser
 
-- Now, goto for "Permissions Tab"
+- Now, goto "Permissions Tab"
 - Scroll down until Bucket policy and click on Edit button
 - You can use the "AWS Policy Generator" to make it
 - The rule should be something like that
@@ -1076,16 +1083,16 @@ See that there is one default url generated by AWS witch can be used to access y
 </pre>
 
 > IMPORTANT: replace Resource field by yor current resource "arn:aws:s3:::help4devs.com/*" and don't forget to use
-> / * in the final string
+> / * at the end of the string
 
 So now you can test if the bucket is available to access via browser using the url generated by AWS in the previous step.
 
 #### Route 53 - Hosted Zone creation
 
-- Get access to your AWS account and goto Route53 resource dashboard
-- Click on Hosted zone in the left menu at the screen
+- Get access to your AWS account and goto Route53 dashboard
+- Click on Hosted zone on the left menu at the screen
 - Choose the Created hosted zone button
-- Fill the forms follows
+- Fill the forms as follows
 
 <pre>
 [Hosted zone configuration]
@@ -1100,8 +1107,8 @@ let as is
 
 - Click on Created hosted zone
 
-You will be redirected to hosted zone list automatically, and you should be able to see the hosted zone just created in 
-the hosted zone list, so for now click on the hosted zone just created according the image below
+You will be redirected to hosted zone list automatically, and you should be able to see the hosted zone that was 
+just created in the hosted zone list, so for now click on it according the image below
 
 ![aws-route53-hosted-zone-created.png](midias/images/s3-route53-acm-cloudfront/aws-route53-hosted-zone-created.png)
 
@@ -1116,7 +1123,7 @@ activate the redirecting for you domain into Route 53 AWS service, this step it 
 
 #### ACM - Certificate request
 
-Once you have created a hosted zone and one static website, follow these steps below to get your SSL certificate 
+Once you have created a hosted zone and one static website, follow these steps below to get the SSL certificate 
 generate by Amazon Web Services.
 
 - Go to the ACM (Amazon Certificate Manager)
@@ -1150,13 +1157,13 @@ Use as is
 
 ![aws-s3-acm-certificate-request.png](midias/images/s3-route53-acm-cloudfront/aws-s3-acm-certificate-request.png)
 
-- Click on the link (guid marked in orange box in the image above) to access the certificate details
+- Click on the link (guid marked in orange box in the above image) to access the certificate details
 - Scroll down until Domains and click on "Create records in Route 53" as showed below
 
 ![aws-s3-acm-certificate-details.png](midias/images/s3-route53-acm-cloudfront/aws-s3-acm-certificate-details.png)
 
-> NOTE Also, you can see that there is one orange box to give a highlight in the domains that were 
-> registered in the current SSL certificate, help4dev.com and www.help4devs.com
+> NOTE: Also, you can see that there is one orange box to give a highlight in the domains that were 
+> registered in the current SSL certificate request, help4dev.com and www.help4devs.com
 
 - In the next screen you just have to click on Create records, this action it will create the inputs in the Route53
 in the current domain help4devs.com. These inputs are related to SSL certificate and will be turning the HTTPS 
@@ -1167,7 +1174,7 @@ go further in the configuration
 #### CLOUD-FRONT - Distribution creation
 
 If all previous steps are been made successfully, you can distribute the static website using CloudFront, so for
-that just follow the steps ahead and get everything working fine.
+that just follow the steps ahead and everything will work fine.
 
 - Go to Cloud Front from AWS services
 - Click on Distributions link on the menu on the left side of the screen
@@ -1221,15 +1228,15 @@ IPv6: On
 
 - Click on Create distribution
 
-Now, you need to await for the complete deploying to activate the delivery, you can to it checking the status in the 
+Now, you need to await for the complete deploying to activate the delivery, you can do it checking the status in the 
 list of distribution from Cloud Front, as showed below
 
 ![aws-cloud-front-distribution.png](midias/images/s3-route53-acm-cloudfront/aws-cloud-front-distribution.png)
 
 If the status is Enabled and Last modified is not null, so you have a sure that everything is done, so for now click 
-on distribution link "E2YCFFG62C0DNC" in the above image to get more details about it.
+on distribution link "E2YCFFG62C0DNC" according showed in the above image to get more details about it.
 
-In the "General Tab" there is one box name Details with one field defined as "Distribution domain name" witch have 
+In the "General Tab" there is one box named Details with one field defined as "Distribution domain name" witch have 
 a small bullet next to, so click on it and get the url, for example: https://dijdcwprgmu5e.cloudfront.net. Look that 
 it is a HTTPS url, i.e. it will be request a safety connection guaranteed by Amazon Certificate Manager
 
