@@ -1,7 +1,7 @@
 
 # NEXUS & MAVEN
 
-![nexus-repositories.png](images/nexus-repositories.png)
+![nexus-repositories.png](midias/images/nexus-repositories.png)
 
 ### Advertisements
 

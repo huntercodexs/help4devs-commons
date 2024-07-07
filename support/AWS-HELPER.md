@@ -45,7 +45,7 @@ A simple instructions to help developers in overall cases to make configurations
 - <a href="#S3-ROUTE53-ACM-CLOUD-FRONT">S3 ROUTE53 ACM CLOUD FRONT</a>
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## IAM
 
@@ -72,7 +72,7 @@ Now you will probably visualize the Users list with the last one that was create
 So make a logout from the current account and try login using the user that was created in the steps ago.
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## BILLING
 
@@ -112,14 +112,14 @@ Now go to cloud watching and make the configurations as showed below
 > IMPORTANT: Check your email address to Confirm "Simple Notification Service" and active this resource
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## CLOUD-SHELL
 
 > ABOUT: Access the terminal commands in the AWS Cloud
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## AWS-CLI
 
@@ -185,7 +185,7 @@ aws ec2 describe-instances
 To get more details see the https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## EC2
 
@@ -267,7 +267,7 @@ so for that follow the steps below
 - Check the Instance state: Terminated
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## AMI - AMAZON MACHINE IMAGE
 
@@ -311,7 +311,7 @@ features, it can save a lot of time when you need to put the new services or mac
 - Check if the instance was generated in the EC2 Instances Dashboard
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## S3
 
@@ -616,10 +616,10 @@ Routing policy: Simple routing
 
 - The image below show the Route53 configured and running
 
-![aws-route53-hosted-zone-sample.png](images/aws-route53-hosted-zone-sample.png)
+![aws-route53-hosted-zone-sample.png](midias/images/aws-route53-hosted-zone-sample.png)
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## ROUTE 53
 
@@ -751,7 +751,7 @@ Routing policy: Simple routing
 > NOTE: You may need to wait a few moments for the redirection and feature activation to take effect.
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## CLOUD FRONT
 
@@ -854,79 +854,79 @@ Routing policy: Simple routing
   - https://help4devs.com
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## SQS
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## ECS
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## EKS
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## RDS
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## DYNAMODB
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## API-GATEWAY
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## LAMBDA FUNCTIONS
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## LOAD BALANCER
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## ACM
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## VPC
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## ACL
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## SECURITY GROUP
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## COSTS ESTIMATES
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## AWS NETWORKING
 
 In this topic we can see one small concept project to view how to work an environment based on AWS Cloud services.
 Belo is the overview image to presentation this subject in a quickly and understandably way.
 
-![know-how-AWS NETWORK.png](midias/know-how-AWS-NETWORK.png)
+![know-how-AWS NETWORK.png](midias/images/aws-networking.png)
 
 As we can see in the above image, there is a lot of resources used from AWS Cloud services that those are describe as
 follows below:
@@ -960,18 +960,305 @@ follows below:
                             - RDS: MYSQL
 
 <br /><br />
-<a href="#AWS-HELPER"><img src="images/top.png" width="60" height="30" /></a>
+<a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## S3 ROUTE53 ACM CLOUD-FRONT
 
+In this topic we will host a static website in the Amazon Web Services using S3 Bucket + Route53 + ACM + CLOUD-FRONT. 
+To do that, it's required that you have previously registered one domain name service in any DNS services provider 
+like Godaddy, Hostinger, Hostigator, among others.
+
+So in this, just for clarify and explain everything in a better way, we are going to use the help4devs.com domain, 
+that is a product from huntercodexs.com witch is maintained by jereelton-devel (that have been written this 
+documentation), so lets get started and hands on.
+
+First of all you need to keep in your mind the following parameters:
+
+- The name of the domain is: help4devs.com
+- The name of the S3 bucket it will be the same: help4dev.com
+- The hosted zone in the Route53 it will be the same as well: help4devs.com
+- The distribution in the Cloud Front also should be: help4devs.com
+- Finally, the Certificate should be requested by: help4devs.com and www.help4fevs.com
+
+> IMPORTANT: It is very important to check if your application can handle with browser cache, and 
+> probably you will need to clear the cache in the web browser to get the expected result.
+
+> NOTE: The website must be a static website commonly using HTML, CSS, and JS, so ensure that 
+> the project web to deploy in this scenario follows this specification.
+
+Once it defined and well clearly those things, lets moving on for the start procedures.
+
+#### S3 - Bucket creation
+
+- Goto S3 Bucket in the AWS services
+- Click on Create bucket button
+- Fill the form as follows
+
+<pre>
+[General configuration]
+AWS Region: US East (N. Virginia) us-east-1
+Bucket type: General purpose
+Bucket name: help4devs.com
+
+[Object Ownership]
+Select ACLs disabled (recommended)
+
+[Block Public Access settings for this bucket]
+Block all public access: Unmark
+  Mark the checkbox alert to advice about public access
+  [x] I acknowledge that the current settings might result in this bucket and the objects within becoming public.
+
+[Bucket Versioning]
+Bucket Versioning: Disable
+
+[Tags - optional (0)]
+Let as is
+
+[Default encryption]
+Encryption type: Server-side encryption with Amazon S3 managed keys (SSE-S3)
+  Bucket Key: Disable
+
+[Advanced settings]
+Object Lock: Disable
+</pre>
+
+- Click on Create bucket
+
+Now you will be redirected to bucket list, and you must be able to see the bucket that you just have created 
+in this process, so click in the bucket created and go further with the steps.
+
+![aws-s3-bucket-created.png](midias/images/s3-route53-acm-cloudfront/aws-s3-bucket-created.png)
+
+- Click on the Upload button to send the static files to the bucket
+- Afterward you will see the files in the "Object Tab" inside the bucket
+
+![aws-s3-bucket-created.png](midias/images/s3-route53-acm-cloudfront/aws-s3-bucket-files-uploaded.png)
+
+- Click on the "Properties Tab"
+- Scroll down until "Static website hosting" and click on Edit
+- Fill the form as follows
+
+<pre>
+[Static website hosting]
+
+Static website hosting: Enable
+Hosting type: HOst a static website
+Index document: index.html
+Error document-optional:
+Redirection rules – optional: 
+</pre>
+
+- Click on Save changes
+- Scroll down again until "Static website hosting" and check if the result is something like below
+
+![aws-s3-bucket-created.png](midias/images/s3-route53-acm-cloudfront/aws-s3-static-website-hosting.png)
+See that there is one default url generated by AWS witch can be used to access your static website in the web browser
+
+- Now, goto for "Permissions Tab"
+- Scroll down until Bucket policy and click on Edit button
+- You can use the "AWS Policy Generator" to make it
+- The rule should be something like that
+
+<pre>
+{
+	"Version": "2012-10-17",
+	"Id": "Policy1720231682330",
+	"Statement": [
+		{
+			"Sid": "Stmt1720231676574",
+			"Effect": "Allow",
+			"Principal": "*",
+			"Action": "s3:GetObject",
+			"Resource": "arn:aws:s3:::help4devs.com/*"
+		}
+	]
+}
+</pre>
+
+> IMPORTANT: replace Resource field by yor current resource "arn:aws:s3:::help4devs.com/*" and don't forget to use
+> / * in the final string
+
+So now you can test if the bucket is available to access via browser using the url generated by AWS in the previous step.
+
+#### Route 53 - Hosted Zone creation
+
+- Get access to your AWS account and goto Route53 resource dashboard
+- Click on Hosted zone in the left menu at the screen
+- Choose the Created hosted zone button
+- Fill the forms follows
+
+<pre>
+[Hosted zone configuration]
+
+Domain name: help4devs.com
+Description - optional: Website Help4Devs (Godaddy)
+Type: Public hosted zone
+
+[Tags]
+let as is
+</pre>
+
+- Click on Created hosted zone
+
+You will be redirected to hosted zone list automatically, and you should be able to see the hosted zone just created in 
+the hosted zone list, so for now click on the hosted zone just created according the image below
+
+![aws-route53-hosted-zone-created.png](midias/images/s3-route53-acm-cloudfront/aws-route53-hosted-zone-created.png)
+
+At this moment, you will see something like below
+
+![aws-route53-hosted-zone-records.png](midias/images/s3-route53-acm-cloudfront/aws-route53-hosted-zone-records.png)
+
+Now, you need to get the NS Servers identification and put on the correct place in your DNS service provider to 
+activate the redirecting for you domain into Route 53 AWS service, this step it is so important.
+
+- After that, you can move on for the next step, request a certificate.
+
+#### ACM - Certificate request
+
+Once you have created a hosted zone and one static website, follow these steps below to get your SSL certificate 
+generate by Amazon Web Services.
+
+- Go to the ACM (Amazon Certificate Manager)
+- Look up for List certificates and click on it
+- Now, click on Request button to start a request certificate
+- Follow the instructions as follows
+
+<pre>
+[Certificate type]
+
+Request a public certificate: Marked
+Domain names: help4devs.com
+### You can add more than one domain name, for example: www.help4devs.com, site.help4devs.com, and etc...
+
+[Validation method]
+
+DNS validation - recommended: Marked
+
+[Key algorithm]
+
+RSA 2048: Marked
+
+[Tags]
+
+Use as is
+</pre>
+
+- Click on Request button (at the bottom of the page)
+- Now, you need to await for finished process to request certificate
+- The List certificate dashboard should be like below
+
+![aws-s3-acm-certificate-request.png](midias/images/s3-route53-acm-cloudfront/aws-s3-acm-certificate-request.png)
+
+- Click on the link (guid marked in orange box in the image above) to access the certificate details
+- Scroll down until Domains and click on "Create records in Route 53" as showed below
+
+![aws-s3-acm-certificate-details.png](midias/images/s3-route53-acm-cloudfront/aws-s3-acm-certificate-details.png)
+
+> NOTE Also, you can see that there is one orange box to give a highlight in the domains that were 
+> registered in the current SSL certificate, help4dev.com and www.help4devs.com
+
+- In the next screen you just have to click on Create records, this action it will create the inputs in the Route53
+in the current domain help4devs.com. These inputs are related to SSL certificate and will be turning the HTTPS 
+available for the current domain.
+- OK, for now the ACM is successfully completed, and you just need to await  for the certificate approved by Amazon to
+go further in the configuration
+
+#### CLOUD-FRONT - Distribution creation
+
+If all previous steps are been made successfully, you can distribute the static website using CloudFront, so for
+that just follow the steps ahead and get everything working fine.
+
+- Go to Cloud Front from AWS services
+- Click on Distributions link on the menu on the left side of the screen
+- Click on Create distribution button at the top right of the screen
+- Fill the form as follows
+
+<pre>
+[Origin]
+
+## When you click in that one, a options it will be shown automatically based on S3 bucket static website
+Origin domain: help4devs.com.s3.us-east-1.amazonaws.com
+## Don't click on "Use website endpoint", just go ahead
+Origin path - optional:
+Name: help4devs.com.s3.us-east-1.amazonaws.com
+Origin access: Public
+Add custom header - optional: 
+Enable Origin Shield: No
+
+[Default cache behavior]
+
+Path pattern: Default (*)
+Compress objects automatically: Yes
+
+[Viewer]
+
+Viewer protocol policy: Redirect HTTP to HTTPS
+Allowed HTTP methods: GET, HEAD
+Restrict viewer access: No
+
+[Cache key and origin requests]
+Cache policy and origin request policy (recommended): Marked
+Response headers policy - optional: 
+
+[Function associations - optional]
+Ignore this step
+
+[Web Application Firewall (WAF)]
+
+Do not enable security protections: Marked
+
+[Settings]
+
+Price class: Use all edge locations (best performance)
+Alternate domain name (CNAME) - optional: help4devs.com
+Custom SSL certificate - optional: help4devs.com (17761472-a01d-422e-9fdf-5e6c14a0f558)
+TLSv1.2_2021 (recommended): Marked
+Supported HTTP versions: HTTP/2
+Standard logging: Off
+IPv6: On
+</pre>
+
+- Click on Create distribution
+
+Now, you need to await for the complete deploying to activate the delivery, you can to it checking the status in the 
+list of distribution from Cloud Front, as showed below
+
+![aws-cloud-front-distribution.png](midias/images/s3-route53-acm-cloudfront/aws-cloud-front-distribution.png)
+
+If the status is Enabled and Last modified is not null, so you have a sure that everything is done, so for now click 
+on distribution link "E2YCFFG62C0DNC" in the above image to get more details about it.
+
+In the "General Tab" there is one box name Details with one field defined as "Distribution domain name" witch have 
+a small bullet next to, so click on it and get the url, for example: https://dijdcwprgmu5e.cloudfront.net. Look that 
+it is a HTTPS url, i.e. it will be request a safety connection guaranteed by Amazon Certificate Manager
+
+![aws-cloud-front-details-domain.png](midias/images/s3-route53-acm-cloudfront/aws-cloud-front-details-domain.png)
+
+#### Create Route to friendly URL
+
+![aws-route53-final-records.png](midias/images/s3-route53-acm-cloudfront/aws-route53-final-records.png)
+
+In the above image we can see a complete hosted zone configured to work correctly, there is one record of A type, and 
+two records CNAME typed, these two CNAME records are related to our certificate that were created when we clicked on 
+the "Create records in Route 53" previously in this topic.
+
+Now, talking about the first one present in this hosted zone, it was created to redirect all HTTP/HTTPS requests for 
+our CloudFront distribution, and this was made according the steps below
+
+- Click on Create record
+- Fill the form as showed in the image below
+
+![aws-route53-record-domain.png](midias/images/s3-route53-acm-cloudfront/aws-route53-record-domain.png)
+
+- Just click on Create records button to finish everything
+
+Now you can access the static website using HTTPS and one friendly URL, for example: https://help4devs.com
 
 
-
-
-
-
-
-
-
-
-
+---
+<small>
+Huntercodexs is powered by jereelton-devel
+</small>
+<br />
+<br />
