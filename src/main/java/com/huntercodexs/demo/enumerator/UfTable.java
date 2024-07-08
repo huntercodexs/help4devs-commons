@@ -36,8 +36,8 @@ public enum UfTable {
 
     private int ufCode;
     private String stateName;
-    private String stateNameClear; /*Nome do estado sem acento*/
-    private String rgsSsp; /*Nome do estado sem acento*/
+    private String stateNameClear;
+    private String rgsSsp;
 
     UfTable(int ufCode, String stateName, String stateNameClear, String rgsSsp) {
         this.ufCode = ufCode;
@@ -46,22 +46,72 @@ public enum UfTable {
         this.rgsSsp = rgsSsp;
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">ufCode</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the code from the federate unity according uf parameter</p>
+     *
+     * @param uf (String: the identification code of state - federate unity)
+     * @return int (UF Code)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static int ufCode(String uf) {
         return UfTable.valueOf(uf).getUfCode();
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stateName</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the name of the federate unity according uf parameter</p>
+     *
+     * @param uf (String: the identification code of state - federate unity)
+     * @return String (UF name)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String stateName(String uf) {
         return UfTable.valueOf(uf).getStateName();
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stateNameClear</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the name of the federate unity according uf parameter</p>
+     *
+     * @param uf (String: the identification code of state - federate unity)
+     * @return String (UF name without points or special characters)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String stateNameClear(String uf) {
         return UfTable.valueOf(uf).getStateNameClear();
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">rgSspCode</h6>
+     *
+     * <p style="color: #CDCDCD">This method return the rg state of the federate unity according uf parameter</p>
+     *
+     * @param uf (String: the identification code of state - federate unity)
+     * @return String (RG state name)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String rgSspCode(String uf) {
         return UfTable.valueOf(uf).getRgsSsp();
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkUfExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if on federate unity exists</p>
+     *
+     * @param uf (String: the identification code of state - federate unity)
+     * @return boolean
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static boolean checkUfExists(String uf) {
         for (UfTable value : UfTable.values()) {
             if (value.name().equals(uf)) {
@@ -71,6 +121,16 @@ public enum UfTable {
         return false;
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkUfCodeExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if exists the uf code</p>
+     *
+     * @param code (String)
+     * @return boolean
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static boolean checkUfCodeExists(String code) {
         for (UfTable value : UfTable.values()) {
             if (String.valueOf(value.getUfCode()).equals(code)) {
@@ -80,6 +140,16 @@ public enum UfTable {
         return false;
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkUfNameExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if exists the uf name</p>
+     *
+     * @param ufName (String)
+     * @return boolean
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static boolean checkUfNameExists(String ufName) {
         for (UfTable value : UfTable.values()) {
             if (value.getStateName().equals(ufName) || value.getStateNameClear().equals(ufName)) {
@@ -89,6 +159,16 @@ public enum UfTable {
         return false;
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">checkRgSspExists</h6>
+     *
+     * <p style="color: #CDCDCD">This method check if exists the rg ssp in the list of states</p>
+     *
+     * @param rgsSsp (String)
+     * @return boolean
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static boolean checkRgSspExists(String rgsSsp) {
         for (UfTable value : UfTable.values()) {
             if (value.getRgsSsp().equals(rgsSsp)) {

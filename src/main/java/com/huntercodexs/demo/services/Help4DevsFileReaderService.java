@@ -3,77 +3,31 @@ package com.huntercodexs.demo.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-
-import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.errLog;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 @Slf4j
 @Service
 public class Help4DevsFileReaderService {
 
-    public static boolean exists(String filepath) {
-        try {
-            File file = new File(filepath);
-            return file.exists();
-        } catch (Exception e) {
-            errLog(e.getMessage());
-            return false;
-        }
-    }
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">awaitFileContent</h6>
+     *
+     * <p style="color: #CDCDCD">Get the file content based input parameters - like a sentinel</p>
+     *
+     * @param filepath (String: The filepath to reader the target file)
+     * @param regex (String: The regular expression to interrupt the file reader process)
+     * @param timeout (String: Time to automatically stop the file reader process)
+     * @return String (File Content based on regular expression)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String awaitFileContent(String filepath, String regex, int timeout) throws Exception {
 
-    public static FileReader open(String filepath) {
-
-        System.out.println("[INFO] >> Opening file: " + filepath);
-
-        FileReader activateFile = null;
-
-        try {
-            activateFile = new FileReader(filepath);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        return activateFile;
-    }
-
-    public static BufferedReader buffer(FileReader activateFile) {
-        return new BufferedReader(activateFile);
-    }
-
-    public static String reader(BufferedReader readActivateFile) throws InterruptedException {
-        String lineFile = "";
-
-        try {
-            Thread.sleep(1000);
-            lineFile = readActivateFile.readLine();
-            if (lineFile == null || lineFile.isEmpty()) {
-                return "";
-            }
-        } catch (IOException e) {
-            System.out.println("Exception: " + e.getMessage());
-            return "";
-        }
-
-        return lineFile;
-    }
-
-    public static void close(FileReader activateFile, String filepath) throws IOException, InterruptedException {
-
-        System.out.println("[INFO] << Closing file: " + filepath);
-        System.out.println(repeat("-", 120));
-
-        activateFile.close();
-        System.out.flush();
-
-        Thread.sleep(2000);
-    }
-
-    public static String getFileContentByMatch(String filepath, String regex, int timeout) throws Exception {
-        String content = "null";
+        String content = " ";
         int counter = 0;
-
-        System.out.println("Awaiting content...");
 
         while (!content.matches(regex)) {
 
@@ -87,20 +41,58 @@ public class Help4DevsFileReaderService {
                 if (content.matches(regex)) {
                     break;
                 }
-                if (counter > timeout) {
+
+                if (counter > timeout && timeout > 0) {
                     close(openFile, filepath);
                     throw new RuntimeException("Time Exception to get content: timeout !");
                 }
 
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return null;
+                throw new RuntimeException(e.getMessage());
             }
 
             close(openFile,filepath);
         }
 
         return content;
+    }
+
+    private static FileReader open(String filepath) {
+
+        FileReader activateFile;
+
+        try {
+            activateFile = new FileReader(filepath);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return activateFile;
+    }
+
+    private static BufferedReader buffer(FileReader activateFile) {
+        return new BufferedReader(activateFile);
+    }
+
+    private static String reader(BufferedReader readActivateFile) throws InterruptedException {
+        String lineFile;
+
+        try {
+            Thread.sleep(1000);
+            lineFile = readActivateFile.readLine();
+            if (lineFile == null || lineFile.isEmpty()) {
+                return "";
+            }
+        } catch (IOException e) {
+            return "";
+        }
+
+        return lineFile;
+    }
+
+    private static void close(FileReader activateFile, String filepath) throws IOException, InterruptedException {
+        activateFile.close();
+        Thread.sleep(2000);
     }
 
 }

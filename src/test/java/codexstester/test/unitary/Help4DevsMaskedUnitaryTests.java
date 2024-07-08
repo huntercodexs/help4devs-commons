@@ -34,7 +34,10 @@ public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void dataMaskedCpfTest() {
         String cpfMasked = dataMasked("447.359.437-81", "*", DataMasked.CPF_NUMBER_MASK);
-        codexsTesterAssertText("***.***.437-81", cpfMasked);
+        codexsTesterAssertExact("***.***.437-81", cpfMasked);
+
+        cpfMasked = dataMasked("447.359.437-81", "*", DataMasked.CPF_NUMBER_DIGIT_MASK);
+        codexsTesterAssertExact("***.359.437-**", cpfMasked);
     }
 
     @Test
@@ -80,6 +83,12 @@ public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
 
         phoneMasked = dataMasked("82277653", "*", DataMasked.PHONE_NUMBER_MASK);
         codexsTesterAssertText("****7653", phoneMasked);
+    }
+
+    @Test
+    public void dataMaskedGuidTest() {
+        String guidMasked = dataMasked("b642fd04-86e2-42e1-9b2c-2ba6d0b383cc", "*", DataMasked.GUID_MASK);
+        codexsTesterAssertText("b642****-****-****-****-2ba6****83cc", guidMasked);
     }
 
     @Test

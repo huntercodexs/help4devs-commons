@@ -22,6 +22,12 @@ public enum DataMasked {
             "@masked$2@masked$4$5$6$7",
             3),
 
+    //[89765405823], [897-654-058-23], [897.654.058-23], [897.654.058.23], [897 654 058-23], [897 654 058 23]
+    CPF_NUMBER_DIGIT_MASK(
+            "([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{2})",
+            "@masked$2$3$4$5$6@masked",
+            3),
+
     //[39582423000100], [39-676-876-0001-53], [39-676-876/0001-53], [39.676.876.0001.53], [39.676.876/0001.53], [39 676 876 0001 53], [39 676 876 0001-53]
     CNPJ_NUMBER_MASK(
             "([0-9]{2})([-. ]?)([0-9]{3})([-. ]?)([0-9]{3})([-. \\/]?)(000)(1)([-. ]?)([0-9]{2})",
@@ -46,6 +52,12 @@ public enum DataMasked {
             "$1$2$3@masked$5",
             4),
 
+    //[b642fd04-86e2-42e1-9b2c-2ba6d0b383cc]
+    GUID_MASK(
+            "([0-9a-z]{4})([0-9a-z]{4})(-)([0-9a-z]{4})(-)([0-9a-z]{4})(-)([0-9a-z]{4})(-)([0-9a-z]{4})([0-9a-z]{4})([0-9a-z]{4})",
+            "$1@masked$3@masked$5@masked$7@masked$9$10@masked$12",
+            4),
+
     //[only a test], [82394832948329], [19/10/1988], [new], [InnovationDevs], [Argument-1099]
     GENERIC_MASK(
             "([0-9a-zA-Z]{1})(.*)([0-9a-zA-Z]{1})",
@@ -67,6 +79,7 @@ public enum DataMasked {
             case "CARD_NUMBER_MASK":
                 return repeat("0", 16);
             case "CPF_NUMBER_MASK":
+            case "CPF_NUMBER_DIGIT_MASK":
                 return repeat("0", 11);
             case "CNPJ_NUMBER_MASK":
                 return repeat("0", 14);
@@ -83,6 +96,18 @@ public enum DataMasked {
         }
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">dataMasked</h6>
+     *
+     * <p style="color: #CDCDCD">This method make a mask in the data input according the parameter dataMasked</p>
+     *
+     * @param data (String: the data value to apply mask)
+     * @param mask (String: the type of mask [*, #, $, @...])
+     * @param dataMasked (DataMasked Enum: the name of mask to apply in the current data)
+     * @return String (Data Masked)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String dataMasked(String data, String mask, DataMasked dataMasked) {
         if (mask.isEmpty()) mask = "*";
 
@@ -106,6 +131,10 @@ public enum DataMasked {
 
         if (result.equals(data)) {
             infoLog("dataMasked say: Nothing to do ["+result+"]");
+        }
+
+        if (dataMasked.name().equals(DataMasked.CPF_NUMBER_DIGIT_MASK.name())) {
+            result = result.substring(0, result.length()-1);
         }
 
         return result;

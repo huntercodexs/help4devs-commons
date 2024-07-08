@@ -3,33 +3,25 @@ package com.huntercodexs.demo.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.text.Normalizer;
-
 @Slf4j
 @Service
 public class Help4DevsPathService {
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">sanitizePath</h6>
+     *
+     * <p style="color: #CDCDCD">Sanitize any path as you need</p>
+     *
+     * @param path (String)
+     * @return String (Path sanitized)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public static String sanitizePath(String path) {
-        return path.replaceAll("/$", "") + "/";
-    }
-
-    public static String sanitizeAscii(String input, String letterType) {
-        if (letterType == null) letterType = "";
-        try {
-            if (letterType.endsWith("upper")) {
-                return Normalizer.normalize(input, Normalizer.Form.NFD)
-                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toUpperCase();
-            } else if (letterType.endsWith("lower")) {
-                return Normalizer.normalize(input, Normalizer.Form.NFD)
-                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
-            } else {
-                return Normalizer.normalize(input, Normalizer.Form.NFD)
-                        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-            }
-        } catch (RuntimeException re) {
-            log.error("Normalize Error: " + re.getMessage());
-            throw new RuntimeException(re.getMessage());
+        if (path.matches(".*\\..*$")) {
+            return path;
         }
+        return path.replaceAll("/$", "") + "/";
     }
 
 }

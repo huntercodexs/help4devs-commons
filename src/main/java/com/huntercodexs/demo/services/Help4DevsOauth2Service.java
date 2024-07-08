@@ -12,38 +12,24 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * <h5>OAuth2 Service</h5>
+ *
+ * <p>Create a instance of Help4DevsOauth2Service to writer a file,
+ * the annotation @Autowired also can be used:
+ * <br /><br />use: <br />@Autowired
+ *     <br />Help4DevsOauth2Service help4DevsOauth2Service;
+ * <br /><br />or:
+ *      <br />Help4DevsOauth2Service help4DevsOauth2Service = new Help4DevsOauth2Service()
+ * </p>
+ *
+ * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+ * @author huntercodexs (powered by jereelton-devel)
+ * */
 @Setter
 @Slf4j
 @Service
 public class Help4DevsOauth2Service {
-
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    static class Oauth2ResponseTokenDto {
-        String access_token;
-        String refresh_token;
-        String scope;
-        String token_type;
-        String expires_in;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    static class Oauth2ResponseTokenCheckDto {
-        List<String> aud;
-        String user_name;
-        List<String> scope;
-        boolean active;
-        long exp;
-        List<String> authorities;
-        String client_id;
-    }
 
     private String urlOauth2Token;
     private String urlOauth2CheckToken;
@@ -135,6 +121,15 @@ public class Help4DevsOauth2Service {
         }
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">token</h6>
+     *
+     * <p style="color: #CDCDCD">Get a token from an OAUTH2 Server</p>
+     *
+     * @return String (OAuth2 Token)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public String token() {
         checkTokenInstance("generate");
         ResponseEntity<Oauth2ResponseTokenDto> response = tokenGenerate();
@@ -145,6 +140,15 @@ public class Help4DevsOauth2Service {
         return null;
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">check</h6>
+     *
+     * <p style="color: #CDCDCD">Check a token from an OAUTH2 Server</p>
+     *
+     * @return boolean
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public boolean check() {
         checkTokenInstance("check");
         ResponseEntity<Oauth2ResponseTokenCheckDto> response = tokenCheck();
@@ -155,6 +159,34 @@ public class Help4DevsOauth2Service {
             return response.getBody().isActive();
         }
         return false;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    static class Oauth2ResponseTokenDto {
+        String access_token;
+        String refresh_token;
+        String scope;
+        String token_type;
+        String expires_in;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    static class Oauth2ResponseTokenCheckDto {
+        List<String> aud;
+        String user_name;
+        List<String> scope;
+        boolean active;
+        long exp;
+        List<String> authorities;
+        String client_id;
     }
 
 }

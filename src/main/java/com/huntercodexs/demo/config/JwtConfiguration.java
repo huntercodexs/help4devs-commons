@@ -38,10 +38,10 @@ public class JwtConfiguration {
 	    	return keyStore;
 
 		} catch (IOException | CertificateException | NoSuchAlgorithmException | KeyStoreException e) {
-			log.error("Keystore not loaded correctly: " + e.getMessage());
+            log.error("keyStore - Key not loaded correctly: {}", e.getMessage());
 		}
 		
-		throw new IllegalArgumentException("Keystore Error: Unable to load it");
+		throw new IllegalArgumentException("Keystore Error(keyStore): Unable to load it");
 	}
 	
 	@Bean
@@ -55,10 +55,10 @@ public class JwtConfiguration {
 			}
 
 		} catch (UnrecoverableKeyException | NoSuchAlgorithmException | KeyStoreException e) {
-			log.error("Keystore not loaded correctly: " + e.getMessage());
+            log.error("jwtSigningKey - Key not loaded correctly: {}", e.getMessage());
 		}
 		
-		throw new IllegalArgumentException("Keystore Error: Unable to load it");
+		throw new IllegalArgumentException("Keystore Error(jwtSigningKey): Unable to load it");
 	}
 	
 	@Bean
@@ -73,10 +73,10 @@ public class JwtConfiguration {
 			}
 
 		} catch (KeyStoreException e) {
-			log.error("Keystore not loaded correctly: " + e.getMessage());
+            log.error("jwtValidationKey - Key not loaded correctly: {}", e.getMessage());
 		}
 		
-		throw new IllegalArgumentException("Keystore Error: Unable to load it");
+		throw new IllegalArgumentException("Keystore Error(jwtValidationKey): Unable to load it");
 	}
 	
 }

@@ -4,66 +4,126 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static com.huntercodexs.demo.services.Help4DevsDateService.*;
 
 public class Help4DevsDateUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
-    public void reverseDateTest() {
-        System.out.println(reverseDate("14/07/2023 14:53:25", "-"));
-        System.out.println(reverseDate("2023-08-16 16:10:28", "/"));
-        System.out.println(reverseDate("14/07/2023 14:53:25", "/"));
-        System.out.println(reverseDate("2023-08-16 16:10:28", "-"));
+    public void dateReverseTest() {
+        codexsTesterAssertExact("2023-07-14 14:53:25", dateReverse("14/07/2023 14:53:25", "-"));
+        codexsTesterAssertExact("16/08/2023 16:10:28", dateReverse("2023-08-16 16:10:28", "/"));
+        codexsTesterAssertExact("2023/07/14 14:53:25", dateReverse("14/07/2023 14:53:25", "/"));
+        codexsTesterAssertExact("16-08-2023 16:10:28", dateReverse("2023-08-16 16:10:28", "-"));
 
-        System.out.println(reverseDate("14/07/2023TZ14:53:25", "-"));
-        System.out.println(reverseDate("2023-08-16TZ16:10:28", "/"));
-        System.out.println(reverseDate("14/07/2023TZ14:53:25", "/"));
-        System.out.println(reverseDate("2023-08-16TZ16:10:28", "-"));
-        System.out.println(reverseDate("2023-08-15T18:02:26.737Z", "-"));
-        System.out.println(reverseDate("2023-08-15T18:02:26.737Z", "/"));
+        codexsTesterAssertExact("2023-07-14 14:53:25", dateReverse("14/07/2023TZ14:53:25", "-"));
+        codexsTesterAssertExact("16/08/2023 16:10:28", dateReverse("2023-08-16TZ16:10:28", "/"));
+        codexsTesterAssertExact("2023/07/14 14:53:25", dateReverse("14/07/2023TZ14:53:25", "/"));
+        codexsTesterAssertExact("16-08-2023 16:10:28", dateReverse("2023-08-16TZ16:10:28", "-"));
+        codexsTesterAssertExact("15-08-2023 18:02:26.737", dateReverse("2023-08-15T18:02:26.737Z", "-"));
+        codexsTesterAssertExact("15/08/2023 18:02:26.737", dateReverse("2023-08-15T18:02:26.737Z", "/"));
 
-        System.out.println(reverseDate("14/07/2023", "-"));
-        System.out.println(reverseDate("2023-08-16", "/"));
-        System.out.println(reverseDate("14/07/2023", "/"));
-        System.out.println(reverseDate("2023-08-16", "-"));
+        codexsTesterAssertExact("2023-07-14", dateReverse("14/07/2023", "-"));
+        codexsTesterAssertExact("16/08/2023", dateReverse("2023-08-16", "/"));
+        codexsTesterAssertExact("2023/07/14", dateReverse("14/07/2023", "/"));
+        codexsTesterAssertExact("16-08-2023", dateReverse("2023-08-16", "-"));
     }
 
     @Test
-    public void expiredDateTest() {
-        boolean time = expiredDate("14/07/2023 14:53:25", 1, "nano");
-        System.out.println("RESULT IS [NANO]: " + time);
-
-        time = expiredDate("14/07/2023 14:53:25", 1, "second");
-        System.out.println("RESULT IS [SECOND]: " + time);
-
-        time = expiredDate("14/07/2023 14:53:25", 1, "minute");
-        System.out.println("RESULT IS [MINUTE]: " + time);
-
-        time = expiredDate("14/07/2023 14:53:25", 1, "hour");
-        System.out.println("RESULT IS [HOUR]: " + time);
-
-        time = expiredDate("14/07/2023 14:53:25", 1, "day");
-        System.out.println("RESULT IS [DAY]: " + time);
-
-        time = expiredDate("14/07/2023 14:53:25", 1, "week");
-        System.out.println("RESULT IS [WEEK]: " + time);
-
-        time = expiredDate("14/07/2023 14:53:25", 1, "month");
-        System.out.println("RESULT IS [MONTH]: " + time);
-
-        time = expiredDate("14/07/2023 14:53:25", 1, "year");
-        System.out.println("RESULT IS [YEAR]: " + time);
+    public void dateExpiredTest() {
+        codexsTesterAssertBool(true, dateExpired("14/07/2023 14:53:25", 1, "nano"));
+        codexsTesterAssertBool(true, dateExpired("14/07/2023 14:53:25", 1, "second"));
+        codexsTesterAssertBool(true, dateExpired("14/07/2023 14:53:25", 1, "minute"));
+        codexsTesterAssertBool(true, dateExpired("14/07/2023 14:53:25", 1, "hour"));
+        codexsTesterAssertBool(true, dateExpired("14/07/2023 14:53:25", 1, "day"));
+        codexsTesterAssertBool(true, dateExpired("14/07/2023 14:53:25", 1, "week"));
+        codexsTesterAssertBool(true, dateExpired("14/07/2023 14:53:25", 1, "month"));
+        codexsTesterAssertBool(false, dateExpired("14/07/2023 14:53:25", 1, "year"));
     }
 
     @Test
-    public void quantifyDateTest() {
-        quantifyDate("14/07/2023 15:53:25", "14/07/2023 15:53:26");
-        quantifyDate("14/07/2023 15:53:25", "14/07/2023 15:54:26");
-        quantifyDate("14/07/2023 15:53:25", "14/07/2023 16:54:26");
-        quantifyDate("14/07/2023 15:53:25", "15/07/2023 16:54:26");
-        quantifyDate("14/07/2023 15:53:25", "15/08/2023 16:54:26");
-        quantifyDate("14/07/2022 15:53:25", "15/08/2023 16:54:26");
+    public void dateQuantifyTest() {
+
+        List<Long> arrayList;
+
+        arrayList = dateQuantify("14/07/2023 15:53:25", "14/07/2023 15:53:26");
+        codexsTesterAssertExact("[0, 0, 0, 0, 0, 1, 0]", String.valueOf(arrayList));
+        System.out.println(
+                "RESULT: " +
+                arrayList.get(0) + " years, " +
+                arrayList.get(1) + " months, " +
+                arrayList.get(2) + " days, " +
+                arrayList.get(3) + " hours, " +
+                arrayList.get(4) + " minutes, " +
+                arrayList.get(5) + " seconds, " +
+                arrayList.get(6) + " milliseconds"
+        );
+
+        arrayList = dateQuantify("14/07/2023 15:53:25", "14/07/2023 15:54:26");
+        codexsTesterAssertExact("[0, 0, 0, 0, 1, 1, 0]", String.valueOf(arrayList));
+        System.out.println(
+                "RESULT: " +
+                        arrayList.get(0) + " years, " +
+                        arrayList.get(1) + " months, " +
+                        arrayList.get(2) + " days, " +
+                        arrayList.get(3) + " hours, " +
+                        arrayList.get(4) + " minutes, " +
+                        arrayList.get(5) + " seconds, " +
+                        arrayList.get(6) + " milliseconds"
+        );
+
+        arrayList = dateQuantify("14/07/2023 15:53:25", "14/07/2023 16:54:26");
+        codexsTesterAssertExact("[0, 0, 0, 1, 1, 1, 0]", String.valueOf(arrayList));
+        System.out.println(
+                "RESULT: " +
+                        arrayList.get(0) + " years, " +
+                        arrayList.get(1) + " months, " +
+                        arrayList.get(2) + " days, " +
+                        arrayList.get(3) + " hours, " +
+                        arrayList.get(4) + " minutes, " +
+                        arrayList.get(5) + " seconds, " +
+                        arrayList.get(6) + " milliseconds"
+        );
+
+        arrayList = dateQuantify("14/07/2023 15:53:25", "15/07/2023 16:54:26");
+        codexsTesterAssertExact("[0, 0, 1, 1, 1, 1, 0]", String.valueOf(arrayList));
+        System.out.println(
+                "RESULT: " +
+                        arrayList.get(0) + " years, " +
+                        arrayList.get(1) + " months, " +
+                        arrayList.get(2) + " days, " +
+                        arrayList.get(3) + " hours, " +
+                        arrayList.get(4) + " minutes, " +
+                        arrayList.get(5) + " seconds, " +
+                        arrayList.get(6) + " milliseconds"
+        );
+
+        arrayList = dateQuantify("14/07/2023 15:53:25", "15/08/2023 16:54:26");
+        codexsTesterAssertExact("[0, 1, 1, 1, 1, 1, 0]", String.valueOf(arrayList));
+        System.out.println(
+                "RESULT: " +
+                        arrayList.get(0) + " years, " +
+                        arrayList.get(1) + " months, " +
+                        arrayList.get(2) + " days, " +
+                        arrayList.get(3) + " hours, " +
+                        arrayList.get(4) + " minutes, " +
+                        arrayList.get(5) + " seconds, " +
+                        arrayList.get(6) + " milliseconds"
+        );
+
+        arrayList = dateQuantify("14/07/2022 15:53:25", "15/08/2023 16:54:26");
+        codexsTesterAssertExact("[1, 1, 1, 1, 1, 1, 0]", String.valueOf(arrayList));
+        System.out.println(
+                "RESULT: " +
+                        arrayList.get(0) + " years, " +
+                        arrayList.get(1) + " months, " +
+                        arrayList.get(2) + " days, " +
+                        arrayList.get(3) + " hours, " +
+                        arrayList.get(4) + " minutes, " +
+                        arrayList.get(5) + " seconds, " +
+                        arrayList.get(6) + " milliseconds"
+        );
     }
 
     @Test
@@ -81,88 +141,615 @@ public class Help4DevsDateUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void quantifyMillisParamsDateTest() {
-        quantifyMillisParamsDate("2023/08/20 15:30:10.100", "2023/08/20 15:31:10.500");
-        quantifyMillisParamsDate("2023/08/20 15:30:10", "2023/08/20 15:31:10");
-        quantifyMillisParamsDate("2023/08/20 15:30", "2023/08/20 15:31");
-        quantifyMillisParamsDate("2023/08/20 15", "2023/08/20 16");
-        quantifyMillisParamsDate("2023/08/20", "2023/08/21");
 
-        quantifyMillisParamsDate("2023-08-20 15:30:10.100", "2023-08-20 15:30:10.500");
-        quantifyMillisParamsDate("2023-08-20 15:30:10", "2023-08-20 15:31:10");
-        quantifyMillisParamsDate("2023-08-20 15:30", "2023-08-20 15:31");
-        quantifyMillisParamsDate("2023-08-20 15", "2023-08-20 16");
-        quantifyMillisParamsDate("2023-08-20", "2023-08-21");
+        codexsTesterAssertInt(
+                60400,
+                (int) (int) quantifyMillisParamsDate("2023/08/20 15:30:10.100", "2023/08/20 15:31:10.500"));
+
+        codexsTesterAssertInt(
+                60000,
+                (int) quantifyMillisParamsDate("2023/08/20 15:30:10", "2023/08/20 15:31:10"));
+
+        codexsTesterAssertInt(
+                60000,
+                (int) quantifyMillisParamsDate("2023/08/20 15:30", "2023/08/20 15:31"));
+
+        codexsTesterAssertInt(
+                3600000,
+                (int) quantifyMillisParamsDate("2023/08/20 15", "2023/08/20 16"));
+
+        codexsTesterAssertInt(
+                86400000,
+                (int) quantifyMillisParamsDate("2023/08/20", "2023/08/21"));
+
+        codexsTesterAssertInt(
+                400,
+                (int) quantifyMillisParamsDate("2023-08-20 15:30:10.100", "2023-08-20 15:30:10.500"));
+
+        codexsTesterAssertInt(
+                60000,
+                (int) quantifyMillisParamsDate("2023-08-20 15:30:10", "2023-08-20 15:31:10"));
+
+        codexsTesterAssertInt(
+                60000,
+                (int) quantifyMillisParamsDate("2023-08-20 15:30", "2023-08-20 15:31"));
+
+        codexsTesterAssertInt(
+                3600000,
+                (int) quantifyMillisParamsDate("2023-08-20 15", "2023-08-20 16"));
+
+        codexsTesterAssertInt(
+                86400000,
+                (int) quantifyMillisParamsDate("2023-08-20", "2023-08-21"));
     }
 
     @Test
-    public void convertToLocalDateTest() {
+    public void localDateFromGmtDateTest() {
         String localDate = localDateFromGmtDate("2023-08-15T02:02:26.737Z", "-", 3);
         System.out.println("RESULT IS [MINUS]: " + localDate);
-        codexsTesterAssertText("2023-08-14 23:02:26.737", localDate);
+        codexsTesterAssertExact("2023-08-14 23:02:26.737", localDate);
 
         localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "-", 3);
         System.out.println("RESULT IS [MINUS]: " + localDate);
-        codexsTesterAssertText("2023-08-15 15:02:26.737", localDate);
+        codexsTesterAssertExact("2023-08-15 15:02:26.737", localDate);
 
         localDate = localDateFromGmtDate("2023/08/15T18:02:26.737Z", "-", 3);
         System.out.println("RESULT IS [MINUS]: " + localDate);
-        codexsTesterAssertText("2023/08/15 15:02:26.737", localDate);
+        codexsTesterAssertExact("2023/08/15 15:02:26.737", localDate);
 
         localDate = localDateFromGmtDate("2023-08-15T18:02:26.737Z", "+", 3);
         System.out.println("RESULT IS [PLUS]: " + localDate);
-        codexsTesterAssertText("2023-08-15 21:02:26.737", localDate);
+        codexsTesterAssertExact("2023-08-15 21:02:26.737", localDate);
 
         localDate = localDateFromGmtDate("2023/08/15T18:02:26.737Z", "+", 3);
         System.out.println("RESULT IS [PLUS]: " + localDate);
-        codexsTesterAssertText("2023/08/15 21:02:26.737", localDate);
+        codexsTesterAssertExact("2023/08/15 21:02:26.737", localDate);
 
         localDate = localDateFromGmtDate("2023-08-15 18:02:26", "-", 3);
         System.out.println("RESULT IS [MINUS]: " + localDate);
-        codexsTesterAssertText("invalid date format", localDate);
+        codexsTesterAssertExact("invalid date format: 2023-08-15 18:02:26", localDate);
 
         localDate = localDateFromGmtDate("2023-08-15 18:02:26", "+", 3);
         System.out.println("RESULT IS [PLUS]: " + localDate);
-        codexsTesterAssertText("invalid date format", localDate);
+        codexsTesterAssertExact("invalid date format: 2023-08-15 18:02:26", localDate);
     }
 
-    public static String timeConversion(String s) {
-
-        String result = null;
-        int militaryHour = 12;
-        String[] matches = s.replaceAll("(PM|AM)$", "").split(":");
-
-        if (s.matches("(.*)PM$")) {
-
-            if (!matches[0].equals("12")) {
-                militaryHour = Integer.parseInt(matches[0]) + 12;
-            }
-            result = militaryHour +":"+ matches[1] +":"+ matches[2];
-
-        } else if (s.matches("(.*)AM")) {
-
-            if (matches[0].equals("12")) {
-                matches[0] = "00";
-            }
-            result = matches[0] +":"+ matches[1] +":"+ matches[2];
-        }
-
-        return result;
-    }
     @Test
     public void militaryTimeConversionTest() {
-        System.out.println("12:00:00PM = " +timeConversion("12:00:00PM"));
-        System.out.println("12:00:00AM = " +timeConversion("12:00:00AM"));
-        System.out.println("06:00:00AM = " +timeConversion("06:00:00AM"));
-        System.out.println("06:00:00PM = " +timeConversion("06:00:00PM"));
-        System.out.println("12:24:00PM = " +timeConversion("12:24:00PM"));
-        System.out.println("12:45:00AM = " +timeConversion("12:45:00AM"));
-        System.out.println("06:59:00AM = " +timeConversion("06:59:00AM"));
-        System.out.println("06:30:00PM = " +timeConversion("06:30:00PM"));
+        codexsTesterAssertExact("12:00:00", militaryHour("12:00:00PM"));
+        codexsTesterAssertExact("00:00:00", militaryHour("12:00:00AM"));
+        codexsTesterAssertExact("06:00:00", militaryHour("06:00:00AM"));
+        codexsTesterAssertExact("18:00:00", militaryHour("06:00:00PM"));
+        codexsTesterAssertExact("12:24:00", militaryHour("12:24:00PM"));
+        codexsTesterAssertExact("00:45:00", militaryHour("12:45:00AM"));
+        codexsTesterAssertExact("06:59:00", militaryHour("06:59:00AM"));
+        codexsTesterAssertExact("18:30:00", militaryHour("06:30:00PM"));
+    }
+
+    @Test
+    public void dateFormatter_UsingHyphen_Test() {
+
+        //DATETIME + HOUR + MINUTE + SECOND + MILLISECOND
+
+        codexsTesterAssertExact(
+                "2020-12-01 10:00:00.003",
+                dateFormatter("2020/12/01 10:00:00.003", "yyy-MM-dd HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "2021-09-10 10:00:00.007",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyy-MM-dd HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022 10:00:00.008",
+                dateFormatter("2022/08/31 10:00:00.008", "dd-MM-yyy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "01-07-2019 10:00:00.009",
+                dateFormatter("2019/07/01 10:00:00.009", "dd-MM-yyyy HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "01-04-15 10:00:00.010",
+                dateFormatter("2015/04/01 10:00:00.010", "dd-MM-yy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "90-06-23 10:00:00.011",
+                dateFormatter("1990/06/23 10:00:00.011", "yy-MM-dd HH:mm:ss.ms", true));
+
+        //DATE + HOUR + MINUTE + SECOND
+
+        codexsTesterAssertExact(
+                "2020-12-01 10:00:00",
+                dateFormatter("2020/12/01 10:00:00.003", "yyy-MM-dd HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "2021-09-10 10:00:00",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyy-MM-dd HH:mm:ss", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022 10:00:00",
+                dateFormatter("2022/08/31 10:00:00.008", "dd-MM-yyy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "01-07-2019 10:00:00",
+                dateFormatter("2019/07/01 10:00:00.009", "dd-MM-yyyy HH:mm:ss", true));
+
+        codexsTesterAssertExact(
+                "01-04-15 10:00:00",
+                dateFormatter("2015/04/01 10:00:00.010", "dd-MM-yy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "90-06-23 10:00:00",
+                dateFormatter("1990/06/23 10:00:00.011", "yy-MM-dd HH:mm:ss", true));
+
+        //DATE + HOUR + MINUTE
+
+        codexsTesterAssertExact(
+                "2020-12-01 10:00",
+                dateFormatter("2020/12/01 10:00:00.003", "yyy-MM-dd HH:mm", true));
+        codexsTesterAssertExact(
+                "2021-09-10 10:00",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyy-MM-dd HH:mm", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022 10:00",
+                dateFormatter("2022/08/31 10:00:00.008", "dd-MM-yyy HH:mm", true));
+        codexsTesterAssertExact(
+                "01-07-2019 10:00",
+                dateFormatter("2019/07/01 10:00:00.009", "dd-MM-yyyy HH:mm", true));
+
+        codexsTesterAssertExact(
+                "01-04-15 10:00",
+                dateFormatter("2015/04/01 10:00:00.010", "dd-MM-yy HH:mm", true));
+        codexsTesterAssertExact(
+                "90-06-23 10:00",
+                dateFormatter("1990/06/23 10:00:00.011", "yy-MM-dd HH:mm", true));
+
+        //DATE + HOUR
+
+        codexsTesterAssertExact(
+                "2020-12-01 10",
+                dateFormatter("2020/12/01 10:00:00.003", "yyy-MM-dd HH", true));
+        codexsTesterAssertExact(
+                "2021-09-10 10",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyy-MM-dd HH", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022 10",
+                dateFormatter("2022/08/31 10:00:00.008", "dd-MM-yyy HH", true));
+        codexsTesterAssertExact(
+                "01-07-2019 10",
+                dateFormatter("2019/07/01 10:00:00.009", "dd-MM-yyyy HH", true));
+
+        codexsTesterAssertExact(
+                "01-04-15 10",
+                dateFormatter("2015/04/01 10:00:00.010", "dd-MM-yy HH", true));
+        codexsTesterAssertExact(
+                "90-06-23 10",
+                dateFormatter("1990/06/23 10:00:00.011", "yy-MM-dd HH", true));
+
+        //ONLY DATE
+
+        codexsTesterAssertExact(
+                "2020-12-01",
+                dateFormatter("2020/12/01 10:00:00.003", "yyy-MM-dd", true));
+        codexsTesterAssertExact(
+                "2021-09-10",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyy-MM-dd", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022",
+                dateFormatter("2022/08/31 10:00:00.008", "dd-MM-yyy", true));
+        codexsTesterAssertExact(
+                "01-07-2019",
+                dateFormatter("2019/07/01 10:00:00.009", "dd-MM-yyyy", true));
+
+        codexsTesterAssertExact(
+                "01-04-15",
+                dateFormatter("2015/04/01 10:00:00.010", "dd-MM-yy", true));
+        codexsTesterAssertExact(
+                "90-06-23",
+                dateFormatter("1990/06/23 10:00:00.011", "yy-MM-dd", true));
+
+        //GMT
+
+        codexsTesterAssertExact(
+                "2020-12-01T10:00:00.003Z",
+                dateFormatter("2020/12/01T10:00:00.003Z", "yyy-MM-dd HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "2021-09-10T10:00:00.007Z",
+                dateFormatter("2021/09/10T10:00:00.007Z", "yyyy-MM-dd HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022T10:00:00.008Z",
+                dateFormatter("2022/08/31T10:00:00.008Z", "dd-MM-yyy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "01-07-2019T10:00:00.009Z",
+                dateFormatter("2019/07/01T10:00:00.009Z", "dd-MM-yyyy HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022T10:00:00.008Z",
+                dateFormatter("2022/08/31T10:00:00.008Z", "dd-MM-yyy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "01-07-2019T10:00:00.009Z",
+                dateFormatter("2019/07/01T10:00:00.009Z", "dd-MM-yyyy HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31-08-2022T10:00:00Z",
+                dateFormatter("2022/08/31T10:00:00.008Z", "dd-MM-yyy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "01-07-2019T10:00:00Z",
+                dateFormatter("2019/07/01T10:00:00.009Z", "dd-MM-yyyy HH:mm:ss", true));
+
+        codexsTesterAssertExact(
+                "01-04-15T10:00:00Z",
+                dateFormatter("2015/04/01T10:00:00.010Z", "dd-MM-yy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "90-06-23T10:00:00Z",
+                dateFormatter("1990/06/23T10:00:00.011Z", "yy-MM-dd HH:mm:ss", true));
+
+        //ONLY NUMBERS
+
+        codexsTesterAssertExact(
+                "20201201100000003",
+                dateFormatter("2020/12/01 10:00:00.003", "yyyMMddHHmmssms", true));
+        codexsTesterAssertExact(
+                "20210910100000007",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyyMMddHHmmssms", true));
+
+        codexsTesterAssertExact(
+                "31082022100000008",
+                dateFormatter("2022/08/31 10:00:00.008", "ddMMyyyHHmmssms", true));
+        codexsTesterAssertExact(
+                "01072019100000009",
+                dateFormatter("2019/07/01 10:00:00.009", "ddMMyyyyHHmmssms", true));
+
+        codexsTesterAssertExact(
+                "010415100000010",
+                dateFormatter("2015/04/01 10:00:00.010", "ddMMyyHHmmssms", true));
+        codexsTesterAssertExact(
+                "900623100000011",
+                dateFormatter("1990/06/23 10:00:00.011", "yyMMddHHmmssms", true));
+
+        codexsTesterAssertExact(
+                "20201201100000",
+                dateFormatter("2020/12/01 10:00:00.003", "yyyMMddHHmmss", true));
+        codexsTesterAssertExact(
+                "20210910100000",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyyMMddHHmmss", true));
+
+        codexsTesterAssertExact(
+                "31082022100000",
+                dateFormatter("2022/08/31 10:00:00.008", "ddMMyyyHHmmss", true));
+        codexsTesterAssertExact(
+                "01072019100000",
+                dateFormatter("2019/07/01 10:00:00.009", "ddMMyyyyHHmmss", true));
+
+        codexsTesterAssertExact(
+                "010415100000",
+                dateFormatter("2015/04/01 10:00:00.010", "ddMMyyHHmmss", true));
+        codexsTesterAssertExact(
+                "900623100000",
+                dateFormatter("1990/06/23 10:00:00.011", "yyMMddHHmmss", true));
+
+        codexsTesterAssertExact(
+                "202012011000",
+                dateFormatter("2020/12/01 10:00:00.003", "yyyMMddHHmm", true));
+        codexsTesterAssertExact(
+                "202109101000",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyyMMddHHmm", true));
+
+        codexsTesterAssertExact(
+                "310820221000",
+                dateFormatter("2022/08/31 10:00:00.008", "ddMMyyyHHmm", true));
+        codexsTesterAssertExact(
+                "010720191000",
+                dateFormatter("2019/07/01 10:00:00.009", "ddMMyyyyHHmm", true));
+
+        codexsTesterAssertExact(
+                "0104151000",
+                dateFormatter("2015/04/01 10:00:00.010", "ddMMyyHHmm", true));
+        codexsTesterAssertExact(
+                "9006231000",
+                dateFormatter("1990/06/23 10:00:00.011", "yyMMddHHmm", true));
+
+        codexsTesterAssertExact(
+                "2020120110",
+                dateFormatter("2020/12/01 10:00:00.003", "yyyMMddHH", true));
+        codexsTesterAssertExact(
+                "2021091010",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyyMMddHH", true));
+
+        codexsTesterAssertExact(
+                "3108202210",
+                dateFormatter("2022/08/31 10:00:00.008", "ddMMyyyHH", true));
+        codexsTesterAssertExact(
+                "0107201910",
+                dateFormatter("2019/07/01 10:00:00.009", "ddMMyyyyHH", true));
+
+        codexsTesterAssertExact(
+                "01041510",
+                dateFormatter("2015/04/01 10:00:00.010", "ddMMyyHH", true));
+        codexsTesterAssertExact(
+                "90062310",
+                dateFormatter("1990/06/23 10:00:00.011", "yyMMddHH", true));
+
+        codexsTesterAssertExact(
+                "20201201",
+                dateFormatter("2020/12/01 10:00:00.003", "yyyMMdd", true));
+        codexsTesterAssertExact(
+                "20210910",
+                dateFormatter("2021/09/10 10:00:00.007", "yyyyMMdd", true));
+
+        codexsTesterAssertExact(
+                "31082022",
+                dateFormatter("2022/08/31 10:00:00.008", "ddMMyyy", true));
+        codexsTesterAssertExact(
+                "01072019",
+                dateFormatter("2019/07/01 10:00:00.009", "ddMMyyyy", true));
+
+        codexsTesterAssertExact(
+                "010415",
+                dateFormatter("2015/04/01 10:00:00.010", "ddMMyy", true));
+        codexsTesterAssertExact(
+                "900623",
+                dateFormatter("1990/06/23 10:00:00.011", "yyMMdd", true));
+    }
+
+    @Test
+    public void dateFormatter_UsingBar_Test() {
+
+        //DATETIME + HOUR + MINUTE + SECOND + MILLISECOND
+
+        codexsTesterAssertExact(
+                "2020/12/01 10:00:00.003",
+                dateFormatter("2020-12-01 10:00:00.003", "yyy/MM/dd HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "2021/09/10 10:00:00.007",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyy/MM/dd HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022 10:00:00.008",
+                dateFormatter("2022-08-31 10:00:00.008", "dd/MM/yyy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "01/07/2019 10:00:00.009",
+                dateFormatter("2019-07-01 10:00:00.009", "dd/MM/yyyy HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "01/04/15 10:00:00.010",
+                dateFormatter("2015-04-01 10:00:00.010", "dd/MM/yy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "90/06/23 10:00:00.011",
+                dateFormatter("1990-06-23 10:00:00.011", "yy/MM/dd HH:mm:ss.ms", true));
+
+        //DATE + HOUR + MINUTE + SECOND
+
+        codexsTesterAssertExact(
+                "2020/12/01 10:00:00",
+                dateFormatter("2020-12-01 10:00:00.003", "yyy/MM/dd HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "2021/09/10 10:00:00",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyy/MM/dd HH:mm:ss", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022 10:00:00",
+                dateFormatter("2022-08-31 10:00:00.008", "dd/MM/yyy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "01/07/2019 10:00:00",
+                dateFormatter("2019-07-01 10:00:00.009", "dd/MM/yyyy HH:mm:ss", true));
+
+        codexsTesterAssertExact(
+                "01/04/15 10:00:00",
+                dateFormatter("2015-04-01 10:00:00.010", "dd/MM/yy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "90/06/23 10:00:00",
+                dateFormatter("1990-06-23 10:00:00.011", "yy/MM/dd HH:mm:ss", true));
+
+        //DATE + HOUR + MINUTE
+
+        codexsTesterAssertExact(
+                "2020/12/01 10:00",
+                dateFormatter("2020-12-01 10:00:00.003", "yyy/MM/dd HH:mm", true));
+        codexsTesterAssertExact(
+                "2021/09/10 10:00",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyy/MM/dd HH:mm", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022 10:00",
+                dateFormatter("2022-08-31 10:00:00.008", "dd/MM/yyy HH:mm", true));
+        codexsTesterAssertExact(
+                "01/07/2019 10:00",
+                dateFormatter("2019-07-01 10:00:00.009", "dd/MM/yyyy HH:mm", true));
+
+        codexsTesterAssertExact(
+                "01/04/15 10:00",
+                dateFormatter("2015-04-01 10:00:00.010", "dd/MM/yy HH:mm", true));
+        codexsTesterAssertExact(
+                "90/06/23 10:00",
+                dateFormatter("1990-06-23 10:00:00.011", "yy/MM/dd HH:mm", true));
+
+        //DATE + HOUR
+
+        codexsTesterAssertExact(
+                "2020/12/01 10",
+                dateFormatter("2020-12-01 10:00:00.003", "yyy/MM/dd HH", true));
+        codexsTesterAssertExact(
+                "2021/09/10 10",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyy/MM/dd HH", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022 10",
+                dateFormatter("2022-08-31 10:00:00.008", "dd/MM/yyy HH", true));
+        codexsTesterAssertExact(
+                "01/07/2019 10",
+                dateFormatter("2019-07-01 10:00:00.009", "dd/MM/yyyy HH", true));
+
+        codexsTesterAssertExact(
+                "01/04/15 10",
+                dateFormatter("2015-04-01 10:00:00.010", "dd/MM/yy HH", true));
+        codexsTesterAssertExact(
+                "90/06/23 10",
+                dateFormatter("1990-06-23 10:00:00.011", "yy/MM/dd HH", true));
+
+        //ONLY DATE
+
+        codexsTesterAssertExact(
+                "2020/12/01",
+                dateFormatter("2020-12-01 10:00:00.003", "yyy/MM/dd", true));
+        codexsTesterAssertExact(
+                "2021/09/10",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyy/MM/dd", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022",
+                dateFormatter("2022-08-31 10:00:00.008", "dd/MM/yyy", true));
+        codexsTesterAssertExact(
+                "01/07/2019",
+                dateFormatter("2019-07-01 10:00:00.009", "dd/MM/yyyy", true));
+
+        codexsTesterAssertExact(
+                "01/04/15",
+                dateFormatter("2015-04-01 10:00:00.010", "dd/MM/yy", true));
+        codexsTesterAssertExact(
+                "90/06/23",
+                dateFormatter("1990-06-23 10:00:00.011", "yy/MM/dd", true));
+
+        //GMT
+
+        codexsTesterAssertExact(
+                "2020/12/01T10:00:00.003Z",
+                dateFormatter("2020-12-01T10:00:00.003Z", "yyy/MM/dd HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "2021/09/10T10:00:00.007Z",
+                dateFormatter("2021-09-10T10:00:00.007Z", "yyyy/MM/dd HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022T10:00:00.008Z",
+                dateFormatter("2022-08-31T10:00:00.008Z", "dd/MM/yyy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "01/07/2019T10:00:00.009Z",
+                dateFormatter("2019-07-01T10:00:00.009Z", "dd/MM/yyyy HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022T10:00:00.008Z",
+                dateFormatter("2022-08-31T10:00:00.008Z", "dd/MM/yyy HH:mm:ss.ms", true));
+        codexsTesterAssertExact(
+                "01/07/2019T10:00:00.009Z",
+                dateFormatter("2019-07-01T10:00:00.009Z", "dd/MM/yyyy HH:mm:ss.ms", true));
+
+        codexsTesterAssertExact(
+                "31/08/2022T10:00:00Z",
+                dateFormatter("2022-08-31T10:00:00.008Z", "dd/MM/yyy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "01/07/2019T10:00:00Z",
+                dateFormatter("2019-07-01T10:00:00.009Z", "dd/MM/yyyy HH:mm:ss", true));
+
+        codexsTesterAssertExact(
+                "01/04/15T10:00:00Z",
+                dateFormatter("2015-04-01T10:00:00.010Z", "dd/MM/yy HH:mm:ss", true));
+        codexsTesterAssertExact(
+                "90/06/23T10:00:00Z",
+                dateFormatter("1990-06-23T10:00:00.011Z", "yy/MM/dd HH:mm:ss", true));
+
+        //ONLY NUMBERS
+
+        codexsTesterAssertExact(
+                "20201201100000003",
+                dateFormatter("2020-12-01 10:00:00.003", "yyyMMddHHmmssms", true));
+        codexsTesterAssertExact(
+                "20210910100000007",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyyMMddHHmmssms", true));
+
+        codexsTesterAssertExact(
+                "31082022100000008",
+                dateFormatter("2022-08-31 10:00:00.008", "ddMMyyyHHmmssms", true));
+        codexsTesterAssertExact(
+                "01072019100000009",
+                dateFormatter("2019-07-01 10:00:00.009", "ddMMyyyyHHmmssms", true));
+
+        codexsTesterAssertExact(
+                "010415100000010",
+                dateFormatter("2015-04-01 10:00:00.010", "ddMMyyHHmmssms", true));
+        codexsTesterAssertExact(
+                "900623100000011",
+                dateFormatter("1990-06-23 10:00:00.011", "yyMMddHHmmssms", true));
+
+        codexsTesterAssertExact(
+                "20201201100000",
+                dateFormatter("2020-12-01 10:00:00.003", "yyyMMddHHmmss", true));
+        codexsTesterAssertExact(
+                "20210910100000",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyyMMddHHmmss", true));
+
+        codexsTesterAssertExact(
+                "31082022100000",
+                dateFormatter("2022-08-31 10:00:00.008", "ddMMyyyHHmmss", true));
+        codexsTesterAssertExact(
+                "01072019100000",
+                dateFormatter("2019-07-01 10:00:00.009", "ddMMyyyyHHmmss", true));
+
+        codexsTesterAssertExact(
+                "010415100000",
+                dateFormatter("2015-04-01 10:00:00.010", "ddMMyyHHmmss", true));
+        codexsTesterAssertExact(
+                "900623100000",
+                dateFormatter("1990-06-23 10:00:00.011", "yyMMddHHmmss", true));
+
+        codexsTesterAssertExact(
+                "202012011000",
+                dateFormatter("2020-12-01 10:00:00.003", "yyyMMddHHmm", true));
+        codexsTesterAssertExact(
+                "202109101000",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyyMMddHHmm", true));
+
+        codexsTesterAssertExact(
+                "310820221000",
+                dateFormatter("2022-08-31 10:00:00.008", "ddMMyyyHHmm", true));
+        codexsTesterAssertExact(
+                "010720191000",
+                dateFormatter("2019-07-01 10:00:00.009", "ddMMyyyyHHmm", true));
+
+        codexsTesterAssertExact(
+                "0104151000",
+                dateFormatter("2015-04-01 10:00:00.010", "ddMMyyHHmm", true));
+        codexsTesterAssertExact(
+                "9006231000",
+                dateFormatter("1990-06-23 10:00:00.011", "yyMMddHHmm", true));
+
+        codexsTesterAssertExact(
+                "2020120110",
+                dateFormatter("2020-12-01 10:00:00.003", "yyyMMddHH", true));
+        codexsTesterAssertExact(
+                "2021091010",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyyMMddHH", true));
+
+        codexsTesterAssertExact(
+                "3108202210",
+                dateFormatter("2022-08-31 10:00:00.008", "ddMMyyyHH", true));
+        codexsTesterAssertExact(
+                "0107201910",
+                dateFormatter("2019-07-01 10:00:00.009", "ddMMyyyyHH", true));
+
+        codexsTesterAssertExact(
+                "01041510",
+                dateFormatter("2015-04-01 10:00:00.010", "ddMMyyHH", true));
+        codexsTesterAssertExact(
+                "90062310",
+                dateFormatter("1990-06-23 10:00:00.011", "yyMMddHH", true));
+
+        codexsTesterAssertExact(
+                "20201201",
+                dateFormatter("2020-12-01 10:00:00.003", "yyyMMdd", true));
+        codexsTesterAssertExact(
+                "20210910",
+                dateFormatter("2021-09-10 10:00:00.007", "yyyyMMdd", true));
+
+        codexsTesterAssertExact(
+                "31082022",
+                dateFormatter("2022-08-31 10:00:00.008", "ddMMyyy", true));
+        codexsTesterAssertExact(
+                "01072019",
+                dateFormatter("2019-07-01 10:00:00.009", "ddMMyyyy", true));
+
+        codexsTesterAssertExact(
+                "010415",
+                dateFormatter("2015-04-01 10:00:00.010", "ddMMyy", true));
+        codexsTesterAssertExact(
+                "900623",
+                dateFormatter("1990-06-23 10:00:00.011", "yyMMdd", true));
     }
 
 }
-
-
-
-
-

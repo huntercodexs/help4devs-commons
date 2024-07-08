@@ -19,8 +19,15 @@ public class Help4DevsJwtService {
     JwtHelper jwtHelper;
 
     /**
-     * @implNote Create a JWT Token
-     */
+     * <h6 style="color: #FFFF00; font-size: 11px">create</h6>
+     *
+     * <p style="color: #CDCDCD">Create a JWT Token</p>
+     *
+     * @param subject (String)
+     * @return String (JWT)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public String create(String subject) {
         Map<String, String> claims = new HashMap<>();
         claims.put("token_type", TokenType.TOKEN_TYPE_1.name());
@@ -28,8 +35,15 @@ public class Help4DevsJwtService {
     }
 
     /**
-     * @implNote Get the JWT Token from the HTTP Header Request HttpServletRequest
-     */
+     * <h6 style="color: #FFFF00; font-size: 11px">get</h6>
+     *
+     * <p style="color: #CDCDCD">Get the JWT Token from the HTTP Header Request HttpServletRequest</p>
+     *
+     * @param bearerToken (String)
+     * @return String (JWT Token)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public String get(String bearerToken) {
         String jwt = bearerToken.replace("Bearer ","");
         if (jwt.isEmpty()) {
@@ -40,24 +54,47 @@ public class Help4DevsJwtService {
     }
 
     /**
-     * @implNote Get the JWT Token Type from type field in the Headers Request HttpServletRequest
-     */
+     * <h6 style="color: #FFFF00; font-size: 11px">type</h6>
+     *
+     * <p style="color: #CDCDCD">Get the JWT Token Type from type field in the Headers Request HttpServletRequest</p>
+     *
+     * @param jwt (String)
+     * @return String (JWT Token)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public String type(String jwt) {
         DecodedJWT jwtDecode = JWT.decode(jwt);
         return jwtDecode.getClaim("token_type").asString();
     }
 
     /**
-     * @implNote Get the Subject from type field in the Headers Request HttpServletRequest
-     */
+     * <h6 style="color: #FFFF00; font-size: 11px">subject</h6>
+     *
+     * <p style="color: #CDCDCD">Get the Subject from type field in the Headers Request HttpServletRequest</p>
+     *
+     * @param jwt (String)
+     * @return String (JWT Token)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public String subject(String jwt) {
         DecodedJWT jwtDecode = JWT.decode(jwt);
         return jwtDecode.getSubject();
     }
 
     /**
-     * @implNote Check the JWT Token
-     */
+     * <h6 style="color: #FFFF00; font-size: 11px">identifier</h6>
+     *
+     * <p style="color: #CDCDCD">Check the JWT Token</p>
+     *
+     * @param bearerToken (String)
+     * @param tokenType (TokenType)
+     * @param subject (String)
+     * @return String (JWT Token)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
     public String identifier(String bearerToken, TokenType tokenType, String subject) {
 
         String token = get(bearerToken);

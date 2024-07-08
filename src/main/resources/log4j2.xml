@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO">
+<configuration status="WARN" monitorInterval="30">
 
-	<Properties>
-		<Property name="LOG_PATTERN">
-			%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
-		</Property>
-	</Properties>
+    <!--[DOCUMENTATION] https://logback.qos.ch/manual/appenders.html-->
 
-	<Appenders>
-		<Console name="LogToConsole" target="SYSTEM_OUT">
-			<PatternLayout pattern="${LOG_PATTERN}" />
-		</Console>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-		<!-- Rolling File Appender -->
-		<RollingRandomAccessFile name="RollingRandomAccessFile" fileName="/home/jereelton/logs/HELP4DEVS.log"
-								 filePattern="/home/jereelton/logs/HELP4DEVS-%d{yyyy-MM-dd}-%i.log">
-			<PatternLayout>
-				<Pattern>${LOG_PATTERN}</Pattern>
-			</PatternLayout>
-			<Policies>
-				<TimeBasedTriggeringPolicy interval="1" />
-				<SizeBasedTriggeringPolicy size="10MB" />
-			</Policies>
-			<DefaultRolloverStrategy max="10"/>
-		</RollingRandomAccessFile>
-	</Appenders>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} : %m%n%ex</pattern>
+        </encoder>
+    </appender>
 
-	<Loggers>
+    <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/home/jereelton/logs/HELP4DEVS.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/home/jereelton/logs/HELP4DEVS.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>1</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} : %m%n%ex</pattern>
+        </encoder>
+    </appender>
 
-		<Logger name="com.huntercodexs" level="INFO" additivity="false">
-			<AppenderRef ref="LogToConsole" />
-			<AppenderRef ref="RollingRandomAccessFile" />
-		</Logger>
+    <!--<appender name="REMOTE_FILE" class="ch.qos.logback.classic.net.SocketAppender">
+        <remoteHost>${host}</remoteHost>
+        <port>${port}</port>
+        <reconnectionDelay>10000</reconnectionDelay>
+        <includeCallerData>${includeCallerData}</includeCallerData>
+    </appender>-->
 
-		<Logger name="org.springframework.boot" level="INFO" additivity="false">
-			<AppenderRef ref="LogToConsole" />
-			<AppenderRef ref="RollingRandomAccessFile" />
-		</Logger>
+    <!--<appender name="SERVER"
+              class="ch.qos.logback.classic.net.server.ServerSocketAppender">
+        <port>${port}</port>
+        <includeCallerData>${includeCallerData}</includeCallerData>
+    </appender>-->
 
-		<Root level="INFO">
-			<AppenderRef ref="LogToConsole" />
-			<AppenderRef ref="RollingRandomAccessFile" />
-		</Root>
+    <!--<appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+      <smtpHost>${smtpHost}</smtpHost>
+      <to>${to}</to>
+      <from>${from}</from>
+      <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+    </appender>-->
 
-	</Loggers>
-</Configuration>
+    <root level="INFO">
+        <!--<appender-ref ref="STDOUT" />-->
+        <appender-ref ref="FILE_APPENDER" />
+        <!--<appender-ref ref="REMOTE_FILE" />-->
+        <!--<appender-ref ref="SERVER" />-->
+        <!--<appender-ref ref="EMAIL" />-->
+    </root>
+
+    <logger name="org.springframework.web" level="ERROR"/>
+</configuration>
