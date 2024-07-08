@@ -29,6 +29,9 @@ A simple instructions to help developers in overall cases to make configurations
   - <a href="#Testing-Distribution">Testing Distribution</a>
   - <a href="#Create-a-new-record-in-the-Route-53">Create a new record in the Route-53</a>
 - <a href="#SQS">SQS</a>
+  - <a href="#Create-a-queue">Create a queue</a>
+  - <a href="#Practical-Example-using-Lambda">Practical Example using Lambda</a>
+  - <a href="#Practical-Example-Using-Java">Practical Example Using Java</a>
 - <a href="#ECS">ECS</a>
 - <a href="#EKS">EKS</a>
 - <a href="#RDS">RDS</a>
@@ -864,6 +867,104 @@ Routing policy: Simple routing
 <a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
 
 ## SQS
+
+#### Create a queue
+
+To create a simple queue in the SQS service at Amazon AWS services follow the steps below.
+
+- Goto SQS dashboard
+- Click on Queues at the menu on the left side of the screen
+- Click on Create queue button
+- Fill the form as follows
+
+<pre>
+[Details]
+Type: (Standard | FIFO) ## You can change it later if necessary
+Name: queue-name-test (Standard) | queue-name-test.fifo (FIFO)
+
+[Configuration]
+Visibility timeout: 30 (seconds) ## This means how long time the message should be visible
+Message retention period: 4 days
+Delivery delay: 0 seconds
+Maximum message size: 256KB
+Receive message wait time: 0 seconds
+
+[Encryption]
+Server-side encryption: Enabled
+Encryption key type: Amazon SQS key (SSE-SQS)
+
+[Access policy]
+Choose method: Basic
+Define who can send messages to the queue: Only the queue owner
+Define who can receive messages from the queue: Only the queue owner
+
+[Redrive allow policy]
+Select which source queues can use this queue as the dead-letter queue.: Disabled
+
+[Dead-letter queue]
+Set this queue to receive undeliverable messages: Disabled
+
+[Tags - Optional]
+let as is
+</pre>
+
+- Click on Create queue
+
+Now, you probably will be redirected to queue details page, so look up for "Send and receive messages" button and 
+click on it to test the message send. At this moment we have two box in the screen, Send message and Receive messages, 
+so now put one text message in the input text and click on Send message button on the top right of the page.
+
+When you click on the Send message button, you must be able to see the change in the Messages available in the 
+"Receive messages" in the second box at the screen. This means that there is one message awaiting consumer to get and 
+process that message.
+
+![aws-sqs-queue-sample.png](midias/images/aws-sqs-queue-sample.png)
+
+Once the message is captured/read by the consumer, it has 30 seconds to process the message until the message go back 
+for the queue and stay available again for another consumers. You can click on the "Poll for messages" button to 
+download/get the messages that are in the queue.
+
+Below is one image that shown all this process
+
+![aws-sqs-queue-sample-polled.png](midias/images/aws-sqs-queue-sample-polled.png)
+
+Still talking about the queue edit functionality, it is possible to purge the queue using a button placed in the queue 
+details, but in this case be carefully because this procedure will be removing all messages from the queue.
+
+Finally, if you need to create one queue that avoid duplication message, so you need to choose the FIFO type to enable 
+the deduplication functionality, below follow one simple configuration to apply in this situation.
+
+![aws-sqs-queue-fifo-deduplication.png](midias/images/aws-sqs-queue-fifo-deduplication.png)
+
+How can see in the above image, the Type FIFO has enabled one more option in the Configuration section, witch offer 
+flags and settings to avoid duplication in the queue.
+
+In the FIFO queues all duplicated message will be ignored automatically to avoid duplication in the process, because
+the queue configuration is enabled to queue and not for group ID. 
+
+When we need to guarantee the unique message separated by group ID, we need to make one configuration like below
+
+![aws-sqs-queue-fifo-group-id.png](midias/images/aws-sqs-queue-fifo-group-id.png)
+
+But it is very important to know that the message should be grouped by one "Message group ID", for example: payment, sales, stock, 
+blocked, dispatch, etc...
+
+![aws-sqs-queue-fifo-group-id-sample.png](midias/images/aws-sqs-queue-fifo-group-id-sample.png)
+
+Above we can see four message that have the same content
+
+<pre>
+{"id": 1, "amount": 100, "message": "ok"}
+</pre>
+
+but the "Message group ID" for each one is different, we have: payment, sales, purchase and dispatch. This detail 
+can be found in the message clicking on the link message and going to "Details Tab" at the same message.
+
+![aws-sqs-queue-fifo-message-details.png](midias/images/aws-sqs-queue-fifo-message-details.png)
+
+#### Practical Example using Lambda
+
+#### Practical Example Using Java
 
 <br /><br />
 <a href="#AWS-HELPER"><img src="midias/images/top.png" width="60" height="30" /></a>
