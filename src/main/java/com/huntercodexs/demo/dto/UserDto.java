@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TemplateControllerDto {
+public class UserDto {
     @NotNull @NotBlank @NotEmpty
     String name;
     String address;

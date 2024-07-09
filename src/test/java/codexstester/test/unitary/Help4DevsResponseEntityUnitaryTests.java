@@ -20,7 +20,7 @@ public class Help4DevsResponseEntityUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void responseEntitySimulateTests() {
+    public void responseEntitySimulateTest() {
         RestResponseSimulateDto restResponseSimulateDto = new RestResponseSimulateDto();
         restResponseSimulateDto.setCode("404");
         restResponseSimulateDto.setMessage("Resource Not Found");

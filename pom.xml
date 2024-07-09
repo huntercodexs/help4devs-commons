@@ -38,9 +38,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!--VALIDATION: JAVAX, JAKARTA-->
+		<!--<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!--SPRING WEB-->
@@ -273,6 +281,12 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>23.0</version>
+		</dependency>
+
+		<!--AOP: ANNOTATIONS-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
 	</dependencies>

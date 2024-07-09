@@ -9,7 +9,7 @@ import static com.huntercodexs.demo.services.Help4DevsBaseService.params;
 public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
-    public void paramsTests() {
+    public void paramsTest() {
         JSONObject j1 = new JSONObject();
         j1.put("name", "Test 1");
 

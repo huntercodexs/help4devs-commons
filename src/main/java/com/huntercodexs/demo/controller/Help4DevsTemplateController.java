@@ -1,10 +1,11 @@
-package com.huntercodexs.demo.services;
+package com.huntercodexs.demo.controller;
 
-import com.huntercodexs.demo.dto.TemplateControllerDto;
+import com.huntercodexs.demo.dto.UserDto;
 import com.huntercodexs.demo.handler.error.Help4DevsSampleError;
 import com.huntercodexs.demo.handler.error.Help4DevsServiceError;
 import com.huntercodexs.demo.handler.exception.Help4DevsSampleException;
 import com.huntercodexs.demo.handler.exception.Help4DevsServiceException;
+import com.huntercodexs.demo.services.Help4DevsBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -98,7 +99,7 @@ public class Help4DevsTemplateController {
 	@PostMapping(path = "/api/handler/argument/exception")
 	@ResponseBody
 	public ResponseEntity<?> handlerArgumentException(
-			@Valid @RequestBody TemplateControllerDto templateControllerDto
+			@Valid @RequestBody UserDto userDto
 	) {
 		//return ResponseEntity.accepted().body("PATCH OK - " + id);
 		return new ResponseEntity<>("OK", HttpStatus.ACCEPTED);
@@ -107,7 +108,7 @@ public class Help4DevsTemplateController {
 	@PostMapping(path = "/api/handler/method/exception")
 	@ResponseBody
 	public ResponseEntity<?> handlerMethodNotAllowedException(
-			@RequestBody @Valid TemplateControllerDto templateControllerDto
+			@RequestBody @Valid UserDto userDto
 	) {
 		//return ResponseEntity.accepted().body("PATCH OK - " + id);
 		return new ResponseEntity<>("OK", HttpStatus.ACCEPTED);
