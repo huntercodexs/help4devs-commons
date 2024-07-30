@@ -3,10 +3,9 @@ package com.huntercodexs.demo.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
+import static java.lang.Math.abs;
 
 @Slf4j
 @Service
@@ -156,7 +155,7 @@ public class Help4DevsHackerRankService {
             rightLeftSum += itemR;
         }
 
-        int result = Math.abs(leftRightSum-rightLeftSum);
+        int result = abs(leftRightSum-rightLeftSum);
 
         System.out.println(result);
 
@@ -198,6 +197,40 @@ public class Help4DevsHackerRankService {
 
         return pangramCounter == alphabetSize;
 
+    }
+
+    /*Non HackerRank - AuBay challenge*/
+    public static int computeClosestToZero(int[] ts) {
+        if (ts.length == 0) return 0;
+
+        List<Integer> neg = new ArrayList<>();
+        List<Integer> pos = new ArrayList<>();
+
+        Arrays.stream(ts).sorted().forEach(value -> {
+            if (value < 0) {
+                neg.add(value);
+            } else {
+                pos.add(value);
+            }
+        });
+
+        neg.sort(Comparator.reverseOrder());
+        pos.sort(Comparator.naturalOrder());
+        System.out.println(neg);
+        System.out.println(pos);
+
+        int minNegative = neg.get(0);
+        int minPositive = pos.get(0);
+
+        if (minPositive == 0) {
+            return minPositive;
+        }
+
+        if (Math.abs(minNegative) == minPositive || Math.abs(minNegative) > minPositive) {
+            return minPositive;
+        }
+
+        return minNegative;
     }
 
 }

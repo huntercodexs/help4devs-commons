@@ -251,4 +251,46 @@ public class Help4DevsHackerRankUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertBool(false, pangrams(notPangram, "en"));
     }
 
+    @Test
+    public void computeClosestToZeroTest() {
+        int[] vector;
+        int result;
+
+        vector = new int[]{};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(0, result);
+
+        vector = new int[]{3,1,4,6,-9,2,0};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(0, result);
+
+        vector = new int[]{1, -2, -88, 4, 5};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(1, result);
+
+        vector = new int[]{-3, 3};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(3, result);
+
+        vector = new int[]{-4, 0, 4};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(0, result);
+
+        vector = new int[]{2, -2, -88, 20, 4};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(2, result);
+
+        vector = new int[]{-44, -1, -2, 3, 4, 5};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(-1, result);
+
+        vector = new int[]{-1, 2, -2, -88, 20, 4};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(-1, result);
+
+        vector = new int[]{1, -2, 2, 3, -100, 28, 4};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(1, result);
+    }
+
 }
