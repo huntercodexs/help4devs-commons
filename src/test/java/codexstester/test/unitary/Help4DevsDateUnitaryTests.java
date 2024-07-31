@@ -3,8 +3,11 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.huntercodexs.demo.services.Help4DevsDateService.*;
 
@@ -750,6 +753,53 @@ public class Help4DevsDateUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertExact(
                 "900623",
                 dateFormatter("1990-06-23 10:00:00.011", "yyMMdd", true));
+    }
+
+    @Test
+    public void stringToCalendarTest() {
+        String date = "1990-01-01 10:00:00";
+        Calendar result = stringToCalendar(date);
+        codexsTesterAssertExact(result.getTime().toString(), "Mon Jan 01 10:00:00 BRST 1990");
+        codexsTesterAssertExact(String.valueOf(result.getTimeInMillis()), "631195200000");
+    }
+
+    @Test
+    public void stringToDateTest() {
+        String date = "1990-01-01";
+        Date result = stringToDate(date);
+        codexsTesterAssertExact(result.toString(), "Mon Jan 01 00:00:00 BRST 1990");
+        codexsTesterAssertExact(String.valueOf(result.getTime()), "631159200000");
+
+        date = "1990/01/01";
+        result = stringToDate(date);
+        codexsTesterAssertExact(result.toString(), "Mon Jan 01 00:00:00 BRST 1990");
+        codexsTesterAssertExact(String.valueOf(result.getTime()), "631159200000");
+
+        date = "1990.01.01";
+        result = stringToDate(date);
+        codexsTesterAssertExact(result.toString(), "Mon Jan 01 00:00:00 BRST 1990");
+        codexsTesterAssertExact(String.valueOf(result.getTime()), "631159200000");
+    }
+
+    @Test
+    public void stringToLocalDatetimeTest() {
+        String date = "2019-mai-29 10:15:30 AM";
+        LocalDateTime result = stringToLocalDatetime(date, 4, Locale.FRENCH);
+        System.out.println(result);
+
+        date = "2019-01-29 10:15:30 AM";
+        result = stringToLocalDatetime(date, 1, Locale.ENGLISH);
+        System.out.println(result);
+
+        date = "2019-01-29 10:15:30 AM";
+        result = stringToLocalDatetime(date, 1, Locale.UK);
+        System.out.println(result);
+
+        Locale BR = new Locale("pt", "BR");
+
+        date = "2019-01-29 10:15:30 AM";
+        result = stringToLocalDatetime(date, 1, BR);
+        System.out.println(result);
     }
 
 }

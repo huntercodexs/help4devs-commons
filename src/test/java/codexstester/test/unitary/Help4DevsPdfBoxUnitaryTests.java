@@ -8,92 +8,174 @@ import java.util.concurrent.ExecutionException;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
 public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
+    private final static String filepathSource = "./src/test/resources/help4devs/files/txt/file.txt";
+    private final static String filepathTarget = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf";
+
+    private PdfBoxSettings settings() {
+        PdfBoxSettings settings = new PdfBoxSettings();
+        settings.setLineHeight(15);
+        settings.setOffsetX(25);
+        settings.setOffsetY(750);
+        settings.setTitle("Title Test");
+        settings.setFontName("courier");
+        settings.setFontSize("x-small");
+        settings.setAuthor("Huntercodexs");
+        settings.setDate("1990-01-01 10:00:00");
+        settings.setSubject("Test");
+        settings.setKeywords("test, pdf, java, huntercodexs");
+        settings.setPassword(null);
+        return settings;
+    }
+
     @Test
     public void pdfCreateTest() throws IOException {
-        pdfCreate(
-                binFile("./src/test/resources/help4devs/files/txt/file.txt"),
-                "./src/test/resources/help4devs/files/pdf/hello-world-small.pdf",
-                "small",
-                null);
+        String data = binFile(filepathSource);
+
+        int numberOfPages = 3;
+        PdfBoxSettings settings = settings();
+
+        for (int i = 0; i < numberOfPages; i++) {
+            settings.setPageNumber(i);
+            pdfCreate("PAGE-" + i + ":\n" + data, filepathTarget, settings);
+        }
     }
 
     @Test
     public void pdfCreateUsingPasswordTest() throws IOException {
-        pdfCreate(binFile(
-                        "./src/test/resources/help4devs/files/txt/file.txt"),
-                "./src/test/resources/help4devs/files/pdf/hello-world-small-password.pdf",
-                "small",
-                "password");
+        String data = binFile(filepathSource);
 
-        pdfCreate(binFile(
-                        "./src/test/resources/help4devs/files/txt/file.txt"),
-                "./src/test/resources/help4devs/files/pdf/hello-world-normal-password.pdf",
-                "normal",
-                "password");
+        int numberOfPages = 1;
+        PdfBoxSettings settings = settings();
+        settings.setPassword("password");
 
-        pdfCreate(binFile(
-                        "./src/test/resources/help4devs/files/txt/file.txt"),
-                "./src/test/resources/help4devs/files/pdf/hello-world-large-password.pdf",
-                "large",
-                "password");
+        for (int i = 0; i < numberOfPages; i++) {
+            settings.setPageNumber(i);
+            pdfCreate("PAGE-" + i + ":\n" + data, filepathTarget, settings);
+        }
     }
 
     @Test
-    public void pdfFromImageTest() throws IOException {
-        pdfFromImage(
-                "./src/test/resources/help4devs/images/ads/img.png",
-                "./src/test/resources/help4devs/files/pdf/pdf-from-image.pdf",
-                null);
+    public void pdfAddImageTest() throws IOException {
+        String imagePath = "./src/test/resources/help4devs/images/ads/file.png";
+        PdfBoxSettings settings = settings();
+        settings.setPageNumber(0);
+        pdfAddImage(imagePath, filepathTarget, settings);
     }
 
     @Test
-    public void pdfFromImageUsingPasswordTest() throws IOException {
-        pdfFromImage(
-                "./src/test/resources/help4devs/images/ads/img.png",
-                "./src/test/resources/help4devs/files/pdf/pdf-from-image-password.pdf",
-                "password");
-    }
-
-    @Test
-    public void pdfFromDocTest() throws IOException, ExecutionException, InterruptedException {
-        pdfFromDoc(
-                "./src/test/resources/help4devs/files/doc/file.doc",
-                "./src/test/resources/help4devs/files/pdf/hello-world-doc.pdf");
+    public void pdfAddBoxTest() {
+        PdfBoxSettings settings = settings();
+        settings.setWidth(570);
+        settings.setHeight(750);
+        settings.setOffsetX(20);
+        settings.setOffsetY(20);
+        settings.setPageNumber(1);
+        pdfAddBox(filepathTarget, settings);
     }
 
     @Test
     public void pdfReaderTest() {
-        stdout(pdfReader("./src/test/resources/help4devs/files/pdf/hello-world-small.pdf", 1));
-    }
+        /*Whole Document*/
+        String result = pdfReader(
+                "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf",
+                0,
+                0);
+        System.out.println(result);
 
-    @Test
-    public void pdfDetailsTest() {
-        PdfBoxDetails details = pdfDetails("./src/test/resources/help4devs/files/pdf/hello-world-small.pdf");
-    }
+        /*First Page*/
+        result = pdfReader(
+                "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf",
+                0,
+                1);
+        System.out.println(result);
 
-    @Test
-    public void pdfCopyTest() {
-        pdfCopy(
-                "./src/test/resources/help4devs/files/pdf/hello-world-small.pdf",
-                "./src/test/resources/help4devs/files/pdf/hello-world-small-copy.pdf");
+        /*First and Second Page*/
+        result = pdfReader(
+                "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf",
+                0,
+                2);
+        System.out.println(result);
+
+        /*First and Second and Third Page*/
+        result = pdfReader(
+                "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf",
+                0,
+                3);
+        System.out.println(result);
+
+        /*Page Start > numberOfPages*/
+        try {
+            result = pdfReader(
+                    "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf",
+                    4,
+                    6);
+            System.out.println(result);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        /*Page End > numberOfPages*/
+        try {
+            result = pdfReader(
+                    "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf",
+                    0,
+                    4);
+            System.out.println(result);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        /*Page Start > Page End*/
+        try {
+            result = pdfReader(
+                    "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf",
+                    4,
+                    1);
+            System.out.println(result);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     public void pdfProtectTest() throws IOException {
-        pdfProtect(
-                "./src/test/resources/help4devs/files/pdf/hello-world-to-crypt.pdf",
-                "password");
+        pdfProtect(filepathTarget, "password");
     }
 
     @Test
     public void pdfUnprotectTest() throws IOException {
-        pdfUnprotect(
-                "./src/test/resources/help4devs/files/pdf/hello-world-to-crypt-enc.pdf",
-                "./src/test/resources/help4devs/files/pdf/hello-world-decrypted.pdf",
-                "password");
+        pdfUnprotect(filepathTarget, "password");
     }
+
+    @Test
+    public void pdfFromImageTest() throws IOException {
+        String imagePath = "./src/test/resources/help4devs/images/ads/img.png";
+        String filenamePath = "./src/test/resources/help4devs/files/pdf/my-pdfbox-from-image.pdf";
+        String password = "";
+        pdfFromImage(imagePath, filenamePath, password);
+    }
+
+    @Test
+    public void pdfFromImageUsingPasswordTest() throws IOException {
+        String imagePath = "./src/test/resources/help4devs/images/ads/img.png";
+        String filenamePath = "./src/test/resources/help4devs/files/pdf/my-pdfbox-from-image-password.pdf";
+        String password = "password";
+        pdfFromImage(imagePath, filenamePath, password);
+    }
+
+    @Test
+    public void pdfFromDocTest() throws IOException, ExecutionException, InterruptedException {
+        /*TODO*/
+    }
+
+    @Test
+    public void pdfDetailsTest() {
+        String filenamePath = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf";
+        PdfBoxDetails details = pdfDetails(filenamePath);
+        System.out.println(details);
+    }
+
 }

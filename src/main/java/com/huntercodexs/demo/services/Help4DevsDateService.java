@@ -3,14 +3,14 @@ package com.huntercodexs.demo.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
@@ -818,6 +818,122 @@ public class Help4DevsDateService {
 
         return dateOutput;
 
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stringToCalendar</h6>
+     *
+     * <p style="color: #CDCDCD">Convert a date string into Calendar format</p>
+     *
+     * Accepted formats are:
+     * <ul>
+     *     <li>yyyy-MM-dd HH:mm:ss</li>
+     * </ul>
+     *
+     * @param dateString (String: The date to convert)
+     * @return Calendar (Date Converted)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static Calendar stringToCalendar(String dateString) {
+
+        Calendar cal = Calendar.getInstance();
+        Locale localBrazil = new Locale("pt", "BR");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", localBrazil);
+
+        try {
+            cal.setTime(sdf.parse(dateString));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cal;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stringToDate</h6>
+     *
+     * <p style="color: #CDCDCD">Convert a string into Date format</p>
+     *
+     * Accepted formats are:
+     * <ul>
+     *     <li>yyyy-MM-dd</li>
+     *     <li>yyyy/MM/dd</li>
+     *     <li>yyyy.MM.dd</li>
+     * </ul>
+     *
+     * @param dateString (String: The date to convert)
+     * @return Date (Date Converted)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static Date stringToDate(String dateString) {
+
+        Date date = null;
+
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+        } catch (Exception e1) {
+            try {
+                date = new SimpleDateFormat("yyyy/MM/dd").parse(dateString);
+            } catch (Exception e2) {
+                try {
+                    date = new SimpleDateFormat("yyyy.MM.dd").parse(dateString);
+                } catch (Exception e3) {
+                    throw new RuntimeException(
+                            e1.getMessage()+" : "+e2.getMessage()+" : "+e3.getMessage());
+                }
+            }
+        }
+
+        return date;
+    }
+
+    /*TODO*/
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stringToLocalDatetime</h6>
+     *
+     * <p style="color: #CDCDCD">Convert a string into Local Datetime format</p>
+     *
+     * Accepted formats are:
+     * <ul>
+     *     <li>yyyy-MM-ddThh:mm:ss a</li>
+     *     <li>yyyy/MM/ddThh:mm:ss a</li>
+     *     <li>yyyy.MM.ddThh:mm:ss a</li>
+     *     <li>yyyy-MMMM-dd HH:mm:ss a</li>
+     * </ul>
+     *
+     * @param dateString (String: The date to convert)
+     * @param formatType (int: The date format={
+     *      <br />[1] yyyy-MM-ddThh:mm:ss a
+     *      <br />[2] yyyy/MM/ddThh:mm:ss a
+     *      <br />[3] yyyy.MM.ddThh:mm:ss a
+     *      <br />[4] yyyy-MMMM-dd HH:mm:ss a
+     * <br />})
+     * @param locale (Locale: Country location)
+     * @return String (Date Converted)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static LocalDateTime stringToLocalDatetime(String dateString, int formatType, Locale locale) {
+
+        String format;
+
+        if (formatType == 1) {
+            format = "yyyy-MM-dd hh:mm:ss a";
+        } else if (formatType == 2) {
+            format = "yyyy/MM/dd hh:mm:ss";
+        } else if (formatType == 3) {
+            format = "yyyy.MM.dd hh:mm:ss";
+        } else if (formatType == 4) {
+            format = "yyyy-MMMM-dd HH:mm:ss a";
+        } else {
+            throw new RuntimeException("Invalid format number");
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format).withLocale(locale);
+
+        return LocalDateTime.parse(dateString, formatter);
     }
 
 }
