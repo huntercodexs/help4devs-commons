@@ -216,13 +216,27 @@ public class Help4DevsHackerRankService {
 
         neg.sort(Comparator.reverseOrder());
         pos.sort(Comparator.naturalOrder());
-        System.out.println(neg);
-        System.out.println(pos);
 
-        int minNegative = neg.get(0);
-        int minPositive = pos.get(0);
+        int minNegative = 0;
+        int minPositive = 0;
 
-        if (minPositive == 0) {
+        if (!neg.isEmpty()) {
+            minNegative = neg.get(0);
+        }
+
+        if (!pos.isEmpty()) {
+            minPositive = pos.get(0);
+        }
+
+        if (neg.isEmpty() && !pos.isEmpty()) {
+            return minPositive;
+        }
+
+        if (!neg.isEmpty() && pos.isEmpty()) {
+            return minNegative;
+        }
+
+        if (minPositive == 0 || minPositive == 1) {
             return minPositive;
         }
 

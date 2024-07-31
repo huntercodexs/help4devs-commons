@@ -291,6 +291,22 @@ public class Help4DevsHackerRankUnitaryTests extends Help4DevsBridgeTests {
         vector = new int[]{1, -2, 2, 3, -100, 28, 4};
         result = computeClosestToZero(vector);
         codexsTesterAssertInt(1, result);
+
+        vector = new int[]{1, -2, 2, 3, -10, -10, -100, 28, 4};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(1, result);
+
+        vector = new int[]{-10, -10};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(-10, result);
+
+        vector = new int[]{-15, -7, -9, -14, -12};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(-7, result);
+
+        vector = new int[]{7, 5, 9, 1, 4};
+        result = computeClosestToZero(vector);
+        codexsTesterAssertInt(1, result);
     }
 
 }
