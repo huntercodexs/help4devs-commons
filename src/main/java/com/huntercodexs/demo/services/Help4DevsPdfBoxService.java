@@ -439,8 +439,8 @@ public class Help4DevsPdfBoxService {
                 return content;
             }
 
-            stripper.setStartPage(docSettings.getStartPage());
-            stripper.setEndPage(docSettings.getEndPage());
+            stripper.setStartPage(docSettings.getStartPage()-1);
+            stripper.setEndPage(docSettings.getEndPage()-1);
             String content = stripper.getText(document);
             document.close();
 

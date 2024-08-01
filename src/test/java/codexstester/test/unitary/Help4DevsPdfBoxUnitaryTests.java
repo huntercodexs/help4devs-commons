@@ -330,8 +330,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
         docSet.setNumberOfPages(3);
 
-        for (int i = 0; i < docSet.getNumberOfPages(); i++) {
-            pageSet.setTextContent("PAGE-" + (i+1) + ":\n" + data);
+        for (int i = 1; i <= docSet.getNumberOfPages(); i++) {
+            pageSet.setTextContent("PAGE-" + i + ":\n" + data);
             pageSet.setPageNumber(i);
             pdfCreate(docSet, pageSet);
         }
@@ -349,8 +349,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
 
-        for (int i = 0; i < docSet.getNumberOfPages(); i++) {
-            pageSet.setTextContent("PAGE-" + (i+1) + ":\n" + data);
+        for (int i = 1; i <= docSet.getNumberOfPages(); i++) {
+            pageSet.setTextContent("PAGE-" + i + ":\n" + data);
             pageSet.setPageNumber(i);
             pdfCreate(docSet, pageSet);
         }
@@ -382,7 +382,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         PdfBoxTextSettings textSet = textSettings();
         PdfBoxImageSettings imgSet = imageSettings();
 
-        pageSet.setPageNumber(1);
+        pageSet.setPageNumber(2);
         rectSet.setBackColor(ColorsToPdfBox.ICE);
         rectSet.setBorderColor(ColorsToPdfBox.BLACK);
 
@@ -400,19 +400,19 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         System.out.println(result);
 
         /*First Page*/
-        docSet.setStartPage(0);
-        docSet.setEndPage(1);
-        result = pdfReader(docSet);
-        System.out.println(result);
-
-        /*First and Second Page*/
-        docSet.setStartPage(0);
+        docSet.setStartPage(1);
         docSet.setEndPage(2);
         result = pdfReader(docSet);
         System.out.println(result);
 
+        /*First and Second Page*/
+        docSet.setStartPage(1);
+        docSet.setEndPage(3);
+        result = pdfReader(docSet);
+        System.out.println(result);
+
         /*First and Second and Third Page*/
-        docSet.setStartPage(0);
+        docSet.setStartPage(1);
         docSet.setEndPage(3);
         result = pdfReader(docSet);
         System.out.println(result);
@@ -429,7 +429,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
         /*Page End > numberOfPages*/
         try {
-            docSet.setStartPage(0);
+            docSet.setStartPage(1);
             docSet.setEndPage(4);
             result = pdfReader(docSet);
             System.out.println(result);
@@ -439,8 +439,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
         /*Page Start > Page End*/
         try {
-            docSet.setStartPage(4);
-            docSet.setEndPage(1);
+            docSet.setStartPage(5);
+            docSet.setEndPage(4);
             result = pdfReader(docSet);
             System.out.println(result);
         } catch (RuntimeException e) {
