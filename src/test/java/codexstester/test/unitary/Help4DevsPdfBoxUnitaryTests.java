@@ -505,6 +505,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
         docSet.setFilenamePath(filepathTarget);
         docSet.setUserPassword(userPassword);
+        docSet.setUserPassword(ownerPassword);
 
         imageSet.setImageQuality(ImageQualityToPdfBox.NORMAL);
         imageSet.setImageType(ImageTypeToPdfBox.JPEG);
@@ -520,6 +521,15 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
             imageSet.setFilenamePath("./src/test/resources/help4devs/images/ads/exported-NORMAL-"+k+".jpg");
             pdfToImage(docSet, pageSet, imageSet);
         }
+    }
+
+    @Test
+    public void pdfSplitterTest() {
+        PdfBoxDocumentSettings docSet = documentSettings();
+        docSet.setFilenamePath(filepathTarget);
+        docSet.setUserPassword(userPassword);
+        docSet.setOwnerPassword(ownerPassword);
+        pdfSplitter(docSet, "./src/test/resources/help4devs/files/pdf/");
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.huntercodexs.demo.services;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -23,9 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.List;
+import java.util.*;
 
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
@@ -597,6 +597,59 @@ public class Help4DevsPdfBoxService {
 
             File fileImage = new File(imageSettings.getFilenamePath());
             ImageIO.write(image, imageType(imageSettings.getImageType()), fileImage);
+
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfSplitter</h6>
+     *
+     * <p style="color: #CDCDCD">Split a PDF file into many files</p>
+     *
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pathToSave (String)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfSplitter(PdfBoxDocumentSettings docSettings, String pathToSave) {
+
+        File file = new File(docSettings.getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
+
+            Splitter splitter = new Splitter();
+            List<PDDocument> pages = splitter.split(document);
+            Iterator<PDDocument> iterator = pages.listIterator();
+
+            String prefix = docSettings.getFilenamePath()
+                    .replaceFirst("^\\./", "")
+                    .split("\\.")[0];
+
+            String[] arPrefix = prefix.split("/");
+            String pdfPrefix = arPrefix[arPrefix.length-1];
+
+            pathToSave = pathToSave.replaceFirst("/$", "")+"/"+pdfPrefix;
+
+            int i = 0;
+            while (iterator.hasNext()) {
+                try (PDDocument pd = iterator.next()) {
+
+                    i++;
+                    String filename = pathToSave+"-"+i+".pdf";
+
+                    pd.save(filename);
+                    docSettings.setFilenamePath(filename);
+                    protectPDF(docSettings);
+
+                } catch (IOException iox) {
+                    throw new RuntimeException(iox.getMessage());
+                }
+            }
 
             document.close();
 
