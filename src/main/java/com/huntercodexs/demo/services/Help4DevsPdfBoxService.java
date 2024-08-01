@@ -14,6 +14,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -23,6 +24,11 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsAvailable.color;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontAvailable.fontName;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSize.fontSize;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevel.protectionLevel;
+
 /**
  * This class use as "pdfbox 2.0.0" base process to PDF files handler
  * */
@@ -30,46 +36,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class Help4DevsPdfBoxService {
 
-    private static int fontSize(String ref) {
-        switch (ref) {
-            case "x-small":
-                return 5;
-
-            case "small":
-                return 8;
-
-            case "medium":
-                return 16;
-
-            case "large":
-                return 24;
-
-            case "x-large":
-                return 45;
-
-            default:
-                /*normal*/
-                return 12;
-        }
-    }
-
-    private static PDType1Font fontName(String ref) {
-        switch (ref) {
-            case "times":
-                return PDType1Font.TIMES_ROMAN;
-
-            case "courier":
-                return PDType1Font.COURIER;
-
-            case "symbol":
-                return PDType1Font.SYMBOL;
-
-            default:
-                return PDType1Font.HELVETICA;
-        }
-    }
-
-    private static void propertiesPDF(PDDocument document, PdfBoxSettings settings) {
+    private static void propertiesPDF(PDDocument document, PdfBoxDocumentSettings settings) {
         PDDocumentInformation information = document.getDocumentInformation();
         information.setAuthor(settings.getAuthor());
         information.setTitle(settings.getTitle());
@@ -122,23 +89,78 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    private static void createPDF(String data, String filenamePath, PdfBoxSettings settings) {
+    private static PDPageContentStream contentStream(
+            String option,
+            PDPage page,
+            PDDocument document,
+            PdfBoxPageSettings pageSettings,
+            PdfBoxRectangleSettings rectSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
 
-        File file = new File(filenamePath);
+            if (contentStream == null) {
+                contentStream = new PDPageContentStream(document, page);
+            }
+
+            switch (option) {
+
+                case "new":
+                    return contentStream;
+
+                case "begin":
+                    contentStream.beginText();
+                    contentStream.setNonStrokingColor(color(pageSettings.getFontColor()));
+                    contentStream.setLeading(pageSettings.getLineHeight());
+                    contentStream.newLineAtOffset(pageSettings.getOffsetX(), pageSettings.getOffsetY());
+                    contentStream.setFont(fontName(pageSettings.getFontName()), fontSize(pageSettings.getFontSize()));
+                    return contentStream;
+
+                case "rec-fill":
+                    contentStream.setNonStrokingColor(color(rectSettings.getBackColor()));
+                    contentStream.addRect(
+                            rectSettings.getOffsetX(),
+                            rectSettings.getOffsetY(),
+                            rectSettings.getWidth(),
+                            rectSettings.getHeight());
+                    contentStream.fill();
+                    contentStream.setNonStrokingColor(0,0,0);
+                    return contentStream;
+
+                case "rec-border":
+                    contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+                    contentStream.addRect(
+                            rectSettings.getOffsetX(),
+                            rectSettings.getOffsetY(),
+                            rectSettings.getWidth(),
+                            rectSettings.getHeight());
+                    contentStream.closeAndStroke();
+                    contentStream.setStrokingColor(0,0,0);
+                    return contentStream;
+
+            }
+
+            return contentStream;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void createPDF(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
+
+        File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument document = PDDocument.load(file)) {
 
-            propertiesPDF(document, settings);
+            propertiesPDF(document, docSettings);
 
-            PDPage page = document.getPage(settings.getPageNumber());
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            PDPage page = document.getPage(pageSettings.getPageNumber());
 
-            contentStream.beginText();
-            contentStream.setLeading(settings.getLineHeight());
-            contentStream.newLineAtOffset(settings.getOffsetX(), settings.getOffsetY());
-            contentStream.setFont(fontName(settings.getFontName()), fontSize(settings.getFontSize()));
+            PDPageContentStream contentStream = contentStream(
+                    "begin", page, document, pageSettings, null, null);
 
-            String[] lines = data.replace("\r", "").split("\n");
+            String[] lines = pageSettings.getTextContent().replace("\r", "").split("\n");
 
             for (String line : lines) {
                 contentStream.showText(line);
@@ -147,7 +169,7 @@ public class Help4DevsPdfBoxService {
 
             contentStream.endText();
             contentStream.close();
-            document.save(filenamePath);
+            document.save(docSettings.getFilenamePath());
             document.close();
 
         } catch (IOException ioe) {
@@ -155,30 +177,42 @@ public class Help4DevsPdfBoxService {
         }
 
     }
+    
+    private static AccessPermission permissionPDF(boolean restrict) {
+        AccessPermission accessPermission = new AccessPermission();
+        
+        if (restrict) {
+            accessPermission.setReadOnly();
+        }
 
-    private static void protectPDF(String filenamePath, String password) {
-        if (password == null || password.isEmpty()) return;
+        accessPermission.setCanModify(!restrict);
+        accessPermission.setCanPrint(!restrict);
+        accessPermission.setCanExtractContent(!restrict);
+        accessPermission.setCanPrintDegraded(!restrict);
 
-        File file = new File(filenamePath);
+        return accessPermission;
+    }
+
+    private static void protectPDF(PdfBoxDocumentSettings docSettings) {
+        if (docSettings.getUserPassword() == null || docSettings.getUserPassword().isEmpty()) return;
+        if (docSettings.getOwnerPassword() == null || docSettings.getOwnerPassword().isEmpty()) return;
+
+        File file = new File(docSettings.getFilenamePath());
+
         try (PDDocument document = PDDocument.load(file)) {
 
-            AccessPermission accessPermission = new AccessPermission();
-            accessPermission.setReadOnly();
-            accessPermission.setCanModify(false);
-            accessPermission.setCanPrint(false);
-            accessPermission.setCanExtractContent(false);
-            accessPermission.setCanPrintDegraded(false);
+            AccessPermission accessPermission = permissionPDF(true);
 
             StandardProtectionPolicy protectionPolicy = new StandardProtectionPolicy(
-                    password,
-                    password,
+                    docSettings.getOwnerPassword(),
+                    docSettings.getUserPassword(),
                     accessPermission);
 
-            protectionPolicy.setEncryptionKeyLength(256);
+            protectionPolicy.setEncryptionKeyLength(protectionLevel(docSettings.getProtectionLevel()));
             protectionPolicy.setPermissions(accessPermission);
 
             document.protect(protectionPolicy);
-            document.save(filenamePath);
+            document.save(docSettings.getFilenamePath());
             document.close();
 
         } catch (IOException e) {
@@ -186,16 +220,17 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    private static void unprotectPDF(String filenamePath, String password) {
-        if (password == null || password.isEmpty()) {
+    private static void unprotectPDF(PdfBoxDocumentSettings docSettings) {
+
+        if (docSettings.getOwnerPassword() == null || docSettings.getOwnerPassword().isEmpty()) {
             throw new RuntimeException("Missing password for PDF Decrypt");
         }
 
-        File file = new File(filenamePath);
-        try (PDDocument document = PDDocument.load(file, password)) {
+        File file = new File(docSettings.getFilenamePath());
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             document.setAllSecurityToBeRemoved(true);
-            document.save(filenamePath);
+            document.save(docSettings.getFilenamePath());
             document.close();
 
         } catch (IOException e) {
@@ -208,25 +243,27 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Create a PDF file quickly</p>
      *
-     * @param data (String: Data to PDF create)
-     * @param filenamePath (String: Path filename)
-     * @param settings (Object: PdfBoxSettings)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @param docSettings  (PdfBoxDocumentSettings)
+     * @param pageSettings (PdfBoxPageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void pdfCreate(String data, String filenamePath, PdfBoxSettings settings) {
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfCreate(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
+        String filenamePath = docSettings.getFilenamePath();
+
         if (filenamePath == null || filenamePath.isEmpty()) {
             filenamePath = UUID.randomUUID()+".pdf";
+            docSettings.setFilenamePath(filenamePath);
         }
 
-        if (settings.getPageNumber() > 0) {
+        if (pageSettings.getPageNumber() > 0) {
             addPDF(filenamePath);
         } else {
             initPDF(filenamePath);
         }
 
-        createPDF(data, filenamePath, settings);
-        protectPDF(filenamePath, settings.getPassword());
+        createPDF(docSettings, pageSettings);
+        protectPDF(docSettings);
     }
 
     /**
@@ -234,30 +271,26 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Add an image to a PDF file</p>
      *
-     * @param imagePath (String: Image path to add in the pdf file)
-     * @param filenamePath (String: Path filename to add image)
-     * @param settings (PdfBoxSettings)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pageSettings (PdfBoxPageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void pdfAddImage(String imagePath, String filenamePath, PdfBoxSettings settings) {
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfAddImage(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
 
-        File file = new File(filenamePath);
+        File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument document = PDDocument.load(file)) {
 
-            PDPage pdPage = document.getPage(settings.getPageNumber());
+            PDPage page = document.getPage(pageSettings.getPageNumber());
 
             PDFTextStripper stripper = new PDFTextStripper();
-            stripper.setStartPage(settings.getPageNumber());
-            stripper.setEndPage(settings.getPageNumber()+1);
+            stripper.setStartPage(pageSettings.getPageNumber());
+            stripper.setEndPage(pageSettings.getPageNumber()+1);
             String content = stripper.getText(document);
 
-            PDPageContentStream contentStream = new PDPageContentStream(document, pdPage);
-            contentStream.beginText();
-            contentStream.setLeading(settings.getLineHeight());
-            contentStream.newLineAtOffset(settings.getOffsetX(), settings.getOffsetY());
-            contentStream.setFont(fontName(settings.getFontName()), fontSize(settings.getFontSize()));
+            PDPageContentStream contentStream = contentStream(
+                    "begin", page, document, pageSettings, null, null);
 
             String[] lines = content.replace("\r", "").split("\n");
 
@@ -268,11 +301,11 @@ public class Help4DevsPdfBoxService {
 
             contentStream.endText();
 
-            PDImageXObject pdImageXObject = PDImageXObject.createFromFile(imagePath, document);
+            PDImageXObject pdImageXObject = PDImageXObject.createFromFile(pageSettings.getImageFilepath(), document);
             contentStream.drawImage(pdImageXObject, 25, 150);
             contentStream.close();
 
-            document.save(filenamePath);
+            document.save(docSettings.getFilenamePath());
             document.close();
 
         } catch (IOException ioe) {
@@ -286,39 +319,43 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Add an box (square, rectangle) to a PDF file</p>
      *
-     * @param filenamePath (String: Path filename to add image)
-     * @param settings (PdfBoxSettings)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pageSettings (PdfBoxPageSettings)
+     * @param rectSettings (PdfBoxRectangleSettings)
+     * @param textSettings (PdfBoxTextSettings)
+     * @param imgSettings (PdfBoxImageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void pdfAddBox(String filenamePath, PdfBoxSettings settings) {
-
-        File file = new File(filenamePath);
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfAddBox(
+            PdfBoxDocumentSettings docSettings,
+            PdfBoxPageSettings pageSettings,
+            PdfBoxRectangleSettings rectSettings,
+            PdfBoxTextSettings textSettings,
+            PdfBoxImageSettings imgSettings
+    ) {
+        File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument document = PDDocument.load(file)) {
 
-            PDPage pdPage = document.getPage(settings.getPageNumber());
+            PDPage page = document.getPage(pageSettings.getPageNumber());
 
             PDFTextStripper stripper = new PDFTextStripper();
-            stripper.setStartPage(settings.getPageNumber()+1);
-            stripper.setEndPage(settings.getPageNumber()+1);
+            stripper.setStartPage(pageSettings.getPageNumber()+1);
+            stripper.setEndPage(pageSettings.getPageNumber()+1);
             String content = stripper.getText(document);
 
-            PDPageContentStream contentStream = new PDPageContentStream(document, pdPage);
+            PDPageContentStream contentStream = contentStream(
+                    "new", page, document, pageSettings, rectSettings, null);
 
-            contentStream.setNonStrokingColor(235,235,235);
-            contentStream.addRect(
-                    settings.getOffsetX(),
-                    settings.getOffsetY(),
-                    settings.getWidth(),
-                    settings.getHeight());
-            contentStream.fill();
-            contentStream.setNonStrokingColor(0,0,0);
+            contentStream = contentStream(
+                    "rec-fill", page, document, pageSettings, rectSettings, contentStream);
 
-            contentStream.beginText();
-            contentStream.setLeading(settings.getLineHeight());
-            contentStream.newLineAtOffset(40, 730);
-            contentStream.setFont(fontName(settings.getFontName()), fontSize(settings.getFontSize()));
+            contentStream = contentStream(
+                    "rec-border", page, document, pageSettings, rectSettings, contentStream);
+
+            contentStream = contentStream(
+                    "begin", page, document, pageSettings, rectSettings, contentStream);
 
             String[] lines = content.replace("\r", "").split("\n");
 
@@ -330,7 +367,7 @@ public class Help4DevsPdfBoxService {
             contentStream.endText();
             contentStream.close();
 
-            document.save(filenamePath);
+            document.save(docSettings.getFilenamePath());
             document.close();
 
         } catch (IOException ioe) {
@@ -343,7 +380,7 @@ public class Help4DevsPdfBoxService {
      * <h6 style="color: #FFFF00; font-size: 11px">pdfReader</h6>
      *
      * <p style="color: #CDCDCD">Reader an specific PDF file</p>
-     *
+     * <p>
      * <br />It is possible to read a whole pdf document using 0 for pageStart and 0 for pageEnd
      * <br />Also it is possible to read a range of page using the initial page range and the final page range
      * <br />More one option is to read a single page using in the pageStart and pageEnd the same value
@@ -352,39 +389,37 @@ public class Help4DevsPdfBoxService {
      * <br />- Read range page of document: (filenamePath, 2, 6)
      * <br />- Read a single page of document: (filenamePath, 0, 1)
      *
-     * @param filenamePath (String: Location where the PDF file is placed)
-     * @param pageStart (int: Number of page to start)
-     * @param pageEnd (int: Number of page to finish)
+     * @param docSettings (PdfBoxDocumentSettings)
      * @return String (PDF Content)
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      */
-    public static String pdfReader(String filenamePath, int pageStart, int pageEnd) {
+    public static String pdfReader(PdfBoxDocumentSettings docSettings) {
 
-        File file = new File(filenamePath);
+        File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument document = PDDocument.load(file)) {
 
-            if (pageStart > pageEnd) {
+            if (docSettings.getStartPage() > docSettings.getEndPage()) {
                 throw new RuntimeException("Failed: Page End should be greater than Page Start");
             }
 
-            if (pageStart > document.getNumberOfPages()) {
+            if (docSettings.getStartPage() > document.getNumberOfPages()) {
                 throw new RuntimeException("Failed: Page Start > numberOfPages");
-            } else if (pageEnd > document.getNumberOfPages()) {
+            } else if (docSettings.getEndPage() > document.getNumberOfPages()) {
                 throw new RuntimeException("Failed: Page End > numberOfPages");
             }
 
             PDFTextStripper stripper = new PDFTextStripper();
 
-            if (pageStart == 0 && pageEnd == 0) {
+            if (docSettings.getStartPage() == 0 && docSettings.getEndPage() == 0) {
                 String content = stripper.getText(document);
                 document.close();
                 return content;
             }
 
-            stripper.setStartPage(pageStart);
-            stripper.setEndPage(pageEnd);
+            stripper.setStartPage(docSettings.getStartPage());
+            stripper.setEndPage(docSettings.getEndPage());
             String content = stripper.getText(document);
             document.close();
 
@@ -401,13 +436,12 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Encrypt one PDF file to data protection</p>
      *
-     * @param pdfPath (String: Path where the PDF file should be saved)
-     * @param password (String: key to use in the PDF encrypt)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @param docSettings (PdfBoxDocumentSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void pdfProtect(String pdfPath, String password) throws IOException {
-        protectPDF(pdfPath, password);
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfProtect(PdfBoxDocumentSettings docSettings) {
+        protectPDF(docSettings);
     }
 
     /**
@@ -415,13 +449,12 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Unprotect PDF file</p>
      *
-     * @param pdfSource (String: Path refer to PDF encrypted)
-     * @param currentPassword (String: key to use in the PDF decrypt)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @param docSettings (PdfBoxDocumentSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void pdfUnprotect(String pdfSource, String currentPassword) throws IOException {
-        unprotectPDF(pdfSource, currentPassword);
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfUnprotect(PdfBoxDocumentSettings docSettings) {
+        unprotectPDF(docSettings);
     }
 
     /**
@@ -429,21 +462,20 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Create a PDF file from image</p>
      *
-     * @param imagePath (String: Image path to PDF create)
-     * @param filenamePath (String: Path filename to save file)
-     * @param password (String: Password to protect file)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pageSettings (PdfBoxPageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * */
-    public static void pdfFromImage(String imagePath, String filenamePath, String password) {
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfFromImage(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
 
-        initPDF(filenamePath);
+        initPDF(docSettings.getFilenamePath());
 
-        File file = new File(filenamePath);
+        File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument document = PDDocument.load(file)) {
 
-            PDImageXObject image = PDImageXObject.createFromFile(imagePath, document);
+            PDImageXObject image = PDImageXObject.createFromFile(pageSettings.getImageFilepath(), document);
             image.setHeight(image.getHeight());
             image.setWidth(image.getWidth());
 
@@ -455,10 +487,10 @@ public class Help4DevsPdfBoxService {
             content.drawImage(image, 0, 0, image.getWidth(), image.getHeight());
             content.close();
 
-            document.save(filenamePath);
+            document.save(docSettings.getFilenamePath());
             document.close();
 
-            protectPDF(filenamePath, password);
+            protectPDF(docSettings);
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -493,7 +525,7 @@ public class Help4DevsPdfBoxService {
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      */
-    public static PdfBoxDetails pdfDetails(String filenamePath) {
+    public static PdfBoxDocumentDetails pdfDetails(String filenamePath) {
 
         File file = new File(filenamePath);
 
@@ -501,7 +533,7 @@ public class Help4DevsPdfBoxService {
 
             PDDocumentInformation information = document.getDocumentInformation();
 
-            PdfBoxDetails details = new PdfBoxDetails();
+            PdfBoxDocumentDetails details = new PdfBoxDocumentDetails();
             details.setNumberOfPages(document.getNumberOfPages());
             details.setProtected(document.isEncrypted());
             details.setPageSize(String.valueOf(information.getPropertyStringValue("Paper size")));
@@ -522,7 +554,6 @@ public class Help4DevsPdfBoxService {
     }
 
     @Getter
-    @NoArgsConstructor
     public enum PageSizeAvailable {
         A0(PDRectangle.A0),
         A1(PDRectangle.A1),
@@ -534,10 +565,127 @@ public class Help4DevsPdfBoxService {
         LEGAL(PDRectangle.LEGAL),
         LETTER(PDRectangle.LETTER);
 
-        private PDRectangle letter;
+        private final PDRectangle pageSize;
 
-        PageSizeAvailable(PDRectangle letter) {
-            this.letter = letter;
+        PageSizeAvailable(PDRectangle pageSize) {
+            this.pageSize = pageSize;
+        }
+
+        public static PDRectangle pageSize(String pageSize) {
+            if (PageSizeAvailable.valueOf(pageSize.toUpperCase()).getPageSize() != null) {
+                return PageSizeAvailable.valueOf(pageSize.toUpperCase()).getPageSize();
+            } else {
+                throw new RuntimeException("Invalid Page Size: use [A0,A1,A2,A3,A4,A5,A6,LEGAL,LETTER]");
+            }
+        }
+    }
+
+    @Getter
+    public enum ColorsAvailable {
+        WHITE(Color.WHITE),
+        RED(Color.RED),
+        GREEN(Color.GREEN),
+        BLUE(Color.BLUE),
+        BLACK(Color.BLACK),
+        GRAY(Color.GRAY),
+        PINK(Color.PINK),
+        YELLOW(Color.YELLOW),
+        ORANGE(Color.ORANGE),
+        CYAN(Color.CYAN),
+        MAGENTA(Color.MAGENTA);
+
+        private final Color colorName;
+
+        ColorsAvailable(Color colorName) {
+            this.colorName = colorName;
+        }
+
+        public static Color color(String colorName) {
+            if (ColorsAvailable.valueOf(colorName.toUpperCase()).getColorName() != null) {
+                return ColorsAvailable.valueOf(colorName.toUpperCase()).getColorName();
+            } else {
+                throw new RuntimeException("Invalid Color !");
+            }
+        }
+    }
+
+    @Getter
+    public enum FontAvailable {
+        ZAP(PDType1Font.ZAPF_DINGBATS),
+        SYMBOL(PDType1Font.SYMBOL),
+
+        TIMES(PDType1Font.TIMES_ROMAN),
+        TIMES_B(PDType1Font.TIMES_BOLD),
+        TIMES_I(PDType1Font.TIMES_ITALIC),
+        TIMES_BI(PDType1Font.TIMES_BOLD_ITALIC),
+
+        COURIER(PDType1Font.COURIER),
+        COURIER_B(PDType1Font.COURIER_BOLD),
+        COURIER_I(PDType1Font.COURIER_OBLIQUE),
+        COURIER_BI(PDType1Font.COURIER_BOLD_OBLIQUE),
+
+        HELVETICA(PDType1Font.HELVETICA),
+        HELVETICA_B(PDType1Font.HELVETICA_BOLD),
+        HELVETICA_I(PDType1Font.HELVETICA_OBLIQUE),
+        HELVETICA_BI(PDType1Font.HELVETICA_BOLD_OBLIQUE);
+
+        private final PDType1Font fontName;
+
+        FontAvailable(PDType1Font fontName) {
+            this.fontName = fontName;
+        }
+
+        public static PDType1Font fontName(String colorName) {
+            if (FontAvailable.valueOf(colorName.toUpperCase()).getFontName() != null) {
+                return FontAvailable.valueOf(colorName.toUpperCase()).getFontName();
+            } else {
+                throw new RuntimeException("Invalid Font Name !");
+            }
+        }
+    }
+
+    @Getter
+    public enum FontSize {
+        X_SMALL(5),
+        SMALL(8),
+        NORMAL(12),
+        MEDIUM(16),
+        LARGE(24),
+        X_LARGE(45);
+
+        private final int fontSize;
+
+        FontSize(int fontSize) {
+            this.fontSize = fontSize;
+        }
+
+        public static int fontSize(String fontSize) {
+            if (FontSize.valueOf(fontSize.toUpperCase()).getFontSize() > 0) {
+                return FontSize.valueOf(fontSize.toUpperCase()).getFontSize();
+            } else {
+                throw new RuntimeException("Invalid Font Size !");
+            }
+        }
+    }
+
+    @Getter
+    public enum ProtectionLevel {
+        LOW(64),
+        MIDDLE(128),
+        HIGH(256);
+
+        private final int protectionLevel;
+
+        ProtectionLevel(int protectionLevel) {
+            this.protectionLevel = protectionLevel;
+        }
+
+        public static int protectionLevel(String fontSize) {
+            if (ProtectionLevel.valueOf(fontSize.toUpperCase()).getProtectionLevel() > 0) {
+                return ProtectionLevel.valueOf(fontSize.toUpperCase()).getProtectionLevel();
+            } else {
+                throw new RuntimeException("Invalid Protection Level !");
+            }
         }
     }
 
@@ -546,38 +694,117 @@ public class Help4DevsPdfBoxService {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class PdfBoxDetails {
+    public static class PdfBoxDocumentDetails {
         int numberOfPages;
         boolean isProtected;
-        String pageSize;
+        boolean hasSignature;
+        String date;
         String title;
+        String author;
+        String subject;
+        String pageSize;
         String fontName;
         String fontSize;
-        String author;
-        String date;
-        String subject;
         String keywords;
+        String signature;
+        String documentId;
     }
 
     @Getter
     @Setter
+    @ToString
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class PdfBoxSettings {
-        int lineHeight;
-        int pageNumber;
-        int offsetX;
-        int offsetY;
-        int width;
-        int height;
+    public static class PdfBoxDocumentSettings {
+        int startPage;
+        int endPage;
+        int numberOfPages;
+        String date;
         String title;
+        String author;
+        String subject;
         String fontName;
         String fontSize;
-        String author;
-        String date;
-        String subject;
         String keywords;
-        String password;
+        String userPassword;
+        String ownerPassword;
+        String protectionLevel;
+        String signature;
+        String filenamePath;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxPageSettings {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        int lineHeight;
+        int pageNumber;
+        int margin;
+        int padding;
+        byte[] byteContent;
+        String pageSize;
+        String fontName;
+        String fontSize;
+        String fontColor;
+        String pageColor;
+        String textContent;
+        String imageFilepath;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxRectangleSettings {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        boolean border;
+        boolean roundedBorder;
+        String backColor;
+        String borderColor;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxTextSettings {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        int lineHeight;
+        int letterSpace;
+        boolean bold;
+        boolean italic;
+        boolean underline;
+        String fontName;
+        String fontSize;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxImageSettings {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        int maxWidth;
+        int maxHeight;
+        boolean border;
     }
 
 }
