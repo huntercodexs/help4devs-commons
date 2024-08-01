@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
-import static com.huntercodexs.demo.services.Help4DevsPDFService.*;
+import static com.huntercodexs.demo.services.Help4DevsPdfItextService.*;
 import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
 
-public class Help4DevsPDFUnitaryTests extends Help4DevsBridgeTests {
+public class Help4DevsPdfItextUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfCreateTest() throws IOException {

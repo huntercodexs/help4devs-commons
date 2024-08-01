@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * */
 @Slf4j
 @Service
-public class Help4DevsPDFService {
+public class Help4DevsPdfItextService {
 
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">pdfCreate</h6>
