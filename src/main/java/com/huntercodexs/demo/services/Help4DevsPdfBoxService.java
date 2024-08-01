@@ -22,12 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsAvailable.color;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontAvailable.fontName;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSize.fontSize;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevel.protectionLevel;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsToPdfBox.color;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
 
 /**
  * This class use as "pdfbox 2.0.0" base process to PDF files handler
@@ -73,15 +72,16 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    private static void addPDF(String filenamePath) {
+    private static void addPDF(PdfBoxDocumentSettings docSettings) {
 
-        File file = new File(filenamePath);
+        File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument documentCreator = PDDocument.load(file)) {
+        try (PDDocument documentCreator = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             PDPage page = new PDPage();
             documentCreator.addPage(page);
-            documentCreator.save(filenamePath);
+            documentCreator.setAllSecurityToBeRemoved(true);
+            documentCreator.save(docSettings.getFilenamePath());
             documentCreator.close();
 
         } catch (IOException ioe) {
@@ -199,7 +199,7 @@ public class Help4DevsPdfBoxService {
 
         File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument document = PDDocument.load(file)) {
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             AccessPermission accessPermission = permissionPDF(true);
 
@@ -257,7 +257,7 @@ public class Help4DevsPdfBoxService {
         }
 
         if (pageSettings.getPageNumber() > 0) {
-            addPDF(filenamePath);
+            addPDF(docSettings);
         } else {
             initPDF(filenamePath);
         }
@@ -271,13 +271,17 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Add an image to a PDF file</p>
      *
-     * @param docSettings (PdfBoxDocumentSettings)
+     * @param docSettings  (PdfBoxDocumentSettings)
      * @param pageSettings (PdfBoxPageSettings)
+     * @param imgSettings (PdfBoxImageSettings)
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
      */
-    public static void pdfAddImage(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
-
+    public static void pdfAddImage(
+            PdfBoxDocumentSettings docSettings,
+            PdfBoxPageSettings pageSettings,
+            PdfBoxImageSettings imgSettings
+    ) {
         File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument document = PDDocument.load(file)) {
@@ -302,7 +306,13 @@ public class Help4DevsPdfBoxService {
             contentStream.endText();
 
             PDImageXObject pdImageXObject = PDImageXObject.createFromFile(pageSettings.getImageFilepath(), document);
-            contentStream.drawImage(pdImageXObject, 25, 150);
+
+            if (imgSettings.isResize()) {
+                pdImageXObject.setWidth(imgSettings.getWidth());
+                pdImageXObject.setHeight(imgSettings.getHeight());
+            }
+
+            contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
             contentStream.close();
 
             document.save(docSettings.getFilenamePath());
@@ -351,8 +361,10 @@ public class Help4DevsPdfBoxService {
             contentStream = contentStream(
                     "rec-fill", page, document, pageSettings, rectSettings, contentStream);
 
-            contentStream = contentStream(
-                    "rec-border", page, document, pageSettings, rectSettings, contentStream);
+            if (rectSettings.isBorder()) {
+                contentStream = contentStream(
+                        "rec-border", page, document, pageSettings, rectSettings, contentStream);
+            }
 
             contentStream = contentStream(
                     "begin", page, document, pageSettings, rectSettings, contentStream);
@@ -509,9 +521,7 @@ public class Help4DevsPdfBoxService {
      * @author huntercodexs (powered by jereelton-devel)
      * @implNote For Windows + MS Office Word
      * */
-    public static void pdfFromDoc(String docPath, String filenamePath)
-            throws IOException, ExecutionException, InterruptedException
-    {
+    public static void pdfFromDoc(String docPath, String filenamePath) {
         /*TODO*/
     }
 
@@ -554,7 +564,7 @@ public class Help4DevsPdfBoxService {
     }
 
     @Getter
-    public enum PageSizeAvailable {
+    public enum PageSizeToPdfBox {
         A0(PDRectangle.A0),
         A1(PDRectangle.A1),
         A2(PDRectangle.A2),
@@ -567,50 +577,49 @@ public class Help4DevsPdfBoxService {
 
         private final PDRectangle pageSize;
 
-        PageSizeAvailable(PDRectangle pageSize) {
+        PageSizeToPdfBox(PDRectangle pageSize) {
             this.pageSize = pageSize;
         }
 
-        public static PDRectangle pageSize(String pageSize) {
-            if (PageSizeAvailable.valueOf(pageSize.toUpperCase()).getPageSize() != null) {
-                return PageSizeAvailable.valueOf(pageSize.toUpperCase()).getPageSize();
-            } else {
-                throw new RuntimeException("Invalid Page Size: use [A0,A1,A2,A3,A4,A5,A6,LEGAL,LETTER]");
-            }
+        public static PDRectangle pageSize(PageSizeToPdfBox pageSize) {
+            return pageSize.getPageSize();
         }
     }
 
     @Getter
-    public enum ColorsAvailable {
-        WHITE(Color.WHITE),
-        RED(Color.RED),
-        GREEN(Color.GREEN),
-        BLUE(Color.BLUE),
-        BLACK(Color.BLACK),
-        GRAY(Color.GRAY),
-        PINK(Color.PINK),
-        YELLOW(Color.YELLOW),
-        ORANGE(Color.ORANGE),
-        CYAN(Color.CYAN),
-        MAGENTA(Color.MAGENTA);
+    public enum ColorsToPdfBox {
+        WHITE(new Color(255, 255, 255)),
+        RED(new Color(255, 0, 0)),
+        GREEN(new Color(0, 255, 0)),
+        GREEN2(new Color(26, 188, 156)),
+        BLUE(new Color(0, 0, 255)),
+        BLUE2(new Color(51,181,255)),
+        BLUE3(new Color(78, 120, 149)),
+        BLACK(new Color(0, 0, 0)),
+        GRAY(new Color(128, 128, 128)),
+        LIGHT_GRAY(new Color(192, 192, 192)),
+        ICE(new Color(235, 235, 235)),
+        PURPLE(new Color(173, 108, 227)),
+        GOLD(new Color(255, 215, 0)),
+        PINK(new Color(231, 6, 176)),
+        YELLOW(new Color(255, 255, 0)),
+        ORANGE(new Color(250, 123, 24)),
+        CYAN(new Color(0, 255, 255)),
+        MAGENTA(new Color(255,0,255));
 
         private final Color colorName;
 
-        ColorsAvailable(Color colorName) {
+        ColorsToPdfBox(Color colorName) {
             this.colorName = colorName;
         }
 
-        public static Color color(String colorName) {
-            if (ColorsAvailable.valueOf(colorName.toUpperCase()).getColorName() != null) {
-                return ColorsAvailable.valueOf(colorName.toUpperCase()).getColorName();
-            } else {
-                throw new RuntimeException("Invalid Color !");
-            }
+        public static Color color(ColorsToPdfBox colorName) {
+            return colorName.getColorName();
         }
     }
 
     @Getter
-    public enum FontAvailable {
+    public enum FontNameToPdfBox {
         ZAP(PDType1Font.ZAPF_DINGBATS),
         SYMBOL(PDType1Font.SYMBOL),
 
@@ -631,21 +640,17 @@ public class Help4DevsPdfBoxService {
 
         private final PDType1Font fontName;
 
-        FontAvailable(PDType1Font fontName) {
+        FontNameToPdfBox(PDType1Font fontName) {
             this.fontName = fontName;
         }
 
-        public static PDType1Font fontName(String colorName) {
-            if (FontAvailable.valueOf(colorName.toUpperCase()).getFontName() != null) {
-                return FontAvailable.valueOf(colorName.toUpperCase()).getFontName();
-            } else {
-                throw new RuntimeException("Invalid Font Name !");
-            }
+        public static PDType1Font fontName(FontNameToPdfBox fontName) {
+            return fontName.getFontName();
         }
     }
 
     @Getter
-    public enum FontSize {
+    public enum FontSizeToPdfBox {
         X_SMALL(5),
         SMALL(8),
         NORMAL(12),
@@ -655,37 +660,29 @@ public class Help4DevsPdfBoxService {
 
         private final int fontSize;
 
-        FontSize(int fontSize) {
+        FontSizeToPdfBox(int fontSize) {
             this.fontSize = fontSize;
         }
 
-        public static int fontSize(String fontSize) {
-            if (FontSize.valueOf(fontSize.toUpperCase()).getFontSize() > 0) {
-                return FontSize.valueOf(fontSize.toUpperCase()).getFontSize();
-            } else {
-                throw new RuntimeException("Invalid Font Size !");
-            }
+        public static int fontSize(FontSizeToPdfBox fontSize) {
+            return fontSize.getFontSize();
         }
     }
 
     @Getter
-    public enum ProtectionLevel {
+    public enum ProtectionLevelToPdfBox {
         LOW(64),
         MIDDLE(128),
         HIGH(256);
 
         private final int protectionLevel;
 
-        ProtectionLevel(int protectionLevel) {
+        ProtectionLevelToPdfBox(int protectionLevel) {
             this.protectionLevel = protectionLevel;
         }
 
-        public static int protectionLevel(String fontSize) {
-            if (ProtectionLevel.valueOf(fontSize.toUpperCase()).getProtectionLevel() > 0) {
-                return ProtectionLevel.valueOf(fontSize.toUpperCase()).getProtectionLevel();
-            } else {
-                throw new RuntimeException("Invalid Protection Level !");
-            }
+        public static int protectionLevel(ProtectionLevelToPdfBox protectionLevel) {
+            return protectionLevel.getProtectionLevel();
         }
     }
 
@@ -723,12 +720,12 @@ public class Help4DevsPdfBoxService {
         String title;
         String author;
         String subject;
-        String fontName;
-        String fontSize;
+        FontNameToPdfBox fontName;
+        FontSizeToPdfBox fontSize;
         String keywords;
         String userPassword;
         String ownerPassword;
-        String protectionLevel;
+        ProtectionLevelToPdfBox protectionLevel;
         String signature;
         String filenamePath;
     }
@@ -748,11 +745,11 @@ public class Help4DevsPdfBoxService {
         int margin;
         int padding;
         byte[] byteContent;
-        String pageSize;
-        String fontName;
-        String fontSize;
-        String fontColor;
-        String pageColor;
+        PageSizeToPdfBox pageSize;
+        FontNameToPdfBox fontName;
+        FontSizeToPdfBox fontSize;
+        ColorsToPdfBox fontColor;
+        ColorsToPdfBox pageColor;
         String textContent;
         String imageFilepath;
     }
@@ -769,8 +766,8 @@ public class Help4DevsPdfBoxService {
         int offsetY;
         boolean border;
         boolean roundedBorder;
-        String backColor;
-        String borderColor;
+        ColorsToPdfBox backColor;
+        ColorsToPdfBox borderColor;
     }
 
     @Getter
@@ -805,6 +802,7 @@ public class Help4DevsPdfBoxService {
         int maxWidth;
         int maxHeight;
         boolean border;
+        boolean resize;
     }
 
 }
