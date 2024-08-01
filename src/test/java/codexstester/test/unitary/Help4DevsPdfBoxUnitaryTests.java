@@ -13,6 +13,8 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.*;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageQualityToPdfBox.imageQuality;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
 
@@ -23,6 +25,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     private final static String filepathTargetPassword = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-password.pdf";
     private final static String imagePath = "./src/test/resources/help4devs/images/ads/file.png";
     private final static String imagePathAds = "./src/test/resources/help4devs/images/ads/img.png";
+    private final static String userPassword = "123456";
+    private final static String ownerPassword = "password";
 
     private PdfBoxDocumentSettings documentSettings() {
         PdfBoxDocumentSettings settings = new PdfBoxDocumentSettings();
@@ -51,7 +55,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setOffsetX(25);
         settings.setOffsetY(750);
         settings.setLineHeight(18);
-        settings.setPageNumber(0);
+        settings.setPageNumber(1);
         settings.setMargin(0);
         settings.setPadding(0);
         settings.setPageSize(PageSizeToPdfBox.A4);
@@ -104,6 +108,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setMaxHeight(780);
         settings.setBorder(false);
         settings.setResize(false);
+        settings.setImageType(ImageTypeToPdfBox.JPEG);
         return settings;
     }
 
@@ -276,6 +281,45 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void imageTypeTest() {
+        String imageType = imageType(ImageTypeToPdfBox.JPEG);
+        codexsTesterAssertExact("JPEG", imageType);
+
+        imageType = imageType(ImageTypeToPdfBox.JPG);
+        codexsTesterAssertExact("JPEG", imageType);
+
+        imageType = imageType(ImageTypeToPdfBox.PNG);
+        codexsTesterAssertExact("PNG", imageType);
+
+        imageType = imageType(ImageTypeToPdfBox.GIF);
+        codexsTesterAssertExact("GIF", imageType);
+
+        imageType = imageType(ImageTypeToPdfBox.TIFF);
+        codexsTesterAssertExact("TIFF", imageType);
+
+        imageType = imageType(ImageTypeToPdfBox.BMP);
+        codexsTesterAssertExact("BMP", imageType);
+    }
+
+    @Test
+    public void imageQualityTest() {
+        int imageQuality = imageQuality(ImageQualityToPdfBox.LOW);
+        codexsTesterAssertInt(50, imageQuality);
+
+        imageQuality = imageQuality(ImageQualityToPdfBox.NORMAL);
+        codexsTesterAssertInt(120, imageQuality);
+
+        imageQuality = imageQuality(ImageQualityToPdfBox.GOOD);
+        codexsTesterAssertInt(300, imageQuality);
+
+        imageQuality = imageQuality(ImageQualityToPdfBox.ULTRA);
+        codexsTesterAssertInt(500, imageQuality);
+
+        imageQuality = imageQuality(ImageQualityToPdfBox.SUPER);
+        codexsTesterAssertInt(800, imageQuality);
+    }
+
+    @Test
     public void pdfCreateTest() throws IOException {
         String data = binFile(filepathSource);
 
@@ -285,7 +329,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         docSet.setNumberOfPages(3);
 
         for (int i = 0; i < docSet.getNumberOfPages(); i++) {
-            pageSet.setTextContent("PAGE-" + i + ":\n" + data);
+            pageSet.setTextContent("PAGE-" + (i+1) + ":\n" + data);
             pageSet.setPageNumber(i);
             pdfCreate(docSet, pageSet);
         }
@@ -300,11 +344,11 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
         docSet.setFilenamePath(filepathTargetPassword);
         docSet.setNumberOfPages(3);
-        docSet.setUserPassword("123456");
-        docSet.setOwnerPassword("password");
+        docSet.setUserPassword(userPassword);
+        docSet.setOwnerPassword(ownerPassword);
 
         for (int i = 0; i < docSet.getNumberOfPages(); i++) {
-            pageSet.setTextContent("PAGE-" + i + ":\n" + data);
+            pageSet.setTextContent("PAGE-" + (i+1) + ":\n" + data);
             pageSet.setPageNumber(i);
             pdfCreate(docSet, pageSet);
         }
@@ -316,7 +360,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         PdfBoxPageSettings pageSet = pageSettings();
         PdfBoxImageSettings imgSet = imageSettings();
 
-        pageSet.setPageNumber(0);
+        pageSet.setPageNumber(1);
         pageSet.setImageFilepath(imagePath);
 
         imgSet.setWidth(500);
@@ -405,17 +449,24 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void pdfProtectTest() {
         PdfBoxDocumentSettings docSet = documentSettings();
-        docSet.setUserPassword("123456");
-        docSet.setOwnerPassword("password");
+        docSet.setUserPassword(userPassword);
+        docSet.setOwnerPassword(ownerPassword);
         pdfProtect(docSet);
     }
 
     @Test
     public void pdfUnprotectTest() {
         PdfBoxDocumentSettings docSet = documentSettings();
-        docSet.setUserPassword("123456");
-        docSet.setOwnerPassword("password");
+        docSet.setUserPassword(userPassword);
+        docSet.setOwnerPassword(ownerPassword);
         pdfUnprotect(docSet);
+    }
+
+    @Test
+    public void pdfDetailsTest() {
+        String filenamePath = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf";
+        PdfBoxDocumentDetails details = pdfDetails(filenamePath);
+        System.out.println(details);
     }
 
     @Test
@@ -426,7 +477,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         docSet.setOwnerPassword("");
 
         PdfBoxPageSettings pageSet = pageSettings();
-        pageSet.setPageNumber(0);
+        pageSet.setPageNumber(1);
         pageSet.setImageFilepath(imagePathAds);
 
         pdfFromImage(docSet, pageSet);
@@ -436,26 +487,44 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     public void pdfFromImageUsingPasswordTest() {
         PdfBoxDocumentSettings docSet = documentSettings();
         docSet.setFilenamePath("./src/test/resources/help4devs/files/pdf/my-pdfbox-from-image-password.pdf");
-        docSet.setUserPassword("123456");
-        docSet.setOwnerPassword("password");
+        docSet.setUserPassword(userPassword);
+        docSet.setOwnerPassword(ownerPassword);
 
         PdfBoxPageSettings pageSet = pageSettings();
-        pageSet.setPageNumber(0);
+        pageSet.setPageNumber(1);
         pageSet.setImageFilepath(imagePathAds);
 
         pdfFromImage(docSet, pageSet);
     }
 
     @Test
-    public void pdfFromDocTest() {
-        /*TODO*/
+    public void pdfToImageTest() {
+        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxPageSettings pageSet = pageSettings();
+        PdfBoxImageSettings imageSet = imageSettings();
+
+        docSet.setFilenamePath(filepathTarget);
+        docSet.setUserPassword(userPassword);
+
+        imageSet.setImageQuality(ImageQualityToPdfBox.NORMAL);
+        imageSet.setImageType(ImageTypeToPdfBox.JPEG);
+
+        //Specific page
+        //pageSet.setPageNumber(1);
+        //imageSet.setFilenamePath("./src/test/resources/help4devs/images/ads/exported-NORMAL.jpg");
+        //pdfToImage(docSet, pageSet, imageSet);
+
+        //Whole document
+        for (int k = 1; k < 4; k++) {
+            pageSet.setPageNumber(k);
+            imageSet.setFilenamePath("./src/test/resources/help4devs/images/ads/exported-NORMAL-"+k+".jpg");
+            pdfToImage(docSet, pageSet, imageSet);
+        }
     }
 
     @Test
-    public void pdfDetailsTest() {
-        String filenamePath = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf";
-        PdfBoxDocumentDetails details = pdfDetails(filenamePath);
-        System.out.println(details);
+    public void pdfFromDocTest() {
+        /*TODO*/
     }
 
 }

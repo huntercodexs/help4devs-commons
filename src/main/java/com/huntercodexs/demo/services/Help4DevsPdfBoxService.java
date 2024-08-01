@@ -11,10 +11,14 @@ import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -26,6 +30,8 @@ import java.util.UUID;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageQualityToPdfBox.imageQuality;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
 
 /**
@@ -155,7 +161,7 @@ public class Help4DevsPdfBoxService {
 
             propertiesPDF(document, docSettings);
 
-            PDPage page = document.getPage(pageSettings.getPageNumber());
+            PDPage page = document.getPage(pageSettings.getPageNumber()-1);
 
             PDPageContentStream contentStream = contentStream(
                     "begin", page, document, pageSettings, null, null);
@@ -256,7 +262,7 @@ public class Help4DevsPdfBoxService {
             docSettings.setFilenamePath(filenamePath);
         }
 
-        if (pageSettings.getPageNumber() > 0) {
+        if ((pageSettings.getPageNumber()-1) > 0) {
             addPDF(docSettings);
         } else {
             initPDF(filenamePath);
@@ -286,11 +292,11 @@ public class Help4DevsPdfBoxService {
 
         try (PDDocument document = PDDocument.load(file)) {
 
-            PDPage page = document.getPage(pageSettings.getPageNumber());
+            PDPage page = document.getPage(pageSettings.getPageNumber()-1);
 
             PDFTextStripper stripper = new PDFTextStripper();
-            stripper.setStartPage(pageSettings.getPageNumber());
-            stripper.setEndPage(pageSettings.getPageNumber()+1);
+            stripper.setStartPage(pageSettings.getPageNumber()-1);
+            stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
             String content = stripper.getText(document);
 
             PDPageContentStream contentStream = contentStream(
@@ -348,11 +354,11 @@ public class Help4DevsPdfBoxService {
 
         try (PDDocument document = PDDocument.load(file)) {
 
-            PDPage page = document.getPage(pageSettings.getPageNumber());
+            PDPage page = document.getPage(pageSettings.getPageNumber()-1);
 
             PDFTextStripper stripper = new PDFTextStripper();
-            stripper.setStartPage(pageSettings.getPageNumber()+1);
-            stripper.setEndPage(pageSettings.getPageNumber()+1);
+            stripper.setStartPage((pageSettings.getPageNumber()-1)+1);
+            stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
             String content = stripper.getText(document);
 
             PDPageContentStream contentStream = contentStream(
@@ -470,6 +476,44 @@ public class Help4DevsPdfBoxService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfDetails</h6>
+     *
+     * <p style="color: #CDCDCD">Get details from one PDF file</p>
+     *
+     * @param filenamePath (String: Location where the PDF file is placed)
+     * @return String (PDF Content)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     */
+    public static PdfBoxDocumentDetails pdfDetails(String filenamePath) {
+
+        File file = new File(filenamePath);
+
+        try (PDDocument document = PDDocument.load(file)) {
+
+            PDDocumentInformation information = document.getDocumentInformation();
+
+            PdfBoxDocumentDetails details = new PdfBoxDocumentDetails();
+            details.setNumberOfPages(document.getNumberOfPages());
+            details.setProtected(document.isEncrypted());
+            details.setPageSize(String.valueOf(information.getPropertyStringValue("Paper size")));
+            details.setTitle(information.getTitle());
+            details.setFontName(null);
+            details.setFontSize(null);
+            details.setAuthor(information.getAuthor());
+            details.setDate(String.valueOf(information.getCreationDate().getTime()));
+            details.setSubject(information.getSubject());
+            details.setKeywords(information.getKeywords());
+
+            return details;
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">pdfFromImage</h6>
      *
      * <p style="color: #CDCDCD">Create a PDF file from image</p>
@@ -511,6 +555,58 @@ public class Help4DevsPdfBoxService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfToImage</h6>
+     *
+     * <p style="color: #CDCDCD">Export a PDF file to image</p>
+     *
+     * To export whole PDF document to IMAGE file you can pass the value 0
+     * in the argument pageSettings.pageNumber
+     *
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pageSettings (PdfBoxPageSettings)
+     * @param imageSettings (PdfBoxImageSettings)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     */
+    public static void pdfToImage(
+            PdfBoxDocumentSettings docSettings,
+            PdfBoxPageSettings pageSettings,
+            PdfBoxImageSettings imageSettings
+    ) {
+        File file = new File(docSettings.getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
+
+            if (imageSettings.getImageQuality() == null) {
+                imageSettings.setImageQuality(ImageQualityToPdfBox.NORMAL);
+            }
+
+            if (imageSettings.getImageType() == null) {
+                imageSettings.setImageType(ImageTypeToPdfBox.JPEG);
+            }
+
+            if (pageSettings.getPageNumber() <= 0) {
+                pageSettings.setPageNumber(1);
+            }
+
+            PDFRenderer renderer = new PDFRenderer(document);
+            BufferedImage image = renderer.renderImageWithDPI(
+                    pageSettings.getPageNumber()-1,
+                    imageQuality(imageSettings.getImageQuality()),
+                    ImageType.RGB);
+
+            File fileImage = new File(imageSettings.getFilenamePath());
+            ImageIO.write(image, imageType(imageSettings.getImageType()), fileImage);
+
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">pdfFromDoc</h6>
      *
      * <p style="color: #CDCDCD">Create a PDF file from doc</p>
@@ -523,44 +619,6 @@ public class Help4DevsPdfBoxService {
      * */
     public static void pdfFromDoc(String docPath, String filenamePath) {
         /*TODO*/
-    }
-
-    /**
-     * <h6 style="color: #FFFF00; font-size: 11px">pdfDetails</h6>
-     *
-     * <p style="color: #CDCDCD">Get details from one PDF file</p>
-     *
-     * @param filenamePath (String: Location where the PDF file is placed)
-     * @return String (PDF Content)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
-     * @author huntercodexs (powered by jereelton-devel)
-     */
-    public static PdfBoxDocumentDetails pdfDetails(String filenamePath) {
-
-        File file = new File(filenamePath);
-
-        try (PDDocument document = PDDocument.load(file)) {
-
-            PDDocumentInformation information = document.getDocumentInformation();
-
-            PdfBoxDocumentDetails details = new PdfBoxDocumentDetails();
-            details.setNumberOfPages(document.getNumberOfPages());
-            details.setProtected(document.isEncrypted());
-            details.setPageSize(String.valueOf(information.getPropertyStringValue("Paper size")));
-            details.setTitle(information.getTitle());
-            details.setFontName(null);
-            details.setFontSize(null);
-            details.setAuthor(information.getAuthor());
-            details.setDate(String.valueOf(information.getCreationDate().getTime()));
-            details.setSubject(information.getSubject());
-            details.setKeywords(information.getKeywords());
-
-            return details;
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-
     }
 
     @Getter
@@ -687,6 +745,45 @@ public class Help4DevsPdfBoxService {
     }
 
     @Getter
+    public enum ImageTypeToPdfBox {
+        JPEG("JPEG"),
+        JPG("JPEG"),
+        PNG("PNG"),
+        GIF("GIF"),
+        TIFF("TIFF"),
+        BMP("BMP");
+
+        private final String imageType;
+
+        ImageTypeToPdfBox(String imageType) {
+            this.imageType = imageType;
+        }
+
+        public static String imageType(ImageTypeToPdfBox imageType) {
+            return imageType.getImageType();
+        }
+    }
+
+    @Getter
+    public enum ImageQualityToPdfBox {
+        LOW(50),
+        NORMAL(120),
+        GOOD(300),
+        ULTRA(500),
+        SUPER(800);
+
+        private final int imageQuality;
+
+        ImageQualityToPdfBox(int imageQuality) {
+            this.imageQuality = imageQuality;
+        }
+
+        public static int imageQuality(ImageQualityToPdfBox imageQuality) {
+            return imageQuality.getImageQuality();
+        }
+    }
+
+    @Getter
     @Setter
     @ToString
     @AllArgsConstructor
@@ -803,6 +900,9 @@ public class Help4DevsPdfBoxService {
         int maxHeight;
         boolean border;
         boolean resize;
+        String filenamePath;
+        ImageTypeToPdfBox imageType;
+        ImageQualityToPdfBox imageQuality;
     }
 
 }
