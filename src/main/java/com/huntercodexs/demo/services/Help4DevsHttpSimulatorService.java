@@ -1241,7 +1241,7 @@ public class Help4DevsHttpSimulatorService {
      * @param httpCode (int: The HTTP Code to simulate)
      * @param throwable (boolean: Means if to simulate a throw exception)
      * @param responseSimulate (Object: The field value)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static HttpClientErrorException restResponseSimulate(
@@ -1700,7 +1700,7 @@ public class Help4DevsHttpSimulatorService {
      * <p style="color: #CDCDCD">Extract the data content from HTTP Response</p>
      *
      * @param hc (HttpStatusCodeException)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String httpResponseErrorExtractor(HttpStatusCodeException hc) {

@@ -23,7 +23,7 @@ import java.util.List;
  *      <br />Help4DevsOauth2Service help4DevsOauth2Service = new Help4DevsOauth2Service()
  * </p>
  *
- * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+ * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
  * @author huntercodexs (powered by jereelton-devel)
  * */
 @Setter
@@ -127,7 +127,7 @@ public class Help4DevsOauth2Service {
      * <p style="color: #CDCDCD">Get a token from an OAUTH2 Server</p>
      *
      * @return String (OAuth2 Token)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public String token() {
@@ -146,7 +146,7 @@ public class Help4DevsOauth2Service {
      * <p style="color: #CDCDCD">Check a token from an OAUTH2 Server</p>
      *
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public boolean check() {

@@ -18,7 +18,7 @@ public class Help4DevsStringHandlerService {
      * @param str (String: Data to repeat)
      * @param len (int: Quantity to repeat a str)
      * @return String (A Data repeated n times according len parameter)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String repeat(String str, int len) {
@@ -36,7 +36,7 @@ public class Help4DevsStringHandlerService {
      *
      * @param str (String: Data to reverse)
      * @return String (Data reversed)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String reverse(String str) {
@@ -54,7 +54,7 @@ public class Help4DevsStringHandlerService {
      *
      * @param input (Object: Data input to create a query string)
      * @return String (Query string created)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String queryStringBuilder(Object input) {
@@ -81,7 +81,7 @@ public class Help4DevsStringHandlerService {
      * @param queryString (String: Query string to extract field)
      * @param field (String: Field to extract from Query String)
      * @return Object (Field found)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static Object getDataFromQueryString(String queryString, String field) {
@@ -102,7 +102,7 @@ public class Help4DevsStringHandlerService {
      *
      * @param input (String: Query string)
      * @return JSONObject (Data Json)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static JSONObject queryStringToJson(String input) {
@@ -128,7 +128,7 @@ public class Help4DevsStringHandlerService {
      *
      * @param str (String: Query string)
      * @return JSONObject (Data Json)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static JSONObject stringToJson(String str) {
@@ -163,7 +163,7 @@ public class Help4DevsStringHandlerService {
      * @param input (String: String to sanitize)
      * @param letterType (String: Output format type [upper, lower])
      * @return String (Data Json)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String sanitizeAscii(String input, String letterType) {
@@ -193,7 +193,7 @@ public class Help4DevsStringHandlerService {
      * @param begin (int: Initial position to cut)
      * @param end (int: Final position to cut)
      * @return String (Data cut)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String queryExtractor(String input, int begin, int end) {

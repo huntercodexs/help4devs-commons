@@ -53,7 +53,7 @@ public enum UfTable {
      *
      * @param uf (String: the identification code of state - federate unity)
      * @return int (UF Code)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static int ufCode(String uf) {
@@ -67,7 +67,7 @@ public enum UfTable {
      *
      * @param uf (String: the identification code of state - federate unity)
      * @return String (UF name)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String stateName(String uf) {
@@ -81,7 +81,7 @@ public enum UfTable {
      *
      * @param uf (String: the identification code of state - federate unity)
      * @return String (UF name without points or special characters)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String stateNameClear(String uf) {
@@ -95,7 +95,7 @@ public enum UfTable {
      *
      * @param uf (String: the identification code of state - federate unity)
      * @return String (RG state name)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String rgSspCode(String uf) {
@@ -109,7 +109,7 @@ public enum UfTable {
      *
      * @param uf (String: the identification code of state - federate unity)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean checkUfExists(String uf) {
@@ -128,7 +128,7 @@ public enum UfTable {
      *
      * @param code (String)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean checkUfCodeExists(String code) {
@@ -147,7 +147,7 @@ public enum UfTable {
      *
      * @param ufName (String)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean checkUfNameExists(String ufName) {
@@ -166,7 +166,7 @@ public enum UfTable {
      *
      * @param rgsSsp (String)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean checkRgSspExists(String rgsSsp) {

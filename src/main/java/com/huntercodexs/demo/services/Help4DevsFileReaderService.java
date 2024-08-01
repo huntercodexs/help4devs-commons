@@ -21,7 +21,7 @@ public class Help4DevsFileReaderService {
      * @param regex (String: The regular expression to interrupt the file reader process)
      * @param timeout (String: Time to automatically stop the file reader process)
      * @return String (File Content based on regular expression)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String awaitFileContent(String filepath, String regex, int timeout) throws Exception {

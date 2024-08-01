@@ -25,7 +25,7 @@ import static com.huntercodexs.demo.services.Help4DevsToolsService.infoLog;
  *      <br />Help4DevsHttpClientService help4DevsHttpClientService = new Help4DevsHttpClientService()
  * </p>
  *
- * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+ * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
  * @author huntercodexs (powered by jereelton-devel)
  * */
 @Slf4j
@@ -79,7 +79,7 @@ public class Help4DevsHttpClientService {
      *
      * @param headerName (String: The field name)
      * @param headerValue (String: The field value)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void setHeaderList(String headerName, String headerValue) {
@@ -98,7 +98,7 @@ public class Help4DevsHttpClientService {
      * </p>
      *
      * @return Help4DevsHttpClientService (this)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public Help4DevsHttpClientService setHttpMethod() {
@@ -110,7 +110,7 @@ public class Help4DevsHttpClientService {
      *
      * <p style="color: #CDCDCD">HTTP METHOD GET</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void httpGet() {
@@ -122,7 +122,7 @@ public class Help4DevsHttpClientService {
      *
      * <p style="color: #CDCDCD">HTTP METHOD POST</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void httpPost() {
@@ -134,7 +134,7 @@ public class Help4DevsHttpClientService {
      *
      * <p style="color: #CDCDCD">HTTP METHOD DELETE</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void httpDelete() {
@@ -146,7 +146,7 @@ public class Help4DevsHttpClientService {
      *
      * <p style="color: #CDCDCD">HTTP METHOD PUT</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void httpPut() {
@@ -158,7 +158,7 @@ public class Help4DevsHttpClientService {
      *
      * <p style="color: #CDCDCD">HTTP METHOD PATCH</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void httpPatch() {
@@ -170,7 +170,7 @@ public class Help4DevsHttpClientService {
      *
      * <p style="color: #CDCDCD">HTTP METHOD OPTIONS</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void httpOptions() {
@@ -182,7 +182,7 @@ public class Help4DevsHttpClientService {
      *
      * <p style="color: #CDCDCD">HTTP METHOD HEAD</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void httpHead() {
@@ -195,7 +195,7 @@ public class Help4DevsHttpClientService {
      * <p style="color: #CDCDCD">Execute the HTTP Request previously configured in the current instance</p>
      *
      * @return ResponseEntity
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public ResponseEntity<?> request() {

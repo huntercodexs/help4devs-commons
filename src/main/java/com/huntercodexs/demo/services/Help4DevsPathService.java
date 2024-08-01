@@ -14,7 +14,7 @@ public class Help4DevsPathService {
      *
      * @param path (String)
      * @return String (Path sanitized)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String sanitizePath(String path) {
@@ -31,7 +31,7 @@ public class Help4DevsPathService {
      *
      * @param filepath (String)
      * @return String (Extension File)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String fileExtension(String filepath) {

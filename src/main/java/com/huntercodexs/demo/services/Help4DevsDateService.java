@@ -27,7 +27,7 @@ public class Help4DevsDateService {
      * @param inputDate (String: The date to reverse)
      * @param separator (String: The kind of separator for the date)
      * @return String (Date Reversed)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String dateReverse(String inputDate, String separator) {
@@ -153,7 +153,7 @@ public class Help4DevsDateService {
      * @param time (int: The time to apply in the check expires)
      * @param metricType (String: The quantity in time to use in calculate)
      * @return boolean (Date Expired)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean dateExpired(String date, int time, String metricType) {
@@ -225,7 +225,7 @@ public class Help4DevsDateService {
      * @param initialDate (String: Initial Date to calculate)
      * @param finalDate (String: Final Date to calculate)
      * @return List (Date Quantify values - List of Long)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static List<Long> dateQuantify(String initialDate, String finalDate) {
@@ -276,7 +276,7 @@ public class Help4DevsDateService {
      * @param startDate (long: Initial Date to quantify)
      * @param endDate (long: Final Date to quantify)
      * @return long (Date Quantify in long value)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static long quantifyMillisDate(long startDate, long endDate) {
@@ -291,7 +291,7 @@ public class Help4DevsDateService {
      * @param start (String: Initial Date to quantify)
      * @param end (String: Final Date to quantify)
      * @return long (Date Quantify in long value)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static long quantifyMillisParamsDate(String start, String end) {
@@ -381,7 +381,7 @@ public class Help4DevsDateService {
      * @param operation (String: Type of operation [+, -])
      * @param time (String: Time to apply in the GMT calculate)
      * @return String (Date Locale)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String localDateFromGmtDate(String gmtDate, String operation, int time) {
@@ -432,7 +432,7 @@ public class Help4DevsDateService {
      *
      * @param inputHour (String: Date)
      * @return String (Date Military Format)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String militaryHour(String inputHour) {
@@ -528,7 +528,7 @@ public class Help4DevsDateService {
      *                   <br />yyMMdd,
      *                   <br/>])
      * @return String (Date Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String dateFormatter(String dateInput, String dateFormat, boolean debug) {
@@ -832,7 +832,7 @@ public class Help4DevsDateService {
      *
      * @param dateString (String: The date to convert)
      * @return Calendar (Date Converted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static Calendar stringToCalendar(String dateString) {
@@ -864,7 +864,7 @@ public class Help4DevsDateService {
      *
      * @param dateString (String: The date to convert)
      * @return Date (Date Converted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static Date stringToDate(String dateString) {
@@ -912,7 +912,7 @@ public class Help4DevsDateService {
      * <br />})
      * @param locale (Locale: Country location)
      * @return String (Date Converted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static LocalDateTime stringToLocalDatetime(String dateString, int formatType, Locale locale) {

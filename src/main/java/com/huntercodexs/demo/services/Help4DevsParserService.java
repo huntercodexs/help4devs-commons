@@ -273,7 +273,7 @@ public class Help4DevsParserService {
      *
      * @param object (Object: Data to convert)
      * @return JSONObject (JSON Data from Object)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static JSONObject objectToNetJson(Object object) throws Exception {
@@ -305,7 +305,7 @@ public class Help4DevsParserService {
      * @param linkedHashMap (LinkedHashMap: Data to convert)
      * @param expectedFields (Object[]: Fields to be considered in the conversion)
      * @return JSONObject (JSON Data from Linked Hash Map)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static JSONObject jsonFromLinkedHashMap(

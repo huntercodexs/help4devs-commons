@@ -61,7 +61,7 @@ public class Help4DevsFileHandlerService {
      *
      * @param classpath (String: The path where the application properties file is placed)
      * @return Properties (Application Properties Details)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static Properties loadProps(String classpath) {
@@ -85,7 +85,7 @@ public class Help4DevsFileHandlerService {
      *
      * @param fileArray (InputStream: File Content in Array Format)
      * @return byte (The file content un bytes)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static byte[] byteConvert(InputStream fileArray) throws IOException {
@@ -102,7 +102,7 @@ public class Help4DevsFileHandlerService {
      * @param targetPath (String: Pathname target)
      * @param targetFile (String: Filename target)
      * @return String (File Content)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String fileToString(String targetPath, String targetFile) {
@@ -138,7 +138,7 @@ public class Help4DevsFileHandlerService {
      * @param targetPath (String: Pathname target)
      * @param targetFile (String: Filename target)
      * @return ArrayList (File Content in ArrayList)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static ArrayList<String> fileToArray(String targetPath, String targetFile) {
@@ -173,7 +173,7 @@ public class Help4DevsFileHandlerService {
      *
      * @param filenamePath (String: The absolute filename path to open and read the file)
      * @return byte[] (File Content in bytes)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static byte[] byteFile(String filenamePath) throws IOException {
@@ -188,7 +188,7 @@ public class Help4DevsFileHandlerService {
      *
      * @param filenamePath (String: The absolute filename path to open and read the file)
      * @return String (File Content)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String ioFile(String filenamePath) throws IOException {
@@ -203,7 +203,7 @@ public class Help4DevsFileHandlerService {
      *
      * @param filenamePath (String: The absolute filename path to open and read the file)
      * @return String (File Binary Content)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String binFile(String filenamePath) throws IOException {
@@ -218,7 +218,7 @@ public class Help4DevsFileHandlerService {
      *
      * @param path (String: The current path to create folder)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean folderCreate(String path) {
@@ -246,7 +246,7 @@ public class Help4DevsFileHandlerService {
      * @param filePath (String: The current path to list files)
      * @param regExpFilter (String: The regular expression to match files)
      * @return String[]
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String[] fileList(String filePath, String regExpFilter) {
@@ -267,7 +267,7 @@ public class Help4DevsFileHandlerService {
      *
      * @param path (String: The current file or directory path to delete)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean fileDelete(String path) {
@@ -297,7 +297,7 @@ public class Help4DevsFileHandlerService {
      * @param path (String: The current file or directory path)
      * @param newPath (String: The new path that should be applied in the file or directory target)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean fileMove(String path, String newPath) {
@@ -330,7 +330,7 @@ public class Help4DevsFileHandlerService {
      * @param data (byte[]: The content in bytes to write in the target file)
      * @param path (String: The path where the file to write is located)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean fileWriter(byte[] data, String path) {

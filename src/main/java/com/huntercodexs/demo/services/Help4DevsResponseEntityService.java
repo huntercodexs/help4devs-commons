@@ -1175,7 +1175,7 @@ public class Help4DevsResponseEntityService {
      * @param httpCode (int: The HTTP Code to simulate)
      * @param bodySimulate (Object: The Data value to simulate)
      * @return ResponseEntity (Http Object Response simulate)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static ResponseEntity<?> responseEntitySimulate(int httpCode, Object bodySimulate) {

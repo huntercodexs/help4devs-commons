@@ -25,7 +25,7 @@ public class Help4DevsJwtService {
      *
      * @param subject (String)
      * @return String (JWT)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public String create(String subject) {
@@ -41,7 +41,7 @@ public class Help4DevsJwtService {
      *
      * @param bearerToken (String)
      * @return String (JWT Token)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public String get(String bearerToken) {
@@ -60,7 +60,7 @@ public class Help4DevsJwtService {
      *
      * @param jwt (String)
      * @return String (JWT Token)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public String type(String jwt) {
@@ -75,7 +75,7 @@ public class Help4DevsJwtService {
      *
      * @param jwt (String)
      * @return String (JWT Token)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public String subject(String jwt) {
@@ -92,7 +92,7 @@ public class Help4DevsJwtService {
      * @param tokenType (TokenType)
      * @param subject (String)
      * @return String (JWT Token)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public String identifier(String bearerToken, TokenType tokenType, String subject) {

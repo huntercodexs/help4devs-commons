@@ -34,7 +34,7 @@ public class Help4DevsDataRandomService {
      *
      * @param digits (int: Quantities of digits to generate random number)
      * @return int (Random Number)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static int randomNumber(int digits) {
@@ -56,7 +56,7 @@ public class Help4DevsDataRandomService {
      * @param digits (int: Quantities of digits to generate random money)
      * @param currency (String: Currency Format [real, euro, default:dollar])
      * @return String (Random Money)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomMoney(int digits, String currency) {
@@ -85,7 +85,7 @@ public class Help4DevsDataRandomService {
      *
      * @param currency (String: Currency Format [real, euro, default:dollar])
      * @return String (Random Money)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomCents(String currency) {
@@ -114,7 +114,7 @@ public class Help4DevsDataRandomService {
      *
      * @param separator (String: Type of separator to card number [-,., ])
      * @return String (Random Card Number)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomCardNumber(String separator) {
@@ -137,7 +137,7 @@ public class Help4DevsDataRandomService {
      *
      * @param prefix (String: Specific Prefix to ID)
      * @return String (Random ID)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomId(String prefix) {
@@ -152,7 +152,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random GUID</p>
      *
      * @return String (GUID)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomGuid() {
@@ -166,7 +166,7 @@ public class Help4DevsDataRandomService {
      *
      * @param length (int: Size of token)
      * @return String (Random Token with a specified length)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomToken(int length) {
@@ -187,7 +187,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random JWT to simulate requests using JSON WEB TOKEN</p>
      *
      * @return String (Random JWT)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomJwt() {
@@ -216,7 +216,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random Hash (md5)</p>
      *
      * @return String (Random Hash)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomHash() {
@@ -231,7 +231,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random data binary to simulate binary operation</p>
      *
      * @return String (Random Data Binary)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomBinary(int size) {
@@ -256,7 +256,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random CPF without valid and correct digits verifier</p>
      *
      * @return String (Random CPF)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomCpf() {
@@ -302,7 +302,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random CNPJ - Brazil</p>
      *
      * @return String (Random CNPJ)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomCnpj() {
@@ -321,7 +321,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random date with the format: uuuu-MM-dd</p>
      *
      * @return String (Random Date)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomDate() {
@@ -336,7 +336,7 @@ public class Help4DevsDataRandomService {
      * <p style="color: #CDCDCD">Generate random datetime with the format: uuuu-MM-dd HH:mm:ss</p>
      *
      * @return String (Random Datetime)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String randomDateTime() {

@@ -50,7 +50,7 @@ public class Help4DevsCurrencyService {
      *
      * @param value (Object: Data to Format)
      * @return String (Data Formatter: Real Currency R$)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String currencyFormatReal(Object value) {
@@ -68,7 +68,7 @@ public class Help4DevsCurrencyService {
      *
      * @param value (Object: Data to Format)
      * @return String (Data Formatter: Dollar Currency $)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String currencyFormatDollar(Object value) {
@@ -88,7 +88,7 @@ public class Help4DevsCurrencyService {
      * @param postfix (Boolean: Set the symbol € in the result)
      * @return String (Data Formatter: Euro Currency [EUR, €])
      * currency format result in the something like 1,00 €
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String currencyFormatEuro(Object value, boolean postfix) {
@@ -116,7 +116,7 @@ public class Help4DevsCurrencyService {
      *
      * @param value (Object: Data to Convert)
      * @return String (Data Converted in cents)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static int convertToCents(Object value) {

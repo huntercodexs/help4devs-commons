@@ -2,6 +2,7 @@ package com.huntercodexs.demo.services;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -35,7 +36,9 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageTypeToP
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
 
 /**
- * This class use as "pdfbox 2.0.0" base process to PDF files handler
+ * @author huntercodexs (powered by jereelton-devel)
+ * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+ * @implNote This class use as "pdfbox 2.0.0" from org.apache.pdfbox base process to PDF files handler
  * */
 @Slf4j
 @Service
@@ -252,7 +255,7 @@ public class Help4DevsPdfBoxService {
      * @param docSettings  (PdfBoxDocumentSettings)
      * @param pageSettings (PdfBoxPageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfCreate(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
         String filenamePath = docSettings.getFilenamePath();
@@ -281,7 +284,7 @@ public class Help4DevsPdfBoxService {
      * @param pageSettings (PdfBoxPageSettings)
      * @param imgSettings (PdfBoxImageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfAddImage(
             PdfBoxDocumentSettings docSettings,
@@ -341,7 +344,7 @@ public class Help4DevsPdfBoxService {
      * @param textSettings (PdfBoxTextSettings)
      * @param imgSettings (PdfBoxImageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfAddBox(
             PdfBoxDocumentSettings docSettings,
@@ -410,7 +413,7 @@ public class Help4DevsPdfBoxService {
      * @param docSettings (PdfBoxDocumentSettings)
      * @return String (PDF Content)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static String pdfReader(PdfBoxDocumentSettings docSettings) {
 
@@ -456,7 +459,7 @@ public class Help4DevsPdfBoxService {
      *
      * @param docSettings (PdfBoxDocumentSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfProtect(PdfBoxDocumentSettings docSettings) {
         protectPDF(docSettings);
@@ -469,7 +472,7 @@ public class Help4DevsPdfBoxService {
      *
      * @param docSettings (PdfBoxDocumentSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfUnprotect(PdfBoxDocumentSettings docSettings) {
         unprotectPDF(docSettings);
@@ -482,7 +485,7 @@ public class Help4DevsPdfBoxService {
      *
      * @param filenamePath (String: Location where the PDF file is placed)
      * @return String (PDF Content)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      */
     public static PdfBoxDocumentDetails pdfDetails(String filenamePath) {
@@ -521,7 +524,7 @@ public class Help4DevsPdfBoxService {
      * @param docSettings (PdfBoxDocumentSettings)
      * @param pageSettings (PdfBoxPageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfFromImage(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
 
@@ -566,7 +569,7 @@ public class Help4DevsPdfBoxService {
      * @param pageSettings (PdfBoxPageSettings)
      * @param imageSettings (PdfBoxImageSettings)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfToImage(
             PdfBoxDocumentSettings docSettings,
@@ -614,7 +617,7 @@ public class Help4DevsPdfBoxService {
      * @param docSettings (PdfBoxDocumentSettings)
      * @param pathToSave (String)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfSplitter(PdfBoxDocumentSettings docSettings, String pathToSave) {
 
@@ -660,13 +663,48 @@ public class Help4DevsPdfBoxService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfMerge</h6>
+     *
+     * <p style="color: #CDCDCD">Merge pdf files in a single PDF file</p>
+     *
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pdfListToMerge (List<String>)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfMerger(PdfBoxDocumentSettings docSettings, List<String> pdfListToMerge) {
+
+        PDFMergerUtility pdfMerger = new PDFMergerUtility();
+        pdfMerger.setDestinationFileName(docSettings.getFilenamePath());
+
+        try {
+
+            try (PDDocument finalPDF = new PDDocument()) {
+                for (String pdfToMerge : pdfListToMerge) {
+                    File pdfFile = new File(pdfToMerge);
+                    try (PDDocument document = PDDocument.load(pdfFile, docSettings.getOwnerPassword())) {
+                        pdfMerger.appendDocument(finalPDF, document);
+                    }
+                }
+
+                finalPDF.save(docSettings.getFilenamePath());
+                protectPDF(docSettings);
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">pdfFromDoc</h6>
      *
      * <p style="color: #CDCDCD">Create a PDF file from doc</p>
      *
      * @param docPath (String: Doc path to PDF create)
      * @param filenamePath (String: Path filename to save file)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * @implNote For Windows + MS Office Word
      * */

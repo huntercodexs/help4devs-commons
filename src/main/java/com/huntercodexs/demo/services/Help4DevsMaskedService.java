@@ -17,7 +17,7 @@ public class Help4DevsMaskedService {
      * @param cardNumber (String)
      * @param mask (String)
      * @return String (Masked Card Number)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String cardNumberMasked(String cardNumber, String mask) {

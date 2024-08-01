@@ -105,7 +105,7 @@ public enum DataMasked {
      * @param mask (String: the type of mask [*, #, $, @...])
      * @param dataMasked (DataMasked Enum: the name of mask to apply in the current data)
      * @return String (Data Masked)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String dataMasked(String data, String mask, DataMasked dataMasked) {

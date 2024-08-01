@@ -44,7 +44,7 @@ public class Help4DevsPDFService {
      * @param filenamePath (String: Path filename)
      * @param fontSize (String: Font Size [small, normal, large])
      * @param password (String: Password to protect file)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static void pdfCreate(String data, String filenamePath, String fontSize, String password)
@@ -94,7 +94,7 @@ public class Help4DevsPDFService {
      * @param imagePath (String: Image path to PDF create)
      * @param filenamePath (String: Path filename to save file)
      * @param password (String: Password to protect file)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static void pdfFromImage(String imagePath, String filenamePath, String password) throws FileNotFoundException, MalformedURLException {
@@ -129,7 +129,7 @@ public class Help4DevsPDFService {
      *
      * @param docPath (String: Doc path to PDF create)
      * @param filenamePath (String: Path filename to save file)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * @implNote For Windows + MS Office Word
      * */
@@ -180,7 +180,7 @@ public class Help4DevsPDFService {
      * @param page (int: Number of page)
      * @return String (PDF Content)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static String pdfReader(String path, int page) {
 
@@ -221,7 +221,7 @@ public class Help4DevsPDFService {
      * @param path (String: Location where the PDF file is placed)
      * @return String (PDF Content)
      * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static PDFDetails pdfDetails(String path) {
 
@@ -266,7 +266,7 @@ public class Help4DevsPDFService {
      *
      * @param from (String: Location where the original/source PDF file is placed)
      * @param to (String: Location where the PDF copy should be put)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static void pdfCopy(String from, String to) {
@@ -300,7 +300,7 @@ public class Help4DevsPDFService {
      *
      * @param pdfPath (String: Path where the PDF file should be saved)
      * @param password (String: key to use in the PDF encrypt)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static void pdfProtect(String pdfPath, String password) throws IOException {
@@ -335,7 +335,7 @@ public class Help4DevsPDFService {
      * @param pdfSource (String: Path refer to PDF encrypted)
      * @param pdfTarget (String: Path to save the PDF File decrypted)
      * @param currentPassword (String: key to use in the PDF decrypt)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static void pdfUnprotect(String pdfSource, String pdfTarget, String currentPassword) throws IOException {

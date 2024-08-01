@@ -15,7 +15,7 @@ import java.io.*;
  *      <br />Help4DevsFileWriterService help4DevsFileWriterService = new Help4DevsFileWriterService()
  * </p>
  *
- * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+ * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
  * @author huntercodexs (powered by jereelton-devel)
  * */
 @Slf4j
@@ -31,7 +31,7 @@ public class Help4DevsFileWriterService {
      *
      * @param path (String: The path to create a target folder)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public boolean folderCreate(String path) {
@@ -58,7 +58,7 @@ public class Help4DevsFileWriterService {
      *
      * @param path (String: The path to delete a target file)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public boolean fileDelete(String path) {
@@ -88,7 +88,7 @@ public class Help4DevsFileWriterService {
      * @param path (String: The path to rename a target file)
      * @param newPath (String: The new path to rename a target file)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public boolean fileMove(String path, String newPath) {
@@ -117,7 +117,7 @@ public class Help4DevsFileWriterService {
      * <p style="color: #CDCDCD">Create a target file</p>
      *
      * @param filepath (String: The path to create a target file)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void fileCreate(String filepath) throws FileNotFoundException {
@@ -140,7 +140,7 @@ public class Help4DevsFileWriterService {
      * <p style="color: #CDCDCD">Write in the target file</p>
      *
      * @param data (String: Data to write in the file)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void fileWrite(String data) {
@@ -156,7 +156,7 @@ public class Help4DevsFileWriterService {
      *
      * <p style="color: #CDCDCD">Append new line in the target file</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void fileNewLine() {
@@ -172,7 +172,7 @@ public class Help4DevsFileWriterService {
      *
      * <p style="color: #CDCDCD">Close the target file</p>
      *
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public void fileClose() throws IOException {

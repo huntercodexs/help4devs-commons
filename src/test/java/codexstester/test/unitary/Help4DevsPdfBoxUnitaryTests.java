@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.*;
@@ -530,6 +532,21 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
         pdfSplitter(docSet, "./src/test/resources/help4devs/files/pdf/");
+    }
+
+    @Test
+    public void pdfMergerTest() {
+        PdfBoxDocumentSettings docSet = documentSettings();
+        docSet.setFilenamePath("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-merged.pdf");
+        docSet.setUserPassword(userPassword);
+        docSet.setOwnerPassword(ownerPassword);
+
+        List<String> pdfList = new ArrayList<>();
+        pdfList.add("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-1.pdf");
+        pdfList.add("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-2.pdf");
+        pdfList.add("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-3.pdf");
+
+        pdfMerger(docSet, pdfList);
     }
 
     @Test

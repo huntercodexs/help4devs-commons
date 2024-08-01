@@ -21,7 +21,7 @@ public class Help4DevsFormatterService {
      * @param input (int: Number to format)
      * @param format (String: Format to apply in the input)
      * @return String (Number Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String numberFormatter(int input, String format) {
@@ -36,7 +36,7 @@ public class Help4DevsFormatterService {
      * @param input (String: String to format)
      * @param format (String: Format to apply in the input)
      * @return String (String Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String stringFormatter(String input, String format) {
@@ -53,7 +53,7 @@ public class Help4DevsFormatterService {
      * @param align (String: Direction to align the input [left, right])
      * @param size (int: Size to apply the fill in the input)
      * @return String (Formatted and Filled Input)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String fillerFormatter(String input, String fill, String align, int size) {
@@ -92,7 +92,7 @@ public class Help4DevsFormatterService {
      * @param rgUf (String: The document uf)
      * @param rgPrefix (String: The document prefix)
      * @return String (RG Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String rgFormatter(String value, String rgUf, boolean rgPrefix) {
@@ -125,7 +125,7 @@ public class Help4DevsFormatterService {
      *
      * @param cpf (String: the document value to format)
      * @return String (CPF Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String cpfFormatter(String cpf) {
@@ -141,7 +141,7 @@ public class Help4DevsFormatterService {
      *
      * @param cnpj (String: the document value to format)
      * @return String (CNPJ Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String cnpjFormatter(String cnpj) {
@@ -159,7 +159,7 @@ public class Help4DevsFormatterService {
      * @param value (Object: the value or amount to format)
      * @param format (String: the currency target to format [real, dollar, euro])
      * @return String (Money Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String moneyFormatter(Object value, String format) {
@@ -273,7 +273,7 @@ public class Help4DevsFormatterService {
      *                   <br />yyMMdd,
      *                   <br/>])
      * @return String (Date Formatted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String dateFormatter(String dateInput, String dateFormat, boolean debug) {

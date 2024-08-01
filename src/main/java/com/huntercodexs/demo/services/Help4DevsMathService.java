@@ -14,7 +14,7 @@ public class Help4DevsMathService {
      *
      * @param decimal (long)
      * @return String (Binary Number)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String decimalToBinary(long decimal) {
@@ -52,7 +52,7 @@ public class Help4DevsMathService {
      *
      * @param binary (String)
      * @return int (Decimal Number)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static int binaryToDecimal(String binary) {

@@ -16,7 +16,7 @@ public class Help4DevsBaseService {
      * <p style="color: #CDCDCD">Sample method to show how to work and use the grouped parameters</p>
      *
      * @param jsonObjects (JSONObject: Sample)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static void params(JSONObject... jsonObjects) {

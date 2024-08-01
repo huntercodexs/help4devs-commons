@@ -33,7 +33,7 @@ public class Help4DevsCryptographyService {
      * @param secretKey (String: Secret Key to Data encrypt)
      * @param salt (String: Salt to apply in the Secret Key)
      * @return String (Data Encrypted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String encryptAesCbc256(String strToEncrypt, String secretKey, String salt) {
@@ -74,7 +74,7 @@ public class Help4DevsCryptographyService {
      * @param secretKey (String: Secret Key to Data decrypt)
      * @param salt (String: Salt to apply in the Secret Key)
      * @return String (Data Decrypted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String decryptAesCbc256(String strToDecrypt, String secretKey, String salt) {
@@ -113,7 +113,7 @@ public class Help4DevsCryptographyService {
      * @param inputClear (String: Data to encrypt)
      * @param secretKey (String: Secret Key to Data encrypt)
      * @return String (Data Encrypted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String encrypt3desEde(String inputClear, String secretKey) {
@@ -143,7 +143,7 @@ public class Help4DevsCryptographyService {
      * @param inputCipher (String: Data to decrypt)
      * @param secretKey (String: Secret Key to Data decrypt)
      * @return String (Data Decrypted)
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String decrypt3DesEde(String inputCipher, String secretKey) {

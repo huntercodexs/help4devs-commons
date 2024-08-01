@@ -28,7 +28,7 @@ public class Help4DevsValidatorService {
      *
      * @param cpf (String: CPF Number)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean cpfValidator(String cpf) {
@@ -83,7 +83,7 @@ public class Help4DevsValidatorService {
      *
      * @param email (String: Email address)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean mailValidator(String email) {
@@ -107,7 +107,7 @@ public class Help4DevsValidatorService {
      * @param phoneNumber (String: Email address)
      * @param country (String: Country Code)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean phoneValidator(String phoneNumber, String country) {
@@ -132,7 +132,7 @@ public class Help4DevsValidatorService {
      *
      * @param cvv (String: CVV)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean cvvValidator(String cvv) {
@@ -148,7 +148,7 @@ public class Help4DevsValidatorService {
      *
      * @param cardNumber (String: CVV)
      * @return boolean
-     * @see <a href="https://github.com/huntercodexs/help4devs">Help4devs (GitHub)</a>
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
     public static boolean cardNumberValidator(String cardNumber) {
