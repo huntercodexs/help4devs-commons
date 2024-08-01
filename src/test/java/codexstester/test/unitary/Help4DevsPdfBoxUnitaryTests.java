@@ -466,8 +466,10 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfDetailsTest() {
-        String filenamePath = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf";
-        PdfBoxDocumentDetails details = pdfDetails(filenamePath);
+        PdfBoxDocumentSettings docSet = documentSettings();
+        docSet.setUserPassword(userPassword);
+        docSet.setOwnerPassword(ownerPassword);
+        PdfBoxDocumentDetails details = pdfDetails(docSet);
         System.out.println(details);
     }
 

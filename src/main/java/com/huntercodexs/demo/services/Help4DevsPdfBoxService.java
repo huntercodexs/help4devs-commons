@@ -44,7 +44,7 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLe
 @Service
 public class Help4DevsPdfBoxService {
 
-    private static void propertiesPDF(PDDocument document, PdfBoxDocumentSettings settings) {
+    protected static void propertiesPDF(PDDocument document, PdfBoxDocumentSettings settings) {
         PDDocumentInformation information = document.getDocumentInformation();
         information.setAuthor(settings.getAuthor());
         information.setTitle(settings.getTitle());
@@ -67,7 +67,7 @@ public class Help4DevsPdfBoxService {
         information.setModificationDate(cal);
     }
 
-    private static void initPDF(String filenamePath) {
+    protected static void initPDF(String filenamePath) {
 
         try (PDDocument documentCreator = new PDDocument()) {
 
@@ -81,7 +81,7 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    private static void addPDF(PdfBoxDocumentSettings docSettings) {
+    protected static void addPDF(PdfBoxDocumentSettings docSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -98,7 +98,7 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    private static PDPageContentStream contentStream(
+    protected static PDPageContentStream contentStream(
             String option,
             PDPage page,
             PDDocument document,
@@ -156,7 +156,7 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    private static void createPDF(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
+    protected static void createPDF(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -187,7 +187,7 @@ public class Help4DevsPdfBoxService {
 
     }
     
-    private static AccessPermission permissionPDF(boolean restrict) {
+    protected static AccessPermission permissionPDF(boolean restrict) {
         AccessPermission accessPermission = new AccessPermission();
         
         if (restrict) {
@@ -202,7 +202,7 @@ public class Help4DevsPdfBoxService {
         return accessPermission;
     }
 
-    private static void protectPDF(PdfBoxDocumentSettings docSettings) {
+    protected static void protectPDF(PdfBoxDocumentSettings docSettings) {
         if (docSettings.getUserPassword() == null || docSettings.getUserPassword().isEmpty()) return;
         if (docSettings.getOwnerPassword() == null || docSettings.getOwnerPassword().isEmpty()) return;
 
@@ -229,7 +229,7 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    private static void unprotectPDF(PdfBoxDocumentSettings docSettings) {
+    protected static void unprotectPDF(PdfBoxDocumentSettings docSettings) {
 
         if (docSettings.getOwnerPassword() == null || docSettings.getOwnerPassword().isEmpty()) {
             throw new RuntimeException("Missing password for PDF Decrypt");
@@ -293,7 +293,7 @@ public class Help4DevsPdfBoxService {
     ) {
         File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument document = PDDocument.load(file)) {
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             PDPage page = document.getPage(pageSettings.getPageNumber()-1);
 
@@ -355,7 +355,7 @@ public class Help4DevsPdfBoxService {
     ) {
         File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument document = PDDocument.load(file)) {
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             PDPage page = document.getPage(pageSettings.getPageNumber()-1);
 
@@ -419,7 +419,7 @@ public class Help4DevsPdfBoxService {
 
         File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument document = PDDocument.load(file)) {
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             if (docSettings.getStartPage() > docSettings.getEndPage()) {
                 throw new RuntimeException("Failed: Page End should be greater than Page Start");
@@ -483,16 +483,16 @@ public class Help4DevsPdfBoxService {
      *
      * <p style="color: #CDCDCD">Get details from one PDF file</p>
      *
-     * @param filenamePath (String: Location where the PDF file is placed)
+     * @param docSettings (PdfBoxDocumentSettings)
      * @return String (PDF Content)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      */
-    public static PdfBoxDocumentDetails pdfDetails(String filenamePath) {
+    public static PdfBoxDocumentDetails pdfDetails(PdfBoxDocumentSettings docSettings) {
 
-        File file = new File(filenamePath);
+        File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument document = PDDocument.load(file)) {
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             PDDocumentInformation information = document.getDocumentInformation();
 
@@ -532,7 +532,7 @@ public class Help4DevsPdfBoxService {
 
         File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument document = PDDocument.load(file)) {
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             PDImageXObject image = PDImageXObject.createFromFile(pageSettings.getImageFilepath(), document);
             image.setHeight(image.getHeight());
