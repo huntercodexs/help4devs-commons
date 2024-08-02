@@ -712,6 +712,21 @@ public class Help4DevsPdfBoxService {
         /*TODO*/
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfAssign</h6>
+     *
+     * <p style="color: #CDCDCD">Assign a PDF file with a keystore, date and md5sum|sha256</p>
+     *
+     * @param docPath (String: Doc path to PDF create)
+     * @param filenamePath (String: Path filename to save file)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * @implNote For Windows + MS Office Word
+     * */
+    public static void pdfAssign(String docPath, String filenamePath) {
+        /*TODO*/
+    }
+
     @Getter
     public enum PageSizeToPdfBox {
         A0(PDRectangle.A0),
@@ -722,7 +737,9 @@ public class Help4DevsPdfBoxService {
         A5(PDRectangle.A5),
         A6(PDRectangle.A6),
         LEGAL(PDRectangle.LEGAL),
-        LETTER(PDRectangle.LETTER);
+        LETTER(PDRectangle.LETTER),
+        A4_LANDSCAPE(new PDRectangle(842.0F, 595.5F)),
+        LETTER_LANDSCAPE(new PDRectangle(792.0F, 612.0F));
 
         private final PDRectangle pageSize;
 
