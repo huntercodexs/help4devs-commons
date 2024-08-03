@@ -33,6 +33,7 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontNameToPd
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageQualityToPdfBox.imageQuality;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
 
 /**
@@ -42,7 +43,7 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLe
  * */
 @Slf4j
 @Service
-public class Help4DevsPdfBoxService {
+public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
 
     protected static void propertiesPDF(PDDocument document, PdfBoxDocumentSettings settings) {
         PDDocumentInformation information = document.getDocumentInformation();
@@ -67,11 +68,11 @@ public class Help4DevsPdfBoxService {
         information.setModificationDate(cal);
     }
 
-    protected static void initPDF(String filenamePath) {
+    protected static void initPDF(String filenamePath, PdfBoxPageSettings pageSettings) {
 
         try (PDDocument documentCreator = new PDDocument()) {
 
-            PDPage page = new PDPage();
+            PDPage page = new PDPage(pageSize(pageSettings.getPageSize()));
             documentCreator.addPage(page);
             documentCreator.save(filenamePath);
             documentCreator.close();
@@ -81,13 +82,13 @@ public class Help4DevsPdfBoxService {
         }
     }
 
-    protected static void addPDF(PdfBoxDocumentSettings docSettings) {
+    protected static void addPDF(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument documentCreator = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
-            PDPage page = new PDPage();
+            PDPage page = new PDPage(pageSize(pageSettings.getPageSize()));
             documentCreator.addPage(page);
             documentCreator.setAllSecurityToBeRemoved(true);
             documentCreator.save(docSettings.getFilenamePath());
@@ -137,6 +138,7 @@ public class Help4DevsPdfBoxService {
                     return contentStream;
 
                 case "rec-border":
+                    contentStream.setLineWidth(rectSettings.getBorderWidth());
                     contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
                     contentStream.addRect(
                             rectSettings.getOffsetX(),
@@ -160,7 +162,7 @@ public class Help4DevsPdfBoxService {
 
         File file = new File(docSettings.getFilenamePath());
 
-        try (PDDocument document = PDDocument.load(file)) {
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             propertiesPDF(document, docSettings);
 
@@ -266,9 +268,9 @@ public class Help4DevsPdfBoxService {
         }
 
         if ((pageSettings.getPageNumber()-1) > 0) {
-            addPDF(docSettings);
+            addPDF(docSettings, pageSettings);
         } else {
-            initPDF(filenamePath);
+            initPDF(filenamePath, pageSettings);
         }
 
         createPDF(docSettings, pageSettings);
@@ -528,7 +530,7 @@ public class Help4DevsPdfBoxService {
      */
     public static void pdfFromImage(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
 
-        initPDF(docSettings.getFilenamePath());
+        initPDF(docSettings.getFilenamePath(), pageSettings);
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -756,6 +758,7 @@ public class Help4DevsPdfBoxService {
     public enum ColorsToPdfBox {
         WHITE(new Color(255, 255, 255)),
         RED(new Color(255, 0, 0)),
+        RED2(new Color(136, 0, 20)),
         GREEN(new Color(0, 255, 0)),
         GREEN2(new Color(26, 188, 156)),
         BLUE(new Color(0, 0, 255)),
@@ -892,6 +895,43 @@ public class Help4DevsPdfBoxService {
     }
 
     @Getter
+    public enum TableTemplateToPdbBox {
+        TABLE_5X6("TABLE_5X6"),
+        TABLE_5X5("TABLE_5X5"),
+        TABLE_5X4("TABLE_5X4"),
+        TABLE_5X3("TABLE_5X3"),
+        TABLE_5X2("TABLE_5X2"),
+
+        TABLE_4X6("TABLE_4X6"),
+        TABLE_4X5("TABLE_4X5"),
+        TABLE_4X4("TABLE_4X4"),
+        TABLE_4X3("TABLE_4X3"),
+        TABLE_4X2("TABLE_4X2"),
+
+        TABLE_3X6("TABLE_3X6"),
+        TABLE_3X5("TABLE_3X5"),
+        TABLE_3X4("TABLE_3X4"),
+        TABLE_3X3("TABLE_3X3"),
+        TABLE_3X2("TABLE_3X2"),
+
+        TABLE_2X6("TABLE_2X6"),
+        TABLE_2X5("TABLE_2X5"),
+        TABLE_2X4("TABLE_2X4"),
+        TABLE_2X3("TABLE_2X3"),
+        TABLE_2X2("TABLE_2X2");
+
+        private final String tableTemplate;
+
+        TableTemplateToPdbBox(String tableTemplate) {
+            this.tableTemplate = tableTemplate;
+        }
+
+        public static String tableTemplate(TableTemplateToPdbBox template) {
+            return template.getTableTemplate();
+        }
+    }
+
+    @Getter
     @Setter
     @ToString
     @AllArgsConstructor
@@ -969,6 +1009,7 @@ public class Help4DevsPdfBoxService {
         int height;
         int offsetX;
         int offsetY;
+        int borderWidth = 1;
         boolean border;
         boolean roundedBorder;
         ColorsToPdfBox backColor;
@@ -1011,6 +1052,23 @@ public class Help4DevsPdfBoxService {
         String filenamePath;
         ImageTypeToPdfBox imageType;
         ImageQualityToPdfBox imageQuality;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxTableSettings {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        boolean border;
+        ColorsToPdfBox headerColor;
+        ColorsToPdfBox celColor;
+        ColorsToPdfBox borderColor;
+        TableTemplateToPdbBox tableTemplate;
     }
 
 }

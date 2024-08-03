@@ -19,6 +19,7 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageQuality
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.TableTemplateToPdbBox.tableTemplate;
 
 public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
@@ -60,7 +61,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setPageNumber(1);
         settings.setMargin(0);
         settings.setPadding(0);
-        settings.setPageSize(PageSizeToPdfBox.A4);
+        settings.setPageSize(PageSizeToPdfBox.LETTER);
         settings.setFontName(FontNameToPdfBox.COURIER);
         settings.setFontSize(FontSizeToPdfBox.X_SMALL);
         settings.setFontColor(ColorsToPdfBox.BLACK);
@@ -111,6 +112,20 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setBorder(false);
         settings.setResize(false);
         settings.setImageType(ImageTypeToPdfBox.JPEG);
+        return settings;
+    }
+
+    private PdfBoxTableSettings tableSettings() {
+        PdfBoxTableSettings settings = new PdfBoxTableSettings();
+        settings.setWidth(100);
+        settings.setHeight(100);
+        settings.setOffsetX(0);
+        settings.setOffsetY(0);
+        settings.setBorder(true);
+        settings.setHeaderColor(ColorsToPdfBox.ORANGE);
+        settings.setCelColor(ColorsToPdfBox.ICE);
+        settings.setBorderColor(ColorsToPdfBox.BLACK);
+        settings.setTableTemplate(TableTemplateToPdbBox.TABLE_5X6);
         return settings;
     }
 
@@ -319,6 +334,69 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
         imageQuality = imageQuality(ImageQualityToPdfBox.SUPER);
         codexsTesterAssertInt(800, imageQuality);
+    }
+
+    @Test
+    public void tableTemplateTest() {
+        String tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X6);
+        codexsTesterAssertExact("TABLE_5X6", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X5);
+        codexsTesterAssertExact("TABLE_5X5", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X4);
+        codexsTesterAssertExact("TABLE_5X4", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X3);
+        codexsTesterAssertExact("TABLE_5X3", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X2);
+        codexsTesterAssertExact("TABLE_5X2", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X6);
+        codexsTesterAssertExact("TABLE_4X6", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X5);
+        codexsTesterAssertExact("TABLE_4X5", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X4);
+        codexsTesterAssertExact("TABLE_4X4", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X3);
+        codexsTesterAssertExact("TABLE_4X3", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X2);
+        codexsTesterAssertExact("TABLE_4X2", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X6);
+        codexsTesterAssertExact("TABLE_3X6", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X5);
+        codexsTesterAssertExact("TABLE_3X5", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X4);
+        codexsTesterAssertExact("TABLE_3X4", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X3);
+        codexsTesterAssertExact("TABLE_3X3", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X2);
+        codexsTesterAssertExact("TABLE_3X2", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X6);
+        codexsTesterAssertExact("TABLE_2X6", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X5);
+        codexsTesterAssertExact("TABLE_2X5", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X4);
+        codexsTesterAssertExact("TABLE_2X4", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X3);
+        codexsTesterAssertExact("TABLE_2X3", tableTemplate);
+
+        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X2);
+        codexsTesterAssertExact("TABLE_2X2", tableTemplate);
     }
 
     @Test

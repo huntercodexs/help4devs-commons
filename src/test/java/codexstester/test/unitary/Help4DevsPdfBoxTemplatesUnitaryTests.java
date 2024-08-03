@@ -2,12 +2,12 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.Help4DevsPdfBoxService.*;
-import com.huntercodexs.demo.services.Help4DevsPdfBoxTemplatesService.PdfBoxTemplateSettings;
-import com.huntercodexs.demo.services.Help4DevsPdfBoxTemplatesService.TemplatesToPdfBox;
+import com.huntercodexs.demo.services.Help4DevsPdfBoxTemplateService.PdfBoxTemplateSettings;
+import com.huntercodexs.demo.services.Help4DevsPdfBoxTemplateService.TemplatesToPdfBox;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxTemplatesService.TemplatesToPdfBox.template;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxTemplatesService.pdfBoxTemplate;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxTemplateService.TemplatesToPdfBox.template;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxTemplateService.pdfBoxTemplate;
 
 
 public class Help4DevsPdfBoxTemplatesUnitaryTests extends Help4DevsBridgeTests {
@@ -16,8 +16,10 @@ public class Help4DevsPdfBoxTemplatesUnitaryTests extends Help4DevsBridgeTests {
     private final static String filepathTarget = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf";
     private final static String filepathTargetTemplate = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim.pdf";
     private final static String filepathTargetPassword = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-password.pdf";
-    private final static String imagePath = "./src/test/resources/help4devs/images/ads/file.png";
-    private final static String imagePathAds = "./src/test/resources/help4devs/images/ads/img.png";
+    private final static String imagePathJava = "./src/test/resources/help4devs/images/ads/java.png";
+    private final static String imagePathPromotion = "./src/test/resources/help4devs/images/ads/promotion.png";
+    private final static String imagePathBackground = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-1.jpg";
+    private final static String imagePathBackground2 = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-2.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
@@ -111,6 +113,20 @@ public class Help4DevsPdfBoxTemplatesUnitaryTests extends Help4DevsBridgeTests {
         return settings;
     }
 
+    private PdfBoxTableSettings tableSettings() {
+        PdfBoxTableSettings settings = new PdfBoxTableSettings();
+        settings.setWidth(100);
+        settings.setHeight(100);
+        settings.setOffsetX(0);
+        settings.setOffsetY(0);
+        settings.setBorder(true);
+        settings.setHeaderColor(ColorsToPdfBox.ORANGE);
+        settings.setCelColor(ColorsToPdfBox.ICE);
+        settings.setBorderColor(ColorsToPdfBox.BLACK);
+        settings.setTableTemplate(TableTemplateToPdbBox.TABLE_5X6);
+        return settings;
+    }
+
     @Test
     public void templateTest() {
         String template = template(TemplatesToPdfBox.SLIM);
@@ -143,7 +159,15 @@ public class Help4DevsPdfBoxTemplatesUnitaryTests extends Help4DevsBridgeTests {
 
         docSet.setFilenamePath(filepathTargetTemplate);
 
-        pdfBoxTemplate(docSet, pageSet, rectSet, textSet, imgSet);
+        imgSet.setFilenamePath(imagePathJava);
+
+        templateSet.setTemplate(TemplatesToPdfBox.SLIM);
+        templateSet.setImageBackground(imagePathBackground2);
+
+        //rectSet.setBorderWidth(10);
+
+        pdfBoxTemplate(docSet, pageSet, rectSet, textSet, imgSet, templateSet);
+
     }
 
 }
