@@ -107,8 +107,4 @@ public class Help4DevsBarcodeUnitaryTests extends Help4DevsBridgeTests {
 
     }
 
-    @Test
-    public void barcodeScannerTest() {
-    }
-
 }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.huntercodexs.demo.services.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
 import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.*;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsToPdfBox.color;
@@ -627,6 +628,23 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         pdfList.add("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-3.pdf");
 
         pdfMerger(docSet, pdfList);
+    }
+
+    @Test
+    public void pdfScannerTest() {
+        PdfBoxDocumentSettings docSet = documentSettings();
+        docSet.setFilenamePath("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-barcode.pdf");
+        docSet.setUserPassword("");
+        docSet.setOwnerPassword("");
+        List<PdfBarcodeScannerResults> result = pdfScanner(docSet);
+
+        System.out.println(result+" Found");
+
+        for (PdfBarcodeScannerResults code : result) {
+            System.out.println("Page: "+ code.getPage());
+            System.out.println("Type: "+ code.getBarcodeType());
+            System.out.println("Value: "+code.getBarcodeValue());
+        }
     }
 
     @Test

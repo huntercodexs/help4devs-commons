@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 
+import static com.huntercodexs.demo.services.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
@@ -712,6 +713,38 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * */
     public static void pdfFromDoc(String docPath, String filenamePath) {
         /*TODO*/
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfScanner</h6>
+     *
+     * <p style="color: #CDCDCD">Scanner a PDF file to get some barcode in it</p>
+     *
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @return List (PdfBarcodeScannerResults)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static List<PdfBarcodeScannerResults> pdfScanner(PdfBoxDocumentSettings docSettings) {
+
+        File file = new File(docSettings.getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
+
+            int numPages = document.getNumberOfPages();
+
+            Help4DevsBarcodeScannerService pageScanner = new Help4DevsBarcodeScannerService();
+
+            for (int page = 0; page < numPages; page++) {
+                PDPage pdPage = document.getPage(page);
+                pageScanner.scanner(pdPage, page, 20);
+            }
+
+            return pageScanner.results();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
     }
 
     /**
