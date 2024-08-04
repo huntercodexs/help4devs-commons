@@ -167,7 +167,6 @@ public class Help4DevsPdfBoxTemplatesUnitaryTests extends Help4DevsBridgeTests {
         //rectSet.setBorderWidth(10);
 
         pdfBoxTemplate(docSet, pageSet, rectSet, textSet, imgSet, templateSet);
-
     }
 
 }

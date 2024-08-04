@@ -621,11 +621,11 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
     private static void slimTemplate(
             PDDocument document,
             PDPage page,
-            PDPageContentStream contentStream,
             PdfBoxPageSettings pageSettings,
             PdfBoxRectangleSettings rectSettings,
             PdfBoxImageSettings imgSettings,
-            PdfBoxTextSettings textSettings
+            PdfBoxTextSettings textSettings,
+            PDPageContentStream contentStream
     ) {
         slimRectangleBoxCreate(document, page, contentStream, pageSettings, rectSettings);
         slimTitleBoxCreate(document, page, contentStream, pageSettings, rectSettings);
@@ -685,7 +685,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             drawBackground(document, contentStream, tplSettings);
 
             if (tplSettings.getTemplate().name().equals(template(TemplatesToPdfBox.SLIM))) {
-                slimTemplate(document, page, contentStream, pageSettings, rectSettings, imgSettings, textSettings);
+                slimTemplate(document, page, pageSettings, rectSettings, imgSettings, textSettings, contentStream);
             } else if(tplSettings.getTemplate().name().equals(template(TemplatesToPdfBox.BOX))) {
                 throw new RuntimeException("TODO: BOX Template");
             } else if(tplSettings.getTemplate().name().equals(template(TemplatesToPdfBox.BOX_OPEN))) {
