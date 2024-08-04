@@ -756,6 +756,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
 
     @Getter
     public enum ColorsToPdfBox {
+        NONE(new Color(255, 255, 255, 0)),
         WHITE(new Color(255, 255, 255)),
         RED(new Color(255, 0, 0)),
         RED2(new Color(136, 0, 20)),
@@ -770,6 +771,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
         ICE(new Color(235, 235, 235)),
         PURPLE(new Color(173, 108, 227)),
         GOLD(new Color(255, 215, 0)),
+        GOLD2(new Color(194, 175, 13)),
         PINK(new Color(231, 6, 176)),
         YELLOW(new Color(255, 255, 0)),
         ORANGE(new Color(250, 123, 24)),
@@ -896,38 +898,40 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
 
     @Getter
     public enum TableTemplateToPdbBox {
-        TABLE_5X6("TABLE_5X6"),
-        TABLE_5X5("TABLE_5X5"),
-        TABLE_5X4("TABLE_5X4"),
-        TABLE_5X3("TABLE_5X3"),
-        TABLE_5X2("TABLE_5X2"),
+        TABLE_5X6(5, 6),
+        TABLE_5X5(5, 5),
+        TABLE_5X4(5, 4),
+        TABLE_5X3(5, 3),
+        TABLE_5X2(5, 2),
 
-        TABLE_4X6("TABLE_4X6"),
-        TABLE_4X5("TABLE_4X5"),
-        TABLE_4X4("TABLE_4X4"),
-        TABLE_4X3("TABLE_4X3"),
-        TABLE_4X2("TABLE_4X2"),
+        TABLE_4X6(4, 6),
+        TABLE_4X5(4, 5),
+        TABLE_4X4(4, 4),
+        TABLE_4X3(4, 3),
+        TABLE_4X2(4, 2),
 
-        TABLE_3X6("TABLE_3X6"),
-        TABLE_3X5("TABLE_3X5"),
-        TABLE_3X4("TABLE_3X4"),
-        TABLE_3X3("TABLE_3X3"),
-        TABLE_3X2("TABLE_3X2"),
+        TABLE_3X6(3, 6),
+        TABLE_3X5(3, 5),
+        TABLE_3X4(3, 4),
+        TABLE_3X3(3, 3),
+        TABLE_3X2(3, 2),
 
-        TABLE_2X6("TABLE_2X6"),
-        TABLE_2X5("TABLE_2X5"),
-        TABLE_2X4("TABLE_2X4"),
-        TABLE_2X3("TABLE_2X3"),
-        TABLE_2X2("TABLE_2X2");
+        TABLE_2X6(2, 6),
+        TABLE_2X5(2, 5),
+        TABLE_2X4(2, 4),
+        TABLE_2X3(2, 3),
+        TABLE_2X2(2, 2);
 
-        private final String tableTemplate;
+        private final int tableLines;
+        private final int tableColumns;
 
-        TableTemplateToPdbBox(String tableTemplate) {
-            this.tableTemplate = tableTemplate;
+        TableTemplateToPdbBox(int tableLines, int tableColumns) {
+            this.tableLines = tableLines;
+            this.tableColumns = tableColumns;
         }
 
-        public static String tableTemplate(TableTemplateToPdbBox template) {
-            return template.getTableTemplate();
+        public static int[] tableSize(TableTemplateToPdbBox template) {
+            return new int[]{template.getTableLines(), template.getTableColumns()};
         }
     }
 

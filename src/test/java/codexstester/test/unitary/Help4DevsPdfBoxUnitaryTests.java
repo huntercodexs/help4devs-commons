@@ -19,7 +19,7 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageQuality
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
 import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.TableTemplateToPdbBox.tableTemplate;
+import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.TableTemplateToPdbBox.tableSize;
 
 public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
@@ -338,65 +338,65 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void tableTemplateTest() {
-        String tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X6);
-        codexsTesterAssertExact("TABLE_5X6", tableTemplate);
+        int[] tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X6);
+        codexsTesterAssertExact("5,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X5);
-        codexsTesterAssertExact("TABLE_5X5", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X5);
+        codexsTesterAssertExact("5,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X4);
-        codexsTesterAssertExact("TABLE_5X4", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X4);
+        codexsTesterAssertExact("5,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X3);
-        codexsTesterAssertExact("TABLE_5X3", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X3);
+        codexsTesterAssertExact("5,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_5X2);
-        codexsTesterAssertExact("TABLE_5X2", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X2);
+        codexsTesterAssertExact("5,2", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X6);
-        codexsTesterAssertExact("TABLE_4X6", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X6);
+        codexsTesterAssertExact("4,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X5);
-        codexsTesterAssertExact("TABLE_4X5", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X5);
+        codexsTesterAssertExact("4,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X4);
-        codexsTesterAssertExact("TABLE_4X4", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X4);
+        codexsTesterAssertExact("4,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X3);
-        codexsTesterAssertExact("TABLE_4X3", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X3);
+        codexsTesterAssertExact("4,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_4X2);
-        codexsTesterAssertExact("TABLE_4X2", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X2);
+        codexsTesterAssertExact("4,2", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X6);
-        codexsTesterAssertExact("TABLE_3X6", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X6);
+        codexsTesterAssertExact("3,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X5);
-        codexsTesterAssertExact("TABLE_3X5", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X5);
+        codexsTesterAssertExact("3,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X4);
-        codexsTesterAssertExact("TABLE_3X4", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X4);
+        codexsTesterAssertExact("3,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X3);
-        codexsTesterAssertExact("TABLE_3X3", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X3);
+        codexsTesterAssertExact("3,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_3X2);
-        codexsTesterAssertExact("TABLE_3X2", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X2);
+        codexsTesterAssertExact("3,2", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X6);
-        codexsTesterAssertExact("TABLE_2X6", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X6);
+        codexsTesterAssertExact("2,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X5);
-        codexsTesterAssertExact("TABLE_2X5", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X5);
+        codexsTesterAssertExact("2,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X4);
-        codexsTesterAssertExact("TABLE_2X4", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X4);
+        codexsTesterAssertExact("2,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X3);
-        codexsTesterAssertExact("TABLE_2X3", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X3);
+        codexsTesterAssertExact("2,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableTemplate(TableTemplateToPdbBox.TABLE_2X2);
-        codexsTesterAssertExact("TABLE_2X2", tableTemplate);
+        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X2);
+        codexsTesterAssertExact("2,2", tableTemplate[0]+","+tableTemplate[1]);
     }
 
     @Test

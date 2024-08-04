@@ -24,7 +24,7 @@ import static com.huntercodexs.demo.services.Help4DevsPdfBoxTemplateService.Temp
 @Service
 public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
-    private static void pdfBackground(
+    private static void drawBackground(
             PDDocument document,
             PDPageContentStream contentStream,
             PdfBoxTemplateSettings tplSettings
@@ -32,6 +32,312 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(tplSettings.getImageBackground(), document);
             contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static boolean hasTitle(int n, SlimContentSettings slimContentSettings) {
+
+        if (slimContentSettings.leftTitleEnable[n]) {
+            return true;
+        }
+
+        if (slimContentSettings.centerTitleEnable[n]) {
+            return true;
+        }
+
+        return slimContentSettings.rightTitleEnable[n];
+    }
+
+    private static void drawTitle(
+            PDDocument document,
+            PDPage page,
+            PDPageContentStream contentStream,
+            PdfBoxRectangleSettings rectSettings,
+            PdfBoxPageSettings pageSettings,
+            String title
+    ) {
+        try {
+
+            contentStream("begin", page, document, pageSettings, rectSettings, contentStream);
+            contentStream.showText(title);
+            contentStream.newLine();
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawText(
+            PDDocument document,
+            PDPage page,
+            PDPageContentStream contentStream,
+            PdfBoxRectangleSettings rectSettings,
+            PdfBoxPageSettings pageSettings,
+            String[] lines,
+            boolean hasTitle
+    ) {
+        contentStream("begin", page, document, pageSettings, rectSettings, contentStream);
+
+        try {
+
+            int stop = 0;
+
+            for (String line : lines) {
+                if (stop == 5 && hasTitle) break;
+                contentStream.showText(line);
+                contentStream.newLine();
+                stop += 1;
+            }
+
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawImage(
+            PDDocument document,
+            PdfBoxImageSettings imgSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            PDImageXObject pdImageXObject = PDImageXObject.createFromFile(imgSettings.getFilenamePath(), document);
+
+            if (imgSettings.isResize()) {
+                pdImageXObject.setWidth(imgSettings.getWidth());
+                pdImageXObject.setHeight(imgSettings.getHeight());
+            }
+
+            contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawTableContainer(int box, SlimContentSettings settings, PDPageContentStream contentStream) {
+        try {
+
+            contentStream.setStrokingColor(color(settings.tableBorderColor));
+            contentStream.addRect(
+                    settings.tableOffsetX,
+                    settings.tableContainerOffsetY[box],
+                    settings.tableWidth,
+                    settings.tableHeight);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0, 0, 0);
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawTableHeader(
+            int box,
+            int column,
+            SlimContentSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStream.setStrokingColor(color(settings.tableBorderColor));
+            contentStream.setNonStrokingColor(color(settings.tableHeaderColor));
+            contentStream.addRect(
+                    settings.tableColumnOffsetX[column],
+                    settings.tableHeaderOffsetY[box],
+                    settings.columnWidth,
+                    settings.columnHeight);
+            contentStream.fill();
+            contentStream.closeAndStroke();
+            contentStream.setNonStrokingColor(0, 0, 0);
+            contentStream.setStrokingColor(0, 0, 0);
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawTableBody(
+            int initialX,
+            int initialY,
+            int celWidth,
+            int celHeight,
+            SlimContentSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStream.setStrokingColor(color(settings.tableBorderColor));
+            contentStream.addRect(
+                    initialX,
+                    initialY,
+                    celWidth,
+                    celHeight);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0, 0, 0);
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawColumnBox(
+            int box,
+            SlimContentSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            //Column Box 1
+            contentStream.setStrokingColor(color(settings.textColor));
+            contentStream.addRect(
+                    settings.columnBoxOffsetX[0],
+                    settings.columnBoxOffsetY[box],
+                    settings.columnBoxWidth,
+                    settings.columnBoxHeight);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            //Column Box 2
+            contentStream.setStrokingColor(color(settings.textColor));
+            contentStream.addRect(
+                    settings.columnBoxOffsetX[1],
+                    settings.columnBoxOffsetY[box],
+                    settings.columnBoxWidth,
+                    settings.columnBoxHeight);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            //Column Box 3
+            contentStream.setStrokingColor(color(settings.textColor));
+            contentStream.addRect(
+                    settings.columnBoxOffsetX[2],
+                    settings.columnBoxOffsetY[box],
+                    settings.columnBoxWidth,
+                    settings.columnBoxHeight);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawSignatureBox(
+            int index,
+            PDDocument document,
+            PDPage page,
+            PdfBoxPageSettings pageSettings,
+            PdfBoxRectangleSettings rectSettings,
+            SlimContentSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            //Signature Box
+            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
+            contentStream.addRect(
+                    settings.signatureBoxOffsetX[index],
+                    settings.signatureOffsetY[0],
+                    settings.getSignatureBoxWidth(),
+                    settings.getSignatureBoxHeight());
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            //Signature Title
+            pageSettings.setOffsetX(settings.signatureElectronicOffsetX[index]);
+            pageSettings.setOffsetY(settings.signatureOffsetY[1]);
+            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
+            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
+            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
+
+            contentStream = contentStream(
+                    "begin", page, document, pageSettings, rectSettings, contentStream);
+
+            contentStream.showText("Digital Electronic Signature");
+            contentStream.newLine();
+            contentStream.endText();
+
+            //Signature Value
+            pageSettings.setOffsetX(settings.signatureValueOffsetX[index]);
+            pageSettings.setOffsetY(settings.signatureOffsetY[2]);
+            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
+            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
+            pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
+            pageSettings.setLineHeight(16);
+
+            contentStream = contentStream(
+                    "begin", page, document, pageSettings, rectSettings, contentStream);
+            contentStream.setLeading(pageSettings.getLineHeight());
+
+            contentStream.showText("Name Middle Name Last");
+            contentStream.newLine();
+            contentStream.showText("DOC:123456789011 ");
+            contentStream.newLine();
+            contentStream.showText("9089739827389");
+            contentStream.newLine();
+            contentStream.showText("2020.01.01 10:00:00 -03:00");
+            contentStream.newLine();
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawSignatureFit(
+            PDDocument document,
+            PDPage page,
+            PdfBoxPageSettings pageSettings,
+            PdfBoxRectangleSettings rectSettings,
+            SlimContentSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            //Signature Box
+            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
+            contentStream.addRect(
+                    settings.getSignatureFitOffsetX(),
+                    settings.getSignatureFitOffsetY(),
+                    settings.getSignatureFitWidth(),
+                    settings.getSignatureFitHeight());
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            //Signature Title
+            pageSettings.setOffsetX(settings.getSignatureFitTitleOffsetX());
+            pageSettings.setOffsetY(settings.getSignatureFitTitleOffsetY());
+            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
+            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
+            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
+
+            contentStream = contentStream(
+                    "begin", page, document, pageSettings, rectSettings, contentStream);
+
+            contentStream.showText("Digital Electronic Signature");
+            contentStream.newLine();
+            contentStream.endText();
+
+            //Signature Value
+            pageSettings.setOffsetX(settings.getSignatureFitValueOffsetX());
+            pageSettings.setOffsetY(settings.getSignatureFitValueOffsetY());
+            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
+            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
+            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
+
+            contentStream = contentStream(
+                    "begin", page, document, pageSettings, rectSettings, contentStream);
+
+            contentStream.showText("Name Middle Name Last - DOC:123456789011 - 9089739827389 - 2020.01.01 10:00:00 -03:00");
+            contentStream.newLine();
+            contentStream.endText();
+
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
@@ -76,222 +382,54 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PdfBoxPageSettings pageSettings,
             PdfBoxRectangleSettings rectSettings
     ) {
-        try {
+        SlimContentSettings slimContentSettings = new SlimContentSettings();
+        slimContentSettings.setLeftTitleEnable(new boolean[]{true,true,true,true,true});
+        slimContentSettings.setCenterTitleEnable(new boolean[]{true,true,true,true,true});
+        slimContentSettings.setRightTitleEnable(new boolean[]{true,true,true,true,true});
 
-            //SLIM - TITLE CONTENT 1 - LEFT
-            pageSettings.setOffsetX(35);
-            pageSettings.setOffsetY(750);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
+        for (int n = 0; n < slimContentSettings.getBoxQuantity(); n++) {
 
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
+            //Left Title
+            if (slimContentSettings.leftTitleEnable[n]) {
+                pageSettings.setOffsetX(slimContentSettings.titleOffsetX[0]);
+                pageSettings.setOffsetY(slimContentSettings.titleOffsetY[n]);
 
-            contentStream.showText("Title of Section 1");
-            contentStream.newLine();
+                pageSettings.setFontColor(slimContentSettings.getLeftTitleColor());
+                pageSettings.setFontName(slimContentSettings.getLeftTitleFont());
+                pageSettings.setFontSize(slimContentSettings.getLeftTitleSize());
 
-            contentStream.endText();
+                String title = slimContentSettings.getLeftTitleText();
+                drawTitle(document, page, contentStream, rectSettings, pageSettings, title);
+            }
 
-            //SLIM - TITLE CONTENT 1 - CENTER
-            pageSettings.setOffsetX(250);
-            pageSettings.setOffsetY(750);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
+            //Center Title
+            if (slimContentSettings.centerTitleEnable[n]) {
+                pageSettings.setOffsetX(slimContentSettings.titleOffsetX[1]);
+                pageSettings.setOffsetY(slimContentSettings.titleOffsetY[n]);
 
-            contentStream.showText("Title of Section 1");
-            contentStream.newLine();
+                pageSettings.setFontColor(slimContentSettings.getCenterTitleColor());
+                pageSettings.setFontName(slimContentSettings.getCenterTitleFont());
+                pageSettings.setFontSize(slimContentSettings.getCenterTitleSize());
 
-            contentStream.endText();
+                String title = slimContentSettings.getCenterTitleText();
+                drawTitle(document, page, contentStream, rectSettings, pageSettings, title);
+            }
 
-            //SLIM - TITLE CONTENT 1 - RIGHT
-            pageSettings.setOffsetX(450);
-            pageSettings.setOffsetY(750);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
+            //Right Title
+            if (slimContentSettings.rightTitleEnable[n]) {
+                pageSettings.setOffsetX(slimContentSettings.titleOffsetX[2]);
+                pageSettings.setOffsetY(slimContentSettings.titleOffsetY[n]);
 
-            contentStream.showText("Title of Section 1");
-            contentStream.newLine();
+                pageSettings.setFontColor(slimContentSettings.getRightTitleColor());
+                pageSettings.setFontName(slimContentSettings.getRightTitleFont());
+                pageSettings.setFontSize(slimContentSettings.getRightTitleSize());
 
-            contentStream.endText();
+                String title = slimContentSettings.getRightTitleText();
+                drawTitle(document, page, contentStream, rectSettings, pageSettings, title);
+            }
 
-            //SLIM - TITLE CONTENT 2 - LEFT
-            pageSettings.setOffsetX(35);
-            pageSettings.setOffsetY(595);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 2");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 2 - CENTER
-            pageSettings.setOffsetX(250);
-            pageSettings.setOffsetY(595);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 2");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 2 - RIGHT
-            pageSettings.setOffsetX(450);
-            pageSettings.setOffsetY(595);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 2");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 3 - LEFT
-            pageSettings.setOffsetX(35);
-            pageSettings.setOffsetY(440);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 3");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 3 - CENTER
-            pageSettings.setOffsetX(250);
-            pageSettings.setOffsetY(440);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 3");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 3 - RIGHT
-            pageSettings.setOffsetX(450);
-            pageSettings.setOffsetY(440);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 3");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 4 - LEFT
-            pageSettings.setOffsetX(35);
-            pageSettings.setOffsetY(285);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 4");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 4 - CENTER
-            pageSettings.setOffsetX(250);
-            pageSettings.setOffsetY(285);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 4");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 4 - RIGHT
-            pageSettings.setOffsetX(450);
-            pageSettings.setOffsetY(285);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 4");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 5 - LEFT
-            pageSettings.setOffsetX(35);
-            pageSettings.setOffsetY(130);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 5");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 5 - CENTER
-            pageSettings.setOffsetX(250);
-            pageSettings.setOffsetY(130);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 5");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //SLIM - TITLE CONTENT 5 - RIGHT
-            pageSettings.setOffsetX(450);
-            pageSettings.setOffsetY(130);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Title of Section 5");
-            contentStream.newLine();
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
         }
+
     }
 
     private static void slimTextBoxCreate(
@@ -301,161 +439,23 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PdfBoxPageSettings pageSettings,
             PdfBoxRectangleSettings rectSettings
     ) {
-        String[] lines;
+        SlimContentSettings settings = new SlimContentSettings();
+        settings.setTextEnable(new boolean[]{true,true,true,true,true});
 
-        pageSettings.setOffsetX(35);
-        pageSettings.setOffsetY(725);
-        pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-        pageSettings.setFontName(FontNameToPdfBox.HELVETICA);
-        pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
+        pageSettings.setOffsetX(settings.textOffsetX);
+        pageSettings.setFontColor(settings.getTextColor());
+        pageSettings.setFontName(settings.getTextFont());
+        pageSettings.setFontSize(settings.getTextSize());
+        pageSettings.setTextContent(settings.getTextContent());
+        pageSettings.setLineHeight(settings.lineHeight);
 
-        pageSettings.setTextContent(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been of\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other");
+        String[] lines = pageSettings.getTextContent().split("\n");
 
-        lines = pageSettings.getTextContent().split("\n");
-
-        contentStream = contentStream(
-                "begin", page, document, pageSettings, rectSettings, contentStream);
-
-        try {
-            int stop = 0;
-            for (String line : lines) {
-                if (stop == 5) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
+        for (int n = 0; n < settings.getBoxQuantity(); n++) {
+            if (settings.textEnable[n]) {
+                pageSettings.setOffsetY(settings.textOffsetY[n]);
+                drawText(document, page, contentStream, rectSettings, pageSettings, lines, hasTitle(n, settings));
             }
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-
-        pageSettings.setOffsetX(35);
-        pageSettings.setOffsetY(575);
-        pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-        pageSettings.setFontName(FontNameToPdfBox.HELVETICA);
-        pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
-
-        pageSettings.setTextContent(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been of\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other");
-
-        lines = pageSettings.getTextContent().split("\n");
-
-        contentStream = contentStream(
-                "begin", page, document, pageSettings, rectSettings, contentStream);
-
-        try {
-            int stop = 0;
-            for (String line : lines) {
-                if (stop == 5) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-
-        pageSettings.setOffsetX(35);
-        pageSettings.setOffsetY(415);
-        pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-        pageSettings.setFontName(FontNameToPdfBox.HELVETICA);
-        pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
-
-        pageSettings.setTextContent(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been of\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other");
-
-        lines = pageSettings.getTextContent().split("\n");
-
-        contentStream = contentStream(
-                "begin", page, document, pageSettings, rectSettings, contentStream);
-
-        try {
-            int stop = 0;
-            for (String line : lines) {
-                if (stop == 5) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-
-        pageSettings.setOffsetX(35);
-        pageSettings.setOffsetY(260);
-        pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-        pageSettings.setFontName(FontNameToPdfBox.HELVETICA);
-        pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
-
-        pageSettings.setTextContent(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been of\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other");
-
-        lines = pageSettings.getTextContent().split("\n");
-
-        contentStream = contentStream(
-                "begin", page, document, pageSettings, rectSettings, contentStream);
-
-        try {
-            int stop = 0;
-            for (String line : lines) {
-                if (stop == 5) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-
-        pageSettings.setOffsetX(35);
-        pageSettings.setOffsetY(105);
-        pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-        pageSettings.setFontName(FontNameToPdfBox.HELVETICA);
-        pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
-        contentStream = contentStream(
-                "begin", page, document, pageSettings, rectSettings, contentStream);
-
-        try {
-            int stop = 0;
-            for (String line : lines) {
-                if (stop == 5) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
         }
     }
 
@@ -464,45 +464,62 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PDPageContentStream contentStream,
             PdfBoxImageSettings imgSettings
     ) {
-        try {
-            //SLIM - IMAGE CONTENT 1 - LEFT
-            imgSettings.setOffsetX(35);
-            imgSettings.setOffsetY(650);
-            PDImageXObject pdImageXObject = PDImageXObject.createFromFile(imgSettings.getFilenamePath(), document);
+        SlimContentSettings settings = new SlimContentSettings();
+        settings.setLeftImageEnable(new boolean[]{true,true,true,true,true});
+        settings.setCenterImageEnable(new boolean[]{true,true,true,true,true});
+        settings.setRightImageEnable(new boolean[]{true,true,true,true,true});
 
-            if (imgSettings.isResize()) {
-                pdImageXObject.setWidth(imgSettings.getWidth());
-                pdImageXObject.setHeight(imgSettings.getHeight());
+        settings.setLeftImagePaths(new String[]{
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png"
+        });
+        settings.setCenterImagePaths(new String[]{
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png"
+        });
+        settings.setRightImagePaths(new String[]{
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/java.png"
+        });
+
+        for (int n = 0; n < settings.getBoxQuantity(); n++) {
+
+            String imgLeft = settings.leftImagePaths[n];
+            String imgCenter = settings.centerImagePaths[n];
+            String imgRight = settings.rightImagePaths[n];
+
+            //Image Left
+            if (settings.leftImageEnable[n] && imgLeft != null && !imgLeft.isEmpty()) {
+                imgSettings.setOffsetX(settings.imageOffsetX[0]);
+                imgSettings.setOffsetY(settings.imageOffsetY[n]);
+                imgSettings.setFilenamePath(imgLeft);
+                drawImage(document, imgSettings, contentStream);
             }
 
-            contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
-
-            //SLIM - IMAGE CONTENT 1 - CENTER
-            imgSettings.setOffsetX(190);
-            imgSettings.setOffsetY(650);
-            pdImageXObject = PDImageXObject.createFromFile(imgSettings.getFilenamePath(), document);
-
-            if (imgSettings.isResize()) {
-                pdImageXObject.setWidth(imgSettings.getWidth());
-                pdImageXObject.setHeight(imgSettings.getHeight());
+            //Image Center
+            if (settings.centerImageEnable[n] && imgCenter != null && !imgCenter.isEmpty()) {
+                imgSettings.setOffsetX(settings.imageOffsetX[1]);
+                imgSettings.setOffsetY(settings.imageOffsetY[n]);
+                imgSettings.setFilenamePath(imgCenter);
+                drawImage(document, imgSettings, contentStream);
             }
 
-            contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
-
-            //SLIM - IMAGE CONTENT 1 - RIGHT
-            imgSettings.setOffsetX(300);
-            imgSettings.setOffsetY(650);
-            pdImageXObject = PDImageXObject.createFromFile(imgSettings.getFilenamePath(), document);
-
-            if (imgSettings.isResize()) {
-                pdImageXObject.setWidth(imgSettings.getWidth());
-                pdImageXObject.setHeight(imgSettings.getHeight());
+            //Image Right
+            if (settings.rightImageEnable[n] && imgRight != null && !imgRight.isEmpty()) {
+                imgSettings.setOffsetX(settings.imageOffsetX[2]);
+                imgSettings.setOffsetY(settings.imageOffsetY[n]);
+                imgSettings.setFilenamePath(imgRight);
+                drawImage(document, imgSettings, contentStream);
             }
-
-            contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
         }
     }
 
@@ -510,351 +527,51 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PDPageContentStream contentStream,
             PdfBoxRectangleSettings rectSettings
     ) {
-        try {
-            //SLIM - TABLE 2 - BODY
-            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    35,
-                    500,
-                    540,
-                    90);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
+        SlimContentSettings settings = new SlimContentSettings();
+        settings.setTableSize(TableTemplateToPdbBox.TABLE_5X6);
+        settings.setTableEnable(new boolean[]{true,true,true,true,true});
 
-            //SLIM - TABLE 2 - HEADER 1
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.setNonStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    35,
-                    572,
-                    90,
-                    18);
-            contentStream.fill();
-            contentStream.closeAndStroke();
-            contentStream.setNonStrokingColor(0, 0, 0);
-            contentStream.setStrokingColor(0, 0, 0);
+        for (int box = 0; box < settings.getBoxQuantity(); box++) {
 
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.setNonStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    125,
-                    572,
-                    90,
-                    18);
-            contentStream.fill();
-            contentStream.closeAndStroke();
-            contentStream.setNonStrokingColor(0, 0, 0);
-            contentStream.setStrokingColor(0, 0, 0);
+            if (settings.tableEnable[box]) {
 
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.setNonStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    215,
-                    572,
-                    90,
-                    18);
-            contentStream.fill();
-            contentStream.closeAndStroke();
-            contentStream.setNonStrokingColor(0, 0, 0);
-            contentStream.setStrokingColor(0, 0, 0);
+                drawTableContainer(box, settings, contentStream);
 
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.setNonStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    305,
-                    572,
-                    90,
-                    18);
-            contentStream.fill();
-            contentStream.closeAndStroke();
-            contentStream.setNonStrokingColor(0, 0, 0);
-            contentStream.setStrokingColor(0, 0, 0);
+                for (int cols = 0; cols < settings.getTableSize().getTableColumns(); cols++) {
+                    drawTableHeader(box, cols, settings, contentStream);
+                }
 
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.setNonStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    395,
-                    572,
-                    90,
-                    18);
-            contentStream.fill();
-            contentStream.closeAndStroke();
-            contentStream.setNonStrokingColor(0, 0, 0);
-            contentStream.setStrokingColor(0, 0, 0);
+                int initialX = settings.tableOffsetX;
+                int initialY = settings.tableDataOffsetY[box];
+                int celWidth = settings.columnWidth;
+                int celHeight = settings.columnHeight;
 
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.setNonStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    485,
-                    572,
-                    90,
-                    18);
-            contentStream.fill();
-            contentStream.closeAndStroke();
-            contentStream.setNonStrokingColor(0, 0, 0);
-            contentStream.setStrokingColor(0, 0, 0);
+                //tableLines-1: to remove the first line (because was used in the table header)
+                int tableLines = settings.getTableSize().getTableLines()-1;
+                int tableColumns = settings.getTableSize().getTableColumns();
 
-            //SLIM - TABLE 2 - LINE 2
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    35,
-                    554,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
+                for (int row = 0; row < tableLines; row++) {
+                    for (int col = 0; col < tableColumns; col++) {
+                        drawTableBody(initialX, initialY, celWidth, celHeight, settings, contentStream);
+                        initialX += celWidth; //move to the next column
+                    }
 
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    125,
-                    554,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    215,
-                    554,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    305,
-                    554,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    395,
-                    554,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    485,
-                    554,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            //SLIM - TABLE 2 - LINE 3
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    35,
-                    536,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    125,
-                    536,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    215,
-                    536,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    305,
-                    536,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    395,
-                    536,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    485,
-                    536,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            //SLIM - TABLE 2 - LINE 4
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    35,
-                    518,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    125,
-                    518,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    215,
-                    518,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    305,
-                    518,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    395,
-                    518,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    485,
-                    518,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            //SLIM - TABLE 2 - LINE 5
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    35,
-                    500,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    125,
-                    500,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    215,
-                    500,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    305,
-                    500,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    395,
-                    500,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-            contentStream.addRect(
-                    485,
-                    500,
-                    90,
-                    18);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
+                    initialX = settings.tableOffsetX; //reset offset-x position
+                    initialY -= celHeight; //move to the next line
+                }
+            }
         }
-
     }
 
     private static void slimColumnBoxCreate(PDPageContentStream contentStream) {
-        try {
 
-            //SLIM - SECTION 3 - COLUMN 1
-            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    35,
-                    340,
-                    170,
-                    90);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0,0,0);
+        SlimContentSettings settings = new SlimContentSettings();
+        settings.setColumnBoxEnable(new boolean[]{true,true,true,true,true});
 
-            //SLIM - SECTION 3 - COLUMN 2
-            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    210,
-                    340,
-                    190,
-                    90);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0,0,0);
-
-            //SLIM - SECTION 3 - COLUMN 3
-            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    405,
-                    340,
-                    170,
-                    90);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0,0,0);
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
+        for (int box = 0; box < settings.getBoxQuantity(); box++) {
+            if (settings.columnBoxEnable[box]) {
+                drawColumnBox(box, settings, contentStream);
+            }
         }
     }
 
@@ -865,96 +582,39 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PdfBoxPageSettings pageSettings,
             PdfBoxRectangleSettings rectSettings
     ) {
-        try {
+        SlimContentSettings settings = new SlimContentSettings();
+        settings.setLeftSignatureBoxEnable(true);
+        settings.setCenterSignatureBoxEnable(true);
+        settings.setRightSignatureBoxEnable(true);
 
-            //SLIM - SECTION 5 - SIGNATURE BOX - STYLE 1
-            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    55,
-                    30,
-                    500,
-                    30);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0,0,0);
+        //Left Signature
+        if (settings.isLeftSignatureBoxEnable()) {
+            drawSignatureBox(0, document, page, pageSettings, rectSettings, settings, contentStream);
+        }
 
-            //SLIM - SECTION 5 - SIGNATURE BOX - STYLE 1 - TEXT
-            pageSettings.setOffsetX(260);
-            pageSettings.setOffsetY(52);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
+        //Center Signature
+        if (settings.isCenterSignatureBoxEnable()) {
+            drawSignatureBox(1, document, page, pageSettings, rectSettings, settings, contentStream);
+        }
 
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
+        //Right Signature
+        if (settings.isRightSignatureBoxEnable()) {
+            drawSignatureBox(2, document, page, pageSettings, rectSettings, settings, contentStream);
+        }
+    }
 
-            contentStream.showText("Digital Electronic Signature");
-            contentStream.newLine();
-            contentStream.endText();
+    private static void slimSignatureFitCreate(
+            PDDocument document,
+            PDPage page,
+            PDPageContentStream contentStream,
+            PdfBoxPageSettings pageSettings,
+            PdfBoxRectangleSettings rectSettings
+    ) {
+        SlimContentSettings settings = new SlimContentSettings();
+        settings.setSignatureFitEnable(true);
 
-            //SIGNATURE
-            pageSettings.setOffsetX(130);
-            pageSettings.setOffsetY(35);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
-
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Name Middle Name Last - DOC:123456789011 - 9089739827389 - 2020.01.01 10:00:00 -03:00");
-            contentStream.newLine();
-            contentStream.endText();
-            //SLIM - SECTION 5 - SIGNATURE BOX - STYLE 1 - TEXT
-
-            //SLIM - SECTION 5 - SIGNATURE BOX - STYLE 2
-            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
-            contentStream.addRect(
-                    355,
-                    30,
-                    200,
-                    100);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0,0,0);
-
-            //SLIM - SECTION 5 - SIGNATURE BOX - STYLE 2 - TEXT
-            pageSettings.setOffsetX(405);
-            pageSettings.setOffsetY(122);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
-
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Digital Electronic Signature");
-            contentStream.newLine();
-            contentStream.endText();
-
-            //SIGNATURE
-            pageSettings.setOffsetX(370);
-            pageSettings.setOffsetY(100);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
-            pageSettings.setLineHeight(16);
-
-            contentStream = contentStream(
-                    "begin", page, document, pageSettings, rectSettings, contentStream);
-            contentStream.setLeading(pageSettings.getLineHeight());
-
-            contentStream.showText("Name Middle Name Last");
-            contentStream.newLine();
-            contentStream.showText("DOC:123456789011 ");
-            contentStream.newLine();
-            contentStream.showText("9089739827389");
-            contentStream.newLine();
-            contentStream.showText("2020.01.01 10:00:00 -03:00");
-            contentStream.newLine();
-            contentStream.endText();
-            //SLIM - SECTION 5 - SIGNATURE BOX - STYLE 2 - TEXT
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
+        if (settings.isSignatureFitEnable()) {
+            drawSignatureFit(document, page, pageSettings, rectSettings, settings, contentStream);
         }
     }
 
@@ -972,6 +632,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         slimTableBoxCreate(contentStream, rectSettings);
         slimColumnBoxCreate(contentStream);
         slimSignatureBoxCreate(document, page, contentStream, pageSettings, rectSettings);
+        slimSignatureFitCreate(document, page, contentStream, pageSettings, rectSettings);
         slimTextBoxCreate(document, page, contentStream, pageSettings, rectSettings);
         slimImageBoxCreate(document, contentStream, imgSettings);
     }
@@ -983,6 +644,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
      * <p>
      * Templates available:<br />
      * <ul>
+     *     <li>Free</li>
      *     <li>Slim</li>
      *     <li>Box</li>
      *     <li>Box Open</li>
@@ -1020,7 +682,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PDPageContentStream contentStream = contentStream(
                     "new", page, document, pageSettings, rectSettings, null);
 
-            pdfBackground(document, contentStream, tplSettings);
+            drawBackground(document, contentStream, tplSettings);
 
             if (tplSettings.getTemplate().name().equals(template(TemplatesToPdfBox.SLIM))) {
                 slimTemplate(document, page, contentStream, pageSettings, rectSettings, imgSettings, textSettings);
@@ -1034,6 +696,10 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
                 throw new RuntimeException("TODO: SIMPLE_2 Template");
             } else if(tplSettings.getTemplate().name().equals(template(TemplatesToPdfBox.SIMPLE_3))) {
                 throw new RuntimeException("TODO: SIMPLE_3 Template");
+            } else if(tplSettings.getTemplate().name().equals(template(TemplatesToPdfBox.FREE))) {
+                throw new RuntimeException("TODO: FREE Template");
+            } else {
+                throw new RuntimeException("PDFBox Template not found");
             }
 
             contentStream.close();
@@ -1048,6 +714,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
     @Getter
     public enum TemplatesToPdfBox {
+        FREE("FREE"),
         SLIM("SLIM"),
         BOX("BOX"),
         BOX_OPEN("BOX_OPEN"),
@@ -1099,6 +766,108 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         int offsetY;
         String imageBackground;
         TemplatesToPdfBox template;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SlimContentSettings {
+        //General settings
+        int boxQuantity = 5;
+
+        //Title settings
+        int[] leftTitleTarget = new int[]{1,2,3,4,5};
+        int[] centerTitleTarget = new int[]{1,2,3,4,5};
+        int[] rightTitleTarget = new int[]{1,2,3,4,5};
+        int[] titleOffsetX = new int[]{35,250,450};
+        int[] titleOffsetY = new int[]{750,595,440,285,130};
+        boolean[] leftTitleEnable = new boolean[]{false,false,false,false,false};
+        boolean[] centerTitleEnable = new boolean[]{false,false,false,false,false};
+        boolean[] rightTitleEnable = new boolean[]{false,false,false,false,false};
+        String leftTitleText = "Title of Section I";
+        String centerTitleText = "Title of Section I";
+        String rightTitleText = "Title of Section I";
+        ColorsToPdfBox leftTitleColor = ColorsToPdfBox.GREEN2;
+        ColorsToPdfBox centerTitleColor = ColorsToPdfBox.RED2;
+        ColorsToPdfBox rightTitleColor = ColorsToPdfBox.GOLD2;
+        FontSizeToPdfBox leftTitleSize = FontSizeToPdfBox.MEDIUM;
+        FontSizeToPdfBox centerTitleSize = FontSizeToPdfBox.MEDIUM;
+        FontSizeToPdfBox rightTitleSize = FontSizeToPdfBox.MEDIUM;
+        FontNameToPdfBox leftTitleFont = FontNameToPdfBox.HELVETICA_B;
+        FontNameToPdfBox centerTitleFont = FontNameToPdfBox.HELVETICA_B;
+        FontNameToPdfBox rightTitleFont = FontNameToPdfBox.HELVETICA_B;
+
+        //Text settings
+        int lineHeight = 18;
+        int textOffsetX = 35;
+        int[] textOffsetY = new int[]{732,577,421,266,111};
+        boolean[] textEnable = new boolean[]{false,false,false,false,false};
+        String textContent =
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been of\n" +
+            "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+            "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+            "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+            "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+        ColorsToPdfBox textColor = ColorsToPdfBox.BLACK;
+        FontSizeToPdfBox textSize = FontSizeToPdfBox.NORMAL;
+        FontNameToPdfBox textFont = FontNameToPdfBox.HELVETICA;
+
+        //Image Settings
+        int[] imageOffsetX = new int[]{35,180,330};
+        int[] imageOffsetY = new int[]{650,495,340,185,30};
+        boolean[] leftImageEnable = new boolean[]{false,false,false,false,false};
+        boolean[] centerImageEnable = new boolean[]{false,false,false,false,false};
+        boolean[] rightImageEnable = new boolean[]{false,false,false,false,false};
+        String[] leftImagePaths = new String[]{null,null,null,null,null};
+        String[] centerImagePaths = new String[]{null,null,null,null,null};
+        String[] rightImagePaths = new String[]{null,null,null,null,null};
+
+        //Table Settings
+        int tableWidth = 540;
+        int tableHeight = 90;
+        int tableOffsetX = 35;
+        int columnWidth = 90;
+        int columnHeight = 18;
+        int[] tableContainerOffsetY = new int[]{656, 500, 346, 190, 35};
+        int[] tableHeaderOffsetY = new int[]{728, 572, 418, 262, 107};
+        int[] tableColumnOffsetX = new int[] {35,125,215,305,395,485};
+        int[] tableDataOffsetY = new int[]{710, 554, 400, 244, 89};
+        boolean[] tableEnable = new boolean[]{false,false,false,false,false};
+        ColorsToPdfBox tableHeaderColor = ColorsToPdfBox.BLACK;
+        ColorsToPdfBox tableBodyColor = ColorsToPdfBox.WHITE;
+        ColorsToPdfBox tableBorderColor = ColorsToPdfBox.BLACK;
+        TableTemplateToPdbBox tableSize = TableTemplateToPdbBox.TABLE_5X6;
+
+        //Column Settings
+        int columnBoxWidth = 170;
+        int columnBoxHeight = 90;
+        int[] columnBoxOffsetX = new int[]{35,220,405};
+        int[] columnBoxOffsetY = new int[]{655,500,345,190,35};
+        boolean[] columnBoxEnable = new boolean[]{false,false,false,false,false};
+
+        //Signature Box Settings
+        int signatureBoxWidth = 200;
+        int signatureBoxHeight = 100;
+        int[] signatureBoxOffsetX = new int[]{55,210,355};
+        int[] signatureElectronicOffsetX = new int[]{105,260,405};
+        int[] signatureValueOffsetX = new int[]{70,230,370};
+        int[] signatureOffsetY = new int[]{30,122,100};
+        boolean leftSignatureBoxEnable = false;
+        boolean centerSignatureBoxEnable = false;
+        boolean rightSignatureBoxEnable = false;
+
+        //Signature Fit Settings
+        int signatureFitWidth = 500;
+        int signatureFitHeight = 30;
+        int signatureFitOffsetX = 55;
+        int signatureFitOffsetY = 30;
+        int signatureFitTitleOffsetX = 260;
+        int signatureFitTitleOffsetY = 52;
+        int signatureFitValueOffsetX = 130;
+        int signatureFitValueOffsetY = 35;
+        boolean signatureFitEnable = false;
     }
 
 }
