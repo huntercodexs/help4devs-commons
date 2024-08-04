@@ -638,7 +638,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         docSet.setOwnerPassword("");
         List<PdfBarcodeScannerResults> result = pdfScanner(docSet);
 
-        System.out.println(result+" Found");
+        System.out.println(result.size()+" Found");
 
         for (PdfBarcodeScannerResults code : result) {
             System.out.println("Page: "+ code.getPage());

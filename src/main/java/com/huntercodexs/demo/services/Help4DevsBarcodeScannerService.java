@@ -7,11 +7,13 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.datamatrix.DataMatrixReader;
 import com.google.zxing.multi.GenericMultipleBarcodeReader;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -42,83 +44,26 @@ import java.util.List;
  * @author Huntercodexs (Jereelton TEIXEIRA)
  */
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Slf4j
+@Service
 public class Help4DevsBarcodeScannerService {
 
     private int pageNumber;
     private int pixelDelimiter = 20;
-    private PDPage pdPage;
     private List<Result> resultList;
-    private DataMatrixReader dataMatrixReader;
     private GenericMultipleBarcodeReader reader;
     private Hashtable<DecodeHintType, Object> decodeHintTypes;
 
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBarcodeScannerResults {
-        int page;
-        String barcodeType;
-        String barcodeValue;
-    }
-
-    private void initScanner(PDPage pdPage, int pageNumber, int pixelDelimiter) {
-        this.pdPage = pdPage;
+    private void initScanner(int pageNumber, int pixelDelimiter) {
         this.pageNumber = pageNumber;
         this.pixelDelimiter = pixelDelimiter;
         this.resultList = new ArrayList<>();
     }
 
     private void initReader() {
-        this.dataMatrixReader = new DataMatrixReader();
-        this.reader = new GenericMultipleBarcodeReader(dataMatrixReader);
+        this.reader = new GenericMultipleBarcodeReader(new DataMatrixReader());
         this.decodeHintTypes = new Hashtable<>();
         this.decodeHintTypes.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
-    }
-
-    public void scanner(PDPage pdPage, int pageNumber, int pixelDelimiter) throws IOException {
-
-        initScanner(pdPage, pageNumber, pixelDelimiter);
-        initReader();
-
-        PDResources pdResources = pdPage.getResources();
-
-        for (COSName name : pdResources.getXObjectNames()) {
-
-            PDXObject pdxObject = pdResources.getXObject(name);
-
-            if (pdxObject instanceof PDImageXObject) {
-
-                PDImageXObject imageObject = (PDImageXObject) pdxObject;
-                String suffix = imageObject.getSuffix();
-
-                if (suffix != null) {
-                    BufferedImage image = imageObject.getImage();
-                    extractBarcodeArrayByAreas(image, this.pixelDelimiter);
-                }
-            }
-        }
-    }
-
-    public List<PdfBarcodeScannerResults> results() {
-
-        List<PdfBarcodeScannerResults> scannerResults = new ArrayList<>();
-
-        for (Result result : resultList) {
-
-            PdfBarcodeScannerResults results = new PdfBarcodeScannerResults();
-            results.setPage(pageNumber);
-            results.setBarcodeType(String.valueOf(result.getBarcodeFormat()));
-            results.setBarcodeValue(result.getText());
-
-            scannerResults.add(results);
-        }
-
-        return scannerResults;
     }
 
     private static List<Rectangle> getAllAreaByColor(
@@ -478,6 +423,58 @@ public class Help4DevsBarcodeScannerService {
         g.drawRenderedImage(bi, null);
         g.dispose();
         return result;
+    }
+
+    public void scanner(PDPage pdPage, int pageNumber, int pixelDelimiter) throws IOException {
+
+        initScanner(pageNumber, pixelDelimiter);
+        initReader();
+
+        PDResources pdResources = pdPage.getResources();
+
+        for (COSName name : pdResources.getXObjectNames()) {
+
+            PDXObject pdxObject = pdResources.getXObject(name);
+
+            if (pdxObject instanceof PDImageXObject) {
+
+                PDImageXObject imageObject = (PDImageXObject) pdxObject;
+                String suffix = imageObject.getSuffix();
+
+                if (suffix != null) {
+                    BufferedImage image = imageObject.getImage();
+                    extractBarcodeArrayByAreas(image, this.pixelDelimiter);
+                }
+            }
+        }
+    }
+
+    public List<PdfBarcodeScannerResults> results() {
+
+        List<PdfBarcodeScannerResults> scannerResults = new ArrayList<>();
+
+        for (Result result : resultList) {
+
+            PdfBarcodeScannerResults results = new PdfBarcodeScannerResults();
+            results.setPage(pageNumber);
+            results.setBarcodeType(String.valueOf(result.getBarcodeFormat()));
+            results.setBarcodeValue(result.getText());
+
+            scannerResults.add(results);
+        }
+
+        return scannerResults;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBarcodeScannerResults {
+        int page;
+        String barcodeType;
+        String barcodeValue;
     }
 }
 

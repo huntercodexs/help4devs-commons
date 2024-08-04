@@ -733,14 +733,14 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
 
             int numPages = document.getNumberOfPages();
 
-            Help4DevsBarcodeScannerService pageScanner = new Help4DevsBarcodeScannerService();
+            Help4DevsBarcodeScannerService pdfScanner = new Help4DevsBarcodeScannerService();
 
             for (int page = 0; page < numPages; page++) {
                 PDPage pdPage = document.getPage(page);
-                pageScanner.scanner(pdPage, page, 20);
+                pdfScanner.scanner(pdPage, page, 20);
             }
 
-            return pageScanner.results();
+            return pdfScanner.results();
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
