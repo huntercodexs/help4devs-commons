@@ -1,6 +1,5 @@
 package com.huntercodexs.demo.services.pdfbox;
 
-import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -11,9 +10,10 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ColorsToPdfBox.color;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateService.PdfBoxTemplates.template;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateService.SlimTemplateDimensions.slimDimensions;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates.template;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.SlimTemplateSettings.*;
 
 /**
  * @author huntercodexs (powered by jereelton-devel)
@@ -23,6 +23,22 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateServi
 @Slf4j
 @Service
 public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
+    
+    private static void drawSlimTemplate(
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        slimContainerCreate(document, page, settings, contentStream);
+        slimContainerTitleCreate(document, page, settings, contentStream);
+        slimContainerTableCreate(settings, contentStream);
+        slimContainerColumnCreate(settings, contentStream);
+        slimContainerSignatureCreate(document, page, settings, contentStream);
+        slimContainerSignatureTapeCreate(document, page, settings, contentStream);
+        slimContainerTextCreate(document, page, settings, contentStream);
+        slimContainerImageCreate(document, settings, contentStream);
+    }
 
     private static boolean hasTitle(
             int box,
@@ -39,43 +55,26 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
         return slimTemplateSettings.rightTitleEnable[box];
     }
-    
-    private static void drawSlimTemplate(
-            PDDocument document,
-            PDPage page,
-            PdfBoxTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        slimRectangleBoxCreate(document, page, settings, contentStream);
-        slimTitleBoxCreate(document, page, settings, contentStream);
-        slimTableBoxCreate(settings, contentStream);
-        slimColumnBoxCreate(settings, contentStream);
-        slimSignatureBoxCreate(document, page, settings, contentStream);
-        slimSignatureBoxTapeCreate(document, page, settings, contentStream);
-        slimTextBoxCreate(document, page, settings, contentStream);
-        slimImageBoxCreate(document, settings, contentStream);
-    }
 
-    private static void drawRectangle(
+    private static void drawContainer(
             PDDocument document,
             PDPage page,
-            int boxQuantity,
-            PdfBoxContainerSettings rectSettings,
-            PdfBoxPageSettings pageSettings,
+            PdfBoxContainer rectSettings,
+            PdfBoxPage pageSettings,
             PDPageContentStream contentStream
     ) {
-        for (int n = 1; n <= boxQuantity; n++) {
+        for (int n = 1; n <= BOX_QUANTITY; n++) {
 
             if (n == 1) {
-                rectSettings.setOffsetY(slimDimensions(SlimTemplateDimensions.OFFSET_Y_BLOCK1));
+                rectSettings.setOffsetY(OFFSET_Y_BLOCK1);
             } else if (n == 2) {
-                rectSettings.setOffsetY(slimDimensions(SlimTemplateDimensions.OFFSET_Y_BLOCK2));
+                rectSettings.setOffsetY(OFFSET_Y_BLOCK2);
             } else if (n == 3) {
-                rectSettings.setOffsetY(slimDimensions(SlimTemplateDimensions.OFFSET_Y_BLOCK3));
+                rectSettings.setOffsetY(OFFSET_Y_BLOCK3);
             } else if (n == 4) {
-                rectSettings.setOffsetY(slimDimensions(SlimTemplateDimensions.OFFSET_Y_BLOCK4));
+                rectSettings.setOffsetY(OFFSET_Y_BLOCK4);
             } else {
-                rectSettings.setOffsetY(slimDimensions(SlimTemplateDimensions.OFFSET_Y_BLOCK5));
+                rectSettings.setOffsetY(OFFSET_Y_BLOCK5);
             }
 
             if (rectSettings.getBackColor() == null) {
@@ -99,6 +98,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
+        if (!settings.isImageBackgroundEnable()) return;
+
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
             contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
@@ -111,7 +112,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PDDocument document,
             PDPage page,
             String title,
-            PdfBoxPageSettings pageSettings,
+            PdfBoxPage pageSettings,
             PDPageContentStream contentStream
     ) {
         try {
@@ -251,8 +252,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             int index,
             PDDocument document,
             PDPage page,
-            PdfBoxPageSettings pageSettings,
-            PdfBoxContainerSettings rectSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxContainer rectSettings,
             SlimTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -314,8 +315,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
     private static void drawSignatureTape(
             PDDocument document,
             PDPage page,
-            PdfBoxPageSettings pageSettings,
-            PdfBoxContainerSettings rectSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxContainer rectSettings,
             SlimTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -375,7 +376,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PDPage page,
             String[] lines,
             SlimTemplateSettings slimSettings,
-            PdfBoxPageSettings pageSettings,
+            PdfBoxPage pageSettings,
             PDPageContentStream contentStream
     ) {
         boolean hasTitle = hasTitle(box, slimSettings);
@@ -406,7 +407,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
     private static void drawImage(
             PDDocument document,
-            PdfBoxImageSettings imgSettings,
+            PdfBoxImage imgSettings,
             PDPageContentStream contentStream
     ) {
         try {
@@ -425,24 +426,22 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
-    private static void slimRectangleBoxCreate(
+    private static void slimContainerCreate(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        PdfBoxContainerSettings rectSettings = settings.getContainer();
-        rectSettings.setHeight(slimDimensions(SlimTemplateDimensions.DEFAULT_HEIGHT));
-        rectSettings.setWidth(slimDimensions(SlimTemplateDimensions.DEFAULT_WIDTH));
+        PdfBoxContainer rectSettings = settings.getContainer();
+        rectSettings.setHeight(DEFAULT_HEIGHT);
+        rectSettings.setWidth(DEFAULT_WIDTH);
 
-        PdfBoxPageSettings pageSettings = settings.getPage();
+        PdfBoxPage pageSettings = settings.getPage();
 
-        int boxQuantity = settings.getSlim().getBoxQuantity();
-
-        drawRectangle(document, page, boxQuantity, rectSettings, pageSettings, contentStream);
+        drawContainer(document, page, rectSettings, pageSettings, contentStream);
     }
 
-    private static void slimTitleBoxCreate(
+    private static void slimContainerTitleCreate(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
@@ -454,9 +453,9 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             slimSettings = settings.getSlim();
         }
 
-        PdfBoxPageSettings pageSettings = settings.getPage();
+        PdfBoxPage pageSettings = settings.getPage();
 
-        for (int n = 0; n < slimSettings.getBoxQuantity(); n++) {
+        for (int n = 0; n < BOX_QUANTITY; n++) {
 
             //Left Title
             if (slimSettings.leftTitleEnable[n]) {
@@ -501,7 +500,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
     }
 
-    private static void slimTextBoxCreate(
+    private static void slimContainerTextCreate(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
@@ -513,18 +512,26 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             slimSettings = settings.getSlim();
         }
 
-        PdfBoxPageSettings pageSettings = settings.getPage();
+        PdfBoxPage pageSettings = settings.getPage();
 
         pageSettings.setOffsetX(slimSettings.textOffsetX);
         pageSettings.setFontColor(slimSettings.getTextColor());
         pageSettings.setFontName(slimSettings.getTextFont());
         pageSettings.setFontSize(slimSettings.getTextSize());
-        pageSettings.setTextContent(slimSettings.getTextContent());
+
+        if (slimSettings.getTextContentOne() != null) {
+            pageSettings.setTextContent(slimSettings.getTextContentOne());
+        }
+
         pageSettings.setLineHeight(slimSettings.lineHeight);
 
-        String[] lines = pageSettings.getTextContent().split("\n");
+        String[] lines = new String[]{};
 
-        for (int box = 0; box < slimSettings.getBoxQuantity(); box++) {
+        if (slimSettings.getTextContentOne() != null) {
+            lines = pageSettings.getTextContent().split("\n");
+        }
+
+        for (int box = 0; box < BOX_QUANTITY; box++) {
             if (slimSettings.textEnable[box]) {
                 pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
                 drawText(box, document, page, lines, slimSettings, pageSettings, contentStream);
@@ -532,7 +539,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
-    private static void slimImageBoxCreate(
+    private static void slimContainerImageCreate(
             PDDocument document,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
@@ -543,9 +550,9 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             slimSettings = settings.getSlim();
         }
 
-        PdfBoxImageSettings imgSettings = settings.getImage();
+        PdfBoxImage imgSettings = settings.getImage();
 
-        for (int n = 0; n < slimSettings.getBoxQuantity(); n++) {
+        for (int n = 0; n < BOX_QUANTITY; n++) {
 
             String imgLeft = slimSettings.leftImagePaths[n];
             String imgCenter = slimSettings.centerImagePaths[n];
@@ -577,7 +584,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
-    private static void slimTableBoxCreate(
+    private static void slimContainerTableCreate(
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -587,7 +594,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             slimSettings = settings.getSlim();
         }
 
-        for (int box = 0; box < slimSettings.getBoxQuantity(); box++) {
+        for (int box = 0; box < BOX_QUANTITY; box++) {
 
             if (slimSettings.tableEnable[box]) {
 
@@ -620,7 +627,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
-    private static void slimColumnBoxCreate(
+    private static void slimContainerColumnCreate(
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -630,14 +637,14 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             slimSettings = settings.getSlim();
         }
 
-        for (int box = 0; box < slimSettings.getBoxQuantity(); box++) {
+        for (int box = 0; box < BOX_QUANTITY; box++) {
             if (slimSettings.columnBoxEnable[box]) {
                 drawColumnBox(box, slimSettings, contentStream);
             }
         }
     }
 
-    private static void slimSignatureBoxCreate(
+    private static void slimContainerSignatureCreate(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
@@ -649,8 +656,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             slimSettings = settings.getSlim();
         }
 
-        PdfBoxPageSettings pageSettings = settings.getPage();
-        PdfBoxContainerSettings rectSettings = settings.getContainer();
+        PdfBoxPage pageSettings = settings.getPage();
+        PdfBoxContainer rectSettings = settings.getContainer();
 
         //Left Signature
         if (slimSettings.isLeftSignatureBoxEnable()) {
@@ -668,7 +675,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
-    private static void slimSignatureBoxTapeCreate(
+    private static void slimContainerSignatureTapeCreate(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
@@ -680,8 +687,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             slimSettings = settings.getSlim();
         }
 
-        PdfBoxPageSettings pageSettings = settings.getPage();
-        PdfBoxContainerSettings rectSettings = settings.getContainer();
+        PdfBoxPage pageSettings = settings.getPage();
+        PdfBoxContainer rectSettings = settings.getContainer();
 
         if (slimSettings.isSignatureTapeEnable()) {
             drawSignatureTape(document, page, pageSettings, rectSettings, slimSettings, contentStream);
@@ -702,6 +709,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
      *     <li>Box</li>
      *     <li>Box Open</li>
      *     <li>Slim Box</li>
+     *     <li>Triple Fall</li>
+     *     <li>Simple 1</li>
      *     <li>Simple 2</li>
      *     <li>Simple 3</li>
      * </ul>
@@ -751,321 +760,6 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             throw new RuntimeException(ioe.getMessage());
         }
 
-    }
-
-    @Getter
-    public enum PdfBoxTemplates {
-        FREE("FREE"),
-        SLIM("SLIM"),
-        BOX("BOX"),
-        BOX_OPEN("BOX_OPEN"),
-        SLIM_BOX("SLIM_BOX"),
-        SIMPLE_2("SIMPLE_2"),
-        SIMPLE_3("SIMPLE_3");
-
-        private final String template;
-
-        PdfBoxTemplates(String template) {
-            this.template = template;
-        }
-
-        public static String template(PdfBoxTemplates template) {
-            return template.getTemplate();
-        }
-    }
-
-    @Getter
-    public enum SlimTemplateDimensions {
-        DEFAULT_WIDTH(570),
-        DEFAULT_HEIGHT(135),
-        OFFSET_Y_BLOCK1(640),
-        OFFSET_Y_BLOCK2(485),
-        OFFSET_Y_BLOCK3(330),
-        OFFSET_Y_BLOCK4(175),
-        OFFSET_Y_BLOCK5(20);
-
-        private final int slimDimensions;
-
-        SlimTemplateDimensions(int slimDimensions) {
-            this.slimDimensions = slimDimensions;
-        }
-
-        public static int slimDimensions(SlimTemplateDimensions slim) {
-            return slim.getSlimDimensions();
-        }
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxTemplateSettings {
-        /*Template*/
-        PdfBoxTemplates template = null;
-
-        /*Template Dimensions*/
-        int width = 0;
-        int height = 0;
-        int offsetX = 0;
-        int offsetY = 0;
-
-        /*Template Background*/
-        String imageBackground = null;
-
-        /*Elements Settings*/
-        PdfBoxDocumentSettings document = null;
-        PdfBoxPageSettings page = null;
-        PdfBoxContainerSettings container = null;
-        PdfBoxTextSettings text = null;
-        PdfBoxImageSettings image = null;
-        PdfBoxTableSettings table = null;
-
-        /*Templates Available*/
-        FreeTemplateSettings free = null;
-        SlimTemplateSettings slim = null;
-        BoxTemplateSettings box = null;
-        BoxOpenTemplateSettings boxOpen = null;
-        Simple2TemplateSettings simple2 = null;
-        Simple3TemplateSettings simple3 = null;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class FreeTemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class SlimTemplateSettings {
-        //General settings
-        int boxQuantity = 5;
-
-        //Title settings
-        int[] leftTitleTarget = new int[]{1,2,3,4,5};
-        int[] centerTitleTarget = new int[]{1,2,3,4,5};
-        int[] rightTitleTarget = new int[]{1,2,3,4,5};
-        int[] titleOffsetX = new int[]{35,250,450};
-        int[] titleOffsetY = new int[]{750,595,440,285,130};
-        boolean[] leftTitleEnable = new boolean[]{false,false,false,false,false};
-        boolean[] centerTitleEnable = new boolean[]{false,false,false,false,false};
-        boolean[] rightTitleEnable = new boolean[]{false,false,false,false,false};
-        String leftTitleText = "Title of Section I";
-        String centerTitleText = "Title of Section I";
-        String rightTitleText = "Title of Section I";
-        ColorsToPdfBox leftTitleColor = ColorsToPdfBox.GREEN2;
-        ColorsToPdfBox centerTitleColor = ColorsToPdfBox.RED2;
-        ColorsToPdfBox rightTitleColor = ColorsToPdfBox.GOLD2;
-        FontSizeToPdfBox leftTitleSize = FontSizeToPdfBox.MEDIUM;
-        FontSizeToPdfBox centerTitleSize = FontSizeToPdfBox.MEDIUM;
-        FontSizeToPdfBox rightTitleSize = FontSizeToPdfBox.MEDIUM;
-        FontNameToPdfBox leftTitleFont = FontNameToPdfBox.HELVETICA_B;
-        FontNameToPdfBox centerTitleFont = FontNameToPdfBox.HELVETICA_B;
-        FontNameToPdfBox rightTitleFont = FontNameToPdfBox.HELVETICA_B;
-
-        //Table Settings
-        int tableWidth = 540;
-        int tableHeight = 90;
-        int tableOffsetX = 35;
-        int columnWidth = 90;
-        int columnHeight = 18;
-        int[] tableContainerOffsetY = new int[]{656, 500, 346, 190, 35};
-        int[] tableHeaderOffsetY = new int[]{728, 572, 418, 262, 107};
-        int[] tableColumnOffsetX = new int[] {35,125,215,305,395,485};
-        int[] tableDataOffsetY = new int[]{710, 554, 400, 244, 89};
-        boolean[] tableEnable = new boolean[]{false,false,false,false,false};
-        ColorsToPdfBox tableHeaderColor = ColorsToPdfBox.BLACK;
-        ColorsToPdfBox tableBodyColor = ColorsToPdfBox.WHITE;
-        ColorsToPdfBox tableBorderColor = ColorsToPdfBox.BLACK;
-        TableTemplateToPdbBox tableSize = TableTemplateToPdbBox.TABLE_5X6;
-
-        //Column Settings
-        int columnBoxWidth = 170;
-        int columnBoxHeight = 90;
-        int[] columnBoxOffsetX = new int[]{35,220,405};
-        int[] columnBoxOffsetY = new int[]{655,500,345,190,35};
-        int[] columnLeftBorderWidth = new int[]{1,1,1,1,1};
-        int[] columnCenterBorderWidth = new int[]{1,1,1,1,1};
-        int[] columnRightBorderWidth = new int[]{1,1,1,1,1};
-        boolean[] columnBoxEnable = new boolean[]{false,false,false,false,false};
-        boolean[] columnLeftBorderEnable = new boolean[]{true,true,true,true,true};
-        boolean[] columnCenterBorderEnable = new boolean[]{true,true,true,true,true};
-        boolean[] columnRightBorderEnable = new boolean[]{true,true,true,true,true};
-        ColorsToPdfBox[] columnLeftBackColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnCenterBackColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnRightBackColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnLeftBorderColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnCenterBorderColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnRightBorderColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnLeftTextColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnCenterTextColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-        ColorsToPdfBox[] columnRightTextColor = new ColorsToPdfBox[]{
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.BLACK
-        };
-
-        //Signature Box Settings
-        int signatureBoxWidth = 200;
-        int signatureBoxHeight = 100;
-        int signatureBoxAdjustOffsetX = 0;
-        int[] signatureBoxOffsetX = new int[]{55,210,355};
-        int[] signatureBoxOffsetY = new int[]{30,122,100};
-        int[] signatureBoxDigitalTitleOffsetX = new int[]{105,260,405};
-        int[] signatureBoxContentOffsetX = new int[]{70,230,370};
-        boolean signatureBoxBorderEnable = false;
-        boolean leftSignatureBoxEnable = false;
-        boolean centerSignatureBoxEnable = false;
-        boolean rightSignatureBoxEnable = false;
-        ColorsToPdfBox signatureBoxColor = ColorsToPdfBox.BLACK;
-
-        //Signature Tape Settings
-        int signatureTapeWidth = 500;
-        int signatureTapeHeight = 30;
-        int signatureTapeOffsetX = 55;
-        int signatureTapeOffsetY = 30;
-        int signatureTapeTitleOffsetX = 260;
-        int signatureTapeTitleOffsetY = 52;
-        int signatureTapeValueOffsetX = 130;
-        int signatureTapeValueOffsetY = 35;
-        int signatureTapeAdjustOffsetX = 0;
-        boolean signatureTapeEnable = false;
-        ColorsToPdfBox signatureTapeColor = ColorsToPdfBox.BLACK;
-
-        //Signature Details
-        String signaturePersonName = "";
-        String signaturePersonDoc = "";
-        String signatureRecord = "";
-        String signatureDateGmt = "";
-        String signatureStampMark = "";
-
-        //Text settings
-        int lineHeight = 18;
-        int textOffsetX = 35;
-        int[] textOffsetY = new int[]{732,577,421,266,111};
-        boolean[] textEnable = new boolean[]{false,false,false,false,false};
-        String textContent = "";
-        ColorsToPdfBox textColor = ColorsToPdfBox.BLACK;
-        FontSizeToPdfBox textSize = FontSizeToPdfBox.NORMAL;
-        FontNameToPdfBox textFont = FontNameToPdfBox.HELVETICA;
-
-        //Image Settings
-        int[] imageOffsetX = new int[]{35,180,330};
-        int[] imageOffsetY = new int[]{650,495,340,185,30};
-        boolean[] leftImageEnable = new boolean[]{false,false,false,false,false};
-        boolean[] centerImageEnable = new boolean[]{false,false,false,false,false};
-        boolean[] rightImageEnable = new boolean[]{false,false,false,false,false};
-        String[] leftImagePaths = new String[]{null,null,null,null,null};
-        String[] centerImagePaths = new String[]{null,null,null,null,null};
-        String[] rightImagePaths = new String[]{null,null,null,null,null};
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class BoxTemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class BoxOpenTemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class SlimBoxTemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Simple2TemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Simple3TemplateSettings {
-        //General settings
-        int boxQuantity;
     }
 
 }

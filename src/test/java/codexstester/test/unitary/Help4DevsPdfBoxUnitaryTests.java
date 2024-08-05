@@ -12,15 +12,15 @@ import java.util.List;
 
 import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
 import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.binFile;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontNameToPdfBox.fontName;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontSizeToPdfBox.fontSize;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ImageQualityToPdfBox.imageQuality;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ImageTypeToPdfBox.imageType;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PageSizeToPdfBox.pageSize;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ProtectionLevelToPdfBox.protectionLevel;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.TableDimensionsToPdfBox.tableSize;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.*;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ColorsToPdfBox.color;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ImageQualityToPdfBox.imageQuality;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.TableTemplateToPdbBox.tableSize;
 
 public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
@@ -32,8 +32,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
-    private PdfBoxDocumentSettings documentSettings() {
-        PdfBoxDocumentSettings settings = new PdfBoxDocumentSettings();
+    private PdfBoxDocument documentSettings() {
+        PdfBoxDocument settings = new PdfBoxDocument();
         settings.setStartPage(0);
         settings.setEndPage(2);
         settings.setNumberOfPages(3);
@@ -47,13 +47,12 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setUserPassword(null);
         settings.setOwnerPassword(null);
         settings.setProtectionLevel(ProtectionLevelToPdfBox.HIGH);
-        settings.setSignature(null);
         settings.setFilenamePath(filepathTarget);
         return settings;
     }
 
-    private PdfBoxPageSettings pageSettings() {
-        PdfBoxPageSettings settings = new PdfBoxPageSettings();
+    private PdfBoxPage pageSettings() {
+        PdfBoxPage settings = new PdfBoxPage();
         settings.setWidth(500);
         settings.setHeight(780);
         settings.setOffsetX(25);
@@ -67,14 +66,14 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setFontSize(FontSizeToPdfBox.X_SMALL);
         settings.setFontColor(ColorsToPdfBox.BLACK);
         settings.setPageColor(ColorsToPdfBox.WHITE);
-        settings.setTextContent("data to write");
+        settings.setTextContent(null);
         settings.setImageFilepath(null);
         settings.setByteContent(null);
         return settings;
     }
 
-    private PdfBoxContainerSettings containerSettings() {
-        PdfBoxContainerSettings settings = new PdfBoxContainerSettings();
+    private PdfBoxContainer containerSettings() {
+        PdfBoxContainer settings = new PdfBoxContainer();
         settings.setWidth(570);
         settings.setHeight(750);
         settings.setOffsetX(20);
@@ -86,8 +85,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         return settings;
     }
 
-    private PdfBoxTextSettings textSettings() {
-        PdfBoxTextSettings settings = new PdfBoxTextSettings();
+    private PdfBoxText textSettings() {
+        PdfBoxText settings = new PdfBoxText();
         settings.setWidth(500);
         settings.setHeight(780);
         settings.setOffsetX(0);
@@ -97,13 +96,13 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setBold(false);
         settings.setItalic(false);
         settings.setUnderline(false);
-        settings.setFontName("courier");
-        settings.setFontSize("x-small");
+        settings.setFontName(FontNameToPdfBox.HELVETICA);
+        settings.setFontSize(FontSizeToPdfBox.NORMAL);
         return settings;
     }
 
-    private PdfBoxImageSettings imageSettings() {
-        PdfBoxImageSettings settings = new PdfBoxImageSettings();
+    private PdfBoxImage imageSettings() {
+        PdfBoxImage settings = new PdfBoxImage();
         settings.setWidth(500);
         settings.setHeight(780);
         settings.setOffsetX(25);
@@ -116,8 +115,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         return settings;
     }
 
-    private PdfBoxTableSettings tableSettings() {
-        PdfBoxTableSettings settings = new PdfBoxTableSettings();
+    private PdfBoxTable tableSettings() {
+        PdfBoxTable settings = new PdfBoxTable();
         settings.setWidth(100);
         settings.setHeight(100);
         settings.setOffsetX(0);
@@ -126,7 +125,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setHeaderColor(ColorsToPdfBox.ORANGE);
         settings.setCelColor(ColorsToPdfBox.ICE);
         settings.setBorderColor(ColorsToPdfBox.BLACK);
-        settings.setTableTemplate(TableTemplateToPdbBox.TABLE_5X6);
+        settings.setTableTemplate(TableDimensionsToPdfBox.TABLE_5X6);
         return settings;
     }
 
@@ -339,64 +338,64 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void tableTemplateTest() {
-        int[] tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X6);
+        int[] tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_5X6);
         codexsTesterAssertExact("5,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X5);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_5X5);
         codexsTesterAssertExact("5,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X4);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_5X4);
         codexsTesterAssertExact("5,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X3);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_5X3);
         codexsTesterAssertExact("5,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_5X2);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_5X2);
         codexsTesterAssertExact("5,2", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X6);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_4X6);
         codexsTesterAssertExact("4,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X5);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_4X5);
         codexsTesterAssertExact("4,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X4);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_4X4);
         codexsTesterAssertExact("4,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X3);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_4X3);
         codexsTesterAssertExact("4,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_4X2);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_4X2);
         codexsTesterAssertExact("4,2", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X6);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_3X6);
         codexsTesterAssertExact("3,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X5);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_3X5);
         codexsTesterAssertExact("3,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X4);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_3X4);
         codexsTesterAssertExact("3,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X3);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_3X3);
         codexsTesterAssertExact("3,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_3X2);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_3X2);
         codexsTesterAssertExact("3,2", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X6);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_2X6);
         codexsTesterAssertExact("2,6", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X5);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_2X5);
         codexsTesterAssertExact("2,5", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X4);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_2X4);
         codexsTesterAssertExact("2,4", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X3);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_2X3);
         codexsTesterAssertExact("2,3", tableTemplate[0]+","+tableTemplate[1]);
 
-        tableTemplate = tableSize(TableTemplateToPdbBox.TABLE_2X2);
+        tableTemplate = tableSize(TableDimensionsToPdfBox.TABLE_2X2);
         codexsTesterAssertExact("2,2", tableTemplate[0]+","+tableTemplate[1]);
     }
 
@@ -404,8 +403,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     public void pdfCreateTest() throws IOException {
         String data = binFile(filepathSource);
 
-        PdfBoxDocumentSettings docSet = documentSettings();
-        PdfBoxPageSettings pageSet = pageSettings();
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
 
         docSet.setNumberOfPages(3);
 
@@ -420,8 +419,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     public void pdfCreateUsingPasswordTest() throws IOException {
         String data = binFile(filepathSource);
 
-        PdfBoxDocumentSettings docSet = documentSettings();
-        PdfBoxPageSettings pageSet = pageSettings();
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
 
         docSet.setFilenamePath(filepathTargetPassword);
         docSet.setNumberOfPages(3);
@@ -437,9 +436,9 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfAddImageTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
-        PdfBoxPageSettings pageSet = pageSettings();
-        PdfBoxImageSettings imgSet = imageSettings();
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxImage imgSet = imageSettings();
 
         pageSet.setPageNumber(1);
         pageSet.setImageFilepath(imagePath);
@@ -455,11 +454,11 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfAddContainerTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
-        PdfBoxPageSettings pageSet = pageSettings();
-        PdfBoxContainerSettings rectSet = containerSettings();
-        PdfBoxTextSettings textSet = textSettings();
-        PdfBoxImageSettings imgSet = imageSettings();
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxContainer rectSet = containerSettings();
+        PdfBoxText textSet = textSettings();
+        PdfBoxImage imgSet = imageSettings();
 
         pageSet.setPageNumber(2);
         rectSet.setBackColor(ColorsToPdfBox.ICE);
@@ -470,7 +469,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfReaderTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
 
         /*Whole Document*/
         docSet.setStartPage(0);
@@ -529,7 +528,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfProtectTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
         pdfProtect(docSet);
@@ -537,7 +536,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfUnprotectTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
         pdfUnprotect(docSet);
@@ -545,7 +544,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfDetailsTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
         PdfBoxDocumentDetails details = pdfDetails(docSet);
@@ -554,12 +553,12 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfFromImageTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setFilenamePath("./src/test/resources/help4devs/files/pdf/my-pdfbox-from-image.pdf");
         docSet.setUserPassword("");
         docSet.setOwnerPassword("");
 
-        PdfBoxPageSettings pageSet = pageSettings();
+        PdfBoxPage pageSet = pageSettings();
         pageSet.setPageNumber(1);
         pageSet.setImageFilepath(imagePathAds);
 
@@ -568,12 +567,12 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfFromImageUsingPasswordTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setFilenamePath("./src/test/resources/help4devs/files/pdf/my-pdfbox-from-image-password.pdf");
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
 
-        PdfBoxPageSettings pageSet = pageSettings();
+        PdfBoxPage pageSet = pageSettings();
         pageSet.setPageNumber(1);
         pageSet.setImageFilepath(imagePathAds);
 
@@ -582,9 +581,9 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfToImageTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
-        PdfBoxPageSettings pageSet = pageSettings();
-        PdfBoxImageSettings imageSet = imageSettings();
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxImage imageSet = imageSettings();
 
         docSet.setFilenamePath(filepathTarget);
         docSet.setUserPassword(userPassword);
@@ -608,7 +607,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfSplitterTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setFilenamePath(filepathTarget);
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
@@ -617,7 +616,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfMergerTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setFilenamePath("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-merged.pdf");
         docSet.setUserPassword(userPassword);
         docSet.setOwnerPassword(ownerPassword);
@@ -632,7 +631,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfScannerTest() {
-        PdfBoxDocumentSettings docSet = documentSettings();
+        PdfBoxDocument docSet = documentSettings();
         docSet.setFilenamePath("./src/test/resources/help4devs/files/pdf/my-pdfbox-test-barcode.pdf");
         docSet.setUserPassword("");
         docSet.setOwnerPassword("");

@@ -1,7 +1,6 @@
 package com.huntercodexs.demo.services.pdfbox;
 
 import com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService;
-import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.multipdf.Splitter;
@@ -12,7 +11,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -20,23 +18,21 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.*;
 
 import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ColorsToPdfBox.color;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ImageQualityToPdfBox.imageQuality;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontNameToPdfBox.fontName;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontSizeToPdfBox.fontSize;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ImageQualityToPdfBox.imageQuality;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ImageTypeToPdfBox.imageType;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PageSizeToPdfBox.pageSize;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ProtectionLevelToPdfBox.protectionLevel;
 
 /**
  * @author huntercodexs (powered by jereelton-devel)
@@ -45,9 +41,9 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.Prote
  * */
 @Slf4j
 @Service
-public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
+public class Help4DevsPdfBoxService extends Help4DevsPdfBoxElements {
 
-    protected static void propertiesPDF(PDDocument document, PdfBoxDocumentSettings settings) {
+    protected static void propertiesPDF(PDDocument document, PdfBoxDocument settings) {
         PDDocumentInformation information = document.getDocumentInformation();
         information.setAuthor(settings.getAuthor());
         information.setTitle(settings.getTitle());
@@ -70,7 +66,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
         information.setModificationDate(cal);
     }
 
-    protected static void initPDF(String filenamePath, PdfBoxPageSettings pageSettings) {
+    protected static void initPDF(String filenamePath, PdfBoxPage pageSettings) {
 
         try (PDDocument documentCreator = new PDDocument()) {
 
@@ -84,7 +80,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
         }
     }
 
-    protected static void addPDF(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
+    protected static void addPDF(PdfBoxDocument docSettings, PdfBoxPage pageSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -105,8 +101,8 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
             String option,
             PDPage page,
             PDDocument document,
-            PdfBoxPageSettings pageSettings,
-            PdfBoxContainerSettings rectSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxContainer rectSettings,
             PDPageContentStream contentStream
     ) {
         try {
@@ -169,7 +165,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
         }
     }
 
-    protected static void createPDF(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
+    protected static void createPDF(PdfBoxDocument docSettings, PdfBoxPage pageSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -182,7 +178,11 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
             PDPageContentStream contentStream = contentStream(
                     "text", page, document, pageSettings, null, null);
 
-            String[] lines = pageSettings.getTextContent().replace("\r", "").split("\n");
+            String[] lines = new String[]{};
+
+            if (pageSettings.getTextContent() != null) {
+                lines = pageSettings.getTextContent().replace("\r", "").split("\n");
+            }
 
             for (String line : lines) {
                 contentStream.showText(line);
@@ -215,7 +215,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
         return accessPermission;
     }
 
-    protected static void protectPDF(PdfBoxDocumentSettings docSettings) {
+    protected static void protectPDF(PdfBoxDocument docSettings) {
         if (docSettings.getUserPassword() == null || docSettings.getUserPassword().isEmpty()) return;
         if (docSettings.getOwnerPassword() == null || docSettings.getOwnerPassword().isEmpty()) return;
 
@@ -242,7 +242,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
         }
     }
 
-    protected static void unprotectPDF(PdfBoxDocumentSettings docSettings) {
+    protected static void unprotectPDF(PdfBoxDocument docSettings) {
 
         if (docSettings.getOwnerPassword() == null || docSettings.getOwnerPassword().isEmpty()) {
             throw new RuntimeException("Missing password for PDF Decrypt");
@@ -270,7 +270,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfCreate(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
+    public static void pdfCreate(PdfBoxDocument docSettings, PdfBoxPage pageSettings) {
         String filenamePath = docSettings.getFilenamePath();
 
         if (filenamePath == null || filenamePath.isEmpty()) {
@@ -300,9 +300,9 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfAddImage(
-            PdfBoxDocumentSettings docSettings,
-            PdfBoxPageSettings pageSettings,
-            PdfBoxImageSettings imgSettings
+            PdfBoxDocument docSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxImage imgSettings
     ) {
         File file = new File(docSettings.getFilenamePath());
 
@@ -360,11 +360,11 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfAddContainer(
-            PdfBoxDocumentSettings docSettings,
-            PdfBoxPageSettings pageSettings,
-            PdfBoxContainerSettings rectSettings,
-            PdfBoxTextSettings textSettings,
-            PdfBoxImageSettings imgSettings
+            PdfBoxDocument docSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxContainer rectSettings,
+            PdfBoxText textSettings,
+            PdfBoxImage imgSettings
     ) {
         File file = new File(docSettings.getFilenamePath());
 
@@ -428,17 +428,17 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static String pdfReader(PdfBoxDocumentSettings docSettings) {
+    public static String pdfReader(PdfBoxDocument docSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
         try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
-            if (docSettings.getStartPage() > docSettings.getEndPage()) {
+            if ((docSettings.getStartPage()-1) > docSettings.getEndPage()) {
                 throw new RuntimeException("Failed: Page End should be greater than Page Start");
             }
 
-            if (docSettings.getStartPage() > document.getNumberOfPages()) {
+            if ((docSettings.getStartPage()-1) > document.getNumberOfPages()) {
                 throw new RuntimeException("Failed: Page Start > numberOfPages");
             } else if (docSettings.getEndPage() > document.getNumberOfPages()) {
                 throw new RuntimeException("Failed: Page End > numberOfPages");
@@ -446,7 +446,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
 
             PDFTextStripper stripper = new PDFTextStripper();
 
-            if (docSettings.getStartPage() == 0 && docSettings.getEndPage() == 0) {
+            if ((docSettings.getStartPage()-1) == 0 && docSettings.getEndPage() == 0) {
                 String content = stripper.getText(document);
                 document.close();
                 return content;
@@ -474,7 +474,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfProtect(PdfBoxDocumentSettings docSettings) {
+    public static void pdfProtect(PdfBoxDocument docSettings) {
         protectPDF(docSettings);
     }
 
@@ -487,7 +487,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfUnprotect(PdfBoxDocumentSettings docSettings) {
+    public static void pdfUnprotect(PdfBoxDocument docSettings) {
         unprotectPDF(docSettings);
     }
 
@@ -501,7 +501,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      */
-    public static PdfBoxDocumentDetails pdfDetails(PdfBoxDocumentSettings docSettings) {
+    public static PdfBoxDocumentDetails pdfDetails(PdfBoxDocument docSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -539,7 +539,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfFromImage(PdfBoxDocumentSettings docSettings, PdfBoxPageSettings pageSettings) {
+    public static void pdfFromImage(PdfBoxDocument docSettings, PdfBoxPage pageSettings) {
 
         initPDF(docSettings.getFilenamePath(), pageSettings);
 
@@ -585,9 +585,9 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfToImage(
-            PdfBoxDocumentSettings docSettings,
-            PdfBoxPageSettings pageSettings,
-            PdfBoxImageSettings imageSettings
+            PdfBoxDocument docSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxImage imageSettings
     ) {
         File file = new File(docSettings.getFilenamePath());
 
@@ -632,7 +632,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfSplitter(PdfBoxDocumentSettings docSettings, String pathToSave) {
+    public static void pdfSplitter(PdfBoxDocument docSettings, String pathToSave) {
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -685,7 +685,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfMerger(PdfBoxDocumentSettings docSettings, List<String> pdfListToMerge) {
+    public static void pdfMerger(PdfBoxDocument docSettings, List<String> pdfListToMerge) {
 
         PDFMergerUtility pdfMerger = new PDFMergerUtility();
         pdfMerger.setDestinationFileName(docSettings.getFilenamePath());
@@ -735,7 +735,7 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static List<PdfBarcodeScannerResults> pdfScanner(PdfBoxDocumentSettings docSettings) {
+    public static List<PdfBarcodeScannerResults> pdfScanner(PdfBoxDocument docSettings) {
 
         File file = new File(docSettings.getFilenamePath());
 
@@ -770,355 +770,6 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxComponentService {
      * */
     public static void pdfAssign(String docPath, String filenamePath) {
         /*TODO*/
-    }
-
-    @Getter
-    public enum PageSizeToPdfBox {
-        A0(PDRectangle.A0),
-        A1(PDRectangle.A1),
-        A2(PDRectangle.A2),
-        A3(PDRectangle.A3),
-        A4(PDRectangle.A4),
-        A5(PDRectangle.A5),
-        A6(PDRectangle.A6),
-        LEGAL(PDRectangle.LEGAL),
-        LETTER(PDRectangle.LETTER),
-        A4_LANDSCAPE(new PDRectangle(842.0F, 595.5F)),
-        LETTER_LANDSCAPE(new PDRectangle(792.0F, 612.0F));
-
-        private final PDRectangle pageSize;
-
-        PageSizeToPdfBox(PDRectangle pageSize) {
-            this.pageSize = pageSize;
-        }
-
-        public static PDRectangle pageSize(PageSizeToPdfBox pageSize) {
-            return pageSize.getPageSize();
-        }
-    }
-
-    @Getter
-    public enum ColorsToPdfBox {
-        NONE(new Color(255, 255, 255, 0)),
-        WHITE(new Color(255, 255, 255)),
-        RED(new Color(255, 0, 0)),
-        RED2(new Color(136, 0, 20)),
-        GREEN(new Color(0, 255, 0)),
-        GREEN2(new Color(26, 188, 156)),
-        BLUE(new Color(0, 0, 255)),
-        BLUE2(new Color(51,181,255)),
-        BLUE3(new Color(78, 120, 149)),
-        BLACK(new Color(0, 0, 0)),
-        GRAY(new Color(128, 128, 128)),
-        LIGHT_GRAY(new Color(192, 192, 192)),
-        ICE(new Color(235, 235, 235)),
-        PURPLE(new Color(173, 108, 227)),
-        GOLD(new Color(255, 215, 0)),
-        GOLD2(new Color(194, 175, 13)),
-        PINK(new Color(231, 6, 176)),
-        YELLOW(new Color(255, 255, 0)),
-        ORANGE(new Color(250, 123, 24)),
-        CYAN(new Color(0, 255, 255)),
-        MAGENTA(new Color(255,0,255));
-
-        private final Color colorName;
-
-        ColorsToPdfBox(Color colorName) {
-            this.colorName = colorName;
-        }
-
-        public static Color color(ColorsToPdfBox colorName) {
-            if (colorName == null) {
-                return ColorsToPdfBox.NONE.getColorName();
-            }
-            return colorName.getColorName();
-        }
-    }
-
-    @Getter
-    public enum FontNameToPdfBox {
-        ZAP(PDType1Font.ZAPF_DINGBATS),
-        SYMBOL(PDType1Font.SYMBOL),
-
-        TIMES(PDType1Font.TIMES_ROMAN),
-        TIMES_B(PDType1Font.TIMES_BOLD),
-        TIMES_I(PDType1Font.TIMES_ITALIC),
-        TIMES_BI(PDType1Font.TIMES_BOLD_ITALIC),
-
-        COURIER(PDType1Font.COURIER),
-        COURIER_B(PDType1Font.COURIER_BOLD),
-        COURIER_I(PDType1Font.COURIER_OBLIQUE),
-        COURIER_BI(PDType1Font.COURIER_BOLD_OBLIQUE),
-
-        HELVETICA(PDType1Font.HELVETICA),
-        HELVETICA_B(PDType1Font.HELVETICA_BOLD),
-        HELVETICA_I(PDType1Font.HELVETICA_OBLIQUE),
-        HELVETICA_BI(PDType1Font.HELVETICA_BOLD_OBLIQUE);
-
-        private final PDType1Font fontName;
-
-        FontNameToPdfBox(PDType1Font fontName) {
-            this.fontName = fontName;
-        }
-
-        public static PDType1Font fontName(FontNameToPdfBox fontName) {
-            return fontName.getFontName();
-        }
-    }
-
-    @Getter
-    public enum FontSizeToPdfBox {
-        X_SMALL(5),
-        SMALL(8),
-        NORMAL(12),
-        MEDIUM(16),
-        LARGE(24),
-        X_LARGE(45);
-
-        private final int fontSize;
-
-        FontSizeToPdfBox(int fontSize) {
-            this.fontSize = fontSize;
-        }
-
-        public static int fontSize(FontSizeToPdfBox fontSize) {
-            return fontSize.getFontSize();
-        }
-    }
-
-    @Getter
-    public enum ProtectionLevelToPdfBox {
-        LOW(64),
-        MIDDLE(128),
-        HIGH(256);
-
-        private final int protectionLevel;
-
-        ProtectionLevelToPdfBox(int protectionLevel) {
-            this.protectionLevel = protectionLevel;
-        }
-
-        public static int protectionLevel(ProtectionLevelToPdfBox protectionLevel) {
-            return protectionLevel.getProtectionLevel();
-        }
-    }
-
-    @Getter
-    public enum ImageTypeToPdfBox {
-        JPEG("JPEG"),
-        JPG("JPEG"),
-        PNG("PNG"),
-        GIF("GIF"),
-        TIFF("TIFF"),
-        BMP("BMP");
-
-        private final String imageType;
-
-        ImageTypeToPdfBox(String imageType) {
-            this.imageType = imageType;
-        }
-
-        public static String imageType(ImageTypeToPdfBox imageType) {
-            return imageType.getImageType();
-        }
-    }
-
-    @Getter
-    public enum ImageQualityToPdfBox {
-        LOW(50),
-        NORMAL(120),
-        GOOD(300),
-        ULTRA(500),
-        SUPER(800);
-
-        private final int imageQuality;
-
-        ImageQualityToPdfBox(int imageQuality) {
-            this.imageQuality = imageQuality;
-        }
-
-        public static int imageQuality(ImageQualityToPdfBox imageQuality) {
-            return imageQuality.getImageQuality();
-        }
-    }
-
-    @Getter
-    public enum TableTemplateToPdbBox {
-        TABLE_5X6(5, 6),
-        TABLE_5X5(5, 5),
-        TABLE_5X4(5, 4),
-        TABLE_5X3(5, 3),
-        TABLE_5X2(5, 2),
-
-        TABLE_4X6(4, 6),
-        TABLE_4X5(4, 5),
-        TABLE_4X4(4, 4),
-        TABLE_4X3(4, 3),
-        TABLE_4X2(4, 2),
-
-        TABLE_3X6(3, 6),
-        TABLE_3X5(3, 5),
-        TABLE_3X4(3, 4),
-        TABLE_3X3(3, 3),
-        TABLE_3X2(3, 2),
-
-        TABLE_2X6(2, 6),
-        TABLE_2X5(2, 5),
-        TABLE_2X4(2, 4),
-        TABLE_2X3(2, 3),
-        TABLE_2X2(2, 2);
-
-        private final int tableLines;
-        private final int tableColumns;
-
-        TableTemplateToPdbBox(int tableLines, int tableColumns) {
-            this.tableLines = tableLines;
-            this.tableColumns = tableColumns;
-        }
-
-        public static int[] tableSize(TableTemplateToPdbBox template) {
-            return new int[]{template.getTableLines(), template.getTableColumns()};
-        }
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxDocumentDetails {
-        int numberOfPages;
-        boolean isProtected;
-        boolean hasSignature;
-        String date;
-        String title;
-        String author;
-        String subject;
-        String pageSize;
-        String fontName;
-        String fontSize;
-        String keywords;
-        String signature;
-        String documentId;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxDocumentSettings {
-        int startPage;
-        int endPage;
-        int numberOfPages;
-        String date;
-        String title;
-        String author;
-        String subject;
-        FontNameToPdfBox fontName;
-        FontSizeToPdfBox fontSize;
-        String keywords;
-        String userPassword;
-        String ownerPassword;
-        ProtectionLevelToPdfBox protectionLevel;
-        String signature;
-        String filenamePath;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxPageSettings {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
-        int lineHeight;
-        int pageNumber;
-        int margin;
-        int padding;
-        byte[] byteContent;
-        PageSizeToPdfBox pageSize;
-        FontNameToPdfBox fontName;
-        FontSizeToPdfBox fontSize;
-        ColorsToPdfBox fontColor;
-        ColorsToPdfBox pageColor;
-        String textContent;
-        String imageFilepath;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxContainerSettings {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
-        int borderWidth = 1;
-        boolean border;
-        boolean roundedBorder;
-        ColorsToPdfBox backColor;
-        ColorsToPdfBox borderColor;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxTextSettings {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
-        int lineHeight;
-        int letterSpace;
-        boolean bold;
-        boolean italic;
-        boolean underline;
-        String fontName;
-        String fontSize;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxImageSettings {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
-        int maxWidth;
-        int maxHeight;
-        boolean border;
-        boolean resize;
-        String filenamePath;
-        ImageTypeToPdfBox imageType;
-        ImageQualityToPdfBox imageQuality;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxTableSettings {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
-        boolean border;
-        ColorsToPdfBox headerColor;
-        ColorsToPdfBox celColor;
-        ColorsToPdfBox borderColor;
-        TableTemplateToPdbBox tableTemplate;
     }
 
 }
