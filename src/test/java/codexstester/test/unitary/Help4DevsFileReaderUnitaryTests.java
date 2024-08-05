@@ -3,7 +3,7 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsFileReaderService.awaitFileContent;
+import static com.huntercodexs.demo.services.file.Help4DevsFileReaderService.awaitFileContent;
 
 public class Help4DevsFileReaderUnitaryTests extends Help4DevsBridgeTests {
 

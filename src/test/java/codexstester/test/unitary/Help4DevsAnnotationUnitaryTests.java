@@ -1,7 +1,7 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.services.Help4DevsAnnotationService;
+import com.huntercodexs.demo.services.annotation.Help4DevsAnnotationService;
 import org.junit.Test;
 
 public class Help4DevsAnnotationUnitaryTests extends Help4DevsBridgeTests {

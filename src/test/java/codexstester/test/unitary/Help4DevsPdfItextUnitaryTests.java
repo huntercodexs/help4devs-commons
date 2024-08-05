@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
-import static com.huntercodexs.demo.services.Help4DevsPdfItextService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.binFile;
+import static com.huntercodexs.demo.services.itext.Help4DevsPdfItextService.*;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 
 public class Help4DevsPdfItextUnitaryTests extends Help4DevsBridgeTests {
 

@@ -5,7 +5,7 @@ import com.huntercodexs.demo.handler.error.Help4DevsSampleError;
 import com.huntercodexs.demo.handler.error.Help4DevsServiceError;
 import com.huntercodexs.demo.handler.exception.Help4DevsSampleException;
 import com.huntercodexs.demo.handler.exception.Help4DevsServiceException;
-import com.huntercodexs.demo.services.Help4DevsBaseService;
+import com.huntercodexs.demo.services.basic.Help4DevsBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import static com.huntercodexs.demo.services.Help4DevsDataRandomService.randomGuid;
+import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.randomGuid;
 
 @Slf4j
 @RestController

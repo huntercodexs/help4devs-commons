@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
-import static com.huntercodexs.demo.services.Help4DevsCurrencyService.*;
+import static com.huntercodexs.demo.services.currency.Help4DevsCurrencyService.*;
 
 public class Help4DevsCurrencyUnitaryTests extends Help4DevsBridgeTests {
 

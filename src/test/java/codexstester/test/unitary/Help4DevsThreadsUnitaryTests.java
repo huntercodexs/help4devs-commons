@@ -1,7 +1,7 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.services.Help4DevsCryptographyService;
+import com.huntercodexs.demo.services.crypto.Help4DevsCryptographyService;
 import org.junit.Test;
 
 import java.util.ArrayList;

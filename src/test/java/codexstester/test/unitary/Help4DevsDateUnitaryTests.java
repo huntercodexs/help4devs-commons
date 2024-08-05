@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.huntercodexs.demo.services.Help4DevsDateService.*;
+import static com.huntercodexs.demo.services.date.Help4DevsDateService.*;
 
 public class Help4DevsDateUnitaryTests extends Help4DevsBridgeTests {
 

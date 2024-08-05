@@ -11,7 +11,7 @@ import org.krysalis.barcode4j.HumanReadablePlacement;
 import java.io.File;
 import java.io.IOException;
 
-import static com.huntercodexs.demo.services.Help4DevsBarcodeService.*;
+import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeService.*;
 
 public class Help4DevsBarcodeUnitaryTests extends Help4DevsBridgeTests {
 

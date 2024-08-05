@@ -6,8 +6,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.Help4DevsHackerRankService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.challenge.Help4DevsHackerRankService.*;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 
 public class Help4DevsHackerRankUnitaryTests extends Help4DevsBridgeTests {
 

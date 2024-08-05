@@ -3,8 +3,8 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsMathService.binaryToDecimal;
-import static com.huntercodexs.demo.services.Help4DevsMathService.decimalToBinary;
+import static com.huntercodexs.demo.services.math.Help4DevsMathService.binaryToDecimal;
+import static com.huntercodexs.demo.services.math.Help4DevsMathService.decimalToBinary;
 import static java.lang.Math.ceil;
 
 public class Help4DevsMathUnitaryTests extends Help4DevsBridgeTests {

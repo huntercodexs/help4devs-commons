@@ -5,7 +5,7 @@ import lombok.*;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
-import static com.huntercodexs.demo.services.Help4DevsResponseEntityService.responseEntitySimulate;
+import static com.huntercodexs.demo.services.http.Help4DevsResponseEntityService.responseEntitySimulate;
 
 public class Help4DevsResponseEntityUnitaryTests extends Help4DevsBridgeTests {
 

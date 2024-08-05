@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.Help4DevsParserService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.parser.Help4DevsParserService.*;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 
 public class Help4DevsParserUnitaryTests extends Help4DevsBridgeTests {
 

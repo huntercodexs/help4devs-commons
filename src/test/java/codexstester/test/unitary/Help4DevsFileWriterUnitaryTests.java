@@ -1,7 +1,7 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.services.Help4DevsFileWriterService;
+import com.huntercodexs.demo.services.file.Help4DevsFileWriterService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

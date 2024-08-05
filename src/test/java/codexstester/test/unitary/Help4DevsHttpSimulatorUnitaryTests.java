@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
-import static com.huntercodexs.demo.services.Help4DevsHttpSimulatorService.httpResponseErrorExtractor;
-import static com.huntercodexs.demo.services.Help4DevsHttpSimulatorService.restResponseSimulate;
+import static com.huntercodexs.demo.services.http.Help4DevsHttpSimulatorService.httpResponseErrorExtractor;
+import static com.huntercodexs.demo.services.http.Help4DevsHttpSimulatorService.restResponseSimulate;
 
 public class Help4DevsHttpSimulatorUnitaryTests extends Help4DevsBridgeTests {
 

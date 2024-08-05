@@ -4,9 +4,8 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsDataRandomService.randomCardNumber;
-import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.randomCardNumber;
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.*;
 
 public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 

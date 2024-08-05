@@ -6,7 +6,7 @@ import com.huntercodexs.demo.enumerator.DataMasked;
 import org.junit.Test;
 
 import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
-import static com.huntercodexs.demo.services.Help4DevsMaskedService.cardNumberMasked;
+import static com.huntercodexs.demo.services.format.Help4DevsMaskedService.cardNumberMasked;
 
 public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
 

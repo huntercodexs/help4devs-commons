@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 
 import static codexstester.engine.util.CodexsParserJsonTests.codexsTesterParseNetJsonObject;
 import static codexstester.setup.datasource.Help4DevsDataSourceTests.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 
 public class Help4DevsInternalTests extends Help4DevsBridgeTests {
 

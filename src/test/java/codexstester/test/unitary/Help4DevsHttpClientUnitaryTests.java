@@ -1,7 +1,7 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.services.Help4DevsHttpClientService;
+import com.huntercodexs.demo.services.http.Help4DevsHttpClientService;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
 import static codexstester.engine.util.CodexsHelperTests.codexsHelperLogTerm;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.*;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.*;
 
 public class Help4DevsToolsUnitaryTests extends Help4DevsBridgeTests {
 

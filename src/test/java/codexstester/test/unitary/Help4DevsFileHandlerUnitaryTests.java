@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.*;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 
 public class Help4DevsFileHandlerUnitaryTests extends Help4DevsBridgeTests {
 

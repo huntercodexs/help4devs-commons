@@ -1,21 +1,21 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.services.Help4DevsFileHandlerService;
-import com.huntercodexs.demo.services.Help4DevsFileWriterService;
-import com.huntercodexs.demo.services.Help4DevsImageService;
+import com.huntercodexs.demo.services.file.Help4DevsFileHandlerService;
+import com.huntercodexs.demo.services.file.Help4DevsFileWriterService;
+import com.huntercodexs.demo.services.image.Help4DevsImageService;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.byteFile;
-import static com.huntercodexs.demo.services.Help4DevsImageService.*;
-import static com.huntercodexs.demo.services.Help4DevsImageService.ImageType.*;
-import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.matrixPrinter;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.binFile;
+import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.byteFile;
+import static com.huntercodexs.demo.services.image.Help4DevsImageService.*;
+import static com.huntercodexs.demo.services.image.Help4DevsImageService.ImageType.*;
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.repeat;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.matrixPrinter;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 
 public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 

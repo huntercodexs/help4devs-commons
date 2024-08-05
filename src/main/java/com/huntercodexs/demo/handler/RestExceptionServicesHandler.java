@@ -13,7 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import static com.huntercodexs.demo.enumerator.TraceType.RESPONSE_ENTITY_SERVICE;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.trace;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.trace;
 
 /**
  * This class serve to protect and configure an HTTP ERROR RESPONSE to external services

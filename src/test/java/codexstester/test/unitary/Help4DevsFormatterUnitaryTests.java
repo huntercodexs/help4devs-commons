@@ -3,10 +3,10 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsDataRandomService.randomCnpj;
-import static com.huntercodexs.demo.services.Help4DevsDataRandomService.randomCpf;
-import static com.huntercodexs.demo.services.Help4DevsFormatterService.*;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.randomCnpj;
+import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.randomCpf;
+import static com.huntercodexs.demo.services.format.Help4DevsFormatterService.*;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 
 public class Help4DevsFormatterUnitaryTests extends Help4DevsBridgeTests {
 

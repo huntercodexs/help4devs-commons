@@ -2,8 +2,8 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.enumerator.TokenType;
-import com.huntercodexs.demo.services.Help4DevsJwtService;
-import com.huntercodexs.demo.services.Help4DevsOauth2Service;
+import com.huntercodexs.demo.services.security.Help4DevsJwtService;
+import com.huntercodexs.demo.services.security.Help4DevsOauth2Service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

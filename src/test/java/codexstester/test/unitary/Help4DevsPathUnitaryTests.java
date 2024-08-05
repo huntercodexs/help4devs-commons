@@ -3,8 +3,8 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsPathService.fileExtension;
-import static com.huntercodexs.demo.services.Help4DevsPathService.sanitizePath;
+import static com.huntercodexs.demo.services.basic.Help4DevsPathService.fileExtension;
+import static com.huntercodexs.demo.services.basic.Help4DevsPathService.sanitizePath;
 
 public class Help4DevsPathUnitaryTests extends Help4DevsBridgeTests {
 

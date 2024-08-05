@@ -4,7 +4,7 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.Help4DevsBaseService.params;
+import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.params;
 
 public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
 

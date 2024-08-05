@@ -3,8 +3,8 @@ package com.huntercodexs.demo.enumerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static com.huntercodexs.demo.services.Help4DevsStringHandlerService.repeat;
-import static com.huntercodexs.demo.services.Help4DevsToolsService.infoLog;
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.repeat;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.infoLog;
 
 @Getter
 @NoArgsConstructor

@@ -10,17 +10,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
-import static com.huntercodexs.demo.services.Help4DevsFileHandlerService.binFile;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.*;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ColorsToPdfBox.color;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageQualityToPdfBox.imageQuality;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
-import static com.huntercodexs.demo.services.Help4DevsPdfBoxService.TableTemplateToPdbBox.tableSize;
+import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
+import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.binFile;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ColorsToPdfBox.color;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.FontNameToPdfBox.fontName;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.FontSizeToPdfBox.fontSize;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ImageQualityToPdfBox.imageQuality;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ImageTypeToPdfBox.imageType;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.PageSizeToPdfBox.pageSize;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.ProtectionLevelToPdfBox.protectionLevel;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.TableTemplateToPdbBox.tableSize;
 
 public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
@@ -73,8 +73,8 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         return settings;
     }
 
-    private PdfBoxRectangleSettings rectangleSettings() {
-        PdfBoxRectangleSettings settings = new PdfBoxRectangleSettings();
+    private PdfBoxContainerSettings containerSettings() {
+        PdfBoxContainerSettings settings = new PdfBoxContainerSettings();
         settings.setWidth(570);
         settings.setHeight(750);
         settings.setOffsetX(20);
@@ -454,10 +454,10 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void pdfAddBoxTest() {
+    public void pdfAddContainerTest() {
         PdfBoxDocumentSettings docSet = documentSettings();
         PdfBoxPageSettings pageSet = pageSettings();
-        PdfBoxRectangleSettings rectSet = rectangleSettings();
+        PdfBoxContainerSettings rectSet = containerSettings();
         PdfBoxTextSettings textSet = textSettings();
         PdfBoxImageSettings imgSet = imageSettings();
 
@@ -465,7 +465,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         rectSet.setBackColor(ColorsToPdfBox.ICE);
         rectSet.setBorderColor(ColorsToPdfBox.BLACK);
 
-        pdfAddBox(docSet, pageSet, rectSet, textSet, imgSet);
+        pdfAddContainer(docSet, pageSet, rectSet, textSet, imgSet);
     }
 
     @Test
