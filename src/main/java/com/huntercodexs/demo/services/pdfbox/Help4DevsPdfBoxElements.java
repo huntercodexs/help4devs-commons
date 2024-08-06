@@ -3,6 +3,7 @@ package com.huntercodexs.demo.services.pdfbox;
 import lombok.*;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import java.awt.*;
 
@@ -218,6 +219,24 @@ public class Help4DevsPdfBoxElements {
     }
 
     @Getter
+    public enum CodeType4ScannerToPdfBox {
+        CODE128("CODE128"),
+        CODE39("CODE39"),
+        PDF417("PDF417"),
+        QRCODE("QRCODE");
+
+        private final String codeType4Scanner;
+
+        CodeType4ScannerToPdfBox(String codeType) {
+            this.codeType4Scanner = codeType;
+        }
+
+        public static String codeType4Scanner(CodeType4ScannerToPdfBox codeType) {
+            return codeType.getCodeType4Scanner();
+        }
+    }
+
+    @Getter
     @Setter
     @ToString
     @AllArgsConstructor
@@ -281,7 +300,7 @@ public class Help4DevsPdfBoxElements {
         ColorsToPdfBox fontColor;
         ColorsToPdfBox pageColor;
         String textContent = "";
-        String imageFilepath;
+        String imageFilepath = null;
     }
 
     @Getter
@@ -295,8 +314,8 @@ public class Help4DevsPdfBoxElements {
         int offsetX;
         int offsetY;
         int borderWidth = 1;
-        boolean border;
-        boolean roundedBorder;
+        boolean border = false;
+        boolean roundedBorder = false;
         ColorsToPdfBox backColor;
         ColorsToPdfBox borderColor;
     }
@@ -350,9 +369,9 @@ public class Help4DevsPdfBoxElements {
         int offsetY;
         int lineHeight;
         int letterSpace;
-        boolean bold;
-        boolean italic;
-        boolean underline;
+        boolean bold = false;
+        boolean italic = false;
+        boolean underline = false;
         FontNameToPdfBox fontName;
         FontSizeToPdfBox fontSize;
         ColorsToPdfBox fontColor;
@@ -400,10 +419,24 @@ public class Help4DevsPdfBoxElements {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PdfBoxBarcode {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
+        int dpi = 400;
+        int width = 500;
+        int height = 50;
+        int fontSize = 2;
+        int lineHeight = 20;
+        int margin = 0;
+        int orientation = 0;
+        float offsetX = 0;
+        float offsetY = 400;
+        double fixQuiteZone = 0;
+        boolean doQuiteZone = false;
+        String data;
+        String infoOne;
+        String infoThree;
+        String infoFour;
+        FontNameToPdfBox fontName = FontNameToPdfBox.COURIER;
+        HumanReadablePlacement textPosition = HumanReadablePlacement.HRP_BOTTOM;
+        CodeType4ScannerToPdfBox codeType4Scanner;
     }
 
     @Getter
@@ -411,11 +444,20 @@ public class Help4DevsPdfBoxElements {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class PdfBoxCodeQR {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
+    public static class PdfBoxQrCode {
+        int dpi = 400;
+        int margin = 0;
+        int matrix = 70;
+        int size = 70;
+        int onColor = 0xFF000001;
+        int offColor = 0xFFFFFFFF;
+        float offsetX = 0;
+        float offsetY = 400;
+        String data;
+        String infoOne;
+        String infoThree;
+        String infoFour;
+        CodeType4ScannerToPdfBox codeType4Scanner;
     }
 
 }

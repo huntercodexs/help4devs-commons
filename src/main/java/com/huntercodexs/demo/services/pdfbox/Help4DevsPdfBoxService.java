@@ -1,5 +1,12 @@
 package com.huntercodexs.demo.services.pdfbox;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
@@ -11,16 +18,22 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
+import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.impl.code39.Code39Bean;
+import org.krysalis.barcode4j.impl.pdf417.PDF417Bean;
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -260,6 +273,147 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxElements {
         }
     }
 
+    protected static void barcode128(
+            PdfBoxBarcode bcOverwrite,
+            PDDocument document,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            PdfBoxBarcode bcSettings = new PdfBoxBarcode();
+            if (bcOverwrite != null) {
+                bcSettings = bcOverwrite;
+            }
+
+            BitmapCanvasProvider canvas = new BitmapCanvasProvider(
+                    bcSettings.getDpi(), BufferedImage.TYPE_BYTE_BINARY, false, bcSettings.getOrientation());
+
+            Code128Bean code128Bean = new Code128Bean();
+            code128Bean.setFontSize(bcSettings.getFontSize());
+            code128Bean.setHeight(bcSettings.getLineHeight());
+            code128Bean.setVerticalQuietZone(0);
+            code128Bean.setFontName(String.valueOf(bcSettings.getFontName()).toLowerCase());
+            code128Bean.doQuietZone(bcSettings.isDoQuiteZone());
+            code128Bean.setMsgPosition(bcSettings.getTextPosition());
+            code128Bean.generateBarcode(canvas, bcSettings.getData());
+            canvas.finish();
+
+            BufferedImage bImage = canvas.getBufferedImage();
+
+            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, bcSettings.getDpi());
+            contentStream.drawImage(image, bcSettings.getOffsetX(), bcSettings.getOffsetY(), bcSettings.getWidth(), bcSettings.getHeight());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
+    protected static void barcode39(
+            PdfBoxBarcode bcOverwrite,
+            PDDocument document,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            PdfBoxBarcode bcSettings = new PdfBoxBarcode();
+            if (bcOverwrite != null) {
+                bcSettings = bcOverwrite;
+            }
+
+            BitmapCanvasProvider canvas = new BitmapCanvasProvider(
+                    bcSettings.getDpi(), BufferedImage.TYPE_BYTE_BINARY, false, bcSettings.getOrientation());
+
+            Code39Bean code39Bean = new Code39Bean();
+            code39Bean.setFontName(String.valueOf(bcSettings.getFontName()).toLowerCase());
+            code39Bean.setFontSize(bcSettings.getFontSize());
+            code39Bean.setQuietZone(bcSettings.getFixQuiteZone());
+            code39Bean.setMsgPosition(bcSettings.getTextPosition());
+            code39Bean.generateBarcode(canvas, bcSettings.getData());
+            canvas.finish();
+
+            BufferedImage bImage = canvas.getBufferedImage();
+
+            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, bcSettings.getDpi());
+            contentStream.drawImage(image, bcSettings.getOffsetX(), bcSettings.getOffsetY(), bcSettings.getWidth(), bcSettings.getHeight());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
+    protected static void barcodePdf417(
+            PdfBoxBarcode bcOverwrite,
+            PDDocument document,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            PdfBoxBarcode bcSettings = new PdfBoxBarcode();
+            if (bcOverwrite != null) {
+                bcSettings = bcOverwrite;
+            }
+
+            BitmapCanvasProvider canvas = new BitmapCanvasProvider(
+                    bcSettings.getDpi(), BufferedImage.TYPE_BYTE_BINARY, false, bcSettings.getOrientation());
+
+            PDF417Bean pdf417Bean = new PDF417Bean();
+            pdf417Bean.setFontName(String.valueOf(bcSettings.getFontName()).toLowerCase());
+            pdf417Bean.setFontSize(bcSettings.getFontSize());
+            pdf417Bean.setQuietZone(bcSettings.getFixQuiteZone());
+            pdf417Bean.setMsgPosition(bcSettings.getTextPosition());
+            pdf417Bean.generateBarcode(canvas, bcSettings.getData());
+            canvas.finish();
+
+            BufferedImage bImage = canvas.getBufferedImage();
+
+            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, bcSettings.getDpi());
+            contentStream.drawImage(image, bcSettings.getOffsetX(), bcSettings.getOffsetY(), bcSettings.getWidth(), bcSettings.getHeight());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
+    protected static void qrCode(
+            PdfBoxQrCode qrOverwrite,
+            PDDocument document,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            PdfBoxQrCode qrCodeSettings = new PdfBoxQrCode();
+            if (qrOverwrite != null) {
+                qrCodeSettings = qrOverwrite;
+            }
+
+            Map<EncodeHintType, Object> hintMap = new HashMap<>();
+            hintMap.put(EncodeHintType.MARGIN, qrCodeSettings.getMargin());
+            hintMap.put(EncodeHintType.QR_COMPACT, true);
+            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+            BitMatrix bitMatrix = new MultiFormatWriter().encode(
+                    new String(qrCodeSettings.getData().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8),
+                    BarcodeFormat.QR_CODE,
+                    qrCodeSettings.matrix,
+                    qrCodeSettings.matrix,
+                    hintMap);
+
+            MatrixToImageConfig config = new MatrixToImageConfig(qrCodeSettings.getOnColor(), qrCodeSettings.getOffColor());
+            BufferedImage bImage = MatrixToImageWriter.toBufferedImage(bitMatrix, config);
+            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, qrCodeSettings.getDpi());
+
+            contentStream.drawImage(
+                    image, qrCodeSettings.getOffsetX(), qrCodeSettings.getOffsetY(), qrCodeSettings.size, qrCodeSettings.size);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">pdfCreate</h6>
      *
@@ -415,23 +569,119 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxElements {
      *
      * <p style="color: #CDCDCD">Add an barcode (128, 39, pdf417) to a PDF file</p>
      *
+     * @param docSettings (PdfBoxDocument)
+     * @param pageSettings (PdfBoxPage)
+     * @param barcodeSettings (PdfBoxBarcode)
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfAddBarcode() {
-        /*TODO*/
+    public static void pdfAddBarcode(
+            PdfBoxDocument docSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxBarcode barcodeSettings
+    ) {
+        File file = new File(docSettings.getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
+
+            PDPage page = document.getPage(pageSettings.getPageNumber()-1);
+
+            PDFTextStripper stripper = new PDFTextStripper();
+            stripper.setStartPage(pageSettings.getPageNumber()-1);
+            stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
+            String content = stripper.getText(document);
+
+            PDPageContentStream contentStream = contentStream(
+                    "text", page, document, pageSettings, null, null);
+
+            String[] lines = content.replace("\r", "").split("\n");
+
+            for (String line : lines) {
+                contentStream.showText(line);
+                contentStream.newLine();
+            }
+
+            contentStream.endText();
+
+            switch (barcodeSettings.getCodeType4Scanner().name()) {
+
+                case "CODE128":
+                    barcode128(barcodeSettings, document, contentStream);
+                    break;
+                case "CODE39":
+                    barcode39(barcodeSettings, document, contentStream);
+                    break;
+                case "PDF417":
+                    barcodePdf417(barcodeSettings, null, null);
+                    break;
+                default:
+                    throw new RuntimeException("Invalid Barcode Type");
+            }
+
+            contentStream.close();
+
+            document.save(docSettings.getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">pdfAddCodeQR</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfAddQrCode</h6>
      *
      * <p style="color: #CDCDCD">Add an QR Code to a PDF file</p>
      *
+     * @param docSettings (PdfBoxDocument)
+     * @param pageSettings (PdfBoxPage)
+     * @param qrCodeSettings (PdfBoxQrCode)
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfAddCodeQR() {
-        /*TODO*/
+    public static void pdfAddQrCode(
+            PdfBoxDocument docSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxQrCode qrCodeSettings
+    ) {
+        File file = new File(docSettings.getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
+
+            PDPage page = document.getPage(pageSettings.getPageNumber()-1);
+
+            PDFTextStripper stripper = new PDFTextStripper();
+            stripper.setStartPage(pageSettings.getPageNumber()-1);
+            stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
+            String content = stripper.getText(document);
+
+            PDPageContentStream contentStream = contentStream(
+                    "text", page, document, pageSettings, null, null);
+
+            String[] lines = content.replace("\r", "").split("\n");
+
+            for (String line : lines) {
+                contentStream.showText(line);
+                contentStream.newLine();
+            }
+
+            contentStream.endText();
+
+            if (qrCodeSettings.getCodeType4Scanner().name().equals("QRCODE")) {
+                qrCode(qrCodeSettings, document, contentStream);
+            } else {
+                throw new RuntimeException("Invalid Code Type: " + qrCodeSettings.getCodeType4Scanner().name());
+            }
+
+            contentStream.close();
+
+            document.save(docSettings.getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
     }
 
     /**

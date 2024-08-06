@@ -10,7 +10,6 @@ public class Help4DevsPdfBoxTemplateBase {
 
     @Getter
     public enum PdfBoxTemplates {
-        FREE("FREE"),
         SLIM("SLIM"),
         BOX("BOX"),
         BOX_OPEN("BOX_OPEN"),
@@ -18,7 +17,8 @@ public class Help4DevsPdfBoxTemplateBase {
         TRIPLE_FALL("TRIPLE_FALL"),
         SIMPLE_1("SIMPLE_1"),
         SIMPLE_2("SIMPLE_2"),
-        SIMPLE_3("SIMPLE_3");
+        SIMPLE_3("SIMPLE_3"),
+        FREE("FREE");
 
         private final String template;
 
@@ -37,47 +37,32 @@ public class Help4DevsPdfBoxTemplateBase {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PdfBoxTemplateSettings {
-        /*Template*/
+        /*Template Name*/
         PdfBoxTemplates template = null;
 
-        /*Template Dimensions*/
-        int width = 0;
-        int height = 0;
-        int offsetX = 0;
-        int offsetY = 0;
-
         /*Template Background*/
-        boolean imageBackgroundEnable = true;
         String imageBackground = null;
 
-        /*Elements Settings*/
+        /*Template Elements*/
         PdfBoxDocument document = null;
         PdfBoxPage page = null;
         PdfBoxContainer container = null;
         PdfBoxText text = null;
         PdfBoxImage image = null;
         PdfBoxTable table = null;
+        PdfBoxBarcode barcode = null;
+        PdfBoxQrCode qrCode = null;
 
-        /*Templates Behavior*/
-        FreeTemplateSettings free = null;
+        /*Template Behavior*/
         SlimTemplateSettings slim = null;
         BoxTemplateSettings box = null;
         BoxOpenTemplateSettings boxOpen = null;
         Simple2TemplateSettings simple2 = null;
         Simple3TemplateSettings simple3 = null;
+        FreeTemplateSettings free = null;
 
-        /*Templates Content*/
+        /*Template Content*/
         SlimDataContent slimContent = null;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class FreeTemplateSettings {
-        //General settings
-        int boxQuantity;
     }
 
     @Getter
@@ -99,17 +84,20 @@ public class Help4DevsPdfBoxTemplateBase {
         static final int OFFSET_Y_BLOCK5 = 20;
 
         //Title
-        int[] leftTitleTarget = new int[]{1,2,3,4,5};
-        int[] centerTitleTarget = new int[]{1,2,3,4,5};
-        int[] rightTitleTarget = new int[]{1,2,3,4,5};
+        int leftTitleAdjustmentX = 0;
+        int leftTitleAdjustmentY = 0;
+        int centerTitleAdjustmentX = 0;
+        int centerTitleAdjustmentY = 0;
+        int rightTitleAdjustmentX = 0;
+        int rightTitleAdjustmentY = 0;
         int[] titleOffsetX = new int[]{35,250,450};
         int[] titleOffsetY = new int[]{750,595,440,285,130};
         boolean[] leftTitleEnable = new boolean[]{false,false,false,false,false};
         boolean[] centerTitleEnable = new boolean[]{false,false,false,false,false};
         boolean[] rightTitleEnable = new boolean[]{false,false,false,false,false};
-        ColorsToPdfBox leftTitleColor = ColorsToPdfBox.GREEN2;
-        ColorsToPdfBox centerTitleColor = ColorsToPdfBox.RED2;
-        ColorsToPdfBox rightTitleColor = ColorsToPdfBox.GOLD2;
+        ColorsToPdfBox leftTitleColor = ColorsToPdfBox.BLACK;
+        ColorsToPdfBox centerTitleColor = ColorsToPdfBox.BLACK;
+        ColorsToPdfBox rightTitleColor = ColorsToPdfBox.BLACK;
         FontSizeToPdfBox leftTitleSize = FontSizeToPdfBox.MEDIUM;
         FontSizeToPdfBox centerTitleSize = FontSizeToPdfBox.MEDIUM;
         FontSizeToPdfBox rightTitleSize = FontSizeToPdfBox.MEDIUM;
@@ -120,33 +108,51 @@ public class Help4DevsPdfBoxTemplateBase {
         //Column
         int columnBoxWidth = 170;
         int columnBoxHeight = 90;
-        int columnBoxPadding = 10;
         int[] columnBoxOffsetX = new int[]{35,220,405};
         int[] columnBoxOffsetY = new int[]{655,500,345,190,35};
-        int[] columnLeftBorderWidth = new int[]{1,1,1,1,1};
-        int[] columnCenterBorderWidth = new int[]{1,1,1,1,1};
-        int[] columnRightBorderWidth = new int[]{1,1,1,1,1};
-        boolean[] columnBoxEnable = new boolean[]{false,false,false,false,false};
-        boolean[] columnLeftBorderEnable = new boolean[]{true,true,true,true,true};
-        boolean[] columnCenterBorderEnable = new boolean[]{true,true,true,true,true};
-        boolean[] columnRightBorderEnable = new boolean[]{true,true,true,true,true};
-        FontSizeToPdfBox columnFontSize = FontSizeToPdfBox.SMALL;
-        ColorsToPdfBox[] columnLeftBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnCenterBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnRightBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnLeftBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnCenterBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnRightBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnLeftTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnCenterTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnRightTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        int[] columnBoxLeftPadding = new int[]{10,10,10,10,10};
+        int[] columnBoxCenterPadding = new int[]{10,10,10,10,10};
+        int[] columnBoxRightPadding = new int[]{10,10,10,10,10};
+        int[] columnBoxLeftBorderWidth = new int[]{1,1,1,1,1};
+        int[] columnBoxCenterBorderWidth = new int[]{1,1,1,1,1};
+        int[] columnBoxRightBorderWidth = new int[]{1,1,1,1,1};
+        int[] columnBoxLeftLineHeight = new int[]{14,14,14,14,14};
+        int[] columnBoxCenterLineHeight = new int[]{14,14,14,14,14};
+        int[] columnBoxRightLineHeight = new int[]{14,14,14,14,14};
+        int[] columnBoxLeftAdjustmentX = new int[]{0,0,0,0,0};
+        int[] columnBoxLeftAdjustmentY = new int[]{0,0,0,0,0};
+        int[] columnBoxCenterAdjustmentX = new int[]{0,0,0,0,0};
+        int[] columnBoxCenterAdjustmentY = new int[]{0,0,0,0,0};
+        int[] columnBoxRightAdjustmentX = new int[]{0,0,0,0,0};
+        int[] columnBoxRightAdjustmentY = new int[]{0,0,0,0,0};
+        boolean[] columnBoxLeftEnable = new boolean[]{false,false,false,false,false};
+        boolean[] columnBoxCenterEnable = new boolean[]{false,false,false,false,false};
+        boolean[] columnBoxRightEnable = new boolean[]{false,false,false,false,false};
+        boolean[] columnBoxLeftBorderEnable = new boolean[]{true,true,true,true,true};
+        boolean[] columnBoxCenterBorderEnable = new boolean[]{true,true,true,true,true};
+        boolean[] columnBoxRightBorderEnable = new boolean[]{true,true,true,true,true};
+        ColorsToPdfBox[] columnBoxLeftBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxCenterBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxRightBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxLeftBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxCenterBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxRightBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        FontSizeToPdfBox[] columnBoxLeftFontSize = new FontSizeToPdfBox[]{null, null, null, null, null};
+        FontSizeToPdfBox[] columnBoxCenterFontSize = new FontSizeToPdfBox[]{null, null, null, null, null};
+        FontSizeToPdfBox[] columnBoxRightFontSize = new FontSizeToPdfBox[]{null, null, null, null, null};
+        FontNameToPdfBox[] columnBoxLeftFontName = new FontNameToPdfBox[]{null, null, null, null, null};
+        FontNameToPdfBox[] columnBoxCenterFontName = new FontNameToPdfBox[]{null, null, null, null, null};
+        FontNameToPdfBox[] columnBoxRightFontName = new FontNameToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxLeftTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxCenterTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxRightTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
 
         //Table
         int tableWidth = 540;
         int tableHeight = 90;
         int tableOffsetX = 35;
-        int columnWidth = 90;
-        int columnHeight = 18;
+        int tableColumnWidth = 90;
+        int tableColumnHeight = 18;
         int[] tableContainerOffsetY = new int[]{656, 500, 346, 190, 35};
         int[] tableHeaderOffsetY = new int[]{728, 572, 418, 262, 107};
         int[] tableColumnOffsetX = new int[] {35,125,215,305,395,485};
@@ -202,6 +208,29 @@ public class Help4DevsPdfBoxTemplateBase {
         boolean[] leftImageEnable = new boolean[]{false,false,false,false,false};
         boolean[] centerImageEnable = new boolean[]{false,false,false,false,false};
         boolean[] rightImageEnable = new boolean[]{false,false,false,false,false};
+
+        //Barcode
+        int barcodeDpi = 400;
+        int barcodeWidth = 500;
+        int barcodeHeight = 50;
+        int barcodeOffsetX = 55;
+        int barcodeAdjustOffsetX = 0;
+        int barcodeAdjustOffsetY = 0;
+        int[] barcodeOffsetY = new int[]{655,500,345,190,35};
+        boolean barcodeShowText = true;
+        boolean[] barcodeEnabled = new boolean[]{false,false,false,false,false};
+
+        //QRCode
+        int qrCodeDpi = 400;
+        int qrCodeWidth = 200;
+        int qrCodeHeight = 50;
+        int qrCodeAdjustOffsetX = 0;
+        int qrCodeAdjustOffsetY = 0;
+        int[] qrCodeOffsetX = new int[]{40,260,470};
+        int[] qrCodeOffsetY = new int[]{655,502,348,193,38};
+        boolean[] qrCodeLeftEnable = new boolean[]{false,false,false,false,false};
+        boolean[] qrCodeCenterEnable = new boolean[]{false,false,false,false,false};
+        boolean[] qrCodeRightEnable = new boolean[]{false,false,false,false,false};
     }
 
     @Getter
@@ -236,6 +265,22 @@ public class Help4DevsPdfBoxTemplateBase {
         String[] leftImagePaths = new String[]{null,null,null,null,null};
         String[] centerImagePaths = new String[]{null,null,null,null,null};
         String[] rightImagePaths = new String[]{null,null,null,null,null};
+
+        //Barcode
+        HashMap<Integer, String>  barcodeValue = new HashMap<>();
+        HashMap<Integer, String>  barcodeInfoOne = new HashMap<>();
+        HashMap<Integer, String>  barcodeInfoTwo = new HashMap<>();
+        HashMap<Integer, String>  barcodeInfoThree = new HashMap<>();
+        HashMap<Integer, String>  barcodeInfoFour = new HashMap<>();
+        HashMap<Integer, String>  barcodeAmount = new HashMap<>();
+
+        //QrCode
+        HashMap<Integer, String>  qrCodeValue = new HashMap<>();
+        HashMap<Integer, String> qrCodeInfoOne = new HashMap<>();
+        HashMap<Integer, String>  qrCodeInfoTwo = new HashMap<>();
+        HashMap<Integer, String>  qrCodeInfoThree = new HashMap<>();
+        HashMap<Integer, String>  qrCodeInfoFour = new HashMap<>();
+        HashMap<Integer, String>  qrCodeAmount = new HashMap<>();
     }
 
     @Getter
@@ -304,6 +349,16 @@ public class Help4DevsPdfBoxTemplateBase {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Simple3TemplateSettings {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class FreeTemplateSettings {
         //General settings
         int boxQuantity;
     }

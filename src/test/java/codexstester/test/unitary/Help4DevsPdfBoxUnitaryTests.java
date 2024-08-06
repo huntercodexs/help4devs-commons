@@ -4,6 +4,7 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.junit.Test;
+import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import java.awt.*;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
 import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.binFile;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.CodeType4ScannerToPdfBox.codeType4Scanner;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontNameToPdfBox.fontName;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontSizeToPdfBox.fontSize;
@@ -126,6 +128,75 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setCelColor(ColorsToPdfBox.ICE);
         settings.setBorderColor(ColorsToPdfBox.BLACK);
         settings.setTableTemplate(TableDimensionsToPdfBox.TABLE_5X6);
+        return settings;
+    }
+
+    private PdfBoxBarcode barcode128Settings() {
+        PdfBoxBarcode settings = new PdfBoxBarcode();
+        settings.setDpi(400);
+        settings.setWidth(500);
+        settings.setHeight(50);
+        settings.setFontSize(2);
+        settings.setLineHeight(20);
+        settings.setOffsetX(55);
+        settings.setOffsetY(100);
+        settings.setFixQuiteZone(0);
+        settings.setDoQuiteZone(false);
+        settings.setData("123456789123456789123456789123456789");
+        settings.setFontName(FontNameToPdfBox.COURIER);
+        settings.setTextPosition(HumanReadablePlacement.HRP_BOTTOM);
+        settings.setCodeType4Scanner(CodeType4ScannerToPdfBox.CODE128);
+        return settings;
+    }
+
+    private PdfBoxBarcode barcode39Settings() {
+        PdfBoxBarcode settings = new PdfBoxBarcode();
+        settings.setDpi(400);
+        settings.setWidth(200);
+        settings.setHeight(40);
+        settings.setFontSize(4);
+        settings.setLineHeight(20);
+        settings.setOffsetX(200);
+        settings.setOffsetY(100);
+        settings.setFixQuiteZone(0);
+        settings.setDoQuiteZone(false);
+        settings.setData("123456789");
+        settings.setFontName(FontNameToPdfBox.COURIER);
+        settings.setTextPosition(HumanReadablePlacement.HRP_BOTTOM);
+        settings.setCodeType4Scanner(CodeType4ScannerToPdfBox.CODE39);
+        return settings;
+    }
+
+    private PdfBoxBarcode barcodePdf417Settings() {
+        PdfBoxBarcode settings = new PdfBoxBarcode();
+        settings.setDpi(400);
+        settings.setWidth(200);
+        settings.setHeight(40);
+        settings.setFontSize(4);
+        settings.setLineHeight(20);
+        settings.setOffsetX(200);
+        settings.setOffsetY(100);
+        settings.setFixQuiteZone(0);
+        settings.setDoQuiteZone(false);
+        settings.setData("1234567890");
+        settings.setFontName(FontNameToPdfBox.COURIER);
+        settings.setTextPosition(HumanReadablePlacement.HRP_BOTTOM);
+        settings.setCodeType4Scanner(CodeType4ScannerToPdfBox.CODE39);
+        return settings;
+    }
+
+    private PdfBoxQrCode qrCodeSettings() {
+        PdfBoxQrCode settings = new PdfBoxQrCode();
+        settings.setDpi(400);
+        settings.setMargin(0);
+        settings.setMatrix(200);
+        settings.setSize(200);
+        settings.setOnColor(0xFF000001);
+        settings.setOffColor(0xFFFFFFFF);
+        settings.setOffsetX(200);
+        settings.setOffsetY(100);
+        settings.setData("https://huntercodexs.com");
+        settings.setCodeType4Scanner(CodeType4ScannerToPdfBox.QRCODE);
         return settings;
     }
 
@@ -400,6 +471,21 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void codeType4ScannerTest() {
+        String codeType4Scanner = codeType4Scanner(CodeType4ScannerToPdfBox.CODE128);
+        codexsTesterAssertExact("CODE128", codeType4Scanner);
+
+        codeType4Scanner = codeType4Scanner(CodeType4ScannerToPdfBox.CODE39);
+        codexsTesterAssertExact("CODE39", codeType4Scanner);
+
+        codeType4Scanner = codeType4Scanner(CodeType4ScannerToPdfBox.PDF417);
+        codexsTesterAssertExact("PDF417", codeType4Scanner);
+
+        codeType4Scanner = codeType4Scanner(CodeType4ScannerToPdfBox.QRCODE);
+        codexsTesterAssertExact("QRCODE", codeType4Scanner);
+    }
+
+    @Test
     public void pdfCreateTest() throws IOException {
         String data = binFile(filepathSource);
 
@@ -450,6 +536,42 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         imgSet.setResize(false);
 
         pdfAddImage(docSet, pageSet, imgSet);
+    }
+
+    @Test
+    public void pdfAddBarcode128Test() {
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxBarcode barcodeSet = barcode128Settings();
+
+        pdfAddBarcode(docSet, pageSet, barcodeSet);
+    }
+
+    @Test
+    public void pdfAddBarcode39Test() {
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxBarcode barcodeSet = barcode39Settings();
+
+        pdfAddBarcode(docSet, pageSet, barcodeSet);
+    }
+
+    @Test
+    public void pdfAddBarcodePdf417Test() {
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxBarcode barcodeSet = barcodePdf417Settings();
+
+        pdfAddBarcode(docSet, pageSet, barcodeSet);
+    }
+
+    @Test
+    public void pdfAddQrCodeTest() {
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxQrCode qrSet = qrCodeSettings();
+
+        pdfAddQrCode(docSet, pageSet, qrSet);
     }
 
     @Test

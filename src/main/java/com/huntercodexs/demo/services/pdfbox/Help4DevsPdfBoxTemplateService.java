@@ -5,6 +5,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.krysalis.barcode4j.HumanReadablePlacement;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -68,11 +69,39 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        if (!settings.isImageBackgroundEnable()) return;
+        if (settings.getImageBackground() == null) return;
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
             contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawLines(
+            int index,
+            PDDocument document,
+            PDPage page,
+            List<String[]> listLines,
+            boolean hasTitle,
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+
+            int stop = 0;
+            for (String line : listLines.get(index)) {
+                if (stop == 5 && hasTitle) break;
+                contentStream.showText(line);
+                contentStream.newLine();
+                stop += 1;
+            }
+
+            contentStream.endText();
+
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
@@ -112,41 +141,78 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         try {
 
             //Left Column
-            if (settings.columnLeftBorderEnable[box]) {
-                contentStream.setLineWidth(settings.columnLeftBorderWidth[box]);
-                contentStream.setStrokingColor(color(settings.columnLeftBorderColor[box]));
-                contentStream.addRect(
-                        settings.columnBoxOffsetX[0],
-                        settings.columnBoxOffsetY[box],
-                        settings.columnBoxWidth,
-                        columnHeight);
-                contentStream.closeAndStroke();
+            if (settings.columnBoxLeftEnable[box]) {
+                if (settings.columnBoxLeftBorderEnable[box]) {
+                    contentStream.setLineWidth(settings.columnBoxLeftBorderWidth[box]);
+                    contentStream.setStrokingColor(color(settings.columnBoxLeftBorderColor[box]));
+                    contentStream.addRect(
+                            settings.columnBoxOffsetX[0],
+                            settings.columnBoxOffsetY[box],
+                            settings.columnBoxWidth,
+                            columnHeight);
+                    contentStream.closeAndStroke();
+
+                    if (settings.columnBoxLeftBackColor[box] != null) {
+                        contentStream.setNonStrokingColor(color(settings.columnBoxLeftBackColor[box]));
+                        contentStream.addRect(
+                                settings.columnBoxOffsetX[0],
+                                settings.columnBoxOffsetY[box],
+                                settings.columnBoxWidth,
+                                columnHeight);
+                        contentStream.fill();
+                    }
+                }
             }
 
             //Center Column
-            if (settings.columnCenterBorderEnable[box]) {
-                contentStream.setLineWidth(settings.columnCenterBorderWidth[box]);
-                contentStream.setStrokingColor(color(settings.columnCenterBorderColor[box]));
-                contentStream.addRect(
-                        settings.columnBoxOffsetX[1],
-                        settings.columnBoxOffsetY[box],
-                        settings.columnBoxWidth,
-                        columnHeight);
-                contentStream.closeAndStroke();
+            if (settings.columnBoxCenterEnable[box]) {
+                if (settings.columnBoxCenterBorderEnable[box]) {
+                    contentStream.setLineWidth(settings.columnBoxCenterBorderWidth[box]);
+                    contentStream.setStrokingColor(color(settings.columnBoxCenterBorderColor[box]));
+                    contentStream.addRect(
+                            settings.columnBoxOffsetX[1],
+                            settings.columnBoxOffsetY[box],
+                            settings.columnBoxWidth,
+                            columnHeight);
+                    contentStream.closeAndStroke();
+
+                    if (settings.columnBoxCenterBackColor[box] != null) {
+                        contentStream.setNonStrokingColor(color(settings.columnBoxCenterBackColor[box]));
+                        contentStream.addRect(
+                                settings.columnBoxOffsetX[1],
+                                settings.columnBoxOffsetY[box],
+                                settings.columnBoxWidth,
+                                columnHeight);
+                        contentStream.fill();
+                    }
+                }
             }
 
             //Right Column
-            if (settings.columnRightBorderEnable[box]) {
-                contentStream.setLineWidth(settings.columnRightBorderWidth[box]);
-                contentStream.setStrokingColor(color(settings.columnRightBorderColor[box]));
-                contentStream.addRect(
-                        settings.columnBoxOffsetX[2],
-                        settings.columnBoxOffsetY[box],
-                        settings.columnBoxWidth,
-                        columnHeight);
-                contentStream.closeAndStroke();
+            if (settings.columnBoxRightEnable[box]) {
+                if (settings.columnBoxRightBorderEnable[box]) {
+                    contentStream.setLineWidth(settings.columnBoxRightBorderWidth[box]);
+                    contentStream.setStrokingColor(color(settings.columnBoxRightBorderColor[box]));
+                    contentStream.addRect(
+                            settings.columnBoxOffsetX[2],
+                            settings.columnBoxOffsetY[box],
+                            settings.columnBoxWidth,
+                            columnHeight);
+                    contentStream.closeAndStroke();
+
+                    if (settings.columnBoxRightBackColor[box] != null) {
+                        contentStream.setNonStrokingColor(color(settings.columnBoxRightBackColor[box]));
+                        contentStream.addRect(
+                                settings.columnBoxOffsetX[2],
+                                settings.columnBoxOffsetY[box],
+                                settings.columnBoxWidth,
+                                columnHeight);
+                        contentStream.fill();
+                    }
+                }
             }
 
+            //Reset Color
             contentStream.setStrokingColor(0,0,0);
 
         } catch (IOException ioe) {
@@ -159,73 +225,78 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PDDocument document,
             PDPage page,
             List<String[]> listLines,
-            PdfBoxPage pageSettings,
-            SlimDataContent slimContent,
-            SlimTemplateSettings settings,
+            PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        int addHeight = 0;
-        boolean hasTitle = hasTitle(box, settings);
+        SlimTemplateSettings slimSettings = new SlimTemplateSettings();
+        PdfBoxPage pageSettings = settings.getPage();
 
-        if (!hasTitle) {
-            addHeight = settings.getLineHeight();
+        if (settings.getSlim() != null) {
+            slimSettings = settings.getSlim();
         }
 
-        try {
+        int heightAdjust = 0;
+        boolean hasTitle = hasTitle(box, slimSettings);
 
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA);
-            pageSettings.setLineHeight(14);
+        if (!hasTitle) {
+            heightAdjust = slimSettings.getLineHeight();
+        }
 
-            pageSettings.setOffsetX(settings.columnBoxOffsetX[0]+settings.columnBoxPadding);
-            pageSettings.setOffsetY(settings.columnBoxOffsetY[box]+addHeight+75-settings.columnBoxPadding);
+        int offsetX;
+        int offsetY;
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
+        //Text Left Column
+        if (slimSettings.columnBoxLeftEnable[box]) {
 
-            int stop = 0;
-            //Text Left Column
-            for (String line : listLines.get(0)) {
-                if (stop == 5 && hasTitle) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
+            pageSettings.setFontName(slimSettings.columnBoxLeftFontName[box]);
+            pageSettings.setFontSize(slimSettings.columnBoxLeftFontSize[box]);
+            pageSettings.setFontColor(slimSettings.columnBoxLeftTextColor[box]);
+            pageSettings.setLineHeight(slimSettings.columnBoxLeftLineHeight[box]);
 
-            contentStream.endText();
+            offsetX = slimSettings.columnBoxOffsetX[0] + slimSettings.columnBoxLeftPadding[box];
+            offsetY = slimSettings.columnBoxOffsetY[box];
+            offsetY = offsetY + heightAdjust + 75 - slimSettings.columnBoxLeftPadding[box];
 
-            pageSettings.setOffsetX(settings.columnBoxOffsetX[1]+settings.columnBoxPadding);
-            pageSettings.setOffsetY(settings.columnBoxOffsetY[box]+addHeight+75-settings.columnBoxPadding);
+            pageSettings.setOffsetX(offsetX+slimSettings.columnBoxLeftAdjustmentX[box]);
+            pageSettings.setOffsetY(offsetY+slimSettings.columnBoxLeftAdjustmentY[box]);
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
+            drawLines(0, document, page, listLines, hasTitle, pageSettings, contentStream);
+        }
 
-            stop = 0;
-            //Text Center Column
-            for (String line : listLines.get(1)) {
-                if (stop == 5 && hasTitle) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
+        //Text Center Column
+        if (slimSettings.columnBoxCenterEnable[box]) {
 
-            contentStream.endText();
+            pageSettings.setFontName(slimSettings.columnBoxCenterFontName[box]);
+            pageSettings.setFontSize(slimSettings.columnBoxCenterFontSize[box]);
+            pageSettings.setFontColor(slimSettings.columnBoxCenterTextColor[box]);
+            pageSettings.setLineHeight(slimSettings.columnBoxCenterLineHeight[box]);
 
-            pageSettings.setOffsetX(settings.columnBoxOffsetX[2]+settings.columnBoxPadding);
-            pageSettings.setOffsetY(settings.columnBoxOffsetY[box]+addHeight+75-settings.columnBoxPadding);
+            offsetX = slimSettings.columnBoxOffsetX[1] + slimSettings.columnBoxCenterPadding[box];
+            offsetY = slimSettings.columnBoxOffsetY[box];
+            offsetY = offsetY + heightAdjust + 75 - slimSettings.columnBoxCenterPadding[box];
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
+            pageSettings.setOffsetX(offsetX+slimSettings.columnBoxCenterAdjustmentX[box]);
+            pageSettings.setOffsetY(offsetY+slimSettings.columnBoxCenterAdjustmentY[box]);
 
-            stop = 0;
-            //Text Right Column
-            for (String line : listLines.get(2)) {
-                if (stop == 5 && hasTitle) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
+            drawLines(1, document, page, listLines, hasTitle, pageSettings, contentStream);
+        }
 
-            contentStream.endText();
+        //Text Right Column
+        if (slimSettings.columnBoxRightEnable[box]) {
 
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
+            pageSettings.setFontName(slimSettings.columnBoxRightFontName[box]);
+            pageSettings.setFontSize(slimSettings.columnBoxRightFontSize[box]);
+            pageSettings.setFontColor(slimSettings.columnBoxRightTextColor[box]);
+            pageSettings.setLineHeight(slimSettings.columnBoxRightLineHeight[box]);
+
+            offsetX = slimSettings.columnBoxOffsetX[2] + slimSettings.columnBoxRightPadding[box];
+            offsetY = slimSettings.columnBoxOffsetY[box];
+            offsetY = offsetY + heightAdjust + 75 - slimSettings.columnBoxRightPadding[box];
+
+            pageSettings.setOffsetX(offsetX+slimSettings.columnBoxRightAdjustmentX[box]);
+            pageSettings.setOffsetY(offsetY+slimSettings.columnBoxRightAdjustmentY[box]);
+
+            drawLines(2, document, page, listLines, hasTitle, pageSettings, contentStream);
         }
     }
 
@@ -263,8 +334,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             contentStream.addRect(
                     settings.tableColumnOffsetX[column],
                     settings.tableHeaderOffsetY[box],
-                    settings.columnWidth,
-                    settings.columnHeight);
+                    settings.tableColumnWidth,
+                    settings.tableColumnHeight);
             contentStream.fill();
             contentStream.closeAndStroke();
             contentStream.setNonStrokingColor(0, 0, 0);
@@ -448,7 +519,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             int box,
             PDDocument document,
             PDPage page,
-            String[] lines,
+            List<String[]> listLines,
             SlimTemplateSettings slimSettings,
             PdfBoxPage pageSettings,
             PDPageContentStream contentStream
@@ -459,20 +530,191 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             pageSettings.setOffsetY(pageSettings.getOffsetY()+slimSettings.getLineHeight());
         }
 
-        contentStream("text", page, document, pageSettings, null, contentStream);
+        drawLines(box, document, page, listLines, hasTitle, pageSettings, contentStream);
+    }
 
+    private static void drawBarcode(
+            PDDocument document,
+            PdfBoxBarcode settings,
+            PDPageContentStream contentStream
+    ) {
+        switch (settings.getCodeType4Scanner().name()) {
+            case "CODE128":
+                barcode128(settings, document, contentStream);
+                break;
+            case "CODE39":
+                barcode39(settings, document, contentStream);
+                break;
+            case "PDF417":
+                barcodePdf417(settings, document, contentStream);
+                break;
+        }
+    }
+
+    private static void drawBarcodeInfo(
+            int box,
+            PDDocument document,
+            PDPage page,
+            PdfBoxPage pageSettings,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
         try {
 
-            int stop = 0;
+            int[] infoOffsetY = new int[]{750, 595, 440, 285, 130};
 
-            for (String line : lines) {
-                if (stop == 5 && hasTitle) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
+            pageSettings.setOffsetX(55);
+            pageSettings.setOffsetY(infoOffsetY[box]);
+            pageSettings.setLineHeight(12);
+            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
+            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+
+            contentStream.showText(settings.getSlimContent().getBarcodeInfoOne().get(box));
+            contentStream.newLine();
+
+            contentStream.showText(settings.getSlimContent().getBarcodeInfoTwo().get(box));
+            contentStream.newLine();
+
+            contentStream.showText(settings.getSlimContent().getBarcodeInfoThree().get(box));
+            contentStream.newLine();
+
+            contentStream.showText(settings.getSlimContent().getBarcodeInfoFour().get(box));
+            contentStream.newLine();
 
             contentStream.endText();
+
+            int[] valueOffsetY = new int[]{690, 535, 380, 225, 70};
+
+            pageSettings.setOffsetX(85);
+            pageSettings.setOffsetY(valueOffsetY[box]);
+            pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+
+            contentStream.showText(settings.getSlimContent().getBarcodeValue().get(box));
+            contentStream.newLine();
+
+            contentStream.endText();
+
+            int[] amountOffsetY = new int[]{745, 590, 435, 280, 135};
+
+            pageSettings.setOffsetX(270);
+            pageSettings.setOffsetY(amountOffsetY[box]);
+            pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+
+            contentStream.showText(settings.getSlimContent().getBarcodeAmount().get(box));
+            contentStream.newLine();
+
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawQRCode(
+            PDDocument document,
+            PdfBoxQrCode qrCode,
+            PDPageContentStream contentStream
+    ) {
+        qrCode(qrCode, document, contentStream);
+    }
+
+    private static void drawQRCodeInfo(
+            int box,
+            PDDocument document,
+            PDPage page,
+            PdfBoxPage pageSettings,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            int[] infoOffsetX = new int[]{145, 365, 365};
+            int[] infoOffsetY = new int[]{745, 595, 440, 285, 130};
+
+            pageSettings.setLineHeight(12);
+            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
+            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
+
+            //Left
+            if (settings.getSlim().qrCodeLeftEnable[box]) {
+                pageSettings.setOffsetX(infoOffsetX[0]);
+                pageSettings.setOffsetY(infoOffsetY[box]);
+
+                contentStream("text", page, document, pageSettings, null, contentStream);
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3));
+                contentStream.newLine();
+
+                contentStream.endText();
+            }
+
+            //Center
+            if (settings.getSlim().qrCodeCenterEnable[box]) {
+                pageSettings.setOffsetX(infoOffsetX[1]);
+                pageSettings.setOffsetY(infoOffsetY[box]);
+
+                contentStream("text", page, document, pageSettings, null, contentStream);
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 1));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 1));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 1));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 1));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 1));
+                contentStream.newLine();
+
+                contentStream.endText();
+            }
+
+            //Right
+            if (settings.getSlim().qrCodeRightEnable[box]) {
+                pageSettings.setOffsetX(infoOffsetX[2]);
+                pageSettings.setOffsetY(infoOffsetY[box]);
+
+                contentStream("text", page, document, pageSettings, null, contentStream);
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 2));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 2));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 2));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 2));
+                contentStream.newLine();
+
+                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 2));
+                contentStream.newLine();
+
+                contentStream.endText();
+            }
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -513,8 +755,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Left Title
             if (slimSettings.leftTitleEnable[n]) {
-                pageSettings.setOffsetX(slimSettings.titleOffsetX[0]);
-                pageSettings.setOffsetY(slimSettings.titleOffsetY[n]);
+                pageSettings.setOffsetX(slimSettings.titleOffsetX[0]+(slimSettings.leftTitleAdjustmentX));
+                pageSettings.setOffsetY(slimSettings.titleOffsetY[n]+(slimSettings.leftTitleAdjustmentY));
 
                 pageSettings.setFontColor(slimSettings.getLeftTitleColor());
                 pageSettings.setFontName(slimSettings.getLeftTitleFont());
@@ -526,8 +768,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Center Title
             if (slimSettings.centerTitleEnable[n]) {
-                pageSettings.setOffsetX(slimSettings.titleOffsetX[1]);
-                pageSettings.setOffsetY(slimSettings.titleOffsetY[n]);
+                pageSettings.setOffsetX(slimSettings.titleOffsetX[1]+(slimSettings.centerTitleAdjustmentX));
+                pageSettings.setOffsetY(slimSettings.titleOffsetY[n]+(slimSettings.centerTitleAdjustmentY));
 
                 pageSettings.setFontColor(slimSettings.getCenterTitleColor());
                 pageSettings.setFontName(slimSettings.getCenterTitleFont());
@@ -539,8 +781,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Right Title
             if (slimSettings.rightTitleEnable[n]) {
-                pageSettings.setOffsetX(slimSettings.titleOffsetX[2]);
-                pageSettings.setOffsetY(slimSettings.titleOffsetY[n]);
+                pageSettings.setOffsetX(slimSettings.titleOffsetX[2]+(slimSettings.rightTitleAdjustmentX));
+                pageSettings.setOffsetY(slimSettings.titleOffsetY[n]+(slimSettings.rightTitleAdjustmentY));
 
                 pageSettings.setFontColor(slimSettings.getRightTitleColor());
                 pageSettings.setFontName(slimSettings.getRightTitleFont());
@@ -551,6 +793,10 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             }
 
         }
+
+        //Reset Color
+        pageSettings.setPageColor(ColorsToPdfBox.WHITE);
+        pageSettings.setFontColor(ColorsToPdfBox.BLACK);
 
     }
 
@@ -567,9 +813,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
 
         for (int box = 0; box < BOX_QUANTITY; box++) {
-            if (slimSettings.columnBoxEnable[box]) {
-                drawColumnBox(box, settings.getPage(), slimSettings, contentStream);
-            }
+            drawColumnBox(box, settings.getPage(), slimSettings, contentStream);
         }
     }
 
@@ -579,33 +823,33 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        SlimTemplateSettings slimSettings = new SlimTemplateSettings();
-        SlimDataContent slimData = settings.getSlimContent();
-        PdfBoxPage pageSettings = settings.getPage();
-
-        if (settings.getSlim() != null) {
-            slimSettings = settings.getSlim();
-        }
-
+        /*
+         * [NOTE]
+         * In the below looping "for" we go running the number of BOX_QUANTITY(5) for the SLIM template
+         * jumping from 3 on 3 item inside one box, it means that the loop it will be executed five times
+         * running in each box that could be 3x1=3boxes, 3x2=6boxes, 3x3=9boxes, 3x4=12boxes or 3x5=15boxes.
+         * Another point is that even though the boxes are jumped from 3 on 3, each one can be hidden by informing
+         * the border=false, and in this case it will not show in the pdf document because there is one flag checker
+         * in this code flow.
+         * */
         for (int box = 0; box < BOX_QUANTITY; box++) {
 
             List<String[]> listLines = new ArrayList<>();
 
-            if (slimData.getColumnContent().get(box*3) != null) {
-                listLines.add(slimData.getColumnContent().get(box*3).split("\n"));
+            /*TODO: Fix the lines using length (NOT \n)*/
+            if (settings.getSlimContent().getColumnContent().get(box*3) != null) {
+                listLines.add(settings.getSlimContent().getColumnContent().get(box*3).split("\n"));
             }
 
-            if (slimData.getColumnContent().get(box*3+1) != null) {
-                listLines.add(slimData.getColumnContent().get(box*3+1).split("\n"));
+            if (settings.getSlimContent().getColumnContent().get(box*3+1) != null) {
+                listLines.add(settings.getSlimContent().getColumnContent().get(box*3+1).split("\n"));
             }
 
-            if (slimData.getColumnContent().get(box*3+2) != null) {
-                listLines.add(slimData.getColumnContent().get(box*3+2).split("\n"));
+            if (settings.getSlimContent().getColumnContent().get(box*3+2) != null) {
+                listLines.add(settings.getSlimContent().getColumnContent().get(box*3+2).split("\n"));
             }
 
-            if (slimSettings.columnBoxEnable[box]) {
-                drawColumnContent(box, document, page, listLines, pageSettings, settings.getSlimContent(), slimSettings, contentStream);
-            }
+            drawColumnContent(box, document, page, listLines, settings, contentStream);
         }
     }
 
@@ -633,8 +877,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
                 int initialX = slimSettings.tableOffsetX;
                 int initialY = slimSettings.tableDataOffsetY[box];
-                int celWidth = slimSettings.columnWidth;
-                int celHeight = slimSettings.columnHeight;
+                int celWidth = slimSettings.tableColumnWidth;
+                int celHeight = slimSettings.tableColumnHeight;
 
                 //tableLines-1: to remove the first line (because was used in the table header)
                 int tableLines = slimSettings.getTableSize().getTableLines()-1;
@@ -761,7 +1005,6 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             PDPageContentStream contentStream
     ) {
         SlimTemplateSettings slimSettings = new SlimTemplateSettings();
-        SlimDataContent slimData = settings.getSlimContent();
 
         if (settings.getSlim() != null) {
             slimSettings = settings.getSlim();
@@ -775,19 +1018,102 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         pageSettings.setFontSize(slimSettings.getTextSize());
         pageSettings.setLineHeight(slimSettings.lineHeight);
 
-        String[] lines = new String[]{};
+        List<String[]> listLines = new ArrayList<>();
 
         for (int box = 0; box < BOX_QUANTITY; box++) {
 
-            if (slimData.getTextContent().get(box) != null) {
-                lines = slimData.getTextContent().get(box).split("\n");
+            /*TODO: Fix the lines using length (NOT \n)*/
+            if (settings.getSlimContent().getTextContent().get(box) != null) {
+                listLines.add(settings.getSlimContent().getTextContent().get(box).split("\n"));
             }
 
             if (slimSettings.textEnable[box]) {
                 pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
-                drawText(box, document, page, lines, slimSettings, pageSettings, contentStream);
+                drawText(box, document, page, listLines, slimSettings, pageSettings, contentStream);
             }
         }
+    }
+
+    private static void slimContainerBarcodeCreate(
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        for (int box = 0; box < BOX_QUANTITY; box++) {
+
+            if (settings.getSlim().barcodeEnabled[box]) {
+
+                String value = settings.getSlimContent().getBarcodeValue().get(box);
+
+                if (value != null && !value.isEmpty()) {
+
+                    settings.getBarcode().setOffsetY(settings.getSlim().barcodeOffsetY[box]);
+                    settings.getBarcode().setData(value);
+                    settings.getBarcode().setWidth(settings.getSlim().barcodeWidth);
+                    settings.getBarcode().setHeight(settings.getSlim().barcodeHeight);
+
+                    if (!settings.getSlim().barcodeShowText) {
+                        settings.getBarcode().setTextPosition(HumanReadablePlacement.HRP_NONE);
+                    }
+
+                    drawBarcode(document, settings.getBarcode(), contentStream);
+                    drawBarcodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+                }
+            }
+        }
+    }
+
+    private static void slimContainerQrCodeCreate(
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        for (int box = 0; box < BOX_QUANTITY; box++) {
+
+            //Left
+            if (settings.getSlim().qrCodeLeftEnable[box]) {
+                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[0]);
+                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]);
+                settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3));
+                drawQRCode(document, settings.getQrCode(), contentStream);
+                drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+            }
+
+            //Center
+            if (settings.getSlim().qrCodeCenterEnable[box]) {
+                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[1]);
+                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]);
+                settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+1));
+                drawQRCode(document, settings.getQrCode(), contentStream);
+                drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+            }
+
+            //Right
+            if (settings.getSlim().qrCodeRightEnable[box]) {
+                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[2]);
+                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]);
+                settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+2));
+                drawQRCode(document, settings.getQrCode(), contentStream);
+                drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+            }
+        }
+    }
+
+    private static boolean hasTitle(
+            int box,
+            SlimTemplateSettings slimTemplateSettings
+    ) {
+        if (slimTemplateSettings.leftTitleEnable[box]) {
+            return true;
+        }
+
+        if (slimTemplateSettings.centerTitleEnable[box]) {
+            return true;
+        }
+
+        return slimTemplateSettings.rightTitleEnable[box];
     }
 
     private static void slimTemplateBuilder(
@@ -806,21 +1132,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         slimContainerTextCreate(document, page, settings, contentStream);
         slimContainerSignatureCreate(document, page, settings, contentStream);
         slimContainerSignatureTapeCreate(document, page, settings, contentStream);
-    }
-
-    private static boolean hasTitle(
-            int box,
-            SlimTemplateSettings slimTemplateSettings
-    ) {
-        if (slimTemplateSettings.leftTitleEnable[box]) {
-            return true;
-        }
-
-        if (slimTemplateSettings.centerTitleEnable[box]) {
-            return true;
-        }
-
-        return slimTemplateSettings.rightTitleEnable[box];
+        slimContainerBarcodeCreate(document, page, settings, contentStream);
+        slimContainerQrCodeCreate(document, page, settings, contentStream);
     }
 
     /**
@@ -832,7 +1145,6 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
      * </p>
      *
      * <ul>
-     *     <li>Free</li>
      *     <li>Slim</li>
      *     <li>Box</li>
      *     <li>Box Open</li>
@@ -841,6 +1153,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
      *     <li>Simple 1</li>
      *     <li>Simple 2</li>
      *     <li>Simple 3</li>
+     *     <li>Free</li>
      * </ul>
      *
      * @param settings (PdfBoxTemplateSettings: All template settings)
