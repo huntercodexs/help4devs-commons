@@ -411,6 +411,30 @@ public class Help4DevsPdfBoxService extends Help4DevsPdfBoxElements {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfAddBarcode</h6>
+     *
+     * <p style="color: #CDCDCD">Add an barcode (128, 39, pdf417) to a PDF file</p>
+     *
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfAddBarcode() {
+        /*TODO*/
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfAddCodeQR</h6>
+     *
+     * <p style="color: #CDCDCD">Add an QR Code to a PDF file</p>
+     *
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfAddCodeQR() {
+        /*TODO*/
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">pdfReader</h6>
      *
      * <p style="color: #CDCDCD">Reader an specific PDF file</p>

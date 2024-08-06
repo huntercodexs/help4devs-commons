@@ -3,8 +3,13 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.SlimDataContent;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.SlimTemplateSettings;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates.template;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateService.*;
@@ -65,8 +70,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setOffsetY(20);
         settings.setBorder(true);
         settings.setRoundedBorder(false);
+        settings.setBorderWidth(10);
         settings.setBackColor(ColorsToPdfBox.WHITE);
-        settings.setBorderColor(ColorsToPdfBox.BLACK);
+        settings.setBorderColor(ColorsToPdfBox.GRAY);
         return settings;
     }
 
@@ -120,18 +126,13 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         SlimTemplateSettings settings = new SlimTemplateSettings();
 
         /*Title*/
-        boolean titleOn = false;
+        boolean titleOn = true;
         settings.setLeftTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
         settings.setCenterTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
         settings.setRightTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
 
-        /*Table*/
-        boolean tableOn = false;
-        settings.setTableSize(TableDimensionsToPdfBox.TABLE_5X6);
-        settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
-
         /*Column*/
-        boolean columnOn = false;
+        boolean columnOn = true;
         settings.setColumnBoxEnable(new boolean[]{columnOn,columnOn,columnOn,columnOn,columnOn});
         settings.setColumnLeftBorderEnable(new boolean[]{true,true,true,true,true});
         settings.setColumnCenterBorderEnable(new boolean[]{true,true,true,true,true});
@@ -157,82 +158,69 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
                 ColorsToPdfBox.GRAY,
                 ColorsToPdfBox.BLACK
         });
-        settings.setColumnLeftBorderWidth(new int[] {1,2,3,4,5});
-        settings.setColumnCenterBorderWidth(new int[] {5,4,3,2,1});
-        settings.setColumnRightBorderWidth(new int[] {1,2,3,1,2});
+        settings.setColumnLeftBorderWidth(new int[] {3,3,3,3,3});
+        settings.setColumnCenterBorderWidth(new int[] {6,6,6,6,6});
+        settings.setColumnRightBorderWidth(new int[] {9,9,9,9,9});
+
+        /*Table*/
+        boolean tableOn = true;
+        settings.setTableSize(TableDimensionsToPdfBox.TABLE_5X6);
+        settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
+
+        /*Image*/
+        boolean imageOn = true;
+        settings.setLeftImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
+        settings.setCenterImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
+        settings.setRightImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
 
         /*Signature Box*/
-        settings.setLeftSignatureBoxEnable(false);
-        settings.setCenterSignatureBoxEnable(false);
-        settings.setRightSignatureBoxEnable(false);
+        boolean signatureOn = true;
+        settings.setLeftSignatureBoxEnable(signatureOn);
+        settings.setCenterSignatureBoxEnable(signatureOn);
+        settings.setRightSignatureBoxEnable(signatureOn);
         settings.setSignatureBoxColor(ColorsToPdfBox.GRAY);
         settings.setSignatureBoxBorderEnable(true);
         settings.setSignatureBoxAdjustOffsetX(0);
 
         /*Signature Tape*/
-        settings.setSignatureTapeEnable(false);
+        settings.setSignatureTapeEnable(signatureOn);
         settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
         settings.setSignatureTapeAdjustOffsetX(10);
 
-        /*Signature Details*/
-        settings.setSignaturePersonName("John Smith Mountain");
-        settings.setSignaturePersonDoc("123456789011");
-        settings.setSignatureRecord("9089739827389");
-        settings.setSignatureDateGmt("2020.01.01 10:00:00 -03:00");
-
         /*Text Content*/
         boolean textOn = true;
-        String textContent1 =
-                "Content One in the simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
-        String textContent2 =
-                "Content Two more simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
-        String textContent3 =
-                "Content Three is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
-        String textContent4 =
-                "Content Four is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
-        String textContent5 =
-                "Content Five is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
         settings.setTextEnable(new boolean[]{textOn,textOn,textOn,textOn,textOn});
-        settings.setTextContentOne(textContent1);
-        settings.setTextContentTwo(textContent2);
-        settings.setTextContentThree(textContent3);
-        settings.setTextContentFour(textContent4);
-        settings.setTextContentFive(textContent5);
         settings.setLineHeight(18);
         settings.setTextOffsetX(35);
         settings.setTextColor(ColorsToPdfBox.BLUE3);
 
-        /*Image*/
-        boolean imageOn = false;
-        settings.setLeftImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
-        settings.setCenterImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
-        settings.setRightImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
+        return settings;
+    }
 
+    private SlimDataContent slimData() {
+        SlimDataContent settings = new SlimDataContent();
+
+        /*Title*/
+        settings.setLeftTitleContent("Title of Section 1");
+        settings.setCenterTitleContent("Title of Section 2");
+        settings.setRightTitleContent("Title of Section 3");
+
+        /*Column*/
+        HashMap<Integer, String> columnContentMap = new HashMap<>();
+        String lorenText =
+                "There are many the Lorena\n" +
+                "of passages of All lorem off\n" +
+                "but the majority All the into\n" +
+                "in some form, by All the off\n" +
+                "randomised words a Lorem";
+        for (int i = 0; i < 15; i++) {
+            columnContentMap.put(i, (i+1)+".\n"+lorenText);
+        }
+        settings.setColumnContent(columnContentMap);
+
+        /*Table*/
+
+        /*Image*/
         settings.setLeftImagePaths(new String[]{
                 "./src/test/resources/help4devs/images/ads/java.png",
                 "./src/test/resources/help4devs/images/ads/java.png",
@@ -255,6 +243,57 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
                 "./src/test/resources/help4devs/images/ads/java.png"
         });
 
+        /*Signature*/
+        settings.setSignaturePersonName("John Smith Mountain");
+        settings.setSignaturePersonDoc("123456789011");
+        settings.setSignatureRecord("9089739827389");
+        settings.setSignatureDateGmt("2020.01.01 10:00:00 -03:00");
+
+        /*Text*/
+        HashMap<Integer, String> textContentMap = new HashMap<>();
+        String textContent1 =
+                "Content One in the simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+        String textContent2 =
+                "Content Two more simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+        String textContent3 =
+                "Content Three is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+        String textContent4 =
+                "Content Four is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+        String textContent5 =
+                "Content Five is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+
+        textContentMap.put(0, textContent1);
+        textContentMap.put(1, textContent2);
+        textContentMap.put(2, textContent3);
+        textContentMap.put(3, textContent4);
+        textContentMap.put(4, textContent5);
+        settings.setTextContent(textContentMap);
+
         return settings;
     }
 
@@ -265,7 +304,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setHeight(0);
         settings.setOffsetX(0);
         settings.setOffsetY(0);
-        settings.setImageBackgroundEnable(false);
+        settings.setImageBackgroundEnable(true);
         settings.setImageBackground(imgBackground);
         settings.setDocument(documentSettings());
         settings.setPage(pageSettings());
@@ -274,6 +313,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setText(textSettings());
         settings.setImage(imageSettings());
         settings.setSlim(slimSettings());
+        settings.setSlimContent(slimData());
         return settings;
     }
 

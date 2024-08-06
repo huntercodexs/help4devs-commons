@@ -394,4 +394,28 @@ public class Help4DevsPdfBoxElements {
         TableDimensionsToPdfBox tableTemplate;
     }
 
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxBarcode {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxCodeQR {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+    }
+
 }
