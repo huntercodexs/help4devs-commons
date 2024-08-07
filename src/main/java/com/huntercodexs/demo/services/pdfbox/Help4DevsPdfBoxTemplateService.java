@@ -673,11 +673,13 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
     ) {
         try {
 
-            int[] infoOffsetY = new int[]{750, 595, 440, 285, 130};
-
-            pageSettings.setOffsetX(55);
-            pageSettings.setOffsetY(infoOffsetY[box]);
+            //Info 1,2,3,4 - (Name|Address|UserMessage|OperatorMessage)
+            pageSettings.setOffsetX(55+(settings.getSlim().barcodeAdjustOffsetX));
+            pageSettings.setOffsetY(
+                    settings.getSlim().barcodeInfoOffsetY[box]+(settings.getSlim().barcodeAdjustOffsetY)
+            );
             pageSettings.setLineHeight(12);
+
             pageSettings.setFontColor(ColorsToPdfBox.BLACK);
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
@@ -685,22 +687,20 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             contentStream.showText(settings.getSlimContent().getBarcodeInfoOne().get(box));
             contentStream.newLine();
-
             contentStream.showText(settings.getSlimContent().getBarcodeInfoTwo().get(box));
             contentStream.newLine();
-
             contentStream.showText(settings.getSlimContent().getBarcodeInfoThree().get(box));
             contentStream.newLine();
-
             contentStream.showText(settings.getSlimContent().getBarcodeInfoFour().get(box));
             contentStream.newLine();
 
             contentStream.endText();
 
-            int[] valueOffsetY = new int[]{690, 535, 380, 225, 70};
-
-            pageSettings.setOffsetX(85);
-            pageSettings.setOffsetY(valueOffsetY[box]);
+            //Info 5 - Value (Barcode)
+            pageSettings.setOffsetX(85+(settings.getSlim().barcodeAdjustOffsetX));
+            pageSettings.setOffsetY(
+                    settings.getSlim().barcodeValueOffsetY[box]+(settings.getSlim().barcodeAdjustOffsetY)
+            );
             pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
 
             contentStream("text", page, document, pageSettings, null, contentStream);
@@ -710,10 +710,11 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             contentStream.endText();
 
-            int[] amountOffsetY = new int[]{745, 590, 435, 280, 135};
-
-            pageSettings.setOffsetX(270);
-            pageSettings.setOffsetY(amountOffsetY[box]);
+            //Info 6 - Amount (Money)
+            pageSettings.setOffsetX(270+(settings.getSlim().barcodeAdjustOffsetX));
+            pageSettings.setOffsetY(
+                    settings.getSlim().barcodeAmountOffsetY[box]+(settings.getSlim().barcodeAdjustOffsetY)
+            );
             pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
 
             contentStream("text", page, document, pageSettings, null, contentStream);
@@ -1210,8 +1211,12 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
                 if (value != null && !value.isEmpty()) {
 
-                    settings.getBarcode().setOffsetY(settings.getSlim().barcodeOffsetY[box]);
+                    int offsetY = settings.getSlim().barcodeOffsetY[box]+(settings.getSlim().barcodeAdjustOffsetY);
+
                     settings.getBarcode().setData(value);
+                    settings.getBarcode().setOffsetX(barcodeOffsetX+(settings.getSlim().barcodeAdjustOffsetX));
+                    settings.getBarcode().setOffsetY(offsetY);
+
                     settings.getBarcode().setWidth(settings.getSlim().barcodeWidth);
                     settings.getBarcode().setHeight(settings.getSlim().barcodeHeight);
 

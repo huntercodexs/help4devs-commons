@@ -228,10 +228,13 @@ public class Help4DevsPdfBoxTemplateBase {
         int barcodeDpi = 400;
         int barcodeWidth = 500;
         int barcodeHeight = 50;
-        int barcodeOffsetX = 55;
+        static final int barcodeOffsetX = 55;
         int barcodeAdjustOffsetX = 0;
         int barcodeAdjustOffsetY = 0;
         int[] barcodeOffsetY = new int[]{655,500,345,190,35};
+        int[] barcodeInfoOffsetY = new int[]{750, 595, 440, 285, 130};
+        int[] barcodeValueOffsetY = new int[]{690, 535, 380, 225, 70};
+        int[] barcodeAmountOffsetY = new int[]{745, 590, 435, 280, 135};
         boolean barcodeShowText = true;
         boolean[] barcodeEnabled = new boolean[]{false,false,false,false,false};
 

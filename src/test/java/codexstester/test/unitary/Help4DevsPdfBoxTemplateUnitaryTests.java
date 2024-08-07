@@ -389,7 +389,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
 
         /*Text Content*/
-        boolean textOn = true;
+        boolean textOn = false;
         settings.setLineHeight(18);
         settings.setTextOffsetX(35);
         settings.setTextOffsetY(new int[]{732,577,421,266,111});
@@ -398,15 +398,17 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTextSize(FontSizeToPdfBox.NORMAL);
         settings.setTextFont(FontNameToPdfBox.HELVETICA);
 
-        /*Barcode Content*//*TODO:Revision*/
-        boolean barcodeOn = false;
+        /*Barcode Content*/
+        boolean barcodeOn = true;
         settings.setBarcodeDpi(400);
         settings.setBarcodeWidth(300);
         settings.setBarcodeHeight(30);
-        settings.setBarcodeOffsetX(55);
         settings.setBarcodeAdjustOffsetX(0);
         settings.setBarcodeAdjustOffsetY(0);
         settings.setBarcodeOffsetY(new int[]{655,500,345,190,35});
+        settings.setBarcodeInfoOffsetY(new int[]{750, 595, 440, 285, 130});
+        settings.setBarcodeValueOffsetY(new int[]{690, 535, 380, 225, 70});
+        settings.setBarcodeAmountOffsetY(new int[]{745, 590, 435, 280, 135});
         settings.setBarcodeShowText(false);
         settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
 
