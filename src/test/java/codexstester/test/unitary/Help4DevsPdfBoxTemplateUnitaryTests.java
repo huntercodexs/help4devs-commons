@@ -161,7 +161,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         SlimTemplateSettings settings = new SlimTemplateSettings();
 
         /*Title*/
-        boolean titleOn = false;
+        boolean titleOn = true;
         settings.setLeftTitleAdjustmentX(0);
         settings.setLeftTitleAdjustmentY(0);
         settings.setCenterTitleAdjustmentX(-31);
@@ -182,9 +182,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setRightTitleFont(FontNameToPdfBox.HELVETICA_B);
 
         /*Column*/
-        boolean columnLeftOn = false;
-        boolean columnCenterOn = false;
-        boolean columnRightOn = false;
+        boolean columnLeftOn = true;
+        boolean columnCenterOn = true;
+        boolean columnRightOn = true;
         settings.setColumnBoxWidth(170);
         settings.setColumnBoxHeight(90);
         settings.setColumnBoxChars(25);
@@ -318,7 +318,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         });
 
         /*Table*/
-        boolean tableOn = false;
+        boolean tableOn = true;
         settings.setTableWidth(540);
         settings.setTableHeight(90);
         settings.setTableOffsetX(35);
@@ -346,9 +346,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
 
         /*Image*/
-        boolean imageLeftOn = false;
-        boolean imageCenterOn = false;
-        boolean imageRightOn = false;
+        boolean imageLeftOn = true;
+        boolean imageCenterOn = true;
+        boolean imageRightOn = true;
         settings.setImageWidth(180);
         settings.setImageHeight(70);
         settings.setImageOffsetX(new int[]{35,215,395});
@@ -358,7 +358,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
 
         /*Signature Box*/
-        boolean signatureOn = false;
+        boolean signatureOn = true;
         settings.setSignatureBoxWidth(200);
         settings.setSignatureBoxHeight(100);
         settings.setSignatureBoxAdjustOffsetX(0);
@@ -401,7 +401,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTextFont(FontNameToPdfBox.HELVETICA);
 
         /*Barcode Content*/
-        boolean barcodeOn = false;
+        boolean barcodeOn = true;
         settings.setBarcodeDpi(400);
         settings.setBarcodeWidth(300);
         settings.setBarcodeHeight(30);
@@ -415,9 +415,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
 
         /*QRCode Content*/
-        boolean qrCodeLeftOn = false;
-        boolean qrCodeCenterOn = false;
-        boolean qrCodeRightOn = false;
+        boolean qrCodeLeftOn = true;
+        boolean qrCodeCenterOn = true;
+        boolean qrCodeRightOn = true;
         settings.setQrCodeDpi(400);
         settings.setQrCodeWidth(500);
         settings.setQrCodeHeight(50);
@@ -655,10 +655,10 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         System.out.println("------------------------------------------------");
         System.out.println("- Memory Usage -");
         System.out.println("------------------------------------------------");
-        System.out.println("Total: " + calculateMegabytes(totalMemory));
-        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore));
-        System.out.println("After: " + calculateMegabytes(freeMemoryAfter));
-        System.out.println("Used: " + calculateMegabytes(usedMemory));
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
     }
 
 }
