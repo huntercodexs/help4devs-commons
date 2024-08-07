@@ -393,6 +393,38 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
+    private static void drawTableHeaderContent(
+            int box,
+            int column,
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings pdfBoxTemplateSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            SlimTemplateSettings settings = pdfBoxTemplateSettings.getSlim();
+            PdfBoxPage pageSettings = pdfBoxTemplateSettings.getPage();
+            SlimDataContent content = pdfBoxTemplateSettings.getSlimContent();
+
+            pageSettings.setOffsetX(settings.tableColumnOffsetX[column]+(settings.tableHeaderAdjustOffsetX));
+            pageSettings.setOffsetY(settings.tableDataOffsetY[box]+(settings.tableHeaderAdjustOffsetY));
+            pageSettings.setFontName(settings.tableHeaderFontName);
+            pageSettings.setFontSize(settings.tableHeaderFontSize);
+            pageSettings.setFontColor(settings.tableHeaderFontColor);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+
+            contentStream.showText(content.getTableHeaderContent().get(box).get(column));
+            contentStream.newLine();
+
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
     private static void drawTableBody(
             int initialX,
             int initialY,
@@ -432,6 +464,39 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             }
 
             contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    private static void drawTableBodyContent(
+            int box,
+            int column,
+            int adjustOffsetY,
+            String content,
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings pdfBoxTemplateSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            SlimTemplateSettings settings = pdfBoxTemplateSettings.getSlim();
+            PdfBoxPage pageSettings = pdfBoxTemplateSettings.getPage();
+
+            pageSettings.setOffsetX(settings.tableColumnOffsetX[column]+(settings.tableBodyAdjustOffsetX));
+            pageSettings.setOffsetY(settings.tableDataOffsetY[box]+(settings.tableBodyAdjustOffsetY)-adjustOffsetY);
+            pageSettings.setFontName(settings.tableBodyFontName);
+            pageSettings.setFontSize(settings.tableBodyFontSize);
+            pageSettings.setFontColor(settings.tableBodyFontColor);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+
+            contentStream.showText(content);
+            contentStream.newLine();
+
+            contentStream.endText();
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -922,8 +987,6 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
                     drawTableHeader(box, col, slimSettings, contentStream);
                 }
 
-                System.out.println(slimSettings.getTableColumnHeight());
-
                 /*Auto Fix: Prevent incorrect settings*/
                 int swapHeight = slimSettings.tableColumnHeight;
                 slimSettings.tableDataOffsetY[box] = correctTableOffsetY(box, 54, slimSettings);
@@ -950,6 +1013,46 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
                 }
 
                 slimSettings.tableColumnHeight = swapHeight;
+            }
+        }
+    }
+
+    private static void slimContainerTableContentCreate(
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        SlimTemplateSettings slimSettings = new SlimTemplateSettings();
+
+        if (settings.getSlim() != null) {
+            slimSettings = settings.getSlim();
+        }
+
+        for (int box = 0; box < BOX_QUANTITY; box++) {
+
+            if (slimSettings.tableEnable[box]) {
+
+                for (int col = 0; col < slimSettings.getTableSize().getTableColumns(); col++) {
+                    drawTableHeaderContent(box, col, document, page, settings, contentStream);
+                }
+
+                //tableLines-1: to remove the first line (because was used in the table header)
+                int tableLines = slimSettings.getTableSize().getTableLines()-1;
+
+                List<String> contentList = settings.getSlimContent().getTableBodyContent().get(box);
+                int loopSize = settings.getSlimContent().getTableBodyContent().get(box).size()/tableLines;
+
+                int contLoop = 0;
+                int adjustY = 0;
+                for (String item : contentList) {
+                    if (contLoop == loopSize) {
+                        contLoop = 0;
+                        adjustY += slimSettings.tableColumnHeight;
+                    }
+                    drawTableBodyContent(box, contLoop, adjustY, item, document, page, settings, contentStream);
+                    contLoop++;
+                }
             }
         }
     }
@@ -1185,6 +1288,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         slimContainerImageCreate(document, page, settings, contentStream);
         /*NOTE: Text,Content should be in the final of the process*/
         slimContainerColumnContentCreate(document, page, settings, contentStream);
+        slimContainerTableContentCreate(document, page, settings, contentStream);
         slimContainerTextCreate(document, page, settings, contentStream);
         slimContainerSignatureCreate(document, page, settings, contentStream);
         slimContainerSignatureTapeCreate(document, page, settings, contentStream);

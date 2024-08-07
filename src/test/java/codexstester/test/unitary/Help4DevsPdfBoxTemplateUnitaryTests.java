@@ -8,7 +8,9 @@ import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.SlimTem
 import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates.template;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateService.*;
@@ -321,14 +323,23 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTableColumnWidth(90);
         settings.setTableColumnHeight(18);
         settings.setTableHeaderHeight(30);
+        settings.setTableHeaderAdjustOffsetX(20);
+        settings.setTableHeaderAdjustOffsetY(30);
+        settings.setTableBodyAdjustOffsetX(3);
+        settings.setTableBodyAdjustOffsetY(5);
         settings.setTableContainerOffsetY(new int[]{656, 500, 346, 190, 35});
         settings.setTableHeaderOffsetY(new int[]{728, 572, 418, 262, 107});
         settings.setTableColumnOffsetX(new int[] {35,125,215,305,395,485});
         settings.setTableDataOffsetY(new int[]{710, 554, 400, 244, 89});
-        settings.setTableHeaderColor(ColorsToPdfBox.BLACK);
+        settings.setTableHeaderColor(ColorsToPdfBox.GRAY);
         settings.setTableBodyColor(ColorsToPdfBox.ICE);
         settings.setTableBorderColor(ColorsToPdfBox.WHITE);
-        settings.setTableFontSize(FontSizeToPdfBox.SMALL);
+        settings.setTableHeaderFontColor(ColorsToPdfBox.WHITE);
+        settings.setTableBodyFontColor(ColorsToPdfBox.GRAY);
+        settings.setTableHeaderFontSize(FontSizeToPdfBox.NORMAL);
+        settings.setTableBodyFontSize(FontSizeToPdfBox.SMALL);
+        settings.setTableHeaderFontName(FontNameToPdfBox.HELVETICA_B);
+        settings.setTableBodyFontName(FontNameToPdfBox.HELVETICA);
         settings.setTableSize(TableDimensionsToPdfBox.TABLE_5X6);
         settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
 
@@ -410,7 +421,27 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         }
         settings.setColumnContent(columnContentMap);
 
-        /*Table*//*TODO:Revision*/
+        /*Table*/
+        List<String> tableHeaderContent = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            tableHeaderContent.add("Header " + i);
+        }
+        HashMap<Integer, List<String>> tableHeaderMap = new HashMap<>();
+        for (int j = 0; j < 5; j++) {
+            tableHeaderMap.put(j, tableHeaderContent);
+        }
+
+        List<String> tableBodyContent = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            tableBodyContent.add("Data " + i);
+        }
+        HashMap<Integer, List<String>> tableBodyMap = new HashMap<>();
+        for (int j = 0; j < 5; j++) {
+            tableBodyMap.put(j, tableBodyContent);
+        }
+
+        settings.setTableHeaderContent(tableHeaderMap);
+        settings.setTableBodyContent(tableBodyMap);
 
         /*Image*//*TODO:Revision*/
         settings.setLeftImagePaths(new String[]{

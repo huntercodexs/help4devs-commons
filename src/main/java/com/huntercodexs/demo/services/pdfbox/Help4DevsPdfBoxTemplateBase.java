@@ -3,6 +3,7 @@ package com.huntercodexs.demo.services.pdfbox;
 import lombok.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
 
@@ -154,15 +155,24 @@ public class Help4DevsPdfBoxTemplateBase {
         int tableColumnWidth = 90;
         int tableColumnHeight = 18;
         int tableHeaderHeight = 30;
+        int tableHeaderAdjustOffsetX = 0;
+        int tableHeaderAdjustOffsetY = 0;
+        int tableBodyAdjustOffsetX = 0;
+        int tableBodyAdjustOffsetY = 0;
         int[] tableContainerOffsetY = new int[]{656, 500, 346, 190, 35};
         int[] tableHeaderOffsetY = new int[]{728, 572, 418, 262, 107};
         int[] tableColumnOffsetX = new int[] {35,125,215,305,395,485};
         int[] tableDataOffsetY = new int[]{710, 554, 400, 244, 89};
         boolean[] tableEnable = new boolean[]{false,false,false,false,false};
-        ColorsToPdfBox tableHeaderColor = ColorsToPdfBox.BLACK;
-        ColorsToPdfBox tableBodyColor = ColorsToPdfBox.WHITE;
-        ColorsToPdfBox tableBorderColor = ColorsToPdfBox.BLACK;
-        FontSizeToPdfBox tableFontSize = FontSizeToPdfBox.SMALL;
+        ColorsToPdfBox tableBorderColor = ColorsToPdfBox.WHITE;
+        ColorsToPdfBox tableHeaderColor = ColorsToPdfBox.GRAY;
+        ColorsToPdfBox tableBodyColor = ColorsToPdfBox.ICE;
+        ColorsToPdfBox tableHeaderFontColor = ColorsToPdfBox.WHITE;
+        ColorsToPdfBox tableBodyFontColor = ColorsToPdfBox.GRAY;
+        FontSizeToPdfBox tableHeaderFontSize = FontSizeToPdfBox.NORMAL;
+        FontSizeToPdfBox tableBodyFontSize = FontSizeToPdfBox.NORMAL;
+        FontNameToPdfBox tableHeaderFontName = FontNameToPdfBox.HELVETICA;
+        FontNameToPdfBox tableBodyFontName = FontNameToPdfBox.HELVETICA;
         TableDimensionsToPdfBox tableSize = TableDimensionsToPdfBox.TABLE_5X6;
 
         //Signature Box
@@ -250,7 +260,8 @@ public class Help4DevsPdfBoxTemplateBase {
         HashMap<Integer, String> columnContent = new HashMap<>();
 
         //Table
-        String tableContent;
+        HashMap<Integer, List<String>> tableHeaderContent = new HashMap<>();
+        HashMap<Integer, List<String>> tableBodyContent = new HashMap<>();
 
         //Signature
         String signaturePersonName = "";
