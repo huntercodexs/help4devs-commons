@@ -520,8 +520,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             contentStream.addRect(
                     settings.signatureBoxOffsetX[index],
                     settings.signatureBoxOffsetY[0],
-                    settings.getSignatureBoxWidth(),
-                    settings.getSignatureBoxHeight());
+                    settings.signatureBoxWidth,
+                    settings.signatureBoxHeight);
             if (settings.signatureBoxBorderEnable) {
                 contentStream.closeAndStroke();
             }
@@ -530,8 +530,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             //Signature Title
             pageSettings.setOffsetX(settings.signatureBoxDigitalTitleOffsetX[index]);
             pageSettings.setOffsetY(settings.signatureBoxOffsetY[1]);
-            pageSettings.setFontColor(settings.getSignatureBoxColor());
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
+            pageSettings.setFontColor(settings.signatureBoxColor);
+            pageSettings.setFontName(settings.signatureFontName);
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
             contentStream = contentStream(
@@ -544,9 +544,9 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             //Signature Value
             pageSettings.setOffsetX(settings.signatureBoxContentOffsetX[index]+(settings.getSignatureBoxAdjustOffsetX()));
             pageSettings.setOffsetY(settings.signatureBoxOffsetY[2]);
-            pageSettings.setFontColor(settings.getSignatureBoxColor());
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
+            pageSettings.setFontColor(settings.signatureBoxColor);
+            pageSettings.setFontName(settings.signatureFontName);
+            pageSettings.setFontSize(settings.signatureFontSize);
             pageSettings.setLineHeight(16);
 
             contentStream = contentStream(
@@ -593,7 +593,7 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             pageSettings.setOffsetX(settings.getSignatureTapeTitleOffsetX());
             pageSettings.setOffsetY(settings.getSignatureTapeTitleOffsetY());
             pageSettings.setFontColor(settings.getSignatureTapeColor());
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
+            pageSettings.setFontName(settings.getSignatureTapeFontName());
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
             contentStream = contentStream(
@@ -607,8 +607,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             pageSettings.setOffsetX(settings.getSignatureTapeValueOffsetX()+(settings.getSignatureTapeAdjustOffsetX()));
             pageSettings.setOffsetY(settings.getSignatureTapeValueOffsetY());
             pageSettings.setFontColor(settings.getSignatureTapeColor());
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
+            pageSettings.setFontName(settings.getSignatureTapeFontName());
+            pageSettings.setFontSize(settings.getSignatureTapeFontSize());
 
             contentStream = contentStream(
                     "text", page, document, pageSettings, rectSettings, contentStream);

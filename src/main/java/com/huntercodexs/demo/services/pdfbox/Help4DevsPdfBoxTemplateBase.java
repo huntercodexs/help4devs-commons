@@ -180,7 +180,7 @@ public class Help4DevsPdfBoxTemplateBase {
         int signatureBoxHeight = 100;
         int signatureBoxAdjustOffsetX = 0;
         int[] signatureBoxOffsetX = new int[]{55,210,355};
-        int[] signatureBoxOffsetY = new int[]{30,122,100};
+        int[] signatureBoxOffsetY = new int[]{35,122,100};
         int[] signatureBoxDigitalTitleOffsetX = new int[]{105,260,405};
         int[] signatureBoxContentOffsetX = new int[]{70,230,370};
         boolean signatureBoxBorderEnable = false;
@@ -188,21 +188,23 @@ public class Help4DevsPdfBoxTemplateBase {
         boolean centerSignatureBoxEnable = false;
         boolean rightSignatureBoxEnable = false;
         FontSizeToPdfBox signatureFontSize = FontSizeToPdfBox.SMALL;
+        FontNameToPdfBox signatureFontName = FontNameToPdfBox.HELVETICA_B;
         ColorsToPdfBox signatureBoxColor = ColorsToPdfBox.BLACK;
 
         //Signature Tape
         int signatureTapeWidth = 500;
         int signatureTapeHeight = 30;
         int signatureTapeOffsetX = 55;
-        int signatureTapeOffsetY = 30;
+        int signatureTapeOffsetY = 35;
         int signatureTapeTitleOffsetX = 260;
-        int signatureTapeTitleOffsetY = 52;
+        int signatureTapeTitleOffsetY = 57;
         int signatureTapeValueOffsetX = 130;
-        int signatureTapeValueOffsetY = 35;
-        int signatureTapeAdjustOffsetX = 0;
+        int signatureTapeValueOffsetY = 40;
+        int signatureTapeAdjustOffsetX = 10;
         boolean signatureTapeEnable = false;
         FontSizeToPdfBox signatureTapeFontSize = FontSizeToPdfBox.SMALL;
-        ColorsToPdfBox signatureTapeColor = ColorsToPdfBox.BLACK;
+        FontNameToPdfBox signatureTapeFontName = FontNameToPdfBox.HELVETICA_B;
+        ColorsToPdfBox signatureTapeColor = ColorsToPdfBox.GRAY;
 
         //Text
         int lineHeight = 18;

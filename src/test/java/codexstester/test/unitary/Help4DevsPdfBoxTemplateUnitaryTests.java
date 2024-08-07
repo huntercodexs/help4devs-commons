@@ -345,9 +345,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
 
         /*Image*/
-        boolean imageLeftOn = true;
-        boolean imageCenterOn = true;
-        boolean imageRightOn = true;
+        boolean imageLeftOn = false;
+        boolean imageCenterOn = false;
+        boolean imageRightOn = false;
         settings.setImageWidth(180);
         settings.setImageHeight(70);
         settings.setImageOffsetX(new int[]{35,215,395});
@@ -356,19 +356,37 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setCenterImageEnable(new boolean[]{imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn});
         settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
 
-        /*Signature Box*//*TODO:Revision*/
-        boolean signatureOn = false;
+        /*Signature Box*/
+        boolean signatureOn = true;
+        settings.setSignatureBoxWidth(200);
+        settings.setSignatureBoxHeight(100);
+        settings.setSignatureBoxAdjustOffsetX(0);
+        settings.setSignatureBoxOffsetX(new int[]{55,210,355});
+        settings.setSignatureBoxOffsetY(new int[]{35,122,100});
+        settings.setSignatureBoxDigitalTitleOffsetX(new int[]{105,260,405});
+        settings.setSignatureBoxContentOffsetX(new int[]{70,230,370});
+        settings.setSignatureBoxBorderEnable(true);
         settings.setLeftSignatureBoxEnable(signatureOn);
         settings.setCenterSignatureBoxEnable(signatureOn);
         settings.setRightSignatureBoxEnable(signatureOn);
+        settings.setSignatureFontSize(FontSizeToPdfBox.NORMAL);
+        settings.setSignatureFontName(FontNameToPdfBox.HELVETICA_B);
         settings.setSignatureBoxColor(ColorsToPdfBox.GRAY);
-        settings.setSignatureBoxBorderEnable(true);
-        settings.setSignatureBoxAdjustOffsetX(0);
 
-        /*Signature Tape*//*TODO:Revision*/
-        settings.setSignatureTapeEnable(signatureOn);
-        settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
+        /*Signature Tape*/
+        settings.setSignatureTapeWidth(500);
+        settings.setSignatureTapeHeight(30);
+        settings.setSignatureTapeOffsetX(55);
+        settings.setSignatureTapeOffsetY(35);
+        settings.setSignatureTapeTitleOffsetX(260);
+        settings.setSignatureTapeTitleOffsetY(57);
+        settings.setSignatureTapeValueOffsetX(130);
+        settings.setSignatureTapeValueOffsetY(40);
         settings.setSignatureTapeAdjustOffsetX(10);
+        settings.setSignatureTapeEnable(true);
+        settings.setSignatureTapeFontSize(FontSizeToPdfBox.SMALL);
+        settings.setSignatureTapeFontName(FontNameToPdfBox.HELVETICA_B);
+        settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
 
         /*Text Content*//*TODO:Revision*/
         boolean textOn = false;
@@ -473,7 +491,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
                 "./src/test/resources/help4devs/images/ads/java.png"
         });
 
-        /*Signature*//*TODO:Revision*/
+        /*Signature*/
         settings.setSignaturePersonName("John Smith Mountain");
         settings.setSignaturePersonDoc("123456789011");
         settings.setSignatureRecord("9089739827389");
