@@ -214,6 +214,8 @@ public class Help4DevsPdfBoxTemplateBase {
         FontNameToPdfBox textFont = FontNameToPdfBox.HELVETICA;
 
         //Image
+        int imageWidth = 0;
+        int imageHeight = 0;
         int[] imageOffsetX = new int[]{35,180,330};
         int[] imageOffsetY = new int[]{650,495,340,185,30};
         boolean[] leftImageEnable = new boolean[]{false,false,false,false,false};

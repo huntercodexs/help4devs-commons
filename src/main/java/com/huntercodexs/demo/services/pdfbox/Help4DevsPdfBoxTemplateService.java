@@ -458,12 +458,12 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             PDImageXObject pdImageXObject = PDImageXObject.createFromFile(imgSettings.getFilenamePath(), document);
 
-            if (imgSettings.isResize()) {
-                pdImageXObject.setWidth(imgSettings.getWidth());
-                pdImageXObject.setHeight(imgSettings.getHeight());
-            }
-
-            contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
+            contentStream.drawImage(
+                    pdImageXObject,
+                    imgSettings.getOffsetX(),
+                    imgSettings.getOffsetY(),
+                    imgSettings.getWidth(),
+                    imgSettings.getHeight());
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -1077,6 +1077,9 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
             String imgLeft = slimData.leftImagePaths[n];
             String imgCenter = slimData.centerImagePaths[n];
             String imgRight = slimData.rightImagePaths[n];
+
+            imgSettings.setWidth(slimSettings.imageWidth);
+            imgSettings.setHeight(slimSettings.imageHeight);
 
             //Image Left
             if (slimSettings.leftImageEnable[n] && imgLeft != null && !imgLeft.isEmpty()) {

@@ -317,7 +317,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         });
 
         /*Table*/
-        boolean tableOn = true;
+        boolean tableOn = false;
         settings.setTableWidth(540);
         settings.setTableHeight(90);
         settings.setTableOffsetX(35);
@@ -344,11 +344,17 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTableSize(TableDimensionsToPdfBox.TABLE_5X6);
         settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
 
-        /*Image*//*TODO:Revision*/
-        boolean imageOn = false;
-        settings.setLeftImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
-        settings.setCenterImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
-        settings.setRightImageEnable(new boolean[]{imageOn,imageOn,imageOn,imageOn,imageOn});
+        /*Image*/
+        boolean imageLeftOn = true;
+        boolean imageCenterOn = true;
+        boolean imageRightOn = true;
+        settings.setImageWidth(180);
+        settings.setImageHeight(70);
+        settings.setImageOffsetX(new int[]{35,215,395});
+        settings.setImageOffsetY(new int[]{670,515,360,205,55});
+        settings.setLeftImageEnable(new boolean[]{imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn});
+        settings.setCenterImageEnable(new boolean[]{imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn});
+        settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
 
         /*Signature Box*//*TODO:Revision*/
         boolean signatureOn = false;
@@ -444,7 +450,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTableHeaderContent(tableHeaderMap);
         settings.setTableBodyContent(tableBodyMap);
 
-        /*Image*//*TODO:Revision*/
+        /*Image*/
         settings.setLeftImagePaths(new String[]{
                 "./src/test/resources/help4devs/images/ads/java.png",
                 "./src/test/resources/help4devs/images/ads/java.png",
@@ -612,7 +618,6 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
-
         long freeMemoryBefore = rt.freeMemory();
 
         pdfBoxTemplate(pdfBoxTemplateSettings());
