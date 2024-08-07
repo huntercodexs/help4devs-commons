@@ -357,7 +357,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
 
         /*Signature Box*/
-        boolean signatureOn = true;
+        boolean signatureOn = false;
         settings.setSignatureBoxWidth(200);
         settings.setSignatureBoxHeight(100);
         settings.setSignatureBoxAdjustOffsetX(0);
@@ -383,17 +383,20 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setSignatureTapeValueOffsetX(130);
         settings.setSignatureTapeValueOffsetY(40);
         settings.setSignatureTapeAdjustOffsetX(10);
-        settings.setSignatureTapeEnable(true);
+        settings.setSignatureTapeEnable(false);
         settings.setSignatureTapeFontSize(FontSizeToPdfBox.SMALL);
         settings.setSignatureTapeFontName(FontNameToPdfBox.HELVETICA_B);
         settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
 
-        /*Text Content*//*TODO:Revision*/
-        boolean textOn = false;
-        settings.setTextEnable(new boolean[]{textOn,textOn,textOn,textOn,textOn});
+        /*Text Content*/
+        boolean textOn = true;
         settings.setLineHeight(18);
         settings.setTextOffsetX(35);
-        settings.setTextColor(ColorsToPdfBox.BLUE3);
+        settings.setTextOffsetY(new int[]{732,577,421,266,111});
+        settings.setTextEnable(new boolean[]{textOn,textOn,textOn,textOn,textOn});
+        settings.setTextColor(ColorsToPdfBox.GRAY);
+        settings.setTextSize(FontSizeToPdfBox.NORMAL);
+        settings.setTextFont(FontNameToPdfBox.HELVETICA);
 
         /*Barcode Content*//*TODO:Revision*/
         boolean barcodeOn = false;
@@ -497,7 +500,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setSignatureRecord("9089739827389");
         settings.setSignatureDateGmt("2020.01.01 10:00:00 -03:00");
 
-        /*Text*//*TODO:Revision*/
+        /*Text*/
         HashMap<Integer, String> textContentMap = new HashMap<>();
         String textContent1 =
                 "Content One in the simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
