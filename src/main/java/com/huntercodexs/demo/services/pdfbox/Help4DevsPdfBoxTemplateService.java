@@ -747,32 +747,25 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
     ) {
         try {
 
-            int[] infoOffsetX = new int[]{145, 365, 365};
-            int[] infoOffsetY = new int[]{745, 595, 440, 285, 130};
-
             pageSettings.setLineHeight(12);
             pageSettings.setFontColor(ColorsToPdfBox.BLACK);
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
             //Left
             if (settings.getSlim().qrCodeLeftEnable[box]) {
-                pageSettings.setOffsetX(infoOffsetX[0]);
-                pageSettings.setOffsetY(infoOffsetY[box]);
+                pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[0]+(settings.getSlim().qrCodeAdjustOffsetX));
+                pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
                 contentStream("text", page, document, pageSettings, null, contentStream);
 
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3));
                 contentStream.newLine();
 
@@ -781,23 +774,19 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Center
             if (settings.getSlim().qrCodeCenterEnable[box]) {
-                pageSettings.setOffsetX(infoOffsetX[1]);
-                pageSettings.setOffsetY(infoOffsetY[box]);
+                pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[1]+(settings.getSlim().qrCodeAdjustOffsetX));
+                pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
                 contentStream("text", page, document, pageSettings, null, contentStream);
 
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 1));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 1));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 1));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 1));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 1));
                 contentStream.newLine();
 
@@ -806,23 +795,19 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Right
             if (settings.getSlim().qrCodeRightEnable[box]) {
-                pageSettings.setOffsetX(infoOffsetX[2]);
-                pageSettings.setOffsetY(infoOffsetY[box]);
+                pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[2]+(settings.getSlim().qrCodeAdjustOffsetX));
+                pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
                 contentStream("text", page, document, pageSettings, null, contentStream);
 
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 2));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 2));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 2));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 2));
                 contentStream.newLine();
-
                 contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 2));
                 contentStream.newLine();
 
@@ -1241,8 +1226,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Left
             if (settings.getSlim().qrCodeLeftEnable[box]) {
-                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[0]);
-                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]);
+                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[0]+(settings.getSlim().qrCodeAdjustOffsetX));
+                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3));
                 drawQRCode(document, settings.getQrCode(), contentStream);
                 drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
@@ -1250,8 +1235,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Center
             if (settings.getSlim().qrCodeCenterEnable[box]) {
-                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[1]);
-                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]);
+                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[1]+(settings.getSlim().qrCodeAdjustOffsetX));
+                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+1));
                 drawQRCode(document, settings.getQrCode(), contentStream);
                 drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
@@ -1259,8 +1244,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             //Right
             if (settings.getSlim().qrCodeRightEnable[box]) {
-                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[2]);
-                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]);
+                settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[2]+(settings.getSlim().qrCodeAdjustOffsetX));
+                settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+2));
                 drawQRCode(document, settings.getQrCode(), contentStream);
                 drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);

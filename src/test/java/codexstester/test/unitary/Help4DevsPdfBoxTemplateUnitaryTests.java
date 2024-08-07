@@ -399,7 +399,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setTextFont(FontNameToPdfBox.HELVETICA);
 
         /*Barcode Content*/
-        boolean barcodeOn = true;
+        boolean barcodeOn = false;
         settings.setBarcodeDpi(400);
         settings.setBarcodeWidth(300);
         settings.setBarcodeHeight(30);
@@ -412,10 +412,10 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setBarcodeShowText(false);
         settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
 
-        /*QRCode Content*//*TODO:Revision*/
-        boolean qrCodeLeftOn = false;
-        boolean qrCodeCenterOn = false;
-        boolean qrCodeRightOn = false;
+        /*QRCode Content*/
+        boolean qrCodeLeftOn = true;
+        boolean qrCodeCenterOn = true;
+        boolean qrCodeRightOn = true;
         settings.setQrCodeDpi(400);
         settings.setQrCodeWidth(500);
         settings.setQrCodeHeight(50);
@@ -423,6 +423,8 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setQrCodeAdjustOffsetY(0);
         settings.setQrCodeOffsetX(new int[]{40,260,470});
         settings.setQrCodeOffsetY(new int[]{655,502,348,193,38});
+        settings.setQrCodeInfoOffsetX(new int[]{145, 365, 365});
+        settings.setQrCodeInfoOffsetY(new int[]{745, 595, 440, 285, 130});
         settings.setQrCodeLeftEnable(new boolean[]{qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn});
         settings.setQrCodeCenterEnable(new boolean[]{qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn});
         settings.setQrCodeRightEnable(new boolean[]{qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn});
@@ -547,7 +549,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         textContentMap.put(4, textContent5);
         settings.setTextContent(textContentMap);
 
-        /*Barcode*//*TODO:Revision*/
+        /*Barcode*/
         HashMap<Integer, String> barcodeValueMap = new HashMap<>();
         HashMap<Integer, String> barcodeOneMap = new HashMap<>();
         HashMap<Integer, String> barcodeTwoMap = new HashMap<>();
@@ -570,7 +572,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setBarcodeInfoFour(barcodeFourMap);
         settings.setBarcodeAmount(barcodeAmountMap);
 
-        /*QRCode*//*TODO:Revision*/
+        /*QRCode*/
         HashMap<Integer, String> qrCodeValueMap = new HashMap<>();
         HashMap<Integer, String> qrCodeOneMap = new HashMap<>();
         HashMap<Integer, String> qrCodeTwoMap = new HashMap<>();

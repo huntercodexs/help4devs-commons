@@ -246,6 +246,8 @@ public class Help4DevsPdfBoxTemplateBase {
         int qrCodeAdjustOffsetY = 0;
         int[] qrCodeOffsetX = new int[]{40,260,470};
         int[] qrCodeOffsetY = new int[]{655,502,348,193,38};
+        int[] qrCodeInfoOffsetX = new int[]{145, 365, 365};
+        int[] qrCodeInfoOffsetY = new int[]{745, 595, 440, 285, 130};
         boolean[] qrCodeLeftEnable = new boolean[]{false,false,false,false,false};
         boolean[] qrCodeCenterEnable = new boolean[]{false,false,false,false,false};
         boolean[] qrCodeRightEnable = new boolean[]{false,false,false,false,false};
