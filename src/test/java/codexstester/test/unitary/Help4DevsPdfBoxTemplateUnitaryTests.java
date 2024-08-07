@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates.template;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateService.*;
 
@@ -609,11 +610,23 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void pdfBoxTemplateSlimTest() {
         Runtime rt = Runtime.getRuntime();
-        System.out.println(rt.freeMemory());
-        System.out.println(rt.totalMemory());
+
+        long totalMemory = rt.totalMemory();
+
+        long freeMemoryBefore = rt.freeMemory();
+
         pdfBoxTemplate(pdfBoxTemplateSettings());
-        System.out.println(rt.freeMemory());
-        System.out.println(rt.totalMemory());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory));
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore));
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter));
+        System.out.println("Used: " + calculateMegabytes(usedMemory));
     }
 
 }
