@@ -210,6 +210,7 @@ public class Help4DevsPdfBoxTemplateBase {
         //Text
         int lineHeight = 18;
         int textOffsetX = 35;
+        int textChars = 400;
         int[] textOffsetY = new int[]{732,577,421,266,111};
         boolean[] textEnable = new boolean[]{false,false,false,false,false};
         ColorsToPdfBox textColor = ColorsToPdfBox.BLACK;

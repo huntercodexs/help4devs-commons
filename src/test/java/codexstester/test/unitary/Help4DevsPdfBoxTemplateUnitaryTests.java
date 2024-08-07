@@ -182,9 +182,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setRightTitleFont(FontNameToPdfBox.HELVETICA_B);
 
         /*Column*/
-        boolean columnLeftOn = true;
-        boolean columnCenterOn = true;
-        boolean columnRightOn = true;
+        boolean columnLeftOn = false;
+        boolean columnCenterOn = false;
+        boolean columnRightOn = false;
         settings.setColumnBoxWidth(170);
         settings.setColumnBoxHeight(90);
         settings.setColumnBoxChars(25);
@@ -390,9 +390,10 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
 
         /*Text Content*/
-        boolean textOn = false;
+        boolean textOn = true;
         settings.setLineHeight(18);
         settings.setTextOffsetX(35);
+        settings.setTextChars(98);
         settings.setTextOffsetY(new int[]{732,577,421,266,111});
         settings.setTextEnable(new boolean[]{textOn,textOn,textOn,textOn,textOn});
         settings.setTextColor(ColorsToPdfBox.GRAY);
@@ -508,40 +509,40 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         /*Text*/
         HashMap<Integer, String> textContentMap = new HashMap<>();
         String textContent1 =
-                "Content One in the simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+                "1. One in the simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make.";
         String textContent2 =
-                "Content Two more simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+                "2. Two more simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make.";
         String textContent3 =
-                "Content Three is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+                "3. Three is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make.";
         String textContent4 =
-                "Content Four is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+                "4. Four is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make.";
         String textContent5 =
-                "Content Five is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
-                        "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
-                        "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
-                        "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
-                        "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make other";
+                "5. is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been\n" +
+                "the industry, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum\n" +
+                "has been the industry's standard dummy text ever since the 1500s, when an unknown printer took off\n" +
+                "galley of type and scrambled it to make a type specimen book, has been the industry's standard from\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make more\n" +
+                "text ever since the 1500s and scrambled it to make a type specimen book scrambled it to make.";
 
         textContentMap.put(0, textContent1);
         textContentMap.put(1, textContent2);

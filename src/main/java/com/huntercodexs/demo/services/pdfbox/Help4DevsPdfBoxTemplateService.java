@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
@@ -1179,14 +1178,18 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
         for (int box = 0; box < BOX_QUANTITY; box++) {
 
-            /*TODO: Fix the lines using length (NOT \n)*/
-            if (settings.getSlimContent().getTextContent().get(box) != null) {
-                listLines.add(settings.getSlimContent().getTextContent().get(box).split("\n"));
-            }
-
             if (slimSettings.textEnable[box]) {
-                pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
-                drawText(box, document, page, listLines, slimSettings, pageSettings, contentStream);
+
+                if (settings.getSlimContent().getTextContent().get(box) != null) {
+                    listLines.add(settings.getSlimContent().getTextContent().get(box)
+                            .replaceAll("\n", " ")
+                            .replaceAll("\r", " ")
+                            .split("(?<=\\G.{" + settings.getSlim().textChars + "})"));
+
+                    pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
+                    drawText(box, document, page, listLines, slimSettings, pageSettings, contentStream);
+
+                }
             }
         }
     }
