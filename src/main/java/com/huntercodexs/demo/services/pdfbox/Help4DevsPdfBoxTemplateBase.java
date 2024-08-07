@@ -109,6 +109,7 @@ public class Help4DevsPdfBoxTemplateBase {
         //Column
         int columnBoxWidth = 170;
         int columnBoxHeight = 90;
+        int columnBoxChars = 40;
         int[] columnBoxOffsetX = new int[]{35,220,405};
         int[] columnBoxOffsetY = new int[]{655,500,345,190,35};
         int[] columnBoxLeftPadding = new int[]{10,10,10,10,10};
@@ -138,15 +139,15 @@ public class Help4DevsPdfBoxTemplateBase {
         ColorsToPdfBox[] columnBoxLeftBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
         ColorsToPdfBox[] columnBoxCenterBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
         ColorsToPdfBox[] columnBoxRightBorderColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxLeftTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxCenterTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
+        ColorsToPdfBox[] columnBoxRightTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
         FontSizeToPdfBox[] columnBoxLeftFontSize = new FontSizeToPdfBox[]{null, null, null, null, null};
         FontSizeToPdfBox[] columnBoxCenterFontSize = new FontSizeToPdfBox[]{null, null, null, null, null};
         FontSizeToPdfBox[] columnBoxRightFontSize = new FontSizeToPdfBox[]{null, null, null, null, null};
         FontNameToPdfBox[] columnBoxLeftFontName = new FontNameToPdfBox[]{null, null, null, null, null};
         FontNameToPdfBox[] columnBoxCenterFontName = new FontNameToPdfBox[]{null, null, null, null, null};
         FontNameToPdfBox[] columnBoxRightFontName = new FontNameToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnBoxLeftTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnBoxCenterTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
-        ColorsToPdfBox[] columnBoxRightTextColor = new ColorsToPdfBox[]{null, null, null, null, null};
 
         //Table
         int tableWidth = 540;

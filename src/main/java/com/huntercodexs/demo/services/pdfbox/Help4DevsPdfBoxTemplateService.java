@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
@@ -934,17 +935,25 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
             List<String[]> listLines = new ArrayList<>();
 
-            /*TODO: Fix the lines using length (NOT \n)*/
             if (settings.getSlimContent().getColumnContent().get(box*3) != null) {
-                listLines.add(settings.getSlimContent().getColumnContent().get(box*3).split("\n"));
+                listLines.add(settings.getSlimContent().getColumnContent().get(box * 3)
+                        .replaceAll("\n", "")
+                        .replaceAll("\r", "")
+                        .split("(?<=\\G.{" + settings.getSlim().columnBoxChars + "})"));
             }
 
             if (settings.getSlimContent().getColumnContent().get(box*3+1) != null) {
-                listLines.add(settings.getSlimContent().getColumnContent().get(box*3+1).split("\n"));
+                listLines.add(settings.getSlimContent().getColumnContent().get(box * 3 + 1)
+                        .replaceAll("\n", "")
+                        .replaceAll("\r", "")
+                        .split("(?<=\\G.{" + settings.getSlim().columnBoxChars + "})"));
             }
 
             if (settings.getSlimContent().getColumnContent().get(box*3+2) != null) {
-                listLines.add(settings.getSlimContent().getColumnContent().get(box*3+2).split("\n"));
+                listLines.add(settings.getSlimContent().getColumnContent().get(box * 3 + 2)
+                        .replaceAll("\n", "")
+                        .replaceAll("\r", "")
+                        .split("(?<=\\G.{" + settings.getSlim().columnBoxChars + "})"));
             }
 
             drawColumnContent(box, document, page, listLines, settings, contentStream);

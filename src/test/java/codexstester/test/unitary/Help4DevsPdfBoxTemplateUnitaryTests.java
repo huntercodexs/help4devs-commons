@@ -182,11 +182,12 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setRightTitleFont(FontNameToPdfBox.HELVETICA_B);
 
         /*Column*/
-        boolean columnLeftOn = false;
-        boolean columnCenterOn = false;
-        boolean columnRightOn = false;
+        boolean columnLeftOn = true;
+        boolean columnCenterOn = true;
+        boolean columnRightOn = true;
         settings.setColumnBoxWidth(170);
         settings.setColumnBoxHeight(90);
+        settings.setColumnBoxChars(25);
         settings.setColumnBoxOffsetX(new int[]{35,220,405});
         settings.setColumnBoxOffsetY(new int[]{655,500,345,190,35});
         settings.setColumnBoxLeftPadding(new int[]{5,5,5,5,5});
@@ -252,48 +253,6 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
                 ColorsToPdfBox.GRAY,
                 ColorsToPdfBox.BLACK
         });
-        settings.setColumnBoxLeftFontSize(new FontSizeToPdfBox[]{
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL
-        });
-        settings.setColumnBoxCenterFontSize(new FontSizeToPdfBox[]{
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL
-        });
-        settings.setColumnBoxRightFontSize(new FontSizeToPdfBox[]{
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL,
-                FontSizeToPdfBox.SMALL
-        });
-        settings.setColumnBoxLeftFontName(new FontNameToPdfBox[]{
-                FontNameToPdfBox.TIMES,
-                FontNameToPdfBox.TIMES,
-                FontNameToPdfBox.TIMES,
-                FontNameToPdfBox.TIMES,
-                FontNameToPdfBox.TIMES
-        });
-        settings.setColumnBoxCenterFontName(new FontNameToPdfBox[]{
-                FontNameToPdfBox.COURIER,
-                FontNameToPdfBox.COURIER,
-                FontNameToPdfBox.COURIER,
-                FontNameToPdfBox.COURIER,
-                FontNameToPdfBox.COURIER
-        });
-        settings.setColumnBoxRightFontName(new FontNameToPdfBox[]{
-                FontNameToPdfBox.HELVETICA,
-                FontNameToPdfBox.HELVETICA,
-                FontNameToPdfBox.HELVETICA,
-                FontNameToPdfBox.HELVETICA,
-                FontNameToPdfBox.HELVETICA
-        });
         settings.setColumnBoxLeftTextColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.BLACK,
                 ColorsToPdfBox.YELLOW,
@@ -314,6 +273,48 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
                 ColorsToPdfBox.RED2,
                 ColorsToPdfBox.WHITE,
                 ColorsToPdfBox.BLACK
+        });
+        settings.setColumnBoxLeftFontSize(new FontSizeToPdfBox[]{
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL
+        });
+        settings.setColumnBoxCenterFontSize(new FontSizeToPdfBox[]{
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL
+        });
+        settings.setColumnBoxRightFontSize(new FontSizeToPdfBox[]{
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL
+        });
+        settings.setColumnBoxLeftFontName(new FontNameToPdfBox[]{
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA
+        });
+        settings.setColumnBoxCenterFontName(new FontNameToPdfBox[]{
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA
+        });
+        settings.setColumnBoxRightFontName(new FontNameToPdfBox[]{
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA
         });
 
         /*Table*/
@@ -413,9 +414,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
 
         /*QRCode Content*/
-        boolean qrCodeLeftOn = true;
-        boolean qrCodeCenterOn = true;
-        boolean qrCodeRightOn = true;
+        boolean qrCodeLeftOn = false;
+        boolean qrCodeCenterOn = false;
+        boolean qrCodeRightOn = false;
         settings.setQrCodeDpi(400);
         settings.setQrCodeWidth(500);
         settings.setQrCodeHeight(50);
