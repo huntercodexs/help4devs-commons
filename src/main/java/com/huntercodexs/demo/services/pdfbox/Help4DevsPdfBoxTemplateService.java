@@ -307,18 +307,61 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
     ) {
         try {
 
+            contentStream.setNonStrokingColor(color(settings.tableBodyColor));
             contentStream.setStrokingColor(color(settings.tableBorderColor));
             contentStream.addRect(
                     settings.tableOffsetX,
                     settings.tableContainerOffsetY[box],
                     settings.tableWidth,
                     settings.tableHeight);
-            contentStream.closeAndStroke();
+            contentStream.fillAndStroke();
             contentStream.setStrokingColor(0, 0, 0);
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
+    }
+
+    private static int correctTableOffsetX(int column, SlimTemplateSettings settings) {
+        if (column == 0) {
+            return settings.tableOffsetX;
+        }
+
+        int correctOffsetX = settings.tableColumnOffsetX[column-1] + settings.tableColumnWidth;
+
+        if (settings.tableColumnOffsetX[column] != correctOffsetX) {
+            return correctOffsetX;
+        }
+        return settings.tableColumnOffsetX[column];
+    }
+
+    private static int correctTableOffsetY(int box, int ref, SlimTemplateSettings settings) {
+        if (box == 0) {
+            return settings.tableContainerOffsetY[0]+ref;
+        }
+
+        int correctOffsetY = settings.tableContainerOffsetY[box] + ref;
+
+        if (settings.tableContainerOffsetY[box] != correctOffsetY) {
+            return correctOffsetY;
+        }
+        return settings.tableContainerOffsetY[box];
+    }
+
+    private static int correctTableWidth(SlimTemplateSettings settings) {
+        int result = settings.tableColumnWidth * settings.tableSize.getTableColumns();
+        if (result != settings.tableWidth) {
+            return settings.tableWidth / settings.tableSize.getTableColumns();
+        }
+        return settings.tableColumnWidth;
+    }
+
+    private static int correctTableHeight(SlimTemplateSettings settings) {
+        int result = settings.tableColumnHeight * settings.tableSize.getTableLines();
+        if (result != settings.tableHeight) {
+            return settings.tableHeight / settings.tableSize.getTableLines();
+        }
+        return settings.tableColumnHeight;
     }
 
     private static void drawTableHeader(
@@ -329,15 +372,19 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
     ) {
         try {
 
+            /*Auto Fix: Prevent incorrect settings*/
+            settings.tableColumnOffsetX[column] = correctTableOffsetX(column, settings);
+            settings.tableHeaderOffsetY[box] = correctTableOffsetY(box, 72, settings);
+            settings.tableColumnWidth = correctTableWidth(settings);
+
             contentStream.setStrokingColor(color(settings.tableBorderColor));
             contentStream.setNonStrokingColor(color(settings.tableHeaderColor));
             contentStream.addRect(
                     settings.tableColumnOffsetX[column],
                     settings.tableHeaderOffsetY[box],
                     settings.tableColumnWidth,
-                    settings.tableColumnHeight);
-            contentStream.fill();
-            contentStream.closeAndStroke();
+                    settings.tableHeaderHeight);
+            contentStream.fillAndStroke();
             contentStream.setNonStrokingColor(0, 0, 0);
             contentStream.setStrokingColor(0, 0, 0);
 
@@ -871,9 +918,16 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
 
                 drawTableContainer(box, slimSettings, contentStream);
 
-                for (int cols = 0; cols < slimSettings.getTableSize().getTableColumns(); cols++) {
-                    drawTableHeader(box, cols, slimSettings, contentStream);
+                for (int col = 0; col < slimSettings.getTableSize().getTableColumns(); col++) {
+                    drawTableHeader(box, col, slimSettings, contentStream);
                 }
+
+                System.out.println(slimSettings.getTableColumnHeight());
+
+                /*Auto Fix: Prevent incorrect settings*/
+                int swapHeight = slimSettings.tableColumnHeight;
+                slimSettings.tableDataOffsetY[box] = correctTableOffsetY(box, 54, slimSettings);
+                slimSettings.tableColumnHeight = correctTableHeight(slimSettings);
 
                 int initialX = slimSettings.tableOffsetX;
                 int initialY = slimSettings.tableDataOffsetY[box];
@@ -894,6 +948,8 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
                     initialX = slimSettings.tableOffsetX; //reset offset-x position
                     initialY -= celHeight; //move to the next line
                 }
+
+                slimSettings.tableColumnHeight = swapHeight;
             }
         }
     }

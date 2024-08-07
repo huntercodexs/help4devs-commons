@@ -313,8 +313,22 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
                 ColorsToPdfBox.BLACK
         });
 
-        /*Table*//*TODO:Revision*/
-        boolean tableOn = false;
+        /*Table*/
+        boolean tableOn = true;
+        settings.setTableWidth(540);
+        settings.setTableHeight(90);
+        settings.setTableOffsetX(35);
+        settings.setTableColumnWidth(90);
+        settings.setTableColumnHeight(18);
+        settings.setTableHeaderHeight(30);
+        settings.setTableContainerOffsetY(new int[]{656, 500, 346, 190, 35});
+        settings.setTableHeaderOffsetY(new int[]{728, 572, 418, 262, 107});
+        settings.setTableColumnOffsetX(new int[] {35,125,215,305,395,485});
+        settings.setTableDataOffsetY(new int[]{710, 554, 400, 244, 89});
+        settings.setTableHeaderColor(ColorsToPdfBox.BLACK);
+        settings.setTableBodyColor(ColorsToPdfBox.ICE);
+        settings.setTableBorderColor(ColorsToPdfBox.WHITE);
+        settings.setTableFontSize(FontSizeToPdfBox.SMALL);
         settings.setTableSize(TableDimensionsToPdfBox.TABLE_5X6);
         settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
 
@@ -358,9 +372,9 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
 
         /*QRCode Content*//*TODO:Revision*/
-        boolean qrCodeLeftOn = true;
-        boolean qrCodeCenterOn = true;
-        boolean qrCodeRightOn = true;
+        boolean qrCodeLeftOn = false;
+        boolean qrCodeCenterOn = false;
+        boolean qrCodeRightOn = false;
         settings.setQrCodeDpi(400);
         settings.setQrCodeWidth(500);
         settings.setQrCodeHeight(50);
@@ -563,7 +577,12 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void pdfBoxTemplateSlimTest() {
+        Runtime rt = Runtime.getRuntime();
+        System.out.println(rt.freeMemory());
+        System.out.println(rt.totalMemory());
         pdfBoxTemplate(pdfBoxTemplateSettings());
+        System.out.println(rt.freeMemory());
+        System.out.println(rt.totalMemory());
     }
 
 }

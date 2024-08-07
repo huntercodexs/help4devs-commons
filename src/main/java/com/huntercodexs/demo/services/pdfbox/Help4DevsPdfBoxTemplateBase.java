@@ -153,6 +153,7 @@ public class Help4DevsPdfBoxTemplateBase {
         int tableOffsetX = 35;
         int tableColumnWidth = 90;
         int tableColumnHeight = 18;
+        int tableHeaderHeight = 30;
         int[] tableContainerOffsetY = new int[]{656, 500, 346, 190, 35};
         int[] tableHeaderOffsetY = new int[]{728, 572, 418, 262, 107};
         int[] tableColumnOffsetX = new int[] {35,125,215,305,395,485};
