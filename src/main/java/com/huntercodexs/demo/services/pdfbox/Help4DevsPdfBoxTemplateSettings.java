@@ -7,7 +7,7 @@ import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
 
-public class Help4DevsPdfBoxTemplateBase {
+public class Help4DevsPdfBoxTemplateSettings {
 
     @Getter
     public enum PdfBoxTemplates {
@@ -16,10 +16,9 @@ public class Help4DevsPdfBoxTemplateBase {
         BOX_OPEN("BOX_OPEN"),
         SLIM_BOX("SLIM_BOX"),
         TRIPLE_FALL("TRIPLE_FALL"),
-        SIMPLE_1("SIMPLE_1"),
-        SIMPLE_2("SIMPLE_2"),
-        SIMPLE_3("SIMPLE_3"),
-        FREE("FREE");
+        FREE("FREE"),
+        HEADER_BODY("HEADER_BODY"),
+        HAMBURGER("HAMBURGER");
 
         private final String template;
 
@@ -56,11 +55,13 @@ public class Help4DevsPdfBoxTemplateBase {
 
         /*Template Behavior*/
         SlimTemplateSettings slim = null;
-        BoxTemplateSettings box = null;
+        BoxDataContent box = null;
         BoxOpenTemplateSettings boxOpen = null;
-        Simple2TemplateSettings simple2 = null;
-        Simple3TemplateSettings simple3 = null;
+        SlimBoxTemplateSettings slimBox = null;
+        TripleFallTemplateSettings tripleFall = null;
         FreeTemplateSettings free = null;
+        HeaderBodyTemplateSettings headerBody = null;
+        Hamburger simple2 = null;
 
         /*Template Content*/
         SlimDataContent slimContent = null;
@@ -321,6 +322,16 @@ public class Help4DevsPdfBoxTemplateBase {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class BoxDataContent {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class BoxOpenTemplateSettings {
         //General settings
         int boxQuantity;
@@ -351,37 +362,27 @@ public class Help4DevsPdfBoxTemplateBase {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Simple1TemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Simple2TemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Simple3TemplateSettings {
-        //General settings
-        int boxQuantity;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class FreeTemplateSettings {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class HeaderBodyTemplateSettings {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Hamburger {
         //General settings
         int boxQuantity;
     }

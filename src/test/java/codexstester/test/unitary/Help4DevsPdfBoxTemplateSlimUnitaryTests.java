@@ -1,10 +1,11 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplateSettings;
-import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates;
-import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.SlimDataContent;
-import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.SlimTemplateSettings;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimDataContent;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimTemplateSettings;
 import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
@@ -13,10 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates.template;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateService.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateSlim;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
-public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
+public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTests {
 
     private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
@@ -618,26 +619,8 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void templateTest() {
-        String template = template(PdfBoxTemplates.FREE);
-        codexsTesterAssertExact("FREE", template);
-
-        template = template(PdfBoxTemplates.SLIM);
+        String template = template(PdfBoxTemplates.SLIM);
         codexsTesterAssertExact("SLIM", template);
-
-        template = template(PdfBoxTemplates.BOX);
-        codexsTesterAssertExact("BOX", template);
-
-        template = template(PdfBoxTemplates.BOX_OPEN);
-        codexsTesterAssertExact("BOX_OPEN", template);
-
-        template = template(PdfBoxTemplates.SLIM_BOX);
-        codexsTesterAssertExact("SLIM_BOX", template);
-
-        template = template(PdfBoxTemplates.SIMPLE_2);
-        codexsTesterAssertExact("SIMPLE_2", template);
-
-        template = template(PdfBoxTemplates.SIMPLE_3);
-        codexsTesterAssertExact("SIMPLE_3", template);
     }
 
     @Test
@@ -647,7 +630,7 @@ public class Help4DevsPdfBoxTemplateUnitaryTests extends Help4DevsBridgeTests {
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplate(pdfBoxTemplateSettings());
+        pdfBoxTemplateSlim(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

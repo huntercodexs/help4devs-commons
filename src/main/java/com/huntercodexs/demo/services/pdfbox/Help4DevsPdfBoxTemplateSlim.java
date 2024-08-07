@@ -8,15 +8,13 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.*;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.PdfBoxTemplates.template;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.SlimTemplateSettings.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimTemplateSettings.*;
 
 /**
  * @author huntercodexs (powered by jereelton-devel)
@@ -25,7 +23,22 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateBase.
  * */
 @Slf4j
 @Service
-public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
+public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
+
+    private static boolean hasTitle(
+            int box,
+            SlimTemplateSettings slimTemplateSettings
+    ) {
+        if (slimTemplateSettings.leftTitleEnable[box]) {
+            return true;
+        }
+
+        if (slimTemplateSettings.centerTitleEnable[box]) {
+            return true;
+        }
+
+        return slimTemplateSettings.rightTitleEnable[box];
+    }
 
     private static void drawContainer(
             PDDocument document,
@@ -819,6 +832,14 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
+    private static void slimContainerBackgroundCreate(
+            PDDocument document,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        drawBackground(document, settings, contentStream);
+    }
+
     private static void slimContainerCreate(
             PDDocument document,
             PDPage page,
@@ -1265,27 +1286,13 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         }
     }
 
-    private static boolean hasTitle(
-            int box,
-            SlimTemplateSettings slimTemplateSettings
-    ) {
-        if (slimTemplateSettings.leftTitleEnable[box]) {
-            return true;
-        }
-
-        if (slimTemplateSettings.centerTitleEnable[box]) {
-            return true;
-        }
-
-        return slimTemplateSettings.rightTitleEnable[box];
-    }
-
-    private static void slimTemplateBuilder(
+    public void slimTemplateBuilder(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
+        slimContainerBackgroundCreate(document, settings, contentStream);
         slimContainerCreate(document, page, settings, contentStream);
         slimContainerTitleCreate(document, page, settings, contentStream);
         slimContainerColumnCreate(document, page, settings, contentStream);
@@ -1299,77 +1306,6 @@ public class Help4DevsPdfBoxTemplateService extends Help4DevsPdfBoxService {
         slimContainerSignatureTapeCreate(document, page, settings, contentStream);
         slimContainerBarcodeCreate(document, page, settings, contentStream);
         slimContainerQrCodeCreate(document, page, settings, contentStream);
-    }
-
-    /**
-     * <h6 style="color: #FFFF00; font-size: 11px">pdfBoxTemplate</h6>
-     *
-     * <p style="color: #CDCDCD">Create a template file for PDF media types
-     * <br />
-     * Templates available:
-     * </p>
-     *
-     * <ul>
-     *     <li>Slim</li>
-     *     <li>Box</li>
-     *     <li>Box Open</li>
-     *     <li>Slim Box</li>
-     *     <li>Triple Fall</li>
-     *     <li>Simple 1</li>
-     *     <li>Simple 2</li>
-     *     <li>Simple 3</li>
-     *     <li>Free</li>
-     * </ul>
-     *
-     * @param settings (PdfBoxTemplateSettings: All template settings)
-     * @author huntercodexs (powered by jereelton-devel)
-     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
-     */
-    public static void pdfBoxTemplate(PdfBoxTemplateSettings settings) {
-
-        pdfCreate(settings.getDocument(), settings.getPage());
-
-        File file = new File(settings.getDocument().getFilenamePath());
-
-        try (PDDocument document = PDDocument.load(file, settings.getDocument().getOwnerPassword())) {
-
-            PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
-
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
-
-            drawBackground(document, settings, contentStream);
-
-            if (settings.getTemplate().name().equals(template(PdfBoxTemplates.SLIM))) {
-                slimTemplateBuilder(document, page, settings, contentStream);
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.BOX))) {
-                throw new RuntimeException("TODO: BOX Template");
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.BOX_OPEN))) {
-                throw new RuntimeException("TODO: BOX_OPEN Template");
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.SLIM_BOX))) {
-                throw new RuntimeException("TODO: SLIM_BOX Template");
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.TRIPLE_FALL))) {
-                throw new RuntimeException("TODO: TRIPLE_FALL Template");
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.SIMPLE_1))) {
-                throw new RuntimeException("TODO: SIMPLE_1 Template");
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.SIMPLE_2))) {
-                throw new RuntimeException("TODO: SIMPLE_2 Template");
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.SIMPLE_3))) {
-                throw new RuntimeException("TODO: SIMPLE_3 Template");
-            } else if(settings.getTemplate().name().equals(template(PdfBoxTemplates.FREE))) {
-                throw new RuntimeException("TODO: FREE Template");
-            } else {
-                throw new RuntimeException("PDFBox Template not found");
-            }
-
-            contentStream.close();
-            document.save(settings.getDocument().getFilenamePath());
-            document.close();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-
     }
 
 }

@@ -22,7 +22,7 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.Imag
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PageSizeToPdfBox.pageSize;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ProtectionLevelToPdfBox.protectionLevel;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.TableDimensionsToPdfBox.tableSize;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxService.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBox.*;
 
 public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 

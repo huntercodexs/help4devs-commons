@@ -54,7 +54,7 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.Prot
  * */
 @Slf4j
 @Service
-public class Help4DevsPdfBoxService extends Help4DevsPdfBoxElements {
+public class Help4DevsPdfBox extends Help4DevsPdfBoxElements {
 
     protected static void propertiesPDF(PDDocument document, PdfBoxDocument settings) {
         PDDocumentInformation information = document.getDocumentInformation();
