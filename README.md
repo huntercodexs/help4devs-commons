@@ -5,6 +5,8 @@ A simple repository to serve various functions and methods made in Java
 > many resources that are commonly used in most of the situations during the specific needed or requirement to solve 
 > any issue or problem from any case.
 
+> JAVA VERSION: 8
+
 # Summary
 
 The content that you will find out in this project are:
