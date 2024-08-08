@@ -2,22 +2,22 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
-import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.BoxDataContent;
-import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.BoxTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimBoxDataContent;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimBoxTemplateSettings;
 import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateBox;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateSlimBox;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
-public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests {
+public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeTests {
 
-    private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box.pdf";
+    private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-box.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
-    private final static String imgBackground = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-5.jpg";
+    private final static String imgBackground = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-4.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
@@ -154,20 +154,22 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
         return settings;
     }
 
-    private BoxTemplateSettings boxSettings() {
-        BoxTemplateSettings settings = new BoxTemplateSettings();
+    private SlimBoxTemplateSettings slimBoxSettings() {
+        SlimBoxTemplateSettings settings = new SlimBoxTemplateSettings();
+
         settings.setTemplateTitleEnabled(true);
+
         return settings;
     }
 
-    private BoxDataContent boxData() {
-        BoxDataContent settings = new BoxDataContent();
+    private SlimBoxDataContent slimBoxData() {
+        SlimBoxDataContent settings = new SlimBoxDataContent();
         return settings;
     }
 
     private PdfBoxTemplateSettings pdfBoxTemplateSettings() {
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
-        settings.setTemplate(PdfBoxTemplates.BOX);
+        settings.setTemplate(PdfBoxTemplates.SLIM_BOX);
         settings.setImageBackground(imgBackground);
         settings.setDocument(documentSettings());
         settings.setPage(pageSettings());
@@ -177,25 +179,25 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setBox(boxSettings());
-        settings.setBoxContent(boxData());
+        settings.setSlimBox(slimBoxSettings());
+        settings.setSlimBoxContent(slimBoxData());
         return settings;
     }
 
     @Test
     public void templateTest() {
-        String template = template(PdfBoxTemplates.BOX);
-        codexsTesterAssertExact("BOX", template);
+        String template = template(PdfBoxTemplates.SLIM_BOX);
+        codexsTesterAssertExact("SLIM_BOX", template);
     }
 
     @Test
-    public void pdfBoxTemplateBoxTest() {
+    public void pdfBoxTemplateSlimBoxTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplateBox(pdfBoxTemplateSettings());
+        pdfBoxTemplateSlimBox(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

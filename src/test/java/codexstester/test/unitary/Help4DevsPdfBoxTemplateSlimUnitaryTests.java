@@ -161,8 +161,10 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
     private SlimTemplateSettings slimSettings() {
         SlimTemplateSettings settings = new SlimTemplateSettings();
 
+        settings.setTemplateTitleEnabled(true);
+
         /*Title*/
-        boolean titleOn = true;
+        boolean titleOn = false;
         settings.setLeftTitleAdjustmentX(0);
         settings.setLeftTitleAdjustmentY(0);
         settings.setCenterTitleAdjustmentX(-31);
@@ -183,9 +185,9 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setRightTitleFont(FontNameToPdfBox.HELVETICA_B);
 
         /*Column*/
-        boolean columnLeftOn = true;
-        boolean columnCenterOn = true;
-        boolean columnRightOn = true;
+        boolean columnLeftOn = false;
+        boolean columnCenterOn = false;
+        boolean columnRightOn = false;
         settings.setColumnBoxWidth(170);
         settings.setColumnBoxHeight(90);
         settings.setColumnBoxChars(25);
@@ -319,7 +321,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         });
 
         /*Table*/
-        boolean tableOn = true;
+        boolean tableOn = false;
         settings.setTableWidth(540);
         settings.setTableHeight(90);
         settings.setTableOffsetX(35);
@@ -347,9 +349,9 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
 
         /*Image*/
-        boolean imageLeftOn = true;
-        boolean imageCenterOn = true;
-        boolean imageRightOn = true;
+        boolean imageLeftOn = false;
+        boolean imageCenterOn = false;
+        boolean imageRightOn = false;
         settings.setImageWidth(180);
         settings.setImageHeight(70);
         settings.setImageOffsetX(new int[]{35,215,395});
@@ -359,7 +361,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
 
         /*Signature Box*/
-        boolean signatureOn = true;
+        boolean signatureOn = false;
         settings.setSignatureBoxWidth(200);
         settings.setSignatureBoxHeight(100);
         settings.setSignatureBoxAdjustOffsetX(0);
@@ -391,7 +393,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
 
         /*Text Content*/
-        boolean textOn = true;
+        boolean textOn = false;
         settings.setLineHeight(18);
         settings.setTextOffsetX(35);
         settings.setTextChars(98);
@@ -402,7 +404,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setTextFont(FontNameToPdfBox.HELVETICA);
 
         /*Barcode Content*/
-        boolean barcodeOn = true;
+        boolean barcodeOn = false;
         settings.setBarcodeDpi(400);
         settings.setBarcodeWidth(300);
         settings.setBarcodeHeight(30);
@@ -416,9 +418,9 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
 
         /*QRCode Content*/
-        boolean qrCodeLeftOn = true;
-        boolean qrCodeCenterOn = true;
-        boolean qrCodeRightOn = true;
+        boolean qrCodeLeftOn = false;
+        boolean qrCodeCenterOn = false;
+        boolean qrCodeRightOn = false;
         settings.setQrCodeDpi(400);
         settings.setQrCodeWidth(500);
         settings.setQrCodeHeight(50);

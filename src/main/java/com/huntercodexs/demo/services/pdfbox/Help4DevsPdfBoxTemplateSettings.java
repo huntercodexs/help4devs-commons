@@ -55,7 +55,7 @@ public class Help4DevsPdfBoxTemplateSettings {
 
         /*Template Behavior*/
         SlimTemplateSettings slim = null;
-        BoxDataContent box = null;
+        BoxTemplateSettings box = null;
         BoxOpenTemplateSettings boxOpen = null;
         SlimBoxTemplateSettings slimBox = null;
         TripleFallTemplateSettings tripleFall = null;
@@ -65,6 +65,14 @@ public class Help4DevsPdfBoxTemplateSettings {
 
         /*Template Content*/
         SlimDataContent slimContent = null;
+        BoxDataContent boxContent = null;
+        BoxOpenDataContent boxOpenContent = null;
+        SlimBoxDataContent slimBoxContent = null;
+        TripleFallDataContent tripleFallContent = null;
+        FreeDataContent freeContent = null;
+        HeaderBodyDataContent headerBodyContent = null;
+        HamburgerDataContent hamburgerContent = null;
+
     }
 
     @Getter
@@ -84,6 +92,7 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int OFFSET_Y_BLOCK3 = 330;
         static final int OFFSET_Y_BLOCK4 = 175;
         static final int OFFSET_Y_BLOCK5 = 20;
+        boolean templateTitleEnabled = false;
 
         //Title
         int leftTitleAdjustmentX = 0;
@@ -319,6 +328,7 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int BOXES = 10;
         static final int BOX_DEFAULT_WIDTH = 286;
         static final int BOX_DEFAULT_HEIGHT = 135;
+        boolean templateTitleEnabled = false;
     }
 
     @Getter
@@ -344,6 +354,17 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int BOX_OPEN_DEFAULT_WIDTH = 286;
         static final int BOX_OPEN_DEFAULT_HEIGHT = 135;
         static final int BOX_OPEN_HEIGHT = 445;
+        boolean templateTitleEnabled = false;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class BoxOpenDataContent {
+        //General settings
+        int boxQuantity;
     }
 
     @Getter
@@ -352,6 +373,23 @@ public class Help4DevsPdfBoxTemplateSettings {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class SlimBoxTemplateSettings {
+        //General
+        int slimBoxQuantity;
+        /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int SLIM_BOX_QUANTITY = 10;
+        static final int SLIM_BOX_DEFAULT_WIDTH = 286;
+        static final int SLIM_BOX_DEFAULT_HEIGHT = 135;
+        static final int SLIM_BOX_WIDTH = 575;
+        static final int SLIM_BOX_HEIGHT = 445;
+        boolean templateTitleEnabled = false;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SlimBoxDataContent {
         //General settings
         int boxQuantity;
     }
@@ -371,7 +409,27 @@ public class Help4DevsPdfBoxTemplateSettings {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class TripleFallDataContent {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class FreeTemplateSettings {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class FreeDataContent {
         //General settings
         int boxQuantity;
     }
@@ -391,7 +449,27 @@ public class Help4DevsPdfBoxTemplateSettings {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class HeaderBodyDataContent {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Hamburger {
+        //General settings
+        int boxQuantity;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class HamburgerDataContent {
         //General settings
         int boxQuantity;
     }

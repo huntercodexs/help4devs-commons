@@ -25,6 +25,31 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 @Service
 public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
 
+    private static void drawTemplateTitle(
+            PDDocument document,
+            PDPage page,
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
+            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
+            pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
+
+            pageSettings.setOffsetX(50);
+            pageSettings.setOffsetY(700);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+            contentStream.showText("Slim");
+            contentStream.newLine();
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
     private static boolean hasTitle(
             int box,
             SlimTemplateSettings slimTemplateSettings
@@ -853,6 +878,10 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
         PdfBoxPage pageSettings = settings.getPage();
 
         drawContainer(document, page, rectSettings, pageSettings, contentStream);
+
+        if (settings.getSlim().templateTitleEnabled) {
+            drawTemplateTitle(document, page, pageSettings, contentStream);
+        }
     }
 
     private static void slimContainerTitleCreate(

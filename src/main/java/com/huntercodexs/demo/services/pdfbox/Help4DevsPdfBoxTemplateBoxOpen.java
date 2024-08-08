@@ -21,6 +21,31 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 @Service
 public class Help4DevsPdfBoxTemplateBoxOpen extends Help4DevsPdfBox {
 
+    private static void drawTemplateTitle(
+            PDDocument document,
+            PDPage page,
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
+            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
+            pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
+
+            pageSettings.setOffsetX(50);
+            pageSettings.setOffsetY(700);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+            contentStream.showText("Box Open");
+            contentStream.newLine();
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
     private static void drawContainer(
             PDDocument document,
             PDPage page,
@@ -113,6 +138,10 @@ public class Help4DevsPdfBoxTemplateBoxOpen extends Help4DevsPdfBox {
         PdfBoxPage pageSettings = settings.getPage();
 
         drawContainer(document, page, rectSettings, pageSettings, contentStream);
+
+        if (settings.getBoxOpen().templateTitleEnabled) {
+            drawTemplateTitle(document, page, pageSettings, contentStream);
+        }
     }
 
     public void boxOpenTemplateBuilder(

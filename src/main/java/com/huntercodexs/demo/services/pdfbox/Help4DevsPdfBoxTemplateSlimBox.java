@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.BoxTemplateSettings.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimBoxTemplateSettings.*;
 
 /**
  * @author huntercodexs (powered by jereelton-devel)
@@ -19,7 +19,7 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
  * */
 @Slf4j
 @Service
-public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
+public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBox {
 
     private static void drawTemplateTitle(
             PDDocument document,
@@ -37,7 +37,7 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
             pageSettings.setOffsetY(700);
 
             contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText("Box");
+            contentStream.showText("Slim Box");
             contentStream.newLine();
             contentStream.endText();
 
@@ -53,7 +53,7 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
             PdfBoxPage pageSettings,
             PDPageContentStream contentStream
     ) {
-        for (int rows = 1; rows <= BOXES/2; rows++) {
+        for (int rows = 1; rows <= SLIM_BOX_QUANTITY/2; rows++) {
 
             if (rows == 1) {
                 rectSettings.setOffsetY(640);
@@ -67,12 +67,24 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
                 rectSettings.setOffsetY(20);
             }
 
-            for (int cols = 1; cols <= BOXES/5; cols++) {
+            for (int cols = 1; cols <= SLIM_BOX_QUANTITY/5; cols++) {
 
                 if (cols == 1) {
                     rectSettings.setOffsetX(20);
                 } else {
                     rectSettings.setOffsetX(308);
+                }
+
+                if (cols == 2 && rows != 4) {
+                    continue;
+                }
+
+                if (cols == 2) {
+                    rectSettings.setHeight(SLIM_BOX_HEIGHT);
+                }
+
+                if (cols == 1 && (rows == 1 || rows == 5)) {
+                    rectSettings.setWidth(SLIM_BOX_WIDTH);
                 }
 
                 if (rectSettings.getBackColor() == null) {
@@ -88,6 +100,9 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
                 if (rectSettings.isBorder()) {
                     contentStream("rec-border", page, document, pageSettings, rectSettings, contentStream);
                 }
+
+                rectSettings.setHeight(SLIM_BOX_DEFAULT_HEIGHT);
+                rectSettings.setWidth(SLIM_BOX_DEFAULT_WIDTH);
             }
         }
     }
@@ -107,7 +122,7 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
         }
     }
 
-    private static void boxContainerBackgroundCreate(
+    private static void slimBoxContainerBackgroundCreate(
             PDDocument document,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
@@ -115,33 +130,33 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
         drawBackground(document, settings, contentStream);
     }
 
-    private static void boxContainerCreate(
+    private static void slimBoxContainerCreate(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
         PdfBoxContainer rectSettings = settings.getContainer();
-        rectSettings.setWidth(BOX_DEFAULT_WIDTH);
-        rectSettings.setHeight(BOX_DEFAULT_HEIGHT);
+        rectSettings.setWidth(SLIM_BOX_DEFAULT_WIDTH);
+        rectSettings.setHeight(SLIM_BOX_DEFAULT_HEIGHT);
 
         PdfBoxPage pageSettings = settings.getPage();
 
         drawContainer(document, page, rectSettings, pageSettings, contentStream);
 
-        if (settings.getBox().templateTitleEnabled) {
+        if (settings.getSlimBox().templateTitleEnabled) {
             drawTemplateTitle(document, page, pageSettings, contentStream);
         }
     }
 
-    public void boxTemplateBuilder(
+    public void slimBoxTemplateBuilder(
             PDDocument document,
             PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        boxContainerBackgroundCreate(document, settings, contentStream);
-        boxContainerCreate(document, page, settings, contentStream);
+        slimBoxContainerBackgroundCreate(document, settings, contentStream);
+        slimBoxContainerCreate(document, page, settings, contentStream);
     }
 
 }
