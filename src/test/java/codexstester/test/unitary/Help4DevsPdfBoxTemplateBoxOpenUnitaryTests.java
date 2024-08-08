@@ -17,7 +17,7 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
 
     private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box-open.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
-    private final static String imgBackground = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-3.jpg";
+    private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-3.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 

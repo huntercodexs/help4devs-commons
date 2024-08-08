@@ -17,7 +17,7 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
 
     private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-big-burger.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
-    private final static String imgBackground = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-6.jpg";
+    private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-6.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
