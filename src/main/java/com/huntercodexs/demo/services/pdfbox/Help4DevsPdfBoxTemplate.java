@@ -102,4 +102,43 @@ public class Help4DevsPdfBoxTemplate {
 
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfBoxTemplateBoxOpen</h6>
+     *
+     * <p style="color: #CDCDCD">Create a template file for PDF media types using Box Open Template</p>
+     *
+     * @param settings (PdfBoxTemplateSettings: All template settings)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfBoxTemplateBoxOpen(PdfBoxTemplateSettings settings) {
+
+        if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.BOX_OPEN))) {
+            throw new RuntimeException("Invalid Template: Expected BOX_OPEN");
+        }
+
+        pdfCreate(settings.getDocument(), settings.getPage());
+
+        File file = new File(settings.getDocument().getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, settings.getDocument().getOwnerPassword())) {
+
+            PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
+
+            PDPageContentStream contentStream = contentStream(
+                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+
+            Help4DevsPdfBoxTemplateBoxOpen template = new Help4DevsPdfBoxTemplateBoxOpen();
+            template.boxOpenTemplateBuilder(document, page, settings, contentStream);
+
+            contentStream.close();
+            document.save(settings.getDocument().getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
 }
