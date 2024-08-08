@@ -19,7 +19,7 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
  * */
 @Slf4j
 @Service
-public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBox {
+public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
 
     private static void drawTemplateTitle(
             PDDocument document,

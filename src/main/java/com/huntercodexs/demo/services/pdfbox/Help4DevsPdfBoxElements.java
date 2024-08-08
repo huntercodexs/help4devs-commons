@@ -7,7 +7,7 @@ import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import java.awt.*;
 
-public class Help4DevsPdfBoxElements {
+public abstract class Help4DevsPdfBoxElements {
 
     @Getter
     public enum PageSizeToPdfBox {

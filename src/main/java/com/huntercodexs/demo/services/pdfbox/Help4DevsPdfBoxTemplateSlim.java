@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimTemplateSettings.*;
 
@@ -23,7 +22,7 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
  * */
 @Slf4j
 @Service
-public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
+public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder {
 
     private static void drawTemplateTitle(
             PDDocument document,
@@ -48,21 +47,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
-    }
-
-    private static boolean hasTitle(
-            int box,
-            SlimTemplateSettings slimTemplateSettings
-    ) {
-        if (slimTemplateSettings.leftTitleEnable[box]) {
-            return true;
-        }
-
-        if (slimTemplateSettings.centerTitleEnable[box]) {
-            return true;
-        }
-
-        return slimTemplateSettings.rightTitleEnable[box];
     }
 
     private static void drawContainer(
@@ -112,746 +96,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
             contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawLines(
-            int index,
-            PDDocument document,
-            PDPage page,
-            List<String[]> listLines,
-            boolean hasTitle,
-            PdfBoxPage pageSettings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            int stop = 0;
-            for (String line : listLines.get(index)) {
-                if (stop == 5 && hasTitle) break;
-                contentStream.showText(line);
-                contentStream.newLine();
-                stop += 1;
-            }
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawTitle(
-            PDDocument document,
-            PDPage page,
-            String title,
-            PdfBoxPage pageSettings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText(title);
-            contentStream.newLine();
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawColumnBox(
-            int box,
-            PdfBoxPage pageSettings,
-            SlimTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        int columnHeight = settings.columnBoxHeight;
-
-        if (!hasTitle(box, settings)) {
-            columnHeight = columnHeight + settings.getLineHeight();
-        }
-
-        try {
-
-            //Left Column
-            if (settings.columnBoxLeftEnable[box]) {
-                if (settings.columnBoxLeftBorderEnable[box]) {
-                    contentStream.setLineWidth(settings.columnBoxLeftBorderWidth[box]);
-                    contentStream.setStrokingColor(color(settings.columnBoxLeftBorderColor[box]));
-                    contentStream.addRect(
-                            settings.columnBoxOffsetX[0],
-                            settings.columnBoxOffsetY[box],
-                            settings.columnBoxWidth,
-                            columnHeight);
-                    contentStream.closeAndStroke();
-
-                    if (settings.columnBoxLeftBackColor[box] != null) {
-                        contentStream.setNonStrokingColor(color(settings.columnBoxLeftBackColor[box]));
-                        contentStream.addRect(
-                                settings.columnBoxOffsetX[0],
-                                settings.columnBoxOffsetY[box],
-                                settings.columnBoxWidth,
-                                columnHeight);
-                        contentStream.fill();
-                    }
-                }
-            }
-
-            //Center Column
-            if (settings.columnBoxCenterEnable[box]) {
-                if (settings.columnBoxCenterBorderEnable[box]) {
-                    contentStream.setLineWidth(settings.columnBoxCenterBorderWidth[box]);
-                    contentStream.setStrokingColor(color(settings.columnBoxCenterBorderColor[box]));
-                    contentStream.addRect(
-                            settings.columnBoxOffsetX[1],
-                            settings.columnBoxOffsetY[box],
-                            settings.columnBoxWidth,
-                            columnHeight);
-                    contentStream.closeAndStroke();
-
-                    if (settings.columnBoxCenterBackColor[box] != null) {
-                        contentStream.setNonStrokingColor(color(settings.columnBoxCenterBackColor[box]));
-                        contentStream.addRect(
-                                settings.columnBoxOffsetX[1],
-                                settings.columnBoxOffsetY[box],
-                                settings.columnBoxWidth,
-                                columnHeight);
-                        contentStream.fill();
-                    }
-                }
-            }
-
-            //Right Column
-            if (settings.columnBoxRightEnable[box]) {
-                if (settings.columnBoxRightBorderEnable[box]) {
-                    contentStream.setLineWidth(settings.columnBoxRightBorderWidth[box]);
-                    contentStream.setStrokingColor(color(settings.columnBoxRightBorderColor[box]));
-                    contentStream.addRect(
-                            settings.columnBoxOffsetX[2],
-                            settings.columnBoxOffsetY[box],
-                            settings.columnBoxWidth,
-                            columnHeight);
-                    contentStream.closeAndStroke();
-
-                    if (settings.columnBoxRightBackColor[box] != null) {
-                        contentStream.setNonStrokingColor(color(settings.columnBoxRightBackColor[box]));
-                        contentStream.addRect(
-                                settings.columnBoxOffsetX[2],
-                                settings.columnBoxOffsetY[box],
-                                settings.columnBoxWidth,
-                                columnHeight);
-                        contentStream.fill();
-                    }
-                }
-            }
-
-            //Reset Color
-            contentStream.setStrokingColor(0,0,0);
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawColumnContent(
-            int box,
-            PDDocument document,
-            PDPage page,
-            List<String[]> listLines,
-            PdfBoxTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        SlimTemplateSettings slimSettings = new SlimTemplateSettings();
-        PdfBoxPage pageSettings = settings.getPage();
-
-        if (settings.getSlim() != null) {
-            slimSettings = settings.getSlim();
-        }
-
-        int heightAdjust = 0;
-        boolean hasTitle = hasTitle(box, slimSettings);
-
-        if (!hasTitle) {
-            heightAdjust = slimSettings.getLineHeight();
-        }
-
-        int offsetX;
-        int offsetY;
-
-        //Text Left Column
-        if (slimSettings.columnBoxLeftEnable[box]) {
-
-            pageSettings.setFontName(slimSettings.columnBoxLeftFontName[box]);
-            pageSettings.setFontSize(slimSettings.columnBoxLeftFontSize[box]);
-            pageSettings.setFontColor(slimSettings.columnBoxLeftTextColor[box]);
-            pageSettings.setLineHeight(slimSettings.columnBoxLeftLineHeight[box]);
-
-            offsetX = slimSettings.columnBoxOffsetX[0] + slimSettings.columnBoxLeftPadding[box];
-            offsetY = slimSettings.columnBoxOffsetY[box];
-            offsetY = offsetY + heightAdjust + 75 - slimSettings.columnBoxLeftPadding[box];
-
-            pageSettings.setOffsetX(offsetX+slimSettings.columnBoxLeftAdjustmentX[box]);
-            pageSettings.setOffsetY(offsetY+slimSettings.columnBoxLeftAdjustmentY[box]);
-
-            drawLines(0, document, page, listLines, hasTitle, pageSettings, contentStream);
-        }
-
-        //Text Center Column
-        if (slimSettings.columnBoxCenterEnable[box]) {
-
-            pageSettings.setFontName(slimSettings.columnBoxCenterFontName[box]);
-            pageSettings.setFontSize(slimSettings.columnBoxCenterFontSize[box]);
-            pageSettings.setFontColor(slimSettings.columnBoxCenterTextColor[box]);
-            pageSettings.setLineHeight(slimSettings.columnBoxCenterLineHeight[box]);
-
-            offsetX = slimSettings.columnBoxOffsetX[1] + slimSettings.columnBoxCenterPadding[box];
-            offsetY = slimSettings.columnBoxOffsetY[box];
-            offsetY = offsetY + heightAdjust + 75 - slimSettings.columnBoxCenterPadding[box];
-
-            pageSettings.setOffsetX(offsetX+slimSettings.columnBoxCenterAdjustmentX[box]);
-            pageSettings.setOffsetY(offsetY+slimSettings.columnBoxCenterAdjustmentY[box]);
-
-            drawLines(1, document, page, listLines, hasTitle, pageSettings, contentStream);
-        }
-
-        //Text Right Column
-        if (slimSettings.columnBoxRightEnable[box]) {
-
-            pageSettings.setFontName(slimSettings.columnBoxRightFontName[box]);
-            pageSettings.setFontSize(slimSettings.columnBoxRightFontSize[box]);
-            pageSettings.setFontColor(slimSettings.columnBoxRightTextColor[box]);
-            pageSettings.setLineHeight(slimSettings.columnBoxRightLineHeight[box]);
-
-            offsetX = slimSettings.columnBoxOffsetX[2] + slimSettings.columnBoxRightPadding[box];
-            offsetY = slimSettings.columnBoxOffsetY[box];
-            offsetY = offsetY + heightAdjust + 75 - slimSettings.columnBoxRightPadding[box];
-
-            pageSettings.setOffsetX(offsetX+slimSettings.columnBoxRightAdjustmentX[box]);
-            pageSettings.setOffsetY(offsetY+slimSettings.columnBoxRightAdjustmentY[box]);
-
-            drawLines(2, document, page, listLines, hasTitle, pageSettings, contentStream);
-        }
-    }
-
-    private static void drawTableContainer(
-            int box,
-            SlimTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            contentStream.setNonStrokingColor(color(settings.tableBodyColor));
-            contentStream.setStrokingColor(color(settings.tableBorderColor));
-            contentStream.addRect(
-                    settings.tableOffsetX,
-                    settings.tableContainerOffsetY[box],
-                    settings.tableWidth,
-                    settings.tableHeight);
-            contentStream.fillAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static int correctTableOffsetX(int column, SlimTemplateSettings settings) {
-        if (column == 0) {
-            return settings.tableOffsetX;
-        }
-
-        int correctOffsetX = settings.tableColumnOffsetX[column-1] + settings.tableColumnWidth;
-
-        if (settings.tableColumnOffsetX[column] != correctOffsetX) {
-            return correctOffsetX;
-        }
-        return settings.tableColumnOffsetX[column];
-    }
-
-    private static int correctTableOffsetY(int box, int ref, SlimTemplateSettings settings) {
-        if (box == 0) {
-            return settings.tableContainerOffsetY[0]+ref;
-        }
-
-        int correctOffsetY = settings.tableContainerOffsetY[box] + ref;
-
-        if (settings.tableContainerOffsetY[box] != correctOffsetY) {
-            return correctOffsetY;
-        }
-        return settings.tableContainerOffsetY[box];
-    }
-
-    private static int correctTableWidth(SlimTemplateSettings settings) {
-        int result = settings.tableColumnWidth * settings.tableSize.getTableColumns();
-        if (result != settings.tableWidth) {
-            return settings.tableWidth / settings.tableSize.getTableColumns();
-        }
-        return settings.tableColumnWidth;
-    }
-
-    private static int correctTableHeight(SlimTemplateSettings settings) {
-        int result = settings.tableColumnHeight * settings.tableSize.getTableLines();
-        if (result != settings.tableHeight) {
-            return settings.tableHeight / settings.tableSize.getTableLines();
-        }
-        return settings.tableColumnHeight;
-    }
-
-    private static void drawTableHeader(
-            int box,
-            int column,
-            SlimTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            /*Auto Fix: Prevent incorrect settings*/
-            settings.tableColumnOffsetX[column] = correctTableOffsetX(column, settings);
-            settings.tableHeaderOffsetY[box] = correctTableOffsetY(box, 72, settings);
-            settings.tableColumnWidth = correctTableWidth(settings);
-
-            contentStream.setStrokingColor(color(settings.tableBorderColor));
-            contentStream.setNonStrokingColor(color(settings.tableHeaderColor));
-            contentStream.addRect(
-                    settings.tableColumnOffsetX[column],
-                    settings.tableHeaderOffsetY[box],
-                    settings.tableColumnWidth,
-                    settings.tableHeaderHeight);
-            contentStream.fillAndStroke();
-            contentStream.setNonStrokingColor(0, 0, 0);
-            contentStream.setStrokingColor(0, 0, 0);
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawTableHeaderContent(
-            int box,
-            int column,
-            PDDocument document,
-            PDPage page,
-            PdfBoxTemplateSettings pdfBoxTemplateSettings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            SlimTemplateSettings settings = pdfBoxTemplateSettings.getSlim();
-            PdfBoxPage pageSettings = pdfBoxTemplateSettings.getPage();
-            SlimDataContent content = pdfBoxTemplateSettings.getSlimContent();
-
-            pageSettings.setOffsetX(settings.tableColumnOffsetX[column]+(settings.tableHeaderAdjustOffsetX));
-            pageSettings.setOffsetY(settings.tableDataOffsetY[box]+(settings.tableHeaderAdjustOffsetY));
-            pageSettings.setFontName(settings.tableHeaderFontName);
-            pageSettings.setFontSize(settings.tableHeaderFontSize);
-            pageSettings.setFontColor(settings.tableHeaderFontColor);
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            contentStream.showText(content.getTableHeaderContent().get(box).get(column));
-            contentStream.newLine();
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawTableBody(
-            int initialX,
-            int initialY,
-            int celWidth,
-            int celHeight,
-            SlimTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            contentStream.setStrokingColor(color(settings.tableBorderColor));
-            contentStream.addRect(
-                    initialX,
-                    initialY,
-                    celWidth,
-                    celHeight);
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0, 0, 0);
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawImage(
-            PDDocument document,
-            PdfBoxImage imgSettings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            PDImageXObject pdImageXObject = PDImageXObject.createFromFile(imgSettings.getFilenamePath(), document);
-
-            contentStream.drawImage(
-                    pdImageXObject,
-                    imgSettings.getOffsetX(),
-                    imgSettings.getOffsetY(),
-                    imgSettings.getWidth(),
-                    imgSettings.getHeight());
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawTableBodyContent(
-            int box,
-            int column,
-            int adjustOffsetY,
-            String content,
-            PDDocument document,
-            PDPage page,
-            PdfBoxTemplateSettings pdfBoxTemplateSettings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            SlimTemplateSettings settings = pdfBoxTemplateSettings.getSlim();
-            PdfBoxPage pageSettings = pdfBoxTemplateSettings.getPage();
-
-            pageSettings.setOffsetX(settings.tableColumnOffsetX[column]+(settings.tableBodyAdjustOffsetX));
-            pageSettings.setOffsetY(settings.tableDataOffsetY[box]+(settings.tableBodyAdjustOffsetY)-adjustOffsetY);
-            pageSettings.setFontName(settings.tableBodyFontName);
-            pageSettings.setFontSize(settings.tableBodyFontSize);
-            pageSettings.setFontColor(settings.tableBodyFontColor);
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            contentStream.showText(content);
-            contentStream.newLine();
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawSignatureBox(
-            int index,
-            PDDocument document,
-            PDPage page,
-            PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
-            SlimTemplateSettings settings,
-            SlimDataContent slimData,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            //Signature Box
-            contentStream.setStrokingColor(color(settings.getSignatureBoxColor()));
-            contentStream.addRect(
-                    settings.signatureBoxOffsetX[index],
-                    settings.signatureBoxOffsetY[0],
-                    settings.signatureBoxWidth,
-                    settings.signatureBoxHeight);
-            if (settings.signatureBoxBorderEnable) {
-                contentStream.closeAndStroke();
-            }
-            contentStream.setStrokingColor(0,0,0);
-
-            //Signature Title
-            pageSettings.setOffsetX(settings.signatureBoxDigitalTitleOffsetX[index]);
-            pageSettings.setOffsetY(settings.signatureBoxOffsetY[1]);
-            pageSettings.setFontColor(settings.signatureBoxColor);
-            pageSettings.setFontName(settings.signatureFontName);
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
-
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Digital Electronic Signature");
-            contentStream.newLine();
-            contentStream.endText();
-
-            //Signature Value
-            pageSettings.setOffsetX(settings.signatureBoxContentOffsetX[index]+(settings.getSignatureBoxAdjustOffsetX()));
-            pageSettings.setOffsetY(settings.signatureBoxOffsetY[2]);
-            pageSettings.setFontColor(settings.signatureBoxColor);
-            pageSettings.setFontName(settings.signatureFontName);
-            pageSettings.setFontSize(settings.signatureFontSize);
-            pageSettings.setLineHeight(16);
-
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
-            contentStream.setLeading(pageSettings.getLineHeight());
-
-            contentStream.showText(slimData.getSignaturePersonName());
-            contentStream.newLine();
-            contentStream.showText("DOC:"+slimData.getSignaturePersonDoc());
-            contentStream.newLine();
-            contentStream.showText(slimData.getSignatureRecord());
-            contentStream.newLine();
-            contentStream.showText(slimData.getSignatureDateGmt());
-            contentStream.newLine();
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawSignatureTape(
-            PDDocument document,
-            PDPage page,
-            PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
-            SlimTemplateSettings settings,
-            SlimDataContent slimData,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            //Signature Box
-            contentStream.setStrokingColor(color(settings.getSignatureTapeColor()));
-            contentStream.addRect(
-                    settings.getSignatureTapeOffsetX(),
-                    settings.getSignatureTapeOffsetY(),
-                    settings.getSignatureTapeWidth(),
-                    settings.getSignatureTapeHeight());
-            contentStream.closeAndStroke();
-            contentStream.setStrokingColor(0,0,0);
-
-            //Signature Title
-            pageSettings.setOffsetX(settings.getSignatureTapeTitleOffsetX());
-            pageSettings.setOffsetY(settings.getSignatureTapeTitleOffsetY());
-            pageSettings.setFontColor(settings.getSignatureTapeColor());
-            pageSettings.setFontName(settings.getSignatureTapeFontName());
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
-
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Digital Electronic Signature");
-            contentStream.newLine();
-            contentStream.endText();
-
-            //Signature Value
-            pageSettings.setOffsetX(settings.getSignatureTapeValueOffsetX()+(settings.getSignatureTapeAdjustOffsetX()));
-            pageSettings.setOffsetY(settings.getSignatureTapeValueOffsetY());
-            pageSettings.setFontColor(settings.getSignatureTapeColor());
-            pageSettings.setFontName(settings.getSignatureTapeFontName());
-            pageSettings.setFontSize(settings.getSignatureTapeFontSize());
-
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
-
-            String signature = slimData.getSignaturePersonName();
-            signature = signature + " - DOC:" + slimData.getSignaturePersonDoc();
-            signature = signature + " - " + slimData.getSignatureRecord();
-            signature = signature + " - " + slimData.getSignatureDateGmt();
-            contentStream.showText(signature);
-
-            contentStream.newLine();
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawText(
-            int box,
-            PDDocument document,
-            PDPage page,
-            List<String[]> listLines,
-            SlimTemplateSettings slimSettings,
-            PdfBoxPage pageSettings,
-            PDPageContentStream contentStream
-    ) {
-        boolean hasTitle = hasTitle(box, slimSettings);
-
-        if (!hasTitle) {
-            pageSettings.setOffsetY(pageSettings.getOffsetY()+slimSettings.getLineHeight());
-        }
-
-        drawLines(box, document, page, listLines, hasTitle, pageSettings, contentStream);
-    }
-
-    private static void drawBarcode(
-            PDDocument document,
-            PdfBoxBarcode settings,
-            PDPageContentStream contentStream
-    ) {
-        switch (settings.getCodeType4Scanner().name()) {
-            case "CODE128":
-                barcode128(settings, document, contentStream);
-                break;
-            case "CODE39":
-                barcode39(settings, document, contentStream);
-                break;
-            case "PDF417":
-                barcodePdf417(settings, document, contentStream);
-                break;
-        }
-    }
-
-    private static void drawBarcodeInfo(
-            int box,
-            PDDocument document,
-            PDPage page,
-            PdfBoxPage pageSettings,
-            PdfBoxTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            //Info 1,2,3,4 - (Name|Address|UserMessage|OperatorMessage)
-            pageSettings.setOffsetX(55+(settings.getSlim().barcodeAdjustOffsetX));
-            pageSettings.setOffsetY(
-                    settings.getSlim().barcodeInfoOffsetY[box]+(settings.getSlim().barcodeAdjustOffsetY)
-            );
-            pageSettings.setLineHeight(12);
-
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoOne().get(box));
-            contentStream.newLine();
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoTwo().get(box));
-            contentStream.newLine();
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoThree().get(box));
-            contentStream.newLine();
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoFour().get(box));
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //Info 5 - Value (Barcode)
-            pageSettings.setOffsetX(85+(settings.getSlim().barcodeAdjustOffsetX));
-            pageSettings.setOffsetY(
-                    settings.getSlim().barcodeValueOffsetY[box]+(settings.getSlim().barcodeAdjustOffsetY)
-            );
-            pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            contentStream.showText(settings.getSlimContent().getBarcodeValue().get(box));
-            contentStream.newLine();
-
-            contentStream.endText();
-
-            //Info 6 - Amount (Money)
-            pageSettings.setOffsetX(270+(settings.getSlim().barcodeAdjustOffsetX));
-            pageSettings.setOffsetY(
-                    settings.getSlim().barcodeAmountOffsetY[box]+(settings.getSlim().barcodeAdjustOffsetY)
-            );
-            pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            contentStream.showText(settings.getSlimContent().getBarcodeAmount().get(box));
-            contentStream.newLine();
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawQRCode(
-            PDDocument document,
-            PdfBoxQrCode qrCode,
-            PDPageContentStream contentStream
-    ) {
-        qrCode(qrCode, document, contentStream);
-    }
-
-    private static void drawQRCodeInfo(
-            int box,
-            PDDocument document,
-            PDPage page,
-            PdfBoxPage pageSettings,
-            PdfBoxTemplateSettings settings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            pageSettings.setLineHeight(12);
-            pageSettings.setFontColor(ColorsToPdfBox.BLACK);
-            pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
-
-            //Left
-            if (settings.getSlim().qrCodeLeftEnable[box]) {
-                pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[0]+(settings.getSlim().qrCodeAdjustOffsetX));
-                pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
-
-                contentStream("text", page, document, pageSettings, null, contentStream);
-
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3));
-                contentStream.newLine();
-
-                contentStream.endText();
-            }
-
-            //Center
-            if (settings.getSlim().qrCodeCenterEnable[box]) {
-                pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[1]+(settings.getSlim().qrCodeAdjustOffsetX));
-                pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
-
-                contentStream("text", page, document, pageSettings, null, contentStream);
-
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 1));
-                contentStream.newLine();
-
-                contentStream.endText();
-            }
-
-            //Right
-            if (settings.getSlim().qrCodeRightEnable[box]) {
-                pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[2]+(settings.getSlim().qrCodeAdjustOffsetX));
-                pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
-
-                contentStream("text", page, document, pageSettings, null, contentStream);
-
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 2));
-                contentStream.newLine();
-
-                contentStream.endText();
-            }
-
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
@@ -911,7 +155,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 pageSettings.setFontSize(slimSettings.getLeftTitleSize());
 
                 String title = slimData.getLeftTitleContent();
-                drawTitle(document, page, title, pageSettings, contentStream);
+                titleBuild(document, page, title, pageSettings, contentStream);
             }
 
             //Center Title
@@ -924,7 +168,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 pageSettings.setFontSize(slimSettings.getCenterTitleSize());
 
                 String title = slimData.getCenterTitleContent();
-                drawTitle(document, page, title, pageSettings, contentStream);
+                titleBuild(document, page, title, pageSettings, contentStream);
             }
 
             //Right Title
@@ -937,7 +181,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 pageSettings.setFontSize(slimSettings.getRightTitleSize());
 
                 String title = slimData.getRightTitleContent();
-                drawTitle(document, page, title, pageSettings, contentStream);
+                titleBuild(document, page, title, pageSettings, contentStream);
             }
 
         }
@@ -961,7 +205,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
         }
 
         for (int box = 0; box < BOX_QUANTITY; box++) {
-            drawColumnBox(box, settings.getPage(), slimSettings, contentStream);
+            columnBoxBuild(box, settings.getPage(), slimSettings, contentStream);
         }
     }
 
@@ -1005,7 +249,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                         .split("(?<=\\G.{" + settings.getSlim().columnBoxChars + "})"));
             }
 
-            drawColumnContent(box, document, page, listLines, settings, contentStream);
+            columnContentBuild(box, document, page, listLines, settings, contentStream);
         }
     }
 
@@ -1025,10 +269,10 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
 
             if (slimSettings.tableEnable[box]) {
 
-                drawTableContainer(box, slimSettings, contentStream);
+                tableContainerBuild(box, slimSettings, contentStream);
 
                 for (int col = 0; col < slimSettings.getTableSize().getTableColumns(); col++) {
-                    drawTableHeader(box, col, slimSettings, contentStream);
+                    tableHeaderBuild(box, col, slimSettings, contentStream);
                 }
 
                 /*Auto Fix: Prevent incorrect settings*/
@@ -1048,7 +292,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 for (int row = 0; row < tableLines; row++) {
 
                     for (int col = 0; col < tableColumns; col++) {
-                        drawTableBody(initialX, initialY, celWidth, celHeight, slimSettings, contentStream);
+                        tableBodyBuild(initialX, initialY, celWidth, celHeight, slimSettings, contentStream);
                         initialX += celWidth; //move to the next column
                     }
 
@@ -1078,7 +322,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
             if (slimSettings.tableEnable[box]) {
 
                 for (int col = 0; col < slimSettings.getTableSize().getTableColumns(); col++) {
-                    drawTableHeaderContent(box, col, document, page, settings, contentStream);
+                    tableHeaderContentBuild(box, col, document, page, settings, contentStream);
                 }
 
                 //tableLines-1: to remove the first line (because was used in the table header)
@@ -1094,7 +338,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                         contLoop = 0;
                         adjustY += slimSettings.tableColumnHeight;
                     }
-                    drawTableBodyContent(box, contLoop, adjustY, item, document, page, settings, contentStream);
+                    tableBodyContentBuild(box, contLoop, adjustY, item, document, page, settings, contentStream);
                     contLoop++;
                 }
             }
@@ -1130,7 +374,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 imgSettings.setOffsetX(slimSettings.imageOffsetX[0]);
                 imgSettings.setOffsetY(slimSettings.imageOffsetY[n]);
                 imgSettings.setFilenamePath(imgLeft);
-                drawImage(document, imgSettings, contentStream);
+                imageBuild(document, imgSettings, contentStream);
             }
 
             //Image Center
@@ -1138,7 +382,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 imgSettings.setOffsetX(slimSettings.imageOffsetX[1]);
                 imgSettings.setOffsetY(slimSettings.imageOffsetY[n]);
                 imgSettings.setFilenamePath(imgCenter);
-                drawImage(document, imgSettings, contentStream);
+                imageBuild(document, imgSettings, contentStream);
             }
 
             //Image Right
@@ -1146,7 +390,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 imgSettings.setOffsetX(slimSettings.imageOffsetX[2]);
                 imgSettings.setOffsetY(slimSettings.imageOffsetY[n]);
                 imgSettings.setFilenamePath(imgRight);
-                drawImage(document, imgSettings, contentStream);
+                imageBuild(document, imgSettings, contentStream);
             }
         }
     }
@@ -1169,17 +413,17 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
 
         //Left Signature
         if (slimSettings.isLeftSignatureBoxEnable()) {
-            drawSignatureBox(0, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureBoxBuild(0, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
         }
 
         //Center Signature
         if (slimSettings.isCenterSignatureBoxEnable()) {
-            drawSignatureBox(1, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureBoxBuild(1, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
         }
 
         //Right Signature
         if (slimSettings.isRightSignatureBoxEnable()) {
-            drawSignatureBox(2, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureBoxBuild(2, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
         }
     }
 
@@ -1200,7 +444,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
         PdfBoxContainer rectSettings = settings.getContainer();
 
         if (slimSettings.isSignatureTapeEnable()) {
-            drawSignatureTape(document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureTapeBuild(document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
         }
     }
 
@@ -1237,7 +481,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                             .split("(?<=\\G.{" + settings.getSlim().textChars + "})"));
 
                     pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
-                    drawText(box, document, page, listLines, slimSettings, pageSettings, contentStream);
+                    textBuild(box, document, page, listLines, slimSettings, pageSettings, contentStream);
 
                 }
             }
@@ -1271,8 +515,8 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                         settings.getBarcode().setTextPosition(HumanReadablePlacement.HRP_NONE);
                     }
 
-                    drawBarcode(document, settings.getBarcode(), contentStream);
-                    drawBarcodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+                    barcodeBuild(document, settings.getBarcode(), contentStream);
+                    barcodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
                 }
             }
         }
@@ -1291,8 +535,8 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[0]+(settings.getSlim().qrCodeAdjustOffsetX));
                 settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3));
-                drawQRCode(document, settings.getQrCode(), contentStream);
-                drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+                qrCodeBuild(document, settings.getQrCode(), contentStream);
+                qrCodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
             }
 
             //Center
@@ -1300,8 +544,8 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[1]+(settings.getSlim().qrCodeAdjustOffsetX));
                 settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+1));
-                drawQRCode(document, settings.getQrCode(), contentStream);
-                drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+                qrCodeBuild(document, settings.getQrCode(), contentStream);
+                qrCodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
             }
 
             //Right
@@ -1309,8 +553,8 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBox {
                 settings.getQrCode().setOffsetX(settings.getSlim().qrCodeOffsetX[2]+(settings.getSlim().qrCodeAdjustOffsetX));
                 settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+2));
-                drawQRCode(document, settings.getQrCode(), contentStream);
-                drawQRCodeInfo(box, document, page, settings.getPage(), settings, contentStream);
+                qrCodeBuild(document, settings.getQrCode(), contentStream);
+                qrCodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
             }
         }
     }
