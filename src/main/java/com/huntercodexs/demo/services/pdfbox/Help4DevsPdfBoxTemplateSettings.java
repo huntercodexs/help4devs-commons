@@ -18,7 +18,7 @@ public class Help4DevsPdfBoxTemplateSettings {
         TRIPLE_FALL("TRIPLE_FALL"),
         FREE("FREE"),
         HEADER_BODY("HEADER_BODY"),
-        HAMBURGER("HAMBURGER");
+        BIG_BURGER("BIG_BURGER");
 
         private final String template;
 
@@ -61,7 +61,7 @@ public class Help4DevsPdfBoxTemplateSettings {
         TripleFallTemplateSettings tripleFall = null;
         FreeTemplateSettings free = null;
         HeaderBodyTemplateSettings headerBody = null;
-        Hamburger simple2 = null;
+        BigBurgerTemplateSettings bigBurger = null;
 
         /*Template Content*/
         SlimDataContent slimContent = null;
@@ -71,7 +71,7 @@ public class Help4DevsPdfBoxTemplateSettings {
         TripleFallDataContent tripleFallContent = null;
         FreeDataContent freeContent = null;
         HeaderBodyDataContent headerBodyContent = null;
-        HamburgerDataContent hamburgerContent = null;
+        BigBurgerDataContent bigBurgerContent = null;
 
     }
 
@@ -338,7 +338,7 @@ public class Help4DevsPdfBoxTemplateSettings {
     @NoArgsConstructor
     public static class BoxDataContent {
         //General settings
-        int boxQuantity;
+        int data;
     }
 
     @Getter
@@ -348,7 +348,7 @@ public class Help4DevsPdfBoxTemplateSettings {
     @NoArgsConstructor
     public static class BoxOpenTemplateSettings {
         //General
-        int boxQuantity;
+        int boxOpenQuantity;
         /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
         static final int BOX_OPEN_QUANTITY = 10;
         static final int BOX_OPEN_DEFAULT_WIDTH = 286;
@@ -364,7 +364,7 @@ public class Help4DevsPdfBoxTemplateSettings {
     @NoArgsConstructor
     public static class BoxOpenDataContent {
         //General settings
-        int boxQuantity;
+        int data;
     }
 
     @Getter
@@ -391,7 +391,7 @@ public class Help4DevsPdfBoxTemplateSettings {
     @NoArgsConstructor
     public static class SlimBoxDataContent {
         //General settings
-        int boxQuantity;
+        int data;
     }
 
     @Getter
@@ -400,8 +400,13 @@ public class Help4DevsPdfBoxTemplateSettings {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class TripleFallTemplateSettings {
-        //General settings
-        int boxQuantity;
+        //General
+        int tripleFallQuantity;
+        /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int TRIPLE_FALL_QUANTITY = 3;
+        static final int TRIPLE_FALL_DEFAULT_WIDTH = 188;
+        static final int TRIPLE_FALL_DEFAULT_HEIGHT = 750;
+        boolean templateTitleEnabled = false;
     }
 
     @Getter
@@ -411,7 +416,7 @@ public class Help4DevsPdfBoxTemplateSettings {
     @NoArgsConstructor
     public static class TripleFallDataContent {
         //General settings
-        int boxQuantity;
+        int data;
     }
 
     @Getter
@@ -420,8 +425,14 @@ public class Help4DevsPdfBoxTemplateSettings {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class FreeTemplateSettings {
-        //General settings
-        int boxQuantity;
+        //General
+        int freeQuantity;
+        /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int FREE_DEFAULT_OFFSET_X = 20;
+        static final int FREE_DEFAULT_OFFSET_Y = 20;
+        static final int FREE_DEFAULT_WIDTH = 570;
+        static final int FREE_DEFAULT_HEIGHT = 750;
+        boolean templateTitleEnabled = false;
     }
 
     @Getter
@@ -440,8 +451,16 @@ public class Help4DevsPdfBoxTemplateSettings {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class HeaderBodyTemplateSettings {
-        //General settings
-        int boxQuantity;
+        //General
+        int headerBodyQuantity;
+        /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int HEADER_BODY_DEFAULT_OFFSET_X = 20;
+        static final int HEADER_BODY_DEFAULT_OFFSET_Y = 640;
+        static final int HEADER_BODY_DEFAULT_WIDTH = 570;
+        static final int HEADER_BODY_DEFAULT_HEIGHT = 135;
+        static final int HEADER_BODY_OFFSET_Y = 20;
+        static final int HEADER_BODY_HEIGHT = 600;
+        boolean templateTitleEnabled = false;
     }
 
     @Getter
@@ -451,7 +470,7 @@ public class Help4DevsPdfBoxTemplateSettings {
     @NoArgsConstructor
     public static class HeaderBodyDataContent {
         //General settings
-        int boxQuantity;
+        int data;
     }
 
     @Getter
@@ -459,9 +478,25 @@ public class Help4DevsPdfBoxTemplateSettings {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Hamburger {
-        //General settings
-        int boxQuantity;
+    public static class BigBurgerTemplateSettings {
+        //General
+        int bigBurgerQuantity;
+        /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int BIG_BURGER_DEFAULT_WIDTH = 570;
+        static final int BIG_BURGER_DEFAULT_HEIGHT = 135;
+        static final int BIG_BURGER_HEADER_OFFSET_X = 20;
+        static final int BIG_BURGER_HEADER_OFFSET_Y = 640;
+        static final int BIG_BURGER_HEADER_WIDTH = 570;
+        static final int BIG_BURGER_HEADER_HEIGHT = 135;
+        static final int BIG_BURGER_BODY_OFFSET_X = 20;
+        static final int BIG_BURGER_BODY_OFFSET_Y = 170;
+        static final int BIG_BURGER_BODY_WIDTH = 570;
+        static final int BIG_BURGER_BODY_HEIGHT = 455;
+        static final int BIG_BURGER_FOOTER_OFFSET_X = 20;
+        static final int BIG_BURGER_FOOTER_OFFSET_Y = 20;
+        static final int BIG_BURGER_FOOTER_WIDTH = 570;
+        static final int BIG_BURGER_FOOTER_HEIGHT = 135;
+        boolean templateTitleEnabled = false;
     }
 
     @Getter
@@ -469,9 +504,9 @@ public class Help4DevsPdfBoxTemplateSettings {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class HamburgerDataContent {
+    public static class BigBurgerDataContent {
         //General settings
-        int boxQuantity;
+        int data;
     }
 
 }

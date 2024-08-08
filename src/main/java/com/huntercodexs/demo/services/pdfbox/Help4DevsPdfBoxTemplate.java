@@ -180,4 +180,160 @@ public class Help4DevsPdfBoxTemplate {
 
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfBoxTemplateTripleFall</h6>
+     *
+     * <p style="color: #CDCDCD">Create a template file for PDF media types using Triple Fall Template</p>
+     *
+     * @param settings (PdfBoxTemplateSettings: All template settings)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfBoxTemplateTripleFall(PdfBoxTemplateSettings settings) {
+
+        if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.TRIPLE_FALL))) {
+            throw new RuntimeException("Invalid Template: Expected TRIPLE_FALL");
+        }
+
+        pdfCreate(settings.getDocument(), settings.getPage());
+
+        File file = new File(settings.getDocument().getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, settings.getDocument().getOwnerPassword())) {
+
+            PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
+
+            PDPageContentStream contentStream = contentStream(
+                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+
+            Help4DevsPdfBoxTemplateTripleFall template = new Help4DevsPdfBoxTemplateTripleFall();
+            template.tripleFallTemplateBuilder(document, page, settings, contentStream);
+
+            contentStream.close();
+            document.save(settings.getDocument().getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfBoxTemplateFree</h6>
+     *
+     * <p style="color: #CDCDCD">Create a template file for PDF media types using Free Template</p>
+     *
+     * @param settings (PdfBoxTemplateSettings: All template settings)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfBoxTemplateFree(PdfBoxTemplateSettings settings) {
+
+        if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.FREE))) {
+            throw new RuntimeException("Invalid Template: Expected FREE");
+        }
+
+        pdfCreate(settings.getDocument(), settings.getPage());
+
+        File file = new File(settings.getDocument().getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, settings.getDocument().getOwnerPassword())) {
+
+            PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
+
+            PDPageContentStream contentStream = contentStream(
+                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+
+            Help4DevsPdfBoxTemplateFree template = new Help4DevsPdfBoxTemplateFree();
+            template.freeTemplateBuilder(document, page, settings, contentStream);
+
+            contentStream.close();
+            document.save(settings.getDocument().getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfBoxTemplateHeaderBody</h6>
+     *
+     * <p style="color: #CDCDCD">Create a template file for PDF media types using HeaderBody Template</p>
+     *
+     * @param settings (PdfBoxTemplateSettings: All template settings)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfBoxTemplateHeaderBody(PdfBoxTemplateSettings settings) {
+
+        if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.HEADER_BODY))) {
+            throw new RuntimeException("Invalid Template: Expected HEADER_BODY");
+        }
+
+        pdfCreate(settings.getDocument(), settings.getPage());
+
+        File file = new File(settings.getDocument().getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, settings.getDocument().getOwnerPassword())) {
+
+            PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
+
+            PDPageContentStream contentStream = contentStream(
+                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+
+            Help4DevsPdfBoxTemplateHeaderBody template = new Help4DevsPdfBoxTemplateHeaderBody();
+            template.headerBodyTemplateBuilder(document, page, settings, contentStream);
+
+            contentStream.close();
+            document.save(settings.getDocument().getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfBoxTemplateBigBurger</h6>
+     *
+     * <p style="color: #CDCDCD">Create a template file for PDF media types using BigBurger Template</p>
+     *
+     * @param settings (PdfBoxTemplateSettings: All template settings)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfBoxTemplateBigBurger(PdfBoxTemplateSettings settings) {
+
+        if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.BIG_BURGER))) {
+            throw new RuntimeException("Invalid Template: Expected BIG_BURGER");
+        }
+
+        pdfCreate(settings.getDocument(), settings.getPage());
+
+        File file = new File(settings.getDocument().getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, settings.getDocument().getOwnerPassword())) {
+
+            PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
+
+            PDPageContentStream contentStream = contentStream(
+                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+
+            Help4DevsPdfBoxTemplateBigBurger template = new Help4DevsPdfBoxTemplateBigBurger();
+            template.bigBurgerTemplateBuilder(document, page, settings, contentStream);
+
+            contentStream.close();
+            document.save(settings.getDocument().getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
 }
