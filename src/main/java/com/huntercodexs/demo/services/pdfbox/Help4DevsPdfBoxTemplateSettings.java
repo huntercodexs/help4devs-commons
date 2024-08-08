@@ -313,8 +313,12 @@ public class Help4DevsPdfBoxTemplateSettings {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class BoxTemplateSettings {
-        //General settings
+        //General
         int boxQuantity;
+        /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int BOXES = 10;
+        static final int BOX_DEFAULT_WIDTH = 286;
+        static final int BOX_DEFAULT_HEIGHT = 135;
     }
 
     @Getter

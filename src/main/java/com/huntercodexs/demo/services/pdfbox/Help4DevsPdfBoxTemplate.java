@@ -90,7 +90,7 @@ public class Help4DevsPdfBoxTemplate {
                     "new", page, document, settings.getPage(), settings.getContainer(), null);
 
             Help4DevsPdfBoxTemplateBox template = new Help4DevsPdfBoxTemplateBox();
-            template.slimTemplateBuilder(document, page, settings, contentStream);
+            template.boxTemplateBuilder(document, page, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());

@@ -19,9 +19,9 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 
 public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests {
 
-    private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim.pdf";
+    private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
-    private final static String imgBackground = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-2.jpg";
+    private final static String imgBackground = "./src/test/resources/help4devs/images/ads/pdfbox-background-sample-5.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
@@ -602,7 +602,7 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
 
     private PdfBoxTemplateSettings pdfBoxTemplateSettings() {
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
-        settings.setTemplate(PdfBoxTemplates.SLIM);
+        settings.setTemplate(PdfBoxTemplates.BOX);
         settings.setImageBackground(imgBackground);
         settings.setDocument(documentSettings());
         settings.setPage(pageSettings());
