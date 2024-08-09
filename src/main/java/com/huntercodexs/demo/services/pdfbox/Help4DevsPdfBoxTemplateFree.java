@@ -21,6 +21,36 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 @Service
 public class Help4DevsPdfBoxTemplateFree extends Help4DevsPdfBoxTemplateBuilder {
 
+    private static void drawContainer(
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        PdfBoxContainer rectSettings = settings.getContainer();
+        rectSettings.setWidth(FREE_DEFAULT_WIDTH);
+        rectSettings.setHeight(FREE_DEFAULT_HEIGHT);
+
+        PdfBoxPage pageSettings = settings.getPage();
+
+        rectSettings.setOffsetX(FREE_DEFAULT_OFFSET_X);
+        rectSettings.setOffsetY(FREE_DEFAULT_OFFSET_Y);
+
+        if (rectSettings.getBackColor() == null) {
+            contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+
+        } else if (rectSettings.getBackColor().getColorName().equals(ColorsToPdfBox.NONE.getColorName())) {
+            contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+
+        } else {
+            contentStream("rec-fill", page, document, pageSettings, rectSettings, contentStream);
+        }
+
+        if (rectSettings.isBorder()) {
+            contentStream("rec-border", page, document, pageSettings, rectSettings, contentStream);
+        }
+    }
+
     private static void drawTemplateTitle(
             PDDocument document,
             PDPage page,
@@ -43,31 +73,6 @@ public class Help4DevsPdfBoxTemplateFree extends Help4DevsPdfBoxTemplateBuilder 
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawContainer(
-            PDDocument document,
-            PDPage page,
-            PdfBoxContainer rectSettings,
-            PdfBoxPage pageSettings,
-            PDPageContentStream contentStream
-    ) {
-        rectSettings.setOffsetX(FREE_DEFAULT_OFFSET_X);
-        rectSettings.setOffsetY(FREE_DEFAULT_OFFSET_Y);
-
-        if (rectSettings.getBackColor() == null) {
-            contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
-
-        } else if (rectSettings.getBackColor().getColorName().equals(ColorsToPdfBox.NONE.getColorName())) {
-            contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
-
-        } else {
-            contentStream("rec-fill", page, document, pageSettings, rectSettings, contentStream);
-        }
-
-        if (rectSettings.isBorder()) {
-            contentStream("rec-border", page, document, pageSettings, rectSettings, contentStream);
         }
     }
 
@@ -100,16 +105,11 @@ public class Help4DevsPdfBoxTemplateFree extends Help4DevsPdfBoxTemplateBuilder 
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        PdfBoxContainer rectSettings = settings.getContainer();
-        rectSettings.setWidth(FREE_DEFAULT_WIDTH);
-        rectSettings.setHeight(FREE_DEFAULT_HEIGHT);
 
-        PdfBoxPage pageSettings = settings.getPage();
-
-        drawContainer(document, page, rectSettings, pageSettings, contentStream);
+        drawContainer(document, page, settings, contentStream);
 
         if (settings.getFree().templateTitleEnabled) {
-            drawTemplateTitle(document, page, pageSettings, contentStream);
+            drawTemplateTitle(document, page, settings.getPage(), contentStream);
         }
     }
 

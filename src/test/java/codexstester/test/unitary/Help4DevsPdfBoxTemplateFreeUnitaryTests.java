@@ -157,7 +157,19 @@ public class Help4DevsPdfBoxTemplateFreeUnitaryTests extends Help4DevsBridgeTest
     private FreeTemplateSettings slimBoxSettings() {
         FreeTemplateSettings settings = new FreeTemplateSettings();
 
+        //General
         settings.setTemplateTitleEnabled(true);
+        settings.setBoxWidth(new int[]{570,620,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,-20,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{false, false, false, true, false});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.NONE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
 
         return settings;
     }

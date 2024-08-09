@@ -82,7 +82,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setOffsetY(20);
         settings.setBorder(true);
         settings.setRoundedBorder(false);
-        settings.setBackColor(ColorsToPdfBox.BLUE3);
+        settings.setBackColor(ColorsToPdfBox.BLUE_SAD);
         settings.setBorderColor(ColorsToPdfBox.BLACK);
         return settings;
     }
@@ -242,16 +242,16 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         color = color(ColorsToPdfBox.GREEN);
         codexsTesterAssertExact("java.awt.Color[r=0,g=255,b=0]", String.valueOf(color));
 
-        color = color(ColorsToPdfBox.GREEN2);
+        color = color(ColorsToPdfBox.GREEN_SEA);
         codexsTesterAssertExact("java.awt.Color[r=26,g=188,b=156]", String.valueOf(color));
 
         color = color(ColorsToPdfBox.BLUE);
         codexsTesterAssertExact("java.awt.Color[r=0,g=0,b=255]", String.valueOf(color));
 
-        color = color(ColorsToPdfBox.BLUE2);
+        color = color(ColorsToPdfBox.BLUE_SEA);
         codexsTesterAssertExact("java.awt.Color[r=51,g=181,b=255]", String.valueOf(color));
 
-        color = color(ColorsToPdfBox.BLUE3);
+        color = color(ColorsToPdfBox.BLUE_SAD);
         codexsTesterAssertExact("java.awt.Color[r=78,g=120,b=149]", String.valueOf(color));
 
         color = color(ColorsToPdfBox.BLACK);

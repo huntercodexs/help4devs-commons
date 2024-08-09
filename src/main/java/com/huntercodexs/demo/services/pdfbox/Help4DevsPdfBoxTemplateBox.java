@@ -21,38 +21,18 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 @Service
 public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
 
-    private static void drawTemplateTitle(
-            PDDocument document,
-            PDPage page,
-            PdfBoxPage pageSettings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
-            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
-            pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
-
-            pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
-
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText("Box");
-            contentStream.newLine();
-            contentStream.endText();
-
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
     private static void drawContainer(
             PDDocument document,
             PDPage page,
-            PdfBoxContainer rectSettings,
-            PdfBoxPage pageSettings,
+            PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
+        PdfBoxContainer rectSettings = settings.getContainer();
+        rectSettings.setWidth(BOX_DEFAULT_WIDTH);
+        rectSettings.setHeight(BOX_DEFAULT_HEIGHT);
+
+        PdfBoxPage pageSettings = settings.getPage();
+
         for (int rows = 1; rows <= BOXES/2; rows++) {
 
             if (rows == 1) {
@@ -92,6 +72,31 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
         }
     }
 
+    private static void drawTemplateTitle(
+            PDDocument document,
+            PDPage page,
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
+            pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
+            pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
+
+            pageSettings.setOffsetX(50);
+            pageSettings.setOffsetY(700);
+
+            contentStream("text", page, document, pageSettings, null, contentStream);
+            contentStream.showText("Box");
+            contentStream.newLine();
+            contentStream.endText();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
     private static void drawBackground(
             PDDocument document,
             PdfBoxTemplateSettings settings,
@@ -121,16 +126,10 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        PdfBoxContainer rectSettings = settings.getContainer();
-        rectSettings.setWidth(BOX_DEFAULT_WIDTH);
-        rectSettings.setHeight(BOX_DEFAULT_HEIGHT);
-
-        PdfBoxPage pageSettings = settings.getPage();
-
-        drawContainer(document, page, rectSettings, pageSettings, contentStream);
+        drawContainer(document, page, settings, contentStream);
 
         if (settings.getBox().templateTitleEnabled) {
-            drawTemplateTitle(document, page, pageSettings, contentStream);
+            drawTemplateTitle(document, page, settings.getPage(), contentStream);
         }
     }
 

@@ -87,12 +87,18 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int COLUMN_QUANTITY = 3;
         static final int DEFAULT_WIDTH = 570;
         static final int DEFAULT_HEIGHT = 135;
+        static final int DEFAULT_OFFSET_X = 20;
         static final int OFFSET_Y_BLOCK1 = 640;
         static final int OFFSET_Y_BLOCK2 = 485;
         static final int OFFSET_Y_BLOCK3 = 330;
         static final int OFFSET_Y_BLOCK4 = 175;
         static final int OFFSET_Y_BLOCK5 = 20;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
 
         //Title
         int leftTitleAdjustmentX = 0;
@@ -230,6 +236,8 @@ public class Help4DevsPdfBoxTemplateSettings {
         //Image
         int imageWidth = 0;
         int imageHeight = 0;
+        int imageAdjustOffsetX = 0;
+        int imageAdjustOffsetY = 0;
         int[] imageOffsetX = new int[]{35,180,330};
         int[] imageOffsetY = new int[]{650,495,340,185,30};
         boolean[] leftImageEnable = new boolean[]{false,false,false,false,false};
@@ -329,6 +337,11 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int BOX_DEFAULT_WIDTH = 286;
         static final int BOX_DEFAULT_HEIGHT = 135;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
     }
 
     @Getter
@@ -355,6 +368,11 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int BOX_OPEN_DEFAULT_HEIGHT = 135;
         static final int BOX_OPEN_HEIGHT = 445;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
     }
 
     @Getter
@@ -382,6 +400,11 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int SLIM_BOX_WIDTH = 575;
         static final int SLIM_BOX_HEIGHT = 445;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
     }
 
     @Getter
@@ -407,6 +430,11 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int TRIPLE_FALL_DEFAULT_WIDTH = 188;
         static final int TRIPLE_FALL_DEFAULT_HEIGHT = 750;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
     }
 
     @Getter
@@ -433,6 +461,11 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int FREE_DEFAULT_WIDTH = 570;
         static final int FREE_DEFAULT_HEIGHT = 750;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
     }
 
     @Getter
@@ -461,6 +494,11 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int HEADER_BODY_OFFSET_Y = 20;
         static final int HEADER_BODY_HEIGHT = 600;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
     }
 
     @Getter
@@ -497,6 +535,11 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int BIG_BURGER_FOOTER_WIDTH = 570;
         static final int BIG_BURGER_FOOTER_HEIGHT = 135;
         boolean templateTitleEnabled = false;
+        int[] boxWidth = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
+        int[] boxAdjustOffsetY = new int[]{0,0,0,0,0};
+        boolean[] boxBorderEnabled = new boolean[]{true, true, true, true, true};
+        ColorsToPdfBox[] boxBackColor = new ColorsToPdfBox[]{null, null, null, null, null};
     }
 
     @Getter

@@ -21,7 +21,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
 
     private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
-    private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-2.jpg";
+    private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-5.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
@@ -161,26 +161,38 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
     private SlimTemplateSettings slimSettings() {
         SlimTemplateSettings settings = new SlimTemplateSettings();
 
-        settings.setTemplateTitleEnabled(true);
+        //General
+        settings.setTemplateTitleEnabled(false);
+        settings.setBoxWidth(new int[]{570,620,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,-20,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{false, false, false, true, false});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.NONE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
 
         /*Title*/
         boolean titleOn = false;
         settings.setLeftTitleAdjustmentX(0);
-        settings.setLeftTitleAdjustmentY(0);
-        settings.setCenterTitleAdjustmentX(-31);
+        settings.setLeftTitleAdjustmentY(-90);
+        settings.setCenterTitleAdjustmentX(0);
         settings.setCenterTitleAdjustmentY(0);
         settings.setRightTitleAdjustmentX(0);
         settings.setRightTitleAdjustmentY(0);
-        settings.setLeftTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+        settings.setLeftTitleEnable(new boolean[]{true,titleOn,titleOn,titleOn,titleOn});
         settings.setCenterTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
         settings.setRightTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
-        settings.setLeftTitleColor(ColorsToPdfBox.GREEN2);
+        settings.setLeftTitleColor(ColorsToPdfBox.GRAY);
         settings.setCenterTitleColor(ColorsToPdfBox.GRAY);
-        settings.setRightTitleColor(ColorsToPdfBox.RED2);
-        settings.setLeftTitleSize(FontSizeToPdfBox.MEDIUM);
+        settings.setRightTitleColor(ColorsToPdfBox.RED_DARK);
+        settings.setLeftTitleSize(FontSizeToPdfBox.LARGE);
         settings.setCenterTitleSize(FontSizeToPdfBox.MEDIUM);
         settings.setRightTitleSize(FontSizeToPdfBox.MEDIUM);
-        settings.setLeftTitleFont(FontNameToPdfBox.TIMES_B);
+        settings.setLeftTitleFont(FontNameToPdfBox.HELVETICA_B);
         settings.setCenterTitleFont(FontNameToPdfBox.COURIER_B);
         settings.setRightTitleFont(FontNameToPdfBox.HELVETICA_B);
 
@@ -196,9 +208,9 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setColumnBoxLeftPadding(new int[]{5,5,5,5,5});
         settings.setColumnBoxCenterPadding(new int[]{5,5,5,5,5});
         settings.setColumnBoxRightPadding(new int[]{5,5,5,5,5});
-        settings.setColumnBoxLeftBorderWidth(new int[] {3,3,3,3,3});
-        settings.setColumnBoxCenterBorderWidth(new int[] {6,6,6,6,6});
-        settings.setColumnBoxRightBorderWidth(new int[] {9,9,9,9,9});
+        settings.setColumnBoxLeftBorderWidth(new int[] {1,1,1,1,1});
+        settings.setColumnBoxCenterBorderWidth(new int[] {1,1,1,1,1});
+        settings.setColumnBoxRightBorderWidth(new int[] {1,1,1,1,1});
         settings.setColumnBoxLeftLineHeight(new int[] {14,14,14,14,14});
         settings.setColumnBoxCenterLineHeight(new int[] {14,14,14,14,14});
         settings.setColumnBoxRightLineHeight(new int[] {14,14,14,14,14});
@@ -208,57 +220,57 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setColumnBoxCenterAdjustmentY(new int[]{0,0,0,0,0});
         settings.setColumnBoxRightAdjustmentX(new int[]{0,0,0,0,0});
         settings.setColumnBoxRightAdjustmentY(new int[]{0,0,0,0,0});
-        settings.setColumnBoxLeftEnable(new boolean[]{columnLeftOn,columnLeftOn,columnLeftOn,columnLeftOn,columnLeftOn});
-        settings.setColumnBoxCenterEnable(new boolean[]{columnCenterOn,columnCenterOn,columnCenterOn,columnCenterOn,columnCenterOn});
-        settings.setColumnBoxRightEnable(new boolean[]{columnRightOn,columnRightOn,columnRightOn,columnRightOn,columnRightOn});
+        settings.setColumnBoxLeftEnable(new boolean[]{columnLeftOn,true,columnLeftOn,columnLeftOn,columnLeftOn});
+        settings.setColumnBoxCenterEnable(new boolean[]{columnCenterOn,true,columnCenterOn,columnCenterOn,columnCenterOn});
+        settings.setColumnBoxRightEnable(new boolean[]{columnRightOn,true,columnRightOn,columnRightOn,columnRightOn});
         settings.setColumnBoxLeftBorderEnable(new boolean[]{true,true,true,true,true});
         settings.setColumnBoxCenterBorderEnable(new boolean[]{true,true,true,true,true});
         settings.setColumnBoxRightBorderEnable(new boolean[]{true,true,true,true,true});
         settings.setColumnBoxLeftBackColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.WHITE,
-                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.RED_LIGHT,
                 ColorsToPdfBox.RED,
                 ColorsToPdfBox.GREEN,
                 ColorsToPdfBox.BLUE
         });
         settings.setColumnBoxCenterBackColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.YELLOW,
-                ColorsToPdfBox.ORANGE,
+                ColorsToPdfBox.RED_BRIGHT,
                 ColorsToPdfBox.GRAY,
                 ColorsToPdfBox.GOLD,
                 ColorsToPdfBox.PURPLE
         });
         settings.setColumnBoxRightBackColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.MAGENTA,
-                ColorsToPdfBox.RED2,
-                ColorsToPdfBox.GREEN2,
-                ColorsToPdfBox.BLUE3,
-                ColorsToPdfBox.GOLD2
+                ColorsToPdfBox.RED_DARK,
+                ColorsToPdfBox.GREEN_SEA,
+                ColorsToPdfBox.BLUE_SAD,
+                ColorsToPdfBox.GOLD_DARK
         });
         settings.setColumnBoxLeftBorderColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.GREEN2,
+                ColorsToPdfBox.BLACK,
                 ColorsToPdfBox.YELLOW,
                 ColorsToPdfBox.BLUE,
                 ColorsToPdfBox.ORANGE
         });
         settings.setColumnBoxCenterBorderColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.RED,
-                ColorsToPdfBox.GREEN2,
-                ColorsToPdfBox.RED2,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.RED_DARK,
                 ColorsToPdfBox.PINK,
                 ColorsToPdfBox.ORANGE
         });
         settings.setColumnBoxRightBorderColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.GOLD,
-                ColorsToPdfBox.GREEN2,
-                ColorsToPdfBox.RED2,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.RED_DARK,
                 ColorsToPdfBox.GRAY,
                 ColorsToPdfBox.BLACK
         });
         settings.setColumnBoxLeftTextColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.BLACK,
-                ColorsToPdfBox.YELLOW,
+                ColorsToPdfBox.RED_DARK,
                 ColorsToPdfBox.YELLOW,
                 ColorsToPdfBox.BLUE,
                 ColorsToPdfBox.WHITE
@@ -266,14 +278,14 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setColumnBoxCenterTextColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.RED,
                 ColorsToPdfBox.WHITE,
-                ColorsToPdfBox.RED2,
+                ColorsToPdfBox.RED_DARK,
                 ColorsToPdfBox.PINK,
                 ColorsToPdfBox.CYAN
         });
         settings.setColumnBoxRightTextColor(new ColorsToPdfBox[]{
                 ColorsToPdfBox.GOLD,
                 ColorsToPdfBox.WHITE,
-                ColorsToPdfBox.RED2,
+                ColorsToPdfBox.RED_DARK,
                 ColorsToPdfBox.WHITE,
                 ColorsToPdfBox.BLACK
         });
@@ -336,7 +348,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setTableHeaderOffsetY(new int[]{728, 572, 418, 262, 107});
         settings.setTableColumnOffsetX(new int[] {35,125,215,305,395,485});
         settings.setTableDataOffsetY(new int[]{710, 554, 400, 244, 89});
-        settings.setTableHeaderColor(ColorsToPdfBox.GRAY);
+        settings.setTableHeaderColor(ColorsToPdfBox.BLUE_SEA);
         settings.setTableBodyColor(ColorsToPdfBox.ICE);
         settings.setTableBorderColor(ColorsToPdfBox.WHITE);
         settings.setTableHeaderFontColor(ColorsToPdfBox.WHITE);
@@ -346,7 +358,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setTableHeaderFontName(FontNameToPdfBox.HELVETICA_B);
         settings.setTableBodyFontName(FontNameToPdfBox.HELVETICA);
         settings.setTableSize(TableDimensionsToPdfBox.TABLE_5X6);
-        settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
+        settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,true,tableOn});
 
         /*Image*/
         boolean imageLeftOn = false;
@@ -354,9 +366,11 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         boolean imageRightOn = false;
         settings.setImageWidth(180);
         settings.setImageHeight(70);
+        settings.setImageAdjustOffsetX(0);
+        settings.setImageAdjustOffsetY(20);
         settings.setImageOffsetX(new int[]{35,215,395});
         settings.setImageOffsetY(new int[]{670,515,360,205,55});
-        settings.setLeftImageEnable(new boolean[]{imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn});
+        settings.setLeftImageEnable(new boolean[]{true,imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn});
         settings.setCenterImageEnable(new boolean[]{imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn});
         settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
 
@@ -364,7 +378,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         boolean signatureOn = false;
         settings.setSignatureBoxWidth(200);
         settings.setSignatureBoxHeight(100);
-        settings.setSignatureBoxAdjustOffsetX(0);
+        settings.setSignatureBoxAdjustOffsetX(15);
         settings.setSignatureBoxOffsetX(new int[]{55,210,355});
         settings.setSignatureBoxOffsetY(new int[]{35,122,100});
         settings.setSignatureBoxDigitalTitleOffsetX(new int[]{105,260,405});
@@ -372,7 +386,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setSignatureBoxBorderEnable(true);
         settings.setLeftSignatureBoxEnable(signatureOn);
         settings.setCenterSignatureBoxEnable(signatureOn);
-        settings.setRightSignatureBoxEnable(signatureOn);
+        settings.setRightSignatureBoxEnable(true);
         settings.setSignatureFontSize(FontSizeToPdfBox.NORMAL);
         settings.setSignatureFontName(FontNameToPdfBox.HELVETICA_B);
         settings.setSignatureBoxColor(ColorsToPdfBox.GRAY);
@@ -398,7 +412,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setTextOffsetX(35);
         settings.setTextChars(98);
         settings.setTextOffsetY(new int[]{732,577,421,266,111});
-        settings.setTextEnable(new boolean[]{textOn,textOn,textOn,textOn,textOn});
+        settings.setTextEnable(new boolean[]{textOn,textOn,true,textOn,textOn});
         settings.setTextColor(ColorsToPdfBox.GRAY);
         settings.setTextSize(FontSizeToPdfBox.NORMAL);
         settings.setTextFont(FontNameToPdfBox.HELVETICA);
@@ -408,14 +422,14 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setBarcodeDpi(400);
         settings.setBarcodeWidth(300);
         settings.setBarcodeHeight(30);
-        settings.setBarcodeAdjustOffsetX(0);
+        settings.setBarcodeAdjustOffsetX(-10);
         settings.setBarcodeAdjustOffsetY(0);
         settings.setBarcodeOffsetY(new int[]{655,500,345,190,35});
         settings.setBarcodeInfoOffsetY(new int[]{750, 595, 440, 285, 130});
         settings.setBarcodeValueOffsetY(new int[]{690, 535, 380, 225, 70});
-        settings.setBarcodeAmountOffsetY(new int[]{745, 590, 435, 280, 135});
+        settings.setBarcodeAmountOffsetY(new int[]{745, 590, 435, 280, 125});
         settings.setBarcodeShowText(false);
-        settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
+        settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,true});
 
         /*QRCode Content*/
         boolean qrCodeLeftOn = false;
@@ -432,7 +446,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setQrCodeInfoOffsetY(new int[]{745, 595, 440, 285, 130});
         settings.setQrCodeLeftEnable(new boolean[]{qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn});
         settings.setQrCodeCenterEnable(new boolean[]{qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn});
-        settings.setQrCodeRightEnable(new boolean[]{qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn});
+        settings.setQrCodeRightEnable(new boolean[]{true,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn});
 
         return settings;
     }
@@ -441,7 +455,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         SlimDataContent settings = new SlimDataContent();
 
         /*Title*/
-        settings.setLeftTitleContent("Title of Section 1");
+        settings.setLeftTitleContent("My Sample Slim Template");
         settings.setCenterTitleContent("Title of Section 2");
         settings.setRightTitleContent("Title of Section 3");
 
@@ -482,7 +496,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
 
         /*Image*/
         settings.setLeftImagePaths(new String[]{
-                "./src/test/resources/help4devs/images/ads/java.png",
+                "./src/test/resources/help4devs/images/ads/logo-tester.png",
                 "./src/test/resources/help4devs/images/ads/java.png",
                 "./src/test/resources/help4devs/images/ads/java.png",
                 "./src/test/resources/help4devs/images/ads/java.png",
@@ -586,11 +600,11 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         HashMap<Integer, String> qrCodeAmountMap = new HashMap<>();
         for (int i = 0; i < 15; i++) {
             qrCodeValueMap.put(i, "https://www.huntercodexs.com/"+(i+1));
-            qrCodeOneMap.put(i, (i+1) + " One Info");
-            qrCodeTwoMap.put(i, (i+1) + " Two Info");
-            qrCodeThreeMap.put(i, (i+1) + " Three Info");
-            qrCodeFourMap.put(i, (i+1) + " Four Info");
-            qrCodeAmountMap.put(i, "R$ 10"+(i+1)+",00");
+            qrCodeOneMap.put(i, "John Smith Viz");
+            qrCodeTwoMap.put(i, "Street 123 - FL");
+            qrCodeThreeMap.put(i, "Pay for it easily");
+            qrCodeFourMap.put(i, "huntercodexs.com");
+            qrCodeAmountMap.put(i, "R$ 1000,00");
         }
         settings.setQrCodeValue(qrCodeValueMap);
         settings.setQrCodeInfoOne(qrCodeOneMap);

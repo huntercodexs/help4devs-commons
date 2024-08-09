@@ -22,6 +22,7 @@ import org.krysalis.barcode4j.impl.pdf417.PDF417Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -130,12 +131,13 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxElements {
                     return contentStream;
 
                 case "rec-empty":
-                    contentStream.addRect(
+                    //TODO: CHECK AND FIX THIS BUG
+                    /*contentStream.addRect(
                             rectSettings.getOffsetX(),
                             rectSettings.getOffsetY(),
                             rectSettings.getWidth(),
                             rectSettings.getHeight());
-                    contentStream.setNonStrokingColor(0,0,0);
+                    contentStream.setNonStrokingColor(0,0,0);*/
                     return contentStream;
 
                 case "rec-fill":

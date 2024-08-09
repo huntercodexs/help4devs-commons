@@ -476,7 +476,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             //Signature Box
             contentStream.setStrokingColor(color(settings.getSignatureBoxColor()));
             contentStream.addRect(
-                    settings.signatureBoxOffsetX[index],
+                    settings.signatureBoxOffsetX[index]+(settings.getSignatureBoxAdjustOffsetX()),
                     settings.signatureBoxOffsetY[0],
                     settings.signatureBoxWidth,
                     settings.signatureBoxHeight);
@@ -486,7 +486,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             contentStream.setStrokingColor(0,0,0);
 
             //Signature Title
-            pageSettings.setOffsetX(settings.signatureBoxDigitalTitleOffsetX[index]);
+            pageSettings.setOffsetX(settings.signatureBoxDigitalTitleOffsetX[index]+(settings.getSignatureBoxAdjustOffsetX()));
             pageSettings.setOffsetY(settings.signatureBoxOffsetY[1]);
             pageSettings.setFontColor(settings.signatureBoxColor);
             pageSettings.setFontName(settings.signatureFontName);

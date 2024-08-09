@@ -24,6 +24,77 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 @Service
 public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder {
 
+    private static int correctOffsetY(int box, PdfBoxContainer rectSettings) {
+        if (box == 0) {
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK1);
+        } else if (box == 1) {
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK2);
+        } else if (box == 2) {
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK3);
+        } else if (box == 3) {
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK4);
+        } else {
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK5);
+        }
+        return rectSettings.getOffsetY();
+    }
+
+    private static void drawContainer(
+            PDDocument document,
+            PDPage page,
+            PdfBoxTemplateSettings settings,
+            PDPageContentStream contentStream
+    ) {
+        PdfBoxContainer rectSettings = settings.getContainer();
+
+        PdfBoxPage pageSettings = settings.getPage();
+
+        for (int box = 0; box < BOX_QUANTITY; box++) {
+
+            rectSettings.setOffsetX(DEFAULT_OFFSET_X);
+            rectSettings.setWidth(DEFAULT_WIDTH);
+            rectSettings.setHeight(DEFAULT_HEIGHT);
+
+            rectSettings.setOffsetY(correctOffsetY(box, rectSettings));
+
+            if (settings.getSlim().boxWidth[box] != 0) {
+                rectSettings.setWidth(settings.getSlim().boxWidth[box]);
+            }
+
+            if (settings.getSlim().boxAdjustOffsetX[box] != 0) {
+                rectSettings.setOffsetX(DEFAULT_OFFSET_X+(settings.getSlim().boxAdjustOffsetX[box]));
+            }
+
+            if (settings.getSlim().boxAdjustOffsetY[box] != 0) {
+                rectSettings.setOffsetY(rectSettings.getOffsetY()+(settings.getSlim().boxAdjustOffsetY[box]));
+            }
+
+            rectSettings.setBorder(settings.getSlim().boxBorderEnabled[box]);
+
+            if (settings.getSlim().boxBackColor[box] != null) {
+                rectSettings.setBackColor(settings.getSlim().boxBackColor[box]);
+            }
+
+            if (rectSettings.getBackColor() == null) {
+                System.out.println("REC-empty 1");
+                System.out.println(box);
+                contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+
+            } else if (rectSettings.getBackColor().getColorName().equals(ColorsToPdfBox.NONE.getColorName())) {
+                System.out.println("REC-empty 2");
+                System.out.println(box);
+                contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+
+            } else {
+                contentStream("rec-fill", page, document, pageSettings, rectSettings, contentStream);
+            }
+
+            if (rectSettings.isBorder()) {
+                contentStream("rec-border", page, document, pageSettings, rectSettings, contentStream);
+            }
+        }
+    }
+
     private static void drawTemplateTitle(
             PDDocument document,
             PDPage page,
@@ -46,43 +117,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    private static void drawContainer(
-            PDDocument document,
-            PDPage page,
-            PdfBoxContainer rectSettings,
-            PdfBoxPage pageSettings,
-            PDPageContentStream contentStream
-    ) {
-        for (int n = 1; n <= BOX_QUANTITY; n++) {
-
-            if (n == 1) {
-                rectSettings.setOffsetY(OFFSET_Y_BLOCK1);
-            } else if (n == 2) {
-                rectSettings.setOffsetY(OFFSET_Y_BLOCK2);
-            } else if (n == 3) {
-                rectSettings.setOffsetY(OFFSET_Y_BLOCK3);
-            } else if (n == 4) {
-                rectSettings.setOffsetY(OFFSET_Y_BLOCK4);
-            } else {
-                rectSettings.setOffsetY(OFFSET_Y_BLOCK5);
-            }
-
-            if (rectSettings.getBackColor() == null) {
-                contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
-
-            } else if (rectSettings.getBackColor().getColorName().equals(ColorsToPdfBox.NONE.getColorName())) {
-                contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
-
-            } else {
-                contentStream("rec-fill", page, document, pageSettings, rectSettings, contentStream);
-            }
-
-            if (rectSettings.isBorder()) {
-                contentStream("rec-border", page, document, pageSettings, rectSettings, contentStream);
-            }
         }
     }
 
@@ -115,16 +149,10 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        PdfBoxContainer rectSettings = settings.getContainer();
-        rectSettings.setWidth(DEFAULT_WIDTH);
-        rectSettings.setHeight(DEFAULT_HEIGHT);
-
-        PdfBoxPage pageSettings = settings.getPage();
-
-        drawContainer(document, page, rectSettings, pageSettings, contentStream);
+        drawContainer(document, page, settings, contentStream);
 
         if (settings.getSlim().templateTitleEnabled) {
-            drawTemplateTitle(document, page, pageSettings, contentStream);
+            drawTemplateTitle(document, page, settings.getPage(), contentStream);
         }
     }
 
@@ -371,24 +399,24 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
             //Image Left
             if (slimSettings.leftImageEnable[n] && imgLeft != null && !imgLeft.isEmpty()) {
-                imgSettings.setOffsetX(slimSettings.imageOffsetX[0]);
-                imgSettings.setOffsetY(slimSettings.imageOffsetY[n]);
+                imgSettings.setOffsetX(slimSettings.imageOffsetX[0]+(slimSettings.imageAdjustOffsetX));
+                imgSettings.setOffsetY(slimSettings.imageOffsetY[n]+(slimSettings.imageAdjustOffsetY));
                 imgSettings.setFilenamePath(imgLeft);
                 imageBuild(document, imgSettings, contentStream);
             }
 
             //Image Center
             if (slimSettings.centerImageEnable[n] && imgCenter != null && !imgCenter.isEmpty()) {
-                imgSettings.setOffsetX(slimSettings.imageOffsetX[1]);
-                imgSettings.setOffsetY(slimSettings.imageOffsetY[n]);
+                imgSettings.setOffsetX(slimSettings.imageOffsetX[1]+(slimSettings.imageAdjustOffsetX));
+                imgSettings.setOffsetY(slimSettings.imageOffsetY[n]+(slimSettings.imageAdjustOffsetY));
                 imgSettings.setFilenamePath(imgCenter);
                 imageBuild(document, imgSettings, contentStream);
             }
 
             //Image Right
             if (slimSettings.rightImageEnable[n] && imgRight != null && !imgRight.isEmpty()) {
-                imgSettings.setOffsetX(slimSettings.imageOffsetX[2]);
-                imgSettings.setOffsetY(slimSettings.imageOffsetY[n]);
+                imgSettings.setOffsetX(slimSettings.imageOffsetX[2]+(slimSettings.imageAdjustOffsetX));
+                imgSettings.setOffsetY(slimSettings.imageOffsetY[n]+(slimSettings.imageAdjustOffsetY));
                 imgSettings.setFilenamePath(imgRight);
                 imageBuild(document, imgSettings, contentStream);
             }
@@ -472,18 +500,18 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
         for (int box = 0; box < BOX_QUANTITY; box++) {
 
-            if (slimSettings.textEnable[box]) {
+            if (slimSettings.textEnable[box] && settings.getSlimContent().getTextContent().get(box) != null) {
 
-                if (settings.getSlimContent().getTextContent().get(box) != null) {
-                    listLines.add(settings.getSlimContent().getTextContent().get(box)
-                            .replaceAll("\n", " ")
-                            .replaceAll("\r", " ")
-                            .split("(?<=\\G.{" + settings.getSlim().textChars + "})"));
+                listLines.add(settings.getSlimContent().getTextContent().get(box)
+                        .replaceAll("\n", " ")
+                        .replaceAll("\r", " ")
+                        .split("(?<=\\G.{" + settings.getSlim().textChars + "})"));
 
-                    pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
-                    textBuild(box, document, page, listLines, slimSettings, pageSettings, contentStream);
+                pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
+                textBuild(box, document, page, listLines, slimSettings, pageSettings, contentStream);
 
-                }
+            } else {
+                listLines.add(new String[]{});
             }
         }
     }
