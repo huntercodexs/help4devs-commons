@@ -33,7 +33,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateSlim(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateSlim(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.SLIM))) {
             throw new RuntimeException("Invalid Template: Expected SLIM");
@@ -72,7 +72,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateBox(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateBox(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.BOX))) {
             throw new RuntimeException("Invalid Template: Expected BOX");
@@ -111,7 +111,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateBoxOpen(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateBoxOpen(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.BOX_OPEN))) {
             throw new RuntimeException("Invalid Template: Expected BOX_OPEN");
@@ -150,7 +150,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateSlimBox(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateSlimBox(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.SLIM_BOX))) {
             throw new RuntimeException("Invalid Template: Expected SLIM_BOX");
@@ -189,7 +189,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateTripleFall(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateTripleFall(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.TRIPLE_FALL))) {
             throw new RuntimeException("Invalid Template: Expected TRIPLE_FALL");
@@ -228,7 +228,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateFree(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateFree(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.FREE))) {
             throw new RuntimeException("Invalid Template: Expected FREE");
@@ -267,7 +267,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateHeaderBody(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateHeaderBody(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.HEADER_BODY))) {
             throw new RuntimeException("Invalid Template: Expected HEADER_BODY");
@@ -306,7 +306,7 @@ public class Help4DevsPdfBoxTemplate {
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
-    public static void pdfBoxTemplateBigBurger(PdfBoxTemplateSettings settings) {
+    public void pdfBoxTemplateBigBurger(PdfBoxTemplateSettings settings) {
 
         if (!settings.getTemplate().name().equals(template(PdfBoxTemplates.BIG_BURGER))) {
             throw new RuntimeException("Invalid Template: Expected BIG_BURGER");

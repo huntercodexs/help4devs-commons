@@ -2,6 +2,7 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.HeaderBodyDataContent;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.HeaderBodyTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
@@ -10,7 +11,6 @@ import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateHeaderBody;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
 public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBridgeTests {
@@ -154,7 +154,7 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
         return settings;
     }
 
-    private HeaderBodyTemplateSettings slimBoxSettings() {
+    private HeaderBodyTemplateSettings headerBodySettings() {
         HeaderBodyTemplateSettings settings = new HeaderBodyTemplateSettings();
 
         //General
@@ -174,7 +174,7 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
         return settings;
     }
 
-    private HeaderBodyDataContent slimBoxData() {
+    private HeaderBodyDataContent headerBodyData() {
         HeaderBodyDataContent settings = new HeaderBodyDataContent();
         return settings;
     }
@@ -191,8 +191,8 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setHeaderBody(slimBoxSettings());
-        settings.setHeaderBodyContent(slimBoxData());
+        settings.setHeaderBody(headerBodySettings());
+        settings.setHeaderBodyContent(headerBodyData());
         return settings;
     }
 
@@ -203,13 +203,14 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
     }
 
     @Test
-    public void pdfBoxTemplateSlimBoxTest() {
+    public void pdfBoxTemplateHeaderBodyTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplateHeaderBody(pdfBoxTemplateSettings());
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateHeaderBody(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

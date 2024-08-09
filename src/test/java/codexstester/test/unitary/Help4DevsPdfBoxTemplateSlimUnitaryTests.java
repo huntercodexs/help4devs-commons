@@ -2,6 +2,7 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimDataContent;
@@ -14,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateSlim;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
 public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTests {
@@ -646,7 +646,8 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplateSlim(pdfBoxTemplateSettings());
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

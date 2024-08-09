@@ -2,6 +2,7 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.FreeDataContent;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.FreeTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
@@ -10,7 +11,6 @@ import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateFree;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
 public class Help4DevsPdfBoxTemplateFreeUnitaryTests extends Help4DevsBridgeTests {
@@ -154,7 +154,7 @@ public class Help4DevsPdfBoxTemplateFreeUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
-    private FreeTemplateSettings slimBoxSettings() {
+    private FreeTemplateSettings freeSettings() {
         FreeTemplateSettings settings = new FreeTemplateSettings();
 
         //General
@@ -174,7 +174,7 @@ public class Help4DevsPdfBoxTemplateFreeUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
-    private FreeDataContent slimBoxData() {
+    private FreeDataContent freeData() {
         FreeDataContent settings = new FreeDataContent();
         return settings;
     }
@@ -191,8 +191,8 @@ public class Help4DevsPdfBoxTemplateFreeUnitaryTests extends Help4DevsBridgeTest
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setFree(slimBoxSettings());
-        settings.setFreeContent(slimBoxData());
+        settings.setFree(freeSettings());
+        settings.setFreeContent(freeData());
         return settings;
     }
 
@@ -203,13 +203,14 @@ public class Help4DevsPdfBoxTemplateFreeUnitaryTests extends Help4DevsBridgeTest
     }
 
     @Test
-    public void pdfBoxTemplateSlimBoxTest() {
+    public void pdfBoxTemplateFreeTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplateFree(pdfBoxTemplateSettings());
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateFree(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

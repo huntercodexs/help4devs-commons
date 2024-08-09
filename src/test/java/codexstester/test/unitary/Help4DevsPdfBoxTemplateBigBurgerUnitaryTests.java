@@ -2,6 +2,7 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.BigBurgerDataContent;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.BigBurgerTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
@@ -10,7 +11,6 @@ import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateBigBurger;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
 public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridgeTests {
@@ -154,7 +154,7 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
         return settings;
     }
 
-    private BigBurgerTemplateSettings slimBoxSettings() {
+    private BigBurgerTemplateSettings bigBurgerSettings() {
         BigBurgerTemplateSettings settings = new BigBurgerTemplateSettings();
 
         settings.setTemplateTitleEnabled(true);
@@ -162,7 +162,7 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
         return settings;
     }
 
-    private BigBurgerDataContent slimBoxData() {
+    private BigBurgerDataContent bigBurgerData() {
         BigBurgerDataContent settings = new BigBurgerDataContent();
         return settings;
     }
@@ -179,8 +179,8 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setBigBurger(slimBoxSettings());
-        settings.setBigBurgerContent(slimBoxData());
+        settings.setBigBurger(bigBurgerSettings());
+        settings.setBigBurgerContent(bigBurgerData());
         return settings;
     }
 
@@ -191,13 +191,14 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
     }
 
     @Test
-    public void pdfBoxTemplateSlimBoxTest() {
+    public void pdfBoxTemplateBigBurgerTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplateBigBurger(pdfBoxTemplateSettings());
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateBigBurger(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

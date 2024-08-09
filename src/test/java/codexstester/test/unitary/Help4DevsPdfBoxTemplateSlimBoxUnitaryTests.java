@@ -2,6 +2,7 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimBoxDataContent;
@@ -10,7 +11,6 @@ import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateSlimBox;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
 public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeTests {
@@ -209,7 +209,8 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplateSlimBox(pdfBoxTemplateSettings());
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

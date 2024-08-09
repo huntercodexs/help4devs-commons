@@ -2,6 +2,7 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.*;
+import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates;
 import com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.TripleFallDataContent;
@@ -10,7 +11,6 @@ import org.junit.Test;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplate.pdfBoxTemplateTripleFall;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
 
 public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBridgeTests {
@@ -154,7 +154,7 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
         return settings;
     }
 
-    private TripleFallTemplateSettings slimBoxSettings() {
+    private TripleFallTemplateSettings tripleFallSettings() {
         TripleFallTemplateSettings settings = new TripleFallTemplateSettings();
 
         //General
@@ -174,7 +174,7 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
         return settings;
     }
 
-    private TripleFallDataContent slimBoxData() {
+    private TripleFallDataContent tripleFallData() {
         TripleFallDataContent settings = new TripleFallDataContent();
         return settings;
     }
@@ -191,8 +191,8 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setTripleFall(slimBoxSettings());
-        settings.setTripleFallContent(slimBoxData());
+        settings.setTripleFall(tripleFallSettings());
+        settings.setTripleFallContent(tripleFallData());
         return settings;
     }
 
@@ -203,13 +203,14 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
     }
 
     @Test
-    public void pdfBoxTemplateSlimBoxTest() {
+    public void pdfBoxTemplateTripleFallTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
-        pdfBoxTemplateTripleFall(pdfBoxTemplateSettings());
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateTripleFall(pdfBoxTemplateSettings());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
