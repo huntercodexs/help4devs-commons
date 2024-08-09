@@ -777,4 +777,8 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
         }
     }
 
+    protected static void formBuild() {}
+
+    protected static void barcodeFormBuild() {}
+
 }

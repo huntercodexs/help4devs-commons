@@ -289,6 +289,11 @@ public abstract class Help4DevsPdfBoxElements {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PdfBoxPage {
+        /*Page Size*/
+        /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int[] PAGE_SIZE_LETTER = new int[]{620,792};
+        static final int[] PAGE_SIZE_A4 = new int[]{596,842};
+
         int width;
         int height;
         int offsetX;
@@ -305,6 +310,20 @@ public abstract class Help4DevsPdfBoxElements {
         ColorsToPdfBox pageColor;
         String textContent = "";
         String imageFilepath = null;
+
+        public static int getPageWidth(String type) {
+            if (type.equals("LETTER")) {
+                return PAGE_SIZE_LETTER[0];
+            }
+            return PAGE_SIZE_A4[0];
+        }
+
+        public static int getPageHeight(String type) {
+            if (type.equals("LETTER")) {
+                return PAGE_SIZE_LETTER[1];
+            }
+            return PAGE_SIZE_A4[1];
+        }
     }
 
     @Getter
@@ -462,6 +481,40 @@ public abstract class Help4DevsPdfBoxElements {
         String infoThree;
         String infoFour;
         CodeType4ScannerToPdfBox codeType4Scanner;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxForm {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        boolean border;
+        ColorsToPdfBox headerColor;
+        ColorsToPdfBox celColor;
+        ColorsToPdfBox borderColor;
+        TableDimensionsToPdfBox tableTemplate;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxBarcodeForm {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        boolean border;
+        ColorsToPdfBox headerColor;
+        ColorsToPdfBox celColor;
+        ColorsToPdfBox borderColor;
+        TableDimensionsToPdfBox tableTemplate;
     }
 
 }

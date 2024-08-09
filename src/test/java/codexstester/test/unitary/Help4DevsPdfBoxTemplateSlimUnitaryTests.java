@@ -19,13 +19,14 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 
 public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTests {
 
-    private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim.pdf";
+    private final static String pdfFilenameLetter = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-LETTER.pdf";
+    private final static String pdfFilenameA4 = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-A4.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
     private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-5.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
-    private PdfBoxDocument documentSettings() {
+    private PdfBoxDocument documentSettings(PageSizeToPdfBox pageType) {
         PdfBoxDocument settings = new PdfBoxDocument();
         settings.setStartPage(1);
         settings.setEndPage(1);
@@ -40,11 +41,16 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setUserPassword(null); //TODO: CHECK BUG WHEN PASSWORD EXISTS
         settings.setOwnerPassword(null); //TODO: CHECK BUG WHEN PASSWORD EXISTS
         settings.setProtectionLevel(ProtectionLevelToPdfBox.HIGH);
-        settings.setFilenamePath(pdfFilename);
+
+        if (pageType.equals(PageSizeToPdfBox.LETTER)) {
+            settings.setFilenamePath(pdfFilenameLetter);
+        } else {
+            settings.setFilenamePath(pdfFilenameA4);
+        }
         return settings;
     }
 
-    private PdfBoxPage pageSettings() {
+    private PdfBoxPage pageSettings(PageSizeToPdfBox pageType) {
         PdfBoxPage settings = new PdfBoxPage();
         settings.setWidth(842);
         settings.setHeight(595);
@@ -54,7 +60,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setPageNumber(1);
         settings.setMargin(0);
         settings.setPadding(0);
-        settings.setPageSize(PageSizeToPdfBox.LETTER);
+        settings.setPageSize(pageType);
         settings.setFontName(FontNameToPdfBox.COURIER);
         settings.setFontSize(FontSizeToPdfBox.SMALL);
         settings.setFontColor(ColorsToPdfBox.BLACK);
@@ -158,7 +164,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
-    private SlimTemplateSettings slimSettings() {
+    private SlimTemplateSettings slimSettings_LETTER() {
         SlimTemplateSettings settings = new SlimTemplateSettings();
 
         //General
@@ -451,6 +457,299 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
+    private SlimTemplateSettings slimSettings_A4() {
+        SlimTemplateSettings settings = new SlimTemplateSettings();
+
+        //General
+        settings.setTemplateTitleEnabled(false);
+        settings.setBoxWidth(new int[]{570,700,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,-20,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{false, false, false, true, false});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.NONE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
+
+        /*Title*/
+        boolean titleOn = false;
+        settings.setLeftTitleAdjustmentX(0);
+        settings.setLeftTitleAdjustmentY(-70);
+        settings.setCenterTitleAdjustmentX(0);
+        settings.setCenterTitleAdjustmentY(0);
+        settings.setRightTitleAdjustmentX(0);
+        settings.setRightTitleAdjustmentY(0);
+        settings.setLeftTitleEnable(new boolean[]{true,titleOn,titleOn,titleOn,titleOn});
+        settings.setCenterTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+        settings.setRightTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+        settings.setLeftTitleColor(ColorsToPdfBox.GRAY);
+        settings.setCenterTitleColor(ColorsToPdfBox.GRAY);
+        settings.setRightTitleColor(ColorsToPdfBox.RED_DARK);
+        settings.setLeftTitleSize(FontSizeToPdfBox.LARGE);
+        settings.setCenterTitleSize(FontSizeToPdfBox.MEDIUM);
+        settings.setRightTitleSize(FontSizeToPdfBox.MEDIUM);
+        settings.setLeftTitleFont(FontNameToPdfBox.HELVETICA_B);
+        settings.setCenterTitleFont(FontNameToPdfBox.COURIER_B);
+        settings.setRightTitleFont(FontNameToPdfBox.HELVETICA_B);
+
+        /*Column*/
+        boolean columnLeftOn = false;
+        boolean columnCenterOn = false;
+        boolean columnRightOn = false;
+        settings.setColumnBoxWidth(165);
+        settings.setColumnBoxHeight(90);
+        settings.setColumnBoxChars(25);
+        settings.setColumnBoxOffsetX(new int[]{35,215,395});
+        settings.setColumnBoxOffsetY(new int[]{655,524,345,190,35});
+        settings.setColumnBoxLeftPadding(new int[]{5,5,5,5,5});
+        settings.setColumnBoxCenterPadding(new int[]{5,5,5,5,5});
+        settings.setColumnBoxRightPadding(new int[]{5,5,5,5,5});
+        settings.setColumnBoxLeftBorderWidth(new int[] {1,1,1,1,1});
+        settings.setColumnBoxCenterBorderWidth(new int[] {1,1,1,1,1});
+        settings.setColumnBoxRightBorderWidth(new int[] {1,1,1,1,1});
+        settings.setColumnBoxLeftLineHeight(new int[] {14,14,14,14,14});
+        settings.setColumnBoxCenterLineHeight(new int[] {14,14,14,14,14});
+        settings.setColumnBoxRightLineHeight(new int[] {14,14,14,14,14});
+        settings.setColumnBoxLeftAdjustmentX(new int[]{10,10,10,10,10});
+        settings.setColumnBoxLeftAdjustmentY(new int[]{0,0,0,0,0});
+        settings.setColumnBoxCenterAdjustmentX(new int[]{0,0,0,0,0});
+        settings.setColumnBoxCenterAdjustmentY(new int[]{0,0,0,0,0});
+        settings.setColumnBoxRightAdjustmentX(new int[]{0,0,0,0,0});
+        settings.setColumnBoxRightAdjustmentY(new int[]{0,0,0,0,0});
+        settings.setColumnBoxLeftEnable(new boolean[]{columnLeftOn,true,columnLeftOn,columnLeftOn,columnLeftOn});
+        settings.setColumnBoxCenterEnable(new boolean[]{columnCenterOn,true,columnCenterOn,columnCenterOn,columnCenterOn});
+        settings.setColumnBoxRightEnable(new boolean[]{columnRightOn,true,columnRightOn,columnRightOn,columnRightOn});
+        settings.setColumnBoxLeftBorderEnable(new boolean[]{true,true,true,true,true});
+        settings.setColumnBoxCenterBorderEnable(new boolean[]{true,true,true,true,true});
+        settings.setColumnBoxRightBorderEnable(new boolean[]{true,true,true,true,true});
+        settings.setColumnBoxLeftBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.RED_LIGHT,
+                ColorsToPdfBox.RED,
+                ColorsToPdfBox.GREEN,
+                ColorsToPdfBox.BLUE
+        });
+        settings.setColumnBoxCenterBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.YELLOW,
+                ColorsToPdfBox.RED_BRIGHT,
+                ColorsToPdfBox.GRAY,
+                ColorsToPdfBox.GOLD,
+                ColorsToPdfBox.PURPLE
+        });
+        settings.setColumnBoxRightBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.MAGENTA,
+                ColorsToPdfBox.RED_DARK,
+                ColorsToPdfBox.GREEN_SEA,
+                ColorsToPdfBox.BLUE_SAD,
+                ColorsToPdfBox.GOLD_DARK
+        });
+        settings.setColumnBoxLeftBorderColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.YELLOW,
+                ColorsToPdfBox.BLUE,
+                ColorsToPdfBox.ORANGE
+        });
+        settings.setColumnBoxCenterBorderColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.RED,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.RED_DARK,
+                ColorsToPdfBox.PINK,
+                ColorsToPdfBox.ORANGE
+        });
+        settings.setColumnBoxRightBorderColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.GOLD,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.RED_DARK,
+                ColorsToPdfBox.GRAY,
+                ColorsToPdfBox.BLACK
+        });
+        settings.setColumnBoxLeftTextColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.RED_DARK,
+                ColorsToPdfBox.YELLOW,
+                ColorsToPdfBox.BLUE,
+                ColorsToPdfBox.WHITE
+        });
+        settings.setColumnBoxCenterTextColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.RED,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.RED_DARK,
+                ColorsToPdfBox.PINK,
+                ColorsToPdfBox.CYAN
+        });
+        settings.setColumnBoxRightTextColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.GOLD,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.RED_DARK,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.BLACK
+        });
+        settings.setColumnBoxLeftFontSize(new FontSizeToPdfBox[]{
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL
+        });
+        settings.setColumnBoxCenterFontSize(new FontSizeToPdfBox[]{
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL
+        });
+        settings.setColumnBoxRightFontSize(new FontSizeToPdfBox[]{
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL,
+                FontSizeToPdfBox.NORMAL
+        });
+        settings.setColumnBoxLeftFontName(new FontNameToPdfBox[]{
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA
+        });
+        settings.setColumnBoxCenterFontName(new FontNameToPdfBox[]{
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA
+        });
+        settings.setColumnBoxRightFontName(new FontNameToPdfBox[]{
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA,
+                FontNameToPdfBox.HELVETICA
+        });
+
+        /*Table*/
+        boolean tableOn = false;
+        settings.setTableWidth(528);
+        settings.setTableHeight(90);
+        settings.setTableOffsetX(34);
+        settings.setTableColumnWidth(90);
+        settings.setTableColumnHeight(18);
+        settings.setTableHeaderHeight(30);
+        settings.setTableHeaderAdjustOffsetX(18);
+        settings.setTableHeaderAdjustOffsetY(30);
+        settings.setTableBodyAdjustOffsetX(3);
+        settings.setTableBodyAdjustOffsetY(5);
+        settings.setTableContainerOffsetY(new int[]{656, 500, 346, 214, 35});
+        settings.setTableHeaderOffsetY(new int[]{728, 572, 418, 262, 107});
+        settings.setTableColumnOffsetX(new int[] {35,125,215,305,395,485});
+        settings.setTableDataOffsetY(new int[]{710, 554, 400, 244, 89});
+        settings.setTableHeaderColor(ColorsToPdfBox.BLUE_SEA);
+        settings.setTableBodyColor(ColorsToPdfBox.ICE);
+        settings.setTableBorderColor(ColorsToPdfBox.WHITE);
+        settings.setTableHeaderFontColor(ColorsToPdfBox.WHITE);
+        settings.setTableBodyFontColor(ColorsToPdfBox.GRAY);
+        settings.setTableHeaderFontSize(FontSizeToPdfBox.NORMAL);
+        settings.setTableBodyFontSize(FontSizeToPdfBox.SMALL);
+        settings.setTableHeaderFontName(FontNameToPdfBox.HELVETICA_B);
+        settings.setTableBodyFontName(FontNameToPdfBox.HELVETICA);
+        settings.setTableSize(TableDimensionsToPdfBox.TABLE_5X6);
+        settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,true,tableOn});
+
+        /*Image*/
+        boolean imageLeftOn = false;
+        boolean imageCenterOn = false;
+        boolean imageRightOn = false;
+        settings.setImageWidth(180);
+        settings.setImageHeight(70);
+        settings.setImageAdjustOffsetX(0);
+        settings.setImageAdjustOffsetY(44);
+        settings.setImageOffsetX(new int[]{35,215,395});
+        settings.setImageOffsetY(new int[]{670,515,360,205,55});
+        settings.setLeftImageEnable(new boolean[]{true,imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn});
+        settings.setCenterImageEnable(new boolean[]{imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn});
+        settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
+
+        /*Signature Box*/
+        boolean signatureOn = false;
+        settings.setSignatureBoxWidth(200);
+        settings.setSignatureBoxHeight(100);
+        settings.setSignatureBoxAdjustOffsetX(10);
+        settings.setSignatureBoxOffsetX(new int[]{55,210,355});
+        settings.setSignatureBoxOffsetY(new int[]{59,146,124});
+        settings.setSignatureBoxDigitalTitleOffsetX(new int[]{105,260,405});
+        settings.setSignatureBoxContentOffsetX(new int[]{70,230,370});
+        settings.setSignatureBoxBorderEnable(true);
+        settings.setLeftSignatureBoxEnable(signatureOn);
+        settings.setCenterSignatureBoxEnable(signatureOn);
+        settings.setRightSignatureBoxEnable(true);
+        settings.setSignatureFontSize(FontSizeToPdfBox.NORMAL);
+        settings.setSignatureFontName(FontNameToPdfBox.HELVETICA_B);
+        settings.setSignatureBoxColor(ColorsToPdfBox.GRAY);
+
+        /*Signature Tape*/
+        settings.setSignatureTapeWidth(500);
+        settings.setSignatureTapeHeight(30);
+        settings.setSignatureTapeOffsetX(55);
+        settings.setSignatureTapeOffsetY(35);
+        settings.setSignatureTapeTitleOffsetX(260);
+        settings.setSignatureTapeTitleOffsetY(57);
+        settings.setSignatureTapeValueOffsetX(130);
+        settings.setSignatureTapeValueOffsetY(40);
+        settings.setSignatureTapeAdjustOffsetX(10);
+        settings.setSignatureTapeEnable(false);
+        settings.setSignatureTapeFontSize(FontSizeToPdfBox.SMALL);
+        settings.setSignatureTapeFontName(FontNameToPdfBox.HELVETICA_B);
+        settings.setSignatureTapeColor(ColorsToPdfBox.GRAY);
+
+        /*Text Content*/
+        boolean textOn = false;
+        settings.setLineHeight(18);
+        settings.setTextOffsetX(35);
+        settings.setTextChars(98);
+        settings.setTextOffsetY(new int[]{732,577,445,266,111});
+        settings.setTextEnable(new boolean[]{textOn,textOn,true,textOn,textOn});
+        settings.setTextColor(ColorsToPdfBox.GRAY);
+        settings.setTextSize(FontSizeToPdfBox.NORMAL);
+        settings.setTextFont(FontNameToPdfBox.HELVETICA);
+
+        /*Barcode Content*/
+        boolean barcodeOn = false;
+        settings.setBarcodeDpi(400);
+        settings.setBarcodeWidth(300);
+        settings.setBarcodeHeight(30);
+        settings.setBarcodeAdjustOffsetX(-15);
+        settings.setBarcodeAdjustOffsetY(24);
+        settings.setBarcodeOffsetY(new int[]{655,500,345,190,35});
+        settings.setBarcodeInfoOffsetY(new int[]{750, 595, 440, 285, 130});
+        settings.setBarcodeValueOffsetY(new int[]{690, 535, 380, 225, 70});
+        settings.setBarcodeAmountOffsetY(new int[]{745, 590, 435, 280, 125});
+        settings.setBarcodeShowText(false);
+        settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,true});
+
+        /*QRCode Content*/
+        boolean qrCodeLeftOn = false;
+        boolean qrCodeCenterOn = false;
+        boolean qrCodeRightOn = false;
+        settings.setQrCodeDpi(400);
+        settings.setQrCodeWidth(500);
+        settings.setQrCodeHeight(50);
+        settings.setQrCodeAdjustOffsetX(-10);
+        settings.setQrCodeAdjustOffsetY(24);
+        settings.setQrCodeOffsetX(new int[]{40,260,470});
+        settings.setQrCodeOffsetY(new int[]{655,502,348,193,38});
+        settings.setQrCodeInfoOffsetX(new int[]{145, 365, 365});
+        settings.setQrCodeInfoOffsetY(new int[]{745, 595, 440, 285, 130});
+        settings.setQrCodeLeftEnable(new boolean[]{qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn});
+        settings.setQrCodeCenterEnable(new boolean[]{qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn});
+        settings.setQrCodeRightEnable(new boolean[]{true,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn});
+
+        return settings;
+    }
+
     private SlimDataContent slimData() {
         SlimDataContent settings = new SlimDataContent();
 
@@ -616,20 +915,37 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER(PageSizeToPdfBox pageType) {
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.SLIM);
         settings.setImageBackground(imgBackground);
-        settings.setDocument(documentSettings());
-        settings.setPage(pageSettings());
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
         settings.setContainer(containerSettings());
         settings.setTable(tableSettings());
         settings.setText(textSettings());
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setSlim(slimSettings());
         settings.setSlimContent(slimData());
+        settings.setSlim(slimSettings_LETTER());
+        return settings;
+    }
+
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4(PageSizeToPdfBox pageType) {
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.SLIM);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setSlimContent(slimData());
+        settings.setSlim(slimSettings_A4());
         return settings;
     }
 
@@ -647,7 +963,9 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings());
+        /*NOTE: Choose one kind of page*/
+        //templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_LETTER(PageSizeToPdfBox.LETTER));
+        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_A4(PageSizeToPdfBox.A4));
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

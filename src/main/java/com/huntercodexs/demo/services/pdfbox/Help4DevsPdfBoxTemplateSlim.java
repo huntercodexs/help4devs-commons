@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.getPageHeight;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.getPageWidth;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimTemplateSettings.*;
 
@@ -24,17 +26,23 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 @Service
 public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder {
 
-    private static int correctOffsetY(int box, PdfBoxContainer rectSettings) {
+    private static int correctOffsetY(int box, String pageSize, PdfBoxContainer rectSettings) {
+        int adjustOffsetY = 0;
+
+        if (pageSize.equals("A4")) {
+            adjustOffsetY = OFFSET_Y_ADJUST_A4;
+        }
+
         if (box == 0) {
-            rectSettings.setOffsetY(OFFSET_Y_BLOCK1);
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK1+(adjustOffsetY));
         } else if (box == 1) {
-            rectSettings.setOffsetY(OFFSET_Y_BLOCK2);
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK2+(adjustOffsetY));
         } else if (box == 2) {
-            rectSettings.setOffsetY(OFFSET_Y_BLOCK3);
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK3+(adjustOffsetY));
         } else if (box == 3) {
-            rectSettings.setOffsetY(OFFSET_Y_BLOCK4);
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK4+(adjustOffsetY));
         } else {
-            rectSettings.setOffsetY(OFFSET_Y_BLOCK5);
+            rectSettings.setOffsetY(OFFSET_Y_BLOCK5+(adjustOffsetY));
         }
         return rectSettings.getOffsetY();
     }
@@ -55,18 +63,26 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             rectSettings.setWidth(DEFAULT_WIDTH);
             rectSettings.setHeight(DEFAULT_HEIGHT);
 
-            rectSettings.setOffsetY(correctOffsetY(box, rectSettings));
+            String pageSize = pageSettings.getPageSize().name();
+            rectSettings.setOffsetY(correctOffsetY(box, pageSize, rectSettings));
+
+            int widthAdjustA4 = 0;
+            int offsetYAdjustA4 = 0;
+            if (pageSize.equals("A4")) {
+                widthAdjustA4 = WIDTH_ADJUST_A4;
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
 
             if (settings.getSlim().boxWidth[box] != 0) {
-                rectSettings.setWidth(settings.getSlim().boxWidth[box]);
+                rectSettings.setWidth(settings.getSlim().boxWidth[box]+(widthAdjustA4));
             }
 
             if (settings.getSlim().boxAdjustOffsetX[box] != 0) {
-                rectSettings.setOffsetX(DEFAULT_OFFSET_X+(settings.getSlim().boxAdjustOffsetX[box]));
+                rectSettings.setOffsetX(DEFAULT_OFFSET_X+(settings.getSlim().boxAdjustOffsetX[box])+(widthAdjustA4));
             }
 
             if (settings.getSlim().boxAdjustOffsetY[box] != 0) {
-                rectSettings.setOffsetY(rectSettings.getOffsetY()+(settings.getSlim().boxAdjustOffsetY[box]));
+                rectSettings.setOffsetY(rectSettings.getOffsetY()+(settings.getSlim().boxAdjustOffsetY[box])+(offsetYAdjustA4));
             }
 
             rectSettings.setBorder(settings.getSlim().boxBorderEnabled[box]);
@@ -76,13 +92,9 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             }
 
             if (rectSettings.getBackColor() == null) {
-                System.out.println("REC-empty 1");
-                System.out.println(box);
                 contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
 
             } else if (rectSettings.getBackColor().getColorName().equals(ColorsToPdfBox.NONE.getColorName())) {
-                System.out.println("REC-empty 2");
-                System.out.println(box);
                 contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
 
             } else {
@@ -129,7 +141,11 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+            contentStream.drawImage(pdfImageBackground,
+                    0,
+                    0,
+                    getPageWidth(settings.getPage().getPageSize().name()),
+                    getPageHeight(settings.getPage().getPageSize().name()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }

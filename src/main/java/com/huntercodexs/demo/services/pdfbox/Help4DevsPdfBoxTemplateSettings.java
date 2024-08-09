@@ -93,6 +93,8 @@ public class Help4DevsPdfBoxTemplateSettings {
         static final int OFFSET_Y_BLOCK3 = 330;
         static final int OFFSET_Y_BLOCK4 = 175;
         static final int OFFSET_Y_BLOCK5 = 20;
+        static final int WIDTH_ADJUST_A4 = -15;
+        static final int OFFSET_Y_ADJUST_A4 = 25;
         boolean templateTitleEnabled = false;
         int[] boxWidth = new int[]{0,0,0,0,0};
         int[] boxAdjustOffsetX = new int[]{0,0,0,0,0};
