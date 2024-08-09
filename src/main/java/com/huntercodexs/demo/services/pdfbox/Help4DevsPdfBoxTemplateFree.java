@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.FreeTemplateSettings.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 
@@ -33,8 +34,16 @@ public class Help4DevsPdfBoxTemplateFree extends Help4DevsPdfBoxTemplateBuilder 
 
         PdfBoxPage pageSettings = settings.getPage();
 
+        int widthAdjustA4 = 0;
+        int offsetYAdjustA4 = 0;
+        if (pageSettings.getPageSize().name().equals("A4")) {
+            widthAdjustA4 = -15;
+            offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+        }
+
+        rectSettings.setWidth(FREE_DEFAULT_WIDTH+(widthAdjustA4));
         rectSettings.setOffsetX(FREE_DEFAULT_OFFSET_X);
-        rectSettings.setOffsetY(FREE_DEFAULT_OFFSET_Y);
+        rectSettings.setOffsetY(FREE_DEFAULT_OFFSET_Y+(offsetYAdjustA4));
 
         if (rectSettings.getBackColor() == null) {
             contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
@@ -59,12 +68,17 @@ public class Help4DevsPdfBoxTemplateFree extends Help4DevsPdfBoxTemplateBuilder 
     ) {
         try {
 
+            int offsetYAdjustA4 = 0;
+            if (pageSettings.getPageSize().name().equals("A4")) {
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
+
             pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
             pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
 
             pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
+            pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
             contentStream("text", page, document, pageSettings, null, contentStream);
             contentStream.showText("Free");
@@ -85,7 +99,11 @@ public class Help4DevsPdfBoxTemplateFree extends Help4DevsPdfBoxTemplateBuilder 
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+            contentStream.drawImage(pdfImageBackground,
+                    0,
+                    0,
+                    getPageWidth(settings.getPage().getPageSize().name()),
+                    getPageHeight(settings.getPage().getPageSize().name()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.HeaderBodyTemplateSettings.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 
@@ -28,14 +29,22 @@ public class Help4DevsPdfBoxTemplateHeaderBody extends Help4DevsPdfBoxTemplateBu
             PDPageContentStream contentStream
     ) {
         PdfBoxContainer rectSettings = settings.getContainer();
-        rectSettings.setWidth(HEADER_BODY_DEFAULT_WIDTH);
-        rectSettings.setHeight(HEADER_BODY_DEFAULT_HEIGHT);
 
         PdfBoxPage pageSettings = settings.getPage();
 
+        int widthAdjustA4 = 0;
+        int offsetYAdjustA4 = 0;
+        if (pageSettings.getPageSize().name().equals("A4")) {
+            widthAdjustA4 = WIDTH_ADJUST_A4;
+            offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+        }
+
+        rectSettings.setWidth(HEADER_BODY_DEFAULT_WIDTH+(widthAdjustA4));
+        rectSettings.setHeight(HEADER_BODY_DEFAULT_HEIGHT);
+
         /*Header*/
         rectSettings.setOffsetX(HEADER_BODY_DEFAULT_OFFSET_X);
-        rectSettings.setOffsetY(HEADER_BODY_DEFAULT_OFFSET_Y);
+        rectSettings.setOffsetY(HEADER_BODY_DEFAULT_OFFSET_Y+(offsetYAdjustA4));
 
         if (rectSettings.getBackColor() == null) {
             contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
@@ -53,7 +62,7 @@ public class Help4DevsPdfBoxTemplateHeaderBody extends Help4DevsPdfBoxTemplateBu
 
         /*Body*/
         rectSettings.setHeight(HEADER_BODY_HEIGHT);
-        rectSettings.setOffsetY(HEADER_BODY_OFFSET_Y);
+        rectSettings.setOffsetY(HEADER_BODY_OFFSET_Y+(offsetYAdjustA4));
 
         if (rectSettings.getBackColor() == null) {
             contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
@@ -78,12 +87,17 @@ public class Help4DevsPdfBoxTemplateHeaderBody extends Help4DevsPdfBoxTemplateBu
     ) {
         try {
 
+            int offsetYAdjustA4 = 0;
+            if (pageSettings.getPageSize().name().equals("A4")) {
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
+
             pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
             pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
 
             pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
+            pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
             contentStream("text", page, document, pageSettings, null, contentStream);
             contentStream.showText("Header Body");
@@ -104,7 +118,11 @@ public class Help4DevsPdfBoxTemplateHeaderBody extends Help4DevsPdfBoxTemplateBu
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+            contentStream.drawImage(pdfImageBackground,
+                    0,
+                    0,
+                    getPageWidth(settings.getPage().getPageSize().name()),
+                    getPageHeight(settings.getPage().getPageSize().name()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }

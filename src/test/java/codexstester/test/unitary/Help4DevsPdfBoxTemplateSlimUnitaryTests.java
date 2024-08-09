@@ -47,6 +47,7 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         } else {
             settings.setFilenamePath(pdfFilenameA4);
         }
+
         return settings;
     }
 
@@ -915,7 +916,8 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER(PageSizeToPdfBox pageType) {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.SLIM);
         settings.setImageBackground(imgBackground);
@@ -932,7 +934,8 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4(PageSizeToPdfBox pageType) {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.A4;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.SLIM);
         settings.setImageBackground(imgBackground);
@@ -956,16 +959,36 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
     }
 
     @Test
-    public void pdfBoxTemplateSlimTest() {
+    public void pdfBoxTemplateSlim_LETTER_Test() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        /*NOTE: Choose one kind of page*/
-        //templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_LETTER(PageSizeToPdfBox.LETTER));
-        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_A4(PageSizeToPdfBox.A4));
+        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_LETTER());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
+    }
+
+    @Test
+    public void pdfBoxTemplateSlim_A4_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_A4());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

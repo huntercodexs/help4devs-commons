@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.OFFSET_Y_ADJUST_A4;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.BoxTemplateSettings.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimTemplateSettings.*;
 
 /**
  * @author huntercodexs (powered by jereelton-devel)
@@ -33,18 +36,29 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
 
         PdfBoxPage pageSettings = settings.getPage();
 
+        int widthAdjustA4 = 0;
+        int offsetXAdjustA4 = 0;
+        int offsetYAdjustA4 = 0;
+        if (pageSettings.getPageSize().name().equals("A4")) {
+            widthAdjustA4 = -10;
+            offsetXAdjustA4 = -10;
+            offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+        }
+
+        rectSettings.setWidth(BOX_DEFAULT_WIDTH+(widthAdjustA4));
+
         for (int rows = 1; rows <= BOXES/2; rows++) {
 
             if (rows == 1) {
-                rectSettings.setOffsetY(640);
+                rectSettings.setOffsetY(640+(offsetYAdjustA4));
             } else if (rows == 2) {
-                rectSettings.setOffsetY(485);
+                rectSettings.setOffsetY(485+(offsetYAdjustA4));
             } else if (rows == 3) {
-                rectSettings.setOffsetY(330);
+                rectSettings.setOffsetY(330+(offsetYAdjustA4));
             } else if (rows == 4) {
-                rectSettings.setOffsetY(175);
+                rectSettings.setOffsetY(175+(offsetYAdjustA4));
             } else {
-                rectSettings.setOffsetY(20);
+                rectSettings.setOffsetY(20+(offsetYAdjustA4));
             }
 
             for (int cols = 1; cols <= BOXES/5; cols++) {
@@ -52,7 +66,7 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
                 if (cols == 1) {
                     rectSettings.setOffsetX(20);
                 } else {
-                    rectSettings.setOffsetX(308);
+                    rectSettings.setOffsetX(308+(offsetXAdjustA4));
                 }
 
                 if (rectSettings.getBackColor() == null) {
@@ -80,12 +94,17 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
     ) {
         try {
 
+            int offsetYAdjustA4 = 0;
+            if (pageSettings.getPageSize().name().equals("A4")) {
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
+
             pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
             pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
 
             pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
+            pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
             contentStream("text", page, document, pageSettings, null, contentStream);
             contentStream.showText("Box");
@@ -106,7 +125,11 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+            contentStream.drawImage(pdfImageBackground,
+                    0,
+                    0,
+                    getPageWidth(settings.getPage().getPageSize().name()),
+                    getPageHeight(settings.getPage().getPageSize().name()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimBoxTemplateSettings.*;
 
@@ -33,18 +34,31 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
 
         PdfBoxPage pageSettings = settings.getPage();
 
+        int widthAdjustA4 = 0;
+        int widthAdjustA4Rows15 = 0;
+        int offsetXAdjustA4 = 0;
+        int offsetYAdjustA4 = 0;
+        if (pageSettings.getPageSize().name().equals("A4")) {
+            widthAdjustA4 = -10;
+            widthAdjustA4Rows15 = -20;
+            offsetXAdjustA4 = -10;
+            offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+        }
+
+        rectSettings.setWidth(SLIM_BOX_DEFAULT_WIDTH+(widthAdjustA4));
+
         for (int rows = 1; rows <= SLIM_BOX_QUANTITY/2; rows++) {
 
             if (rows == 1) {
-                rectSettings.setOffsetY(640);
+                rectSettings.setOffsetY(640+(offsetYAdjustA4));
             } else if (rows == 2) {
-                rectSettings.setOffsetY(485);
+                rectSettings.setOffsetY(485+(offsetYAdjustA4));
             } else if (rows == 3) {
-                rectSettings.setOffsetY(330);
+                rectSettings.setOffsetY(330+(offsetYAdjustA4));
             } else if (rows == 4) {
-                rectSettings.setOffsetY(175);
+                rectSettings.setOffsetY(175+(offsetYAdjustA4));
             } else {
-                rectSettings.setOffsetY(20);
+                rectSettings.setOffsetY(20+(offsetYAdjustA4));
             }
 
             for (int cols = 1; cols <= SLIM_BOX_QUANTITY/5; cols++) {
@@ -52,7 +66,7 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
                 if (cols == 1) {
                     rectSettings.setOffsetX(20);
                 } else {
-                    rectSettings.setOffsetX(308);
+                    rectSettings.setOffsetX(308+(offsetXAdjustA4));
                 }
 
                 if (cols == 2 && rows != 4) {
@@ -64,7 +78,7 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
                 }
 
                 if (cols == 1 && (rows == 1 || rows == 5)) {
-                    rectSettings.setWidth(SLIM_BOX_WIDTH);
+                    rectSettings.setWidth(SLIM_BOX_WIDTH+(widthAdjustA4Rows15));
                 }
 
                 if (rectSettings.getBackColor() == null) {
@@ -82,7 +96,7 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
                 }
 
                 rectSettings.setHeight(SLIM_BOX_DEFAULT_HEIGHT);
-                rectSettings.setWidth(SLIM_BOX_DEFAULT_WIDTH);
+                rectSettings.setWidth(SLIM_BOX_DEFAULT_WIDTH+(widthAdjustA4));
             }
         }
     }
@@ -95,12 +109,17 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
     ) {
         try {
 
+            int offsetYAdjustA4 = 0;
+            if (pageSettings.getPageSize().name().equals("A4")) {
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
+
             pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
             pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
 
             pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
+            pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
             contentStream("text", page, document, pageSettings, null, contentStream);
             contentStream.showText("Slim Box");
@@ -121,7 +140,11 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+            contentStream.drawImage(pdfImageBackground,
+                    0,
+                    0,
+                    getPageWidth(settings.getPage().getPageSize().name()),
+                    getPageHeight(settings.getPage().getPageSize().name()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }

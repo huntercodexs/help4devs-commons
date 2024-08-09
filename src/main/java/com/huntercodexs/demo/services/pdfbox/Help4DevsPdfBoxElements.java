@@ -291,6 +291,8 @@ public abstract class Help4DevsPdfBoxElements {
     public static class PdfBoxPage {
         /*Page Size*/
         /*IMPORTANT: DO NOT CHANGE THESE VALUES*/
+        static final int WIDTH_ADJUST_A4 = -15;
+        static final int OFFSET_Y_ADJUST_A4 = 25;
         static final int[] PAGE_SIZE_LETTER = new int[]{620,792};
         static final int[] PAGE_SIZE_A4 = new int[]{596,842};
 

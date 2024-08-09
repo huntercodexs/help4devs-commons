@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.getPageHeight;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.getPageWidth;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.SlimTemplateSettings.*;
 
@@ -54,8 +53,14 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             PDPageContentStream contentStream
     ) {
         PdfBoxContainer rectSettings = settings.getContainer();
-
         PdfBoxPage pageSettings = settings.getPage();
+
+        int widthAdjustA4 = 0;
+        int offsetYAdjustA4 = 0;
+        if (pageSettings.getPageSize().name().equals("A4")) {
+            widthAdjustA4 = WIDTH_ADJUST_A4;
+            offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+        }
 
         for (int box = 0; box < BOX_QUANTITY; box++) {
 
@@ -63,15 +68,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             rectSettings.setWidth(DEFAULT_WIDTH);
             rectSettings.setHeight(DEFAULT_HEIGHT);
 
-            String pageSize = pageSettings.getPageSize().name();
-            rectSettings.setOffsetY(correctOffsetY(box, pageSize, rectSettings));
-
-            int widthAdjustA4 = 0;
-            int offsetYAdjustA4 = 0;
-            if (pageSize.equals("A4")) {
-                widthAdjustA4 = WIDTH_ADJUST_A4;
-                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
-            }
+            rectSettings.setOffsetY(correctOffsetY(box, pageSettings.getPageSize().name(), rectSettings));
 
             if (settings.getSlim().boxWidth[box] != 0) {
                 rectSettings.setWidth(settings.getSlim().boxWidth[box]+(widthAdjustA4));
@@ -115,12 +112,17 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
     ) {
         try {
 
+            int offsetYAdjustA4 = 0;
+            if (pageSettings.getPageSize().name().equals("A4")) {
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
+
             pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
             pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
 
             pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
+            pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
             contentStream("text", page, document, pageSettings, null, contentStream);
             contentStream.showText("Slim");

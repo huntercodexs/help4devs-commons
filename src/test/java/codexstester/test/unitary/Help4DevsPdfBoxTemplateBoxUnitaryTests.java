@@ -15,13 +15,14 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 
 public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests {
 
-    private final static String pdfFilename = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box.pdf";
+    private final static String pdfFilenameLetter = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box-LETTER.pdf";
+    private final static String pdfFilenameA4 = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box-A4.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
     private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-5.jpg";
     private final static String userPassword = "123456";
     private final static String ownerPassword = "password";
 
-    private PdfBoxDocument documentSettings() {
+    private PdfBoxDocument documentSettings(PageSizeToPdfBox pageType) {
         PdfBoxDocument settings = new PdfBoxDocument();
         settings.setStartPage(1);
         settings.setEndPage(1);
@@ -36,11 +37,17 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
         settings.setUserPassword(null); //TODO: CHECK BUG WHEN PASSWORD EXISTS
         settings.setOwnerPassword(null); //TODO: CHECK BUG WHEN PASSWORD EXISTS
         settings.setProtectionLevel(ProtectionLevelToPdfBox.HIGH);
-        settings.setFilenamePath(pdfFilename);
+
+        if (pageType.equals(PageSizeToPdfBox.LETTER)) {
+            settings.setFilenamePath(pdfFilenameLetter);
+        } else {
+            settings.setFilenamePath(pdfFilenameA4);
+        }
+
         return settings;
     }
 
-    private PdfBoxPage pageSettings() {
+    private PdfBoxPage pageSettings(PageSizeToPdfBox pageType) {
         PdfBoxPage settings = new PdfBoxPage();
         settings.setWidth(842);
         settings.setHeight(595);
@@ -50,7 +57,7 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
         settings.setPageNumber(1);
         settings.setMargin(0);
         settings.setPadding(0);
-        settings.setPageSize(PageSizeToPdfBox.LETTER);
+        settings.setPageSize(pageType);
         settings.setFontName(FontNameToPdfBox.COURIER);
         settings.setFontSize(FontSizeToPdfBox.SMALL);
         settings.setFontColor(ColorsToPdfBox.BLACK);
@@ -154,7 +161,27 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
         return settings;
     }
 
-    private BoxTemplateSettings boxSettings() {
+    private BoxTemplateSettings boxSettings_LETTER() {
+        BoxTemplateSettings settings = new BoxTemplateSettings();
+
+        //General
+        settings.setTemplateTitleEnabled(true);
+        settings.setBoxWidth(new int[]{570,620,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,-20,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{false, false, false, true, false});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.NONE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
+
+        return settings;
+    }
+
+    private BoxTemplateSettings boxSettings_A4() {
         BoxTemplateSettings settings = new BoxTemplateSettings();
 
         //General
@@ -179,19 +206,38 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.BOX);
         settings.setImageBackground(imgBackground);
-        settings.setDocument(documentSettings());
-        settings.setPage(pageSettings());
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
         settings.setContainer(containerSettings());
         settings.setTable(tableSettings());
         settings.setText(textSettings());
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setBox(boxSettings());
+        settings.setBox(boxSettings_LETTER());
+        settings.setBoxContent(boxData());
+        return settings;
+    }
+
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.A4;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.BOX);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setBox(boxSettings_A4());
         settings.setBoxContent(boxData());
         return settings;
     }
@@ -203,14 +249,36 @@ public class Help4DevsPdfBoxTemplateBoxUnitaryTests extends Help4DevsBridgeTests
     }
 
     @Test
-    public void pdfBoxTemplateBoxTest() {
+    public void pdfBoxTemplateBox_LETTER_Test() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateBox(pdfBoxTemplateSettings());
+        templateManager.pdfBoxTemplateBox(pdfBoxTemplateSettings_LETTER());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
+    }
+
+    @Test
+    public void pdfBoxTemplateBox_A4_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateBox(pdfBoxTemplateSettings_A4());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

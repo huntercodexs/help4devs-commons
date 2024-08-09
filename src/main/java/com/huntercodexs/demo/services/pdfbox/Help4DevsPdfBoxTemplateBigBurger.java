@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.BigBurgerTemplateSettings.*;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.HeaderBodyTemplateSettings.HEADER_BODY_DEFAULT_WIDTH;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 
 /**
@@ -28,14 +30,22 @@ public class Help4DevsPdfBoxTemplateBigBurger extends Help4DevsPdfBoxTemplateBui
             PDPageContentStream contentStream
     ) {
         PdfBoxContainer rectSettings = settings.getContainer();
-        rectSettings.setWidth(BIG_BURGER_HEADER_WIDTH);
-        rectSettings.setHeight(BIG_BURGER_HEADER_HEIGHT);
 
         PdfBoxPage pageSettings = settings.getPage();
 
+        int widthAdjustA4 = 0;
+        int offsetYAdjustA4 = 0;
+        if (pageSettings.getPageSize().name().equals("A4")) {
+            widthAdjustA4 = WIDTH_ADJUST_A4;
+            offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+        }
+
+        rectSettings.setWidth(HEADER_BODY_DEFAULT_WIDTH+(widthAdjustA4));
+        rectSettings.setHeight(BIG_BURGER_HEADER_HEIGHT);
+
         /*Header*/
         rectSettings.setOffsetX(BIG_BURGER_HEADER_OFFSET_X);
-        rectSettings.setOffsetY(BIG_BURGER_HEADER_OFFSET_Y);
+        rectSettings.setOffsetY(BIG_BURGER_HEADER_OFFSET_Y+(offsetYAdjustA4));
 
         if (rectSettings.getBackColor() == null) {
             contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
@@ -53,7 +63,7 @@ public class Help4DevsPdfBoxTemplateBigBurger extends Help4DevsPdfBoxTemplateBui
 
         /*Body*/
         rectSettings.setHeight(BIG_BURGER_BODY_HEIGHT);
-        rectSettings.setOffsetY(BIG_BURGER_BODY_OFFSET_Y);
+        rectSettings.setOffsetY(BIG_BURGER_BODY_OFFSET_Y+(offsetYAdjustA4));
 
         if (rectSettings.getBackColor() == null) {
             contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
@@ -71,7 +81,7 @@ public class Help4DevsPdfBoxTemplateBigBurger extends Help4DevsPdfBoxTemplateBui
 
         /*Footer*/
         rectSettings.setHeight(BIG_BURGER_FOOTER_HEIGHT);
-        rectSettings.setOffsetY(BIG_BURGER_FOOTER_OFFSET_Y);
+        rectSettings.setOffsetY(BIG_BURGER_FOOTER_OFFSET_Y+(offsetYAdjustA4));
 
         if (rectSettings.getBackColor() == null) {
             contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
@@ -96,12 +106,17 @@ public class Help4DevsPdfBoxTemplateBigBurger extends Help4DevsPdfBoxTemplateBui
     ) {
         try {
 
+            int offsetYAdjustA4 = 0;
+            if (pageSettings.getPageSize().name().equals("A4")) {
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
+
             pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
             pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
 
             pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
+            pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
             contentStream("text", page, document, pageSettings, null, contentStream);
             contentStream.showText("Big Burger");
@@ -122,7 +137,11 @@ public class Help4DevsPdfBoxTemplateBigBurger extends Help4DevsPdfBoxTemplateBui
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+            contentStream.drawImage(pdfImageBackground,
+                    0,
+                    0,
+                    getPageWidth(settings.getPage().getPageSize().name()),
+                    getPageHeight(settings.getPage().getPageSize().name()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.TripleFallTemplateSettings.*;
 
@@ -35,14 +36,30 @@ public class Help4DevsPdfBoxTemplateTripleFall extends Help4DevsPdfBoxTemplateBu
 
         rectSettings.setOffsetY(20);
 
+        int widthAdjustA4 = 0;
+        int offsetXAdjustA4Col1 = 0;
+        int offsetXAdjustA4Col2 = 0;
+        int offsetXAdjustA4Col3 = 0;
+        int offsetYAdjustA4 = 0;
+        if (pageSettings.getPageSize().name().equals("A4")) {
+            widthAdjustA4 = -7;
+            offsetXAdjustA4Col1 = 1;
+            offsetXAdjustA4Col2 = -7;
+            offsetXAdjustA4Col3 = -14;
+            offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+        }
+
+        rectSettings.setWidth(TRIPLE_FALL_DEFAULT_WIDTH+(widthAdjustA4));
+        rectSettings.setOffsetY(20+(offsetYAdjustA4));
+
         for (int rows = 1; rows <= TRIPLE_FALL_QUANTITY; rows++) {
 
             if (rows == 1) {
-                rectSettings.setOffsetX(20);
+                rectSettings.setOffsetX(20+(offsetXAdjustA4Col1));
             } else if (rows == 2) {
-                rectSettings.setOffsetX(213);
+                rectSettings.setOffsetX(213+(offsetXAdjustA4Col2));
             } else {
-                rectSettings.setOffsetX(405);
+                rectSettings.setOffsetX(405+(offsetXAdjustA4Col3));
             }
 
             if (rectSettings.getBackColor() == null) {
@@ -69,12 +86,17 @@ public class Help4DevsPdfBoxTemplateTripleFall extends Help4DevsPdfBoxTemplateBu
     ) {
         try {
 
+            int offsetYAdjustA4 = 0;
+            if (pageSettings.getPageSize().name().equals("A4")) {
+                offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
+            }
+
             pageSettings.setFontSize(FontSizeToPdfBox.LARGE);
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_BI);
             pageSettings.setFontColor(ColorsToPdfBox.LIGHT_GRAY);
 
             pageSettings.setOffsetX(50);
-            pageSettings.setOffsetY(700);
+            pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
             contentStream("text", page, document, pageSettings, null, contentStream);
             contentStream.showText("Triple Fall");
@@ -95,7 +117,11 @@ public class Help4DevsPdfBoxTemplateTripleFall extends Help4DevsPdfBoxTemplateBu
 
         try {
             PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground, 0, 0, 620, 792);
+            contentStream.drawImage(pdfImageBackground,
+                    0,
+                    0,
+                    getPageWidth(settings.getPage().getPageSize().name()),
+                    getPageHeight(settings.getPage().getPageSize().name()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
