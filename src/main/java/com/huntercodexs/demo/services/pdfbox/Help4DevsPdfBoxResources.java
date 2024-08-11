@@ -7,7 +7,6 @@ import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -20,9 +19,7 @@ import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.krysalis.barcode4j.impl.pdf417.PDF417Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
-import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,9 +31,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontNameToPdfBox.fontName;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontSizeToPdfBox.fontSize;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PageSizeToPdfBox.pageSize;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ProtectionLevelToPdfBox.protectionLevel;
 
@@ -45,9 +39,7 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.Prot
  * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
  * @implNote This class use as "pdfbox 2.0.0" from org.apache.pdfbox base process to PDF files handler
  * */
-@Slf4j
-@Service
-public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxElements {
+public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
 
     protected static void propertiesPDF(PDDocument document, PdfBoxDocument settings) {
         PDDocumentInformation information = document.getDocumentInformation();
@@ -100,75 +92,6 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxElements {
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
-        }
-    }
-
-    protected static PDPageContentStream contentStream(
-            String option,
-            PDPage page,
-            PDDocument document,
-            PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
-            PDPageContentStream contentStream
-    ) {
-        try {
-
-            if (contentStream == null) {
-                contentStream = new PDPageContentStream(document, page);
-            }
-
-            switch (option) {
-
-                case "new":
-                    return contentStream;
-
-                case "text":
-                    contentStream.beginText();
-                    contentStream.setNonStrokingColor(color(pageSettings.getFontColor()));
-                    contentStream.setLeading(pageSettings.getLineHeight());
-                    contentStream.newLineAtOffset(pageSettings.getOffsetX(), pageSettings.getOffsetY());
-                    contentStream.setFont(fontName(pageSettings.getFontName()), fontSize(pageSettings.getFontSize()));
-                    return contentStream;
-
-                case "rec-empty":
-                    //TODO: CHECK AND FIX THIS BUG
-                    /*contentStream.addRect(
-                            rectSettings.getOffsetX(),
-                            rectSettings.getOffsetY(),
-                            rectSettings.getWidth(),
-                            rectSettings.getHeight());
-                    contentStream.setNonStrokingColor(0,0,0);*/
-                    return contentStream;
-
-                case "rec-fill":
-                    contentStream.setNonStrokingColor(color(rectSettings.getBackColor()));
-                    contentStream.addRect(
-                            rectSettings.getOffsetX(),
-                            rectSettings.getOffsetY(),
-                            rectSettings.getWidth(),
-                            rectSettings.getHeight());
-                    contentStream.fill();
-                    contentStream.setNonStrokingColor(0,0,0);
-                    return contentStream;
-
-                case "rec-border":
-                    contentStream.setLineWidth(rectSettings.getBorderWidth());
-                    contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-                    contentStream.addRect(
-                            rectSettings.getOffsetX(),
-                            rectSettings.getOffsetY(),
-                            rectSettings.getWidth(),
-                            rectSettings.getHeight());
-                    contentStream.closeAndStroke();
-                    contentStream.setStrokingColor(0,0,0);
-                    return contentStream;
-
-            }
-
-            return contentStream;
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -405,6 +328,31 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxElements {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+
+    }
+
+    protected static void barcodeForm(
+            PDDocument document,
+            PDPage page,
+            PdfBoxPage pageSettings,
+            PdfBoxContainer rectSettings,
+            PdfBoxBarcode bcSettings,
+            PdfBoxBarcodeForm bcFormSettings,
+            PDPageContentStream contentStream
+    ) {
+        Help4DevsPdfBoxBarcodeFormExtension barcodeFormExtension = new Help4DevsPdfBoxBarcodeFormExtension();
+
+        barcodeFormExtension.barcodeFormBuild(
+                document,
+                page,
+                pageSettings,
+                rectSettings,
+                bcSettings,
+                bcFormSettings,
+                contentStream);
+    }
+
+    protected static void formPDF() {
 
     }
 

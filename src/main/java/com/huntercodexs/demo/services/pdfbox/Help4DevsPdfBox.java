@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ImageQualityToPdfBox.imageQuality;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ImageTypeToPdfBox.imageType;
 
@@ -234,7 +235,7 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
                     barcode39(barcodeSettings, document, contentStream);
                     break;
                 case "PDF417":
-                    barcodePdf417(barcodeSettings, null, null);
+                    barcodePdf417(barcodeSettings, document, contentStream);
                     break;
                 default:
                     throw new RuntimeException("Invalid Barcode Type");
@@ -304,6 +305,373 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfAddForm</h6>
+     *
+     * <p style="color: #CDCDCD">Add an form to a PDF file</p>
+     *
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pageSettings (PdfBoxPageSettings)
+     * @param rectSettings (PdfBoxRectangleSettings)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     *//*TODO*/
+    public static void pdfAddForm(
+            PdfBoxDocument docSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxContainer rectSettings
+    ) {
+        File file = new File(docSettings.getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
+
+            PDPage page = document.getPage(pageSettings.getPageNumber()-1);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            //TOP
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.GREEN_DARK));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    610,
+                    550,
+                    30);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.GOLD));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    610,
+                    100,
+                    30);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.BLUE));
+            contentStream.addRect(
+                    130,
+                    610,
+                    80,
+                    30);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.BLUE_SEA));
+            contentStream.addRect(
+                    210,
+                    610,
+                    370,
+                    30);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            //LEFT SIDE
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.PURPLE));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    rectSettings.getOffsetY(),
+                    rectSettings.getWidth(),
+                    rectSettings.getHeight());
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.RED_LIGHT));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    400,
+                    rectSettings.getWidth(),
+                    30);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.GREEN));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    430,
+                    rectSettings.getWidth(),
+                    100);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.BLUE));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    530,
+                    rectSettings.getWidth(),
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.GOLD));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    530,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.GREEN_DARK));
+            contentStream.addRect(
+                    130,
+                    530,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.YELLOW));
+            contentStream.addRect(
+                    230,
+                    530,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.CYAN));
+            contentStream.addRect(
+                    330,
+                    530,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.PINK));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    550,
+                    rectSettings.getWidth(),
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.BLUE));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    550,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
+            contentStream.addRect(
+                    130,
+                    550,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.GREEN));
+            contentStream.addRect(
+                    230,
+                    550,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.GRAY));
+            contentStream.addRect(
+                    330,
+                    550,
+                    100,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.ORANGE));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    570,
+                    rectSettings.getWidth(),
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.RED));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    590,
+                    rectSettings.getWidth(),
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            //RIGHT SIDE
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    rectSettings.getOffsetY(),
+                    150,
+                    rectSettings.getHeight());
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    430,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    450,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    470,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    490,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    510,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    530,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    550,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    430,
+                    570,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(ColorsToPdfBox.YELLOW));
+            contentStream.addRect(
+                    430,
+                    590,
+                    150,
+                    20);
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+
+            contentStream.close();
+            document.save(docSettings.getFilenamePath());
+
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">pdfAddBarcodeForm</h6>
+     *
+     * <p style="color: #CDCDCD">Add an barcode form to a PDF file</p>
+     *
+     * @param docSettings (PdfBoxDocumentSettings)
+     * @param pageSettings (PdfBoxPageSettings)
+     * @param rectSettings (PdfBoxRectangleSettings)
+     * @param bcSettings (PdfBoxBarcode)
+     * @param bcFormSettings (PdfBoxBarcodeForm)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static void pdfAddBarcodeForm(
+            PdfBoxDocument docSettings,
+            PdfBoxPage pageSettings,
+            PdfBoxContainer rectSettings,
+            PdfBoxBarcode bcSettings,
+            PdfBoxBarcodeForm bcFormSettings
+    ) {
+        File file = new File(docSettings.getFilenamePath());
+
+        try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
+
+            PDPage page = document.getPage(pageSettings.getPageNumber()-1);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            barcodeForm(document, page, pageSettings, rectSettings, bcSettings, bcFormSettings, contentStream);
+
+            contentStream.close();
+            document.save(docSettings.getFilenamePath());
+            document.close();
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
     }
 
     /**

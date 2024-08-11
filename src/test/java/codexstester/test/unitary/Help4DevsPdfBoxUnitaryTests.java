@@ -9,10 +9,12 @@ import org.krysalis.barcode4j.HumanReadablePlacement;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeScannerService.PdfBarcodeScannerResults;
 import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.binFile;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBox.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.CodeType4ScannerToPdfBox.codeType4Scanner;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontNameToPdfBox.fontName;
@@ -21,13 +23,14 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.Imag
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ImageTypeToPdfBox.imageType;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PageSizeToPdfBox.pageSize;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ProtectionLevelToPdfBox.protectionLevel;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.QrCodeBorderStyleToPdfBox.qrCodeBorderStyle;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.TableDimensionsToPdfBox.tableSize;
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBox.*;
 
 public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     private final static String filepathSource = "./src/test/resources/help4devs/files/txt/file.txt";
     private final static String filepathTarget = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test.pdf";
+    private final static String filepathTargetBc = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-barcode-form.pdf";
     private final static String filepathTargetPassword = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-password.pdf";
     private final static String imagePath = "./src/test/resources/help4devs/images/ads/file.png";
     private final static String imagePathAds = "./src/test/resources/help4devs/images/ads/img.png";
@@ -36,9 +39,9 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
 
     private PdfBoxDocument documentSettings() {
         PdfBoxDocument settings = new PdfBoxDocument();
-        settings.setStartPage(0);
-        settings.setEndPage(2);
-        settings.setNumberOfPages(3);
+        settings.setStartPage(1);
+        settings.setEndPage(1);
+        settings.setNumberOfPages(1);
         settings.setDate("1990-01-01 10:00:00");
         settings.setTitle("Title Test");
         settings.setAuthor("Huntercodexs");
@@ -49,7 +52,7 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setUserPassword(null);
         settings.setOwnerPassword(null);
         settings.setProtectionLevel(ProtectionLevelToPdfBox.HIGH);
-        settings.setFilenamePath(filepathTarget);
+        settings.setFilenamePath(filepathTargetBc);
         return settings;
     }
 
@@ -146,6 +149,11 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         settings.setFontName(FontNameToPdfBox.COURIER);
         settings.setTextPosition(HumanReadablePlacement.HRP_BOTTOM);
         settings.setCodeType4Scanner(CodeType4ScannerToPdfBox.CODE128);
+        return settings;
+    }
+
+    private PdfBoxBarcodeForm barcodeFormSettings() {
+        PdfBoxBarcodeForm settings = new PdfBoxBarcodeForm();
         return settings;
     }
 
@@ -486,13 +494,25 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void qrCodeBorderStyleTest() {
+        String qrCodeBorderStyle = qrCodeBorderStyle(QrCodeBorderStyleToPdfBox.BORDERED);
+        codexsTesterAssertExact("BORDERED", qrCodeBorderStyle);
+
+        qrCodeBorderStyle = qrCodeBorderStyle(QrCodeBorderStyleToPdfBox.BORDERLESS);
+        codexsTesterAssertExact("BORDERLESS", qrCodeBorderStyle);
+
+        qrCodeBorderStyle = qrCodeBorderStyle(QrCodeBorderStyleToPdfBox.LEFT_BORDERED);
+        codexsTesterAssertExact("LEFT_BORDERED", qrCodeBorderStyle);
+    }
+
+    @Test
     public void pdfCreateTest() throws IOException {
         String data = binFile(filepathSource);
 
         PdfBoxDocument docSet = documentSettings();
         PdfBoxPage pageSet = pageSettings();
 
-        docSet.setNumberOfPages(3);
+        //docSet.setNumberOfPages(3);
 
         for (int i = 1; i <= docSet.getNumberOfPages(); i++) {
             pageSet.setTextContent("PAGE-" + i + ":\n" + data);
@@ -572,6 +592,130 @@ public class Help4DevsPdfBoxUnitaryTests extends Help4DevsBridgeTests {
         PdfBoxQrCode qrSet = qrCodeSettings();
 
         pdfAddQrCode(docSet, pageSet, qrSet);
+    }
+
+    @Test
+    public void pdfAddFormTest() {
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxContainer rectSet = containerSettings();
+
+        pageSet.setPageNumber(1);
+        rectSet.setBackColor(ColorsToPdfBox.WHITE);
+        rectSet.setBorderColor(ColorsToPdfBox.BLACK);
+
+        pdfAddForm(docSet, pageSet, rectSet);
+    }
+
+    @Test
+    public void pdfAddBarcodeFormTest() {
+        PdfBoxDocument docSet = documentSettings();
+        PdfBoxPage pageSet = pageSettings();
+        PdfBoxContainer rectSet = containerSettings();
+        PdfBoxBarcode bcSet = barcode128Settings();
+        PdfBoxBarcodeForm bcFormSet = barcodeFormSettings();
+
+        pageSet.setPageNumber(1);
+        rectSet.setBackColor(ColorsToPdfBox.WHITE);
+        rectSet.setBorderColor(ColorsToPdfBox.BLACK);
+
+        rectSet.setWidth(400);
+        rectSet.setHeight(210);
+        rectSet.setOffsetX(30);
+        rectSet.setOffsetY(400);
+
+        bcSet.setData("03399.31339 03600.000008 74216.301015 7 96480000061000");
+        bcSet.setWidth(370);
+        bcSet.setHeight(40);
+        bcSet.setOffsetX(45);
+        bcSet.setOffsetY(340);
+        bcSet.setTextPosition(HumanReadablePlacement.HRP_NONE);
+
+        bcFormSet.setAdjustOffsetX(2);
+        bcFormSet.setAdjustOffsetY(0);
+        bcFormSet.setQrcode(true);
+
+        /*Fields Left*/
+        bcFormSet.getFields().setFieldLeft1("Local de pagamento");
+        bcFormSet.getFields().setFieldLeft2("Cedente");
+        bcFormSet.getFields().setFieldLeft3("Data do documento");
+        bcFormSet.getFields().setFieldLeft4("No. documento");
+        bcFormSet.getFields().setFieldLeft5("Especie doc.");
+        bcFormSet.getFields().setFieldLeft6("Data processamento");
+        bcFormSet.getFields().setFieldLeft7("Uso do banco");
+        bcFormSet.getFields().setFieldLeft8("Carteira");
+        bcFormSet.getFields().setFieldLeft9("Quantidade");
+        bcFormSet.getFields().setFieldLeft10("(X)Valor");
+        bcFormSet.getFields().setFieldLeft11("Instruções (texto de responsabilidade do cedente)");
+        bcFormSet.getFields().setFieldLeft12("qrcode");
+        bcFormSet.getFields().setFieldLeft13("Sacado");
+
+        /*Fields Right*/
+        bcFormSet.getFields().setFieldRight1("Vencimento");
+        bcFormSet.getFields().setFieldRight2("Agencia/Codigo Cedente");
+        bcFormSet.getFields().setFieldRight3("Carteira/Nosso Numero");
+        bcFormSet.getFields().setFieldRight4("(=)Valor documento");
+        bcFormSet.getFields().setFieldRight5("(-)Desconto/Abatimentos");
+        bcFormSet.getFields().setFieldRight6("(-)Outras deduções");
+        bcFormSet.getFields().setFieldRight7("(+)Mora/Multa");
+        bcFormSet.getFields().setFieldRight8("(+)Outros acresciscimos");
+        bcFormSet.getFields().setFieldRight9("(=)Valor cobrado");
+        bcFormSet.getFields().setFieldRight10("Cod. baixa");
+
+        /*Fields Footer*/
+        bcFormSet.getFields().setFieldFooter1("Sacador/Avalista");
+        bcFormSet.getFields().setFieldFooter2("Autenticação mecanica - Ficha de Compensação");
+
+        /*Data Header*/
+        bcFormSet.getData().setDataHeaderImage("./src/test/resources/help4devs/images/ads/file.png");
+        bcFormSet.getData().setDataHeaderOperator("1234-56");
+        bcFormSet.getData().setDataHeaderBarcode("03399.31339 03600.000008 74216.301015 7 96480000061000");
+
+        /*Data Left*/
+        bcFormSet.getData().setDataLeft1("PAGAVEL PREFERENCIALMENTE NAS AGENCIAS DO BANCO XYZ");
+        bcFormSet.getData().setDataLeft2("NFE Associados e outros");
+        bcFormSet.getData().setDataLeft3("12/01/2000");
+        bcFormSet.getData().setDataLeft4("NF 1/1000");
+        bcFormSet.getData().setDataLeft5("(blank)");
+        bcFormSet.getData().setDataLeft6("14/10/1999");
+        bcFormSet.getData().setDataLeft7("(blank)");
+        bcFormSet.getData().setDataLeft8("008");
+        bcFormSet.getData().setDataLeft9("Vinte milhoes de reais");
+        bcFormSet.getData().setDataLeft10("(blank)");
+        List<String> dataLeft11 = Arrays.asList(
+                "Não receber apos o vencimento",
+                "Boleto de teste 1 de 100 para referencia",
+                "478234908840398 432894 09843290 001",
+                "478234908840398 432894 09843290 002",
+                "478234908840398 432894 09843290 003",
+                "478234908840398 432894 09843290 004",
+                "478234908840398 432894 09843290 005",
+                "478234908840398 432894 09843290 006");
+        bcFormSet.getData().setDataLeft11(dataLeft11);
+        bcFormSet.getData().setDataLeft12("03399.31339 03600.000008 74216.301015 7 96480000061000");
+        List<String> dataLeft13 = Arrays.asList(
+                "DISTRIBUIDORA DE AGUAS MINERAIS CPNJ 99.309.309/0001-12",
+                "AV DAS FONTES DE AGUA 1888 10 ANDAR",
+                "BAIRRO DAS FONTES ONDE TEM AGUA - CEP 123341230");
+        bcFormSet.getData().setDataLeft13(dataLeft13);
+
+        /*Data Right*/
+        bcFormSet.getData().setDataRight1("30/12/2020");
+        bcFormSet.getData().setDataRight2("123.123.123/0001-88");
+        bcFormSet.getData().setDataRight3("0000000000001-22");
+        bcFormSet.getData().setDataRight4("R$ 1693,95");
+        bcFormSet.getData().setDataRight5("R$ 13,95");
+        bcFormSet.getData().setDataRight6("R$ 24,95");
+        bcFormSet.getData().setDataRight7("R$ 10,00");
+        bcFormSet.getData().setDataRight8("R$ 16,00");
+        bcFormSet.getData().setDataRight9("R$ 2144,84");
+        bcFormSet.getData().setDataRight10("000001");
+
+        /*Data Footer*/
+
+        bcFormSet.setBorderStyle(QrCodeBorderStyleToPdfBox.LEFT_BORDERED);
+
+        pdfAddBarcodeForm(docSet, pageSet, rectSet, bcSet, bcFormSet);
     }
 
     @Test

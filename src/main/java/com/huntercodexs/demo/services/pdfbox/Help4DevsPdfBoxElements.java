@@ -6,6 +6,8 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Help4DevsPdfBoxElements {
 
@@ -110,9 +112,12 @@ public abstract class Help4DevsPdfBoxElements {
     @Getter
     public enum FontSizeToPdfBox {
         X_SMALL(5),
+        M_SMALL(7),
         SMALL(8),
         NORMAL(12),
+        PLUS(14),
         MEDIUM(16),
+        X_MEDIUM(20),
         LARGE(24),
         X_LARGE(45);
 
@@ -237,6 +242,23 @@ public abstract class Help4DevsPdfBoxElements {
 
         public static String codeType4Scanner(CodeType4ScannerToPdfBox codeType) {
             return codeType.getCodeType4Scanner();
+        }
+    }
+
+    @Getter
+    public enum QrCodeBorderStyleToPdfBox {
+        BORDERED("BORDERED"),
+        BORDERLESS("BORDERLESS"),
+        LEFT_BORDERED("LEFT_BORDERED");
+
+        private final String borderStyle;
+
+        QrCodeBorderStyleToPdfBox(String borderStyle) {
+            this.borderStyle = borderStyle;
+        }
+
+        public static String qrCodeBorderStyle(QrCodeBorderStyleToPdfBox borderStyle) {
+            return borderStyle.getBorderStyle();
         }
     }
 
@@ -490,6 +512,97 @@ public abstract class Help4DevsPdfBoxElements {
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class PdfBoxBarcodeForm {
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        int adjustOffsetX = 0;
+        int adjustOffsetY = 0;
+        boolean border = true;
+        boolean qrcode = true;
+        ColorsToPdfBox headerColor;
+        ColorsToPdfBox celColor;
+        ColorsToPdfBox borderColor;
+        PdfBoxBarcodeFormFields fields = new PdfBoxBarcodeFormFields();
+        PdfBoxBarcodeFormData data = new PdfBoxBarcodeFormData();
+        QrCodeBorderStyleToPdfBox borderStyle = QrCodeBorderStyleToPdfBox.BORDERED;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxBarcodeFormFields {
+        String fieldLeft1 = "fieldLeft1";
+        String fieldLeft2 = "fieldLeft2";
+        String fieldLeft3 = "fieldLeft3";
+        String fieldLeft4 = "fieldLeft4";
+        String fieldLeft5 = "fieldLeft5";
+        String fieldLeft6 = "fieldLeft6";
+        String fieldLeft7 = "fieldLeft7";
+        String fieldLeft8 = "fieldLeft8";
+        String fieldLeft9 = "fieldLeft9";
+        String fieldLeft10 = "fieldLeft10";
+        String fieldLeft11 = "fieldLeft11";
+        String fieldLeft12 = "fieldLeft12"; /*Can be used like a qrcode reserved space*/
+        String fieldLeft13 = "fieldLeft13";
+
+        String fieldRight1 = "fieldRight1";
+        String fieldRight2 = "fieldRight2";
+        String fieldRight3 = "fieldRight3";
+        String fieldRight4 = "fieldRight4";
+        String fieldRight5 = "fieldRight5";
+        String fieldRight6 = "fieldRight6";
+        String fieldRight7 = "fieldRight7";
+        String fieldRight8 = "fieldRight8";
+        String fieldRight9 = "fieldRight9";
+        String fieldRight10 = "fieldRight10";
+
+        String fieldFooter1 = "fieldFooter1";
+        String fieldFooter2 = "fieldFooter2";
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PdfBoxBarcodeFormData {
+        String dataHeaderImage;
+        String dataHeaderOperator = "0000-00";
+        String dataHeaderBarcode = "00000.00000 00000.000000 00000.00000 0 00000000000000";
+        String dataLeft1 = "dataLeft1";
+        String dataLeft2 = "dataLeft2";
+        String dataLeft3 = "dataLeft3";
+        String dataLeft4 = "dataLeft4";
+        String dataLeft5 = "dataLeft5";
+        String dataLeft6 = "dataLeft6";
+        String dataLeft7 = "dataLeft7";
+        String dataLeft8 = "dataLeft8";
+        String dataLeft9 = "dataLeft9";
+        String dataLeft10 = "dataLeft10";
+        List<String> dataLeft11 = Arrays.asList("dataLeft11-1", "dataLeft11-2","dataLeft11-3","dataLeft11-4", "dataLeft11-5","dataLeft11-6","dataLeft11-7","dataLeft11-8");
+        String dataLeft12 = "dataLeft12"; /*Can be used like a qrcode reserved space*/
+        List<String> dataLeft13 = Arrays.asList("dataLeft13-1", "dataLeft13-2","dataLeft13-3");
+        String dataRight1 = "dataRight1";
+        String dataRight2 = "dataRight2";
+        String dataRight3 = "dataRight3";
+        String dataRight4 = "dataRight4";
+        String dataRight5 = "dataRight5";
+        String dataRight6 = "dataRight6";
+        String dataRight7 = "dataRight7";
+        String dataRight8 = "dataRight8";
+        String dataRight9 = "dataRight9";
+        String dataRight10 = "dataRight10";
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class PdfBoxForm {
         int width;
         int height;
@@ -499,24 +612,6 @@ public abstract class Help4DevsPdfBoxElements {
         ColorsToPdfBox headerColor;
         ColorsToPdfBox celColor;
         ColorsToPdfBox borderColor;
-        TableDimensionsToPdfBox tableTemplate;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PdfBoxBarcodeForm {
-        int width;
-        int height;
-        int offsetX;
-        int offsetY;
-        boolean border;
-        ColorsToPdfBox headerColor;
-        ColorsToPdfBox celColor;
-        ColorsToPdfBox borderColor;
-        TableDimensionsToPdfBox tableTemplate;
     }
 
 }
