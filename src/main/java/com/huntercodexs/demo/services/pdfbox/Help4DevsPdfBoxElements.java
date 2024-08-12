@@ -467,8 +467,8 @@ public abstract class Help4DevsPdfBoxElements {
     @NoArgsConstructor
     public static class PdfBoxBarcode {
         int dpi = 400;
-        int width = 500;
-        int height = 50;
+        int width = 370;
+        int height = 40;
         int fontSize = 2;
         int lineHeight = 20;
         int margin = 0;
@@ -477,12 +477,12 @@ public abstract class Help4DevsPdfBoxElements {
         float offsetY = 400;
         double fixQuiteZone = 0;
         boolean doQuiteZone = false;
-        String data;
-        String infoOne;
-        String infoThree;
-        String infoFour;
+        String data = "00000.00000 00000.000000 00000.00000 0 00000000000000";
+        String infoOne = "";
+        String infoThree = "";
+        String infoFour = "";
         FontNameToPdfBox fontName = FontNameToPdfBox.COURIER;
-        HumanReadablePlacement textPosition = HumanReadablePlacement.HRP_BOTTOM;
+        HumanReadablePlacement textPosition = HumanReadablePlacement.HRP_NONE;
         CodeType4ScannerToPdfBox codeType4Scanner;
     }
 
@@ -517,13 +517,16 @@ public abstract class Help4DevsPdfBoxElements {
         int height;
         int offsetX;
         int offsetY;
+        int borderWidth = 1;
         int adjustOffsetX = 0;
         int adjustOffsetY = 0;
         boolean border = true;
         boolean qrcode = true;
+        boolean revealFields = false;
         ColorsToPdfBox headerColor;
         ColorsToPdfBox celColor;
         ColorsToPdfBox borderColor;
+        PdfBoxBarcode barcode = new PdfBoxBarcode();
         PdfBoxBarcodeFormFields fields = new PdfBoxBarcodeFormFields();
         PdfBoxBarcodeFormData data = new PdfBoxBarcodeFormData();
         QrCodeBorderStyleToPdfBox borderStyle = QrCodeBorderStyleToPdfBox.BORDERED;
@@ -570,7 +573,7 @@ public abstract class Help4DevsPdfBoxElements {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PdfBoxBarcodeFormData {
-        String dataHeaderImage;
+        String dataHeaderImage = null;
         String dataHeaderOperator = "0000-00";
         String dataHeaderBarcode = "00000.00000 00000.000000 00000.00000 0 00000000000000";
         String dataLeft1 = "dataLeft1";

@@ -13,8 +13,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
-import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.krysalis.barcode4j.impl.pdf417.PDF417Bean;
@@ -105,8 +103,7 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
 
             PDPage page = document.getPage(pageSettings.getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "text", page, document, pageSettings, null, null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             String[] lines = new String[]{};
 
@@ -114,12 +111,8 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
                 lines = pageSettings.getTextContent().replace("\r", "").split("\n");
             }
 
-            for (String line : lines) {
-                contentStream.showText(line);
-                contentStream.newLine();
-            }
+            contentStreamText(lines, pageSettings, contentStream);
 
-            contentStream.endText();
             contentStream.close();
             document.save(docSettings.getFilenamePath());
             document.close();
@@ -168,7 +161,7 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
             document.close();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -186,7 +179,7 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
             document.close();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -215,10 +208,15 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
             code128Bean.generateBarcode(canvas, bcSettings.getData());
             canvas.finish();
 
-            BufferedImage bImage = canvas.getBufferedImage();
-
-            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, bcSettings.getDpi());
-            contentStream.drawImage(image, bcSettings.getOffsetX(), bcSettings.getOffsetY(), bcSettings.getWidth(), bcSettings.getHeight());
+            contentStreamBufferedImage(
+                    bcSettings.getDpi(),
+                    bcSettings.getWidth(),
+                    bcSettings.getHeight(),
+                    bcSettings.getOffsetX(),
+                    bcSettings.getOffsetY(),
+                    canvas.getBufferedImage(),
+                    document,
+                    contentStream);
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -249,10 +247,15 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
             code39Bean.generateBarcode(canvas, bcSettings.getData());
             canvas.finish();
 
-            BufferedImage bImage = canvas.getBufferedImage();
-
-            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, bcSettings.getDpi());
-            contentStream.drawImage(image, bcSettings.getOffsetX(), bcSettings.getOffsetY(), bcSettings.getWidth(), bcSettings.getHeight());
+            contentStreamBufferedImage(
+                    bcSettings.getDpi(),
+                    bcSettings.getWidth(),
+                    bcSettings.getHeight(),
+                    bcSettings.getOffsetX(),
+                    bcSettings.getOffsetY(),
+                    canvas.getBufferedImage(),
+                    document,
+                    contentStream);
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -283,10 +286,15 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
             pdf417Bean.generateBarcode(canvas, bcSettings.getData());
             canvas.finish();
 
-            BufferedImage bImage = canvas.getBufferedImage();
-
-            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, bcSettings.getDpi());
-            contentStream.drawImage(image, bcSettings.getOffsetX(), bcSettings.getOffsetY(), bcSettings.getWidth(), bcSettings.getHeight());
+            contentStreamBufferedImage(
+                    bcSettings.getDpi(),
+                    bcSettings.getWidth(),
+                    bcSettings.getHeight(),
+                    bcSettings.getOffsetX(),
+                    bcSettings.getOffsetY(),
+                    canvas.getBufferedImage(),
+                    document,
+                    contentStream);
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -319,11 +327,16 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
                     hintMap);
 
             MatrixToImageConfig config = new MatrixToImageConfig(qrCodeSettings.getOnColor(), qrCodeSettings.getOffColor());
-            BufferedImage bImage = MatrixToImageWriter.toBufferedImage(bitMatrix, config);
-            PDImageXObject image = JPEGFactory.createFromImage(document, bImage, 1, qrCodeSettings.getDpi());
 
-            contentStream.drawImage(
-                    image, qrCodeSettings.getOffsetX(), qrCodeSettings.getOffsetY(), qrCodeSettings.size, qrCodeSettings.size);
+            contentStreamBufferedImage(
+                    qrCodeSettings.getDpi(),
+                    qrCodeSettings.size,
+                    qrCodeSettings.size,
+                    qrCodeSettings.getOffsetX(),
+                    qrCodeSettings.getOffsetY(),
+                    MatrixToImageWriter.toBufferedImage(bitMatrix, config),
+                    document,
+                    contentStream);
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -333,10 +346,7 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
 
     protected static void barcodeForm(
             PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
-            PdfBoxBarcode bcSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
     ) {
@@ -344,10 +354,7 @@ public abstract class Help4DevsPdfBoxResources extends Help4DevsPdfBoxCore {
 
         barcodeFormExtension.barcodeFormBuild(
                 document,
-                page,
                 pageSettings,
-                rectSettings,
-                bcSettings,
                 bcFormSettings,
                 contentStream);
     }

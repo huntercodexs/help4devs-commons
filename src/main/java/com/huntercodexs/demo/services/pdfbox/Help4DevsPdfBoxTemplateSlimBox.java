@@ -2,12 +2,8 @@ package com.huntercodexs.demo.services.pdfbox;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.PdfBoxPage.*;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
@@ -23,8 +19,6 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuilder {
 
     private static void drawContainer(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -82,17 +76,17 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
                 }
 
                 if (rectSettings.getBackColor() == null) {
-                    contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+                    contentStreamEmptyRect(contentStream);
 
                 } else if (rectSettings.getBackColor().getColorName().equals(ColorsToPdfBox.NONE.getColorName())) {
-                    contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+                    contentStreamEmptyRect(contentStream);
 
                 } else {
-                    contentStream("rec-fill", page, document, pageSettings, rectSettings, contentStream);
+                    contentStreamFillRect(rectSettings, contentStream);
                 }
 
                 if (rectSettings.isBorder()) {
-                    contentStream("rec-border", page, document, pageSettings, rectSettings, contentStream);
+                    contentStreamBorderRect(rectSettings, contentStream);
                 }
 
                 rectSettings.setHeight(SLIM_BOX_DEFAULT_HEIGHT);
@@ -102,8 +96,6 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
     }
 
     private static void drawTemplateTitle(
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PDPageContentStream contentStream
     ) {
@@ -121,12 +113,9 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
             pageSettings.setOffsetX(50);
             pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText("Slim Box");
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText("Slim Box", pageSettings, contentStream);
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
@@ -139,13 +128,18 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
         if (settings.getImageBackground() == null) return;
 
         try {
-            PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground,
-                    0,
-                    0,
+
+            contentStreamImage(
+                    settings.getImageBackground(),
                     getPageWidth(settings.getPage().getPageSize().name()),
-                    getPageHeight(settings.getPage().getPageSize().name()));
-        } catch (IOException ioe) {
+                    getPageHeight(settings.getPage().getPageSize().name()),
+                    0,
+                    0,
+                    document,
+                    contentStream
+            );
+
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
@@ -159,27 +153,24 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
     }
 
     private static void slimBoxContainerCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
 
-        drawContainer(document, page, settings, contentStream);
+        drawContainer(settings, contentStream);
 
         if (settings.getSlimBox().templateTitleEnabled) {
-            drawTemplateTitle(document, page, settings.getPage(), contentStream);
+            drawTemplateTitle(settings.getPage(), contentStream);
         }
     }
 
     public void slimBoxTemplateBuilder(
             PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
         slimBoxContainerBackgroundCreate(document, settings, contentStream);
-        slimBoxContainerCreate(document, page, settings, contentStream);
+        slimBoxContainerCreate(settings, contentStream);
     }
 
 }

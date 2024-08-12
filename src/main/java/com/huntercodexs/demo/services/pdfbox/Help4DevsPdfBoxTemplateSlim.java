@@ -2,13 +2,10 @@ package com.huntercodexs.demo.services.pdfbox;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.krysalis.barcode4j.HumanReadablePlacement;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +44,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
     }
 
     private static void drawContainer(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -89,24 +84,22 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             }
 
             if (rectSettings.getBackColor() == null) {
-                contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+                contentStreamEmptyRect(contentStream);
 
             } else if (rectSettings.getBackColor().getColorName().equals(ColorsToPdfBox.NONE.getColorName())) {
-                contentStream("rec-empty", page, document, pageSettings, rectSettings, contentStream);
+                contentStreamEmptyRect(contentStream);
 
             } else {
-                contentStream("rec-fill", page, document, pageSettings, rectSettings, contentStream);
+                contentStreamFillRect(rectSettings, contentStream);
             }
 
             if (rectSettings.isBorder()) {
-                contentStream("rec-border", page, document, pageSettings, rectSettings, contentStream);
+                contentStreamBorderRect(rectSettings, contentStream);
             }
         }
     }
 
     private static void drawTemplateTitle(
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PDPageContentStream contentStream
     ) {
@@ -124,12 +117,9 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             pageSettings.setOffsetX(50);
             pageSettings.setOffsetY(700+(offsetYAdjustA4));
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText("Slim");
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText("Slim", pageSettings, contentStream);
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
@@ -142,13 +132,17 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
         if (settings.getImageBackground() == null) return;
 
         try {
-            PDImageXObject pdfImageBackground = PDImageXObject.createFromFile(settings.getImageBackground(), document);
-            contentStream.drawImage(pdfImageBackground,
-                    0,
-                    0,
+
+            contentStreamImage(
+                    settings.getImageBackground(),
                     getPageWidth(settings.getPage().getPageSize().name()),
-                    getPageHeight(settings.getPage().getPageSize().name()));
-        } catch (IOException ioe) {
+                    getPageHeight(settings.getPage().getPageSize().name()),
+                    0,
+                    0,
+                    document,
+                    contentStream);
+
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
@@ -162,21 +156,17 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
     }
 
     private static void slimContainerCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
-        drawContainer(document, page, settings, contentStream);
+        drawContainer(settings, contentStream);
 
         if (settings.getSlim().templateTitleEnabled) {
-            drawTemplateTitle(document, page, settings.getPage(), contentStream);
+            drawTemplateTitle(settings.getPage(), contentStream);
         }
     }
 
     private static void slimContainerTitleCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -201,7 +191,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                 pageSettings.setFontSize(slimSettings.getLeftTitleSize());
 
                 String title = slimData.getLeftTitleContent();
-                titleBuild(document, page, title, pageSettings, contentStream);
+                titleBuild(title, pageSettings, contentStream);
             }
 
             //Center Title
@@ -214,7 +204,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                 pageSettings.setFontSize(slimSettings.getCenterTitleSize());
 
                 String title = slimData.getCenterTitleContent();
-                titleBuild(document, page, title, pageSettings, contentStream);
+                titleBuild(title, pageSettings, contentStream);
             }
 
             //Right Title
@@ -227,7 +217,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                 pageSettings.setFontSize(slimSettings.getRightTitleSize());
 
                 String title = slimData.getRightTitleContent();
-                titleBuild(document, page, title, pageSettings, contentStream);
+                titleBuild(title, pageSettings, contentStream);
             }
 
         }
@@ -239,8 +229,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
     }
 
     private static void slimContainerColumnCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -251,13 +239,11 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
         }
 
         for (int box = 0; box < BOX_QUANTITY; box++) {
-            columnBoxBuild(box, settings.getPage(), slimSettings, contentStream);
+            columnBoxBuild(box, slimSettings, contentStream);
         }
     }
 
     private static void slimContainerColumnContentCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -295,13 +281,11 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                         .split("(?<=\\G.{" + settings.getSlim().columnBoxChars + "})"));
             }
 
-            columnContentBuild(box, document, page, listLines, settings, contentStream);
+            columnContentBuild(box, listLines, settings, contentStream);
         }
     }
 
     private static void slimContainerTableCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -352,8 +336,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
     }
 
     private static void slimContainerTableContentCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -368,7 +350,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
             if (slimSettings.tableEnable[box]) {
 
                 for (int col = 0; col < slimSettings.getTableSize().getTableColumns(); col++) {
-                    tableHeaderContentBuild(box, col, document, page, settings, contentStream);
+                    tableHeaderContentBuild(box, col, settings, contentStream);
                 }
 
                 //tableLines-1: to remove the first line (because was used in the table header)
@@ -379,12 +361,12 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
                 int contLoop = 0;
                 int adjustY = 0;
-                for (String item : contentList) {
+                for (String content : contentList) {
                     if (contLoop == loopSize) {
                         contLoop = 0;
                         adjustY += slimSettings.tableColumnHeight;
                     }
-                    tableBodyContentBuild(box, contLoop, adjustY, item, document, page, settings, contentStream);
+                    tableBodyContentBuild(box, contLoop, adjustY, content, settings, contentStream);
                     contLoop++;
                 }
             }
@@ -393,7 +375,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
     private static void slimContainerImageCreate(
             PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -442,8 +423,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
     }
 
     private static void slimContainerSignatureCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -459,23 +438,21 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
         //Left Signature
         if (slimSettings.isLeftSignatureBoxEnable()) {
-            signatureBoxBuild(0, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureBoxBuild(0, pageSettings, slimSettings, slimData, contentStream);
         }
 
         //Center Signature
         if (slimSettings.isCenterSignatureBoxEnable()) {
-            signatureBoxBuild(1, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureBoxBuild(1, pageSettings, slimSettings, slimData, contentStream);
         }
 
         //Right Signature
         if (slimSettings.isRightSignatureBoxEnable()) {
-            signatureBoxBuild(2, document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureBoxBuild(2, pageSettings, slimSettings, slimData, contentStream);
         }
     }
 
     private static void slimContainerSignatureTapeCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -490,13 +467,11 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
         PdfBoxContainer rectSettings = settings.getContainer();
 
         if (slimSettings.isSignatureTapeEnable()) {
-            signatureTapeBuild(document, page, pageSettings, rectSettings, slimSettings, slimData, contentStream);
+            signatureTapeBuild(pageSettings, slimSettings, slimData, contentStream);
         }
     }
 
     private static void slimContainerTextCreate(
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -526,7 +501,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                         .split("(?<=\\G.{" + settings.getSlim().textChars + "})"));
 
                 pageSettings.setOffsetY(slimSettings.textOffsetY[box]);
-                textBuild(box, document, page, listLines, slimSettings, pageSettings, contentStream);
+                textBuild(box, listLines, slimSettings, pageSettings, contentStream);
 
             } else {
                 listLines.add(new String[]{});
@@ -536,7 +511,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
     private static void slimContainerBarcodeCreate(
             PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -562,7 +536,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                     }
 
                     barcodeBuild(document, settings.getBarcode(), contentStream);
-                    barcodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
+                    barcodeInfoBuild(box, settings.getPage(), settings, contentStream);
                 }
             }
         }
@@ -570,7 +544,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
     private static void slimContainerQrCodeCreate(
             PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -582,7 +555,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                 settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3));
                 qrCodeBuild(document, settings.getQrCode(), contentStream);
-                qrCodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
+                qrCodeInfoBuild(box, settings.getPage(), settings, contentStream);
             }
 
             //Center
@@ -591,7 +564,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                 settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+1));
                 qrCodeBuild(document, settings.getQrCode(), contentStream);
-                qrCodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
+                qrCodeInfoBuild(box, settings.getPage(), settings, contentStream);
             }
 
             //Right
@@ -600,31 +573,30 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
                 settings.getQrCode().setOffsetY(settings.getSlim().qrCodeOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
                 settings.getQrCode().setData(settings.getSlimContent().getQrCodeValue().get(box*3+2));
                 qrCodeBuild(document, settings.getQrCode(), contentStream);
-                qrCodeInfoBuild(box, document, page, settings.getPage(), settings, contentStream);
+                qrCodeInfoBuild(box, settings.getPage(), settings, contentStream);
             }
         }
     }
 
     public void slimTemplateBuilder(
             PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
         slimContainerBackgroundCreate(document, settings, contentStream);
-        slimContainerCreate(document, page, settings, contentStream);
-        slimContainerTitleCreate(document, page, settings, contentStream);
-        slimContainerColumnCreate(document, page, settings, contentStream);
-        slimContainerTableCreate(document, page, settings, contentStream);
-        slimContainerImageCreate(document, page, settings, contentStream);
+        slimContainerCreate(settings, contentStream);
+        slimContainerTitleCreate(settings, contentStream);
+        slimContainerColumnCreate(settings, contentStream);
+        slimContainerTableCreate(settings, contentStream);
+        slimContainerImageCreate(document, settings, contentStream);
         /*NOTE: Text,Content should be in the final of the process*/
-        slimContainerColumnContentCreate(document, page, settings, contentStream);
-        slimContainerTableContentCreate(document, page, settings, contentStream);
-        slimContainerTextCreate(document, page, settings, contentStream);
-        slimContainerSignatureCreate(document, page, settings, contentStream);
-        slimContainerSignatureTapeCreate(document, page, settings, contentStream);
-        slimContainerBarcodeCreate(document, page, settings, contentStream);
-        slimContainerQrCodeCreate(document, page, settings, contentStream);
+        slimContainerColumnContentCreate(settings, contentStream);
+        slimContainerTableContentCreate(settings, contentStream);
+        slimContainerTextCreate(settings, contentStream);
+        slimContainerSignatureCreate(settings, contentStream);
+        slimContainerSignatureTapeCreate(settings, contentStream);
+        slimContainerBarcodeCreate(document, settings, contentStream);
+        slimContainerQrCodeCreate(document, settings, contentStream);
     }
 
 }

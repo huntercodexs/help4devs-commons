@@ -2,9 +2,7 @@ package com.huntercodexs.demo.services.pdfbox;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -39,8 +37,6 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
 
     protected static void linesBuild(
             int index,
-            PDDocument document,
-            PDPage page,
             List<String[]> listLines,
             boolean hasTitle,
             PdfBoxPage pageSettings,
@@ -48,45 +44,34 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
     ) {
         try {
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
             int stop = 0;
             for (String line : listLines.get(index)) {
                 if (stop == 5 && hasTitle) break;
-                contentStream.showText(line);
-                contentStream.newLine();
+                contentStreamText(line, pageSettings, contentStream);
                 stop += 1;
             }
 
-            contentStream.endText();
-
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
 
     protected static void titleBuild(
-            PDDocument document,
-            PDPage page,
             String title,
             PdfBoxPage pageSettings,
             PDPageContentStream contentStream
     ) {
         try {
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText(title);
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText(title, pageSettings, contentStream);
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
 
     protected static void columnBoxBuild(
             int box,
-            PdfBoxPage pageSettings,
             SlimTemplateSettings settings,
             PDPageContentStream contentStream
     ) {
@@ -180,8 +165,6 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
 
     protected static void columnContentBuild(
             int box,
-            PDDocument document,
-            PDPage page,
             List<String[]> listLines,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
@@ -218,7 +201,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setOffsetX(offsetX+slimSettings.columnBoxLeftAdjustmentX[box]);
             pageSettings.setOffsetY(offsetY+slimSettings.columnBoxLeftAdjustmentY[box]);
 
-            linesBuild(0, document, page, listLines, hasTitle, pageSettings, contentStream);
+            linesBuild(0, listLines, hasTitle, pageSettings, contentStream);
         }
 
         //Text Center Column
@@ -236,7 +219,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setOffsetX(offsetX+slimSettings.columnBoxCenterAdjustmentX[box]);
             pageSettings.setOffsetY(offsetY+slimSettings.columnBoxCenterAdjustmentY[box]);
 
-            linesBuild(1, document, page, listLines, hasTitle, pageSettings, contentStream);
+            linesBuild(1, listLines, hasTitle, pageSettings, contentStream);
         }
 
         //Text Right Column
@@ -254,7 +237,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setOffsetX(offsetX+slimSettings.columnBoxRightAdjustmentX[box]);
             pageSettings.setOffsetY(offsetY+slimSettings.columnBoxRightAdjustmentY[box]);
 
-            linesBuild(2, document, page, listLines, hasTitle, pageSettings, contentStream);
+            linesBuild(2, listLines, hasTitle, pageSettings, contentStream);
         }
     }
 
@@ -354,8 +337,6 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
     protected static void tableHeaderContentBuild(
             int box,
             int column,
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings pdfBoxTemplateSettings,
             PDPageContentStream contentStream
     ) {
@@ -371,14 +352,9 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontSize(settings.tableHeaderFontSize);
             pageSettings.setFontColor(settings.tableHeaderFontColor);
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
+            contentStreamText(content.getTableHeaderContent().get(box).get(column), pageSettings, contentStream);
 
-            contentStream.showText(content.getTableHeaderContent().get(box).get(column));
-            contentStream.newLine();
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
@@ -412,8 +388,6 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             int column,
             int adjustOffsetY,
             String content,
-            PDDocument document,
-            PDPage page,
             PdfBoxTemplateSettings pdfBoxTemplateSettings,
             PDPageContentStream contentStream
     ) {
@@ -428,14 +402,9 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontSize(settings.tableBodyFontSize);
             pageSettings.setFontColor(settings.tableBodyFontColor);
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
+            contentStreamText(content, pageSettings, contentStream);
 
-            contentStream.showText(content);
-            contentStream.newLine();
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
@@ -447,26 +416,24 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
     ) {
         try {
 
-            PDImageXObject pdImageXObject = PDImageXObject.createFromFile(imgSettings.getFilenamePath(), document);
-
-            contentStream.drawImage(
-                    pdImageXObject,
+            contentStreamImage(
+                    imgSettings.getFilenamePath(),
+                    imgSettings.getWidth(),
+                    imgSettings.getHeight(),
                     imgSettings.getOffsetX(),
                     imgSettings.getOffsetY(),
-                    imgSettings.getWidth(),
-                    imgSettings.getHeight());
+                    document,
+                    contentStream
+            );
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
 
     protected static void signatureBoxBuild(
             int index,
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
             SlimTemplateSettings settings,
             SlimDataContent slimData,
             PDPageContentStream contentStream
@@ -492,12 +459,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontName(settings.signatureFontName);
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Digital Electronic Signature");
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText("Digital Electronic Signature", pageSettings, contentStream);
 
             //Signature Value
             pageSettings.setOffsetX(settings.signatureBoxContentOffsetX[index]+(settings.getSignatureBoxAdjustOffsetX()));
@@ -507,19 +469,11 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontSize(settings.signatureFontSize);
             pageSettings.setLineHeight(16);
 
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
             contentStream.setLeading(pageSettings.getLineHeight());
-
-            contentStream.showText(slimData.getSignaturePersonName());
-            contentStream.newLine();
-            contentStream.showText("DOC:"+slimData.getSignaturePersonDoc());
-            contentStream.newLine();
-            contentStream.showText(slimData.getSignatureRecord());
-            contentStream.newLine();
-            contentStream.showText(slimData.getSignatureDateGmt());
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText(slimData.getSignaturePersonName(), pageSettings, contentStream);
+            contentStreamText("DOC:"+slimData.getSignaturePersonDoc(), pageSettings, contentStream);
+            contentStreamText(slimData.getSignatureRecord(), pageSettings, contentStream);
+            contentStreamText(slimData.getSignatureDateGmt(), pageSettings, contentStream);
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -527,10 +481,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
     }
 
     protected static void signatureTapeBuild(
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
             SlimTemplateSettings settings,
             SlimDataContent slimData,
             PDPageContentStream contentStream
@@ -554,12 +505,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontName(settings.getSignatureTapeFontName());
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
-
-            contentStream.showText("Digital Electronic Signature");
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText("Digital Electronic Signature", pageSettings, contentStream);
 
             //Signature Value
             pageSettings.setOffsetX(settings.getSignatureTapeValueOffsetX()+(settings.getSignatureTapeAdjustOffsetX()));
@@ -568,17 +514,14 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontName(settings.getSignatureTapeFontName());
             pageSettings.setFontSize(settings.getSignatureTapeFontSize());
 
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
+            contentStreamText("Digital Electronic Signature", pageSettings, contentStream);
 
             String signature = slimData.getSignaturePersonName();
             signature = signature + " - DOC:" + slimData.getSignaturePersonDoc();
             signature = signature + " - " + slimData.getSignatureRecord();
             signature = signature + " - " + slimData.getSignatureDateGmt();
-            contentStream.showText(signature);
 
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText(signature, pageSettings, contentStream);
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -587,8 +530,6 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
 
     protected static void textBuild(
             int box,
-            PDDocument document,
-            PDPage page,
             List<String[]> listLines,
             SlimTemplateSettings slimSettings,
             PdfBoxPage pageSettings,
@@ -600,7 +541,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setOffsetY(pageSettings.getOffsetY()+slimSettings.getLineHeight());
         }
 
-        linesBuild(box, document, page, listLines, hasTitle, pageSettings, contentStream);
+        linesBuild(box, listLines, hasTitle, pageSettings, contentStream);
     }
 
     protected static void barcodeBuild(
@@ -623,8 +564,6 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
 
     protected static void barcodeInfoBuild(
             int box,
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
@@ -641,18 +580,10 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontColor(ColorsToPdfBox.BLACK);
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoOne().get(box));
-            contentStream.newLine();
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoTwo().get(box));
-            contentStream.newLine();
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoThree().get(box));
-            contentStream.newLine();
-            contentStream.showText(settings.getSlimContent().getBarcodeInfoFour().get(box));
-            contentStream.newLine();
-
-            contentStream.endText();
+            contentStreamText(settings.getSlimContent().getBarcodeInfoOne().get(box), pageSettings, contentStream);
+            contentStreamText(settings.getSlimContent().getBarcodeInfoTwo().get(box), pageSettings, contentStream);
+            contentStreamText(settings.getSlimContent().getBarcodeInfoThree().get(box), pageSettings, contentStream);
+            contentStreamText(settings.getSlimContent().getBarcodeInfoFour().get(box), pageSettings, contentStream);
 
             //Info 5 - Value (Barcode)
             pageSettings.setOffsetX(85+(settings.getSlim().barcodeAdjustOffsetX));
@@ -661,12 +592,7 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             );
             pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
-
-            contentStream.showText(settings.getSlimContent().getBarcodeValue().get(box));
-            contentStream.newLine();
-
-            contentStream.endText();
+            contentStreamText(settings.getSlimContent().getBarcodeValue().get(box), pageSettings, contentStream);
 
             //Info 6 - Amount (Money)
             pageSettings.setOffsetX(270+(settings.getSlim().barcodeAdjustOffsetX));
@@ -675,14 +601,9 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             );
             pageSettings.setFontSize(FontSizeToPdfBox.NORMAL);
 
-            contentStream("text", page, document, pageSettings, null, contentStream);
+            contentStreamText(settings.getSlimContent().getBarcodeAmount().get(box), pageSettings, contentStream);
 
-            contentStream.showText(settings.getSlimContent().getBarcodeAmount().get(box));
-            contentStream.newLine();
-
-            contentStream.endText();
-
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }
@@ -697,8 +618,6 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
 
     protected static void qrCodeInfoBuild(
             int box,
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxTemplateSettings settings,
             PDPageContentStream contentStream
@@ -714,20 +633,10 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
                 pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[0]+(settings.getSlim().qrCodeAdjustOffsetX));
                 pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
-                contentStream("text", page, document, pageSettings, null, contentStream);
-
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3));
-                contentStream.newLine();
-
-                contentStream.endText();
+                contentStreamText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3), pageSettings, contentStream);
             }
 
             //Center
@@ -735,20 +644,10 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
                 pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[1]+(settings.getSlim().qrCodeAdjustOffsetX));
                 pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
-                contentStream("text", page, document, pageSettings, null, contentStream);
-
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 1));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 1));
-                contentStream.newLine();
-
-                contentStream.endText();
+                contentStreamText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 1), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 1), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 1), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 1), pageSettings, contentStream);
             }
 
             //Right
@@ -756,23 +655,13 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
                 pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[2]+(settings.getSlim().qrCodeAdjustOffsetX));
                 pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
-                contentStream("text", page, document, pageSettings, null, contentStream);
-
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 2));
-                contentStream.newLine();
-                contentStream.showText(settings.getSlimContent().getQrCodeAmount().get(box * 3 + 2));
-                contentStream.newLine();
-
-                contentStream.endText();
+                contentStreamText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 2), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 2), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 2), pageSettings, contentStream);
+                contentStreamText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 2), pageSettings, contentStream);
             }
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
     }

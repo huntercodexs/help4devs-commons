@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 
-import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBox.contentStream;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBox.pdfCreate;
+import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxCore.contentStreamInit;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplateSettings;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSettings.PdfBoxTemplates.template;
@@ -47,11 +47,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateSlim template = new Help4DevsPdfBoxTemplateSlim();
-            template.slimTemplateBuilder(document, page, settings, contentStream);
+            template.slimTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());
@@ -86,11 +85,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateBox template = new Help4DevsPdfBoxTemplateBox();
-            template.boxTemplateBuilder(document, page, settings, contentStream);
+            template.boxTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());
@@ -125,11 +123,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateBoxOpen template = new Help4DevsPdfBoxTemplateBoxOpen();
-            template.boxOpenTemplateBuilder(document, page, settings, contentStream);
+            template.boxOpenTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());
@@ -164,11 +161,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateSlimBox template = new Help4DevsPdfBoxTemplateSlimBox();
-            template.slimBoxTemplateBuilder(document, page, settings, contentStream);
+            template.slimBoxTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());
@@ -203,11 +199,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateTripleFall template = new Help4DevsPdfBoxTemplateTripleFall();
-            template.tripleFallTemplateBuilder(document, page, settings, contentStream);
+            template.tripleFallTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());
@@ -242,11 +237,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateFree template = new Help4DevsPdfBoxTemplateFree();
-            template.freeTemplateBuilder(document, page, settings, contentStream);
+            template.freeTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());
@@ -281,11 +275,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateHeaderBody template = new Help4DevsPdfBoxTemplateHeaderBody();
-            template.headerBodyTemplateBuilder(document, page, settings, contentStream);
+            template.headerBodyTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());
@@ -320,11 +313,10 @@ public class Help4DevsPdfBoxTemplate {
 
             PDPage page = document.getPage(settings.getPage().getPageNumber()-1);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, settings.getPage(), settings.getContainer(), null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             Help4DevsPdfBoxTemplateBigBurger template = new Help4DevsPdfBoxTemplateBigBurger();
-            template.bigBurgerTemplateBuilder(document, page, settings, contentStream);
+            template.bigBurgerTemplateBuilder(document, settings, contentStream);
 
             contentStream.close();
             document.save(settings.getDocument().getFilenamePath());

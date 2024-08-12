@@ -2,9 +2,7 @@ package com.huntercodexs.demo.services.pdfbox;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,11 +22,7 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxResources.qrC
 @Service
 public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
-    private static final int FRAME_MAIN_WIDTH = 550;
-    private static final int FRAME_MAIN_HEIGHT = 210;
     private static final int FRAME_DEFAULT_HEIGHT = 30;
-    private static final int INITIAL_OFFSET_X = 30;
-    private static final int INITIAL_OFFSET_Y = 30;
     private static final int INITIAL_BC_OFFSET_X = 45;
     private static final int INITIAL_BC_OFFSET_Y = 40;
     private static final int LOGO_IMAGE_WIDTH = 80;
@@ -67,7 +61,6 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
     private void barcodeFormHeaderValues(
             PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
@@ -78,9 +71,23 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
         try {
             //Header Content - Logo Image
-            PDImageXObject pdImageXObject = PDImageXObject
-                    .createFromFile(bcFormSettings.getData().getDataHeaderImage(), document);
-            contentStream.drawImage(pdImageXObject, logoOffsetX, dataOffsetY, LOGO_IMAGE_WIDTH, LOGO_IMAGE_HEIGHT);
+            if (!bcFormSettings.isRevealFields()) {
+
+                contentStreamImage(
+                        bcFormSettings.getData().getDataHeaderImage(),
+                        LOGO_IMAGE_WIDTH,
+                        LOGO_IMAGE_HEIGHT,
+                        logoOffsetX,
+                        dataOffsetY,
+                        document,
+                        contentStream);
+
+            } else {
+                pageSettings.setFontSize(FontSizeToPdfBox.MEDIUM);
+                pageSettings.setOffsetX(logoOffsetX);
+                pageSettings.setOffsetY(dataOffsetY+3);
+                contentStreamText("IMAGE", pageSettings, contentStream);
+            }
 
             //Header Content - Operator Code + Barcode Text
             for (int j = 0; j < 2; j++) {
@@ -95,29 +102,22 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
                 }
 
                 pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-                contentStream("text", page, document, pageSettings, null, contentStream);
 
                 if (j == 0) {
-                    contentStream.showText(bcFormSettings.getData().getDataHeaderOperator());
+                    contentStreamText(bcFormSettings.getData().getDataHeaderOperator(), pageSettings, contentStream);
                 } else {
-                    contentStream.showText(bcFormSettings.getData().getDataHeaderBarcode());
+                    contentStreamText(bcFormSettings.getData().getDataHeaderBarcode(), pageSettings, contentStream);
                 }
-
-                contentStream.newLine();
-                contentStream.endText();
             }
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
 
     }
 
-    private void barcodeFormBodyFrame(
-            PdfBoxBarcodeForm bcFormSettings,
-            PdfBoxContainer rectSettings,
-            PDPageContentStream contentStream
-    ) {
+    private void barcodeFormBodyFrame(PdfBoxBarcodeForm bcFormSettings, PDPageContentStream contentStream) {
+
         try {
 
             //Left Side
@@ -127,7 +127,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
             int[] frameLeftOffsetY = new int[]{290,270,250,230,130,100};
 
             //Frame
-            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setLineWidth(bcFormSettings.getBorderWidth());
             contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
             contentStream.addRect(
                     frameLeftOffsetX,
@@ -140,12 +140,13 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
             for (int j = 0; j < frameLeftOffsetY.length; j++) {
 
                 if (j == 4) {
+
                     int width = 300;
                     if (!bcFormSettings.isQrcode()) {
                         width = 400;
                     }
 
-                    contentStream.setLineWidth(rectSettings.getBorderWidth());
+                    contentStream.setLineWidth(bcFormSettings.getBorderWidth());
                     contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
                     contentStream.addRect(
                             frameLeftOffsetX,
@@ -157,7 +158,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
                     //Qrcode
                     if (bcFormSettings.isQrcode()) {
-                        contentStream.setLineWidth(rectSettings.getBorderWidth());
+                        contentStream.setLineWidth(bcFormSettings.getBorderWidth());
                         contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
                         contentStream.addRect(
                                 330+(bcFormSettings.adjustOffsetX),
@@ -174,7 +175,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
                     frameLeftHeight += 10;
                 }
 
-                contentStream.setLineWidth(rectSettings.getBorderWidth());
+                contentStream.setLineWidth(bcFormSettings.getBorderWidth());
                 contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
                 contentStream.addRect(
                         frameLeftOffsetX,
@@ -186,7 +187,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
                 if (j == 2 || j == 3) {
                     for (int leftColOffsetX : frameLeftColOffsetX) {
-                        contentStream.setLineWidth(rectSettings.getBorderWidth());
+                        contentStream.setLineWidth(bcFormSettings.getBorderWidth());
                         contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
                         contentStream.addRect(
                                 leftColOffsetX+(bcFormSettings.adjustOffsetX),
@@ -211,7 +212,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
                     frameRightHeight += 10;
                 }
 
-                contentStream.setLineWidth(rectSettings.getBorderWidth());
+                contentStream.setLineWidth(bcFormSettings.getBorderWidth());
                 contentStream.setStrokingColor(color(ColorsToPdfBox.BLACK));
                 contentStream.addRect(
                         frameRightOffsetX,
@@ -229,14 +230,13 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
     }
 
     private void barcodeFormBodyLeftFields(
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
     ) {
         try {
 
+            /*NOTE: FieldLeft12 is reserved to Qrcode when it is enabled to appear in the form*/
             int[] fieldsOffsetX = new int[]{35,35,35,135,235,335,35,135,235,335,35,335,35};
             int[] fieldsOffsetY = new int[]{302,281,261,261,261,261,242,242,242,242,220,222,120};
 
@@ -252,7 +252,11 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
             fieldList.add(bcFormSettings.getFields().getFieldLeft9());
             fieldList.add(bcFormSettings.getFields().getFieldLeft10());
             fieldList.add(bcFormSettings.getFields().getFieldLeft11());
-            fieldList.add(bcFormSettings.getFields().getFieldLeft12());
+            if (bcFormSettings.isQrcode()) {
+                fieldList.add(bcFormSettings.getFields().getFieldLeft12());
+            } else {
+                fieldList.add(" ");
+            }
             fieldList.add(bcFormSettings.getFields().getFieldLeft13());
 
             pageSettings.setFontSize(FontSizeToPdfBox.M_SMALL);
@@ -263,24 +267,19 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
                 pageSettings.setOffsetX(fieldsOffsetX[index]+(bcFormSettings.adjustOffsetX));
                 pageSettings.setOffsetY(fieldsOffsetY[index]+(bcFormSettings.adjustOffsetY));
-                contentStream("text", page, document, pageSettings, null, contentStream);
-                contentStream.showText(field);
-                contentStream.newLine();
-                contentStream.endText();
+                contentStreamText(field, pageSettings, contentStream);
 
                 index += 1;
 
             }
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
 
     }
 
     private void barcodeFormBodyRightFields(
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
@@ -310,10 +309,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
                 pageSettings.setOffsetX(435+(bcFormSettings.adjustOffsetX));
                 pageSettings.setOffsetY(fieldsOffsetY[index]+(bcFormSettings.adjustOffsetY));
-                contentStream("text", page, document, pageSettings, null, contentStream);
-                contentStream.showText(field);
-                contentStream.newLine();
-                contentStream.endText();
+                contentStreamText(field, pageSettings, contentStream);
 
                 index += 1;
 
@@ -324,15 +320,13 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
             }
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
 
     }
 
     private void barcodeFormBodyFooterFields(
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
@@ -344,21 +338,15 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
             pageSettings.setOffsetX(35+(bcFormSettings.adjustOffsetX));
             pageSettings.setOffsetY(90+(bcFormSettings.adjustOffsetY));
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA);
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText(bcFormSettings.getFields().getFieldFooter1());
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText(bcFormSettings.getFields().getFieldFooter1(), pageSettings, contentStream);
 
             //Right Field
             pageSettings.setOffsetX(390+(bcFormSettings.adjustOffsetX));
             pageSettings.setOffsetY(90+(bcFormSettings.adjustOffsetY));
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText(bcFormSettings.getFields().getFieldFooter2());
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText(bcFormSettings.getFields().getFieldFooter2(), pageSettings, contentStream);
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
 
@@ -419,7 +407,6 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
     private void barcodeFormBodyLeftValues(
             PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
@@ -457,10 +444,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
             for (String value : dataList) {
                 pageSettings.setOffsetX(valuesOffsetX[index]+(bcFormSettings.adjustOffsetX));
                 pageSettings.setOffsetY(valuesOffsetY[index]+(bcFormSettings.adjustOffsetY));
-                contentStream("text", page, document, pageSettings, null, contentStream);
-                contentStream.showText(value);
-                contentStream.newLine();
-                contentStream.endText();
+                contentStreamText(value, pageSettings, contentStream);
 
                 index += 1;
             }
@@ -475,10 +459,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
                 pageSettings.setOffsetX(extraValues1OffsetX[index]+(bcFormSettings.adjustOffsetX));
                 pageSettings.setOffsetY(extraValues1OffsetY[index]+(bcFormSettings.adjustOffsetY));
-                contentStream("text", page, document, pageSettings, null, contentStream);
-                contentStream.showText(extraValue);
-                contentStream.newLine();
-                contentStream.endText();
+                contentStreamText(extraValue, pageSettings, contentStream);
 
                 index += 1;
             }
@@ -490,10 +471,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
             for (String extraValue : bcFormSettings.getData().getDataLeft13()) {
                 pageSettings.setOffsetX(extraValues2OffsetX[index]+(bcFormSettings.adjustOffsetX));
                 pageSettings.setOffsetY(extraValues2OffsetY[index]+(bcFormSettings.adjustOffsetY));
-                contentStream("text", page, document, pageSettings, null, contentStream);
-                contentStream.showText(extraValue);
-                contentStream.newLine();
-                contentStream.endText();
+                contentStreamText(extraValue, pageSettings, contentStream);
 
                 index += 1;
             }
@@ -514,15 +492,13 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
                 qrCode(qrCode, document, contentStream);
             }
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
 
     }
 
     private void barcodeFormBodyRightValues(
-            PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
@@ -551,10 +527,7 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
                 pageSettings.setOffsetX(assertBarcodeFormOffsetX(value, valuesOffsetX, bcFormSettings.adjustOffsetX));
                 pageSettings.setOffsetY(valuesOffsetY[index]+(bcFormSettings.adjustOffsetY));
-                contentStream("text", page, document, pageSettings, null, contentStream);
-                contentStream.showText(value);
-                contentStream.newLine();
-                contentStream.endText();
+                contentStreamText(value, pageSettings, contentStream);
 
                 index += 1;
 
@@ -564,12 +537,9 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
             pageSettings.setFontName(FontNameToPdfBox.HELVETICA_B);
             pageSettings.setOffsetX(480+(bcFormSettings.adjustOffsetX));
             pageSettings.setOffsetY(110+(bcFormSettings.adjustOffsetY));
-            contentStream("text", page, document, pageSettings, null, contentStream);
-            contentStream.showText(bcFormSettings.getData().getDataRight10());
-            contentStream.newLine();
-            contentStream.endText();
+            contentStreamText(bcFormSettings.getData().getDataRight10(),pageSettings, contentStream);
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             throw new RuntimeException(ioe.getMessage());
         }
 
@@ -577,37 +547,37 @@ public class Help4DevsPdfBoxBarcodeFormExtension extends Help4DevsPdfBoxCore {
 
     private void barcodeFormBodyFooterValues(
             PDDocument document,
-            PdfBoxBarcode bcSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
     ) {
-        bcSettings.setOffsetX(INITIAL_BC_OFFSET_X+(bcFormSettings.adjustOffsetX));
-        bcSettings.setOffsetY(INITIAL_BC_OFFSET_Y+(bcFormSettings.adjustOffsetY));
-        barcode128(bcSettings, document, contentStream);
+        bcFormSettings.getBarcode().setOffsetX(INITIAL_BC_OFFSET_X+(bcFormSettings.adjustOffsetX));
+        bcFormSettings.getBarcode().setOffsetY(INITIAL_BC_OFFSET_Y+(bcFormSettings.adjustOffsetY));
+        barcode128(bcFormSettings.getBarcode(), document, contentStream);
     }
 
     public void barcodeFormBuild(
             PDDocument document,
-            PDPage page,
             PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
-            PdfBoxBarcode bcSettings,
             PdfBoxBarcodeForm bcFormSettings,
             PDPageContentStream contentStream
     ) {
+        if (bcFormSettings.isRevealFields()) {
+            bcFormSettings = new PdfBoxBarcodeForm();
+            bcFormSettings.setRevealFields(true);
+        }
         /*Frame*/
         this.barcodeFormHeaderFrame(bcFormSettings, contentStream);
-        this.barcodeFormBodyFrame(bcFormSettings, rectSettings, contentStream);
+        this.barcodeFormBodyFrame(bcFormSettings, contentStream);
         this.barcodeFormBodyFinalize(bcFormSettings, contentStream);
         /*Fields*/
-        this.barcodeFormBodyLeftFields(document, page, pageSettings, bcFormSettings, contentStream);
-        this.barcodeFormBodyRightFields(document, page, pageSettings, bcFormSettings, contentStream);
-        this.barcodeFormBodyFooterFields(document, page, pageSettings, bcFormSettings, contentStream);
+        this.barcodeFormBodyLeftFields(pageSettings, bcFormSettings, contentStream);
+        this.barcodeFormBodyRightFields(pageSettings, bcFormSettings, contentStream);
+        this.barcodeFormBodyFooterFields(pageSettings, bcFormSettings, contentStream);
         /*Values*/
-        this.barcodeFormHeaderValues(document, page, pageSettings, bcFormSettings, contentStream);
-        this.barcodeFormBodyLeftValues(document, page, pageSettings, bcFormSettings, contentStream);
-        this.barcodeFormBodyRightValues(document, page, pageSettings, bcFormSettings, contentStream);
-        this.barcodeFormBodyFooterValues(document, bcSettings, bcFormSettings, contentStream);
+        this.barcodeFormHeaderValues(document, pageSettings, bcFormSettings, contentStream);
+        this.barcodeFormBodyLeftValues(document, pageSettings, bcFormSettings, contentStream);
+        this.barcodeFormBodyRightValues(pageSettings, bcFormSettings, contentStream);
+        this.barcodeFormBodyFooterValues(document, bcFormSettings, contentStream);
     }
 
 }

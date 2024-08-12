@@ -92,28 +92,22 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
             stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
             String content = stripper.getText(document);
 
-            PDPageContentStream contentStream = contentStream(
-                    "text", page, document, pageSettings, null, null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             String[] lines = content.replace("\r", "").split("\n");
 
-            for (String line : lines) {
-                contentStream.showText(line);
-                contentStream.newLine();
-            }
+            contentStreamText(lines, pageSettings, contentStream);
 
-            contentStream.endText();
+            contentStreamImage(
+                    pageSettings.getImageFilepath(),
+                    imgSettings.getWidth(),
+                    imgSettings.getHeight(),
+                    imgSettings.getOffsetX(),
+                    imgSettings.getOffsetY(),
+                    document,
+                    contentStream);
 
-            PDImageXObject pdImageXObject = PDImageXObject.createFromFile(pageSettings.getImageFilepath(), document);
-
-            if (imgSettings.isResize()) {
-                pdImageXObject.setWidth(imgSettings.getWidth());
-                pdImageXObject.setHeight(imgSettings.getHeight());
-            }
-
-            contentStream.drawImage(pdImageXObject, imgSettings.getOffsetX(), imgSettings.getOffsetY());
             contentStream.close();
-
             document.save(docSettings.getFilenamePath());
             document.close();
 
@@ -131,17 +125,13 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
      * @param docSettings (PdfBoxDocumentSettings)
      * @param pageSettings (PdfBoxPageSettings)
      * @param rectSettings (PdfBoxRectangleSettings)
-     * @param textSettings (PdfBoxTextSettings)
-     * @param imgSettings (PdfBoxImageSettings)
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      */
     public static void pdfAddContainer(
             PdfBoxDocument docSettings,
             PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
-            PdfBoxText textSettings,
-            PdfBoxImage imgSettings
+            PdfBoxContainer rectSettings
     ) {
         File file = new File(docSettings.getFilenamePath());
 
@@ -154,30 +144,19 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
             stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
             String content = stripper.getText(document);
 
-            PDPageContentStream contentStream = contentStream(
-                    "new", page, document, pageSettings, rectSettings, null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
-            contentStream = contentStream(
-                    "rec-fill", page, document, pageSettings, rectSettings, contentStream);
+            contentStreamFillRect(rectSettings, contentStream);
 
             if (rectSettings.isBorder()) {
-                contentStream = contentStream(
-                        "rec-border", page, document, pageSettings, rectSettings, contentStream);
+                contentStreamBorderRect(rectSettings, contentStream);
             }
-
-            contentStream = contentStream(
-                    "text", page, document, pageSettings, rectSettings, contentStream);
 
             String[] lines = content.replace("\r", "").split("\n");
 
-            for (String line : lines) {
-                contentStream.showText(line);
-                contentStream.newLine();
-            }
+            contentStreamText(lines, pageSettings, contentStream);
 
-            contentStream.endText();
             contentStream.close();
-
             document.save(docSettings.getFilenamePath());
             document.close();
 
@@ -214,17 +193,11 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
             stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
             String content = stripper.getText(document);
 
-            PDPageContentStream contentStream = contentStream(
-                    "text", page, document, pageSettings, null, null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             String[] lines = content.replace("\r", "").split("\n");
 
-            for (String line : lines) {
-                contentStream.showText(line);
-                contentStream.newLine();
-            }
-
-            contentStream.endText();
+            contentStreamText(lines, pageSettings, contentStream);
 
             switch (barcodeSettings.getCodeType4Scanner().name()) {
 
@@ -242,7 +215,6 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
             }
 
             contentStream.close();
-
             document.save(docSettings.getFilenamePath());
             document.close();
 
@@ -279,17 +251,11 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
             stripper.setEndPage((pageSettings.getPageNumber()-1)+1);
             String content = stripper.getText(document);
 
-            PDPageContentStream contentStream = contentStream(
-                    "text", page, document, pageSettings, null, null);
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
             String[] lines = content.replace("\r", "").split("\n");
 
-            for (String line : lines) {
-                contentStream.showText(line);
-                contentStream.newLine();
-            }
-
-            contentStream.endText();
+            contentStreamText(lines, pageSettings, contentStream);
 
             if (qrCodeSettings.getCodeType4Scanner().name().equals("QRCODE")) {
                 qrCode(qrCodeSettings, document, contentStream);
@@ -298,7 +264,6 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
             }
 
             contentStream.close();
-
             document.save(docSettings.getFilenamePath());
             document.close();
 
@@ -626,7 +591,6 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
 
             contentStream.close();
             document.save(docSettings.getFilenamePath());
-
             document.close();
 
         } catch (IOException ioe) {
@@ -642,8 +606,6 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
      *
      * @param docSettings (PdfBoxDocumentSettings)
      * @param pageSettings (PdfBoxPageSettings)
-     * @param rectSettings (PdfBoxRectangleSettings)
-     * @param bcSettings (PdfBoxBarcode)
      * @param bcFormSettings (PdfBoxBarcodeForm)
      * @author huntercodexs (powered by jereelton-devel)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
@@ -651,8 +613,6 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
     public static void pdfAddBarcodeForm(
             PdfBoxDocument docSettings,
             PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
-            PdfBoxBarcode bcSettings,
             PdfBoxBarcodeForm bcFormSettings
     ) {
         File file = new File(docSettings.getFilenamePath());
@@ -662,7 +622,7 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
             PDPage page = document.getPage(pageSettings.getPageNumber()-1);
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            barcodeForm(document, page, pageSettings, rectSettings, bcSettings, bcFormSettings, contentStream);
+            barcodeForm(document, pageSettings, bcFormSettings, contentStream);
 
             contentStream.close();
             document.save(docSettings.getFilenamePath());
@@ -812,17 +772,23 @@ public class Help4DevsPdfBox extends Help4DevsPdfBoxResources {
         try (PDDocument document = PDDocument.load(file, docSettings.getOwnerPassword())) {
 
             PDImageXObject image = PDImageXObject.createFromFile(pageSettings.getImageFilepath(), document);
-            image.setHeight(image.getHeight());
-            image.setWidth(image.getWidth());
 
             document.removePage(0);
             PDPage page = new PDPage(new PDRectangle(image.getWidth(), image.getHeight()));
             document.addPage(page);
 
-            PDPageContentStream content = new PDPageContentStream(document, page);
-            content.drawImage(image, 0, 0, image.getWidth(), image.getHeight());
-            content.close();
+            PDPageContentStream contentStream = contentStreamInit(page, document, null);
 
+            contentStreamImage(
+                    pageSettings.getImageFilepath(),
+                    image.getWidth(),
+                    image.getHeight(),
+                    0,
+                    0,
+                    document,
+                    contentStream);
+
+            contentStream.close();
             document.save(docSettings.getFilenamePath());
             document.close();
 

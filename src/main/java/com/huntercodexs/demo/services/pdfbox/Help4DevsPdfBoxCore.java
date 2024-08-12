@@ -4,9 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Service;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.ColorsToPdfBox.color;
 import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.FontNameToPdfBox.fontName;
@@ -20,6 +24,40 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxElements.Font
 @Slf4j
 @Service
 public abstract class Help4DevsPdfBoxCore extends Help4DevsPdfBoxElements {
+
+    private static void contentStreamBeginText(
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStream.beginText();
+            contentStream.setNonStrokingColor(color(pageSettings.getFontColor()));
+            contentStream.setLeading(pageSettings.getLineHeight());
+            contentStream.newLineAtOffset(pageSettings.getOffsetX(), pageSettings.getOffsetY());
+            contentStream.setFont(fontName(pageSettings.getFontName()), fontSize(pageSettings.getFontSize()));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private static void contentStreamAddText(String text, PDPageContentStream contentStream) {
+        try {
+            contentStream.showText(text);
+            contentStream.newLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private static void contentStreamEndText(PDPageContentStream contentStream) {
+        try {
+            contentStream.endText();
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 
     protected static int assertBarcodeFormOffsetX(String input, int currentX, int adjustX) {
 
@@ -66,74 +104,184 @@ public abstract class Help4DevsPdfBoxCore extends Help4DevsPdfBoxElements {
         return (int) (dynamicOffsetX+assertOffsetX) + currentX + adjustX;
     }
 
-    /*TODO: REFACTOR THIS METHOD TO GET MORE ORGANIZATION SEPARATING THE STREAM TEXT, IMAGE, RECTANGLE E ETC...*/
-    protected static PDPageContentStream contentStream(
-            String option,
+    protected static PDPageContentStream contentStreamInit(
             PDPage page,
             PDDocument document,
-            PdfBoxPage pageSettings,
-            PdfBoxContainer rectSettings,
             PDPageContentStream contentStream
     ) {
         try {
 
             if (contentStream == null) {
-                contentStream = new PDPageContentStream(document, page);
-            }
-
-            switch (option) {
-
-                case "new":
-                    return contentStream;
-
-                case "text":
-                    contentStream.beginText();
-                    contentStream.setNonStrokingColor(color(pageSettings.getFontColor()));
-                    contentStream.setLeading(pageSettings.getLineHeight());
-                    contentStream.newLineAtOffset(pageSettings.getOffsetX(), pageSettings.getOffsetY());
-                    contentStream.setFont(fontName(pageSettings.getFontName()), fontSize(pageSettings.getFontSize()));
-                    return contentStream;
-
-                case "rec-empty":
-                    //TODO: CHECK AND FIX THIS BUG
-                    /*contentStream.addRect(
-                            rectSettings.getOffsetX(),
-                            rectSettings.getOffsetY(),
-                            rectSettings.getWidth(),
-                            rectSettings.getHeight());
-                    contentStream.setNonStrokingColor(0,0,0);*/
-                    return contentStream;
-
-                case "rec-fill":
-                    contentStream.setNonStrokingColor(color(rectSettings.getBackColor()));
-                    contentStream.addRect(
-                            rectSettings.getOffsetX(),
-                            rectSettings.getOffsetY(),
-                            rectSettings.getWidth(),
-                            rectSettings.getHeight());
-                    contentStream.fill();
-                    contentStream.setNonStrokingColor(0,0,0);
-                    return contentStream;
-
-                case "rec-border":
-                    contentStream.setLineWidth(rectSettings.getBorderWidth());
-                    contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
-                    contentStream.addRect(
-                            rectSettings.getOffsetX(),
-                            rectSettings.getOffsetY(),
-                            rectSettings.getWidth(),
-                            rectSettings.getHeight());
-                    contentStream.closeAndStroke();
-                    contentStream.setStrokingColor(0,0,0);
-                    return contentStream;
-
+                return new PDPageContentStream(document, page);
             }
 
             return contentStream;
 
         } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    protected static void contentStreamText(
+            String line,
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStreamBeginText(pageSettings, contentStream);
+            contentStreamAddText(line, contentStream);
+            contentStreamEndText(contentStream);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    protected static void contentStreamText(
+            String[] lines,
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStreamBeginText(pageSettings, contentStream);
+
+            for (String line : lines) {
+                contentStreamAddText(line, contentStream);
+            }
+
+            contentStreamEndText(contentStream);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    protected static void contentStreamText(
+            List<String> lines,
+            PdfBoxPage pageSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStreamBeginText(pageSettings, contentStream);
+
+            for (String line : lines) {
+                contentStreamAddText(line, contentStream);
+            }
+
+            contentStreamEndText(contentStream);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    protected static PDPageContentStream contentStreamFillRect(
+            PdfBoxContainer rectSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStream.setNonStrokingColor(color(rectSettings.getBackColor()));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    rectSettings.getOffsetY(),
+                    rectSettings.getWidth(),
+                    rectSettings.getHeight());
+            contentStream.fill();
+            contentStream.setNonStrokingColor(0,0,0);
+            return contentStream;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    protected static PDPageContentStream contentStreamBorderRect(
+            PdfBoxContainer rectSettings,
+            PDPageContentStream contentStream
+    ) {
+        try {
+
+            contentStream.setLineWidth(rectSettings.getBorderWidth());
+            contentStream.setStrokingColor(color(rectSettings.getBorderColor()));
+            contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    rectSettings.getOffsetY(),
+                    rectSettings.getWidth(),
+                    rectSettings.getHeight());
+            contentStream.closeAndStroke();
+            contentStream.setStrokingColor(0,0,0);
+            return contentStream;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    protected static PDPageContentStream contentStreamEmptyRect(PDPageContentStream contentStream) {
+        try {
+
+            //TODO: CHECK AND FIX THIS BUG
+            /*contentStream.addRect(
+                    rectSettings.getOffsetX(),
+                    rectSettings.getOffsetY(),
+                    rectSettings.getWidth(),
+                    rectSettings.getHeight());
+            contentStream.setNonStrokingColor(0,0,0);*/
+            return contentStream;
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    protected static PDPageContentStream contentStreamImage(
+            String imageFilePath,
+            int width,
+            int height,
+            int offsetX,
+            int offsetY,
+            PDDocument document,
+            PDPageContentStream contentStream
+    ) {
+        if (imageFilePath == null) {
+            System.out.println("Missing Image File Path in the contentStreamImage call");
+            return contentStream;
+        }
+
+        try {
+            PDImageXObject image = PDImageXObject.createFromFile(imageFilePath, document);
+            contentStream.drawImage(image, offsetX, offsetY, width, height);
+            return contentStream;
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    protected static PDPageContentStream contentStreamBufferedImage(
+            int dpi,
+            int width,
+            int height,
+            float offsetX,
+            float offsetY,
+            BufferedImage bufferedImage,
+            PDDocument document,
+            PDPageContentStream contentStream
+    ) {
+        if (bufferedImage == null) {
+            System.out.println("Missing Image File Path in the contentStreamBufferedImage call");
+            return contentStream;
+        }
+
+        try {
+            PDImageXObject image = JPEGFactory.createFromImage(document, bufferedImage, 1, dpi);
+            contentStream.drawImage(image, offsetX, offsetY, width, height);
+            return contentStream;
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
 }
