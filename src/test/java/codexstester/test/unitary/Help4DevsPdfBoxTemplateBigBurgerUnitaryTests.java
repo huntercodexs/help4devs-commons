@@ -16,7 +16,9 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridgeTests {
 
     private final static String pdfFilenameLetter = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-big-burger-LETTER.pdf";
+    private final static String pdfFilenameLetterLayout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-big-burger-LETTER-LAYOUT.pdf";
     private final static String pdfFilenameA4 = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-big-burger-A4.pdf";
+    private final static String pdfFilenameA4Layout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-big-burger-A4-LAYOUT.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
     private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-6.jpg";
     private final static String userPassword = "123456";
@@ -40,8 +42,12 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
 
         if (pageType.equals(PageSizeToPdfBox.LETTER)) {
             settings.setFilenamePath(pdfFilenameLetter);
-        } else {
+        } else if (pageType.equals(PageSizeToPdfBox.A4)) {
             settings.setFilenamePath(pdfFilenameA4);
+        } else if (pageType.equals(PageSizeToPdfBox.LETTER_LAYOUT)) {
+            settings.setFilenamePath(pdfFilenameLetterLayout);
+        } else if (pageType.equals(PageSizeToPdfBox.A4_LAYOUT)) {
+            settings.setFilenamePath(pdfFilenameA4Layout);
         }
 
         return settings;
@@ -161,7 +167,23 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
         return settings;
     }
 
+    private BigBurgerTemplateSettings bigBurgerSettings_LETTER_LAYOUT() {
+        BigBurgerTemplateSettings settings = new BigBurgerTemplateSettings();
+
+        settings.setTemplateTitleEnabled(true);
+
+        return settings;
+    }
+
     private BigBurgerTemplateSettings bigBurgerSettings_LETTER() {
+        BigBurgerTemplateSettings settings = new BigBurgerTemplateSettings();
+
+        settings.setTemplateTitleEnabled(true);
+
+        return settings;
+    }
+
+    private BigBurgerTemplateSettings bigBurgerSettings_A4_LAYOUT() {
         BigBurgerTemplateSettings settings = new BigBurgerTemplateSettings();
 
         settings.setTemplateTitleEnabled(true);
@@ -182,6 +204,24 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
         return settings;
     }
 
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER_LAYOUT() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER_LAYOUT;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.BIG_BURGER);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setBigBurger(bigBurgerSettings_LETTER_LAYOUT());
+        settings.setBigBurgerContent(bigBurgerData());
+        return settings;
+    }
+
     private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
@@ -196,6 +236,24 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
         settings.setBigBurger(bigBurgerSettings_LETTER());
+        settings.setBigBurgerContent(bigBurgerData());
+        return settings;
+    }
+
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4_LAYOUT() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.A4_LAYOUT;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.BIG_BURGER);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setBigBurger(bigBurgerSettings_A4_LAYOUT());
         settings.setBigBurgerContent(bigBurgerData());
         return settings;
     }
@@ -225,6 +283,28 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
     }
 
     @Test
+    public void pdfBoxTemplateBigBurger_LETTER_LAYOUT_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateBigBurger(pdfBoxTemplateSettings_LETTER_LAYOUT());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
+    }
+
+    @Test
     public void pdfBoxTemplateBigBurger_LETTER_Test() {
         Runtime rt = Runtime.getRuntime();
 
@@ -233,6 +313,28 @@ public class Help4DevsPdfBoxTemplateBigBurgerUnitaryTests extends Help4DevsBridg
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
         templateManager.pdfBoxTemplateBigBurger(pdfBoxTemplateSettings_LETTER());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
+    }
+
+    @Test
+    public void pdfBoxTemplateBigBurger_A4_LAYOUT_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateBigBurger(pdfBoxTemplateSettings_A4_LAYOUT());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

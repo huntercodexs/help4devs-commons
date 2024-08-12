@@ -16,7 +16,9 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBridgeTests {
 
     private final static String pdfFilenameLetter = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-triple-fall-LETTER.pdf";
+    private final static String pdfFilenameLetterLayout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-triple-fall-LETTER-LAYOUT.pdf";
     private final static String pdfFilenameA4 = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-triple-fall-A4.pdf";
+    private final static String pdfFilenameA4Layout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-triple-fall-A4-LAYOUT.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
     private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-5.jpg";
     private final static String userPassword = "123456";
@@ -40,8 +42,12 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
 
         if (pageType.equals(PageSizeToPdfBox.LETTER)) {
             settings.setFilenamePath(pdfFilenameLetter);
-        } else {
+        } else if (pageType.equals(PageSizeToPdfBox.A4)) {
             settings.setFilenamePath(pdfFilenameA4);
+        } else if (pageType.equals(PageSizeToPdfBox.LETTER_LAYOUT)) {
+            settings.setFilenamePath(pdfFilenameLetterLayout);
+        } else if (pageType.equals(PageSizeToPdfBox.A4_LAYOUT)) {
+            settings.setFilenamePath(pdfFilenameA4Layout);
         }
 
         return settings;
@@ -161,7 +167,47 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
         return settings;
     }
 
+    private TripleFallTemplateSettings tripleFallSettings_LETTER_LAYOUT() {
+        TripleFallTemplateSettings settings = new TripleFallTemplateSettings();
+
+        //General
+        settings.setTemplateTitleEnabled(true);
+        settings.setBoxWidth(new int[]{570,620,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,-20,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{false, false, false, true, false});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.NONE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
+
+        return settings;
+    }
+
     private TripleFallTemplateSettings tripleFallSettings_LETTER() {
+        TripleFallTemplateSettings settings = new TripleFallTemplateSettings();
+
+        //General
+        settings.setTemplateTitleEnabled(true);
+        settings.setBoxWidth(new int[]{570,620,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,-20,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{false, false, false, true, false});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.BLACK,
+                ColorsToPdfBox.NONE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
+
+        return settings;
+    }
+
+    private TripleFallTemplateSettings tripleFallSettings_A4_LAYOUT() {
         TripleFallTemplateSettings settings = new TripleFallTemplateSettings();
 
         //General
@@ -206,6 +252,24 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
         return settings;
     }
 
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER_LAYOUT() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER_LAYOUT;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.TRIPLE_FALL);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setTripleFall(tripleFallSettings_LETTER_LAYOUT());
+        settings.setTripleFallContent(tripleFallData());
+        return settings;
+    }
+
     private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
@@ -220,6 +284,24 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
         settings.setTripleFall(tripleFallSettings_LETTER());
+        settings.setTripleFallContent(tripleFallData());
+        return settings;
+    }
+
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4_LAYOUT() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.A4_LAYOUT;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.TRIPLE_FALL);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setTripleFall(tripleFallSettings_A4_LAYOUT());
         settings.setTripleFallContent(tripleFallData());
         return settings;
     }
@@ -249,6 +331,28 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
     }
 
     @Test
+    public void pdfBoxTemplateTripleFall_LETTER_LAYOUT_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateTripleFall(pdfBoxTemplateSettings_LETTER_LAYOUT());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
+    }
+
+    @Test
     public void pdfBoxTemplateTripleFall_LETTER_Test() {
         Runtime rt = Runtime.getRuntime();
 
@@ -257,6 +361,28 @@ public class Help4DevsPdfBoxTemplateTripleFallUnitaryTests extends Help4DevsBrid
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
         templateManager.pdfBoxTemplateTripleFall(pdfBoxTemplateSettings_LETTER());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
+    }
+
+    @Test
+    public void pdfBoxTemplateTripleFall_A4_LAYOUT_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateTripleFall(pdfBoxTemplateSettings_A4_LAYOUT());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
