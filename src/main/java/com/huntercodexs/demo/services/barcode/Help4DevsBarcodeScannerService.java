@@ -41,7 +41,7 @@ import java.util.List;
  *
  * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
  * @author David KELLER <david.keller.fr@gmail.com>
- * @author Huntercodexs (Jereelton TEIXEIRA)
+ * @author huntercodexs (powered by jereelton-devel)
  */
 
 @Slf4j
