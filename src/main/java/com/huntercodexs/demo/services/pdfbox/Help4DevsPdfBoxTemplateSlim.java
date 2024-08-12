@@ -52,7 +52,8 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
 
         int widthAdjustA4 = 0;
         int offsetYAdjustA4 = 0;
-        if (pageSettings.getPageSize().name().equals("A4")) {
+
+        if (pageSettings.getPageSize().name().contains("A4")) {
             widthAdjustA4 = WIDTH_ADJUST_A4;
             offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
         }
@@ -106,7 +107,7 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
         try {
 
             int offsetYAdjustA4 = 0;
-            if (pageSettings.getPageSize().name().equals("A4")) {
+            if (pageSettings.getPageSize().name().contains("A4")) {
                 offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
             }
 
@@ -249,8 +250,8 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
     ) {
         /*
          * [NOTE]
-         * In the below looping "for" we go running the number of BOX_QUANTITY(5) for the SLIM template
-         * jumping from 3 on 3 item inside one box, it means that the loop it will be executed five times
+         * In the below looping "for" the flow it will be executed running the number of BOX_QUANTITY(5) for the
+         * SLIM template jumping from 3 on 3 item inside one box, it means that the loop it will be executed five times
          * running in each box that could be 3x1=3boxes, 3x2=6boxes, 3x3=9boxes, 3x4=12boxes or 3x5=15boxes.
          * Another point is that even though the boxes are jumped from 3 on 3, each one can be hidden by informing
          * the border=false, and in this case it will not show in the pdf document because there is one flag checker
@@ -434,7 +435,6 @@ public class Help4DevsPdfBoxTemplateSlim extends Help4DevsPdfBoxTemplateBuilder 
         }
 
         PdfBoxPage pageSettings = settings.getPage();
-        PdfBoxContainer rectSettings = settings.getContainer();
 
         //Left Signature
         if (slimSettings.isLeftSignatureBoxEnable()) {

@@ -20,7 +20,9 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTests {
 
     private final static String pdfFilenameLetter = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-LETTER.pdf";
+    private final static String pdfFilenameLetterLayout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-LETTER-LAYOUT.pdf";
     private final static String pdfFilenameA4 = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-A4.pdf";
+    private final static String pdfFilenameA4Layout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-A4-LAYOUT.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
     private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-5.jpg";
     private final static String userPassword = "123456";
@@ -44,8 +46,12 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
 
         if (pageType.equals(PageSizeToPdfBox.LETTER)) {
             settings.setFilenamePath(pdfFilenameLetter);
-        } else {
+        } else if (pageType.equals(PageSizeToPdfBox.A4)) {
             settings.setFilenamePath(pdfFilenameA4);
+        } else if (pageType.equals(PageSizeToPdfBox.LETTER_LAYOUT)) {
+            settings.setFilenamePath(pdfFilenameLetterLayout);
+        } else if (pageType.equals(PageSizeToPdfBox.A4_LAYOUT)) {
+            settings.setFilenamePath(pdfFilenameA4Layout);
         }
 
         return settings;
@@ -165,11 +171,82 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
+    private SlimTemplateSettings slimSettings_LETTER_LAYOUT() {
+        SlimTemplateSettings settings = new SlimTemplateSettings();
+
+        //General
+        settings.setTemplateTitleEnabled(true);
+        settings.setBoxWidth(new int[]{570,570,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,0,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{true, true, true, true, true});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
+
+        /*Title*/
+        boolean titleOn = false;
+        settings.setLeftTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+        settings.setCenterTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+        settings.setRightTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+
+        /*Column*/
+        boolean columnLeftOn = false;
+        boolean columnCenterOn = false;
+        boolean columnRightOn = false;
+        settings.setColumnBoxLeftEnable(new boolean[]{columnLeftOn,columnLeftOn,columnLeftOn,columnLeftOn,columnLeftOn});
+        settings.setColumnBoxCenterEnable(new boolean[]{columnCenterOn,columnCenterOn,columnCenterOn,columnCenterOn,columnCenterOn});
+        settings.setColumnBoxRightEnable(new boolean[]{columnRightOn,columnRightOn,columnRightOn,columnRightOn,columnRightOn});
+
+        /*Table*/
+        boolean tableOn = false;
+        settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
+
+        /*Image*/
+        boolean imageLeftOn = false;
+        boolean imageCenterOn = false;
+        boolean imageRightOn = false;
+        settings.setLeftImageEnable(new boolean[]{imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn});
+        settings.setCenterImageEnable(new boolean[]{imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn});
+        settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
+
+        /*Signature Box*/
+        boolean signatureOn = false;
+        settings.setLeftSignatureBoxEnable(signatureOn);
+        settings.setCenterSignatureBoxEnable(signatureOn);
+        settings.setRightSignatureBoxEnable(signatureOn);
+
+        /*Signature Tape*/
+        settings.setSignatureTapeEnable(false);
+
+        /*Text Content*/
+        boolean textOn = false;
+        settings.setTextEnable(new boolean[]{textOn,textOn,textOn,textOn,textOn});
+
+        /*Barcode Content*/
+        boolean barcodeOn = false;
+        settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
+
+        /*QRCode Content*/
+        boolean qrCodeLeftOn = false;
+        boolean qrCodeCenterOn = false;
+        boolean qrCodeRightOn = false;
+        settings.setQrCodeLeftEnable(new boolean[]{qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn});
+        settings.setQrCodeCenterEnable(new boolean[]{qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn});
+        settings.setQrCodeRightEnable(new boolean[]{qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn});
+
+        return settings;
+    }
+
     private SlimTemplateSettings slimSettings_LETTER() {
         SlimTemplateSettings settings = new SlimTemplateSettings();
 
         //General
-        settings.setTemplateTitleEnabled(false);
+        settings.setTemplateTitleEnabled(true);
         settings.setBoxWidth(new int[]{570,620,570,570,570});
         settings.setBoxAdjustOffsetX(new int[]{0,-20,0,0,0});
         settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
@@ -454,6 +531,77 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setQrCodeLeftEnable(new boolean[]{qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn});
         settings.setQrCodeCenterEnable(new boolean[]{qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn});
         settings.setQrCodeRightEnable(new boolean[]{true,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn});
+
+        return settings;
+    }
+
+    private SlimTemplateSettings slimSettings_A4_LAYOUT() {
+        SlimTemplateSettings settings = new SlimTemplateSettings();
+
+        //General
+        settings.setTemplateTitleEnabled(true);
+        settings.setBoxWidth(new int[]{570,570,570,570,570});
+        settings.setBoxAdjustOffsetX(new int[]{0,0,0,0,0});
+        settings.setBoxAdjustOffsetY(new int[]{0,0,0,0,0});
+        settings.setBoxBorderEnabled(new boolean[]{true, true, true, true, true});
+        settings.setBoxBackColor(new ColorsToPdfBox[]{
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE,
+                ColorsToPdfBox.WHITE
+        });
+
+        /*Title*/
+        boolean titleOn = false;
+        settings.setLeftTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+        settings.setCenterTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+        settings.setRightTitleEnable(new boolean[]{titleOn,titleOn,titleOn,titleOn,titleOn});
+
+        /*Column*/
+        boolean columnLeftOn = false;
+        boolean columnCenterOn = false;
+        boolean columnRightOn = false;
+        settings.setColumnBoxLeftEnable(new boolean[]{columnLeftOn,columnLeftOn,columnLeftOn,columnLeftOn,columnLeftOn});
+        settings.setColumnBoxCenterEnable(new boolean[]{columnCenterOn,columnCenterOn,columnCenterOn,columnCenterOn,columnCenterOn});
+        settings.setColumnBoxRightEnable(new boolean[]{columnRightOn,columnRightOn,columnRightOn,columnRightOn,columnRightOn});
+
+        /*Table*/
+        boolean tableOn = false;
+        settings.setTableEnable(new boolean[]{tableOn,tableOn,tableOn,tableOn,tableOn});
+
+        /*Image*/
+        boolean imageLeftOn = false;
+        boolean imageCenterOn = false;
+        boolean imageRightOn = false;
+        settings.setLeftImageEnable(new boolean[]{imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn,imageLeftOn});
+        settings.setCenterImageEnable(new boolean[]{imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn,imageCenterOn});
+        settings.setRightImageEnable(new boolean[]{imageRightOn,imageRightOn,imageRightOn,imageRightOn,imageRightOn});
+
+        /*Signature Box*/
+        boolean signatureOn = false;
+        settings.setLeftSignatureBoxEnable(signatureOn);
+        settings.setCenterSignatureBoxEnable(signatureOn);
+        settings.setRightSignatureBoxEnable(signatureOn);
+
+        /*Signature Tape*/
+        settings.setSignatureTapeEnable(false);
+
+        /*Text Content*/
+        boolean textOn = false;
+        settings.setTextEnable(new boolean[]{textOn,textOn,textOn,textOn,textOn});
+
+        /*Barcode Content*/
+        boolean barcodeOn = false;
+        settings.setBarcodeEnabled(new boolean[]{barcodeOn,barcodeOn,barcodeOn,barcodeOn,barcodeOn});
+
+        /*QRCode Content*/
+        boolean qrCodeLeftOn = false;
+        boolean qrCodeCenterOn = false;
+        boolean qrCodeRightOn = false;
+        settings.setQrCodeLeftEnable(new boolean[]{qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn,qrCodeLeftOn});
+        settings.setQrCodeCenterEnable(new boolean[]{qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn,qrCodeCenterOn});
+        settings.setQrCodeRightEnable(new boolean[]{qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn,qrCodeRightOn});
 
         return settings;
     }
@@ -916,6 +1064,24 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         return settings;
     }
 
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER_LAYOUT() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER_LAYOUT;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.SLIM);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setSlim(slimSettings_LETTER_LAYOUT());
+        settings.setSlimContent(slimData());
+        return settings;
+    }
+
     private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
@@ -929,8 +1095,8 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setSlimContent(slimData());
         settings.setSlim(slimSettings_LETTER());
+        settings.setSlimContent(slimData());
         return settings;
     }
 
@@ -947,8 +1113,26 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setSlimContent(slimData());
         settings.setSlim(slimSettings_A4());
+        settings.setSlimContent(slimData());
+        return settings;
+    }
+
+    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4_LAYOUT() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.A4_LAYOUT;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.SLIM);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setSlim(slimSettings_A4_LAYOUT());
+        settings.setSlimContent(slimData());
         return settings;
     }
 
@@ -956,6 +1140,28 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
     public void templateTest() {
         String template = template(PdfBoxTemplates.SLIM);
         codexsTesterAssertExact("SLIM", template);
+    }
+
+    @Test
+    public void pdfBoxTemplateSlim_LETTER_LAYOUT_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_LETTER_LAYOUT());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
     }
 
     @Test
@@ -967,6 +1173,28 @@ public class Help4DevsPdfBoxTemplateSlimUnitaryTests extends Help4DevsBridgeTest
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
         templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_LETTER());
+
+        long freeMemoryAfter = rt.freeMemory();
+        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+
+        System.out.println("------------------------------------------------");
+        System.out.println("- Memory Usage -");
+        System.out.println("------------------------------------------------");
+        System.out.println("Total: " + calculateMegabytes(totalMemory) + " ("+totalMemory+")");
+        System.out.println("Before: " + calculateMegabytes(freeMemoryBefore) + " ("+freeMemoryBefore+")");
+        System.out.println("After: " + calculateMegabytes(freeMemoryAfter) + " ("+freeMemoryAfter+")");
+        System.out.println("Used: " + calculateMegabytes(usedMemory) + " ("+usedMemory+")");
+    }
+
+    @Test
+    public void pdfBoxTemplateSlim_A4_LAYOUT_Test() {
+        Runtime rt = Runtime.getRuntime();
+
+        long totalMemory = rt.totalMemory();
+        long freeMemoryBefore = rt.freeMemory();
+
+        Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
+        templateManager.pdfBoxTemplateSlim(pdfBoxTemplateSettings_A4_LAYOUT());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

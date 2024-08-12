@@ -44,11 +44,12 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
     ) {
         try {
 
-            int stop = 0;
-            for (String line : listLines.get(index)) {
-                if (stop == 5 && hasTitle) break;
-                contentStreamText(line, pageSettings, contentStream);
-                stop += 1;
+            if (hasTitle) {
+                listLines.remove(listLines.size() - 1);
+            }
+
+            for (String[] lines : listLines) {
+                contentStreamText(lines, pageSettings, contentStream);
             }
 
         } catch (Exception ioe) {
@@ -470,10 +471,14 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setLineHeight(16);
 
             contentStream.setLeading(pageSettings.getLineHeight());
-            contentStreamText(slimData.getSignaturePersonName(), pageSettings, contentStream);
-            contentStreamText("DOC:"+slimData.getSignaturePersonDoc(), pageSettings, contentStream);
-            contentStreamText(slimData.getSignatureRecord(), pageSettings, contentStream);
-            contentStreamText(slimData.getSignatureDateGmt(), pageSettings, contentStream);
+
+            String[] records = new String[]{
+                    slimData.getSignaturePersonName(),
+                    "DOC:"+slimData.getSignaturePersonDoc(),
+                    slimData.getSignatureRecord(),
+                    slimData.getSignatureDateGmt()
+            };
+            contentStreamText(records, pageSettings, contentStream);
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -580,10 +585,13 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
             pageSettings.setFontColor(ColorsToPdfBox.BLACK);
             pageSettings.setFontSize(FontSizeToPdfBox.SMALL);
 
-            contentStreamText(settings.getSlimContent().getBarcodeInfoOne().get(box), pageSettings, contentStream);
-            contentStreamText(settings.getSlimContent().getBarcodeInfoTwo().get(box), pageSettings, contentStream);
-            contentStreamText(settings.getSlimContent().getBarcodeInfoThree().get(box), pageSettings, contentStream);
-            contentStreamText(settings.getSlimContent().getBarcodeInfoFour().get(box), pageSettings, contentStream);
+            String[] records = new String[] {
+                    settings.getSlimContent().getBarcodeInfoOne().get(box),
+                    settings.getSlimContent().getBarcodeInfoTwo().get(box),
+                    settings.getSlimContent().getBarcodeInfoThree().get(box),
+                    settings.getSlimContent().getBarcodeInfoFour().get(box)
+            };
+            contentStreamText(records, pageSettings, contentStream);
 
             //Info 5 - Value (Barcode)
             pageSettings.setOffsetX(85+(settings.getSlim().barcodeAdjustOffsetX));
@@ -633,10 +641,15 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
                 pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[0]+(settings.getSlim().qrCodeAdjustOffsetX));
                 pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
-                contentStreamText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3), pageSettings, contentStream);
+                String[] records = new String[]{
+                        settings.getSlimContent().getQrCodeInfoOne().get(box * 3),
+                        settings.getSlimContent().getQrCodeInfoTwo().get(box * 3),
+                        settings.getSlimContent().getQrCodeInfoThree().get(box * 3),
+                        settings.getSlimContent().getQrCodeInfoFour().get(box * 3),
+                        settings.getSlimContent().getQrCodeAmount().get(box * 3)
+                };
+
+                contentStreamText(records, pageSettings, contentStream);
             }
 
             //Center
@@ -644,10 +657,15 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
                 pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[1]+(settings.getSlim().qrCodeAdjustOffsetX));
                 pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
-                contentStreamText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 1), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 1), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 1), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 1), pageSettings, contentStream);
+                String[] records = new String[]{
+                        settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 1),
+                        settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 1),
+                        settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 1),
+                        settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 1),
+                        settings.getSlimContent().getQrCodeAmount().get(box * 3 + 1)
+                };
+
+                contentStreamText(records, pageSettings, contentStream);
             }
 
             //Right
@@ -655,10 +673,15 @@ public abstract class Help4DevsPdfBoxTemplateBuilder extends Help4DevsPdfBox {
                 pageSettings.setOffsetX(settings.getSlim().qrCodeInfoOffsetX[2]+(settings.getSlim().qrCodeAdjustOffsetX));
                 pageSettings.setOffsetY(settings.getSlim().qrCodeInfoOffsetY[box]+(settings.getSlim().qrCodeAdjustOffsetY));
 
-                contentStreamText(settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 2), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 2), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 2), pageSettings, contentStream);
-                contentStreamText(settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 2), pageSettings, contentStream);
+                String[] records = new String[]{
+                        settings.getSlimContent().getQrCodeInfoOne().get(box * 3 + 2),
+                        settings.getSlimContent().getQrCodeInfoTwo().get(box * 3 + 2),
+                        settings.getSlimContent().getQrCodeInfoThree().get(box * 3 + 2),
+                        settings.getSlimContent().getQrCodeInfoFour().get(box * 3 + 2),
+                        settings.getSlimContent().getQrCodeAmount().get(box * 3 + 2)
+                };
+
+                contentStreamText(records, pageSettings, contentStream);
             }
 
         } catch (Exception ioe) {

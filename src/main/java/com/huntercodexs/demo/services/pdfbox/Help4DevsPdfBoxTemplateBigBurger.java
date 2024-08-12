@@ -29,7 +29,7 @@ public class Help4DevsPdfBoxTemplateBigBurger extends Help4DevsPdfBoxTemplateBui
 
         int widthAdjustA4 = 0;
         int offsetYAdjustA4 = 0;
-        if (pageSettings.getPageSize().name().equals("A4")) {
+        if (pageSettings.getPageSize().name().contains("A4")) {
             widthAdjustA4 = WIDTH_ADJUST_A4;
             offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
         }
@@ -99,7 +99,7 @@ public class Help4DevsPdfBoxTemplateBigBurger extends Help4DevsPdfBoxTemplateBui
         try {
 
             int offsetYAdjustA4 = 0;
-            if (pageSettings.getPageSize().name().equals("A4")) {
+            if (pageSettings.getPageSize().name().contains("A4")) {
                 offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
             }
 

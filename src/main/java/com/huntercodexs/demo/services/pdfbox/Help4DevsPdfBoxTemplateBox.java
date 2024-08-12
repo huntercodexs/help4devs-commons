@@ -31,7 +31,7 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
         int widthAdjustA4 = 0;
         int offsetXAdjustA4 = 0;
         int offsetYAdjustA4 = 0;
-        if (pageSettings.getPageSize().name().equals("A4")) {
+        if (pageSettings.getPageSize().name().contains("A4")) {
             widthAdjustA4 = -10;
             offsetXAdjustA4 = -10;
             offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
@@ -85,7 +85,7 @@ public class Help4DevsPdfBoxTemplateBox extends Help4DevsPdfBoxTemplateBuilder {
         try {
 
             int offsetYAdjustA4 = 0;
-            if (pageSettings.getPageSize().name().equals("A4")) {
+            if (pageSettings.getPageSize().name().contains("A4")) {
                 offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
             }
 

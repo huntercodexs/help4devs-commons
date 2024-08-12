@@ -32,7 +32,8 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
         int widthAdjustA4Rows15 = 0;
         int offsetXAdjustA4 = 0;
         int offsetYAdjustA4 = 0;
-        if (pageSettings.getPageSize().name().equals("A4")) {
+
+        if (pageSettings.getPageSize().name().contains("A4")) {
             widthAdjustA4 = -10;
             widthAdjustA4Rows15 = -20;
             offsetXAdjustA4 = -10;
@@ -102,7 +103,7 @@ public class Help4DevsPdfBoxTemplateSlimBox extends Help4DevsPdfBoxTemplateBuild
         try {
 
             int offsetYAdjustA4 = 0;
-            if (pageSettings.getPageSize().name().equals("A4")) {
+            if (pageSettings.getPageSize().name().contains("A4")) {
                 offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
             }
 

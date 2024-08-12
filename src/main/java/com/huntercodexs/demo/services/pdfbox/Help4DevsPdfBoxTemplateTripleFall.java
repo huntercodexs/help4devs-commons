@@ -35,7 +35,7 @@ public class Help4DevsPdfBoxTemplateTripleFall extends Help4DevsPdfBoxTemplateBu
         int offsetXAdjustA4Col2 = 0;
         int offsetXAdjustA4Col3 = 0;
         int offsetYAdjustA4 = 0;
-        if (pageSettings.getPageSize().name().equals("A4")) {
+        if (pageSettings.getPageSize().name().contains("A4")) {
             widthAdjustA4 = -7;
             offsetXAdjustA4Col1 = 1;
             offsetXAdjustA4Col2 = -7;
@@ -79,7 +79,7 @@ public class Help4DevsPdfBoxTemplateTripleFall extends Help4DevsPdfBoxTemplateBu
         try {
 
             int offsetYAdjustA4 = 0;
-            if (pageSettings.getPageSize().name().equals("A4")) {
+            if (pageSettings.getPageSize().name().contains("A4")) {
                 offsetYAdjustA4 = OFFSET_Y_ADJUST_A4;
             }
 

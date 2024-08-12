@@ -13,6 +13,9 @@ public abstract class Help4DevsPdfBoxElements {
 
     @Getter
     public enum PageSizeToPdfBox {
+        A4_LAYOUT(PDRectangle.A4),
+        LETTER_LAYOUT(PDRectangle.LETTER),
+
         A0(PDRectangle.A0),
         A1(PDRectangle.A1),
         A2(PDRectangle.A2),
@@ -336,14 +339,14 @@ public abstract class Help4DevsPdfBoxElements {
         String imageFilepath = null;
 
         public static int getPageWidth(String type) {
-            if (type.equals("LETTER")) {
+            if (type.equals("LETTER") || type.equals("LETTER_LAYOUT")) {
                 return PAGE_SIZE_LETTER[0];
             }
             return PAGE_SIZE_A4[0];
         }
 
         public static int getPageHeight(String type) {
-            if (type.equals("LETTER")) {
+            if (type.equals("LETTER") || type.equals("LETTER_LAYOUT")) {
                 return PAGE_SIZE_LETTER[1];
             }
             return PAGE_SIZE_A4[1];
