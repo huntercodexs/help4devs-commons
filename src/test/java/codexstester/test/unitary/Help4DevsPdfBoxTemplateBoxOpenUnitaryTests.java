@@ -15,10 +15,11 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 
 public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeTests {
 
-    private final static String pdfFilenameLetter = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box-open-LETTER.pdf";
-    private final static String pdfFilenameLetterLayout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box-open-LETTER-LAYOUT.pdf";
-    private final static String pdfFilenameA4 = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box-open-A4.pdf";
-    private final static String pdfFilenameA4Layout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-box-open-A4-LAYOUT.pdf";
+    private final static String path = "./src/test/resources/help4devs/files/pdf";
+    private final static String pdfFilenameLetter = path+"/my-pdfbox-test-template-box-open-LETTER.pdf";
+    private final static String pdfFilenameLetterLayout = path+"/my-pdfbox-test-template-box-open-LETTER-LAYOUT.pdf";
+    private final static String pdfFilenameA4 = path+"/my-pdfbox-test-template-box-open-A4.pdf";
+    private final static String pdfFilenameA4Layout = path+"/my-pdfbox-test-template-box-open-A4-LAYOUT.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
     private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-3.jpg";
     private final static String userPassword = "123456";
@@ -167,7 +168,7 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private BoxOpenTemplateSettings boxOpenSettings_LETTER_LAYOUT() {
+    private BoxOpenTemplateSettings boxOpenSettingsLetterLayout() {
         BoxOpenTemplateSettings settings = new BoxOpenTemplateSettings();
 
         //General
@@ -187,7 +188,7 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private BoxOpenTemplateSettings boxOpenSettings_LETTER() {
+    private BoxOpenTemplateSettings boxOpenSettingsA4Layout() {
         BoxOpenTemplateSettings settings = new BoxOpenTemplateSettings();
 
         //General
@@ -207,7 +208,7 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private BoxOpenTemplateSettings boxOpenSettings_A4_LAYOUT() {
+    private BoxOpenTemplateSettings boxOpenSettingsLetter() {
         BoxOpenTemplateSettings settings = new BoxOpenTemplateSettings();
 
         //General
@@ -227,7 +228,7 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private BoxOpenTemplateSettings boxOpenSettings_A4() {
+    private BoxOpenTemplateSettings boxOpenSettingsA4() {
         BoxOpenTemplateSettings settings = new BoxOpenTemplateSettings();
 
         //General
@@ -252,7 +253,7 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER_LAYOUT() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsLetterLayout() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER_LAYOUT;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.BOX_OPEN);
@@ -265,30 +266,12 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setBoxOpen(boxOpenSettings_LETTER_LAYOUT());
+        settings.setBoxOpen(boxOpenSettingsLetterLayout());
         settings.setBoxOpenContent(boxOpenData());
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER() {
-        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
-        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
-        settings.setTemplate(PdfBoxTemplates.BOX_OPEN);
-        settings.setImageBackground(imgBackground);
-        settings.setDocument(documentSettings(pageType));
-        settings.setPage(pageSettings(pageType));
-        settings.setContainer(containerSettings());
-        settings.setTable(tableSettings());
-        settings.setText(textSettings());
-        settings.setImage(imageSettings());
-        settings.setBarcode(barcodeSettings());
-        settings.setQrCode(qrCodeSettings());
-        settings.setBoxOpen(boxOpenSettings_LETTER());
-        settings.setBoxOpenContent(boxOpenData());
-        return settings;
-    }
-
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4_LAYOUT() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsA4Layout() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.A4_LAYOUT;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.BOX_OPEN);
@@ -301,12 +284,30 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setBoxOpen(boxOpenSettings_A4_LAYOUT());
+        settings.setBoxOpen(boxOpenSettingsA4Layout());
         settings.setBoxOpenContent(boxOpenData());
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsLetter() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.BOX_OPEN);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setBoxOpen(boxOpenSettingsLetter());
+        settings.setBoxOpenContent(boxOpenData());
+        return settings;
+    }
+
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsA4() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.A4;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.BOX_OPEN);
@@ -319,7 +320,7 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setBoxOpen(boxOpenSettings_A4());
+        settings.setBoxOpen(boxOpenSettingsA4());
         settings.setBoxOpenContent(boxOpenData());
         return settings;
     }
@@ -331,14 +332,14 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateBoxOpen_LETTER_LAYOUT_Test() {
+    public void pdfBoxTemplateBoxOpenLetterLayoutTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettings_LETTER_LAYOUT());
+        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettingsLetterLayout());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
@@ -353,14 +354,14 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateBoxOpen_LETTER_Test() {
+    public void pdfBoxTemplateBoxOpenA4LayoutTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettings_LETTER());
+        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettingsA4Layout());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
@@ -375,14 +376,14 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateBoxOpen_A4_LAYOUT_Test() {
+    public void pdfBoxTemplateBoxOpenLetterSample1Test() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettings_A4_LAYOUT());
+        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettingsLetter());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
@@ -397,14 +398,14 @@ public class Help4DevsPdfBoxTemplateBoxOpenUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateBoxOpen_A4_Test() {
+    public void pdfBoxTemplateBoxOpenA4Sample1Test() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettings_A4());
+        templateManager.pdfBoxTemplateBoxOpen(pdfBoxTemplateSettingsA4());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;

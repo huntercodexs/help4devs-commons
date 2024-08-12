@@ -15,10 +15,11 @@ import static com.huntercodexs.demo.services.pdfbox.Help4DevsPdfBoxTemplateSetti
 
 public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeTests {
 
-    private final static String pdfFilenameLetter = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-box-LETTER.pdf";
-    private final static String pdfFilenameLetterLayout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-box-LETTER-LAYOUT.pdf";
-    private final static String pdfFilenameA4 = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-box-A4.pdf";
-    private final static String pdfFilenameA4Layout = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-template-slim-box-A4-LAYOUT.pdf";
+    private final static String path = "./src/test/resources/help4devs/files/pdf";
+    private final static String pdfFilenameLetter = path+"/my-pdfbox-test-template-slim-box-LETTER.pdf";
+    private final static String pdfFilenameLetterLayout = path+"/my-pdfbox-test-template-slim-box-LETTER-LAYOUT.pdf";
+    private final static String pdfFilenameA4 = path+"/my-pdfbox-test-template-slim-box-A4.pdf";
+    private final static String pdfFilenameA4Layout = path+"/my-pdfbox-test-template-slim-box-A4-LAYOUT.pdf";
     private final static String imgJava = "./src/test/resources/help4devs/images/ads/java.png";
     private final static String imgBackground = "./src/test/resources/help4devs/images/background/pdfbox-background-sample-4.jpg";
     private final static String userPassword = "123456";
@@ -167,7 +168,7 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private SlimBoxTemplateSettings slimBoxSettings_LETTER_LAYOUT() {
+    private SlimBoxTemplateSettings slimBoxSettingsLetterLayout() {
         SlimBoxTemplateSettings settings = new SlimBoxTemplateSettings();
 
         //General
@@ -187,7 +188,7 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private SlimBoxTemplateSettings slimBoxSettings_LETTER() {
+    private SlimBoxTemplateSettings slimBoxSettingsA4Layout() {
         SlimBoxTemplateSettings settings = new SlimBoxTemplateSettings();
 
         //General
@@ -207,7 +208,7 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private SlimBoxTemplateSettings slimBoxSettings_A4_LAYOUT() {
+    private SlimBoxTemplateSettings slimBoxSettingsLetter() {
         SlimBoxTemplateSettings settings = new SlimBoxTemplateSettings();
 
         //General
@@ -227,7 +228,7 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private SlimBoxTemplateSettings slimBoxSettings_A4() {
+    private SlimBoxTemplateSettings slimBoxSettingsA4() {
         SlimBoxTemplateSettings settings = new SlimBoxTemplateSettings();
 
         //General
@@ -252,7 +253,7 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER_LAYOUT() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsLetterLayout() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER_LAYOUT;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.SLIM_BOX);
@@ -265,30 +266,12 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setSlimBox(slimBoxSettings_LETTER_LAYOUT());
+        settings.setSlimBox(slimBoxSettingsLetterLayout());
         settings.setSlimBoxContent(slimBoxData());
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_LETTER() {
-        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
-        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
-        settings.setTemplate(PdfBoxTemplates.SLIM_BOX);
-        settings.setImageBackground(imgBackground);
-        settings.setDocument(documentSettings(pageType));
-        settings.setPage(pageSettings(pageType));
-        settings.setContainer(containerSettings());
-        settings.setTable(tableSettings());
-        settings.setText(textSettings());
-        settings.setImage(imageSettings());
-        settings.setBarcode(barcodeSettings());
-        settings.setQrCode(qrCodeSettings());
-        settings.setSlimBox(slimBoxSettings_LETTER());
-        settings.setSlimBoxContent(slimBoxData());
-        return settings;
-    }
-
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4_LAYOUT() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsA4Layout() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.A4_LAYOUT;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.SLIM_BOX);
@@ -301,12 +284,30 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setSlimBox(slimBoxSettings_A4_LAYOUT());
+        settings.setSlimBox(slimBoxSettingsA4Layout());
         settings.setSlimBoxContent(slimBoxData());
         return settings;
     }
 
-    private PdfBoxTemplateSettings pdfBoxTemplateSettings_A4() {
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsLetter() {
+        PageSizeToPdfBox pageType = PageSizeToPdfBox.LETTER;
+        PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
+        settings.setTemplate(PdfBoxTemplates.SLIM_BOX);
+        settings.setImageBackground(imgBackground);
+        settings.setDocument(documentSettings(pageType));
+        settings.setPage(pageSettings(pageType));
+        settings.setContainer(containerSettings());
+        settings.setTable(tableSettings());
+        settings.setText(textSettings());
+        settings.setImage(imageSettings());
+        settings.setBarcode(barcodeSettings());
+        settings.setQrCode(qrCodeSettings());
+        settings.setSlimBox(slimBoxSettingsLetter());
+        settings.setSlimBoxContent(slimBoxData());
+        return settings;
+    }
+
+    private PdfBoxTemplateSettings pdfBoxTemplateSettingsA4() {
         PageSizeToPdfBox pageType = PageSizeToPdfBox.A4;
         PdfBoxTemplateSettings settings = new PdfBoxTemplateSettings();
         settings.setTemplate(PdfBoxTemplates.SLIM_BOX);
@@ -319,7 +320,7 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
         settings.setImage(imageSettings());
         settings.setBarcode(barcodeSettings());
         settings.setQrCode(qrCodeSettings());
-        settings.setSlimBox(slimBoxSettings_A4());
+        settings.setSlimBox(slimBoxSettingsA4());
         settings.setSlimBoxContent(slimBoxData());
         return settings;
     }
@@ -331,14 +332,14 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateSlimBox_LETTER_LAYOUT_Test() {
+    public void pdfBoxTemplateSlimBoxLetterLayoutTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettings_LETTER_LAYOUT());
+        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettingsLetterLayout());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
@@ -353,14 +354,14 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateSlimBox_LETTER_Test() {
+    public void pdfBoxTemplateSlimBoxA4LayoutTest() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettings_LETTER());
+        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettingsA4Layout());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
@@ -375,14 +376,14 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateSlimBox_A4_LAYOUT_Test() {
+    public void pdfBoxTemplateSlimBoxLetterSample1Test() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettings_A4_LAYOUT());
+        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettingsLetter());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
@@ -397,14 +398,14 @@ public class Help4DevsPdfBoxTemplateSlimBoxUnitaryTests extends Help4DevsBridgeT
     }
 
     @Test
-    public void pdfBoxTemplateSlimBox_A4_Test() {
+    public void pdfBoxTemplateSlimBoxA4Sample1Test() {
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
         long freeMemoryBefore = rt.freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
-        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettings_A4());
+        templateManager.pdfBoxTemplateSlimBox(pdfBoxTemplateSettingsA4());
 
         long freeMemoryAfter = rt.freeMemory();
         long usedMemory = freeMemoryBefore - freeMemoryAfter;
