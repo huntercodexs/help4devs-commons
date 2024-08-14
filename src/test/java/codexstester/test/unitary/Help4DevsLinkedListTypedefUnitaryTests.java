@@ -1,7 +1,8 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.services.data.Help4DevsLinkedListTypedefService.*;
+import com.huntercodexs.demo.services.data.Help4DevsLinkedListTypedefService.Iterator;
+import com.huntercodexs.demo.services.data.Help4DevsLinkedListTypedefService.LinkedList;
 import org.junit.Test;
 
 public class Help4DevsLinkedListTypedefUnitaryTests extends Help4DevsBridgeTests {
@@ -202,6 +203,32 @@ public class Help4DevsLinkedListTypedefUnitaryTests extends Help4DevsBridgeTests
         }
         codexsTesterAssertInt(2, linkedList.getSize());
         codexsTesterAssertBool(false, linkedList.get(1).getValue());
+    }
+
+    @Test
+    public void iteratorTest() {
+
+        LinkedList<Integer> linkedList = new LinkedList<>();
+
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+            linkedList.add(i);
+        }
+        long end = System.currentTimeMillis();
+        long total = end - start;
+
+        System.out.println("[ADD] Elapsed time: " + total + "ms");
+
+        start = System.currentTimeMillis();
+        Iterator<Integer> iterator = linkedList.getIterator();
+        while (iterator.hasNext()) {
+            iterator.getNext();
+        }
+        end = System.currentTimeMillis();
+        total = end - start;
+
+        System.out.println("[GET] Elapsed time: " + total + "ms");
+
     }
 
 }

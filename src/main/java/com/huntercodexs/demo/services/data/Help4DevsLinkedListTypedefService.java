@@ -65,6 +65,46 @@ public class Help4DevsLinkedListTypedefService {
             this.current = this.current.getNext();
         }
 
+        public int getSize() {
+            return size;
+        }
+
+        public void setSize(int size) {
+            this.size = size;
+        }
+
+        public Element<T> getFirst() {
+            return first;
+        }
+
+        public void setFirst(Element<T> first) {
+            this.first = first;
+        }
+
+        public Element<T> getLast() {
+            return last;
+        }
+
+        public void setLast(Element<T> last) {
+            this.last = last;
+        }
+
+        public Element<T> getPrevious() {
+            return previous;
+        }
+
+        public void setPrevious(Element<T> previous) {
+            this.previous = previous;
+        }
+
+        public Element<T> getCurrent() {
+            return current;
+        }
+
+        public void setCurrent(Element<T> current) {
+            this.current = current;
+        }
+
         /*TODO: Fix bug then remove all elements from the object*/
         private void delete(T seek) {
             this.previous = null;
@@ -142,44 +182,8 @@ public class Help4DevsLinkedListTypedefService {
             return this.current;
         }
 
-        public int getSize() {
-            return size;
-        }
-
-        public void setSize(int size) {
-            this.size = size;
-        }
-
-        public Element<T> getFirst() {
-            return first;
-        }
-
-        public void setFirst(Element<T> first) {
-            this.first = first;
-        }
-
-        public Element<T> getLast() {
-            return last;
-        }
-
-        public void setLast(Element<T> last) {
-            this.last = last;
-        }
-
-        public Element<T> getPrevious() {
-            return previous;
-        }
-
-        public void setPrevious(Element<T> previous) {
-            this.previous = previous;
-        }
-
-        public Element<T> getCurrent() {
-            return current;
-        }
-
-        public void setCurrent(Element<T> current) {
-            this.current = current;
+        public Iterator<T> getIterator() {
+            return new Iterator<T>(this.first);
         }
     }
 
@@ -213,6 +217,34 @@ public class Help4DevsLinkedListTypedefService {
 
         public void setNext(Element<T> next) {
             this.next = next;
+        }
+    }
+
+    public static class Iterator<T> {
+
+        private Element<T> element;
+
+        public Iterator() {}
+
+        public Iterator(Element<T> element) {
+            this.element = element;
+        }
+
+        public Element<T> getElement() {
+            return element;
+        }
+
+        public void setElement(Element<T> element) {
+            this.element = element;
+        }
+
+        public boolean hasNext() {
+            return this.element.getNext() != null;
+        }
+
+        public Element<T> getNext() {
+            this.element = this.element.getNext();
+            return this.element;
         }
     }
 
