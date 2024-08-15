@@ -337,13 +337,13 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
-        long freeMemoryBefore = rt.freeMemory();
+        long freeMemoryBefore = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
         templateManager.pdfBoxTemplateHeaderBody(pdfBoxTemplateSettingsLetterLayout());
 
-        long freeMemoryAfter = rt.freeMemory();
-        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+        long freeMemoryAfter = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        long usedMemory = freeMemoryAfter - freeMemoryBefore;
 
         System.out.println("------------------------------------------------");
         System.out.println("- Memory Usage -");
@@ -359,13 +359,13 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
-        long freeMemoryBefore = rt.freeMemory();
+        long freeMemoryBefore = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
         templateManager.pdfBoxTemplateHeaderBody(pdfBoxTemplateSettingsA4Layout());
 
-        long freeMemoryAfter = rt.freeMemory();
-        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+        long freeMemoryAfter = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        long usedMemory = freeMemoryAfter - freeMemoryBefore;
 
         System.out.println("------------------------------------------------");
         System.out.println("- Memory Usage -");
@@ -381,13 +381,13 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
-        long freeMemoryBefore = rt.freeMemory();
+        long freeMemoryBefore = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
         templateManager.pdfBoxTemplateHeaderBody(pdfBoxTemplateSettingsLetter());
 
-        long freeMemoryAfter = rt.freeMemory();
-        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+        long freeMemoryAfter = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        long usedMemory = freeMemoryAfter - freeMemoryBefore;
 
         System.out.println("------------------------------------------------");
         System.out.println("- Memory Usage -");
@@ -403,13 +403,13 @@ public class Help4DevsPdfBoxTemplateHeaderBodyUnitaryTests extends Help4DevsBrid
         Runtime rt = Runtime.getRuntime();
 
         long totalMemory = rt.totalMemory();
-        long freeMemoryBefore = rt.freeMemory();
+        long freeMemoryBefore = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         Help4DevsPdfBoxTemplate templateManager = new Help4DevsPdfBoxTemplate();
         templateManager.pdfBoxTemplateHeaderBody(pdfBoxTemplateSettingsA4());
 
-        long freeMemoryAfter = rt.freeMemory();
-        long usedMemory = freeMemoryBefore - freeMemoryAfter;
+        long freeMemoryAfter = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        long usedMemory = freeMemoryAfter - freeMemoryBefore;
 
         System.out.println("------------------------------------------------");
         System.out.println("- Memory Usage -");
