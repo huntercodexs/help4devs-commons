@@ -33,9 +33,9 @@ public class Help4DevsBaseService {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">params</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">calculateBytes</h6>
      *
-     * <p style="color: #CDCDCD">Sample method to show how to work and use the grouped parameters</p>
+     * <p style="color: #CDCDCD">Calculate the unit of memory used from bytes to Bytes (b)</p>
      *
      * @param bytesLength (long)
      * @return String (Bytes length calculated - Bytes)
@@ -45,18 +45,18 @@ public class Help4DevsBaseService {
     public static String calculateBytes(long bytesLength) {
         if (bytesLength >= 1 && bytesLength < 1024) {
             if (bytesLength == 1) {
-                return bytesLength + "byte";
+                return bytesLength + "b";
             } else {
-                return bytesLength + "bytes";
+                return bytesLength + "b";
             }
         }
-        return null;
+        return "Is not possible to calculate the memory => ["+bytesLength+"b]";
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">params</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">calculateKilobytes</h6>
      *
-     * <p style="color: #CDCDCD">Sample method to show how to work and use the grouped parameters</p>
+     * <p style="color: #CDCDCD">Calculate the unit of memory used from bytes to Kilobytes (KB)</p>
      *
      * @param bytesLength (long)
      * @return String (Bytes length calculated - KB)
@@ -68,13 +68,13 @@ public class Help4DevsBaseService {
             String size = String.valueOf(((float) bytesLength) / 1024);
             return calculateResult(size.split("\\."), "KB");
         }
-        return null;
+        return calculateBytes(bytesLength);
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">params</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">calculateMegabytes</h6>
      *
-     * <p style="color: #CDCDCD">Sample method to show how to work and use the grouped parameters</p>
+     * <p style="color: #CDCDCD">Calculate the unit of memory used from bytes to Megabytes (MB)</p>
      *
      * @param bytesLength (long)
      * @return String (Bytes length calculated - MB)
@@ -88,7 +88,49 @@ public class Help4DevsBaseService {
             String size = String.valueOf(megabytes);
             return calculateResult(size.split("\\."), "MB");
         }
-        return null;
+        return calculateKilobytes(bytesLength);
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">calculateGigabytes</h6>
+     *
+     * <p style="color: #CDCDCD">Calculate the unit of memory used from bytes to Gigabytes (GB)</p>
+     *
+     * @param bytesLength (long)
+     * @return String (Bytes length calculated - GB)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String calculateGigabytes(long bytesLength) {
+        if (bytesLength >= 1024000000 && bytesLength < 1024000000000L) {
+            float kilobytes = (((float) bytesLength) / 1024);
+            float megabytes = (kilobytes / 1024);
+            float gigabytes = (megabytes / 1024);
+            String size = String.valueOf(gigabytes);
+            return calculateResult(size.split("\\."), "GB");
+        }
+        return calculateMegabytes(bytesLength);
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">calculateMemory</h6>
+     *
+     * <p style="color: #CDCDCD">Get the formatted memory number from any value source:</p>
+     *
+     * <ul>
+     *     <li>b (bytes)</li>
+     *     <li>KB (kilobytes)</li>
+     *     <li>MB (megabytes)</li>
+     *     <li>GB (gigabytes)</li>
+     * </ul>
+     *
+     * @param bytesLength (long)
+     * @return String (String: Memory calculate and formatted)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String calculateMemory(long bytesLength) {
+        return calculateGigabytes(bytesLength);
     }
 
 }

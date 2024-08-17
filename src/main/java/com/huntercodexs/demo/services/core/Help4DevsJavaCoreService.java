@@ -14,4 +14,8 @@ public class Help4DevsJavaCoreService {
         return recursiveSum(array, pos+1, total+array[pos]);
     }
 
+    //replace
+    //replaceFirst
+    //replaceAll
+
 }

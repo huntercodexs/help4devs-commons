@@ -3,9 +3,11 @@ package codexstester.test.unitary;
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.Arrays;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMegabytes;
+import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.calculateMemory;
 import static com.huntercodexs.demo.services.data.Help4DevsDataSortService.*;
 
 public class Help4DevsDataSortUnitaryTests extends Help4DevsBridgeTests {
@@ -29,6 +31,79 @@ public class Help4DevsDataSortUnitaryTests extends Help4DevsBridgeTests {
         if (array.length <= 999) {
             System.out.println(Arrays.toString(array));
         }
+
+        //System information
+        System.out.println("[Information] - System");
+        //Processor
+        System.out.println("Processor: "+Runtime.getRuntime().availableProcessors());
+        //Memory
+        System.out.println("Memory: "+Runtime.getRuntime().totalMemory());
+        //The version of Java Runtime Environment.
+        System.out.println("Java Version: "+System.getProperty("java.version"));
+        //The name of Java Runtime Environment vendor
+        System.out.println("Java Vendor: "+System.getProperty("java.vendor "));
+        //The URL of Java vendor
+        System.out.println("Java Vendor URL: "+System.getProperty("java.vendor.url"));
+        //The directory of Java installation
+        System.out.println("Java Home: "+System.getProperty("java.home"));
+        //The specification version of Java Virtual Machine
+        System.out.println("Java Specification Version: "+System.getProperty("java.vm.specification.version"));
+        //The name of specification vendor of Java Virtual Machine
+        System.out.println("Java VM Specification Vendor: "+System.getProperty("java.vm.specification.vendor"));
+        //Java Virtual Machine specification name
+        System.out.println("Java VM Specification Name: "+System.getProperty("java.vm.specification.name"));
+        //JVM implementation version
+        System.out.println("Java VM Version: "+System.getProperty("java.vm.version"));
+        //JVM implementation vendor
+        System.out.println("Java VM Vendor: "+System.getProperty("java.vm.vendor"));
+        //JVM  implementation name
+        System.out.println("Java VM Name: "+System.getProperty("java.vm.name"));
+        //The name of specification version Java Runtime Environment
+        System.out.println("Java Specification Version: "+System.getProperty("java.specification.version"));
+        // JRE specification vendor
+        System.out.println("Java Specification Vendor: "+System.getProperty("java.specification.vendor"));
+        //JRE specification name
+        System.out.println("Java Specification Name: "+System.getProperty("java.specification.name"));
+        //Java class format version number
+        System.out.println("Java Class Version: "+System.getProperty("java.class.version"));
+        //Path of java class
+        System.out.println("Java Class Path: "+System.getProperty("ava.class.path"));
+        //List of paths to search when loading libraries
+        System.out.println("Java Library Path: "+System.getProperty("java.library.path"));
+        //The path of temp file
+        System.out.println("Java IO Tmpdir: "+System.getProperty("java.io.tmpdir"));
+        //The Name of JIT compiler to use
+        System.out.println("Java Compiler: "+System.getProperty("java.compiler"));
+        //The path of extension directory or directories
+        System.out.println("Java Extra Dirs: "+System.getProperty("java.ext.dirs"));
+        //The name of OS name
+        System.out.println("OS Name: "+System.getProperty("os.name"));
+        //The OS architecture
+        System.out.println("OS Arch: "+System.getProperty("os.arch"));
+        //The version of OS
+        System.out.println("OS Version: "+System.getProperty("os.version"));
+        //The File separator
+        System.out.println("OS File Separator: "+System.getProperty("file.separator"));
+        //The path separator
+        System.out.println("OS Path Separator: "+System.getProperty("path.separator"));
+        //The line separator
+        System.out.print("OS Line Separator: "+System.getProperty("line.separator"));
+        //The name of account name user
+        System.out.println("User Name: "+System.getProperty("user.name"));
+        //The home directory of user
+        System.out.println("User Home: "+System.getProperty("user.home"));
+        //The current working directory of the user
+        System.out.println("User Dir: "+System.getProperty("user.dir"));
+        //Roots
+        for (File root : File.listRoots()) {
+            System.out.println("File system root: " + root.getAbsolutePath());
+            System.out.println("Total space: " + calculateMemory(root.getTotalSpace()) +" ("+root.getTotalSpace()+" bytes)");
+            System.out.println("Free space: " + calculateMemory(root.getFreeSpace()) +" ("+root.getFreeSpace()+" bytes)");
+            System.out.println("Usable space: " + calculateMemory(root.getUsableSpace()) +" ("+ root.getFreeSpace() + " bytes)");
+        }
+
+        Runtime.getRuntime().runFinalization();
+        Runtime.getRuntime().gc();
 
         ResultMetrics result;
 

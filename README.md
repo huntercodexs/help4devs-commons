@@ -912,7 +912,7 @@ Create the buffer from one opened file and save data temporarily in it
 <h4>public static String reader(BufferedReader readActivateFile)</h4>
 <hr>
 
-Reader the buffer created in the buffer method to get data that was saved in the memory
+Reader the buffer created in the buffer method to get data that was saved in the memoryInfo
 
 <br>
 <h4>public static public static void close(FileReader activateFile)</h4>
