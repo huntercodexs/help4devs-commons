@@ -5,7 +5,263 @@ import com.huntercodexs.demo.system.Help4DevsSystemService.*;
 import com.huntercodexs.demo.system.Help4DevsSystemService.GeneralSystemInfo.GeneralSystemInfoMetrics.*;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ManagementPermission;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
+
+    @Test
+    public void inxiTest() {
+
+        try {
+
+            System.out.println("INXI INFORMATION");
+            String inxi = "inxi -Fxz --slots --memory --cpu --disk-full --graphics --machine --network --sensors --system --usb --info --color";
+
+            Process processInxi = Runtime.getRuntime().exec(inxi);
+            BufferedReader readerInxi = new BufferedReader(new InputStreamReader(processInxi.getInputStream()));
+            String resultInxi;
+
+            while ((resultInxi = readerInxi.readLine()) != null) {
+                System.out.println(resultInxi);
+            }
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+    }
+
+    @Test
+    public void hwinfoTest() {
+
+        try {
+            System.out.println("HWINFO INFORMATION");
+            String hwinfo = "hwinfo --short";
+
+            Process processHwInfo = Runtime.getRuntime().exec(hwinfo);
+            BufferedReader readerHwInfo = new BufferedReader(new InputStreamReader(processHwInfo.getInputStream()));
+            String resultHwInfo;
+
+            while ((resultHwInfo = readerHwInfo.readLine()) != null) {
+                System.out.println(resultHwInfo);
+            }
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    @Test
+    public void lshwTest() {
+
+        try {
+
+            System.out.println("HARDWARE DETAILS");
+            String hardware = "lshw -short";
+
+            Process process1 = Runtime.getRuntime().exec(hardware);
+            BufferedReader reader1 = new BufferedReader(new InputStreamReader(process1.getInputStream()));
+            String result1;
+
+            while ((result1 = reader1.readLine()) != null) {
+                System.out.println(result1);
+            }
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    @Test
+    public void lscpuTest() {
+
+        try {
+            System.out.println("PROCESSOR NAME");
+            String processorName = "lscpu";
+
+            Process process2 = Runtime.getRuntime().exec(processorName);
+            BufferedReader reader2 = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+            String result2;
+
+            while ((result2 = reader2.readLine()) != null) {
+                System.out.println(result2);
+            }
+
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    @Test
+    public void lscpuDetailsTest() {
+
+        try {
+            System.out.println("CPU DETAILS");
+            String cpuDetails = "lshw -C cpu";
+
+            Process process3 = Runtime.getRuntime().exec(cpuDetails);
+            BufferedReader reader3 = new BufferedReader(new InputStreamReader(process3.getInputStream()));
+            String result3;
+
+            while ((result3 = reader3.readLine()) != null) {
+                System.out.println(result3);
+            }
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe.getMessage());
+        }
+
+    }
+
+    /**
+     * [IMPORTANT] This method use dmidecode linux command that needs superuser (root), so
+     * it's very important to compile the application, get the jar file generated and run that one
+     * in the following way:
+     * <br />
+     * <br />
+     * sudo java -jar {APP}.jar --spring.config.location={APPLICATION-PROPERTIES}
+     * <br />
+     * <br />
+     * Or you can (should) run the IDE like a IntelliJ using the sudo command to get the required kind of
+     * permissions to access the dmidecode linux command
+     *
+     * */
+    @Test
+    public void dmidecodeTest() {
+
+        try {
+
+            System.out.println("DMI DECODE");
+            String dmidecode = "sudo dmidecode";
+            Process process4 = Runtime.getRuntime().exec(dmidecode);
+            process4.waitFor();
+            BufferedReader reader4 = new BufferedReader(new InputStreamReader(process4.getInputStream()));
+
+            String result4;
+
+            while ((result4 = reader4.readLine()) != null) {
+                System.out.println(result4);
+            }
+
+        } catch (InterruptedException | IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void managementMXBeanTest() throws UnknownHostException {
+
+        System.getenv("PROCESSOR_IDENTIFIER");
+        System.getenv("PROCESSOR_ARCHITECTURE");
+        System.getenv("PROCESSOR_ARCHITEW6432");
+        System.getenv("NUMBER_OF_PROCESSORS");
+
+        for (Object propertyKeyName:System.getProperties().keySet()){
+            System.out.println(propertyKeyName+" - "+System.getProperty(propertyKeyName.toString()));
+        }
+
+        InetAddress ip = InetAddress.getLocalHost();
+        ip.getHostAddress();
+
+        System.getProperties().list(System.out);
+
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getUsed();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getInit();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getCommitted();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getMax();
+
+        ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();
+        ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();
+        ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getInit();
+        ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getCommitted();
+        ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax();
+
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getUsed();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getInit();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getCommitted();
+        ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getMax();
+
+        ManagementFactory.getOperatingSystemMXBean();
+        ManagementFactory.getOperatingSystemMXBean().getArch();
+        ManagementFactory.getOperatingSystemMXBean().getName();
+        ManagementFactory.getOperatingSystemMXBean().getVersion();
+        ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
+        ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
+
+        ManagementFactory.getRuntimeMXBean();
+        ManagementFactory.getRuntimeMXBean().getName();
+        ManagementFactory.getRuntimeMXBean().getClassPath();
+        ManagementFactory.getRuntimeMXBean().getBootClassPath();
+        ManagementFactory.getRuntimeMXBean().getManagementSpecVersion();
+        ManagementFactory.getRuntimeMXBean().getLibraryPath();
+        ManagementFactory.getRuntimeMXBean().getSpecName();
+        ManagementFactory.getRuntimeMXBean().getUptime();
+        ManagementFactory.getRuntimeMXBean().getVmName();
+        ManagementFactory.getRuntimeMXBean().getVmVendor();
+        ManagementFactory.getRuntimeMXBean().getVmVersion();
+        ManagementFactory.getRuntimeMXBean().getSystemProperties().forEach((k, v) -> {
+
+        });
+
+        com.sun.management.OperatingSystemMXBean os = (com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        os.getTotalSwapSpaceSize();
+        os.getSystemLoadAverage();
+
+        ManagementFactory.getThreadMXBean();
+        ManagementFactory.getThreadMXBean().getAllThreadIds();
+
+        ManagementPermission permission = new ManagementPermission("monitor");
+        permission.newPermissionCollection();
+    }
+
+    @Test
+    public void systemInfoWindowsTest() throws IOException {
+
+        System.out.println("WINDOWS SYSTEM INFO");
+        Process process = Runtime.getRuntime().exec("systeminfo");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+        String result;
+        List<String> list = new ArrayList<>();
+
+        while ((result = reader.readLine()) != null) {
+
+            //System.out.println(result);
+
+            String[] splitter = result
+                    .replaceAll("(: +)+", ":")
+                    .replaceAll("^ +\\[", "[")
+                    .replaceAll("^ +([0-9a-zA-Z])", "$1")
+                    .replaceFirst(":", "{:cutter:}")
+                    .split("\\{:cutter:}");
+
+            //System.out.println(Arrays.toString(splitter));
+
+            if (splitter.length == 2) {
+                list.add(splitter[0]+"="+splitter[1]);
+            }
+
+            //System.out.println("FIELD: "+splitter[0]);
+            //System.out.println("VALUE: "+splitter[1]);
+        }
+
+        for (String item : list) {
+            System.out.println(item);
+        }
+    }
 
     @Test
     public void timerSystemTest() {
