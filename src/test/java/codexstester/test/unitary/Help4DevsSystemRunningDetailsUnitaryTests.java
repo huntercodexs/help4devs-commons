@@ -1,6 +1,7 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
+import com.huntercodexs.demo.system.Help4DevsSystemService;
 import com.huntercodexs.demo.system.Help4DevsSystemService.*;
 import com.huntercodexs.demo.system.Help4DevsSystemService.GeneralSystemInfo.GeneralSystemInfoMetrics.*;
 import org.junit.Test;
@@ -15,7 +16,33 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
+import static com.huntercodexs.demo.system.Help4DevsSystemService.GeneralSystemInfo.AvailableCommands.*;
+
+public class Help4DevsSystemRunningDetailsUnitaryTests extends Help4DevsBridgeTests {
+
+    @Test
+    public void availableCommandsTest() {
+        String result = sysCmd(GeneralSystemInfo.AvailableCommands.INXI);
+        codexsTesterAssertExact("inxi -Fxz --slots --memory --cpu --disk-full --graphics --machine --network --sensors --system --usb --info --color", result);
+
+        result = sysCmd(GeneralSystemInfo.AvailableCommands.HWINFO);
+        codexsTesterAssertExact("hwinfo --short", result);
+
+        result = sysCmd(GeneralSystemInfo.AvailableCommands.LSHW);
+        codexsTesterAssertExact("lshw -short", result);
+
+        result = sysCmd(GeneralSystemInfo.AvailableCommands.LSCPU);
+        codexsTesterAssertExact("lscpu", result);
+
+        result = sysCmd(GeneralSystemInfo.AvailableCommands.LSCPU2);
+        codexsTesterAssertExact("lshw -C cpu", result);
+
+        result = sysCmd(GeneralSystemInfo.AvailableCommands.DMIDECODE);
+        codexsTesterAssertExact("dmidecode", result);
+
+        result = sysCmd(GeneralSystemInfo.AvailableCommands.SYSTEMINFO_WINDOWS);
+        codexsTesterAssertExact("systeminfo", result);
+    }
 
     @Test
     public void inxiTest() {
@@ -122,21 +149,19 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
 
     }
 
-    /**
-     * [IMPORTANT] This method use dmidecode linux command that needs superuser (root), so
-     * it's very important to compile the application, get the jar file generated and run that one
-     * in the following way:
-     * <br />
-     * <br />
-     * sudo java -jar {APP}.jar --spring.config.location={APPLICATION-PROPERTIES}
-     * <br />
-     * <br />
-     * Or you can (should) run the IDE like a IntelliJ using the sudo command to get the required kind of
-     * permissions to access the dmidecode linux command
-     *
-     * */
     @Test
     public void dmidecodeTest() {
+
+        /*
+         * [IMPORTANT] This method use dmidecode linux command that needs superuser (root), so
+         * it's very important to compile the application, get the jar file generated and run that one
+         * in the following way:
+         *
+         * sudo java -jar {APP}.jar --spring.config.location={APPLICATION-PROPERTIES}
+         *
+         * Or you can (should) run the IDE like a IntelliJ using the sudo command to get the required kind of
+         * permissions to access the dmidecode linux command
+         * */
 
         try {
 
@@ -159,6 +184,43 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void systemInfoWindowsTest() throws IOException {
+
+        System.out.println("WINDOWS SYSTEM INFO");
+        Process process = Runtime.getRuntime().exec("systeminfo");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+        String result;
+        List<String> list = new ArrayList<>();
+
+        while ((result = reader.readLine()) != null) {
+
+            //System.out.println(result);
+
+            String[] splitter = result
+                    .replaceAll("(: +)+", ":")
+                    .replaceAll("^ +\\[", "[")
+                    .replaceAll("^ +([0-9a-zA-Z])", "$1")
+                    .replaceFirst(":", "{:cutter:}")
+                    .split("\\{:cutter:}");
+
+            //System.out.println(Arrays.toString(splitter));
+
+            if (splitter.length == 2) {
+                list.add(splitter[0] + "=" + splitter[1]);
+            }
+
+            //System.out.println("FIELD: "+splitter[0]);
+            //System.out.println("VALUE: "+splitter[1]);
+        }
+
+        for (String item : list) {
+            System.out.println(item);
+        }
+    }
+
+    @Test
     public void managementMXBeanTest() throws UnknownHostException {
 
         System.getenv("PROCESSOR_IDENTIFIER");
@@ -166,8 +228,8 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
         System.getenv("PROCESSOR_ARCHITEW6432");
         System.getenv("NUMBER_OF_PROCESSORS");
 
-        for (Object propertyKeyName:System.getProperties().keySet()){
-            System.out.println(propertyKeyName+" - "+System.getProperty(propertyKeyName.toString()));
+        for (Object propertyKeyName : System.getProperties().keySet()) {
+            System.out.println(propertyKeyName + " - " + System.getProperty(propertyKeyName.toString()));
         }
 
         InetAddress ip = InetAddress.getLocalHost();
@@ -227,48 +289,11 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void systemInfoWindowsTest() throws IOException {
-
-        System.out.println("WINDOWS SYSTEM INFO");
-        Process process = Runtime.getRuntime().exec("systeminfo");
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        String result;
-        List<String> list = new ArrayList<>();
-
-        while ((result = reader.readLine()) != null) {
-
-            //System.out.println(result);
-
-            String[] splitter = result
-                    .replaceAll("(: +)+", ":")
-                    .replaceAll("^ +\\[", "[")
-                    .replaceAll("^ +([0-9a-zA-Z])", "$1")
-                    .replaceFirst(":", "{:cutter:}")
-                    .split("\\{:cutter:}");
-
-            //System.out.println(Arrays.toString(splitter));
-
-            if (splitter.length == 2) {
-                list.add(splitter[0]+"="+splitter[1]);
-            }
-
-            //System.out.println("FIELD: "+splitter[0]);
-            //System.out.println("VALUE: "+splitter[1]);
-        }
-
-        for (String item : list) {
-            System.out.println(item);
-        }
-    }
-
-    @Test
     public void timerSystemTest() {
 
         TimerInfo timerInfo = new TimerInfo();
 
-        System.out.println("START: "+ timerInfo.metrics().getStart());
+        System.out.println("START: " + timerInfo.metrics().getStart());
 
         try {
             Thread.sleep(3000);
@@ -276,7 +301,7 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
             throw new RuntimeException(e);
         }
 
-        System.out.println("CURRENT: "+ timerInfo.metrics().getCurrent());
+        System.out.println("CURRENT: " + timerInfo.metrics().getCurrent());
 
         try {
             Thread.sleep(3000);
@@ -285,7 +310,7 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
         }
 
         timerInfo.timerSpec(TimerInfo.TimerSpec.SEC, 2);
-        System.out.println("TOTAL: "+ timerInfo.metrics().getTotal());
+        System.out.println("TOTAL: " + timerInfo.metrics().getTotal());
 
         try {
             Thread.sleep(2000);
@@ -294,7 +319,7 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
         }
 
         timerInfo.finish();
-        System.out.println("END: "+ timerInfo.metrics().getEnd());
+        System.out.println("END: " + timerInfo.metrics().getEnd());
     }
 
     @Test
@@ -310,8 +335,8 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
         int sizeTest = 1000000000;
         int[] arrayTest = new int[sizeTest];
 
-        MemoryInfo memoryInfo = new MemoryInfo();
-        memoryInfo.memorySpec(MemoryInfo.MemorySpec.AUTO);
+        Help4DevsSystemService.MemoryInfo memoryInfo = new Help4DevsSystemService.MemoryInfo();
+        memoryInfo.memorySpec(Help4DevsSystemService.MemoryInfo.MemorySpec.AUTO);
 
         String total = memoryInfo.total();
         System.out.println("TOTAL MEMORY: " + total);
@@ -333,7 +358,7 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
 
         for (int i = 0; i < sizeTest; i++) {
             arrayTest[i] = i + 1;
-            if (i%2 == i) {
+            if (i % 2 == i) {
                 arrayTest[i] = i + 10;
             }
         }
@@ -373,7 +398,7 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void processorTest() {
 
-        ProcessorInfo processorInfo = new ProcessorInfo();
+        Help4DevsSystemService.ProcessorInfo processorInfo = new Help4DevsSystemService.ProcessorInfo();
 
         System.out.println("-- PROCESSOR INFO - TO STRING --");
         System.out.println(processorInfo.metrics());
@@ -432,38 +457,111 @@ public class Help4DevsSystemInfoUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void generalSystemInfoTest() {
+    public void generalSystemInfoByInxiCommandTest() {
 
-        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo();
-
+        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo(INXI);
         generalSystemInfo.metrics();
 
-        SystemInfo systemInfo = generalSystemInfo.metrics().getSystemInfo();
-        System.out.println(systemInfo.toString());
+        //SYSTEM
+        SystemDetails system = generalSystemInfo.metrics().getSystem();
+        System.out.println(system.getDetails());
+        //--MACHINE
+        MachineDetails machine = generalSystemInfo.metrics().getMachine();
+        System.out.println(machine.getDetails());
+        //--BATTERY
+        BatteryDetails battery = generalSystemInfo.metrics().getBattery();
+        System.out.println(battery.getDetails());
+        //--MEMORY
+        MemoryDetails memory = generalSystemInfo.metrics().getMemory();
+        System.out.println(memory.getDetails());
+        //--SLOTS
+        SlotsDetails slots = generalSystemInfo.metrics().getSlots();
+        System.out.println(slots.getDetails());
+        //--PROCESSOR
+        ProcessorDetails processor = generalSystemInfo.metrics().getProcessor();
+        System.out.println(processor.getDetails());
+        //--GRAPHICS
+        GraphicsDetails graphics = generalSystemInfo.metrics().getGraphics();
+        System.out.println(graphics.getDetails());
+        //--AUDIO
+        AudioDetails audio = generalSystemInfo.metrics().getAudio();
+        System.out.println(audio.getDetails());
+        //--NETWORK
+        NetworkDetails network = generalSystemInfo.metrics().getNetwork();
+        System.out.println(network.getDetails());
+        //--DRIVERS
+        DriversDetails drivers = generalSystemInfo.metrics().getDrivers();
+        System.out.println(drivers.getDetails());
+        //--PARTITION
+        PartitionDetails partition = generalSystemInfo.metrics().getPartition();
+        System.out.println(partition.getDetails());
+        //--USB
+        UsbDetails usb = generalSystemInfo.metrics().getUsb();
+        System.out.println(usb.getDetails());
+        //--SENSORS
+        SensorsDetails sensors = generalSystemInfo.metrics().getSensors();
+        System.out.println(sensors.getDetails());
+        //--RUNNING
+        RunningDetails running = generalSystemInfo.metrics().getRunning();
+        System.out.println(running.getDetails());
+        //--MONITOR
+        MonitorDetails monitor = generalSystemInfo.metrics().getMonitor();
+        System.out.println(monitor.getDetails());
+        //--BIOS
+        BiosDetails bios = generalSystemInfo.metrics().getBios();
+        System.out.println(bios.getDetails());
+        //--BASEBOARD
+        BaseboardDetails baseboard = generalSystemInfo.metrics().getBaseboard();
+        System.out.println(baseboard.getDetails());
+        //--CHASSIS
+        ChassisDetails chassis = generalSystemInfo.metrics().getChassis();
+        System.out.println(chassis.getDetails());
+        //--CACHE
+        CacheDetails cache = generalSystemInfo.metrics().getCache();
+        System.out.println(cache.getDetails());
+        //--CONNECTOR
+        ConnectorDetails connector = generalSystemInfo.metrics().getConnector();
+        System.out.println(connector.getDetails());
+        //--DRIVES
+        DrivesDetails drives = generalSystemInfo.metrics().getDrives();
+        System.out.println(drives.getDetails());
 
-        Memory memory = generalSystemInfo.metrics().getMemory();
-        System.out.println(memory.toString());
+    }
 
-        Processor processor = generalSystemInfo.metrics().getProcessor();
-        System.out.println(processor.toString());
+    @Test
+    public void generalSystemInfoByHwinfoCommandTest() {
+        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo(HWINFO);
+        generalSystemInfo.metrics();
+    }
 
-        Bios bios = generalSystemInfo.metrics().getBios();
-        System.out.println(bios.toString());
+    @Test
+    public void generalSystemInfoByLshwCommandTest() {
+        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo(LSHW);
+        generalSystemInfo.metrics();
+    }
 
-        Baseboard baseboard = generalSystemInfo.metrics().getBaseboard();
-        System.out.println(baseboard.toString());
+    @Test
+    public void generalSystemInfoByLscpuCommandTest() {
+        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo(LSCPU);
+        generalSystemInfo.metrics();
+    }
 
-        Chassis chassis = generalSystemInfo.metrics().getChassis();
-        System.out.println(chassis.toString());
+    @Test
+    public void generalSystemInfoByLscpu2CommandTest() {
+        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo(LSCPU2);
+        generalSystemInfo.metrics();
+    }
 
-        Cache cache = generalSystemInfo.metrics().getCache();
-        System.out.println(cache.toString());
+    @Test
+    public void generalSystemInfoByDmidecodeCommandTest() {
+        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo(DMIDECODE);
+        generalSystemInfo.metrics();
+    }
 
-        Connector connector = generalSystemInfo.metrics().getConnector();
-        System.out.println(connector.toString());
-
-        Slot slot = generalSystemInfo.metrics().getSlot();
-        System.out.println(slot.toString());
+    @Test
+    public void generalSystemInfoBySysteminfoWindowsCommandTest() {
+        GeneralSystemInfo generalSystemInfo = new GeneralSystemInfo(SYSTEMINFO_WINDOWS);
+        generalSystemInfo.metrics();
     }
 
 }
