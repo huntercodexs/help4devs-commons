@@ -1,11 +1,12 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
+import com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.randomCardNumber;
 import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.*;
+import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.randomCardNumber;
 
 public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 
@@ -81,6 +82,29 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertRegExp(
                 "[0-9]{4}",
                 queryExtractor(randomCardNumber("-"), 15, 19));
+    }
+
+    @Test
+    public void replaceIndexingTest() {
+
+        Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
+
+        String result = stringHandler.replaceIndexing(
+                "t: testA v: valueA v: valueB t: testB",
+                "t: ",
+                "type",
+                ": ",
+                true);
+
+        result = stringHandler.replaceIndexing(
+                result,
+                "v: ",
+                "version",
+                ": ",
+                true);
+
+        codexsTesterAssertExact("type_0: testA version_2: valueA version_3: valueB type_1: testB", result);
+
     }
 
 }

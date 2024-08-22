@@ -10,6 +10,12 @@ import java.text.Normalizer;
 @Service
 public class Help4DevsStringHandlerService {
 
+    private int index = 0;
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">repeat</h6>
      *
@@ -203,4 +209,51 @@ public class Help4DevsStringHandlerService {
         return input.substring(begin, end);
     }
 
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">replaceIndexing</h6>
+     *
+     * <p style="color: #CDCDCD">Replace all string occurrence using an index to identify each one</p>
+     *
+     * @param input (String: Data input to replace)
+     * @param target (String: Data target to replace)
+     * @param replacement (String: Data to replacement)
+     * @param separator (String: Data to separate the fields - for example [,:-_ ])
+     * @param useIndex (boolean: If it should create indexes)
+     * @return String (Data replaced)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public String replaceIndexing(
+            String input,
+            String target,
+            String replacement,
+            String separator,
+            boolean useIndex
+    ) {
+        int index = this.index;
+        String replace;
+
+        if (separator == null) separator = "";
+
+        while (true) {
+
+            if (useIndex) {
+                replace = input.replaceFirst(target, replacement+"_"+index+separator);
+                index++;
+            } else {
+                replace = input.replaceFirst(target, replacement+separator);
+            }
+
+            if (!replace.contains(target)) {
+                break;
+            }
+
+            input = replace;
+
+        }
+
+        this.index = index;
+
+        return replace;
+    }
 }

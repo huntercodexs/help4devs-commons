@@ -5,6 +5,7 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -393,8 +394,8 @@ public class Help4DevsParserService {
                     .replaceAll("\\{:under:}", "_")
                     .split("\\{:split:}");
 
-            //System.out.println("FIELDS: "+Arrays.toString(fields));
-            //System.out.println("VALUES: "+Arrays.toString(values));
+            //System.out.println("[Parser] FIELDS: "+Arrays.toString(fields));
+            //System.out.println("[Parser] VALUES: "+Arrays.toString(values));
 
             try {
 
@@ -419,6 +420,34 @@ public class Help4DevsParserService {
         jsonResponse = jsonResponse.replaceAll("(\":\"\")([-_0-9a-zA-Z]+)", "$1,\"$2");
 
         return jsonResponse;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jsonMergerRFC8259</h6>
+     *
+     * <p style="color: #CDCDCD">Merge one or mor JSON String format according RFC8259 standards</p>
+     *
+     * @param input (List[String])
+     * @param mainField (String)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static String jsonMergerRFC8259(List<String> input, String mainField) {
+
+        if (mainField == null || mainField.isEmpty()) {
+            mainField = "Object";
+        }
+
+        StringBuilder jsonResponse = new StringBuilder("{\"" + mainField + "\": {");
+
+        for (String jsonItem : input) {
+            jsonResponse
+                    .append(jsonItem.replaceAll("}$", "").replaceAll("^\\{", ""))
+                    .append(",");
+        }
+
+        return (jsonResponse+"}}").replaceAll("},}", "}}");
+
     }
 
 }
