@@ -49,7 +49,38 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
                 .toLowerCase();
     }
 
+    private void merge(String pattern, String hardsy) {
+
+        List<String> merge = new ArrayList<>();
+        List<String> remove = new ArrayList<>();
+
+        this.resources.forEach((value, list) -> {
+            if (value.matches(pattern)) {
+                for (String item : list) {
+                    if (item.isEmpty()) continue;
+
+                    item = "type: " +value+ " source: "+item
+                            .replaceAll(" ", "-")
+                            .replaceAll(":", ".@.")
+                            .replaceAll("-{2,}", " description: ");
+
+                    merge.add(item);
+                }
+                remove.add(value);
+            }
+        });
+
+        for (String item : remove) {
+            this.resources.remove(item);
+        }
+
+        this.resources.put(hardsy, merge);
+    }
+
     private void checkAndMergeInxi() {
+
+        /*Code Here*/
+
         if (HARDSYS_DEBUG) {
             this.resources.forEach((item, list) -> {
                 System.out.println("ITEM: " + item);
@@ -62,95 +93,12 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     private void checkAndMergeHwinfo() {
 
-        List<String> merge1 = new ArrayList<>();
-        List<String> remove1 = new ArrayList<>();
-
-        if (HARDSYS_DEBUG) {
-            this.resources.forEach((item, list) -> {
-                System.out.println("BEFORE: ITEM: "+item);
-                for (String value : list) {
-                    System.out.println("VALUE:BEFORE: "+ value);
-                }
-            });
-        }
-
-        /*Devices*/
-
-        this.resources.forEach((value, list) -> {
-            if (value.matches("^(keyboard|mouse)$")) {
-                for (String item : list) {
-                    if (item.isEmpty()) continue;
-
-                    item = "type: " +value+ " source: "+item
-                            .replaceAll(" ", "-")
-                            .replaceAll(":", ".@.")
-                            .replaceAll("-{2,}", " description: ");
-
-                    merge1.add(item);
-                }
-                remove1.add(value);
-            }
-        });
-
-        for (String item : remove1) {
-            this.resources.remove(item);
-        }
-
-        this.resources.put(HARDSYS[21], merge1);
-
         /*Network*/
-
-        List<String> merge2 = new ArrayList<>();
-        List<String> remove2 = new ArrayList<>();
-
-        this.resources.forEach((value, list) -> {
-            if (value.matches("^(network|interface)$")) {
-                for (String item : list) {
-                    if (item.isEmpty()) continue;
-
-                    item = "type: " +value+ " source: "+item
-                            .replaceAll(" ", "-")
-                            .replaceAll(":", ".@.")
-                            .replaceAll("-{2,}", " description: ");
-
-                    merge2.add(item);
-                }
-                remove2.add(value);
-            }
-        });
-
-        for (String item : remove2) {
-            this.resources.remove(item);
-        }
-
-        this.resources.put(HARDSYS[8], merge2);
-
+        merge("^(network|interface)$", HARDSYS[8]);
         /*Partition*/
-
-        List<String> merge3 = new ArrayList<>();
-        List<String> remove3 = new ArrayList<>();
-
-        this.resources.forEach((value, list) -> {
-            if (value.matches("^(disk|source)$")) {
-                for (String item : list) {
-                    if (item.isEmpty()) continue;
-
-                    item = "type: " +value+ " source: "+item
-                            .replaceAll(" ", "-")
-                            .replaceAll(":", ".@.")
-                            .replaceAll("-{2,}", " description: ");
-
-                    merge3.add(item);
-                }
-                remove3.add(value);
-            }
-        });
-
-        for (String item : remove3) {
-            this.resources.remove(item);
-        }
-
-        this.resources.put(HARDSYS[10], merge3);
+        merge("^(disk|source)$", HARDSYS[10]);
+        /*Devices*/
+        merge("^(keyboard|mouse)$", HARDSYS[21]);
 
         if (HARDSYS_DEBUG) {
             this.resources.forEach((item, list) -> {

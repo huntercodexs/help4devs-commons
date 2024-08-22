@@ -3,7 +3,7 @@ package com.huntercodexs.demo.system.hardsys;
 import java.util.HashMap;
 import java.util.List;
 
-public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase {
+public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Help4DevsHardSysInterface {
 
     public Help4DevsSystemDetails systemDetails;
     public Help4DevsMachineDetails machineDetails;
@@ -27,6 +27,15 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase {
     public Help4DevsConnectorDetails connectorDetails;
     public Help4DevsDrivesDetails drivesDetails;
     public Help4DevsDevicesDetails devicesDetails;
+    public Help4DevsKeyboardDetails keyboardDetails;
+    public Help4DevsMouseDetails mouseDetails;
+    public Help4DevsHubDetails hubDetails;
+    public Help4DevsSwitchDetails switchDetails;
+    public Help4DevsModemDetails modemDetails;
+    public Help4DevsDiskDetails diskDetails;
+    public Help4DevsBluetoothDetails bluetoothDetails;
+    public Help4DevsVideoDetails videoDetails;
+    public Help4DevsUnknownDetails unknownDetails;
 
     public Help4DevsHardSysMetrics(HashMap<String, List<String>> resources, Help4DevsHardSysCommands command) {
         //See the INFO_INDEX to get more details
@@ -52,6 +61,15 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase {
         this.connectorDetails = new Help4DevsConnectorDetails(resources.get(HARDSYS[19]), command);
         this.drivesDetails = new Help4DevsDrivesDetails(resources.get(HARDSYS[20]), command);
         this.devicesDetails = new Help4DevsDevicesDetails(resources.get(HARDSYS[21]), command);
+        this.keyboardDetails = new Help4DevsKeyboardDetails(resources.get(HARDSYS[22]), command);
+        this.mouseDetails = new Help4DevsMouseDetails(resources.get(HARDSYS[23]), command);
+        this.hubDetails = new Help4DevsHubDetails(resources.get(HARDSYS[24]), command);
+        this.switchDetails = new Help4DevsSwitchDetails(resources.get(HARDSYS[25]), command);
+        this.modemDetails = new Help4DevsModemDetails(resources.get(HARDSYS[26]), command);
+        this.diskDetails = new Help4DevsDiskDetails(resources.get(HARDSYS[27]), command);
+        this.bluetoothDetails = new Help4DevsBluetoothDetails(resources.get(HARDSYS[28]), command);
+        this.videoDetails = new Help4DevsVideoDetails(resources.get(HARDSYS[29]), command);
+        this.unknownDetails = new Help4DevsUnknownDetails(resources.get(HARDSYS[30]), command);
     }
 
     public Help4DevsSystemDetails getSystem() {
@@ -139,6 +157,42 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase {
     }
 
     public Help4DevsDevicesDetails getDevices() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getKeyboard() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getMouse() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getHub() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getSwitch() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getModem() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getDisk() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getBluetooth() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getVideo() {
+        return devicesDetails;
+    }
+
+    public Help4DevsDevicesDetails getUnknown() {
         return devicesDetails;
     }
 

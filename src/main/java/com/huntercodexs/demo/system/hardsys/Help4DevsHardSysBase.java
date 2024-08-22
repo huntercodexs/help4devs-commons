@@ -31,7 +31,16 @@ public abstract class Help4DevsHardSysBase {
             /*[18]*/ "cache",
             /*[19]*/ "connector",
             /*[20]*/ "drives",
-            /*[21]*/ "devices"
+            /*[21]*/ "devices",
+            /*[22]*/ "keyboard",
+            /*[23]*/ "mouse",
+            /*[24]*/ "hub",
+            /*[25]*/ "switch",
+            /*[26]*/ "modem",
+            /*[27]*/ "disk",
+            /*[28]*/ "bluetooth",
+            /*[29]*/ "video",
+            /*[30]*/ "unknown"
     };
 
     //INXI Version 3.0.38 (Layout)
