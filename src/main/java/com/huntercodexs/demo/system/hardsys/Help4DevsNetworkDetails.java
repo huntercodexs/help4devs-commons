@@ -131,26 +131,26 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), HARDSYS[8]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), network());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            //return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), HARDSYS[8]);
+            //return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), network());
 
             String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("network"), "network");
             String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("interface"), "interface");
-            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse), HARDSYS[8]);
+            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse), network());
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), HARDSYS[8]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), network());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), HARDSYS[8]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), network());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), HARDSYS[8]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), network());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), HARDSYS[8]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), network());
         }
 
-        throw new RuntimeException("Invalid command for "+ HARDSYS[8]+": " + this.command);
+        throw new RuntimeException("Invalid command for "+ network() +": " + this.command);
     }
 
 }

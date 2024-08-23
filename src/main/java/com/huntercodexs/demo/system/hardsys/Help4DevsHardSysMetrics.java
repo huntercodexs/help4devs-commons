@@ -39,37 +39,37 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
 
     public Help4DevsHardSysMetrics(HashMap<String, List<String>> resources, Help4DevsHardSysCommands command) {
         //See the INFO_INDEX to get more details
-        this.systemDetails = new Help4DevsSystemDetails(resources.get(HARDSYS[0]), command);
-        this.machineDetails = new Help4DevsMachineDetails(resources.get(HARDSYS[1]), command);
-        this.batteryDetails = new Help4DevsBatteryDetails(resources.get(HARDSYS[2]), command);
-        this.memoryDetails = new Help4DevsMemoryDetails(resources.get(HARDSYS[3]), command);
-        this.slotsDetails = new Help4DevsSlotsDetails(resources.get(HARDSYS[4]), command);
-        this.processorDetails = new Help4DevsProcessorDetails(resources.get(HARDSYS[5]), command);
-        this.graphicsDetails = new Help4DevsGraphicsDetails(resources.get(HARDSYS[6]), command);
-        this.audioDetails = new Help4DevsAudioDetails(resources.get(HARDSYS[7]), command);
-        this.networkDetails = new Help4DevsNetworkDetails(resources.get(HARDSYS[8]), command);
-        this.driversDetails = new Help4DevsDriversDetails(resources.get(HARDSYS[9]), command);
-        this.partitionDetails = new Help4DevsPartitionDetails(resources.get(HARDSYS[10]), command);
-        this.usbDetails = new Help4DevsUsbDetails(resources.get(HARDSYS[11]), command);
-        this.sensorsDetails = new Help4DevsSensorsDetails(resources.get(HARDSYS[12]), command);
-        this.runningDetails = new Help4DevsRunningDetails(resources.get(HARDSYS[13]), command);
-        this.monitorDetails = new Help4DevsMonitorDetails(resources.get(HARDSYS[14]), command);
-        this.biosDetails = new Help4DevsBiosDetails(resources.get(HARDSYS[15]), command);
-        this.baseboardDetails = new Help4DevsBaseboardDetails(resources.get(HARDSYS[16]), command);
-        this.chassisDetails = new Help4DevsChassisDetails(resources.get(HARDSYS[17]), command);
-        this.cacheDetails = new Help4DevsCacheDetails(resources.get(HARDSYS[18]), command);
-        this.connectorDetails = new Help4DevsConnectorDetails(resources.get(HARDSYS[19]), command);
-        this.drivesDetails = new Help4DevsDrivesDetails(resources.get(HARDSYS[20]), command);
-        this.devicesDetails = new Help4DevsDevicesDetails(resources.get(HARDSYS[21]), command);
-        this.keyboardDetails = new Help4DevsKeyboardDetails(resources.get(HARDSYS[22]), command);
-        this.mouseDetails = new Help4DevsMouseDetails(resources.get(HARDSYS[23]), command);
-        this.hubDetails = new Help4DevsHubDetails(resources.get(HARDSYS[24]), command);
-        this.switchDetails = new Help4DevsSwitchDetails(resources.get(HARDSYS[25]), command);
-        this.modemDetails = new Help4DevsModemDetails(resources.get(HARDSYS[26]), command);
-        this.diskDetails = new Help4DevsDiskDetails(resources.get(HARDSYS[27]), command);
-        this.bluetoothDetails = new Help4DevsBluetoothDetails(resources.get(HARDSYS[28]), command);
-        this.videoDetails = new Help4DevsVideoDetails(resources.get(HARDSYS[29]), command);
-        this.unknownDetails = new Help4DevsUnknownDetails(resources.get(HARDSYS[30]), command);
+        this.systemDetails = new Help4DevsSystemDetails(resources.get(system()), command);
+        this.machineDetails = new Help4DevsMachineDetails(resources.get(machine()), command);
+        this.batteryDetails = new Help4DevsBatteryDetails(resources.get(battery()), command);
+        this.memoryDetails = new Help4DevsMemoryDetails(resources.get(memory()), command);
+        this.slotsDetails = new Help4DevsSlotsDetails(resources.get(slots()), command);
+        this.processorDetails = new Help4DevsProcessorDetails(resources.get(processor()), command);
+        this.graphicsDetails = new Help4DevsGraphicsDetails(resources.get(graphics()), command);
+        this.audioDetails = new Help4DevsAudioDetails(resources.get(audio()), command);
+        this.networkDetails = new Help4DevsNetworkDetails(resources.get(network()), command);
+        this.driversDetails = new Help4DevsDriversDetails(resources.get(drivers()), command);
+        this.partitionDetails = new Help4DevsPartitionDetails(resources.get(partition()), command);
+        this.usbDetails = new Help4DevsUsbDetails(resources.get(usb()), command);
+        this.sensorsDetails = new Help4DevsSensorsDetails(resources.get(sensors()), command);
+        this.runningDetails = new Help4DevsRunningDetails(resources.get(running()), command);
+        this.monitorDetails = new Help4DevsMonitorDetails(resources.get(monitor()), command);
+        this.biosDetails = new Help4DevsBiosDetails(resources.get(bios()), command);
+        this.baseboardDetails = new Help4DevsBaseboardDetails(resources.get(baseboard()), command);
+        this.chassisDetails = new Help4DevsChassisDetails(resources.get(chassis()), command);
+        this.cacheDetails = new Help4DevsCacheDetails(resources.get(cache()), command);
+        this.connectorDetails = new Help4DevsConnectorDetails(resources.get(connector()), command);
+        this.drivesDetails = new Help4DevsDrivesDetails(resources.get(drives()), command);
+        this.devicesDetails = new Help4DevsDevicesDetails(resources.get(devices()), command);
+        this.keyboardDetails = new Help4DevsKeyboardDetails(resources.get(keyboard()), command);
+        this.mouseDetails = new Help4DevsMouseDetails(resources.get(mouse()), command);
+        this.hubDetails = new Help4DevsHubDetails(resources.get(hub()), command);
+        this.switchDetails = new Help4DevsSwitchDetails(resources.get(switcher()), command);
+        this.modemDetails = new Help4DevsModemDetails(resources.get(modem()), command);
+        this.diskDetails = new Help4DevsDiskDetails(resources.get(disk()), command);
+        this.bluetoothDetails = new Help4DevsBluetoothDetails(resources.get(bluetooth()), command);
+        this.videoDetails = new Help4DevsVideoDetails(resources.get(video()), command);
+        this.unknownDetails = new Help4DevsUnknownDetails(resources.get(unknown()), command);
     }
 
     public Help4DevsSystemDetails getSystem() {
@@ -160,40 +160,40 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
         return devicesDetails;
     }
 
-    public Help4DevsDevicesDetails getKeyboard() {
-        return devicesDetails;
+    public Help4DevsKeyboardDetails getKeyboard() {
+        return keyboardDetails;
     }
 
-    public Help4DevsDevicesDetails getMouse() {
-        return devicesDetails;
+    public Help4DevsMouseDetails getMouse() {
+        return mouseDetails;
     }
 
-    public Help4DevsDevicesDetails getHub() {
-        return devicesDetails;
+    public Help4DevsHubDetails getHub() {
+        return hubDetails;
     }
 
-    public Help4DevsDevicesDetails getSwitch() {
-        return devicesDetails;
+    public Help4DevsSwitchDetails getSwitch() {
+        return switchDetails;
     }
 
-    public Help4DevsDevicesDetails getModem() {
-        return devicesDetails;
+    public Help4DevsModemDetails getModem() {
+        return modemDetails;
     }
 
-    public Help4DevsDevicesDetails getDisk() {
-        return devicesDetails;
+    public Help4DevsDiskDetails getDisk() {
+        return diskDetails;
     }
 
-    public Help4DevsDevicesDetails getBluetooth() {
-        return devicesDetails;
+    public Help4DevsBluetoothDetails getBluetooth() {
+        return bluetoothDetails;
     }
 
-    public Help4DevsDevicesDetails getVideo() {
-        return devicesDetails;
+    public Help4DevsVideoDetails getVideo() {
+        return videoDetails;
     }
 
-    public Help4DevsDevicesDetails getUnknown() {
-        return devicesDetails;
+    public Help4DevsUnknownDetails getUnknown() {
+        return unknownDetails;
     }
 
 }

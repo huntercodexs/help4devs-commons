@@ -8,16 +8,16 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonC
 public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
-    private final List<String> keyboardsDetails;
+    private final List<String> keyboardDetails;
 
     public Help4DevsKeyboardDetails(List<String> devices, Help4DevsHardSysCommands command) {
         this.command = command;
-        this.keyboardsDetails = devices;
+        this.keyboardDetails = devices;
     }
 
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.keyboardsDetails) {
+        for (String details : this.keyboardDetails) {
             filter.add(details.replaceAll("Keyboard: ", "keyboard: "));
         }
         return filter;
@@ -26,7 +26,7 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
-        for (String details : this.keyboardsDetails) {
+        for (String details : this.keyboardDetails) {
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
@@ -45,7 +45,7 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
 
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.keyboardsDetails) {
+        for (String details : this.keyboardDetails) {
             filter.add(details.replaceAll("Keyboard: ", "keyboard: "));
         }
         return filter;
@@ -53,7 +53,7 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
 
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.keyboardsDetails) {
+        for (String details : this.keyboardDetails) {
             filter.add(details.replaceAll("Keyboard: ", "keyboard: "));
         }
         return filter;
@@ -61,7 +61,7 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
 
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.keyboardsDetails) {
+        for (String details : this.keyboardDetails) {
             filter.add(details.replaceAll("Keyboard: ", "keyboard: "));
         }
         return filter;
@@ -69,7 +69,7 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
 
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.keyboardsDetails) {
+        for (String details : this.keyboardDetails) {
             filter.add(details.replaceAll("Keyboard: ", "keyboard: "));
         }
         return filter;
@@ -77,19 +77,19 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), keyboard());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), keyboard());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), keyboard());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), keyboard());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), keyboard());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), keyboard());
         }
-        throw new RuntimeException("Invalid command for "+ HARDSYS[22]+": " + this.command);
+        throw new RuntimeException("Invalid command for "+ keyboard() +": " + this.command);
     }
 }
 

@@ -110,19 +110,19 @@ public class Help4DevsAudioDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), HARDSYS[7]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), audio());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), HARDSYS[7]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), audio());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), HARDSYS[7]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), audio());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), HARDSYS[7]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), audio());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), HARDSYS[7]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), audio());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), HARDSYS[7]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), audio());
         }
-        throw new RuntimeException("Invalid command for "+ HARDSYS[7]+": " + this.command);
+        throw new RuntimeException("Invalid command for "+ audio() +": " + this.command);
     }
 
 }

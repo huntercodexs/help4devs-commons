@@ -83,23 +83,23 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), HARDSYS[10]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), partition());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
             String partition = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("source"), "source");
             String disk = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("disk"), "disk");
-            return jsonMergerRFC8259(Arrays.asList(partition, disk), HARDSYS[10]);
+            return jsonMergerRFC8259(Arrays.asList(partition, disk), partition());
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), HARDSYS[10]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), partition());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), HARDSYS[10]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), partition());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), HARDSYS[10]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), partition());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), HARDSYS[10]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), partition());
         }
-        throw new RuntimeException("Invalid command for "+ HARDSYS[10]+": " + this.command);
+        throw new RuntimeException("Invalid command for "+ partition() +": " + this.command);
     }
 
 }

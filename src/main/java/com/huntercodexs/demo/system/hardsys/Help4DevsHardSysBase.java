@@ -4,12 +4,8 @@ import com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService;
 
 public abstract class Help4DevsHardSysBase {
 
-    private final Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
-
-    protected static boolean HARDSYS_DEBUG = false;
-
     //Available Information: Hardware x System
-    protected static final String[] HARDSYS = new String[]{
+    private static final String[] HARDSYS = new String[]{
             /*[ 0]*/ "system",
             /*[ 1]*/ "machine",
             /*[ 2]*/ "battery",
@@ -42,6 +38,10 @@ public abstract class Help4DevsHardSysBase {
             /*[29]*/ "video",
             /*[30]*/ "unknown"
     };
+
+    private final Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
+
+    protected static boolean HARDSYS_DEBUG = false;
 
     //INXI Version 3.0.38 (Layout)
     protected static final String[] inxiInfo = new String[] {
@@ -82,6 +82,134 @@ public abstract class Help4DevsHardSysBase {
             /*[16]*/ "bluetooth",
             /*[17]*/ "unknown"
     };
+
+    protected String[] hardsys() {
+        return HARDSYS;
+    }
+
+    protected String system() {
+        return HARDSYS[0];
+    }
+
+    protected String machine() {
+        return HARDSYS[1];
+    }
+
+    protected String battery() {
+        return HARDSYS[2];
+    }
+
+    protected String memory() {
+        return HARDSYS[3];
+    }
+
+    protected String slots() {
+        return HARDSYS[4];
+    }
+
+    protected String processor() {
+        return HARDSYS[5];
+    }
+
+    protected String graphics() {
+        return HARDSYS[6];
+    }
+
+    protected String audio() {
+        return HARDSYS[7];
+    }
+
+    protected String network() {
+        return HARDSYS[8];
+    }
+
+    protected String drivers() {
+        return HARDSYS[9];
+    }
+
+    protected String partition() {
+        return HARDSYS[10];
+    }
+
+    protected String usb() {
+        return HARDSYS[11];
+    }
+
+    protected String sensors() {
+        return HARDSYS[12];
+    }
+
+    protected String running() {
+        return HARDSYS[13];
+    }
+
+    protected String monitor() {
+        return HARDSYS[14];
+    }
+
+    protected String bios() {
+        return HARDSYS[15];
+    }
+
+    protected String baseboard() {
+        return HARDSYS[16];
+    }
+
+    protected String chassis() {
+        return HARDSYS[17];
+    }
+
+    protected String cache() {
+        return HARDSYS[18];
+    }
+
+    protected String connector() {
+        return HARDSYS[19];
+    }
+
+    protected String drives() {
+        return HARDSYS[20];
+    }
+
+    protected String devices() {
+        return HARDSYS[21];
+    }
+
+    protected String keyboard() {
+        return HARDSYS[22];
+    }
+
+    protected String mouse() {
+        return HARDSYS[23];
+    }
+
+    protected String hub() {
+        return HARDSYS[24];
+    }
+
+    protected String switcher() {
+        return HARDSYS[25];
+    }
+
+    protected String modem() {
+        return HARDSYS[26];
+    }
+
+    protected String disk() {
+        return HARDSYS[27];
+    }
+
+    protected String bluetooth() {
+        return HARDSYS[28];
+    }
+
+    protected String video() {
+        return HARDSYS[29];
+    }
+
+    protected String unknown() {
+        return HARDSYS[30];
+    }
 
     protected void indexerRestart() {
         this.stringHandler.setIndex(0);

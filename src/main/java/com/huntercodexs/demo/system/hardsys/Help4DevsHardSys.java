@@ -49,7 +49,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
                 .toLowerCase();
     }
 
-    private void merge(String pattern, String hardsy) {
+    private void merge(String pattern, String hardsy, boolean delete) {
 
         List<String> merge = new ArrayList<>();
         List<String> remove = new ArrayList<>();
@@ -70,8 +70,10 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
             }
         });
 
-        for (String item : remove) {
-            this.resources.remove(item);
+        if (delete) {
+            for (String item : remove) {
+                this.resources.remove(item);
+            }
         }
 
         this.resources.put(hardsy, merge);
@@ -79,7 +81,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     private void checkAndMergeInxi() {
 
-        /*Code Here*/
+        /* ! Code Here ! */
 
         if (HARDSYS_DEBUG) {
             this.resources.forEach((item, list) -> {
@@ -93,12 +95,9 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     private void checkAndMergeHwinfo() {
 
-        /*Network*/
-        merge("^(network|interface)$", HARDSYS[8]);
-        /*Partition*/
-        merge("^(disk|source)$", HARDSYS[10]);
-        /*Devices*/
-        merge("^(keyboard|mouse)$", HARDSYS[21]);
+        merge("^(network|interface)$", network(), false);
+        merge("^(disk|source)$", partition(), false);
+        merge("^(keyboard|mouse)$", devices(), false);
 
         if (HARDSYS_DEBUG) {
             this.resources.forEach((item, list) -> {
@@ -223,7 +222,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
         this.resources = new HashMap<>();
 
-        for (String res : HARDSYS) {
+        for (String res : hardsys()) {
             this.resources.put(res, new ArrayList<>());
         }
 

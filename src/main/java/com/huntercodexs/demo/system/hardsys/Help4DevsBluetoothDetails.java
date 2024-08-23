@@ -77,19 +77,19 @@ public class Help4DevsBluetoothDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), bluetooth());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), bluetooth());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), bluetooth());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), bluetooth());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), bluetooth());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), HARDSYS[22]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), bluetooth());
         }
-        throw new RuntimeException("Invalid command for "+ HARDSYS[22]+": " + this.command);
+        throw new RuntimeException("Invalid command for "+ bluetooth() +": " + this.command);
     }
 
 }

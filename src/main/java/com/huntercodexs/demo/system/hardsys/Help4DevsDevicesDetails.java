@@ -83,23 +83,23 @@ public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), HARDSYS[21]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), devices());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
             String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("keyboard"), "keyboard");
             String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("mouse"), "mouse");
-            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse), HARDSYS[21]);
+            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse), devices());
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), HARDSYS[21]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), devices());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), HARDSYS[21]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), devices());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), HARDSYS[21]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), devices());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), HARDSYS[21]);
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), devices());
         }
-        throw new RuntimeException("Invalid command for "+ HARDSYS[21]+": " + this.command);
+        throw new RuntimeException("Invalid command for "+ devices() +": " + this.command);
     }
 }
 

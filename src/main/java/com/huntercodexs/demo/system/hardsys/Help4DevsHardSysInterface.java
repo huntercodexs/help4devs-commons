@@ -23,13 +23,13 @@ public interface Help4DevsHardSysInterface {
     Help4DevsConnectorDetails getConnector();
     Help4DevsDrivesDetails getDrives();
     Help4DevsDevicesDetails getDevices();
-    Help4DevsDevicesDetails getKeyboard();
-    Help4DevsDevicesDetails getMouse();
-    Help4DevsDevicesDetails getHub();
-    Help4DevsDevicesDetails getSwitch();
-    Help4DevsDevicesDetails getModem();
-    Help4DevsDevicesDetails getDisk();
-    Help4DevsDevicesDetails getBluetooth();
-    Help4DevsDevicesDetails getVideo();
-    Help4DevsDevicesDetails getUnknown();
+    Help4DevsKeyboardDetails getKeyboard();
+    Help4DevsMouseDetails getMouse();
+    Help4DevsHubDetails getHub();
+    Help4DevsSwitchDetails getSwitch();
+    Help4DevsModemDetails getModem();
+    Help4DevsDiskDetails getDisk();
+    Help4DevsBluetoothDetails getBluetooth();
+    Help4DevsVideoDetails getVideo();
+    Help4DevsUnknownDetails getUnknown();
 }
