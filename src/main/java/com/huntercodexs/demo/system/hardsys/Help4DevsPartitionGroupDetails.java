@@ -1,16 +1,18 @@
 package com.huntercodexs.demo.system.hardsys;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonCreatorRFC8259;
+import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonMergerRFC8259;
 
-public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
+public class Help4DevsPartitionGroupDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
     private final List<String> partitionDetails;
 
-    public Help4DevsPartitionDetails(List<String> partition, Help4DevsHardSysCommands command) {
+    public Help4DevsPartitionGroupDetails(List<String> partition, Help4DevsHardSysCommands command) {
         this.command = command;
         this.partitionDetails = partition;
     }
@@ -23,15 +25,14 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandHwinfo() {
+    private List<String> detailsFromLinuxCommandHwinfo(String partition) {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.partitionDetails) {
 
-            if (!details.contains("type: "+partition())) continue;
+            if (!details.contains("type: "+partition)) continue;
 
-            details = details.replaceAll("type: "+partition()+" ", "");
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+            details = details.replaceAll("type: "+partition+" ", "");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
@@ -39,6 +40,7 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
             indexerUpdate(index);
             details = indexer(details, "description: ", "description", ": ", true);
 
+            details = details.replaceAll("\\.@\\.", ":");
             listFilter.add(details);
 
             index++;
@@ -83,7 +85,11 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), partition());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), partition());
+
+            String partition = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("source"), "source");
+            String disk = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("disk"), "disk");
+            return jsonMergerRFC8259(Arrays.asList(partition, disk), partition());
+
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), partition());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {

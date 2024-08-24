@@ -31,6 +31,8 @@ public class Help4DevsMemoryDetails extends Help4DevsHardSysBase {
 
             if (details == null || details.isEmpty()) continue;
 
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
             details = indexer(details, "(\\w+)", "name: $1", "", false);
             details = indexer(details, "name: ", "name", ": ", true);
             filter.add(details);

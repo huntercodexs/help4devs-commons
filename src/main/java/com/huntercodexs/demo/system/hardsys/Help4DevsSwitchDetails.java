@@ -28,6 +28,10 @@ public class Help4DevsSwitchDetails extends Help4DevsHardSysBase {
         int index = 0;
         for (String details : this.switchDetails) {
 
+            if (details == null || details.isEmpty()) continue;
+
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
 

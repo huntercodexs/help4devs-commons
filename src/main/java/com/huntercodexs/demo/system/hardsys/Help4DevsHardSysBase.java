@@ -36,7 +36,14 @@ public abstract class Help4DevsHardSysBase {
             /*[27]*/ "disk",
             /*[28]*/ "bluetooth",
             /*[29]*/ "video",
-            /*[30]*/ "unknown"
+            /*[30]*/ "storage",
+            /*[31]*/ "bridge",
+            /*[32]*/ "network_interface",
+            /*[33]*/ "network_group",
+            /*[34]*/ "partition_group",
+            /*[35]*/ "devices_group",
+            /*[36]*/ "hardsys_group",
+            /*[37]*/ "unknown"
     };
 
     private final Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
@@ -79,8 +86,8 @@ public abstract class Help4DevsHardSysBase {
             /*[13]*/ "bridge:",
             /*[14]*/ "hub:",
             /*[15]*/ "memory:",
-            /*[16]*/ "bluetooth",
-            /*[17]*/ "unknown"
+            /*[16]*/ "bluetooth:",
+            /*[17]*/ "unknown:"
     };
 
     protected String[] hardsys() {
@@ -207,8 +214,36 @@ public abstract class Help4DevsHardSysBase {
         return HARDSYS[29];
     }
 
-    protected String unknown() {
+    protected String storage() {
         return HARDSYS[30];
+    }
+
+    protected String bridge() {
+        return HARDSYS[31];
+    }
+
+    protected String networkInterface() {
+        return HARDSYS[32];
+    }
+
+    protected String networkGroup() {
+        return HARDSYS[33];
+    }
+
+    protected String partitionGroup() {
+        return HARDSYS[34];
+    }
+
+    protected String devicesGroup() {
+        return HARDSYS[35];
+    }
+
+    protected String hardsysGroup() {
+        return HARDSYS[36];
+    }
+
+    protected String unknown() {
+        return HARDSYS[37];
     }
 
     protected void indexerRestart() {

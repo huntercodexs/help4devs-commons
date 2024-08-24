@@ -29,8 +29,10 @@ public class Help4DevsMonitorDetails extends Help4DevsHardSysBase {
 
             if (details == null || details.isEmpty()) continue;
 
-            details = indexer(details, "(\\w+)", "name: $1", "", false);
-            details = indexer(details, "name: ", "name", ": ", true);
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
+            details = indexer(details, "(\\w+)", "output: $1", "", false);
+            details = indexer(details, "output: ", "output", ": ", true);
             filter.add(details);
 
         }

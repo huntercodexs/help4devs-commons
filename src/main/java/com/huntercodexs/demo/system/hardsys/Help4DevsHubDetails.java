@@ -24,23 +24,18 @@ public class Help4DevsHubDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandHwinfo() {
-        List<String> listFilter = new ArrayList<>();
-        int index = 0;
+        List<String> filter = new ArrayList<>();
         for (String details : this.hubDetails) {
 
-            indexerUpdate(index);
+            if (details == null || details.isEmpty()) continue;
+
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
+            details = indexer(details, "(\\w+)", "source: $1", "", false);
             details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-
-            details = details.replaceAll("\\.@\\.", ":");
-            listFilter.add(details);
-
-            index++;
-
+            filter.add(details);
         }
-        return listFilter;
+        return filter;
     }
 
     private List<String> detailsFromLinuxCommandLshw() {

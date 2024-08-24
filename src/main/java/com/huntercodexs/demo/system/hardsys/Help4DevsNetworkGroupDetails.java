@@ -1,16 +1,18 @@
 package com.huntercodexs.demo.system.hardsys;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonCreatorRFC8259;
+import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonMergerRFC8259;
 
-public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
+public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
     private final List<String> networkDetails;
 
-    public Help4DevsNetworkDetails(List<String> network, Help4DevsHardSysCommands command) {
+    public Help4DevsNetworkGroupDetails(List<String> network, Help4DevsHardSysCommands command) {
         this.command = command;
         this.networkDetails = network;
     }
@@ -33,15 +35,14 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandHwinfo() {
+    private List<String> detailsFromLinuxCommandHwinfo(String network) {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.networkDetails) {
 
-            if (!details.contains("type: "+network())) continue;
+            if (!details.contains("type: "+network)) continue;
 
-            details = details.replaceAll("type: "+network()+" ", "");
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+            details = details.replaceAll("type: "+network+" ", "");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
@@ -132,7 +133,11 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), network());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), network());
+
+            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("network"), "network");
+            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("interface"), "interface");
+            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse), network());
+
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), network());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {

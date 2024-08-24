@@ -28,13 +28,17 @@ public class Help4DevsMouseDetails extends Help4DevsHardSysBase {
         int index = 0;
         for (String details : this.mouseDetails) {
 
+            if (details.isEmpty() || !details.contains(mouse())) continue;
+
+            details = details.replaceAll("type: "+mouse()+" ", "");
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
             indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
+            details = indexer(details, "source: ", "input", ": ", true);
 
             indexerUpdate(index);
             details = indexer(details, "description: ", "description", ": ", true);
 
-            details = details.replaceAll("\\.@\\.", ":");
             listFilter.add(details);
 
             index++;

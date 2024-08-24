@@ -28,13 +28,17 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
         int index = 0;
         for (String details : this.keyboardDetails) {
 
+            if (details.isEmpty() || !details.contains(keyboard())) continue;
+
+            details = details.replaceAll("type: "+keyboard()+" ", "");
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
             indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
+            details = indexer(details, "source: ", "input", ": ", true);
 
             indexerUpdate(index);
             details = indexer(details, "description: ", "description", ": ", true);
 
-            details = details.replaceAll("\\.@\\.", ":");
             listFilter.add(details);
 
             index++;

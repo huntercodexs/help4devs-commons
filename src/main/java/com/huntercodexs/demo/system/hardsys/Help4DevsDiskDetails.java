@@ -28,13 +28,18 @@ public class Help4DevsDiskDetails extends Help4DevsHardSysBase {
         int index = 0;
         for (String details : this.diskDetails) {
 
+            if (!details.contains("type: "+disk())) continue;
+
+            details = details.replaceAll("type: "+disk()+" ", "");
+
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
 
             indexerUpdate(index);
             details = indexer(details, "description: ", "description", ": ", true);
 
-            details = details.replaceAll("\\.@\\.", ":");
             listFilter.add(details);
 
             index++;

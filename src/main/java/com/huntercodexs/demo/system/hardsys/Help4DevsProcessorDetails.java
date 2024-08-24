@@ -30,6 +30,8 @@ public class Help4DevsProcessorDetails extends Help4DevsHardSysBase {
 
             if (details.isEmpty()) continue;
 
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
             details = indexer(details, "(\\w+)", "core: $1", "", false);
             details = indexer(details, "core: ", "core", ": ", true);
             filter.add(details);

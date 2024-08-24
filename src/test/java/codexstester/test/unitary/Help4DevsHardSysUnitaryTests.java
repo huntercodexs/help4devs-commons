@@ -273,6 +273,15 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--VIDEO
         Help4DevsVideoDetails video = hardSys.metrics().getVideo();
         System.out.println(video.getDetails());
+        //--STORAGE
+        Help4DevsStorageDetails storage = hardSys.metrics().getStorage();
+        System.out.println(storage.getDetails());
+        //--BRIDGE
+        Help4DevsBridgeDetails bridge = hardSys.metrics().getBridge();
+        System.out.println(bridge.getDetails());
+        //--NETWORK-INTERFACE
+        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.metrics().getNetworkInterface();
+        System.out.println(networkInterface.getDetails());
         //--UNKNOWN
         Help4DevsUnknownDetails unknown = hardSys.metrics().getUnknown();
         System.out.println(unknown.getDetails());
@@ -374,6 +383,15 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--VIDEO
         Help4DevsVideoDetails video = hardSys.metrics().getVideo();
         System.out.println(video.getDetails());
+        //--STORAGE
+        Help4DevsStorageDetails storage = hardSys.metrics().getStorage();
+        System.out.println(storage.getDetails());
+        //--BRIDGE
+        Help4DevsBridgeDetails bridge = hardSys.metrics().getBridge();
+        System.out.println(bridge.getDetails());
+        //--NETWORK-INTERFACE
+        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.metrics().getNetworkInterface();
+        System.out.println(networkInterface.getDetails());
         //--UNKNOWN
         Help4DevsUnknownDetails unknown = hardSys.metrics().getUnknown();
         System.out.println(unknown.getDetails());

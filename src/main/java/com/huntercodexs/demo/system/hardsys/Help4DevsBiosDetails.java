@@ -29,8 +29,10 @@ public class Help4DevsBiosDetails extends Help4DevsHardSysBase {
 
             if (details == null || details.isEmpty()) continue;
 
-            details = indexer(details, "(\\w+)", "name: $1", "", false);
-            details = indexer(details, "name: ", "name", ": ", true);
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
+            details = indexer(details, "(\\w+)", "description: $1", "", false);
+            details = indexer(details, "description: ", "description", ": ", true);
             filter.add(details);
 
         }

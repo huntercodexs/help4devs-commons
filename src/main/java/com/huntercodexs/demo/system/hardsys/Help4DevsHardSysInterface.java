@@ -31,5 +31,8 @@ public interface Help4DevsHardSysInterface {
     Help4DevsDiskDetails getDisk();
     Help4DevsBluetoothDetails getBluetooth();
     Help4DevsVideoDetails getVideo();
+    Help4DevsStorageDetails getStorage();
+    Help4DevsBridgeDetails getBridge();
+    Help4DevsNetworkInterfaceDetails getNetworkInterface();
     Help4DevsUnknownDetails getUnknown();
 }

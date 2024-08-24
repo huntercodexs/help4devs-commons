@@ -35,10 +35,13 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
     public Help4DevsDiskDetails diskDetails;
     public Help4DevsBluetoothDetails bluetoothDetails;
     public Help4DevsVideoDetails videoDetails;
+    public Help4DevsStorageDetails storageDetails;
+    public Help4DevsBridgeDetails bridgeDetails;
+    public Help4DevsNetworkInterfaceDetails networkInterfaceDetails;
     public Help4DevsUnknownDetails unknownDetails;
 
     public Help4DevsHardSysMetrics(HashMap<String, List<String>> resources, Help4DevsHardSysCommands command) {
-        //See the INFO_INDEX to get more details
+        //See the HARDSYS to get more details
         this.systemDetails = new Help4DevsSystemDetails(resources.get(system()), command);
         this.machineDetails = new Help4DevsMachineDetails(resources.get(machine()), command);
         this.batteryDetails = new Help4DevsBatteryDetails(resources.get(battery()), command);
@@ -69,6 +72,9 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
         this.diskDetails = new Help4DevsDiskDetails(resources.get(disk()), command);
         this.bluetoothDetails = new Help4DevsBluetoothDetails(resources.get(bluetooth()), command);
         this.videoDetails = new Help4DevsVideoDetails(resources.get(video()), command);
+        this.storageDetails = new Help4DevsStorageDetails(resources.get(storage()), command);
+        this.bridgeDetails = new Help4DevsBridgeDetails(resources.get(bridge()), command);
+        this.networkInterfaceDetails = new Help4DevsNetworkInterfaceDetails(resources.get(networkInterface()), command);
         this.unknownDetails = new Help4DevsUnknownDetails(resources.get(unknown()), command);
     }
 
@@ -190,6 +196,18 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
 
     public Help4DevsVideoDetails getVideo() {
         return videoDetails;
+    }
+
+    public Help4DevsStorageDetails getStorage() {
+        return storageDetails;
+    }
+
+    public Help4DevsBridgeDetails getBridge() {
+        return bridgeDetails;
+    }
+
+    public Help4DevsNetworkInterfaceDetails getNetworkInterface() {
+        return networkInterfaceDetails;
     }
 
     public Help4DevsUnknownDetails getUnknown() {

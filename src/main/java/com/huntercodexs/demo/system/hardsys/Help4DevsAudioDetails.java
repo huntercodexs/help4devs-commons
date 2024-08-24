@@ -37,8 +37,10 @@ public class Help4DevsAudioDetails extends Help4DevsHardSysBase {
 
             if (details == null || details.isEmpty()) continue;
 
-            details = indexer(details, "(\\w+)", "name: $1", "", false);
-            details = indexer(details, "name: ", "name", ": ", true);
+            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+
+            details = indexer(details, "(\\w+)", "source: $1", "", false);
+            details = indexer(details, "source: ", "source", ": ", true);
             filter.add(details);
         }
         return filter;

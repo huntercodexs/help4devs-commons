@@ -5,19 +5,19 @@ import java.util.List;
 
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonCreatorRFC8259;
 
-public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
+public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
-    private final List<String> networkDetails;
+    private final List<String> networkInterfaceDetails;
 
-    public Help4DevsNetworkDetails(List<String> network, Help4DevsHardSysCommands command) {
+    public Help4DevsNetworkInterfaceDetails(List<String> network, Help4DevsHardSysCommands command) {
         this.command = command;
-        this.networkDetails = network;
+        this.networkInterfaceDetails = network;
     }
 
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.networkDetails) {
+        for (String details : this.networkInterfaceDetails) {
 
             details = indexer(details, "bus ID: ", "busId", ": ", false);
             details = indexer(details, "v: ", "version", ": ", true);
@@ -36,12 +36,11 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
-        for (String details : this.networkDetails) {
+        for (String details : this.networkInterfaceDetails) {
 
-            if (!details.contains("type: "+network())) continue;
+            if (!details.contains("type: "+networkInterface())) continue;
 
-            details = details.replaceAll("type: "+network()+" ", "");
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+            details = details.replaceAll("type: "+networkInterface()+" ", "");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
@@ -59,7 +58,7 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkDetails) {
+        for (String details : this.networkInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -77,7 +76,7 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkDetails) {
+        for (String details : this.networkInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -95,7 +94,7 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkDetails) {
+        for (String details : this.networkInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -113,7 +112,7 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkDetails) {
+        for (String details : this.networkInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -130,20 +129,20 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), networkInterface());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), networkInterface());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), networkInterface());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), networkInterface());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), networkInterface());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), networkInterface());
         }
 
-        throw new RuntimeException("Invalid command for "+ network() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ networkInterface() +": " + this.command);
     }
 
 }
