@@ -120,7 +120,7 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), networkInterface());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), networkInterface());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), "networkInterface");
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), networkInterface());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {

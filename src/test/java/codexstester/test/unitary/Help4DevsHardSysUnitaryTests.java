@@ -243,12 +243,6 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--CONNECTOR
         Help4DevsConnectorDetails connector = hardSys.metrics().getConnector();
         System.out.println(connector.getDetails());
-        //--DRIVES
-        Help4DevsDrivesDetails drives = hardSys.metrics().getDrives();
-        System.out.println(drives.getDetails());
-        //--DEVICES
-        Help4DevsDevicesDetails devices = hardSys.metrics().getDevices();
-        System.out.println(devices.getDetails());
         //--KEYBOARD
         Help4DevsKeyboardDetails keyboard = hardSys.metrics().getKeyboard();
         System.out.println(keyboard.getDetails());
@@ -285,6 +279,27 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--UNKNOWN
         Help4DevsUnknownDetails unknown = hardSys.metrics().getUnknown();
         System.out.println(unknown.getDetails());
+        //--DEVICES (GROUPS)
+        Help4DevsDevicesGroupDetails devicesGroup = hardSys.metrics().getDevicesGroup();
+        System.out.println(devicesGroup.getDetails());
+        //--NETWORK (GROUPS)
+        Help4DevsNetworkGroupDetails networkGroup = hardSys.metrics().getNetworksGroup();
+        System.out.println(networkGroup.getDetails());
+        //--DRIVES (GROUPS)
+        Help4DevsDrivesGroupDetails drives = hardSys.metrics().getDrivesGroup();
+        System.out.println(drives.getDetails());
+        //--COMPONENTS (GROUPS)
+        Help4DevsComponentsGroupDetails components = hardSys.metrics().getComponentsGroup();
+        System.out.println(components.getDetails());
+        //--BOARDS (GROUPS)
+        Help4DevsBoardsGroupDetails boards = hardSys.metrics().getBoardsGroup();
+        System.out.println(boards.getDetails());
+        //--HARDWARE (GROUPS)
+        Help4DevsHardwareGroupDetails hardware = hardSys.metrics().getHardwareGroup();
+        System.out.println(hardware.getDetails());
+        //--ALL (GROUPS)
+        Help4DevsAllGroupDetails all = hardSys.metrics().getAllGroup();
+        System.out.println(all.getDetails());
     }
 
     @Test
@@ -353,12 +368,6 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--CONNECTOR
         Help4DevsConnectorDetails connector = hardSys.metrics().getConnector();
         System.out.println(connector.getDetails());
-        //--DRIVES
-        Help4DevsDrivesDetails drives = hardSys.metrics().getDrives();
-        System.out.println(drives.getDetails());
-        //--DEVICES
-        Help4DevsDevicesDetails devices = hardSys.metrics().getDevices();
-        System.out.println(devices.getDetails());
         //--KEYBOARD
         Help4DevsKeyboardDetails keyboard = hardSys.metrics().getKeyboard();
         System.out.println(keyboard.getDetails());
@@ -395,6 +404,27 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--UNKNOWN
         Help4DevsUnknownDetails unknown = hardSys.metrics().getUnknown();
         System.out.println(unknown.getDetails());
+        //--DEVICES (GROUPS)
+        Help4DevsDevicesGroupDetails devicesGroup = hardSys.metrics().getDevicesGroup();
+        System.out.println(devicesGroup.getDetails());
+        //--NETWORK (GROUPS)
+        Help4DevsNetworkGroupDetails networkGroup = hardSys.metrics().getNetworksGroup();
+        System.out.println(networkGroup.getDetails());
+        //--DRIVES (GROUPS)
+        Help4DevsDrivesGroupDetails drives = hardSys.metrics().getDrivesGroup();
+        System.out.println(drives.getDetails());
+        //--COMPONENTS (GROUPS)
+        Help4DevsComponentsGroupDetails components = hardSys.metrics().getComponentsGroup();
+        System.out.println(components.getDetails());
+        //--BOARDS (GROUPS)
+        Help4DevsBoardsGroupDetails boards = hardSys.metrics().getBoardsGroup();
+        System.out.println(boards.getDetails());
+        //--HARDWARE (GROUPS)
+        Help4DevsHardwareGroupDetails hardware = hardSys.metrics().getHardwareGroup();
+        System.out.println(hardware.getDetails());
+        //--ALL (GROUPS)
+        Help4DevsAllGroupDetails all = hardSys.metrics().getAllGroup();
+        System.out.println(all.getDetails());
     }
 
     @Test

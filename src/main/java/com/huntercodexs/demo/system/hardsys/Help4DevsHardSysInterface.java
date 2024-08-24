@@ -1,6 +1,7 @@
 package com.huntercodexs.demo.system.hardsys;
 
 public interface Help4DevsHardSysInterface {
+    /*Single*/
     Help4DevsSystemDetails getSystem();
     Help4DevsMachineDetails getMachine();
     Help4DevsBatteryDetails getBattery();
@@ -21,8 +22,6 @@ public interface Help4DevsHardSysInterface {
     Help4DevsChassisDetails getChassis();
     Help4DevsCacheDetails getCache();
     Help4DevsConnectorDetails getConnector();
-    Help4DevsDrivesDetails getDrives();
-    Help4DevsDevicesDetails getDevices();
     Help4DevsKeyboardDetails getKeyboard();
     Help4DevsMouseDetails getMouse();
     Help4DevsHubDetails getHub();
@@ -35,4 +34,12 @@ public interface Help4DevsHardSysInterface {
     Help4DevsBridgeDetails getBridge();
     Help4DevsNetworkInterfaceDetails getNetworkInterface();
     Help4DevsUnknownDetails getUnknown();
+    /*Groups*/
+    Help4DevsDevicesGroupDetails getDevicesGroup();
+    Help4DevsNetworkGroupDetails getNetworksGroup();
+    Help4DevsDrivesGroupDetails getDrivesGroup();
+    Help4DevsComponentsGroupDetails getComponentsGroup();
+    Help4DevsBoardsGroupDetails getBoardsGroup();
+    Help4DevsHardwareGroupDetails getHardwareGroup();
+    Help4DevsAllGroupDetails getAllGroup();
 }

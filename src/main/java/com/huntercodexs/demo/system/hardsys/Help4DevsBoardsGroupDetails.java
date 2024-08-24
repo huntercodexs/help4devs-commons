@@ -7,12 +7,12 @@ import java.util.List;
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonCreatorRFC8259;
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonMergerRFC8259;
 
-public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
+public class Help4DevsBoardsGroupDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
     private final List<String> devicesDetails;
 
-    public Help4DevsDevicesGroupDetails(List<String> devices, Help4DevsHardSysCommands command) {
+    public Help4DevsBoardsGroupDetails(List<String> devices, Help4DevsHardSysCommands command) {
         this.command = command;
         this.devicesDetails = devices;
     }
@@ -20,7 +20,7 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
+            filter.add(details.replaceAll("BOARDS GROUP: ", "BoardsGroup: "));
         }
         return filter;
     }
@@ -29,9 +29,22 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.devicesDetails) {
+
             if (!details.contains("type: "+device)) continue;
-            listFilter.add(sourceFilter(details, device, index, "source", "source"));
+
+            details = details.replaceAll("type: "+device+" ", "");
+
+            indexerUpdate(index);
+            details = indexer(details, "source: ", "source", ": ", true);
+
+            indexerUpdate(index);
+            details = indexer(details, "description: ", "description", ": ", true);
+
+            details = details.replaceAll("\\.@\\.", ":");
+            listFilter.add(details);
+
             index++;
+
         }
         return listFilter;
     }
@@ -39,7 +52,7 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
+            filter.add(details.replaceAll("BOARDS GROUP: ", "BoardsGroup: "));
         }
         return filter;
     }
@@ -47,7 +60,7 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
+            filter.add(details.replaceAll("BOARDS GROUP: ", "BoardsGroup: "));
         }
         return filter;
     }
@@ -55,7 +68,7 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
+            filter.add(details.replaceAll("BOARDS GROUP: ", "BoardsGroup: "));
         }
         return filter;
     }
@@ -63,32 +76,31 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
+            filter.add(details.replaceAll("BOARDS GROUP: ", "BoardsGroup: "));
         }
         return filter;
     }
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), devicesGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), boardsGroup());
+
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(keyboard()), keyboard());
-            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(mouse()), mouse());
-            String monitor = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(monitor()), monitor());
-            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hub()), hub());
-            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse, monitor, hub), devicesGroup());
+            String baseboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(baseboard()), baseboard());
+            String audio = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(audio()), audio());
+            return jsonMergerRFC8259(Arrays.asList(baseboard, audio), boardsGroup());
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), devicesGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), boardsGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), devicesGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), boardsGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), devicesGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), boardsGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), devicesGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), boardsGroup());
         }
-        throw new RuntimeException("Invalid command for "+ devicesGroup() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ boardsGroup() +": " + this.command);
     }
 }
 

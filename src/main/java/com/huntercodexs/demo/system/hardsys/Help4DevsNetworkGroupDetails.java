@@ -35,25 +35,13 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandHwinfo(String network) {
+    private List<String> detailsFromLinuxCommandHwinfo(String device) {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.networkDetails) {
-
-            if (!details.contains("type: "+networkGroup())) continue;
-
-            details = details.replaceAll("type: "+networkGroup()+" ", "");
-            //details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-            listFilter.add(details);
-
+            if (!details.contains("type: "+device)) continue;
+            listFilter.add(sourceFilter(details, device, index, "source", "source"));
             index++;
-
         }
         return listFilter;
     }
@@ -132,24 +120,28 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), networksGroup());
+
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("network"), "network");
-            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("interface"), "interface");
-            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse), network());
+            String network = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(network()), network());
+            String networkInterface = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(networkInterface()), "networkInterface");
+            String bridge = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(bridge()), bridge());
+            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hub()), hub());
+            String switcher = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(switcher()), switcher());
+            return jsonMergerRFC8259(Arrays.asList(network, networkInterface, bridge, hub, switcher), networksGroup());
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), networksGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), networksGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), networksGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), networksGroup());
         }
 
-        throw new RuntimeException("Invalid command for "+ network() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ networksGroup() +": " + this.command);
     }
 
 }

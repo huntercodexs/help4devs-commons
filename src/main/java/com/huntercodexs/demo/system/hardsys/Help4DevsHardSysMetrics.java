@@ -25,8 +25,6 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
     public Help4DevsChassisDetails chassisDetails;
     public Help4DevsCacheDetails cacheDetails;
     public Help4DevsConnectorDetails connectorDetails;
-    public Help4DevsDrivesDetails drivesDetails;
-    public Help4DevsDevicesDetails devicesDetails;
     public Help4DevsKeyboardDetails keyboardDetails;
     public Help4DevsMouseDetails mouseDetails;
     public Help4DevsHubDetails hubDetails;
@@ -39,6 +37,13 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
     public Help4DevsBridgeDetails bridgeDetails;
     public Help4DevsNetworkInterfaceDetails networkInterfaceDetails;
     public Help4DevsUnknownDetails unknownDetails;
+    public Help4DevsDevicesGroupDetails devicesGroupDetails;
+    public Help4DevsNetworkGroupDetails networksGroupDetails;
+    public Help4DevsDrivesGroupDetails drivesGroupDetails;
+    public Help4DevsComponentsGroupDetails componentsGroupDetails;
+    public Help4DevsBoardsGroupDetails boardsGroupDetails;
+    public Help4DevsHardwareGroupDetails hardwareGroupDetails;
+    public Help4DevsAllGroupDetails allGroupDetails;
 
     public Help4DevsHardSysMetrics(HashMap<String, List<String>> resources, Help4DevsHardSysCommands command) {
         //See the HARDSYS to get more details
@@ -62,8 +67,6 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
         this.chassisDetails = new Help4DevsChassisDetails(resources.get(chassis()), command);
         this.cacheDetails = new Help4DevsCacheDetails(resources.get(cache()), command);
         this.connectorDetails = new Help4DevsConnectorDetails(resources.get(connector()), command);
-        this.drivesDetails = new Help4DevsDrivesDetails(resources.get(drives()), command);
-        this.devicesDetails = new Help4DevsDevicesDetails(resources.get(devices()), command);
         this.keyboardDetails = new Help4DevsKeyboardDetails(resources.get(keyboard()), command);
         this.mouseDetails = new Help4DevsMouseDetails(resources.get(mouse()), command);
         this.hubDetails = new Help4DevsHubDetails(resources.get(hub()), command);
@@ -76,6 +79,13 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
         this.bridgeDetails = new Help4DevsBridgeDetails(resources.get(bridge()), command);
         this.networkInterfaceDetails = new Help4DevsNetworkInterfaceDetails(resources.get(networkInterface()), command);
         this.unknownDetails = new Help4DevsUnknownDetails(resources.get(unknown()), command);
+        this.devicesGroupDetails = new Help4DevsDevicesGroupDetails(resources.get(devicesGroup()), command);
+        this.networksGroupDetails = new Help4DevsNetworkGroupDetails(resources.get(networksGroup()), command);
+        this.drivesGroupDetails = new Help4DevsDrivesGroupDetails(resources.get(drivesGroup()), command);
+        this.componentsGroupDetails = new Help4DevsComponentsGroupDetails(resources.get(componentsGroup()), command);
+        this.boardsGroupDetails = new Help4DevsBoardsGroupDetails(resources.get(boardsGroup()), command);
+        this.hardwareGroupDetails = new Help4DevsHardwareGroupDetails(resources.get(hardwareGroup()), command);
+        this.allGroupDetails = new Help4DevsAllGroupDetails(resources.get(allGroup()), command);
     }
 
     public Help4DevsSystemDetails getSystem() {
@@ -158,14 +168,6 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
         return connectorDetails;
     }
 
-    public Help4DevsDrivesDetails getDrives() {
-        return drivesDetails;
-    }
-
-    public Help4DevsDevicesDetails getDevices() {
-        return devicesDetails;
-    }
-
     public Help4DevsKeyboardDetails getKeyboard() {
         return keyboardDetails;
     }
@@ -213,5 +215,34 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
     public Help4DevsUnknownDetails getUnknown() {
         return unknownDetails;
     }
+
+    public Help4DevsDevicesGroupDetails getDevicesGroup() {
+        return devicesGroupDetails;
+    }
+
+    public Help4DevsNetworkGroupDetails getNetworksGroup() {
+        return networksGroupDetails;
+    }
+
+    public Help4DevsDrivesGroupDetails getDrivesGroup() {
+        return this.drivesGroupDetails;
+    }
+
+    public Help4DevsComponentsGroupDetails getComponentsGroup() {
+        return this.componentsGroupDetails;
+    }
+
+    public Help4DevsBoardsGroupDetails getBoardsGroup() {
+        return this.boardsGroupDetails;
+    }
+
+    public Help4DevsHardwareGroupDetails getHardwareGroup() {
+        return this.hardwareGroupDetails;
+    }
+
+    public Help4DevsAllGroupDetails getAllGroup() {
+        return this.allGroupDetails;
+    }
+
 
 }

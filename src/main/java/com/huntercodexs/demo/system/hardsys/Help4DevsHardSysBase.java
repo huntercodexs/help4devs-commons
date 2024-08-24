@@ -26,24 +26,25 @@ public abstract class Help4DevsHardSysBase {
             /*[17]*/ "chassis",
             /*[18]*/ "cache",
             /*[19]*/ "connector",
-            /*[20]*/ "drives",
-            /*[21]*/ "devices",
-            /*[22]*/ "keyboard",
-            /*[23]*/ "mouse",
-            /*[24]*/ "hub",
-            /*[25]*/ "switch",
-            /*[26]*/ "modem",
-            /*[27]*/ "disk",
-            /*[28]*/ "bluetooth",
-            /*[29]*/ "video",
-            /*[30]*/ "storage",
-            /*[31]*/ "bridge",
-            /*[32]*/ "network_interface",
+            /*[20]*/ "keyboard",
+            /*[21]*/ "mouse",
+            /*[22]*/ "hub",
+            /*[23]*/ "switch",
+            /*[24]*/ "modem",
+            /*[25]*/ "disk",
+            /*[26]*/ "bluetooth",
+            /*[27]*/ "video",
+            /*[28]*/ "storage",
+            /*[29]*/ "bridge",
+            /*[30]*/ "net_interface",
+            /*[31]*/ "unknown",
+            /*[32]*/ "devices_group",
             /*[33]*/ "network_group",
-            /*[34]*/ "partition_group",
-            /*[35]*/ "devices_group",
-            /*[36]*/ "hardsys_group",
-            /*[37]*/ "unknown"
+            /*[34]*/ "drives_group",
+            /*[35]*/ "components_group",
+            /*[36]*/ "boards_group",
+            /*[37]*/ "hardware_group",
+            /*[38]*/ "all_group"
     };
 
     private final Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
@@ -174,76 +175,80 @@ public abstract class Help4DevsHardSysBase {
         return HARDSYS[19];
     }
 
-    protected String drives() {
+    protected String keyboard() {
         return HARDSYS[20];
     }
 
-    protected String devices() {
+    protected String mouse() {
         return HARDSYS[21];
     }
 
-    protected String keyboard() {
+    protected String hub() {
         return HARDSYS[22];
     }
 
-    protected String mouse() {
+    protected String switcher() {
         return HARDSYS[23];
     }
 
-    protected String hub() {
+    protected String modem() {
         return HARDSYS[24];
     }
 
-    protected String switcher() {
+    protected String disk() {
         return HARDSYS[25];
     }
 
-    protected String modem() {
+    protected String bluetooth() {
         return HARDSYS[26];
     }
 
-    protected String disk() {
+    protected String video() {
         return HARDSYS[27];
     }
 
-    protected String bluetooth() {
+    protected String storage() {
         return HARDSYS[28];
     }
 
-    protected String video() {
+    protected String bridge() {
         return HARDSYS[29];
     }
 
-    protected String storage() {
+    protected String networkInterface() {
         return HARDSYS[30];
     }
 
-    protected String bridge() {
+    protected String unknown() {
         return HARDSYS[31];
     }
 
-    protected String networkInterface() {
+    protected String devicesGroup() {
         return HARDSYS[32];
     }
 
-    protected String networkGroup() {
+    protected String networksGroup() {
         return HARDSYS[33];
     }
 
-    protected String partitionGroup() {
+    protected String drivesGroup() {
         return HARDSYS[34];
     }
 
-    protected String devicesGroup() {
+    protected String componentsGroup() {
         return HARDSYS[35];
     }
 
-    protected String hardsysGroup() {
+    protected String boardsGroup() {
         return HARDSYS[36];
     }
 
-    protected String unknown() {
+    protected String hardwareGroup() {
         return HARDSYS[37];
+    }
+
+    protected String allGroup() {
+        return HARDSYS[38];
     }
 
     protected void indexerRestart() {

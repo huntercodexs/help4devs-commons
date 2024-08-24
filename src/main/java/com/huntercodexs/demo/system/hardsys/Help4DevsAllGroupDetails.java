@@ -7,12 +7,12 @@ import java.util.List;
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonCreatorRFC8259;
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonMergerRFC8259;
 
-public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
+public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
     private final List<String> devicesDetails;
 
-    public Help4DevsDevicesDetails(List<String> devices, Help4DevsHardSysCommands command) {
+    public Help4DevsAllGroupDetails(List<String> devices, Help4DevsHardSysCommands command) {
         this.command = command;
         this.devicesDetails = devices;
     }
@@ -20,7 +20,7 @@ public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Local Storage: ", "localStorage: "));
+            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
         }
         return filter;
     }
@@ -29,22 +29,9 @@ public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.devicesDetails) {
-
             if (!details.contains("type: "+device)) continue;
-
-            details = details.replaceAll("type: "+device+" ", "");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-
-            details = details.replaceAll("\\.@\\.", ":");
-            listFilter.add(details);
-
+            listFilter.add(sourceFilter(details, device, index, "source", "source"));
             index++;
-
         }
         return listFilter;
     }
@@ -52,7 +39,7 @@ public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Local Storage: ", "localStorage: "));
+            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
         }
         return filter;
     }
@@ -60,7 +47,7 @@ public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Local Storage: ", "localStorage: "));
+            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
         }
         return filter;
     }
@@ -68,7 +55,7 @@ public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Local Storage: ", "localStorage: "));
+            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
         }
         return filter;
     }
@@ -76,30 +63,33 @@ public class Help4DevsDevicesDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Local Storage: ", "localStorage: "));
+            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
         }
         return filter;
     }
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), devices());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), allGroup());
+
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("keyboard"), "keyboard");
-            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("mouse"), "mouse");
-            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse), devices());
+            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(keyboard()), keyboard());
+            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(mouse()), mouse());
+            String monitor = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(monitor()), monitor());
+            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hub()), hub());
+            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse, monitor, hub), allGroup());
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), devices());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), devices());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), devices());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), devices());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), allGroup());
         }
-        throw new RuntimeException("Invalid command for "+ devices() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ allGroup() +": " + this.command);
     }
 }
 

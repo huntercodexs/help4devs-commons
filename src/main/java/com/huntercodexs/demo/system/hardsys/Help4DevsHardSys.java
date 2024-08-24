@@ -31,24 +31,24 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     private String fieldsTranslatorFromHwinfo(String input) {
         return input
-                .replaceAll("cpu:", "processor")
-                .replaceAll("keyboard:", "keyboard")
-                .replaceAll("mouse:", "mouse")
-                .replaceAll("monitor:", "monitor")
-                .replaceAll("graphics card:", "graphics")
-                .replaceAll("sound:", "audio")
-                .replaceAll("storage:", "storage")
-                .replaceAll("network:", "network")
-                .replaceAll("network interface:", "network_interface")
-                .replaceAll("disk:", "disk")
-                .replaceAll("partition:", "partition")
-                .replaceAll("usb controller:", "usb")
-                .replaceAll("bios:", "bios")
-                .replaceAll("bridge:", "bridge")
-                .replaceAll("hub:", "hub")
-                .replaceAll("memory:", "memory")
-                .replaceAll("bluetooth:", "bluetooth")
-                .replaceAll("unknown:", "unknown")
+                .replaceAll("cpu:", processor())
+                .replaceAll("keyboard:", keyboard())
+                .replaceAll("mouse:", mouse())
+                .replaceAll("monitor:", monitor())
+                .replaceAll("graphics card:", graphics())
+                .replaceAll("sound:", audio())
+                .replaceAll("storage:", storage())
+                .replaceAll("network:", network())
+                .replaceAll("network interface:", networkInterface())
+                .replaceAll("disk:", disk())
+                .replaceAll("partition:", partition())
+                .replaceAll("usb controller:", usb())
+                .replaceAll("bios:", bios())
+                .replaceAll("bridge:", bridge())
+                .replaceAll("hub:", hub())
+                .replaceAll("memory:", memory())
+                .replaceAll("bluetooth:", bluetooth())
+                .replaceAll("unknown:", unknown())
                 .replaceAll("[^-_a-zA-Z ]", "")
                 .toLowerCase();
     }
@@ -85,17 +85,15 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
                 for (String item : list) {
                     if (item.isEmpty()) continue;
 
-                    item = "type: " +value+ " source: "+item
-                            .replaceAll(" ", "-")
-                            .replaceAll(":", ".@.")
-                            .replaceAll("-{2,}", " description: ");
+                    if (!item.contains("type")) {
+                        item = "type: " + value + " source: " + item
+                                .replaceAll(" ", "-")
+                                .replaceAll(":", ".@.")
+                                .replaceAll("-{2,}", " description: ");
+                    }
 
                     merge.add(item);
 
-                    /*IMPORTANT: Update the resources content related to current resource*/
-                    if (!delete) {
-                        this.resources.put(value, merge);
-                    }
                 }
                 remove.add(value);
             }
@@ -127,19 +125,26 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
     private void makeSourceAndGroupFromHwinfo() {
 
         /*
-            These resources have sources from the current command and
-            hence needs to treated with a different mode
-        */
+         * These resources have sources from the current command and
+         * hence needs to treated with a different mode
+         * */
         makeSource("^(keyboard)$", keyboard());
         makeSource("^(mouse)$", mouse());
         makeSource("^(network)$", network());
-        makeSource("^(network_interface)$", networkInterface());
+        makeSource("^("+networkInterface()+")$", networkInterface());
         makeSource("^(disk)$", disk());
         makeSource("^(partition)$", partition());
 
-        //makeGroup("^(keyboard|mouse)$", devicesGroup(), false);
-        //makeGroup("^(network|network_interface)$", networkGroup(), false);
-        //makeGroup("^(disk|partition)$", partitionGroup(), false);
+        /*
+        * In this point the resources already  was set and are
+        * done to be used in the related group
+        * */
+        makeGroup("^(keyboard|mouse|monitor|hub)$", devicesGroup(), false);
+        makeGroup("^(network|"+networkInterface()+"|bridge|hub|switch)$", networksGroup(), false);
+        makeGroup("^(disk|partition|storage)$", drivesGroup(), false);
+        makeGroup("^(processor|memory|audio|battery)$", componentsGroup(), false);
+        makeGroup("^(baseboard|audio|bios|slots)$", boardsGroup(), false);
+        makeGroup("^(bios|cache)$", hardwareGroup(), false);
 
         if (HARDSYS_DEBUG) {
             this.resources.forEach((item, list) -> {
@@ -296,9 +301,3 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
     }
 
 }
-
-/*DONE: Finalize a segregation items with specific information about each one - HWINFO*/
-/*DONE: Review all resources to find out any kind of code error or optimization  - HWINFO*/
-/*TODO: Create a Sub-groups of items when it is applicable, for example: devices {keyboard, mouse, monitor, hub,...}*/
-/*TODO: Create a response grouped by something like: {hardsys:{devices:{keyboard, mouse, etc...}}}, in this case
-   the only one call should be required, for example: instance.group();*/

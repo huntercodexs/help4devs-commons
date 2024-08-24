@@ -7,33 +7,32 @@ import java.util.List;
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonCreatorRFC8259;
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonMergerRFC8259;
 
-public class Help4DevsPartitionGroupDetails extends Help4DevsHardSysBase {
+public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
-    private final List<String> partitionDetails;
+    private final List<String> devicesDetails;
 
-    public Help4DevsPartitionGroupDetails(List<String> partition, Help4DevsHardSysCommands command) {
+    public Help4DevsHardwareGroupDetails(List<String> devices, Help4DevsHardSysCommands command) {
         this.command = command;
-        this.partitionDetails = partition;
+        this.devicesDetails = devices;
     }
 
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.partitionDetails) {
-            filter.add(details.replaceAll("fs: ", "type: "));
+        for (String details : this.devicesDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
         }
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandHwinfo(String partition) {
+    private List<String> detailsFromLinuxCommandHwinfo(String device) {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
-        for (String details : this.partitionDetails) {
+        for (String details : this.devicesDetails) {
 
-            if (!details.contains("type: "+partitionGroup())) continue;
+            if (!details.contains("type: "+device)) continue;
 
-            details = details.replaceAll("type: "+partitionGroup()+" ", "");
-            //details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+            details = details.replaceAll("type: "+device+" ", "");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
@@ -52,55 +51,56 @@ public class Help4DevsPartitionGroupDetails extends Help4DevsHardSysBase {
 
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.partitionDetails) {
-            filter.add(details.replaceAll("fs: ", "fileSystem: "));
+        for (String details : this.devicesDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
         }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.partitionDetails) {
-            filter.add(details.replaceAll("fs: ", "fileSystem: "));
+        for (String details : this.devicesDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
         }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.partitionDetails) {
-            filter.add(details.replaceAll("fs: ", "fileSystem: "));
+        for (String details : this.devicesDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
         }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.partitionDetails) {
-            filter.add(details.replaceAll("fs: ", "fileSystem: "));
+        for (String details : this.devicesDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
         }
         return filter;
     }
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardwareGroup());
+
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String partition = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("source"), "source");
-            String disk = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo("disk"), "disk");
-            return jsonMergerRFC8259(Arrays.asList(partition, disk), partition());
+            String bios = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(bios()), bios());
+            String cache = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(cache()), cache());
+            return jsonMergerRFC8259(Arrays.asList(bios, cache), hardwareGroup());
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardwareGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardwareGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardwareGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardwareGroup());
         }
-        throw new RuntimeException("Invalid command for "+ partition() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardwareGroup() +": " + this.command);
     }
-
 }
+
