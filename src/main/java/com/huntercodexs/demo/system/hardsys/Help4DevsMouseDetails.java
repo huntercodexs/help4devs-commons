@@ -27,22 +27,9 @@ public class Help4DevsMouseDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.mouseDetails) {
-
             if (details.isEmpty() || !details.contains(mouse())) continue;
-
-            details = details.replaceAll("type: "+mouse()+" ", "");
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "input", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-
-            listFilter.add(details);
-
+            listFilter.add(sourceFilter(details, mouse(), index, "source", "input"));
             index++;
-
         }
         return listFilter;
     }

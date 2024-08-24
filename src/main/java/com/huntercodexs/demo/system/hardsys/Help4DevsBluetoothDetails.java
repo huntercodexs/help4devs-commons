@@ -26,15 +26,8 @@ public class Help4DevsBluetoothDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
         for (String details : this.bluetoothDetails) {
-
             if (details == null || details.isEmpty()) continue;
-
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            details = indexer(details, "(\\w+)", "source: $1", "", false);
-            details = indexer(details, "source: ", "source", ": ", true);
-            filter.add(details);
-
+            filter.add(detailsFilter(details, "source"));
         }
         return filter;
     }

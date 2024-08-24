@@ -27,22 +27,9 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.keyboardDetails) {
-
             if (details.isEmpty() || !details.contains(keyboard())) continue;
-
-            details = details.replaceAll("type: "+keyboard()+" ", "");
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "input", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-
-            listFilter.add(details);
-
+            listFilter.add(sourceFilter(details, keyboard(), index, "source", "input"));
             index++;
-
         }
         return listFilter;
     }

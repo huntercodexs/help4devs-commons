@@ -27,22 +27,9 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.partitionDetails) {
-
-            if (!details.contains("type: "+partition())) continue;
-
-            details = details.replaceAll("type: "+partition()+" ", "");
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-
-            listFilter.add(details);
-
+            if (details.isEmpty() || !details.contains(partition())) continue;
+            listFilter.add(sourceFilter(details, partition(), index, "source", "source"));
             index++;
-
         }
         return listFilter;
     }

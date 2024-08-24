@@ -34,7 +34,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         result = sysCmd(Help4DevsHardSysCommands.DMIDECODE);
         codexsTesterAssertExact("dmidecode", result);
 
-        result = sysCmd(Help4DevsHardSysCommands.SYSTEMINFO_WINDOWS);
+        result = sysCmd(Help4DevsHardSysCommands.SYSTEMINFO);
         codexsTesterAssertExact("systeminfo", result);
     }
 
@@ -423,7 +423,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void generalSystemInfoBySysteminfoWindowsCommandTest() {
-        Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(SYSTEMINFO_WINDOWS);
+        Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(SYSTEMINFO);
         generalSystemInfo.metrics();
     }
 

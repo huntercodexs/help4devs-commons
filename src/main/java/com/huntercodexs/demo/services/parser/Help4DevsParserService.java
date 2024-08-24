@@ -378,6 +378,10 @@ public class Help4DevsParserService {
         }
 
         for (String line : input) {
+
+            //Prevent formatting error from incorrect character usage [
+            line = line.replaceAll("\\[", "(").replaceAll("]", ")");
+
             String[] fields = line
                     .replaceAll("([-/)(\\\\_0-9a-zA-Z]+): ", "[$1],")
                     .replaceAll(",([^\\[[a-zA-Z]\\]]+)", "")

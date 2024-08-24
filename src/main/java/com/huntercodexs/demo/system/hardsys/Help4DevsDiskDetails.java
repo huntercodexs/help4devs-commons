@@ -27,23 +27,9 @@ public class Help4DevsDiskDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.diskDetails) {
-
-            if (!details.contains("type: "+disk())) continue;
-
-            details = details.replaceAll("type: "+disk()+" ", "");
-
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-
-            listFilter.add(details);
-
+            if (details.isEmpty() || !details.contains(disk())) continue;
+            listFilter.add(sourceFilter(details, disk(), index, "source", "source"));
             index++;
-
         }
         return listFilter;
     }

@@ -37,20 +37,9 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.networkInterfaceDetails) {
-
-            if (!details.contains("type: "+networkInterface())) continue;
-
-            details = details.replaceAll("type: "+networkInterface()+" ", "");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-            listFilter.add(details);
-
+            if (details.isEmpty() || !details.contains(networkInterface())) continue;
+            listFilter.add(sourceFilter(details, networkInterface(), index, "source", "source"));
             index++;
-
         }
         return listFilter;
     }

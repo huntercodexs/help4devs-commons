@@ -40,9 +40,10 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
         int index = 0;
         for (String details : this.networkDetails) {
 
-            if (!details.contains("type: "+network)) continue;
+            if (!details.contains("type: "+networkGroup())) continue;
 
-            details = details.replaceAll("type: "+network+" ", "");
+            details = details.replaceAll("type: "+networkGroup()+" ", "");
+            //details = details.replaceAll("\\[", "(").replaceAll("]", ")");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);

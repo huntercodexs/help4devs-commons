@@ -27,15 +27,8 @@ public class Help4DevsProcessorDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
         for (String details : this.processorDetails) {
-
-            if (details.isEmpty()) continue;
-
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            details = indexer(details, "(\\w+)", "core: $1", "", false);
-            details = indexer(details, "core: ", "core", ": ", true);
-            filter.add(details);
-
+            if (details == null || details.isEmpty()) continue;
+            filter.add(detailsFilter(details, "core"));
         }
         return filter;
     }

@@ -26,15 +26,8 @@ public class Help4DevsMonitorDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
         for (String details : this.monitorDetails) {
-
             if (details == null || details.isEmpty()) continue;
-
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            details = indexer(details, "(\\w+)", "output: $1", "", false);
-            details = indexer(details, "output: ", "output", ": ", true);
-            filter.add(details);
-
+            filter.add(detailsFilter(details, "output"));
         }
         return filter;
     }

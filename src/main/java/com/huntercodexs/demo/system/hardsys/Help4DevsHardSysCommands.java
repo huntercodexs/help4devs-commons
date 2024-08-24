@@ -20,7 +20,8 @@ public enum Help4DevsHardSysCommands {
     LSCPU("lscpu"),
     LSCPU2("lshw -C cpu"),
     DMIDECODE("dmidecode"),
-    SYSTEMINFO_WINDOWS("systeminfo");
+    //For windows
+    SYSTEMINFO("systeminfo");
 
     private final String cmd;
 

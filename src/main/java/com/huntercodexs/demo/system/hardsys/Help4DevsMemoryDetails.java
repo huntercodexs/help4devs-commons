@@ -28,15 +28,8 @@ public class Help4DevsMemoryDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
         for (String details : this.memoryDetails) {
-
             if (details == null || details.isEmpty()) continue;
-
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            details = indexer(details, "(\\w+)", "name: $1", "", false);
-            details = indexer(details, "name: ", "name", ": ", true);
-            filter.add(details);
-
+            filter.add(detailsFilter(details, "name"));
         }
         return filter;
     }

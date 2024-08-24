@@ -26,15 +26,8 @@ public class Help4DevsBiosDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
         for (String details : this.biosDetails) {
-
             if (details == null || details.isEmpty()) continue;
-
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            details = indexer(details, "(\\w+)", "description: $1", "", false);
-            details = indexer(details, "description: ", "description", ": ", true);
-            filter.add(details);
-
+            filter.add(detailsFilter(details, "description"));
         }
         return filter;
     }

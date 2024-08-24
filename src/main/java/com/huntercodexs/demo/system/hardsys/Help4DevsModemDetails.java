@@ -30,7 +30,7 @@ public class Help4DevsModemDetails extends Help4DevsHardSysBase {
 
             if (details == null || details.isEmpty()) continue;
 
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
+            //details = details.replaceAll("\\[", "(").replaceAll("]", ")");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);

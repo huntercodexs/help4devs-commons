@@ -30,9 +30,10 @@ public class Help4DevsPartitionGroupDetails extends Help4DevsHardSysBase {
         int index = 0;
         for (String details : this.partitionDetails) {
 
-            if (!details.contains("type: "+partition)) continue;
+            if (!details.contains("type: "+partitionGroup())) continue;
 
-            details = details.replaceAll("type: "+partition+" ", "");
+            details = details.replaceAll("type: "+partitionGroup()+" ", "");
+            //details = details.replaceAll("\\[", "(").replaceAll("]", ")");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);

@@ -258,4 +258,24 @@ public abstract class Help4DevsHardSysBase {
         return this.stringHandler.replaceIndexing(input, target, replacement, separator, indexer);
     }
 
+    protected String detailsFilter(String input, String field) {
+        input = indexer(input, "(\\w+)", field+": $1", "", false);
+        input = indexer(input, field+": ", field, ": ", true);
+        return input;
+    }
+
+    protected String sourceFilter(String input, String type, int index, String field, String replacer) {
+        input = input.replaceAll("type: "+type+" ", "");
+
+        indexerUpdate(index);
+        input = indexer(input, field+": ", replacer, ": ", true);
+
+        indexerUpdate(index);
+        input = indexer(input, "description: ", "description", ": ", true);
+
+        input = input.replaceAll("\\.@\\.", ":");
+
+        return input;
+    }
+
 }

@@ -20,7 +20,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         this.loader(command);
     }
 
-    private String prepareFieldsToInxi(String input) {
+    private String fieldsTranslatorFromInxi(String input) {
         return input
                 .replaceAll("PCI Slots:", "slots")
                 .replaceAll("CPU: ", "processor")
@@ -29,32 +29,33 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
                 .toLowerCase();
     }
 
-    private String prepareFieldsToHwinfo(String input) {
+    private String fieldsTranslatorFromHwinfo(String input) {
         return input
                 .replaceAll("cpu:", "processor")
-                .replaceAll("sound:", "audio")
                 .replaceAll("keyboard:", "keyboard")
                 .replaceAll("mouse:", "mouse")
+                .replaceAll("monitor:", "monitor")
                 .replaceAll("graphics card:", "graphics")
-                //.replaceAll("storage:", "drives")
+                .replaceAll("sound:", "audio")
+                .replaceAll("storage:", "storage")
                 .replaceAll("network:", "network")
                 .replaceAll("network interface:", "network_interface")
                 .replaceAll("disk:", "disk")
                 .replaceAll("partition:", "partition")
                 .replaceAll("usb controller:", "usb")
                 .replaceAll("bios:", "bios")
-                .replaceAll("memory:", "memory")
-                .replaceAll("storage:", "storage")
                 .replaceAll("bridge:", "bridge")
+                .replaceAll("hub:", "hub")
+                .replaceAll("memory:", "memory")
                 .replaceAll("bluetooth:", "bluetooth")
                 .replaceAll("unknown:", "unknown")
-                .replaceAll("[^-_a-zA-Z]", "")
+                .replaceAll("[^-_a-zA-Z ]", "")
                 .toLowerCase();
     }
 
-    private void make(String pattern, String hardsy) {
+    private void makeSource(String pattern, String hardsy) {
 
-        List<String> merge = new ArrayList<>();
+        List<String> makeList = new ArrayList<>();
 
         this.resources.forEach((value, list) -> {
             if (value.matches(pattern)) {
@@ -66,15 +67,15 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
                             .replaceAll(":", ".@.")
                             .replaceAll("-{2,}", " description: ");
 
-                    merge.add(item);
+                    makeList.add(item);
                 }
             }
         });
 
-        this.resources.put(hardsy, merge);
+        this.resources.put(hardsy, makeList);
     }
 
-    private void merge(String pattern, String hardsy, boolean delete) {
+    private void makeGroup(String pattern, String hardsy, boolean delete) {
 
         List<String> merge = new ArrayList<>();
         List<String> remove = new ArrayList<>();
@@ -109,7 +110,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         this.resources.put(hardsy, merge);
     }
 
-    private void makeAndMergeInxi() {
+    private void makeSourceAndGroupFromInxi() {
 
         /* ! Code Here ! */
 
@@ -123,20 +124,22 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         }
     }
 
-    private void makeAndMergeHwinfo() {
+    private void makeSourceAndGroupFromHwinfo() {
 
-        /*Single*/
-        make("^(disk)$", disk());
-        make("^(network)$", network());
-        make("^(network_interface)$", networkInterface());
-        make("^(keyboard)$", keyboard());
-        make("^(mouse)$", mouse());
-        make("^(partition)$", partition());
+        /*
+            These resources have sources from the current command and
+            hence needs to treated with a different mode
+        */
+        makeSource("^(keyboard)$", keyboard());
+        makeSource("^(mouse)$", mouse());
+        makeSource("^(network)$", network());
+        makeSource("^(network_interface)$", networkInterface());
+        makeSource("^(disk)$", disk());
+        makeSource("^(partition)$", partition());
 
-        /*Group*/
-        //merge("^(network|network_interface)$", networkGroup(), false);
-        //merge("^(disk|partition)$", partitionGroup(), false);
-        //merge("^(keyboard|mouse)$", devicesGroup(), false);
+        //makeGroup("^(keyboard|mouse)$", devicesGroup(), false);
+        //makeGroup("^(network|network_interface)$", networkGroup(), false);
+        //makeGroup("^(disk|partition)$", partitionGroup(), false);
 
         if (HARDSYS_DEBUG) {
             this.resources.forEach((item, list) -> {
@@ -148,12 +151,19 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         }
     }
 
+    private BufferedReader execute(Help4DevsHardSysCommands command) {
+        Process process;
+        try {
+            process = Runtime.getRuntime().exec(sysCmd(command));
+            return  new BufferedReader(new InputStreamReader(process.getInputStream()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void inxiRun() {
 
-        try {
-
-            Process process = Runtime.getRuntime().exec(sysCmd(Help4DevsHardSysCommands.INXI));
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        try (BufferedReader reader = execute(Help4DevsHardSysCommands.INXI)) {
 
             String currentLine = reader.readLine();
 
@@ -184,11 +194,11 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
                     }
 
                     //Save line according HARDSYS
-                    this.resources.put(prepareFieldsToInxi(inxiInfo[i]), array);
+                    this.resources.put(fieldsTranslatorFromInxi(inxiInfo[i]), array);
                 }
             }
 
-            makeAndMergeInxi();
+            makeSourceAndGroupFromInxi();
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -197,27 +207,23 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     private void hwinfoRun() {
 
-        try {
-
-            Process process = Runtime.getRuntime().exec(sysCmd(Help4DevsHardSysCommands.HWINFO));
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        try (BufferedReader reader = execute(Help4DevsHardSysCommands.HWINFO)) {
 
             String currentLine = reader.readLine();
 
             for (int i = 0; i < hwinfoLayout.length; i++) {
-
-                List<String> array = new ArrayList<>();
 
                 if (currentLine == null) continue;
 
                 if (currentLine.contains(hwinfoLayout[i])) {
 
                     String lines;
+                    List<String> array = new ArrayList<>();
                     array.add(currentLine.replace(hwinfoLayout[i], "").trim());
 
                     while ((lines = reader.readLine()) != null) {
 
-                        //Last line
+                        //Last line - continue until readLine() equals null
                         if (i == hwinfoLayout.length-1) {
                             array.add(lines.trim());
                             continue;
@@ -230,13 +236,13 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
                         array.add(lines.trim());
                     }
 
-                    //Save line according HARDSYS
-                    this.resources.put(prepareFieldsToHwinfo(hwinfoLayout[i]), array);
+                    //Save line according HARDSYS expected fields
+                    this.resources.put(fieldsTranslatorFromHwinfo(hwinfoLayout[i]), array);
 
                 }
             }
 
-            makeAndMergeHwinfo();
+            makeSourceAndGroupFromHwinfo();
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
@@ -278,7 +284,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
             this.lscpu2Run();
         } else if (command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             this.dmidecodeRun();
-        } else if (command.equals(Help4DevsHardSysCommands.SYSTEMINFO_WINDOWS)) {
+        } else if (command.equals(Help4DevsHardSysCommands.SYSTEMINFO)) {
             this.systeminfoRun();
         } else {
             throw new RuntimeException("Wrong sys cmd to retrieve information: " + sysCmd(command));
@@ -291,7 +297,8 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
 }
 
-/*TODO: Finalize a segregation items with specific information about each one*/
+/*DONE: Finalize a segregation items with specific information about each one - HWINFO*/
+/*DONE: Review all resources to find out any kind of code error or optimization  - HWINFO*/
 /*TODO: Create a Sub-groups of items when it is applicable, for example: devices {keyboard, mouse, monitor, hub,...}*/
 /*TODO: Create a response grouped by something like: {hardsys:{devices:{keyboard, mouse, etc...}}}, in this case
    the only one call should be required, for example: instance.group();*/

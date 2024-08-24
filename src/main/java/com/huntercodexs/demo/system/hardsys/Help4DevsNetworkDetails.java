@@ -37,21 +37,9 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.networkDetails) {
-
-            if (!details.contains("type: "+network())) continue;
-
-            details = details.replaceAll("type: "+network()+" ", "");
-            details = details.replaceAll("\\[", "(").replaceAll("]", ")");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-            listFilter.add(details);
-
+            if (details.isEmpty() || !details.contains(network())) continue;
+            listFilter.add(sourceFilter(details, network(), index, "source", "source"));
             index++;
-
         }
         return listFilter;
     }
