@@ -17,7 +17,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     public Help4DevsHardSys(Help4DevsHardSysCommands command) {
         this.command = command;
-        this.loader(command);
+        this.loader();
     }
 
     private String fieldsTranslatorFromInxi(String input) {
@@ -112,14 +112,6 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
         /* ! Code Here ! */
 
-        if (HARDSYS_DEBUG) {
-            this.resources.forEach((item, list) -> {
-                System.out.println("ITEM: " + item);
-                for (String value : list) {
-                    System.out.println(value);
-                }
-            });
-        }
     }
 
     private void makeSourceAndGroupFromHwinfo() {
@@ -146,14 +138,6 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         makeGroup("^(baseboard|audio|bios|slots)$", boardsGroup(), false);
         makeGroup("^(bios|cache)$", hardwareGroup(), false);
 
-        if (HARDSYS_DEBUG) {
-            this.resources.forEach((item, list) -> {
-                System.out.println("AFTER: ITEM: "+item);
-                for (String value : list) {
-                    System.out.println("VALUE:AFTER: "+ value);
-                }
-            });
-        }
     }
 
     private BufferedReader execute(Help4DevsHardSysCommands command) {
@@ -224,7 +208,6 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
                     String lines;
                     List<String> array = new ArrayList<>();
-                    array.add(currentLine.replace(hwinfoLayout[i], "").trim());
 
                     while ((lines = reader.readLine()) != null) {
 
@@ -269,7 +252,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
     private void systeminfoRun() {
     }
 
-    private void loader(Help4DevsHardSysCommands command) {
+    private void loader() {
 
         this.resources = new HashMap<>();
 
@@ -277,26 +260,26 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
             this.resources.put(res, new ArrayList<>());
         }
 
-        if (command.equals(Help4DevsHardSysCommands.INXI)) {
+        if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
             this.inxiRun();
-        } else if (command.equals(Help4DevsHardSysCommands.HWINFO)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
             this.hwinfoRun();
-        } else if (command.equals(Help4DevsHardSysCommands.LSHW)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
             this.lshwRun();
-        } else if (command.equals(Help4DevsHardSysCommands.LSCPU)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             this.lscpuRun();
-        } else if (command.equals(Help4DevsHardSysCommands.LSCPU2)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
             this.lscpu2Run();
-        } else if (command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             this.dmidecodeRun();
-        } else if (command.equals(Help4DevsHardSysCommands.SYSTEMINFO)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.SYSTEMINFO)) {
             this.systeminfoRun();
         } else {
-            throw new RuntimeException("Wrong sys cmd to retrieve information: " + sysCmd(command));
+            throw new RuntimeException("Wrong sys cmd to retrieve information: " + sysCmd(this.command));
         }
     }
 
-    public Help4DevsHardSysMetrics metrics() {
+    public Help4DevsHardSysMetrics resources() {
         return new Help4DevsHardSysMetrics(this.resources, this.command);
     }
 

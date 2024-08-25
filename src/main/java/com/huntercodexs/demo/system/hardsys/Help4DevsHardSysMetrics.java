@@ -85,7 +85,7 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
         this.componentsGroupDetails = new Help4DevsComponentsGroupDetails(resources.get(componentsGroup()), command);
         this.boardsGroupDetails = new Help4DevsBoardsGroupDetails(resources.get(boardsGroup()), command);
         this.hardwareGroupDetails = new Help4DevsHardwareGroupDetails(resources.get(hardwareGroup()), command);
-        this.allGroupDetails = new Help4DevsAllGroupDetails(resources.get(allGroup()), command);
+        this.allGroupDetails = new Help4DevsAllGroupDetails(this, command);
     }
 
     public Help4DevsSystemDetails getSystem() {
@@ -240,9 +240,8 @@ public class Help4DevsHardSysMetrics extends Help4DevsHardSysBase implements Hel
         return this.hardwareGroupDetails;
     }
 
-    public Help4DevsAllGroupDetails getAllGroup() {
-        return this.allGroupDetails;
+    public String getAll() {
+        return this.allGroupDetails.getDetails();
     }
-
 
 }

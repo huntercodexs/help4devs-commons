@@ -181,280 +181,285 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     public void generalSystemInfoByInxiCommandTest() {
 
         Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
-        hardSys.metrics();
 
         //SYSTEM
-        Help4DevsSystemDetails system = hardSys.metrics().getSystem();
+        Help4DevsSystemDetails system = hardSys.resources().getSystem();
         System.out.println(system.getDetails());
         //--MACHINE
-        Help4DevsMachineDetails machine = hardSys.metrics().getMachine();
+        Help4DevsMachineDetails machine = hardSys.resources().getMachine();
         System.out.println(machine.getDetails());
         //--BATTERY
-        Help4DevsBatteryDetails battery = hardSys.metrics().getBattery();
+        Help4DevsBatteryDetails battery = hardSys.resources().getBattery();
         System.out.println(battery.getDetails());
         //--MEMORY
-        Help4DevsMemoryDetails memory = hardSys.metrics().getMemory();
+        Help4DevsMemoryDetails memory = hardSys.resources().getMemory();
         System.out.println(memory.getDetails());
         //--SLOTS
-        Help4DevsSlotsDetails slots = hardSys.metrics().getSlots();
+        Help4DevsSlotsDetails slots = hardSys.resources().getSlots();
         System.out.println(slots.getDetails());
         //--PROCESSOR
-        Help4DevsProcessorDetails processor = hardSys.metrics().getProcessor();
+        Help4DevsProcessorDetails processor = hardSys.resources().getProcessor();
         System.out.println(processor.getDetails());
         //--GRAPHICS
-        Help4DevsGraphicsDetails graphics = hardSys.metrics().getGraphics();
+        Help4DevsGraphicsDetails graphics = hardSys.resources().getGraphics();
         System.out.println(graphics.getDetails());
         //--AUDIO
-        Help4DevsAudioDetails audio = hardSys.metrics().getAudio();
+        Help4DevsAudioDetails audio = hardSys.resources().getAudio();
         System.out.println(audio.getDetails());
         //--NETWORK
-        Help4DevsNetworkDetails network = hardSys.metrics().getNetwork();
+        Help4DevsNetworkDetails network = hardSys.resources().getNetwork();
         System.out.println(network.getDetails());
         //--DRIVERS
-        Help4DevsDriversDetails drivers = hardSys.metrics().getDrivers();
+        Help4DevsDriversDetails drivers = hardSys.resources().getDrivers();
         System.out.println(drivers.getDetails());
         //--PARTITION
-        Help4DevsPartitionDetails partition = hardSys.metrics().getPartition();
+        Help4DevsPartitionDetails partition = hardSys.resources().getPartition();
         System.out.println(partition.getDetails());
         //--USB
-        Help4DevsUsbDetails usb = hardSys.metrics().getUsb();
+        Help4DevsUsbDetails usb = hardSys.resources().getUsb();
         System.out.println(usb.getDetails());
         //--SENSORS
-        Help4DevsSensorsDetails sensors = hardSys.metrics().getSensors();
+        Help4DevsSensorsDetails sensors = hardSys.resources().getSensors();
         System.out.println(sensors.getDetails());
         //--RUNNING
-        Help4DevsRunningDetails running = hardSys.metrics().getRunning();
+        Help4DevsRunningDetails running = hardSys.resources().getRunning();
         System.out.println(running.getDetails());
         //--MONITOR
-        Help4DevsMonitorDetails monitor = hardSys.metrics().getMonitor();
+        Help4DevsMonitorDetails monitor = hardSys.resources().getMonitor();
         System.out.println(monitor.getDetails());
         //--BIOS
-        Help4DevsBiosDetails bios = hardSys.metrics().getBios();
+        Help4DevsBiosDetails bios = hardSys.resources().getBios();
         System.out.println(bios.getDetails());
         //--BASEBOARD
-        Help4DevsBaseboardDetails baseboard = hardSys.metrics().getBaseboard();
+        Help4DevsBaseboardDetails baseboard = hardSys.resources().getBaseboard();
         System.out.println(baseboard.getDetails());
         //--CHASSIS
-        Help4DevsChassisDetails chassis = hardSys.metrics().getChassis();
+        Help4DevsChassisDetails chassis = hardSys.resources().getChassis();
         System.out.println(chassis.getDetails());
         //--CACHE
-        Help4DevsCacheDetails cache = hardSys.metrics().getCache();
+        Help4DevsCacheDetails cache = hardSys.resources().getCache();
         System.out.println(cache.getDetails());
         //--CONNECTOR
-        Help4DevsConnectorDetails connector = hardSys.metrics().getConnector();
+        Help4DevsConnectorDetails connector = hardSys.resources().getConnector();
         System.out.println(connector.getDetails());
         //--KEYBOARD
-        Help4DevsKeyboardDetails keyboard = hardSys.metrics().getKeyboard();
+        Help4DevsKeyboardDetails keyboard = hardSys.resources().getKeyboard();
         System.out.println(keyboard.getDetails());
         //--MOUSE
-        Help4DevsMouseDetails mouse = hardSys.metrics().getMouse();
+        Help4DevsMouseDetails mouse = hardSys.resources().getMouse();
         System.out.println(mouse.getDetails());
         //--HUB
-        Help4DevsHubDetails hub = hardSys.metrics().getHub();
+        Help4DevsHubDetails hub = hardSys.resources().getHub();
         System.out.println(hub.getDetails());
         //--SWITCH
-        Help4DevsSwitchDetails switcher = hardSys.metrics().getSwitch();
+        Help4DevsSwitchDetails switcher = hardSys.resources().getSwitch();
         System.out.println(switcher.getDetails());
         //--MODEM
-        Help4DevsModemDetails modem = hardSys.metrics().getModem();
+        Help4DevsModemDetails modem = hardSys.resources().getModem();
         System.out.println(modem.getDetails());
         //--DISK
-        Help4DevsDiskDetails disk = hardSys.metrics().getDisk();
+        Help4DevsDiskDetails disk = hardSys.resources().getDisk();
         System.out.println(disk.getDetails());
         //--BLUETOOTH
-        Help4DevsBluetoothDetails bluetooth = hardSys.metrics().getBluetooth();
+        Help4DevsBluetoothDetails bluetooth = hardSys.resources().getBluetooth();
         System.out.println(bluetooth.getDetails());
         //--VIDEO
-        Help4DevsVideoDetails video = hardSys.metrics().getVideo();
+        Help4DevsVideoDetails video = hardSys.resources().getVideo();
         System.out.println(video.getDetails());
         //--STORAGE
-        Help4DevsStorageDetails storage = hardSys.metrics().getStorage();
+        Help4DevsStorageDetails storage = hardSys.resources().getStorage();
         System.out.println(storage.getDetails());
         //--BRIDGE
-        Help4DevsBridgeDetails bridge = hardSys.metrics().getBridge();
+        Help4DevsBridgeDetails bridge = hardSys.resources().getBridge();
         System.out.println(bridge.getDetails());
         //--NETWORK-INTERFACE
-        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.metrics().getNetworkInterface();
+        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.resources().getNetworkInterface();
         System.out.println(networkInterface.getDetails());
         //--UNKNOWN
-        Help4DevsUnknownDetails unknown = hardSys.metrics().getUnknown();
+        Help4DevsUnknownDetails unknown = hardSys.resources().getUnknown();
         System.out.println(unknown.getDetails());
         //--DEVICES (GROUPS)
-        Help4DevsDevicesGroupDetails devicesGroup = hardSys.metrics().getDevicesGroup();
+        Help4DevsDevicesGroupDetails devicesGroup = hardSys.resources().getDevicesGroup();
         System.out.println(devicesGroup.getDetails());
         //--NETWORK (GROUPS)
-        Help4DevsNetworkGroupDetails networkGroup = hardSys.metrics().getNetworksGroup();
+        Help4DevsNetworkGroupDetails networkGroup = hardSys.resources().getNetworksGroup();
         System.out.println(networkGroup.getDetails());
         //--DRIVES (GROUPS)
-        Help4DevsDrivesGroupDetails drives = hardSys.metrics().getDrivesGroup();
+        Help4DevsDrivesGroupDetails drives = hardSys.resources().getDrivesGroup();
         System.out.println(drives.getDetails());
         //--COMPONENTS (GROUPS)
-        Help4DevsComponentsGroupDetails components = hardSys.metrics().getComponentsGroup();
+        Help4DevsComponentsGroupDetails components = hardSys.resources().getComponentsGroup();
         System.out.println(components.getDetails());
         //--BOARDS (GROUPS)
-        Help4DevsBoardsGroupDetails boards = hardSys.metrics().getBoardsGroup();
+        Help4DevsBoardsGroupDetails boards = hardSys.resources().getBoardsGroup();
         System.out.println(boards.getDetails());
         //--HARDWARE (GROUPS)
-        Help4DevsHardwareGroupDetails hardware = hardSys.metrics().getHardwareGroup();
+        Help4DevsHardwareGroupDetails hardware = hardSys.resources().getHardwareGroup();
         System.out.println(hardware.getDetails());
-        //--ALL (GROUPS)
-        Help4DevsAllGroupDetails all = hardSys.metrics().getAllGroup();
-        System.out.println(all.getDetails());
     }
 
     @Test
-    public void generalSystemInfoByHwinfoCommandTest() {
+    public void generalSystemInfoByHwinfoCommand_SINGLE_Test() {
 
         Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
-        hardSys.metrics();
 
         //SYSTEM
-        Help4DevsSystemDetails system = hardSys.metrics().getSystem();
+        Help4DevsSystemDetails system = hardSys.resources().getSystem();
         System.out.println(system.getDetails());
         //--MACHINE
-        Help4DevsMachineDetails machine = hardSys.metrics().getMachine();
+        Help4DevsMachineDetails machine = hardSys.resources().getMachine();
         System.out.println(machine.getDetails());
         //--BATTERY
-        Help4DevsBatteryDetails battery = hardSys.metrics().getBattery();
+        Help4DevsBatteryDetails battery = hardSys.resources().getBattery();
         System.out.println(battery.getDetails());
         //--MEMORY
-        Help4DevsMemoryDetails memory = hardSys.metrics().getMemory();
+        Help4DevsMemoryDetails memory = hardSys.resources().getMemory();
         System.out.println(memory.getDetails());
         //--SLOTS
-        Help4DevsSlotsDetails slots = hardSys.metrics().getSlots();
+        Help4DevsSlotsDetails slots = hardSys.resources().getSlots();
         System.out.println(slots.getDetails());
         //--PROCESSOR
-        Help4DevsProcessorDetails processor = hardSys.metrics().getProcessor();
+        Help4DevsProcessorDetails processor = hardSys.resources().getProcessor();
         System.out.println(processor.getDetails());
         //--GRAPHICS
-        Help4DevsGraphicsDetails graphics = hardSys.metrics().getGraphics();
+        Help4DevsGraphicsDetails graphics = hardSys.resources().getGraphics();
         System.out.println(graphics.getDetails());
         //--AUDIO
-        Help4DevsAudioDetails audio = hardSys.metrics().getAudio();
+        Help4DevsAudioDetails audio = hardSys.resources().getAudio();
         System.out.println(audio.getDetails());
         //--NETWORK
-        Help4DevsNetworkDetails network = hardSys.metrics().getNetwork();
+        Help4DevsNetworkDetails network = hardSys.resources().getNetwork();
         System.out.println(network.getDetails());
         //--DRIVERS
-        Help4DevsDriversDetails drivers = hardSys.metrics().getDrivers();
+        Help4DevsDriversDetails drivers = hardSys.resources().getDrivers();
         System.out.println(drivers.getDetails());
         //--PARTITION
-        Help4DevsPartitionDetails partition = hardSys.metrics().getPartition();
+        Help4DevsPartitionDetails partition = hardSys.resources().getPartition();
         System.out.println(partition.getDetails());
         //--USB
-        Help4DevsUsbDetails usb = hardSys.metrics().getUsb();
+        Help4DevsUsbDetails usb = hardSys.resources().getUsb();
         System.out.println(usb.getDetails());
         //--SENSORS
-        Help4DevsSensorsDetails sensors = hardSys.metrics().getSensors();
+        Help4DevsSensorsDetails sensors = hardSys.resources().getSensors();
         System.out.println(sensors.getDetails());
         //--RUNNING
-        Help4DevsRunningDetails running = hardSys.metrics().getRunning();
+        Help4DevsRunningDetails running = hardSys.resources().getRunning();
         System.out.println(running.getDetails());
         //--MONITOR
-        Help4DevsMonitorDetails monitor = hardSys.metrics().getMonitor();
+        Help4DevsMonitorDetails monitor = hardSys.resources().getMonitor();
         System.out.println(monitor.getDetails());
         //--BIOS
-        Help4DevsBiosDetails bios = hardSys.metrics().getBios();
+        Help4DevsBiosDetails bios = hardSys.resources().getBios();
         System.out.println(bios.getDetails());
         //--BASEBOARD
-        Help4DevsBaseboardDetails baseboard = hardSys.metrics().getBaseboard();
+        Help4DevsBaseboardDetails baseboard = hardSys.resources().getBaseboard();
         System.out.println(baseboard.getDetails());
         //--CHASSIS
-        Help4DevsChassisDetails chassis = hardSys.metrics().getChassis();
+        Help4DevsChassisDetails chassis = hardSys.resources().getChassis();
         System.out.println(chassis.getDetails());
         //--CACHE
-        Help4DevsCacheDetails cache = hardSys.metrics().getCache();
+        Help4DevsCacheDetails cache = hardSys.resources().getCache();
         System.out.println(cache.getDetails());
         //--CONNECTOR
-        Help4DevsConnectorDetails connector = hardSys.metrics().getConnector();
+        Help4DevsConnectorDetails connector = hardSys.resources().getConnector();
         System.out.println(connector.getDetails());
         //--KEYBOARD
-        Help4DevsKeyboardDetails keyboard = hardSys.metrics().getKeyboard();
+        Help4DevsKeyboardDetails keyboard = hardSys.resources().getKeyboard();
         System.out.println(keyboard.getDetails());
         //--MOUSE
-        Help4DevsMouseDetails mouse = hardSys.metrics().getMouse();
+        Help4DevsMouseDetails mouse = hardSys.resources().getMouse();
         System.out.println(mouse.getDetails());
         //--HUB
-        Help4DevsHubDetails hub = hardSys.metrics().getHub();
+        Help4DevsHubDetails hub = hardSys.resources().getHub();
         System.out.println(hub.getDetails());
         //--SWITCH
-        Help4DevsSwitchDetails switcher = hardSys.metrics().getSwitch();
+        Help4DevsSwitchDetails switcher = hardSys.resources().getSwitch();
         System.out.println(switcher.getDetails());
         //--MODEM
-        Help4DevsModemDetails modem = hardSys.metrics().getModem();
+        Help4DevsModemDetails modem = hardSys.resources().getModem();
         System.out.println(modem.getDetails());
         //--DISK
-        Help4DevsDiskDetails disk = hardSys.metrics().getDisk();
+        Help4DevsDiskDetails disk = hardSys.resources().getDisk();
         System.out.println(disk.getDetails());
         //--BLUETOOTH
-        Help4DevsBluetoothDetails bluetooth = hardSys.metrics().getBluetooth();
+        Help4DevsBluetoothDetails bluetooth = hardSys.resources().getBluetooth();
         System.out.println(bluetooth.getDetails());
         //--VIDEO
-        Help4DevsVideoDetails video = hardSys.metrics().getVideo();
+        Help4DevsVideoDetails video = hardSys.resources().getVideo();
         System.out.println(video.getDetails());
         //--STORAGE
-        Help4DevsStorageDetails storage = hardSys.metrics().getStorage();
+        Help4DevsStorageDetails storage = hardSys.resources().getStorage();
         System.out.println(storage.getDetails());
         //--BRIDGE
-        Help4DevsBridgeDetails bridge = hardSys.metrics().getBridge();
+        Help4DevsBridgeDetails bridge = hardSys.resources().getBridge();
         System.out.println(bridge.getDetails());
         //--NETWORK-INTERFACE
-        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.metrics().getNetworkInterface();
+        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.resources().getNetworkInterface();
         System.out.println(networkInterface.getDetails());
         //--UNKNOWN
-        Help4DevsUnknownDetails unknown = hardSys.metrics().getUnknown();
+        Help4DevsUnknownDetails unknown = hardSys.resources().getUnknown();
         System.out.println(unknown.getDetails());
+    }
+
+    @Test
+    public void generalSystemInfoByHwinfoCommand_GROUP_Test() {
+
+        Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
+
         //--DEVICES (GROUPS)
-        Help4DevsDevicesGroupDetails devicesGroup = hardSys.metrics().getDevicesGroup();
+        Help4DevsDevicesGroupDetails devicesGroup = hardSys.resources().getDevicesGroup();
         System.out.println(devicesGroup.getDetails());
         //--NETWORK (GROUPS)
-        Help4DevsNetworkGroupDetails networkGroup = hardSys.metrics().getNetworksGroup();
+        Help4DevsNetworkGroupDetails networkGroup = hardSys.resources().getNetworksGroup();
         System.out.println(networkGroup.getDetails());
         //--DRIVES (GROUPS)
-        Help4DevsDrivesGroupDetails drives = hardSys.metrics().getDrivesGroup();
+        Help4DevsDrivesGroupDetails drives = hardSys.resources().getDrivesGroup();
         System.out.println(drives.getDetails());
         //--COMPONENTS (GROUPS)
-        Help4DevsComponentsGroupDetails components = hardSys.metrics().getComponentsGroup();
+        Help4DevsComponentsGroupDetails components = hardSys.resources().getComponentsGroup();
         System.out.println(components.getDetails());
         //--BOARDS (GROUPS)
-        Help4DevsBoardsGroupDetails boards = hardSys.metrics().getBoardsGroup();
+        Help4DevsBoardsGroupDetails boards = hardSys.resources().getBoardsGroup();
         System.out.println(boards.getDetails());
         //--HARDWARE (GROUPS)
-        Help4DevsHardwareGroupDetails hardware = hardSys.metrics().getHardwareGroup();
+        Help4DevsHardwareGroupDetails hardware = hardSys.resources().getHardwareGroup();
         System.out.println(hardware.getDetails());
-        //--ALL (GROUPS)
-        Help4DevsAllGroupDetails all = hardSys.metrics().getAllGroup();
-        System.out.println(all.getDetails());
+    }
+
+    @Test
+    public void generalSystemInfoByHwinfoCommand_ALL_Test() {
+        Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
+        System.out.println(hardSys.resources().getAll());
     }
 
     @Test
     public void generalSystemInfoByLshwCommandTest() {
         Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(LSHW);
-        generalSystemInfo.metrics();
+        generalSystemInfo.resources();
     }
 
     @Test
     public void generalSystemInfoByLscpuCommandTest() {
         Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(LSCPU);
-        generalSystemInfo.metrics();
+        generalSystemInfo.resources();
     }
 
     @Test
     public void generalSystemInfoByLscpu2CommandTest() {
         Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(LSCPU2);
-        generalSystemInfo.metrics();
+        generalSystemInfo.resources();
     }
 
     @Test
     public void generalSystemInfoByDmidecodeCommandTest() {
         Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(DMIDECODE);
-        generalSystemInfo.metrics();
+        generalSystemInfo.resources();
     }
 
     @Test
     public void generalSystemInfoBySysteminfoWindowsCommandTest() {
         Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(SYSTEMINFO);
-        generalSystemInfo.metrics();
+        generalSystemInfo.resources();
     }
 
     @Test

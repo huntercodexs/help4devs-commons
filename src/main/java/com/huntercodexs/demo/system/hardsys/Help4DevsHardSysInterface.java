@@ -41,5 +41,6 @@ public interface Help4DevsHardSysInterface {
     Help4DevsComponentsGroupDetails getComponentsGroup();
     Help4DevsBoardsGroupDetails getBoardsGroup();
     Help4DevsHardwareGroupDetails getHardwareGroup();
-    Help4DevsAllGroupDetails getAllGroup();
+    /*All Resources*/
+    String getAll();
 }

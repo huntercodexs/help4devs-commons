@@ -10,84 +10,73 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonM
 public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
-    private final List<String> devicesDetails;
+    private final Help4DevsHardSysMetrics allResources;
 
-    public Help4DevsAllGroupDetails(List<String> devices, Help4DevsHardSysCommands command) {
+    public Help4DevsAllGroupDetails(Help4DevsHardSysMetrics allResources, Help4DevsHardSysCommands command) {
         this.command = command;
-        this.devicesDetails = devices;
+        this.allResources = allResources;
     }
 
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
-        }
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandHwinfo(String device) {
-        List<String> listFilter = new ArrayList<>();
-        int index = 0;
-        for (String details : this.devicesDetails) {
-            if (!details.contains("type: "+device)) continue;
-            listFilter.add(sourceFilter(details, device, index, "source", "source"));
-            index++;
-        }
-        return listFilter;
+    private List<String> detailsFromLinuxCommandHwinfo() {
+        return Arrays.asList(
+            this.allResources.getProcessor().getDetails(),
+            this.allResources.getKeyboard().getDetails(),
+            this.allResources.getMouse().getDetails(),
+            this.allResources.getMonitor().getDetails(),
+            this.allResources.getGraphics().getDetails(),
+            this.allResources.getAudio().getDetails(),
+            this.allResources.getStorage().getDetails(),
+            this.allResources.getNetwork().getDetails(),
+            this.allResources.getNetworkInterface().getDetails(),
+            this.allResources.getDisk().getDetails(),
+            this.allResources.getPartition().getDetails(),
+            this.allResources.getUsb().getDetails(),
+            this.allResources.getBios().getDetails(),
+            this.allResources.getBridge().getDetails(),
+            this.allResources.getHub().getDetails(),
+            this.allResources.getMemory().getDetails(),
+            this.allResources.getBluetooth().getDetails(),
+            this.allResources.getUnknown().getDetails());
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
-        }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
-        }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
-        }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("ALL GROUP: ", "AllGroup: "));
-        }
         return filter;
     }
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), allGroup());
-
+            return jsonMergerRFC8259(detailsFromLinuxCommandInxi(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-
-            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(keyboard()), keyboard());
-            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(mouse()), mouse());
-            String monitor = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(monitor()), monitor());
-            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hub()), hub());
-            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse, monitor, hub), allGroup());
-
+            return jsonMergerRFC8259(detailsFromLinuxCommandHwinfo(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu2(), allGroup());
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), allGroup());
         }
         throw new RuntimeException("Invalid command for "+ allGroup() +": " + this.command);
     }

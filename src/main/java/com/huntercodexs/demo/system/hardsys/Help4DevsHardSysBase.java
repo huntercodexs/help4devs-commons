@@ -44,12 +44,10 @@ public abstract class Help4DevsHardSysBase {
             /*[35]*/ "components_group",
             /*[36]*/ "boards_group",
             /*[37]*/ "hardware_group",
-            /*[38]*/ "all_group"
+            /*[38]*/ "all"
     };
 
     private final Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
-
-    protected static boolean HARDSYS_DEBUG = false;
 
     //INXI Version 3.0.38 (Layout)
     protected static final String[] inxiInfo = new String[] {
