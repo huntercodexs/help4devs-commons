@@ -279,8 +279,15 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         }
     }
 
+    public void json() {
+        this.setJsonOn();
+    }
+
     public Help4DevsHardSysMetrics resources() {
-        return new Help4DevsHardSysMetrics(this.resources, this.command);
+        if (this.getJsonOn()) {
+            return new Help4DevsHardSysMetrics(this.resources, this.command);
+        }
+        return null;
     }
 
 }

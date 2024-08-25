@@ -4,6 +4,8 @@ import com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService;
 
 public abstract class Help4DevsHardSysBase {
 
+    private boolean jsonOn = false;
+
     //Available Information: Hardware x System
     private static final String[] HARDSYS = new String[]{
             /*[ 0]*/ "system",
@@ -247,6 +249,14 @@ public abstract class Help4DevsHardSysBase {
 
     protected String allGroup() {
         return HARDSYS[38];
+    }
+
+    protected void setJsonOn() {
+        this.jsonOn = true;
+    }
+
+    protected boolean getJsonOn() {
+        return this.jsonOn;
     }
 
     protected void indexerRestart() {

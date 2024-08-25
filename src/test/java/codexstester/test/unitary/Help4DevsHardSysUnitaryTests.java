@@ -427,7 +427,14 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void generalSystemInfoByHwinfoCommand_ALL_Test() {
+    public void generalSystemInfoByHwinfoCommand_ALL_JSON_Test() {
+        Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
+        hardSys.json();
+        System.out.println(hardSys.resources().getAll());
+    }
+
+    @Test
+    public void generalSystemInfoByHwinfoCommand_ALL_DTO_Test() {
         Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
         System.out.println(hardSys.resources().getAll());
     }
