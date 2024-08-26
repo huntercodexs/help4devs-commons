@@ -133,11 +133,14 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return
-                        "Total Time: "+this.total+"\n" +
-                        "Start Time: "+this.start+"\n" +
-                        "Current Time: "+this.current+"\n" +
-                        "End Time: "+this.end+"\n";
+                return "TimerInfoMetrics{" +
+                        "decimals=" + decimals +
+                        ", start=" + start +
+                        ", current=" + current +
+                        ", end=" + end +
+                        ", total=" + total +
+                        ", timerSpec=" + timerSpec +
+                        '}';
             }
         }
 
@@ -362,20 +365,21 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return
-                        this.javaVersion+"\n" +
-                        this.javaVendor+"\n" +
-                        this.javaVendorUrl+"\n" +
-                        this.javaHome+"\n" +
-                        this.javaSpecVersion+"\n" +
-                        this.javaSpecVendor+"\n" +
-                        this.javaSpecName+"\n" +
-                        this.javaClassVersion+"\n" +
-                        this.javaClassPath+"\n" +
-                        this.javaLibPath+"\n" +
-                        this.javaIoTmpDir+"\n" +
-                        this.javaCompiler+"\n" +
-                        this.javaExtraDirs+"\n";
+                return "JavaInfoMetrics{" +
+                        "javaVersion='" + javaVersion + '\'' +
+                        ", javaVendor='" + javaVendor + '\'' +
+                        ", javaVendorUrl='" + javaVendorUrl + '\'' +
+                        ", javaHome='" + javaHome + '\'' +
+                        ", javaSpecVersion='" + javaSpecVersion + '\'' +
+                        ", javaSpecVendor='" + javaSpecVendor + '\'' +
+                        ", javaSpecName='" + javaSpecName + '\'' +
+                        ", javaClassVersion='" + javaClassVersion + '\'' +
+                        ", javaClassPath='" + javaClassPath + '\'' +
+                        ", javaLibPath='" + javaLibPath + '\'' +
+                        ", javaIoTmpDir='" + javaIoTmpDir + '\'' +
+                        ", javaCompiler='" + javaCompiler + '\'' +
+                        ", javaExtraDirs='" + javaExtraDirs + '\'' +
+                        '}';
             }
         }
     }
@@ -572,15 +576,16 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return
-                        "Total Memory: "+this.getTotal()+"\n" +
-                        "Start Memory: "+this.getStart()+"\n" +
-                        "Current Memory: "+this.getCurrent()+"\n" +
-                        "End Memory: "+this.getEnd()+"\n" +
-                        "Free Memory: "+this.getFree()+"\n" +
-                        "Used Memory: "+this.getUsed()+"\n";
+                return "MemoryInfoMetrics{" +
+                        "total=" + total +
+                        ", start=" + start +
+                        ", current=" + current +
+                        ", end=" + end +
+                        ", free=" + free +
+                        ", used=" + used +
+                        ", memorySpec=" + memorySpec +
+                        '}';
             }
-
         }
 
         public enum MemorySpec {
@@ -660,11 +665,12 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return
-                        "Class Path: "+this.getAbsPath()+"\n" +
-                        "Total Disk: "+this.getTotal()+"\n" +
-                        "Free Disk: "+this.getFree()+"\n" +
-                        "Used Disk: "+this.getUsed()+"\n";
+                return "HardDriveInfoMetrics{" +
+                        "absPath='" + absPath + '\'' +
+                        ", total=" + total +
+                        ", free=" + free +
+                        ", used=" + used +
+                        '}';
             }
         }
     }
@@ -910,20 +916,20 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return
-                        "Name: "+this.getName()+"\n" +
-                        "Architecture: "+this.getArch()+"\n" +
-                        "Vendor: "+this.getVendor()+"\n" +
-                        "Cores: "+this.getCores()+"\n" +
-                        "Cpus: "+this.getCpus()+"\n" +
-                        "Mhz: "+this.getMhz()+"\n" +
-                        "Virtualization: "+this.getVirtualization()+"\n" +
-                        "L1Cache: "+this.getL1Cache()+"\n" +
-                        "L2Cache: "+this.getL2Cache()+"\n" +
-                        "L3Cache: "+this.getL3Cache()+"\n";
+                return "ProcessorInfoMetrics{" +
+                        "arch='" + arch + '\'' +
+                        ", name='" + name + '\'' +
+                        ", vendor='" + vendor + '\'' +
+                        ", cores='" + cores + '\'' +
+                        ", cpus='" + cpus + '\'' +
+                        ", mhz='" + mhz + '\'' +
+                        ", virtualization='" + virtualization + '\'' +
+                        ", l1Cache='" + l1Cache + '\'' +
+                        ", l2Cache='" + l2Cache + '\'' +
+                        ", l3Cache='" + l3Cache + '\'' +
+                        '}';
             }
         }
-
     }
 
     public static class JVirtualMachineInfo {
@@ -1038,16 +1044,16 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return
-                        "Java Specification Version: "+this.getJavaSpecificationVersion()+"\n"+
-                        "Java VM Specification Vendor: "+this.getJavaVMSpecificationVendor()+"\n"+
-                        "Java VM Specification Name: "+this.getJavaVMSpecificationName()+"\n"+
-                        "Java VM Version: "+this.getJavaVMVersion()+"\n"+
-                        "Java VM Vendor: "+this.getJavaVMVendor()+"\n"+
-                        "Java VM Name: "+this.getJavaVMName()+"\n";
+                return "JVirtualMachineInfoMetrics{" +
+                        "javaSpecificationVersion='" + javaSpecificationVersion + '\'' +
+                        ", javaVMSpecificationVendor='" + javaVMSpecificationVendor + '\'' +
+                        ", javaVMSpecificationName='" + javaVMSpecificationName + '\'' +
+                        ", javaVMVersion='" + javaVMVersion + '\'' +
+                        ", javaVMVendor='" + javaVMVendor + '\'' +
+                        ", javaVMName='" + javaVMName + '\'' +
+                        '}';
             }
         }
-
     }
 
     public static class OperationSystemInfo {
@@ -1209,22 +1215,18 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-
-                return
-                        "OS Name: "+this.getOsName()+"\n"+
-                        "OS Arch: "+this.getOsArch()+"\n"+
-                        "OS Version: "+this.getOsVersion()+"\n"+
-                        "OS File Separator: "+this.getOsFileSeparator()+"\n"+
-                        "OS Path Separator: "+this.getOsPathSeparator()+"\n"+
-                        "OS Line Break: "+this.getOsLineBreak()+"\n"+
-                        "User Name: "+this.getUserName()+"\n"+
-                        "User Home: "+this.getUserHome()+"\n"+
-                        "User Dir: "+this.getUserDir()+"\n";
-
+                return "OperationSystemInfoMetrics{" +
+                        "osName='" + osName + '\'' +
+                        ", osArch='" + osArch + '\'' +
+                        ", osVersion='" + osVersion + '\'' +
+                        ", osFileSeparator='" + osFileSeparator + '\'' +
+                        ", osPathSeparator='" + osPathSeparator + '\'' +
+                        ", osLineBreak='" + osLineBreak + '\'' +
+                        ", userName='" + userName + '\'' +
+                        ", userHome='" + userHome + '\'' +
+                        ", userDir='" + userDir + '\'' +
+                        '}';
             }
-
         }
-
     }
-
 }

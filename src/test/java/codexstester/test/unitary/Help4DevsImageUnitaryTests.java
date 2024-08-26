@@ -268,37 +268,37 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void simulateCalculateBytesTest() {
-        stdout(Help4DevsImageService.simulateCalculateBytesTest(1));
-        stdout(Help4DevsImageService.simulateCalculateBytesTest(500));
-        stdout(Help4DevsImageService.simulateCalculateBytesTest(897));
-        stdout(Help4DevsImageService.simulateCalculateBytesTest(1023));
-        stdout(Help4DevsImageService.simulateCalculateBytesTest(1024));
+        stdout(Help4DevsImageService.simulateCalculateBytes(1));
+        stdout(Help4DevsImageService.simulateCalculateBytes(500));
+        stdout(Help4DevsImageService.simulateCalculateBytes(897));
+        stdout(Help4DevsImageService.simulateCalculateBytes(1023));
+        stdout(Help4DevsImageService.simulateCalculateBytes(1024));
     }
 
     @Test
     public void simulateCalculateKilobytesTest() {
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(109693));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(1024));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(2024));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(2048));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(22024));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(722024));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(922024));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(1023000));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(1023780));
-        stdout(Help4DevsImageService.simulateCalculateKilobytesTest(1024000));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(109693));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(1024));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(2024));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(2048));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(22024));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(722024));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(922024));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(1023000));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(1023780));
+        stdout(Help4DevsImageService.simulateCalculateKilobytes(1024000));
     }
 
     @Test
     public void simulateCalculateMegabytesTest() {
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(4264316));
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(21276657));
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(1024000));
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(2048000));
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(9122024));
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(91220244));
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(391220244));
-        stdout(Help4DevsImageService.simulateCalculateMegabytesTest(1024000000));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(4264316));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(21276657));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(1024000));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(2048000));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(9122024));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(91220244));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(391220244));
+        stdout(Help4DevsImageService.simulateCalculateMegabytes(1024000000));
     }
 
     @Test

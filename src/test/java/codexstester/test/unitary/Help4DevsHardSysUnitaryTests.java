@@ -1,7 +1,11 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.system.hardsys.*;
+import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.system.hardsys.Help4DevsHardSys;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHardSysResourcesDto;
+import com.huntercodexs.demo.system.hardsys.group.*;
+import com.huntercodexs.demo.system.hardsys.processing.*;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -10,7 +14,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.huntercodexs.demo.system.hardsys.Help4DevsHardSysCommands.*;
+import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.*;
 
 public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
 
@@ -178,9 +182,47 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void systemInfoWindowsTest() throws IOException {
+
+        System.out.println("WINDOWS SYSTEM INFO");
+        Process process = Runtime.getRuntime().exec("systeminfo");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+        String result;
+        List<String> list = new ArrayList<>();
+
+        while ((result = reader.readLine()) != null) {
+
+            //System.out.println(result);
+
+            String[] splitter = result
+                    .replaceAll("(: +)+", ":")
+                    .replaceAll("^ +\\[", "[")
+                    .replaceAll("^ +([0-9a-zA-Z])", "$1")
+                    .replaceFirst(":", "{:cutter:}")
+                    .split("\\{:cutter:}");
+
+            //System.out.println(Arrays.toString(splitter));
+
+            if (splitter.length == 2) {
+                list.add(splitter[0] + "=" + splitter[1]);
+            }
+
+            //System.out.println("FIELD: "+splitter[0]);
+            //System.out.println("VALUE: "+splitter[1]);
+        }
+
+        for (String item : list) {
+            System.out.println(item);
+        }
+    }
+
+    @Test
     public void generalSystemInfoByInxiCommandTest() {
 
         Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
+        hardSys.json();
 
         //SYSTEM
         Help4DevsSystemDetails system = hardSys.resources().getSystem();
@@ -302,6 +344,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     public void generalSystemInfoByHwinfoCommand_SINGLE_Test() {
 
         Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
+        hardSys.json();
 
         //SYSTEM
         Help4DevsSystemDetails system = hardSys.resources().getSystem();
@@ -405,6 +448,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     public void generalSystemInfoByHwinfoCommand_GROUP_Test() {
 
         Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
+        hardSys.json();
 
         //--DEVICES (GROUPS)
         Help4DevsDevicesGroupDetails devicesGroup = hardSys.resources().getDevicesGroup();
@@ -430,13 +474,14 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     public void generalSystemInfoByHwinfoCommand_ALL_JSON_Test() {
         Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
         hardSys.json();
-        System.out.println(hardSys.resources().getAll());
+        System.out.println(hardSys.resources().all());
     }
 
     @Test
     public void generalSystemInfoByHwinfoCommand_ALL_DTO_Test() {
         Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
-        System.out.println(hardSys.resources().getAll());
+        Help4DevsHardSysResourcesDto result = hardSys.resources().builder();
+        System.out.println(result);
     }
 
     @Test
@@ -467,43 +512,6 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     public void generalSystemInfoBySysteminfoWindowsCommandTest() {
         Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(SYSTEMINFO);
         generalSystemInfo.resources();
-    }
-
-    @Test
-    public void systemInfoWindowsTest() throws IOException {
-
-        System.out.println("WINDOWS SYSTEM INFO");
-        Process process = Runtime.getRuntime().exec("systeminfo");
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        String result;
-        List<String> list = new ArrayList<>();
-
-        while ((result = reader.readLine()) != null) {
-
-            //System.out.println(result);
-
-            String[] splitter = result
-                    .replaceAll("(: +)+", ":")
-                    .replaceAll("^ +\\[", "[")
-                    .replaceAll("^ +([0-9a-zA-Z])", "$1")
-                    .replaceFirst(":", "{:cutter:}")
-                    .split("\\{:cutter:}");
-
-            //System.out.println(Arrays.toString(splitter));
-
-            if (splitter.length == 2) {
-                list.add(splitter[0] + "=" + splitter[1]);
-            }
-
-            //System.out.println("FIELD: "+splitter[0]);
-            //System.out.println("VALUE: "+splitter[1]);
-        }
-
-        for (String item : list) {
-            System.out.println(item);
-        }
     }
 
 }
