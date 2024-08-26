@@ -1,89 +1,80 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import com.huntercodexs.demo.system.hardsys.group.*;
-import com.huntercodexs.demo.system.hardsys.processing.*;
-
 import java.util.List;
 
 public class Help4DevsHardSysResourcesDto {
 
-    private String system;
-    private Help4DevsMachineDetails machine;
-    private Help4DevsBatteryDetails battery;
-    private Help4DevsMemoryDetails memory;
-    private Help4DevsSlotsDetails slots;
+    private Help4DevsSystemDto system;
+    private Help4DevsMachineDto machine;
+    private Help4DevsBatteryDto battery;
+    private Help4DevsMemoryDto memory;
+    private Help4DevsSlotsDto slots;
     private Help4DevsProcessorDto processor;
-    private Help4DevsGraphicsDetails graphics;
-    private Help4DevsAudioDetails audio;
-    private Help4DevsNetworkDetails network;
-    private Help4DevsDriversDetails drivers;
-    private Help4DevsPartitionDetails partition;
-    private Help4DevsUsbDetails usb;
-    private Help4DevsSensorsDetails sensors;
-    private Help4DevsRunningDetails running;
-    private Help4DevsMonitorDetails monitor;
-    private Help4DevsBiosDetails bios;
-    private Help4DevsBaseboardDetails baseboard;
-    private Help4DevsChassisDetails chassis;
-    private Help4DevsCacheDetails cache;
-    private Help4DevsConnectorDetails connector;
-    private Help4DevsKeyboardDetails keyboard;
-    private Help4DevsMouseDetails mouse;
-    private Help4DevsHubDetails hub;
-    private Help4DevsSwitchDetails switcher;
-    private Help4DevsModemDetails modem;
-    private Help4DevsDiskDetails disk;
-    private Help4DevsBluetoothDetails bluetooth;
-    private Help4DevsVideoDetails video;
-    private Help4DevsStorageDetails storage;
-    private Help4DevsBridgeDetails bridge;
-    private Help4DevsNetworkInterfaceDetails networkInterface;
-    private Help4DevsUnknownDetails unknown;
-    private Help4DevsDevicesGroupDetails devicesGroup;
-    private Help4DevsNetworkGroupDetails networksGroup;
-    private Help4DevsDrivesGroupDetails drivesGroup;
-    private Help4DevsComponentsGroupDetails componentsGroup;
-    private Help4DevsBoardsGroupDetails boardsGroup;
-    private Help4DevsHardwareGroupDetails hardwareGroup;
+    private Help4DevsGraphicsDto graphics;
+    private Help4DevsAudioDto audio;
+    private Help4DevsNetworkDto network;
+    private Help4DevsDriversDto drivers;
+    private Help4DevsPartitionDto partition;
+    private Help4DevsUsbDto usb;
+    private Help4DevsSensorsDto sensors;
+    private Help4DevsRunningDto running;
+    private Help4DevsMonitorDto monitor;
+    private Help4DevsBiosDto bios;
+    private Help4DevsBaseboardDto baseboard;
+    private Help4DevsChassisDto chassis;
+    private Help4DevsCacheDto cache;
+    private Help4DevsConnectorDto connector;
+    private Help4DevsKeyboardDto keyboard;
+    private Help4DevsMouseDto mouse;
+    private Help4DevsHubDto hub;
+    private Help4DevsSwitchDto switcher;
+    private Help4DevsModemDto modem;
+    private Help4DevsDiskDto disk;
+    private Help4DevsBluetoothDto bluetooth;
+    private Help4DevsVideoDto video;
+    private Help4DevsStorageDto storage;
+    private Help4DevsBridgeDto bridge;
+    private Help4DevsNetworkInterfaceDto networkInterface;
+    private Help4DevsUnknownDto unknown;
 
-    public String getSystem() {
+    public Help4DevsSystemDto getSystem() {
         return system;
     }
 
-    public void setSystem(Help4DevsSystemDetails system) {
-        this.system = system.getDetails();
+    public void setSystem(List<String> system) {
+        //this.system = new Help4DevsProcessorDto(system).builder();
     }
 
-    public Help4DevsMachineDetails getMachine() {
+    public Help4DevsMachineDto getMachine() {
         return machine;
     }
 
-    public void setMachine(Help4DevsMachineDetails machine) {
-        this.machine = machine;
+    public void setMachine(List<String> machine) {
+        this.machine = new Help4DevsMachineDto(machine).builder();
     }
 
-    public Help4DevsBatteryDetails getBattery() {
+    public Help4DevsBatteryDto getBattery() {
         return battery;
     }
 
-    public void setBattery(Help4DevsBatteryDetails battery) {
-        this.battery = battery;
+    public void setBattery(List<String> battery) {
+        this.battery = new Help4DevsBatteryDto(battery).builder();
     }
 
-    public Help4DevsMemoryDetails getMemory() {
+    public Help4DevsMemoryDto getMemory() {
         return memory;
     }
 
-    public void setMemory(Help4DevsMemoryDetails memory) {
-        this.memory = memory;
+    public void setMemory(List<String> memory) {
+        this.memory = new Help4DevsMemoryDto(memory).builder();
     }
 
-    public Help4DevsSlotsDetails getSlots() {
+    public Help4DevsSlotsDto getSlots() {
         return slots;
     }
 
-    public void setSlots(Help4DevsSlotsDetails slots) {
-        this.slots = slots;
+    public void setSlots(List<String> slots) {
+        this.slots = new Help4DevsSlotsDto(slots).builder();
     }
 
     public Help4DevsProcessorDto getProcessor() {
@@ -91,267 +82,219 @@ public class Help4DevsHardSysResourcesDto {
     }
 
     public void setProcessor(List<String> processor) {
-        this.processor = new Help4DevsProcessorDto(processor);
+        this.processor = new Help4DevsProcessorDto(processor).builder();
     }
 
-    public Help4DevsGraphicsDetails getGraphics() {
+    public Help4DevsGraphicsDto getGraphics() {
         return graphics;
     }
 
-    public void setGraphics(Help4DevsGraphicsDetails graphics) {
-        this.graphics = graphics;
+    public void setGraphics(List<String> graphics) {
+        this.graphics = new Help4DevsGraphicsDto(graphics).builder();
     }
 
-    public Help4DevsAudioDetails getAudio() {
+    public Help4DevsAudioDto getAudio() {
         return audio;
     }
 
-    public void setAudio(Help4DevsAudioDetails audio) {
-        this.audio = audio;
+    public void setAudio(List<String> audio) {
+        this.audio = new Help4DevsAudioDto(audio).builder();
     }
 
-    public Help4DevsNetworkDetails getNetwork() {
+    public Help4DevsNetworkDto getNetwork() {
         return network;
     }
 
-    public void setNetwork(Help4DevsNetworkDetails network) {
-        this.network = network;
+    public void setNetwork(List<String> network) {
+        this.network = new Help4DevsNetworkDto(network).builder();
     }
 
-    public Help4DevsDriversDetails getDrivers() {
+    public Help4DevsDriversDto getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(Help4DevsDriversDetails drivers) {
-        this.drivers = drivers;
+    public void setDrivers(List<String> drivers) {
+        this.drivers = new Help4DevsDriversDto(drivers).builder();
     }
 
-    public Help4DevsPartitionDetails getPartition() {
+    public Help4DevsPartitionDto getPartition() {
         return partition;
     }
 
-    public void setPartition(Help4DevsPartitionDetails partition) {
-        this.partition = partition;
+    public void setPartition(List<String> partition) {
+        this.partition = new Help4DevsPartitionDto(partition).builder();
     }
 
-    public Help4DevsUsbDetails getUsb() {
+    public Help4DevsUsbDto getUsb() {
         return usb;
     }
 
-    public void setUsb(Help4DevsUsbDetails usb) {
-        this.usb = usb;
+    public void setUsb(List<String> usb) {
+        this.usb = new Help4DevsUsbDto(usb).builder();
     }
 
-    public Help4DevsSensorsDetails getSensors() {
+    public Help4DevsSensorsDto getSensors() {
         return sensors;
     }
 
-    public void setSensors(Help4DevsSensorsDetails sensors) {
-        this.sensors = sensors;
+    public void setSensors(List<String> sensors) {
+        this.sensors = new Help4DevsSensorsDto(sensors).builder();
     }
 
-    public Help4DevsRunningDetails getRunning() {
+    public Help4DevsRunningDto getRunning() {
         return running;
     }
 
-    public void setRunning(Help4DevsRunningDetails running) {
-        this.running = running;
+    public void setRunning(List<String> running) {
+        this.running = new Help4DevsRunningDto(running).builder();
     }
 
-    public Help4DevsMonitorDetails getMonitor() {
+    public Help4DevsMonitorDto getMonitor() {
         return monitor;
     }
 
-    public void setMonitor(Help4DevsMonitorDetails monitor) {
-        this.monitor = monitor;
+    public void setMonitor(List<String> monitor) {
+        this.monitor = new Help4DevsMonitorDto(monitor).builder();
     }
 
-    public Help4DevsBiosDetails getBios() {
+    public Help4DevsBiosDto getBios() {
         return bios;
     }
 
-    public void setBios(Help4DevsBiosDetails bios) {
-        this.bios = bios;
+    public void setBios(List<String> bios) {
+        this.bios = new Help4DevsBiosDto(bios).builder();
     }
 
-    public Help4DevsBaseboardDetails getBaseboard() {
+    public Help4DevsBaseboardDto getBaseboard() {
         return baseboard;
     }
 
-    public void setBaseboard(Help4DevsBaseboardDetails baseboard) {
-        this.baseboard = baseboard;
+    public void setBaseboard(List<String> baseboard) {
+        this.baseboard = new Help4DevsBaseboardDto(baseboard).builder();
     }
 
-    public Help4DevsChassisDetails getChassis() {
+    public Help4DevsChassisDto getChassis() {
         return chassis;
     }
 
-    public void setChassis(Help4DevsChassisDetails chassis) {
-        this.chassis = chassis;
+    public void setChassis(List<String> chassis) {
+        this.chassis = new Help4DevsChassisDto(chassis).builder();
     }
 
-    public Help4DevsCacheDetails getCache() {
+    public Help4DevsCacheDto getCache() {
         return cache;
     }
 
-    public void setCache(Help4DevsCacheDetails cache) {
-        this.cache = cache;
+    public void setCache(List<String> cache) {
+        this.cache = new Help4DevsCacheDto(cache).builder();
     }
 
-    public Help4DevsConnectorDetails getConnector() {
+    public Help4DevsConnectorDto getConnector() {
         return connector;
     }
 
-    public void setConnector(Help4DevsConnectorDetails connector) {
-        this.connector = connector;
+    public void setConnector(List<String> connector) {
+        this.connector = new Help4DevsConnectorDto(connector).builder();
     }
 
-    public Help4DevsKeyboardDetails getKeyboard() {
+    public Help4DevsKeyboardDto getKeyboard() {
         return keyboard;
     }
 
-    public void setKeyboard(Help4DevsKeyboardDetails keyboard) {
-        this.keyboard = keyboard;
+    public void setKeyboard(List<String> keyboard) {
+        this.keyboard = new Help4DevsKeyboardDto(keyboard).builder();
     }
 
-    public Help4DevsMouseDetails getMouse() {
+    public Help4DevsMouseDto getMouse() {
         return mouse;
     }
 
-    public void setMouse(Help4DevsMouseDetails mouse) {
-        this.mouse = mouse;
+    public void setMouse(List<String> mouse) {
+        this.mouse = new Help4DevsMouseDto(mouse).builder();
     }
 
-    public Help4DevsHubDetails getHub() {
+    public Help4DevsHubDto getHub() {
         return hub;
     }
 
-    public void setHub(Help4DevsHubDetails hub) {
-        this.hub = hub;
+    public void setHub(List<String> hub) {
+        this.hub = new Help4DevsHubDto(hub).builder();
     }
 
-    public Help4DevsSwitchDetails getSwitcher() {
+    public Help4DevsSwitchDto getSwitcher() {
         return switcher;
     }
 
-    public void setSwitcher(Help4DevsSwitchDetails switcher) {
-        this.switcher = switcher;
+    public void setSwitcher(List<String> switcher) {
+        this.switcher = new Help4DevsSwitchDto(switcher).builder();
     }
 
-    public Help4DevsModemDetails getModem() {
+    public Help4DevsModemDto getModem() {
         return modem;
     }
 
-    public void setModem(Help4DevsModemDetails modem) {
-        this.modem = modem;
+    public void setModem(List<String> modem) {
+        this.modem = new Help4DevsModemDto(modem).builder();
     }
 
-    public Help4DevsDiskDetails getDisk() {
+    public Help4DevsDiskDto getDisk() {
         return disk;
     }
 
-    public void setDisk(Help4DevsDiskDetails disk) {
-        this.disk = disk;
+    public void setDisk(List<String> disk) {
+        this.disk = new Help4DevsDiskDto(disk).builder();
     }
 
-    public Help4DevsBluetoothDetails getBluetooth() {
+    public Help4DevsBluetoothDto getBluetooth() {
         return bluetooth;
     }
 
-    public void setBluetooth(Help4DevsBluetoothDetails bluetooth) {
-        this.bluetooth = bluetooth;
+    public void setBluetooth(List<String> bluetooth) {
+        this.bluetooth = new Help4DevsBluetoothDto(bluetooth).builder();
     }
 
-    public Help4DevsVideoDetails getVideo() {
+    public Help4DevsVideoDto getVideo() {
         return video;
     }
 
-    public void setVideo(Help4DevsVideoDetails video) {
-        this.video = video;
+    public void setVideo(List<String> video) {
+        this.video = new Help4DevsVideoDto(video).builder();
     }
 
-    public Help4DevsStorageDetails getStorage() {
+    public Help4DevsStorageDto getStorage() {
         return storage;
     }
 
-    public void setStorage(Help4DevsStorageDetails storage) {
-        this.storage = storage;
+    public void setStorage(List<String> storage) {
+        this.storage = new Help4DevsStorageDto(storage).builder();
     }
 
-    public Help4DevsBridgeDetails getBridge() {
+    public Help4DevsBridgeDto getBridge() {
         return bridge;
     }
 
-    public void setBridge(Help4DevsBridgeDetails bridge) {
-        this.bridge = bridge;
+    public void setBridge(List<String> bridge) {
+        this.bridge = new Help4DevsBridgeDto(bridge).builder();
     }
 
-    public Help4DevsNetworkInterfaceDetails getNetworkInterface() {
+    public Help4DevsNetworkInterfaceDto getNetworkInterface() {
         return networkInterface;
     }
 
-    public void setNetworkInterface(Help4DevsNetworkInterfaceDetails networkInterface) {
-        this.networkInterface = networkInterface;
+    public void setNetworkInterface(List<String> networkInterface) {
+        this.networkInterface = new Help4DevsNetworkInterfaceDto(networkInterface).builder();
     }
 
-    public Help4DevsUnknownDetails getUnknown() {
+    public Help4DevsUnknownDto getUnknown() {
         return unknown;
     }
 
-    public void setUnknown(Help4DevsUnknownDetails unknown) {
-        this.unknown = unknown;
-    }
-
-    public Help4DevsDevicesGroupDetails getDevicesGroup() {
-        return devicesGroup;
-    }
-
-    public void setDevicesGroup(Help4DevsDevicesGroupDetails devicesGroup) {
-        this.devicesGroup = devicesGroup;
-    }
-
-    public Help4DevsNetworkGroupDetails getNetworksGroup() {
-        return networksGroup;
-    }
-
-    public void setNetworksGroup(Help4DevsNetworkGroupDetails networksGroup) {
-        this.networksGroup = networksGroup;
-    }
-
-    public Help4DevsDrivesGroupDetails getDrivesGroup() {
-        return drivesGroup;
-    }
-
-    public void setDrivesGroup(Help4DevsDrivesGroupDetails drivesGroup) {
-        this.drivesGroup = drivesGroup;
-    }
-
-    public Help4DevsComponentsGroupDetails getComponentsGroup() {
-        return componentsGroup;
-    }
-
-    public void setComponentsGroup(Help4DevsComponentsGroupDetails componentsGroup) {
-        this.componentsGroup = componentsGroup;
-    }
-
-    public Help4DevsBoardsGroupDetails getBoardsGroup() {
-        return boardsGroup;
-    }
-
-    public void setBoardsGroup(Help4DevsBoardsGroupDetails boardsGroup) {
-        this.boardsGroup = boardsGroup;
-    }
-
-    public Help4DevsHardwareGroupDetails getHardwareGroup() {
-        return hardwareGroup;
-    }
-
-    public void setHardwareGroup(Help4DevsHardwareGroupDetails hardwareGroup) {
-        this.hardwareGroup = hardwareGroup;
+    public void setUnknown(List<String> unknown) {
+        this.unknown = new Help4DevsUnknownDto(unknown).builder();
     }
 
     public String toString() {
-        return "Help4DevsHardSysMetricsDto{" +
+        return "Help4DevsHardSysMetricsDto[" +
                 "system=" + system +
                 ", machine=" + machine +
                 ", battery=" + battery +
@@ -384,12 +327,6 @@ public class Help4DevsHardSysResourcesDto {
                 ", bridge=" + bridge +
                 ", networkInterface=" + networkInterface +
                 ", unknown=" + unknown +
-                ", devicesGroup=" + devicesGroup +
-                ", networksGroup=" + networksGroup +
-                ", drivesGroup=" + drivesGroup +
-                ", componentsGroup=" + componentsGroup +
-                ", boardsGroup=" + boardsGroup +
-                ", hardwareGroup=" + hardwareGroup +
-                '}';
+                "]";
     }
 }

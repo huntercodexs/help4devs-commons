@@ -133,14 +133,14 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return "TimerInfoMetrics{" +
+                return "TimerInfoMetrics[" +
                         "decimals=" + decimals +
                         ", start=" + start +
                         ", current=" + current +
                         ", end=" + end +
                         ", total=" + total +
                         ", timerSpec=" + timerSpec +
-                        '}';
+                        "]";
             }
         }
 
@@ -365,21 +365,21 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return "JavaInfoMetrics{" +
-                        "javaVersion='" + javaVersion + '\'' +
-                        ", javaVendor='" + javaVendor + '\'' +
-                        ", javaVendorUrl='" + javaVendorUrl + '\'' +
-                        ", javaHome='" + javaHome + '\'' +
-                        ", javaSpecVersion='" + javaSpecVersion + '\'' +
-                        ", javaSpecVendor='" + javaSpecVendor + '\'' +
-                        ", javaSpecName='" + javaSpecName + '\'' +
-                        ", javaClassVersion='" + javaClassVersion + '\'' +
-                        ", javaClassPath='" + javaClassPath + '\'' +
-                        ", javaLibPath='" + javaLibPath + '\'' +
-                        ", javaIoTmpDir='" + javaIoTmpDir + '\'' +
-                        ", javaCompiler='" + javaCompiler + '\'' +
-                        ", javaExtraDirs='" + javaExtraDirs + '\'' +
-                        '}';
+                return "JavaInfoMetrics[" +
+                        "javaVersion=" + javaVersion +
+                        ", javaVendor=" + javaVendor +
+                        ", javaVendorUrl=" + javaVendorUrl +
+                        ", javaHome=" + javaHome +
+                        ", javaSpecVersion=" + javaSpecVersion +
+                        ", javaSpecVendor=" + javaSpecVendor +
+                        ", javaSpecName=" + javaSpecName +
+                        ", javaClassVersion=" + javaClassVersion +
+                        ", javaClassPath=" + javaClassPath +
+                        ", javaLibPath=" + javaLibPath +
+                        ", javaIoTmpDir=" + javaIoTmpDir +
+                        ", javaCompiler=" + javaCompiler +
+                        ", javaExtraDirs=" + javaExtraDirs +
+                        "]";
             }
         }
     }
@@ -576,7 +576,7 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return "MemoryInfoMetrics{" +
+                return "MemoryInfoMetrics[" +
                         "total=" + total +
                         ", start=" + start +
                         ", current=" + current +
@@ -584,7 +584,7 @@ public class Help4DevsSystemService {
                         ", free=" + free +
                         ", used=" + used +
                         ", memorySpec=" + memorySpec +
-                        '}';
+                        "]";
             }
         }
 
@@ -665,12 +665,12 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return "HardDriveInfoMetrics{" +
-                        "absPath='" + absPath + '\'' +
+                return "HardDriveInfoMetrics[" +
+                        "absPath=" + absPath +
                         ", total=" + total +
                         ", free=" + free +
                         ", used=" + used +
-                        '}';
+                        "]";
             }
         }
     }
@@ -916,18 +916,18 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return "ProcessorInfoMetrics{" +
-                        "arch='" + arch + '\'' +
-                        ", name='" + name + '\'' +
-                        ", vendor='" + vendor + '\'' +
-                        ", cores='" + cores + '\'' +
-                        ", cpus='" + cpus + '\'' +
-                        ", mhz='" + mhz + '\'' +
-                        ", virtualization='" + virtualization + '\'' +
-                        ", l1Cache='" + l1Cache + '\'' +
-                        ", l2Cache='" + l2Cache + '\'' +
-                        ", l3Cache='" + l3Cache + '\'' +
-                        '}';
+                return "ProcessorInfoMetrics[" +
+                        "arch=" + arch +
+                        ", name=" + name +
+                        ", vendor=" + vendor +
+                        ", cores=" + cores +
+                        ", cpus=" + cpus +
+                        ", mhz=" + mhz +
+                        ", virtualization=" + virtualization +
+                        ", l1Cache=" + l1Cache +
+                        ", l2Cache=" + l2Cache +
+                        ", l3Cache=" + l3Cache +
+                        "]";
             }
         }
     }
@@ -1044,14 +1044,14 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return "JVirtualMachineInfoMetrics{" +
-                        "javaSpecificationVersion='" + javaSpecificationVersion + '\'' +
-                        ", javaVMSpecificationVendor='" + javaVMSpecificationVendor + '\'' +
-                        ", javaVMSpecificationName='" + javaVMSpecificationName + '\'' +
-                        ", javaVMVersion='" + javaVMVersion + '\'' +
-                        ", javaVMVendor='" + javaVMVendor + '\'' +
-                        ", javaVMName='" + javaVMName + '\'' +
-                        '}';
+                return "JVirtualMachineInfoMetrics[" +
+                        "javaSpecificationVersion=" + javaSpecificationVersion +
+                        ", javaVMSpecificationVendor=" + javaVMSpecificationVendor +
+                        ", javaVMSpecificationName=" + javaVMSpecificationName +
+                        ", javaVMVersion=" + javaVMVersion +
+                        ", javaVMVendor=" + javaVMVendor +
+                        ", javaVMName=" + javaVMName +
+                        "]";
             }
         }
     }
@@ -1215,17 +1215,17 @@ public class Help4DevsSystemService {
             }
 
             public String toString() {
-                return "OperationSystemInfoMetrics{" +
-                        "osName='" + osName + '\'' +
-                        ", osArch='" + osArch + '\'' +
-                        ", osVersion='" + osVersion + '\'' +
-                        ", osFileSeparator='" + osFileSeparator + '\'' +
-                        ", osPathSeparator='" + osPathSeparator + '\'' +
-                        ", osLineBreak='" + osLineBreak + '\'' +
-                        ", userName='" + userName + '\'' +
-                        ", userHome='" + userHome + '\'' +
-                        ", userDir='" + userDir + '\'' +
-                        '}';
+                return "OperationSystemInfoMetrics[" +
+                        "osName=" + osName +
+                        ", osArch=" + osArch +
+                        ", osVersion=" + osVersion +
+                        ", osFileSeparator=" + osFileSeparator +
+                        ", osPathSeparator=" + osPathSeparator +
+                        ", osLineBreak=" + osLineBreak +
+                        ", userName=" + userName +
+                        ", userHome=" + userHome +
+                        ", userDir=" + userDir +
+                        "]";
             }
         }
     }

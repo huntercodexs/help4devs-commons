@@ -9,13 +9,36 @@ import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysResources;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.SYSTEMINFO;
 import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.sysCmd;
 
 public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     public Help4DevsHardSys(Help4DevsHardSysCommands command) {
         this.command = command;
+        this.checkOs();
         this.loader();
+    }
+
+    private void checkOs() {
+        String os = System.getProperty("os.name");
+        String msg = "Invalid OS - This command should be used on";
+
+        if (os.contains("Linux") || os.contains("Macintosh")) {
+
+            if (this.command.equals(SYSTEMINFO)) {
+                throw new RuntimeException(msg+" DOS/Windows");
+            }
+
+        } else if (os.contains("Windows")) {
+
+            if (!this.command.equals(SYSTEMINFO)) {
+                throw new RuntimeException(msg+" UNIX/Linux");
+            }
+
+        } else {
+            System.out.println("WARNING: OS not recognized !");
+        }
     }
 
     private void loader() {
@@ -51,7 +74,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     public Help4DevsHardSysResources resources() {
         if (!this.getJsonOn()) {
-            new Help4DevsHardSysFactory(this.resources).make();
+            new Help4DevsHardSysFactory(this.resources, this.command).make();
         }
         return new Help4DevsHardSysResources(this.resources, this.command, this.getJsonOn());
     }

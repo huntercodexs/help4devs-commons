@@ -5,6 +5,9 @@ import com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.*;
 import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.randomCardNumber;
 
@@ -107,9 +110,47 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 
     }
 
+    @Test
+    public void stringExtractorTest() {
+        String source = "Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4000 MHz";
+        String pattern = "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)";
+        String replacer = "model:$1$2";
+        String detail = "model";
+        codexsTesterAssertExact(stringExtractor(source, detail, pattern, replacer, 1), "i5-9300H");
+    }
+
+    @Test
+    public void stringListTest() {
+
+        List<String> list = Arrays. asList(
+                "data to remove: Intel(R) Core(TM)",
+                "data to remove: Intel(R) Core(TM)",
+                "data to remove: Intel(R) Core(TM)"
+        );
+
+        String result = stringList(list, "data to remove: ");
+
+        codexsTesterAssertExact(result, "Intel(R) Core(TM),Intel(R) Core(TM),Intel(R) Core(TM)");
+
+    }
+
+    @Test
+    public void listExtractorTest() {
+
+        List<String> source = Arrays. asList(
+            "data to remove: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4000 MHz",
+            "data to remove: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4001 MHz",
+            "data to remove: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4002 MHz"
+        );
+
+        String pattern = "([0-9]+) (MHz)";
+        String replacer = "speedCore:$1 $2";
+        String detail = "speedCore";
+
+        String result = listExtractor(source, detail, "data to remove: ", pattern, replacer);
+
+        codexsTesterAssertExact(result, "4000 MHz,4001 MHz,4002 MHz");
+
+    }
+
 }
-
-
-
-
-

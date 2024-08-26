@@ -2,9 +2,11 @@ package com.huntercodexs.demo.services.basic;
 
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -255,5 +257,152 @@ public class Help4DevsStringHandlerService {
         this.index = index;
 
         return replace;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stringExtractor</h6>
+     *
+     * <p style="color: #CDCDCD">Extract one specific string from one input string</p>
+     *
+     * <p>Usage example</p>
+     *
+     * <pre>
+     *     String source = "Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4000 MHz";
+     *     String pattern = "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)";
+     *     String replacer = "model:$1$2";
+     *     String detail = "model";
+     *     stringExtractor(source, detail, pattern, replacer, 1);
+     * </pre>
+     *
+     * <p>Result example</p>
+     *
+     * <pre>
+     *     i5-9300H
+     * </pre>
+     *
+     * @param input (String: Data input to extract, for example: "Intel Core")
+     * @param detail (String: Any data to apply or control the replacement, for example: model)
+     * @param pattern (String: Expression to execute the replacement, for example: (Intel|AMD))
+     * @param replacer (String: Expression to replacement, for example: "model: $1")
+     * @param index (int: can be >= 0)
+     * @return String (Data extracted)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String stringExtractor(String input, String detail, String pattern, String replacer, int index) {
+
+        String begin = input.replaceAll(pattern, "#<"+index+"#"+replacer+"#"+index+">#");
+        String extract = begin.replaceAll(", ", " ");
+
+        return StringUtils
+                .substringBetween(extract, "#<"+index+"#", "#"+index+">#")
+                .replaceAll(detail+":", "");
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stringList</h6>
+     *
+     * <p style="color: #CDCDCD">Create one list of String from an List items</p>
+     *
+     * <p>Usage example</p>
+     *
+     * <pre>
+     *     List&lt;String&gt; list = Arrays.asList(
+     *          "data to remove: Intel(R) Core(TM)",
+     *          "data to remove: Intel(R) Core(TM)",
+     *          "data to remove: Intel(R) Core(TM)"
+     *     );
+     *
+     *     String result = stringList(list, "data to remove: ");
+     * </pre>
+     *
+     * <p>Result example</p>
+     *
+     * <pre>
+     *     Intel(R) Core(TM),Intel(R) Core(TM),Intel(R) Core(TM)
+     * </pre>
+     *
+     * @param items (List[String]: Data input to extract)
+     * @param clear (String: Expression to remove data from the input data source [items])
+     * @return String (Data String Converted)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String stringList(List<String> items, String clear) {
+
+        int i = 0;
+        StringBuilder result = new StringBuilder();
+
+        for (String current : items) {
+
+            result.append(current.replaceAll(clear, "").replaceAll(",", ""));
+
+            if (i < items.size()-1) {
+                result.append(",");
+            }
+
+            i++;
+        }
+
+        return String.valueOf(result);
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">listExtractor</h6>
+     *
+     * <p style="color: #CDCDCD">Data extractor from a List source for a list of string</p>
+     *
+     * <p>Usage example</p>
+     *
+     * <pre>
+     *     List&lt;String&gt; source = Arrays.asList(
+     *          "data to remove: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4000 MHz",
+     *          "data to remove: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4001 MHz",
+     *          "data to remove: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4002 MHz",
+     *     );
+     *     String pattern = "([0-9]+) (MHz)";
+     *     String replacer = "speedCore:$1 $2";
+     *     String detail = "speedCore";
+     *
+     *     String result = listExtractor(source, detail, "data to remove: ", pattern, replacer);
+     * </pre>
+     *
+     * <p>Result example</p>
+     *
+     * <pre>
+     *     4000 MHz,4001 MHz,4002 MHz
+     * </pre>
+     *
+     * @param items (List&lt;String&gt;: Data input to extract)
+     * @param detail (String: Any data to apply or control the replacement, for example: model)
+     * @param pattern (String: Expression to execute the replacement, for example: (Intel|AMD))
+     * @param replacer (String: Expression to replacement, for example: "model: $1")
+     * @return String (Data Extracted)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String listExtractor(List<String> items, String detail, String clear, String pattern, String replacer) {
+
+        int i = 0;
+        StringBuilder result = new StringBuilder();
+
+        for (String current : items) {
+
+            String item = current
+                    .replaceAll(clear, "")
+                    .replaceAll(pattern, "#<"+i+"#"+replacer+"#"+i+">#");
+
+            result.append(
+                    StringUtils.substringBetween(item, "#<"+i+"#", "#"+i+">#")
+                            .replaceAll(detail+":", ""));
+
+            if (i < items.size()-1) {
+                result.append(",");
+            }
+
+            i++;
+        }
+
+        return String.valueOf(result);
     }
 }

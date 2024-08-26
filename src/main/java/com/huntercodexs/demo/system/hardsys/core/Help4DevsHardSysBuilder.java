@@ -15,46 +15,38 @@ public class Help4DevsHardSysBuilder extends Help4DevsHardSysBase {
 
     public Help4DevsHardSysResourcesDto build() {
         Help4DevsHardSysResourcesDto dto = new Help4DevsHardSysResourcesDto();
-//        dto.setSystem(this.resources.getSystem());
-//        dto.setMachine(this.resources.getMachine());
-//        dto.setBattery(this.resources.getBattery());
-//        dto.setMemory(this.resources.getMemory());
-//        dto.setSlots(this.resources.getSlots());
-
+        dto.setSystem(this.resources.get(system()));
+        dto.setMachine(this.resources.get(machine()));
+        dto.setBattery(this.resources.get(battery()));
+        dto.setMemory(this.resources.get(memory()));
+        dto.setSlots(this.resources.get(slots()));
         dto.setProcessor(this.resources.get(processor()));
-
-//        dto.setGraphics(this.resources.getGraphics());
-//        dto.setAudio(this.resources.getAudio());
-//        dto.setNetwork(this.resources.getNetwork());
-//        dto.setDrivers(this.resources.getDrivers());
-//        dto.setPartition(this.resources.getPartition());
-//        dto.setUsb(this.resources.getUsb());
-//        dto.setSensors(this.resources.getSensors());
-//        dto.setRunning(this.resources.getRunning());
-//        dto.setMonitor(this.resources.getMonitor());
-//        dto.setBios(this.resources.getBios());
-//        dto.setBaseboard(this.resources.getBaseboard());
-//        dto.setChassis(this.resources.getChassis());
-//        dto.setCache(this.resources.getCache());
-//        dto.setConnector(this.resources.getConnector());
-//        dto.setKeyboard(this.resources.getKeyboard());
-//        dto.setMouse(this.resources.getMouse());
-//        dto.setHub(this.resources.getHub());
-//        dto.setSwitcher(this.resources.getSwitch());
-//        dto.setModem(this.resources.getModem());
-//        dto.setDisk(this.resources.getDisk());
-//        dto.setBluetooth(this.resources.getBluetooth());
-//        dto.setVideo(this.resources.getVideo());
-//        dto.setStorage(this.resources.getStorage());
-//        dto.setBridge(this.resources.getBridge());
-//        dto.setNetworkInterface(this.resources.getNetworkInterface());
-//        dto.setUnknown(this.resources.getUnknown());
-//        dto.setDevicesGroup(this.resources.getDevicesGroup());
-//        dto.setNetworksGroup(this.resources.getNetworksGroup());
-//        dto.setDrivesGroup(this.resources.getDrivesGroup());
-//        dto.setComponentsGroup(this.resources.getComponentsGroup());
-//        dto.setBoardsGroup(this.resources.getBoardsGroup());
-//        dto.setHardwareGroup(this.resources.getHardwareGroup());
+        dto.setGraphics(this.resources.get(graphics()));
+        dto.setAudio(this.resources.get(audio()));
+        dto.setNetwork(this.resources.get(network()));
+        dto.setDrivers(this.resources.get(drivers()));
+        dto.setPartition(this.resources.get(partition()));
+        dto.setUsb(this.resources.get(usb()));
+        dto.setSensors(this.resources.get(sensors()));
+        dto.setRunning(this.resources.get(running()));
+        dto.setMonitor(this.resources.get(monitor()));
+        dto.setBios(this.resources.get(bios()));
+        dto.setBaseboard(this.resources.get(baseboard()));
+        dto.setChassis(this.resources.get(chassis()));
+        dto.setCache(this.resources.get(cache()));
+        dto.setConnector(this.resources.get(connector()));
+        dto.setKeyboard(this.resources.get(keyboard()));
+        dto.setMouse(this.resources.get(mouse()));
+        dto.setHub(this.resources.get(hub()));
+        dto.setSwitcher(this.resources.get(switcher()));
+        dto.setModem(this.resources.get(modem()));
+        dto.setDisk(this.resources.get(disk()));
+        dto.setBluetooth(this.resources.get(bluetooth()));
+        dto.setVideo(this.resources.get(video()));
+        dto.setStorage(this.resources.get(storage()));
+        dto.setBridge(this.resources.get(bridge()));
+        dto.setNetworkInterface(this.resources.get(networkInterface()));
+        dto.setUnknown(this.resources.get(unknown()));
         return dto;
     }
 
