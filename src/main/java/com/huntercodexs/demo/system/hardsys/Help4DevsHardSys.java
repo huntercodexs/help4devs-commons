@@ -54,7 +54,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
             new Help4DevsHardSysHwinfo(this.resources).run();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            new Help4DevsHardSysLsHw(this.resources).run();
+            new Help4DevsHardSysLshw(this.resources).run();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             new Help4DevsHardSysLsCpu(this.resources).run();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {

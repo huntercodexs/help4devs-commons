@@ -2,6 +2,7 @@ package com.huntercodexs.demo.system.hardsys.core;
 
 import com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -311,6 +312,60 @@ public abstract class Help4DevsHardSysBase {
         input = input.replaceAll("\\.@\\.", ":");
 
         return input;
+    }
+
+    protected String stringExtractor(String input, String detail, String pattern, String replacer, int index) {
+
+        String begin = input.replaceAll(pattern, "#<"+index+"#"+replacer+"#"+index+">#");
+        String extract = begin.replaceAll(", ", " ");
+
+        return StringUtils
+                .substringBetween(extract, "#<"+index+"#", "#"+index+">#")
+                .replaceAll(detail+":", "");
+    }
+
+    protected String stringList(List<String> items, String clear) {
+
+        int i = 0;
+        StringBuilder result = new StringBuilder();
+
+        for (String current : items) {
+
+            result.append(current.replaceAll(clear, "").replaceAll(",", ""));
+
+            if (i < items.size()-1) {
+                result.append(",");
+            }
+
+            i++;
+        }
+
+        return String.valueOf(result);
+    }
+
+    protected String listExtractor(List<String> items, String detail, String clear, String pattern, String replacer) {
+
+        int i = 0;
+        StringBuilder result = new StringBuilder();
+
+        for (String current : items) {
+
+            String item = current
+                    .replaceAll(clear, "")
+                    .replaceAll(pattern, "#<"+i+"#"+replacer+"#"+i+">#");
+
+            result.append(
+                    StringUtils.substringBetween(item, "#<"+i+"#", "#"+i+">#")
+                            .replaceAll(detail+":", ""));
+
+            if (i < items.size()-1) {
+                result.append(",");
+            }
+
+            i++;
+        }
+
+        return String.valueOf(result);
     }
 
 }

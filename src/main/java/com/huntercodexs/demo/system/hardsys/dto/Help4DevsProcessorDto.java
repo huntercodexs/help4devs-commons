@@ -10,11 +10,12 @@ public class Help4DevsProcessorDto {
 
     private String cores = null;
     private String name = null;
-    private String arch = null;
-    private String topology = null;
     private String model = null;
+    private String family = null;
     private String speed = null;
     private String current = null;
+    private String arch = null;
+    private String topology = null;
     private String bits = null;
     private String cache = null;
     private String cacheL1 = null;
@@ -28,7 +29,6 @@ public class Help4DevsProcessorDto {
     private String maxSpeed = null;
     private String socket = null;
     private String type = null;
-    private String family = null;
     private String manufacturer = null;
     private String version = null;
     private String voltage = null;
@@ -42,15 +42,54 @@ public class Help4DevsProcessorDto {
         this.processor = processor;
     }
 
+    private String buildString(int i) {
+        try {
+            return this.processor.get(i);
+        } catch (RuntimeException re) {
+            System.out.println("ERROR[String]: "+re.getMessage());
+            return null;
+        }
+    }
+
+    private List<String> buildCollection(int i) {
+        try {
+            return Collections.singletonList(this.processor.get(i));
+        } catch (RuntimeException re) {
+            System.out.println("ERROR[Collection]: "+re.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
     public Help4DevsProcessorDto builder() {
-        this.cores = this.processor.get(0);
-        this.name = this.processor.get(1);
-        this.model = this.processor.get(2);
-        this.family = this.processor.get(3);
-        this.speed = this.processor.get(4);
-        this.current = this.processor.get(5);
-        this.listCores = Collections.singletonList(this.processor.get(6));
-        this.speedCores = Collections.singletonList(this.processor.get(7));
+        this.cores = buildString(0);
+        this.name = buildString(1);
+        this.model = buildString(2);
+        this.family = buildString(3);
+        this.speed = buildString(4);
+        this.current = buildString(5);
+        this.arch = buildString(6);
+        this.topology = buildString(7);
+        this.bits = buildString(8);
+        this.cache = buildString(9);
+        this.cacheL1 = buildString(10);
+        this.cacheL2 = buildString(11);
+        this.cacheL3 = buildString(12);
+        this.cacheL4 = buildString(13);
+        this.cacheL5 = buildString(14);
+        this.bogomips = buildString(15);
+        this.flags = buildString(16);
+        this.minSpeed = buildString(17);
+        this.maxSpeed = buildString(18);
+        this.socket = buildString(19);
+        this.type = buildString(20);
+        this.manufacturer = buildString(21);
+        this.version = buildString(22);
+        this.voltage = buildString(23);
+        this.clock = buildString(24);
+        this.serialNumber = buildString(25);
+        this.characteristics = buildString(26);
+        this.listCores = buildCollection(27);
+        this.speedCores = buildCollection(28);
         return this;
     }
 

@@ -42,7 +42,7 @@ public class Help4DevsHardSysResourcesDto {
     }
 
     public void setSystem(List<String> system) {
-        //this.system = new Help4DevsProcessorDto(system).builder();
+        this.system = new Help4DevsSystemDto(system).builder();
     }
 
     public Help4DevsMachineDto getMachine() {

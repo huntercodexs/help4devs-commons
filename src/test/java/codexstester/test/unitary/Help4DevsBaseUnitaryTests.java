@@ -5,6 +5,9 @@ import net.minidev.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.params;
 
 public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
@@ -27,6 +30,23 @@ public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
         str = str.replaceAll("(i[0-9]+|AMD|NVIDIA)([-0-9a-zA-Z]+)", "#<1#model: $1$2#1>#");
         String result = StringUtils.substringBetween(str, "#<1#", "#1>#");
         System.out.println(result);
+
+    }
+
+    @Test
+    public void testing1Test() {
+
+        List<String> list = new ArrayList<>();
+
+        for (int i = 0; i < 20; i++) {
+            list.add("i"+i);
+        }
+
+        System.out.println(list);
+
+        list.set(15, "changed");
+
+        System.out.println(list);
 
     }
 

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Help4DevsHardSysLsHw extends Help4DevsHardSysBase {
+public class Help4DevsHardSysLshw extends Help4DevsHardSysBase {
 
-    public Help4DevsHardSysLsHw(HashMap<String, List<String>> resources) {
+    public Help4DevsHardSysLshw(HashMap<String, List<String>> resources) {
         this.resources = resources;
     }
 
