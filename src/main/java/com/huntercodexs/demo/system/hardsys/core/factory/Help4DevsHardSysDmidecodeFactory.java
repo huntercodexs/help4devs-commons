@@ -11,70 +11,107 @@ public class Help4DevsHardSysDmidecodeFactory extends Help4DevsHardSysBase {
         this.resources = resources;
     }
 
-    private void dmidecodeSystemFactory(List<String> items) {}
+    private void systemFactory(List<String> items) {}
 
-    private void dmidecodeMachineFactory(List<String> items) {}
+    private void machineFactory(List<String> items) {}
 
-    private void dmidecodeBatteryFactory(List<String> items) {}
+    private void batteryFactory(List<String> items) {}
 
-    private void dmidecodeMemoryFactory(List<String> items) {}
+    private void memoryFactory(List<String> items) {}
 
-    private void dmidecodeSlotsFactory(List<String> items) {}
+    private void slotsFactory(List<String> items) {}
 
-    private void dmidecodeProcessorFactory(List<String> items) {}
+    private void processorFactory(List<String> items) {}
 
-    private void dmidecodeGraphicsFactory(List<String> items) {}
+    private void graphicsFactory(List<String> items) {}
 
-    private void dmidecodeAudioFactory(List<String> items) {}
+    private void audioFactory(List<String> items) {}
 
-    private void dmidecodeNetworkFactory(List<String> items) {}
+    private void networkFactory(List<String> items) {}
 
-    private void dmidecodeDriversFactory(List<String> items) {}
+    private void driversFactory(List<String> items) {}
 
-    private void dmidecodePartitionFactory(List<String> items) {}
+    private void partitionFactory(List<String> items) {}
 
-    private void dmidecodeUsbFactory(List<String> items) {}
+    private void usbFactory(List<String> items) {}
 
-    private void dmidecodeSensorsFactory(List<String> items) {}
+    private void sensorsFactory(List<String> items) {}
 
-    private void dmidecodeRunningFactory(List<String> items) {}
+    private void runningFactory(List<String> items) {}
 
-    private void dmidecodeMonitorFactory(List<String> items) {}
+    private void monitorFactory(List<String> items) {}
 
-    private void dmidecodeBiosFactory(List<String> items) {}
+    private void biosFactory(List<String> items) {}
 
-    private void dmidecodeBaseboardFactory(List<String> items) {}
+    private void baseboardFactory(List<String> items) {}
 
-    private void dmidecodeChassisFactory(List<String> items) {}
+    private void chassisFactory(List<String> items) {}
 
-    private void dmidecodeCacheFactory(List<String> items) {}
+    private void cacheFactory(List<String> items) {}
 
-    private void dmidecodeConnectorFactory(List<String> items) {}
+    private void connectorFactory(List<String> items) {}
 
-    private void dmidecodeKeyboardFactory(List<String> items) {}
+    private void keyboardFactory(List<String> items) {}
 
-    private void dmidecodeMouseFactory(List<String> items) {}
+    private void mouseFactory(List<String> items) {}
 
-    private void dmidecodeHubFactory(List<String> items) {}
+    private void hubFactory(List<String> items) {}
 
-    private void dmidecodeSwitcherFactory(List<String> items) {}
+    private void switcherFactory(List<String> items) {}
 
-    private void dmidecodeModemFactory(List<String> items) {}
+    private void modemFactory(List<String> items) {}
 
-    private void dmidecodeDiskFactory(List<String> items) {}
+    private void diskFactory(List<String> items) {}
 
-    private void dmidecodeBluetoothFactory(List<String> items) {}
+    private void bluetoothFactory(List<String> items) {}
 
-    private void dmidecodeVideoFactory(List<String> items) {}
+    private void videoFactory(List<String> items) {}
 
-    private void dmidecodeStorageFactory(List<String> items) {}
+    private void storageFactory(List<String> items) {}
 
-    private void dmidecodeBridgeFactory(List<String> items) {}
+    private void bridgeFactory(List<String> items) {}
 
-    private void dmidecodeNetworkInterfaceFactory(List<String> items) {}
+    private void networkInterfaceFactory(List<String> items) {}
 
-    private void dmidecodeUnknownFactory(List<String> items) {}
+    private void unknownFactory(List<String> items) {}
 
-    public void factory() {}
+    public void factory() {
+
+        /*Code Here*/
+
+        systemFactory(this.resources.get(system()));
+        machineFactory(this.resources.get(machine()));
+        batteryFactory(this.resources.get(battery()));
+        memoryFactory(this.resources.get(memory()));
+        slotsFactory(this.resources.get(slots()));
+        processorFactory(this.resources.get(processor()));
+        graphicsFactory(this.resources.get(graphics()));
+        audioFactory(this.resources.get(audio()));
+        networkFactory(this.resources.get(network()));
+        driversFactory(this.resources.get(drivers()));
+        partitionFactory(this.resources.get(partition()));
+        usbFactory(this.resources.get(usb()));
+        sensorsFactory(this.resources.get(sensors()));
+        runningFactory(this.resources.get(running()));
+        monitorFactory(this.resources.get(monitor()));
+        biosFactory(this.resources.get(bios()));
+        baseboardFactory(this.resources.get(baseboard()));
+        chassisFactory(this.resources.get(chassis()));
+        cacheFactory(this.resources.get(cache()));
+        connectorFactory(this.resources.get(connector()));
+        keyboardFactory(this.resources.get(keyboard()));
+        mouseFactory(this.resources.get(mouse()));
+        hubFactory(this.resources.get(hub()));
+        switcherFactory(this.resources.get(switcher()));
+        modemFactory(this.resources.get(modem()));
+        diskFactory(this.resources.get(disk()));
+        bluetoothFactory(this.resources.get(bluetooth()));
+        videoFactory(this.resources.get(video()));
+        storageFactory(this.resources.get(storage()));
+        bridgeFactory(this.resources.get(bridge()));
+        networkInterfaceFactory(this.resources.get(networkInterface()));
+        unknownFactory(this.resources.get(unknown()));
+
+    }
 
 }

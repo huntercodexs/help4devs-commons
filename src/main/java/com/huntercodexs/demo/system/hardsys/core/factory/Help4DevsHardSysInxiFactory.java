@@ -11,70 +11,107 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
         this.resources = resources;
     }
 
-    private void inxiSystemFactory(List<String> items) {}
+    private void systemFactory(List<String> items) {}
 
-    private void inxiMachineFactory(List<String> items) {}
+    private void machineFactory(List<String> items) {}
 
-    private void inxiBatteryFactory(List<String> items) {}
+    private void batteryFactory(List<String> items) {}
 
-    private void inxiMemoryFactory(List<String> items) {}
+    private void memoryFactory(List<String> items) {}
 
-    private void inxiSlotsFactory(List<String> items) {}
+    private void slotsFactory(List<String> items) {}
 
-    private void inxiProcessorFactory(List<String> items) {}
+    private void processorFactory(List<String> items) {}
 
-    private void inxiGraphicsFactory(List<String> items) {}
+    private void graphicsFactory(List<String> items) {}
 
-    private void inxiAudioFactory(List<String> items) {}
+    private void audioFactory(List<String> items) {}
 
-    private void inxiNetworkFactory(List<String> items) {}
+    private void networkFactory(List<String> items) {}
 
-    private void inxiDriversFactory(List<String> items) {}
+    private void driversFactory(List<String> items) {}
 
-    private void inxiPartitionFactory(List<String> items) {}
+    private void partitionFactory(List<String> items) {}
 
-    private void inxiUsbFactory(List<String> items) {}
+    private void usbFactory(List<String> items) {}
 
-    private void inxiSensorsFactory(List<String> items) {}
+    private void sensorsFactory(List<String> items) {}
 
-    private void inxiRunningFactory(List<String> items) {}
+    private void runningFactory(List<String> items) {}
 
-    private void inxiMonitorFactory(List<String> items) {}
+    private void monitorFactory(List<String> items) {}
 
-    private void inxiBiosFactory(List<String> items) {}
+    private void biosFactory(List<String> items) {}
 
-    private void inxiBaseboardFactory(List<String> items) {}
+    private void baseboardFactory(List<String> items) {}
 
-    private void inxiChassisFactory(List<String> items) {}
+    private void chassisFactory(List<String> items) {}
 
-    private void inxiCacheFactory(List<String> items) {}
+    private void cacheFactory(List<String> items) {}
 
-    private void inxiConnectorFactory(List<String> items) {}
+    private void connectorFactory(List<String> items) {}
 
-    private void inxiKeyboardFactory(List<String> items) {}
+    private void keyboardFactory(List<String> items) {}
 
-    private void inxiMouseFactory(List<String> items) {}
+    private void mouseFactory(List<String> items) {}
 
-    private void inxiHubFactory(List<String> items) {}
+    private void hubFactory(List<String> items) {}
 
-    private void inxiSwitcherFactory(List<String> items) {}
+    private void switcherFactory(List<String> items) {}
 
-    private void inxiModemFactory(List<String> items) {}
+    private void modemFactory(List<String> items) {}
 
-    private void inxiDiskFactory(List<String> items) {}
+    private void diskFactory(List<String> items) {}
 
-    private void inxiBluetoothFactory(List<String> items) {}
+    private void bluetoothFactory(List<String> items) {}
 
-    private void inxiVideoFactory(List<String> items) {}
+    private void videoFactory(List<String> items) {}
 
-    private void inxiStorageFactory(List<String> items) {}
+    private void storageFactory(List<String> items) {}
 
-    private void inxiBridgeFactory(List<String> items) {}
+    private void bridgeFactory(List<String> items) {}
 
-    private void inxiNetworkInterfaceFactory(List<String> items) {}
+    private void networkInterfaceFactory(List<String> items) {}
 
-    private void inxiUnknownFactory(List<String> items) {}
+    private void unknownFactory(List<String> items) {}
 
-    public void factory() {}
+    public void factory() {
+
+        /*Code Here*/
+
+        systemFactory(this.resources.get(system()));
+        machineFactory(this.resources.get(machine()));
+        batteryFactory(this.resources.get(battery()));
+        memoryFactory(this.resources.get(memory()));
+        slotsFactory(this.resources.get(slots()));
+        processorFactory(this.resources.get(processor()));
+        graphicsFactory(this.resources.get(graphics()));
+        audioFactory(this.resources.get(audio()));
+        networkFactory(this.resources.get(network()));
+        driversFactory(this.resources.get(drivers()));
+        partitionFactory(this.resources.get(partition()));
+        usbFactory(this.resources.get(usb()));
+        sensorsFactory(this.resources.get(sensors()));
+        runningFactory(this.resources.get(running()));
+        monitorFactory(this.resources.get(monitor()));
+        biosFactory(this.resources.get(bios()));
+        baseboardFactory(this.resources.get(baseboard()));
+        chassisFactory(this.resources.get(chassis()));
+        cacheFactory(this.resources.get(cache()));
+        connectorFactory(this.resources.get(connector()));
+        keyboardFactory(this.resources.get(keyboard()));
+        mouseFactory(this.resources.get(mouse()));
+        hubFactory(this.resources.get(hub()));
+        switcherFactory(this.resources.get(switcher()));
+        modemFactory(this.resources.get(modem()));
+        diskFactory(this.resources.get(disk()));
+        bluetoothFactory(this.resources.get(bluetooth()));
+        videoFactory(this.resources.get(video()));
+        storageFactory(this.resources.get(storage()));
+        bridgeFactory(this.resources.get(bridge()));
+        networkInterfaceFactory(this.resources.get(networkInterface()));
+        unknownFactory(this.resources.get(unknown()));
+
+    }
 
 }

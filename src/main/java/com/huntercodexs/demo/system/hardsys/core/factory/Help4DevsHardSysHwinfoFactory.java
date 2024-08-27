@@ -13,17 +13,17 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
         this.resources = resources;
     }
 
-    private void hwinfoSystemFactory(List<String> items) {}
+    private void systemFactory(List<String> items) {}
 
-    private void hwinfoMachineFactory(List<String> items) {}
+    private void machineFactory(List<String> items) {}
 
-    private void hwinfoBatteryFactory(List<String> items) {}
+    private void batteryFactory(List<String> items) {}
 
-    private void hwinfoMemoryFactory(List<String> items) {}
+    private void memoryFactory(List<String> items) {}
 
-    private void hwinfoSlotsFactory(List<String> items) {}
+    private void slotsFactory(List<String> items) {}
 
-    private void hwinfoProcessorFactory(List<String> items) {
+    private void processorFactory(List<String> items) {
 
         /*HWINFO - Layout*/
         String[] details = new String[]{"model", "family", "speed", "current"};
@@ -68,57 +68,57 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     }
 
-    private void hwinfoGraphicsFactory(List<String> items) {}
+    private void graphicsFactory(List<String> items) {}
 
-    private void hwinfoAudioFactory(List<String> items) {}
+    private void audioFactory(List<String> items) {}
 
-    private void hwinfoNetworkFactory(List<String> items) {}
+    private void networkFactory(List<String> items) {}
 
-    private void hwinfoDriversFactory(List<String> items) {}
+    private void driversFactory(List<String> items) {}
 
-    private void hwinfoPartitionFactory(List<String> items) {}
+    private void partitionFactory(List<String> items) {}
 
-    private void hwinfoUsbFactory(List<String> items) {}
+    private void usbFactory(List<String> items) {}
 
-    private void hwinfoSensorsFactory(List<String> items) {}
+    private void sensorsFactory(List<String> items) {}
 
-    private void hwinfoRunningFactory(List<String> items) {}
+    private void runningFactory(List<String> items) {}
 
-    private void hwinfoMonitorFactory(List<String> items) {}
+    private void monitorFactory(List<String> items) {}
 
-    private void hwinfoBiosFactory(List<String> items) {}
+    private void biosFactory(List<String> items) {}
 
-    private void hwinfoBaseboardFactory(List<String> items) {}
+    private void baseboardFactory(List<String> items) {}
 
-    private void hwinfoChassisFactory(List<String> items) {}
+    private void chassisFactory(List<String> items) {}
 
-    private void hwinfoCacheFactory(List<String> items) {}
+    private void cacheFactory(List<String> items) {}
 
-    private void hwinfoConnectorFactory(List<String> items) {}
+    private void connectorFactory(List<String> items) {}
 
-    private void hwinfoKeyboardFactory(List<String> items) {}
+    private void keyboardFactory(List<String> items) {}
 
-    private void hwinfoMouseFactory(List<String> items) {}
+    private void mouseFactory(List<String> items) {}
 
-    private void hwinfoHubFactory(List<String> items) {}
+    private void hubFactory(List<String> items) {}
 
-    private void hwinfoSwitcherFactory(List<String> items) {}
+    private void switcherFactory(List<String> items) {}
 
-    private void hwinfoModemFactory(List<String> items) {}
+    private void modemFactory(List<String> items) {}
 
-    private void hwinfoDiskFactory(List<String> items) {}
+    private void diskFactory(List<String> items) {}
 
-    private void hwinfoBluetoothFactory(List<String> items) {}
+    private void bluetoothFactory(List<String> items) {}
 
-    private void hwinfoVideoFactory(List<String> items) {}
+    private void videoFactory(List<String> items) {}
 
-    private void hwinfoStorageFactory(List<String> items) {}
+    private void storageFactory(List<String> items) {}
 
-    private void hwinfoBridgeFactory(List<String> items) {}
+    private void bridgeFactory(List<String> items) {}
 
-    private void hwinfoNetworkInterfaceFactory(List<String> items) {}
+    private void networkInterfaceFactory(List<String> items) {}
 
-    private void hwinfoUnknownFactory(List<String> items) {}
+    private void unknownFactory(List<String> items) {}
 
     public void factory() {
         List<String> removeList = new ArrayList<>();
@@ -150,7 +150,38 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             this.resources.remove(remove);
         }
 
-        hwinfoProcessorFactory(this.resources.get(processor()));
+        systemFactory(this.resources.get(system()));
+        machineFactory(this.resources.get(machine()));
+        batteryFactory(this.resources.get(battery()));
+        memoryFactory(this.resources.get(memory()));
+        slotsFactory(this.resources.get(slots()));
+        processorFactory(this.resources.get(processor()));
+        graphicsFactory(this.resources.get(graphics()));
+        audioFactory(this.resources.get(audio()));
+        networkFactory(this.resources.get(network()));
+        driversFactory(this.resources.get(drivers()));
+        partitionFactory(this.resources.get(partition()));
+        usbFactory(this.resources.get(usb()));
+        sensorsFactory(this.resources.get(sensors()));
+        runningFactory(this.resources.get(running()));
+        monitorFactory(this.resources.get(monitor()));
+        biosFactory(this.resources.get(bios()));
+        baseboardFactory(this.resources.get(baseboard()));
+        chassisFactory(this.resources.get(chassis()));
+        cacheFactory(this.resources.get(cache()));
+        connectorFactory(this.resources.get(connector()));
+        keyboardFactory(this.resources.get(keyboard()));
+        mouseFactory(this.resources.get(mouse()));
+        hubFactory(this.resources.get(hub()));
+        switcherFactory(this.resources.get(switcher()));
+        modemFactory(this.resources.get(modem()));
+        diskFactory(this.resources.get(disk()));
+        bluetoothFactory(this.resources.get(bluetooth()));
+        videoFactory(this.resources.get(video()));
+        storageFactory(this.resources.get(storage()));
+        bridgeFactory(this.resources.get(bridge()));
+        networkInterfaceFactory(this.resources.get(networkInterface()));
+        unknownFactory(this.resources.get(unknown()));
 
     }
 
