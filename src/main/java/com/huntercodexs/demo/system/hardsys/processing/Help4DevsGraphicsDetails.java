@@ -99,19 +99,19 @@ public class Help4DevsGraphicsDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), graphics());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("graphics"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), graphics());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("graphics"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), graphics());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("graphics"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), graphics());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("graphics"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), graphics());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("graphics"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), graphics());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("graphics"));
         }
-        throw new RuntimeException("Invalid command for "+ graphics() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("graphics") +": " + this.command);
     }
 
 }

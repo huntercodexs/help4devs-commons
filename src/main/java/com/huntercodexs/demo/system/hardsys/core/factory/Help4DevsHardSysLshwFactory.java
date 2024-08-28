@@ -1,9 +1,7 @@
 package com.huntercodexs.demo.system.hardsys.core.factory;
 
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,38 +79,38 @@ public class Help4DevsHardSysLshwFactory extends Help4DevsHardSysBase {
 
         /*Code Here*/
 
-        systemFactory(this.resources.get(system()));
-        machineFactory(this.resources.get(machine()));
-        batteryFactory(this.resources.get(battery()));
-        memoryFactory(this.resources.get(memory()));
-        slotsFactory(this.resources.get(slots()));
-        processorFactory(this.resources.get(processor()));
-        graphicsFactory(this.resources.get(graphics()));
-        audioFactory(this.resources.get(audio()));
-        networkFactory(this.resources.get(network()));
-        driversFactory(this.resources.get(drivers()));
-        partitionFactory(this.resources.get(partition()));
-        usbFactory(this.resources.get(usb()));
-        sensorsFactory(this.resources.get(sensors()));
-        runningFactory(this.resources.get(running()));
-        monitorFactory(this.resources.get(monitor()));
-        biosFactory(this.resources.get(bios()));
-        baseboardFactory(this.resources.get(baseboard()));
-        chassisFactory(this.resources.get(chassis()));
-        cacheFactory(this.resources.get(cache()));
-        connectorFactory(this.resources.get(connector()));
-        keyboardFactory(this.resources.get(keyboard()));
-        mouseFactory(this.resources.get(mouse()));
-        hubFactory(this.resources.get(hub()));
-        switcherFactory(this.resources.get(switcher()));
-        modemFactory(this.resources.get(modem()));
-        diskFactory(this.resources.get(disk()));
-        bluetoothFactory(this.resources.get(bluetooth()));
-        videoFactory(this.resources.get(video()));
-        storageFactory(this.resources.get(storage()));
-        bridgeFactory(this.resources.get(bridge()));
-        networkInterfaceFactory(this.resources.get(networkInterface()));
-        unknownFactory(this.resources.get(unknown()));
+        systemFactory(this.resources.get(hardsys("system")));
+        machineFactory(this.resources.get(hardsys("machine")));
+        batteryFactory(this.resources.get(hardsys("battery")));
+        memoryFactory(this.resources.get(hardsys("memory")));
+        slotsFactory(this.resources.get(hardsys("slots")));
+        processorFactory(this.resources.get(hardsys("processor")));
+        graphicsFactory(this.resources.get(hardsys("graphics")));
+        audioFactory(this.resources.get(hardsys("audio")));
+        networkFactory(this.resources.get(hardsys("network")));
+        driversFactory(this.resources.get(hardsys("drivers")));
+        partitionFactory(this.resources.get(hardsys("partition")));
+        usbFactory(this.resources.get(hardsys("usb")));
+        sensorsFactory(this.resources.get(hardsys("sensors")));
+        runningFactory(this.resources.get(hardsys("running")));
+        monitorFactory(this.resources.get(hardsys("monitor")));
+        biosFactory(this.resources.get(hardsys("bios")));
+        baseboardFactory(this.resources.get(hardsys("baseboard")));
+        chassisFactory(this.resources.get(hardsys("chassis")));
+        cacheFactory(this.resources.get(hardsys("cache")));
+        connectorFactory(this.resources.get(hardsys("connector")));
+        keyboardFactory(this.resources.get(hardsys("keyboard")));
+        mouseFactory(this.resources.get(hardsys("mouse")));
+        hubFactory(this.resources.get(hardsys("hub")));
+        switcherFactory(this.resources.get(hardsys("switcher")));
+        modemFactory(this.resources.get(hardsys("modem")));
+        diskFactory(this.resources.get(hardsys("disk")));
+        bluetoothFactory(this.resources.get(hardsys("bluetooth")));
+        videoFactory(this.resources.get(hardsys("video")));
+        storageFactory(this.resources.get(hardsys("storage")));
+        bridgeFactory(this.resources.get(hardsys("bridge")));
+        networkInterfaceFactory(this.resources.get(hardsys("networkInterface")));
+        unknownFactory(this.resources.get(hardsys("unknown")));
 
     }
 

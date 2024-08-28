@@ -2,6 +2,18 @@ package com.huntercodexs.demo.system.hardsys.dto;
 
 public class Help4DevsHardSysResourcesDto {
 
+    /*
+     * Do not change this fields, it used for JSON results
+     * */
+    private String all;
+    private String boardsGroup;
+    private String drivesGroup;
+    private String devicesGroup;
+    private String networksGroup;
+    private String hardwareGroup;
+    private String componentsGroup;
+
+    //Available Information: Hardware x System
     private Help4DevsSystemDto system;
     private Help4DevsMachineDto machine;
     private Help4DevsBatteryDto battery;

@@ -40,8 +40,8 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.networkDetails) {
-            if (details.isEmpty() || !details.contains(network())) continue;
-            listFilter.add(sourceFilter(details, network(), index, "source", "source"));
+            if (details.isEmpty() || !details.contains(hardsys("network"))) continue;
+            listFilter.add(sourceFilter(details, hardsys("network"), index, "source", "source"));
             index++;
         }
         return listFilter;
@@ -121,20 +121,20 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), network());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("network"));
         }
 
-        throw new RuntimeException("Invalid command for "+ network() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("network") +": " + this.command);
     }
 
 }

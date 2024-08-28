@@ -52,7 +52,7 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
         this.resources = new HashMap<>();/*JSON*/
         this.transport = new HashMap<>();/*DTO*/
 
-        for (String res : hardsys()) {
+        for (String res : fields()) {
             this.resources.put(res, new ArrayList<>());
         }
 

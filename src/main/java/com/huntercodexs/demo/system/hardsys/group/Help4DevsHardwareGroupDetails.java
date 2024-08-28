@@ -1,7 +1,7 @@
 package com.huntercodexs.demo.system.hardsys.group;
 
-import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,24 +86,24 @@ public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardwareGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("hardwareGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String bios = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(bios()), bios());
-            String cache = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(cache()), cache());
-            return jsonMergerRFC8259(Arrays.asList(bios, cache), hardwareGroup());
+            String bios = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("bios")), hardsys("bios"));
+            String cache = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("cache")), hardsys("cache"));
+            return jsonMergerRFC8259(Arrays.asList(bios, cache), hardsys("hardwareGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardwareGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("hardwareGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardwareGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("hardwareGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardwareGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("hardwareGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardwareGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("hardwareGroup"));
         }
-        throw new RuntimeException("Invalid command for "+ hardwareGroup() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("hardwareGroup") +": " + this.command);
     }
 }
 

@@ -1,7 +1,7 @@
 package com.huntercodexs.demo.system.hardsys.group;
 
-import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,28 +123,28 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), networksGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("networksGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String network = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(network()), network());
-            String networkInterface = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(networkInterface()), "networkInterface");
-            String bridge = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(bridge()), bridge());
-            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hub()), hub());
-            String switcher = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(switcher()), switcher());
-            return jsonMergerRFC8259(Arrays.asList(network, networkInterface, bridge, hub, switcher), networksGroup());
+            String network = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("network")), hardsys("network"));
+            String networkInterface = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("networkInterface")), hardsys("networkInterface"));
+            String bridge = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("bridge")), hardsys("bridge"));
+            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("hub")), hardsys("hub"));
+            String switcher = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("switcher")), hardsys("switcher"));
+            return jsonMergerRFC8259(Arrays.asList(network, networkInterface, bridge, hub, switcher), hardsys("networksGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), networksGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("networksGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), networksGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("networksGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), networksGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("networksGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), networksGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("networksGroup"));
         }
 
-        throw new RuntimeException("Invalid command for "+ networksGroup() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("networksGroup") +": " + this.command);
     }
 
 }

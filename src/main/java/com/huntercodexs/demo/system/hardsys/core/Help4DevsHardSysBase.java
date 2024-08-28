@@ -2,267 +2,47 @@ package com.huntercodexs.demo.system.hardsys.core;
 
 import com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHardSysResourcesDto;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.sysCmd;
 
-public abstract class Help4DevsHardSysBase {
+public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
 
     private boolean jsonOn = false;
-
-    //Available Information: Hardware x System
-    private static final String[] HARDSYS = new String[]{
-            /*[ 0]*/ "system",
-            /*[ 1]*/ "machine",
-            /*[ 2]*/ "battery",
-            /*[ 3]*/ "memory",
-            /*[ 4]*/ "slots",
-            /*[ 5]*/ "processor",
-            /*[ 6]*/ "graphics",
-            /*[ 7]*/ "audio",
-            /*[ 8]*/ "network",
-            /*[ 9]*/ "drivers",
-            /*[10]*/ "partition",
-            /*[11]*/ "usb",
-            /*[12]*/ "sensors",
-            /*[13]*/ "running",
-            /*[14]*/ "monitor",
-            /*[15]*/ "bios",
-            /*[16]*/ "baseboard",
-            /*[17]*/ "chassis",
-            /*[18]*/ "cache",
-            /*[19]*/ "connector",
-            /*[20]*/ "keyboard",
-            /*[21]*/ "mouse",
-            /*[22]*/ "hub",
-            /*[23]*/ "switch",
-            /*[24]*/ "modem",
-            /*[25]*/ "disk",
-            /*[26]*/ "bluetooth",
-            /*[27]*/ "video",
-            /*[28]*/ "storage",
-            /*[29]*/ "bridge",
-            /*[30]*/ "net_interface",
-            /*[31]*/ "unknown",
-            /*[32]*/ "devices_group",
-            /*[33]*/ "network_group",
-            /*[34]*/ "drives_group",
-            /*[35]*/ "components_group",
-            /*[36]*/ "boards_group",
-            /*[37]*/ "hardware_group",
-            /*[38]*/ "all"
-    };
-
     private final Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
 
     protected Help4DevsHardSysCommands command;
     protected HashMap<String, Object> transport;
     protected HashMap<String, List<String>> resources;
 
-    //INXI Version 3.0.38 (Layout)
-    protected static final String[] inxiInfo = new String[] {
-            /*[ 0]*/ "System:    ",
-            /*[ 1]*/ "Machine:   ",
-            /*[ 2]*/ "Battery:   ",
-            /*[ 3]*/ "Memory:    ",
-            /*[ 4]*/ "PCI Slots: ",
-            /*[ 5]*/ "CPU:       ",
-            /*[ 6]*/ "Graphics:  ",
-            /*[ 7]*/ "Audio:     ",
-            /*[ 8]*/ "Network:   ",
-            /*[ 9]*/ "Drives:    ",
-            /*[10]*/ "Partition: ",
-            /*[11]*/ "USB:       ",
-            /*[12]*/ "Sensors:   ",
-            /*[13]*/ "Info:      "
-    };
+    protected String[] fields() {
+        Field[] fields = Help4DevsHardSysResourcesDto.class.getDeclaredFields();
+        int len = fields.length;
+        String[] names = new String[len];
 
-    //HWINFO Version 21.68 (Layout)
-    protected static final String[] hwinfoLayout = new String[] {
-            /*[ 0]*/ "cpu:",
-            /*[ 1]*/ "keyboard:",
-            /*[ 2]*/ "mouse:",
-            /*[ 3]*/ "monitor:",
-            /*[ 4]*/ "graphics card:",
-            /*[ 5]*/ "sound:",
-            /*[ 6]*/ "storage:",
-            /*[ 7]*/ "network:",
-            /*[ 8]*/ "network interface:",
-            /*[ 9]*/ "disk:",
-            /*[10]*/ "partition:",
-            /*[11]*/ "usb controller:",
-            /*[12]*/ "bios:",
-            /*[13]*/ "bridge:",
-            /*[14]*/ "hub:",
-            /*[15]*/ "memory:",
-            /*[16]*/ "bluetooth:",
-            /*[17]*/ "unknown:"
-    };
-
-    protected String[] hardsys() {
-        return HARDSYS;
+        for (int i = 0; i < len; i++) {
+            names[i] = fields[i].getName();
+        }
+        return names;
     }
 
-    protected String system() {
-        return HARDSYS[0];
-    }
+    protected String hardsys(String target) {
+        Field[] fields = Help4DevsHardSysResourcesDto.class.getDeclaredFields();
 
-    protected String machine() {
-        return HARDSYS[1];
-    }
-
-    protected String battery() {
-        return HARDSYS[2];
-    }
-
-    protected String memory() {
-        return HARDSYS[3];
-    }
-
-    protected String slots() {
-        return HARDSYS[4];
-    }
-
-    protected String processor() {
-        return HARDSYS[5];
-    }
-
-    protected String graphics() {
-        return HARDSYS[6];
-    }
-
-    protected String audio() {
-        return HARDSYS[7];
-    }
-
-    protected String network() {
-        return HARDSYS[8];
-    }
-
-    protected String drivers() {
-        return HARDSYS[9];
-    }
-
-    protected String partition() {
-        return HARDSYS[10];
-    }
-
-    protected String usb() {
-        return HARDSYS[11];
-    }
-
-    protected String sensors() {
-        return HARDSYS[12];
-    }
-
-    protected String running() {
-        return HARDSYS[13];
-    }
-
-    protected String monitor() {
-        return HARDSYS[14];
-    }
-
-    protected String bios() {
-        return HARDSYS[15];
-    }
-
-    protected String baseboard() {
-        return HARDSYS[16];
-    }
-
-    protected String chassis() {
-        return HARDSYS[17];
-    }
-
-    protected String cache() {
-        return HARDSYS[18];
-    }
-
-    protected String connector() {
-        return HARDSYS[19];
-    }
-
-    protected String keyboard() {
-        return HARDSYS[20];
-    }
-
-    protected String mouse() {
-        return HARDSYS[21];
-    }
-
-    protected String hub() {
-        return HARDSYS[22];
-    }
-
-    protected String switcher() {
-        return HARDSYS[23];
-    }
-
-    protected String modem() {
-        return HARDSYS[24];
-    }
-
-    protected String disk() {
-        return HARDSYS[25];
-    }
-
-    protected String bluetooth() {
-        return HARDSYS[26];
-    }
-
-    protected String video() {
-        return HARDSYS[27];
-    }
-
-    protected String storage() {
-        return HARDSYS[28];
-    }
-
-    protected String bridge() {
-        return HARDSYS[29];
-    }
-
-    protected String networkInterface() {
-        return HARDSYS[30];
-    }
-
-    protected String unknown() {
-        return HARDSYS[31];
-    }
-
-    protected String devicesGroup() {
-        return HARDSYS[32];
-    }
-
-    protected String networksGroup() {
-        return HARDSYS[33];
-    }
-
-    protected String drivesGroup() {
-        return HARDSYS[34];
-    }
-
-    protected String componentsGroup() {
-        return HARDSYS[35];
-    }
-
-    protected String boardsGroup() {
-        return HARDSYS[36];
-    }
-
-    protected String hardwareGroup() {
-        return HARDSYS[37];
-    }
-
-    protected String allGroup() {
-        return HARDSYS[38];
+        for (Field field : fields) {
+            if (field.getName().equals(target)) {
+                return target;
+            }
+        }
+        throw new RuntimeException("ERROR: HARDSYS resource not found: " + target);
     }
 
     protected BufferedReader execute(Help4DevsHardSysCommands command) {

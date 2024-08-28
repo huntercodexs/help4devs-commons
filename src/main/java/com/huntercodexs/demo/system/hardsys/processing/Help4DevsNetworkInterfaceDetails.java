@@ -40,8 +40,8 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.networkInterfaceDetails) {
-            if (details.isEmpty() || !details.contains(networkInterface())) continue;
-            listFilter.add(sourceFilter(details, networkInterface(), index, "source", "source"));
+            if (details.isEmpty() || !details.contains(hardsys("networkInterface"))) continue;
+            listFilter.add(sourceFilter(details, hardsys("networkInterface"), index, "source", "source"));
             index++;
         }
         return listFilter;
@@ -121,20 +121,20 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), networkInterface());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("networkInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), "networkInterface");
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), networkInterface());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("networkInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), networkInterface());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("networkInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), networkInterface());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("networkInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), networkInterface());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("networkInterface"));
         }
 
-        throw new RuntimeException("Invalid command for "+ networkInterface() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("networkInterface") +": " + this.command);
     }
 
 }

@@ -86,25 +86,25 @@ public class Help4DevsComponentsGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), componentsGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("componentsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String processor = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(processor()), processor());
-            String memory = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(memory()), memory());
-            String audio = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(audio()), audio());
-            String battery = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(battery()), battery());
-            return jsonMergerRFC8259(Arrays.asList(processor, memory, audio, battery), componentsGroup());
+            String processor = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("processor")), hardsys("processor"));
+            String memory = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("memory")), hardsys("memory"));
+            String audio = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("audio")), hardsys("audio"));
+            String battery = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("battery")), hardsys("battery"));
+            return jsonMergerRFC8259(Arrays.asList(processor, memory, audio, battery), hardsys("componentsGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), componentsGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("componentsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), componentsGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("componentsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), componentsGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("componentsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), componentsGroup());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("componentsGroup"));
         }
-        throw new RuntimeException("Invalid command for "+ componentsGroup() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("componentsGroup") +": " + this.command);
     }
 }
 

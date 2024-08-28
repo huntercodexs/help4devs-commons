@@ -114,19 +114,19 @@ public class Help4DevsUsbDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), usb());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("usb"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), usb());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("usb"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), usb());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("usb"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), usb());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("usb"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), usb());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("usb"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), usb());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("usb"));
         }
-        throw new RuntimeException("Invalid command for "+ usb() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("usb") +": " + this.command);
     }
 
 }

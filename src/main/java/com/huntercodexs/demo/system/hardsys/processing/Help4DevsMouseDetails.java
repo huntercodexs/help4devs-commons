@@ -30,8 +30,8 @@ public class Help4DevsMouseDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.mouseDetails) {
-            if (details.isEmpty() || !details.contains(mouse())) continue;
-            listFilter.add(sourceFilter(details, mouse(), index, "source", "input"));
+            if (details.isEmpty() || !details.contains(hardsys("mouse"))) continue;
+            listFilter.add(sourceFilter(details, hardsys("mouse"), index, "source", "input"));
             index++;
         }
         return listFilter;
@@ -71,19 +71,19 @@ public class Help4DevsMouseDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), mouse());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), mouse());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), mouse());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), mouse());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), mouse());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), mouse());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("mouse"));
         }
-        throw new RuntimeException("Invalid command for "+ mouse() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("mouse") +": " + this.command);
     }
 
 }

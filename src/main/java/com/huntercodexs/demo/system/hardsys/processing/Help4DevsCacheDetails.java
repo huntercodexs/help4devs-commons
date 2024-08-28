@@ -68,18 +68,18 @@ public class Help4DevsCacheDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), cache());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("cache"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), cache());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("cache"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), cache());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("cache"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), cache());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("cache"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), cache());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("cache"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), cache());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("cache"));
         }
-        throw new RuntimeException("Invalid command for "+ cache() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("cache") +": " + this.command);
     }
 }

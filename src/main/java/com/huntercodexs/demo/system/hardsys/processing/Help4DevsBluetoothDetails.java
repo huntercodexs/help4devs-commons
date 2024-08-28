@@ -1,7 +1,7 @@
 package com.huntercodexs.demo.system.hardsys.processing;
 
-import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,19 +69,19 @@ public class Help4DevsBluetoothDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), bluetooth());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("bluetooth"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), bluetooth());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("bluetooth"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), bluetooth());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("bluetooth"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), bluetooth());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("bluetooth"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), bluetooth());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("bluetooth"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), bluetooth());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("bluetooth"));
         }
-        throw new RuntimeException("Invalid command for "+ bluetooth() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("bluetooth") +": " + this.command);
     }
 
 }

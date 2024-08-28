@@ -38,7 +38,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
                 "([0-9]+) (MHz)",
                 "speedCore:$1 $2")));
 
-        this.transport.put(processor(), processorDto);
+        this.transport.put(hardsys("processor"), processorDto);
 
     }
 
@@ -110,24 +110,24 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             this.resources.remove(remove);
         }
 
-        processorFactory(this.resources.get(processor()));
-        keyboardFactory(this.resources.get(keyboard()));
-        mouseFactory(this.resources.get(mouse()));
-        monitorFactory(this.resources.get(monitor()));
-        graphicsFactory(this.resources.get(graphics()));
-        audioFactory(this.resources.get(audio()));
-        storageFactory(this.resources.get(storage()));
-        networkFactory(this.resources.get(network()));
-        networkInterfaceFactory(this.resources.get(networkInterface()));
-        diskFactory(this.resources.get(disk()));
-        partitionFactory(this.resources.get(partition()));
-        usbFactory(this.resources.get(usb()));
-        biosFactory(this.resources.get(bios()));
-        bridgeFactory(this.resources.get(bridge()));
-        hubFactory(this.resources.get(hub()));
-        memoryFactory(this.resources.get(memory()));
-        bluetoothFactory(this.resources.get(bluetooth()));
-        unknownFactory(this.resources.get(unknown()));
+        processorFactory(this.resources.get(hardsys("processor")));
+        keyboardFactory(this.resources.get(hardsys("keyboard")));
+        mouseFactory(this.resources.get(hardsys("mouse")));
+        monitorFactory(this.resources.get(hardsys("monitor")));
+        graphicsFactory(this.resources.get(hardsys("graphics")));
+        audioFactory(this.resources.get(hardsys("audio")));
+        storageFactory(this.resources.get(hardsys("storage")));
+        networkFactory(this.resources.get(hardsys("network")));
+        networkInterfaceFactory(this.resources.get(hardsys("networkInterface")));
+        diskFactory(this.resources.get(hardsys("disk")));
+        partitionFactory(this.resources.get(hardsys("partition")));
+        usbFactory(this.resources.get(hardsys("usb")));
+        biosFactory(this.resources.get(hardsys("bios")));
+        bridgeFactory(this.resources.get(hardsys("bridge")));
+        hubFactory(this.resources.get(hardsys("hub")));
+        memoryFactory(this.resources.get(hardsys("memory")));
+        bluetoothFactory(this.resources.get(hardsys("bluetooth")));
+        unknownFactory(this.resources.get(hardsys("unknown")));
 
     }
 

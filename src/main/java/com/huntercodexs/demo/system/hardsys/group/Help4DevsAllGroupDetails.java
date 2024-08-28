@@ -1,7 +1,7 @@
 package com.huntercodexs.demo.system.hardsys.group;
 
-import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysResources;
 
 import java.util.ArrayList;
@@ -69,19 +69,19 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandInxi(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandInxi(), hardsys("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandHwinfo(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), hardsys("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), hardsys("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu2(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), allGroup());
+            return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("all"));
         }
-        throw new RuntimeException("Invalid command for "+ allGroup() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("all") +": " + this.command);
     }
 }
 

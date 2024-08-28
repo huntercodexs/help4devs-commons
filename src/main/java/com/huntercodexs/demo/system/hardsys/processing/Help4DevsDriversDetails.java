@@ -1,7 +1,7 @@
 package com.huntercodexs.demo.system.hardsys.processing;
 
-import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,19 +68,19 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), drivers());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("drivers"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), drivers());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("drivers"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), drivers());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("drivers"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), drivers());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("drivers"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), drivers());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("drivers"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), drivers());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("drivers"));
         }
-        throw new RuntimeException("Invalid command for "+ drivers() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("drivers") +": " + this.command);
     }
 
 }

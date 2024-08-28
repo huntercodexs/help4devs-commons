@@ -84,19 +84,19 @@ public class Help4DevsSwitchDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), switcher());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("switcher"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), switcher());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("switcher"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), switcher());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("switcher"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), switcher());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("switcher"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), switcher());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("switcher"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), switcher());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("switcher"));
         }
-        throw new RuntimeException("Invalid command for "+ switcher() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("switcher") +": " + this.command);
     }
 
 }

@@ -30,8 +30,8 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.partitionDetails) {
-            if (details.isEmpty() || !details.contains(partition())) continue;
-            listFilter.add(sourceFilter(details, partition(), index, "source", "source"));
+            if (details.isEmpty() || !details.contains(hardsys("partition"))) continue;
+            listFilter.add(sourceFilter(details, hardsys("partition"), index, "source", "source"));
             index++;
         }
         return listFilter;
@@ -71,19 +71,19 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("partition"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("partition"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("partition"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("partition"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("partition"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), partition());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("partition"));
         }
-        throw new RuntimeException("Invalid command for "+ partition() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("partition") +": " + this.command);
     }
 
 }

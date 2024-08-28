@@ -84,19 +84,19 @@ public class Help4DevsModemDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), modem());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("modem"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), modem());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("modem"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), modem());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("modem"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), modem());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("modem"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), modem());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("modem"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), modem());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("modem"));
         }
-        throw new RuntimeException("Invalid command for "+ modem() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("modem") +": " + this.command);
     }
 
 }

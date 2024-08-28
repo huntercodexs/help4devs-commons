@@ -69,19 +69,19 @@ public class Help4DevsBiosDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), bios());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("bios"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), bios());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("bios"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), bios());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("bios"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), bios());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("bios"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), bios());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("bios"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), bios());
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("bios"));
         }
-        throw new RuntimeException("Invalid command for "+ bios() +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsys("bios") +": " + this.command);
     }
 
 }
