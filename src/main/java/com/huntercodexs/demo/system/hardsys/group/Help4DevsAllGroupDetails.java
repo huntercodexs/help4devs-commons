@@ -44,7 +44,8 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
             this.allResources.getHub().getDetails(),
             this.allResources.getMemory().getDetails(),
             this.allResources.getBluetooth().getDetails(),
-            this.allResources.getUnknown().getDetails());
+            this.allResources.getUnknown().getDetails(),
+            this.allResources.getMultimedia().getDetails());
     }
 
     private List<String> detailsFromLinuxCommandLshw() {

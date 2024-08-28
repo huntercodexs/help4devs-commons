@@ -5,6 +5,7 @@ import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
                 .replaceAll("memory:", hardsys("memory"))
                 .replaceAll("bluetooth:", hardsys("bluetooth"))
                 .replaceAll("unknown:", hardsys("unknown"))
+                .replaceAll("multimedia:", hardsys("multimedia"))
                 .replaceAll("[^-_a-zA-Z ]", "")
                 .toLowerCase();
     }
@@ -157,6 +159,8 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
 
                 }
             }
+
+            this.resources.put(fieldsTranslator(hwinfoLayout[18]), Arrays.asList("1", "test"));
 
             makeSourceAndGroup();
 

@@ -46,6 +46,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsBridgeDto bridge;
     private Help4DevsNetworkInterfaceDto networkInterface;
     private Help4DevsUnknownDto unknown;
+    private Help4DevsMultimediaDto multimedia;
 
     public Help4DevsSystemDto getSystem() {
         return system;
@@ -303,6 +304,14 @@ public class Help4DevsHardSysResourcesDto {
         this.unknown = (Help4DevsUnknownDto)unknown;
     }
 
+    public Help4DevsMultimediaDto getMultimedia() {
+        return multimedia;
+    }
+
+    public void setMultimedia(Object multimedia) {
+        this.multimedia = (Help4DevsMultimediaDto) multimedia;
+    }
+
     public String toString() {
         return "Help4DevsHardSysMetricsDto[" +
                 "system=" + system +
@@ -337,6 +346,7 @@ public class Help4DevsHardSysResourcesDto {
                 ", bridge=" + bridge +
                 ", networkInterface=" + networkInterface +
                 ", unknown=" + unknown +
+                ", multimedia=" + multimedia +
                 "]";
     }
 }

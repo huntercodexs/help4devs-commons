@@ -44,6 +44,7 @@ public class Help4DevsHardSysBuilder extends Help4DevsHardSysBase {
         dto.setBridge(this.transport.get(hardsys("bridge")));
         dto.setNetworkInterface(this.transport.get(hardsys("networkInterface")));
         dto.setUnknown(this.transport.get(hardsys("unknown")));
+        dto.setMultimedia(this.transport.get(hardsys("multimedia")));
         return dto;
     }
 

@@ -1,12 +1,10 @@
 package com.huntercodexs.demo.system.hardsys.core.factory;
 
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMultimediaDto;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @implNote This class only process for DTO format results
@@ -76,6 +74,17 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     private void unknownFactory(List<String> items) {}
 
+    private void multimediaFactory(List<String> items) {
+
+        //Testing...
+        Help4DevsMultimediaDto multimedia = new Help4DevsMultimediaDto();
+        multimedia.setId(Arrays.asList("1","2"));
+        multimedia.setName(Arrays.asList("test","test"));
+
+        this.transport.put(hardsys("multimedia"), multimedia);
+
+    }
+
     /**
      * @implNote This method will convert the resources from a List object to a DTO object
      * to be used easier and understandably
@@ -128,6 +137,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
         memoryFactory(this.resources.get(hardsys("memory")));
         bluetoothFactory(this.resources.get(hardsys("bluetooth")));
         unknownFactory(this.resources.get(hardsys("unknown")));
+        multimediaFactory(this.resources.get(hardsys("multimedia")));
 
     }
 

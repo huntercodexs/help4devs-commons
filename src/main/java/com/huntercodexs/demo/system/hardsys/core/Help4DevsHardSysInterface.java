@@ -37,6 +37,7 @@ public interface Help4DevsHardSysInterface {
     Help4DevsBridgeDetails getBridge();
     Help4DevsNetworkInterfaceDetails getNetworkInterface();
     Help4DevsUnknownDetails getUnknown();
+    Help4DevsMultimediaDetails getMultimedia();
     /*Groups*/
     Help4DevsDevicesGroupDetails getDevicesGroup();
     Help4DevsNetworkGroupDetails getNetworksGroup();

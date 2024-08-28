@@ -43,6 +43,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     private Help4DevsBridgeDetails bridgeDetails;
     private Help4DevsNetworkInterfaceDetails networkInterfaceDetails;
     private Help4DevsUnknownDetails unknownDetails;
+    private Help4DevsMultimediaDetails multimediaDetails;
     private Help4DevsDevicesGroupDetails devicesGroupDetails;
     private Help4DevsNetworkGroupDetails networksGroupDetails;
     private Help4DevsDrivesGroupDetails drivesGroupDetails;
@@ -110,6 +111,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
         this.bridgeDetails = new Help4DevsBridgeDetails(resources.get(hardsys("bridge")), command);
         this.networkInterfaceDetails = new Help4DevsNetworkInterfaceDetails(resources.get(hardsys("networkInterface")), command);
         this.unknownDetails = new Help4DevsUnknownDetails(resources.get(hardsys("unknown")), command);
+        this.multimediaDetails = new Help4DevsMultimediaDetails(resources.get(hardsys("multimedia")), command);
         this.devicesGroupDetails = new Help4DevsDevicesGroupDetails(resources.get(hardsys("devicesGroup")), command);
         this.networksGroupDetails = new Help4DevsNetworkGroupDetails(resources.get(hardsys("networksGroup")), command);
         this.drivesGroupDetails = new Help4DevsDrivesGroupDetails(resources.get(hardsys("drivesGroup")), command);
@@ -283,6 +285,11 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     public Help4DevsUnknownDetails getUnknown() {
         checkJsonState();
         return unknownDetails;
+    }
+
+    public Help4DevsMultimediaDetails getMultimedia() {
+        checkJsonState();
+        return multimediaDetails;
     }
 
     public Help4DevsDevicesGroupDetails getDevicesGroup() {
