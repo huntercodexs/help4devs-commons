@@ -3,50 +3,47 @@ package com.huntercodexs.demo.system.hardsys.core;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHardSysResourcesDto;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class Help4DevsHardSysBuilder extends Help4DevsHardSysBase {
 
-    private final HashMap<String, List<String>> resources;
-
-    public Help4DevsHardSysBuilder(HashMap<String, List<String>> resources) {
-        this.resources = resources;
+    public Help4DevsHardSysBuilder(HashMap<String, Object> transport) {
+        this.transport = transport;
     }
 
     public Help4DevsHardSysResourcesDto build() {
         Help4DevsHardSysResourcesDto dto = new Help4DevsHardSysResourcesDto();
-        dto.setSystem(this.resources.get(system()));
-        dto.setMachine(this.resources.get(machine()));
-        dto.setBattery(this.resources.get(battery()));
-        dto.setMemory(this.resources.get(memory()));
-        dto.setSlots(this.resources.get(slots()));
-        dto.setProcessor(this.resources.get(processor()));
-        dto.setGraphics(this.resources.get(graphics()));
-        dto.setAudio(this.resources.get(audio()));
-        dto.setNetwork(this.resources.get(network()));
-        dto.setDrivers(this.resources.get(drivers()));
-        dto.setPartition(this.resources.get(partition()));
-        dto.setUsb(this.resources.get(usb()));
-        dto.setSensors(this.resources.get(sensors()));
-        dto.setRunning(this.resources.get(running()));
-        dto.setMonitor(this.resources.get(monitor()));
-        dto.setBios(this.resources.get(bios()));
-        dto.setBaseboard(this.resources.get(baseboard()));
-        dto.setChassis(this.resources.get(chassis()));
-        dto.setCache(this.resources.get(cache()));
-        dto.setConnector(this.resources.get(connector()));
-        dto.setKeyboard(this.resources.get(keyboard()));
-        dto.setMouse(this.resources.get(mouse()));
-        dto.setHub(this.resources.get(hub()));
-        dto.setSwitcher(this.resources.get(switcher()));
-        dto.setModem(this.resources.get(modem()));
-        dto.setDisk(this.resources.get(disk()));
-        dto.setBluetooth(this.resources.get(bluetooth()));
-        dto.setVideo(this.resources.get(video()));
-        dto.setStorage(this.resources.get(storage()));
-        dto.setBridge(this.resources.get(bridge()));
-        dto.setNetworkInterface(this.resources.get(networkInterface()));
-        dto.setUnknown(this.resources.get(unknown()));
+        dto.setSystem(this.transport.get(system()));
+        dto.setMachine(this.transport.get(machine()));
+        dto.setBattery(this.transport.get(battery()));
+        dto.setMemory(this.transport.get(memory()));
+        dto.setSlots(this.transport.get(slots()));
+        dto.setProcessor(this.transport.get(processor()));
+        dto.setGraphics(this.transport.get(graphics()));
+        dto.setAudio(this.transport.get(audio()));
+        dto.setNetwork(this.transport.get(network()));
+        dto.setDrivers(this.transport.get(drivers()));
+        dto.setPartition(this.transport.get(partition()));
+        dto.setUsb(this.transport.get(usb()));
+        dto.setSensors(this.transport.get(sensors()));
+        dto.setRunning(this.transport.get(running()));
+        dto.setMonitor(this.transport.get(monitor()));
+        dto.setBios(this.transport.get(bios()));
+        dto.setBaseboard(this.transport.get(baseboard()));
+        dto.setChassis(this.transport.get(chassis()));
+        dto.setCache(this.transport.get(cache()));
+        dto.setConnector(this.transport.get(connector()));
+        dto.setKeyboard(this.transport.get(keyboard()));
+        dto.setMouse(this.transport.get(mouse()));
+        dto.setHub(this.transport.get(hub()));
+        dto.setSwitcher(this.transport.get(switcher()));
+        dto.setModem(this.transport.get(modem()));
+        dto.setDisk(this.transport.get(disk()));
+        dto.setBluetooth(this.transport.get(bluetooth()));
+        dto.setVideo(this.transport.get(video()));
+        dto.setStorage(this.transport.get(storage()));
+        dto.setBridge(this.transport.get(bridge()));
+        dto.setNetworkInterface(this.transport.get(networkInterface()));
+        dto.setUnknown(this.transport.get(unknown()));
         return dto;
     }
 

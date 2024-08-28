@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsMemoryDto {
-
-    private final List<String> memory;
 
     private List<String> id;
     private List<String> name;
@@ -26,115 +22,142 @@ public class Help4DevsMemoryDto {
     private List<String> description;
     private List<String> features;
 
-    public Help4DevsMemoryDto(List<String> memory) {
-        this.memory = memory;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.memory.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.memory.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsMemoryDto builder() {
-        this.id = buildCollection(0);
-        this.name = buildCollection(1);
-        this.type = buildCollection(2);
-        this.used = buildCollection(3);
-        this.free = buildCollection(4);
-        this.rank = buildCollection(5);
-        this.total = buildCollection(6);
-        this.width = buildCollection(7);
-        this.speed = buildCollection(8);
-        this.volts = buildCollection(9);
-        this.source = buildCollection(10);
-        this.vendor = buildCollection(11);
-        this.serial = buildCollection(12);
-        this.location = buildCollection(13);
-        this.manufacturer = buildCollection(14);
-        this.description = buildCollection(15);
-        this.features = buildCollection(16);
-        return this;
-    }
+    public Help4DevsMemoryDto() {}
 
     public List<String> getId() {
         return id;
+    }
+
+    public void setId(List<String> id) {
+        this.id = id;
     }
 
     public List<String> getName() {
         return name;
     }
 
+    public void setName(List<String> name) {
+        this.name = name;
+    }
+
     public List<String> getType() {
         return type;
+    }
+
+    public void setType(List<String> type) {
+        this.type = type;
     }
 
     public List<String> getUsed() {
         return used;
     }
 
+    public void setUsed(List<String> used) {
+        this.used = used;
+    }
+
     public List<String> getFree() {
         return free;
+    }
+
+    public void setFree(List<String> free) {
+        this.free = free;
     }
 
     public List<String> getRank() {
         return rank;
     }
 
+    public void setRank(List<String> rank) {
+        this.rank = rank;
+    }
+
     public List<String> getTotal() {
         return total;
+    }
+
+    public void setTotal(List<String> total) {
+        this.total = total;
     }
 
     public List<String> getWidth() {
         return width;
     }
 
+    public void setWidth(List<String> width) {
+        this.width = width;
+    }
+
     public List<String> getSpeed() {
         return speed;
+    }
+
+    public void setSpeed(List<String> speed) {
+        this.speed = speed;
     }
 
     public List<String> getVolts() {
         return volts;
     }
 
+    public void setVolts(List<String> volts) {
+        this.volts = volts;
+    }
+
     public List<String> getSource() {
         return source;
+    }
+
+    public void setSource(List<String> source) {
+        this.source = source;
     }
 
     public List<String> getVendor() {
         return vendor;
     }
 
+    public void setVendor(List<String> vendor) {
+        this.vendor = vendor;
+    }
+
     public List<String> getSerial() {
         return serial;
+    }
+
+    public void setSerial(List<String> serial) {
+        this.serial = serial;
     }
 
     public List<String> getLocation() {
         return location;
     }
 
+    public void setLocation(List<String> location) {
+        this.location = location;
+    }
+
     public List<String> getManufacturer() {
         return manufacturer;
+    }
+
+    public void setManufacturer(List<String> manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public List<String> getDescription() {
         return description;
     }
 
+    public void setDescription(List<String> description) {
+        this.description = description;
+    }
+
     public List<String> getFeatures() {
         return features;
+    }
+
+    public void setFeatures(List<String> features) {
+        this.features = features;
     }
 
     public String toString() {

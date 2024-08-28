@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsMouseDto {
-
-    private final List<String> mouse;
 
     private String id;
     private String qty;
@@ -22,95 +18,110 @@ public class Help4DevsMouseDto {
     private String description;
     private List<String> details;
 
-    public Help4DevsMouseDto(List<String> mouse) {
-        this.mouse = mouse;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.mouse.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.mouse.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsMouseDto builder() {
-        this.id = buildString(0);
-        this.qty = buildString(1);
-        this.name = buildString(2);
-        this.type = buildString(3);
-        this.model = buildString(4);
-        this.series = buildString(5);
-        this.vendor = buildString(6);
-        this.source = buildString(7);
-        this.serial = buildString(8);
-        this.layout = buildString(9);
-        this.frequency = buildString(10);
-        this.description = buildString(11);
-        this.details = buildCollection(12);
-        return this;
-    }
+    public Help4DevsMouseDto() {}
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getQty() {
         return qty;
     }
 
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getType() {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getModel() {
         return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getSeries() {
         return series;
     }
 
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
     public String getVendor() {
         return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 
     public String getSource() {
         return source;
     }
 
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public String getSerial() {
         return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
     }
 
     public String getLayout() {
         return layout;
     }
 
+    public void setLayout(String layout) {
+        this.layout = layout;
+    }
+
     public String getFrequency() {
         return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<String> getDetails() {
         return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
     }
 
     public String toString() {

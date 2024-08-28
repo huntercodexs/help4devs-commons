@@ -4,56 +4,41 @@ import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @implNote This class only process for DTO format results
+ * */
 public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
-    public Help4DevsHardSysHwinfoFactory(HashMap<String, List<String>> resources) {
+    public Help4DevsHardSysHwinfoFactory(HashMap<String, List<String>> resources, HashMap<String, Object> transport) {
         this.resources = resources;
+        this.transport = transport;
     }
 
     private void processorFactory(List<String> items) {
 
-        String[] details = new String[]{"model", "family", "speed", "current"};
-        String[] replacer = new String[]{"model:$1$2", "family:$1", "speed:$1", "current:$1 $2"};
-        String[] pattern = new String[]{
-                "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)",
-                "(Intel|AMD|NVIDIA)",
-                "([0-9]+\\.[0-9]+[MG]Hz)",
-                "([0-9]+) (MHz)"};
-
         int cores = items.size();
-        int countFieldsProcessor = Help4DevsProcessorDto.class.getDeclaredFields().length - 1;
         String processorName = items.get(0).replaceAll("type: processor source: ", "");
 
-        List<String> processorList = new ArrayList<>();
-
-        /*
-         * IMPORTANT: Vector Initialization - according countFieldsProcessor
-         * This feature it will be used in the Help4DevsProcessorDto class to builder the DTO object
-         * */
-        for (int i = 0; i < countFieldsProcessor; i++) {
-            processorList.add(null);
-        }
-
-        processorList.set(0, String.valueOf(cores));
-        processorList.set(1, processorName.replaceAll(",", ""));
-
-        for (int  i = 0; i < details.length; i++) {
-            processorList.set(i+2, stringExtractor(processorName, details[i], pattern[i], replacer[i], i));
-        }
-
-        processorList.set(27, stringList(items, "type: processor source: "));
-
-        processorList.set(28, listExtractor(
+        Help4DevsProcessorDto processorDto = new Help4DevsProcessorDto();
+        processorDto.setCores(String.valueOf(cores));
+        processorDto.setName(processorName.replaceAll(",", ""));
+        processorDto.setModel(stringExtractor(processorName, "model", "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)", "model:$1$2", 0));
+        processorDto.setFamily(stringExtractor(processorName, "family", "(Intel|AMD|NVIDIA)", "family:$1", 1));
+        processorDto.setSpeed(stringExtractor(processorName, "speed", "([0-9]+\\.[0-9]+[MG]Hz)", "speed:$1", 2));
+        processorDto.setCurrent(stringExtractor(processorName, "current", "([0-9]+) (MHz)", "current:$1 $2", 3));
+        processorDto.setListCores(Collections.singletonList(stringList(items, "type: processor source: ")));
+        processorDto.setSpeedCores(Collections.singletonList(listExtractor(
                 items,
                 "speedCore",
                 "type: processor source: ",
                 "([0-9]+) (MHz)",
-                "speedCore:$1 $2"));
+                "speedCore:$1 $2")));
 
-        this.resources.put(processor(), processorList);
+        this.transport.put(processor(), processorDto);
 
     }
 
@@ -91,6 +76,10 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     private void unknownFactory(List<String> items) {}
 
+    /**
+     * @implNote This method will convert the resources from a List object to a DTO object
+     * to be used easier and understandably
+     * */
     public void factory() {
         List<String> removeList = new ArrayList<>();
 

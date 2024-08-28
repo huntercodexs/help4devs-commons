@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsHubDto {
-
-    private final List<String> hub;
 
     private String id;
     private String name;
@@ -17,70 +13,70 @@ public class Help4DevsHubDto {
     private String description;
     private List<String> features;
 
-    public Help4DevsHubDto(List<String> hub) {
-        this.hub = hub;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.hub.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.hub.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsHubDto builder() {
-        this.id = buildString(0);
-        this.name = buildString(1);
-        this.ports = buildString(2);
-        this.speed = buildString(3);
-        this.source = buildString(4);
-        this.vendor = buildString(5);
-        this.description = buildString(6);
-        this.features = buildCollection(7);
-        return this;
-    }
+    public Help4DevsHubDto() {}
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPorts() {
         return ports;
+    }
+
+    public void setPorts(String ports) {
+        this.ports = ports;
     }
 
     public String getSpeed() {
         return speed;
     }
 
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
     public String getSource() {
         return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getVendor() {
         return vendor;
     }
 
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<String> getFeatures() {
         return features;
+    }
+
+    public void setFeatures(List<String> features) {
+        this.features = features;
     }
 
     public String toString() {

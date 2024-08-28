@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsNetworkDto {
-
-    private final List<String> network;
 
     private List<String> id;
     private List<String> mac;
@@ -23,100 +19,118 @@ public class Help4DevsNetworkDto {
     private List<String> address;
     private List<String> details;
 
-    public Help4DevsNetworkDto(List<String> network) {
-        this.network = network;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.network.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.network.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsNetworkDto builder() {
-        this.id = buildCollection(0);
-        this.mac = buildCollection(1);
-        this.ips = buildCollection(2);
-        this.name = buildCollection(3);
-        this.type = buildCollection(4);
-        this.speed = buildCollection(5);
-        this.ports = buildCollection(6);
-        this.driver = buildCollection(7);
-        this.vendor = buildCollection(8);
-        this.source = buildCollection(9);
-        this.status = buildCollection(10);
-        this.version = buildCollection(11);
-        this.address = buildCollection(12);
-        this.details = buildCollection(13);
-        return this;
-    }
+    public Help4DevsNetworkDto() {}
 
     public List<String> getId() {
         return id;
+    }
+
+    public void setId(List<String> id) {
+        this.id = id;
     }
 
     public List<String> getMac() {
         return mac;
     }
 
+    public void setMac(List<String> mac) {
+        this.mac = mac;
+    }
+
     public List<String> getIps() {
         return ips;
+    }
+
+    public void setIps(List<String> ips) {
+        this.ips = ips;
     }
 
     public List<String> getName() {
         return name;
     }
 
+    public void setName(List<String> name) {
+        this.name = name;
+    }
+
     public List<String> getType() {
         return type;
+    }
+
+    public void setType(List<String> type) {
+        this.type = type;
     }
 
     public List<String> getSpeed() {
         return speed;
     }
 
+    public void setSpeed(List<String> speed) {
+        this.speed = speed;
+    }
+
     public List<String> getPorts() {
         return ports;
+    }
+
+    public void setPorts(List<String> ports) {
+        this.ports = ports;
     }
 
     public List<String> getDriver() {
         return driver;
     }
 
+    public void setDriver(List<String> driver) {
+        this.driver = driver;
+    }
+
     public List<String> getVendor() {
         return vendor;
+    }
+
+    public void setVendor(List<String> vendor) {
+        this.vendor = vendor;
     }
 
     public List<String> getSource() {
         return source;
     }
 
+    public void setSource(List<String> source) {
+        this.source = source;
+    }
+
     public List<String> getStatus() {
         return status;
+    }
+
+    public void setStatus(List<String> status) {
+        this.status = status;
     }
 
     public List<String> getVersion() {
         return version;
     }
 
+    public void setVersion(List<String> version) {
+        this.version = version;
+    }
+
     public List<String> getAddress() {
         return address;
     }
 
+    public void setAddress(List<String> address) {
+        this.address = address;
+    }
+
     public List<String> getDetails() {
         return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
     }
 
     public String toString() {

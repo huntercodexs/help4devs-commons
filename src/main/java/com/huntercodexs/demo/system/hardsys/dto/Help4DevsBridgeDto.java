@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsBridgeDto {
-
-    private final List<String> bridge;
 
     private String id;
     private String name;
@@ -16,65 +12,62 @@ public class Help4DevsBridgeDto {
     private String description;
     private List<String> details;
 
-    public Help4DevsBridgeDto(List<String> bridge) {
-        this.bridge = bridge;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.bridge.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.bridge.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsBridgeDto builder() {
-        this.id = buildString(0);
-        this.name = buildString(1);
-        this.type = buildString(2);
-        this.vendor = buildString(3);
-        this.source = buildString(4);
-        this.description = buildString(5);
-        this.details = buildCollection(6);
-        return this;
-    }
+    public Help4DevsBridgeDto() {}
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getVendor() {
         return vendor;
     }
 
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
     public String getSource() {
         return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<String> getDetails() {
         return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
     }
 
     public String toString() {

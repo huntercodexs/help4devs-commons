@@ -8,16 +8,21 @@ import java.util.List;
 
 public class Help4DevsHardSysFactory extends Help4DevsHardSysBase {
 
-    public Help4DevsHardSysFactory(HashMap<String, List<String>> resources, Help4DevsHardSysCommands command) {
+    public Help4DevsHardSysFactory(
+            Help4DevsHardSysCommands command,
+            HashMap<String, List<String>> resources,
+            HashMap<String, Object> transport
+    ) {
         this.command = command;
         this.resources = resources;
+        this.transport = transport;
     }
 
     public void make() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
             new Help4DevsHardSysInxiFactory(this.resources).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            new Help4DevsHardSysHwinfoFactory(this.resources).factory();
+            new Help4DevsHardSysHwinfoFactory(this.resources, this.transport).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
             new Help4DevsHardSysLshwFactory(this.resources).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {

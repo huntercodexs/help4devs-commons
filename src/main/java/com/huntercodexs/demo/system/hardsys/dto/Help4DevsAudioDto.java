@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsAudioDto {
-
-    private final List<String> audio;
 
     private String id;
     private String bus;
@@ -26,120 +22,147 @@ public class Help4DevsAudioDto {
     private List<String> details;
     private List<String> devices;
 
-    public Help4DevsAudioDto(List<String> audio) {
-        this.audio = audio;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.audio.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.audio.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsAudioDto builder() {
-        this.id = buildString(0);
-        this.bus = buildString(1);
-        this.name = buildString(2);
-        this.model = buildString(3);
-        this.board = buildString(4);
-        this.vendor = buildString(5);
-        this.driver = buildString(6);
-        this.source = buildString(7);
-        this.version = buildString(8);
-        this.product = buildString(9);
-        this.frequency = buildString(10);
-        this.resources = buildString(11);
-        this.multimedia = buildString(12);
-        this.description = buildString(13);
-        this.capabilities = buildString(14);
-        this.details = buildCollection(15);
-        this.devices = buildCollection(16);
-        return this;
-    }
-
-    public String getId() {
-        return id;
-    }
+    public Help4DevsAudioDto() {}
 
     public String getBus() {
         return bus;
+    }
+
+    public void setBus(String bus) {
+        this.bus = bus;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getModel() {
         return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getBoard() {
         return board;
     }
 
+    public void setBoard(String board) {
+        this.board = board;
+    }
+
     public String getVendor() {
         return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 
     public String getDriver() {
         return driver;
     }
 
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
     public String getSource() {
         return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getVersion() {
         return version;
     }
 
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     public String getProduct() {
         return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public String getFrequency() {
         return frequency;
     }
 
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
     public String getResources() {
         return resources;
+    }
+
+    public void setResources(String resources) {
+        this.resources = resources;
     }
 
     public String getMultimedia() {
         return multimedia;
     }
 
+    public void setMultimedia(String multimedia) {
+        this.multimedia = multimedia;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCapabilities() {
         return capabilities;
     }
 
+    public void setCapabilities(String capabilities) {
+        this.capabilities = capabilities;
+    }
+
     public List<String> getDetails() {
         return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
     }
 
     public List<String> getDevices() {
         return devices;
     }
 
+    public void setDevices(List<String> devices) {
+        this.devices = devices;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String toString() {
         return "Help4DevsAudioDto[" +
-                ", id=" + id +
+                "id=" + id +
                 ", bus=" + bus +
                 ", name=" + name +
                 ", model=" + model +

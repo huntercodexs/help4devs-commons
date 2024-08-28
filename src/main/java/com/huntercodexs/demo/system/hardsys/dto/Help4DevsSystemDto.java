@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsSystemDto {
-
-    private final List<String> system;
 
     private String name;
     private String arch;
@@ -28,125 +24,158 @@ public class Help4DevsSystemDto {
     private List<String> hotfix;
     private List<String> details;
 
-    public Help4DevsSystemDto(List<String> system) {
-        this.system = system;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.system.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.system.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsSystemDto builder() {
-        this.name = buildString(0);
-        this.arch = buildString(1);
-        this.home = buildString(2);
-        this.date = buildString(3);
-        this.root = buildString(4);
-        this.vendor = buildString(5);
-        this.kernel = buildString(6);
-        this.userdir = buildString(7);
-        this.release = buildString(8);
-        this.version = buildString(9);
-        this.mounted = buildString(10);
-        this.username = buildString(11);
-        this.description = buildString(12);
-        this.manufacturer = buildString(13);
-        this.fileSeparator = buildString(14);
-        this.pathSeparator = buildString(15);
-        this.lineSeparator = buildString(16);
-        this.hotfix = buildCollection(17);
-        this.details = buildCollection(18);
-        return this;
-    }
+    public Help4DevsSystemDto() {}
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getArch() {
         return arch;
     }
 
+    public void setArch(String arch) {
+        this.arch = arch;
+    }
+
     public String getHome() {
         return home;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
     }
 
     public String getDate() {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getRoot() {
         return root;
+    }
+
+    public void setRoot(String root) {
+        this.root = root;
     }
 
     public String getVendor() {
         return vendor;
     }
 
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
     public String getKernel() {
         return kernel;
+    }
+
+    public void setKernel(String kernel) {
+        this.kernel = kernel;
     }
 
     public String getUserdir() {
         return userdir;
     }
 
+    public void setUserdir(String userdir) {
+        this.userdir = userdir;
+    }
+
     public String getRelease() {
         return release;
+    }
+
+    public void setRelease(String release) {
+        this.release = release;
     }
 
     public String getVersion() {
         return version;
     }
 
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     public String getMounted() {
         return mounted;
+    }
+
+    public void setMounted(String mounted) {
+        this.mounted = mounted;
     }
 
     public String getUsername() {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getManufacturer() {
         return manufacturer;
     }
 
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
     public String getFileSeparator() {
         return fileSeparator;
+    }
+
+    public void setFileSeparator(String fileSeparator) {
+        this.fileSeparator = fileSeparator;
     }
 
     public String getPathSeparator() {
         return pathSeparator;
     }
 
+    public void setPathSeparator(String pathSeparator) {
+        this.pathSeparator = pathSeparator;
+    }
+
     public String getLineSeparator() {
         return lineSeparator;
+    }
+
+    public void setLineSeparator(String lineSeparator) {
+        this.lineSeparator = lineSeparator;
     }
 
     public List<String> getHotfix() {
         return hotfix;
     }
 
+    public void setHotfix(List<String> hotfix) {
+        this.hotfix = hotfix;
+    }
+
     public List<String> getDetails() {
         return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
     }
 
     public String toString() {

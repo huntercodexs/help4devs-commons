@@ -1,7 +1,5 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.List;
-
 public class Help4DevsHardSysResourcesDto {
 
     private Help4DevsSystemDto system;
@@ -41,256 +39,256 @@ public class Help4DevsHardSysResourcesDto {
         return system;
     }
 
-    public void setSystem(List<String> system) {
-        this.system = new Help4DevsSystemDto(system).builder();
+    public void setSystem(Object system) {
+        this.system = (Help4DevsSystemDto)system;
     }
 
     public Help4DevsMachineDto getMachine() {
         return machine;
     }
 
-    public void setMachine(List<String> machine) {
-        this.machine = new Help4DevsMachineDto(machine).builder();
+    public void setMachine(Object machine) {
+        this.machine = (Help4DevsMachineDto)machine;
     }
 
     public Help4DevsBatteryDto getBattery() {
         return battery;
     }
 
-    public void setBattery(List<String> battery) {
-        this.battery = new Help4DevsBatteryDto(battery).builder();
+    public void setBattery(Object battery) {
+        this.battery = (Help4DevsBatteryDto)battery;
     }
 
     public Help4DevsMemoryDto getMemory() {
         return memory;
     }
 
-    public void setMemory(List<String> memory) {
-        this.memory = new Help4DevsMemoryDto(memory).builder();
+    public void setMemory(Object memory) {
+        this.memory = (Help4DevsMemoryDto)memory;
     }
 
     public Help4DevsSlotsDto getSlots() {
         return slots;
     }
 
-    public void setSlots(List<String> slots) {
-        this.slots = new Help4DevsSlotsDto(slots).builder();
+    public void setSlots(Object slots) {
+        this.slots = (Help4DevsSlotsDto)slots;
     }
 
     public Help4DevsProcessorDto getProcessor() {
         return processor;
     }
 
-    public void setProcessor(List<String> processor) {
-        this.processor = new Help4DevsProcessorDto(processor).builder();
+    public void setProcessor(Object processor) {
+        this.processor = (Help4DevsProcessorDto) processor;
     }
 
     public Help4DevsGraphicsDto getGraphics() {
         return graphics;
     }
 
-    public void setGraphics(List<String> graphics) {
-        this.graphics = new Help4DevsGraphicsDto(graphics).builder();
+    public void setGraphics(Object graphics) {
+        this.graphics = (Help4DevsGraphicsDto)graphics;
     }
 
     public Help4DevsAudioDto getAudio() {
         return audio;
     }
 
-    public void setAudio(List<String> audio) {
-        this.audio = new Help4DevsAudioDto(audio).builder();
+    public void setAudio(Object audio) {
+        this.audio = (Help4DevsAudioDto)audio;
     }
 
     public Help4DevsNetworkDto getNetwork() {
         return network;
     }
 
-    public void setNetwork(List<String> network) {
-        this.network = new Help4DevsNetworkDto(network).builder();
+    public void setNetwork(Object network) {
+        this.network = (Help4DevsNetworkDto)network;
     }
 
     public Help4DevsDriversDto getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(List<String> drivers) {
-        this.drivers = new Help4DevsDriversDto(drivers).builder();
+    public void setDrivers(Object drivers) {
+        this.drivers = (Help4DevsDriversDto)drivers;
     }
 
     public Help4DevsPartitionDto getPartition() {
         return partition;
     }
 
-    public void setPartition(List<String> partition) {
-        this.partition = new Help4DevsPartitionDto(partition).builder();
+    public void setPartition(Object partition) {
+        this.partition = (Help4DevsPartitionDto)partition;
     }
 
     public Help4DevsUsbDto getUsb() {
         return usb;
     }
 
-    public void setUsb(List<String> usb) {
-        this.usb = new Help4DevsUsbDto(usb).builder();
+    public void setUsb(Object usb) {
+        this.usb = (Help4DevsUsbDto)usb;
     }
 
     public Help4DevsSensorsDto getSensors() {
         return sensors;
     }
 
-    public void setSensors(List<String> sensors) {
-        this.sensors = new Help4DevsSensorsDto(sensors).builder();
+    public void setSensors(Object sensors) {
+        this.sensors = (Help4DevsSensorsDto)sensors;
     }
 
     public Help4DevsRunningDto getRunning() {
         return running;
     }
 
-    public void setRunning(List<String> running) {
-        this.running = new Help4DevsRunningDto(running).builder();
+    public void setRunning(Object running) {
+        this.running = (Help4DevsRunningDto)running;
     }
 
     public Help4DevsMonitorDto getMonitor() {
         return monitor;
     }
 
-    public void setMonitor(List<String> monitor) {
-        this.monitor = new Help4DevsMonitorDto(monitor).builder();
+    public void setMonitor(Object monitor) {
+        this.monitor = (Help4DevsMonitorDto)monitor;
     }
 
     public Help4DevsBiosDto getBios() {
         return bios;
     }
 
-    public void setBios(List<String> bios) {
-        this.bios = new Help4DevsBiosDto(bios).builder();
+    public void setBios(Object bios) {
+        this.bios = (Help4DevsBiosDto)bios;
     }
 
     public Help4DevsBaseboardDto getBaseboard() {
         return baseboard;
     }
 
-    public void setBaseboard(List<String> baseboard) {
-        this.baseboard = new Help4DevsBaseboardDto(baseboard).builder();
+    public void setBaseboard(Object baseboard) {
+        this.baseboard = (Help4DevsBaseboardDto)baseboard;
     }
 
     public Help4DevsChassisDto getChassis() {
         return chassis;
     }
 
-    public void setChassis(List<String> chassis) {
-        this.chassis = new Help4DevsChassisDto(chassis).builder();
+    public void setChassis(Object chassis) {
+        this.chassis = (Help4DevsChassisDto)chassis;
     }
 
     public Help4DevsCacheDto getCache() {
         return cache;
     }
 
-    public void setCache(List<String> cache) {
-        this.cache = new Help4DevsCacheDto(cache).builder();
+    public void setCache(Object cache) {
+        this.cache = (Help4DevsCacheDto)cache;
     }
 
     public Help4DevsConnectorDto getConnector() {
         return connector;
     }
 
-    public void setConnector(List<String> connector) {
-        this.connector = new Help4DevsConnectorDto(connector).builder();
+    public void setConnector(Object connector) {
+        this.connector = (Help4DevsConnectorDto)connector;
     }
 
     public Help4DevsKeyboardDto getKeyboard() {
         return keyboard;
     }
 
-    public void setKeyboard(List<String> keyboard) {
-        this.keyboard = new Help4DevsKeyboardDto(keyboard).builder();
+    public void setKeyboard(Object keyboard) {
+        this.keyboard = (Help4DevsKeyboardDto)keyboard;
     }
 
     public Help4DevsMouseDto getMouse() {
         return mouse;
     }
 
-    public void setMouse(List<String> mouse) {
-        this.mouse = new Help4DevsMouseDto(mouse).builder();
+    public void setMouse(Object mouse) {
+        this.mouse = (Help4DevsMouseDto)mouse;
     }
 
     public Help4DevsHubDto getHub() {
         return hub;
     }
 
-    public void setHub(List<String> hub) {
-        this.hub = new Help4DevsHubDto(hub).builder();
+    public void setHub(Object hub) {
+        this.hub = (Help4DevsHubDto)hub;
     }
 
     public Help4DevsSwitchDto getSwitcher() {
         return switcher;
     }
 
-    public void setSwitcher(List<String> switcher) {
-        this.switcher = new Help4DevsSwitchDto(switcher).builder();
+    public void setSwitcher(Object switcher) {
+        this.switcher = (Help4DevsSwitchDto)switcher;
     }
 
     public Help4DevsModemDto getModem() {
         return modem;
     }
 
-    public void setModem(List<String> modem) {
-        this.modem = new Help4DevsModemDto(modem).builder();
+    public void setModem(Object modem) {
+        this.modem = (Help4DevsModemDto)modem;
     }
 
     public Help4DevsDiskDto getDisk() {
         return disk;
     }
 
-    public void setDisk(List<String> disk) {
-        this.disk = new Help4DevsDiskDto(disk).builder();
+    public void setDisk(Object disk) {
+        this.disk = (Help4DevsDiskDto)disk;
     }
 
     public Help4DevsBluetoothDto getBluetooth() {
         return bluetooth;
     }
 
-    public void setBluetooth(List<String> bluetooth) {
-        this.bluetooth = new Help4DevsBluetoothDto(bluetooth).builder();
+    public void setBluetooth(Object bluetooth) {
+        this.bluetooth = (Help4DevsBluetoothDto)bluetooth;
     }
 
     public Help4DevsVideoDto getVideo() {
         return video;
     }
 
-    public void setVideo(List<String> video) {
-        this.video = new Help4DevsVideoDto(video).builder();
+    public void setVideo(Object video) {
+        this.video = (Help4DevsVideoDto)video;
     }
 
     public Help4DevsStorageDto getStorage() {
         return storage;
     }
 
-    public void setStorage(List<String> storage) {
-        this.storage = new Help4DevsStorageDto(storage).builder();
+    public void setStorage(Object storage) {
+        this.storage = (Help4DevsStorageDto)storage;
     }
 
     public Help4DevsBridgeDto getBridge() {
         return bridge;
     }
 
-    public void setBridge(List<String> bridge) {
-        this.bridge = new Help4DevsBridgeDto(bridge).builder();
+    public void setBridge(Object bridge) {
+        this.bridge = (Help4DevsBridgeDto)bridge;
     }
 
     public Help4DevsNetworkInterfaceDto getNetworkInterface() {
         return networkInterface;
     }
 
-    public void setNetworkInterface(List<String> networkInterface) {
-        this.networkInterface = new Help4DevsNetworkInterfaceDto(networkInterface).builder();
+    public void setNetworkInterface(Object networkInterface) {
+        this.networkInterface = (Help4DevsNetworkInterfaceDto)networkInterface;
     }
 
     public Help4DevsUnknownDto getUnknown() {
         return unknown;
     }
 
-    public void setUnknown(List<String> unknown) {
-        this.unknown = new Help4DevsUnknownDto(unknown).builder();
+    public void setUnknown(Object unknown) {
+        this.unknown = (Help4DevsUnknownDto)unknown;
     }
 
     public String toString() {

@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsDiskDto {
-
-    private final List<String> disk;
 
     private List<String> id;
     private List<String> name;
@@ -24,105 +20,126 @@ public class Help4DevsDiskDto {
     private List<String> description;
     private List<String> details;
 
-    public Help4DevsDiskDto(List<String> disk) {
-        this.disk = disk;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.disk.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.disk.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsDiskDto builder() {
-        this.id = buildCollection(0);
-        this.name = buildCollection(1);
-        this.type = buildCollection(2);
-        this.size = buildCollection(3);
-        this.used = buildCollection(4);
-        this.free = buildCollection(5);
-        this.speed = buildCollection(6);
-        this.vendor = buildCollection(7);
-        this.driver = buildCollection(8);
-        this.serial = buildCollection(9);
-        this.source = buildCollection(10);
-        this.partition = buildCollection(11);
-        this.manufacture = buildCollection(12);
-        this.description = buildCollection(13);
-        this.details = buildCollection(14);
-        return this;
-    }
+    public Help4DevsDiskDto() {}
 
     public List<String> getId() {
         return id;
+    }
+
+    public void setId(List<String> id) {
+        this.id = id;
     }
 
     public List<String> getName() {
         return name;
     }
 
+    public void setName(List<String> name) {
+        this.name = name;
+    }
+
     public List<String> getType() {
         return type;
+    }
+
+    public void setType(List<String> type) {
+        this.type = type;
     }
 
     public List<String> getSize() {
         return size;
     }
 
+    public void setSize(List<String> size) {
+        this.size = size;
+    }
+
     public List<String> getUsed() {
         return used;
+    }
+
+    public void setUsed(List<String> used) {
+        this.used = used;
     }
 
     public List<String> getFree() {
         return free;
     }
 
+    public void setFree(List<String> free) {
+        this.free = free;
+    }
+
     public List<String> getSpeed() {
         return speed;
+    }
+
+    public void setSpeed(List<String> speed) {
+        this.speed = speed;
     }
 
     public List<String> getVendor() {
         return vendor;
     }
 
+    public void setVendor(List<String> vendor) {
+        this.vendor = vendor;
+    }
+
     public List<String> getDriver() {
         return driver;
+    }
+
+    public void setDriver(List<String> driver) {
+        this.driver = driver;
     }
 
     public List<String> getSerial() {
         return serial;
     }
 
+    public void setSerial(List<String> serial) {
+        this.serial = serial;
+    }
+
     public List<String> getSource() {
         return source;
+    }
+
+    public void setSource(List<String> source) {
+        this.source = source;
     }
 
     public List<String> getPartition() {
         return partition;
     }
 
+    public void setPartition(List<String> partition) {
+        this.partition = partition;
+    }
+
     public List<String> getManufacture() {
         return manufacture;
+    }
+
+    public void setManufacture(List<String> manufacture) {
+        this.manufacture = manufacture;
     }
 
     public List<String> getDescription() {
         return description;
     }
 
+    public void setDescription(List<String> description) {
+        this.description = description;
+    }
+
     public List<String> getDetails() {
         return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
     }
 
     public String toString() {

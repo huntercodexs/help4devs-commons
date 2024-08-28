@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsProcessorDto {
-
-    private final List<String> processor;
 
     private String cores;
     private String name;
@@ -38,175 +34,238 @@ public class Help4DevsProcessorDto {
     private List<String> listCores;
     private List<String> speedCores;
 
-    public Help4DevsProcessorDto(List<String> processor) {
-        this.processor = processor;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.processor.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.processor.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsProcessorDto builder() {
-        this.cores = buildString(0);
-        this.name = buildString(1);
-        this.model = buildString(2);
-        this.family = buildString(3);
-        this.speed = buildString(4);
-        this.current = buildString(5);
-        this.arch = buildString(6);
-        this.topology = buildString(7);
-        this.bits = buildString(8);
-        this.cache = buildString(9);
-        this.cacheL1 = buildString(10);
-        this.cacheL2 = buildString(11);
-        this.cacheL3 = buildString(12);
-        this.cacheL4 = buildString(13);
-        this.cacheL5 = buildString(14);
-        this.bogomips = buildString(15);
-        this.flags = buildString(16);
-        this.minSpeed = buildString(17);
-        this.maxSpeed = buildString(18);
-        this.socket = buildString(19);
-        this.type = buildString(20);
-        this.manufacturer = buildString(21);
-        this.version = buildString(22);
-        this.voltage = buildString(23);
-        this.clock = buildString(24);
-        this.serialNumber = buildString(25);
-        this.characteristics = buildString(26);
-        this.listCores = buildCollection(27);
-        this.speedCores = buildCollection(28);
-        return this;
-    }
+    public Help4DevsProcessorDto() {}
 
     public String getCores() {
         return cores;
+    }
+
+    public void setCores(String cores) {
+        this.cores = cores;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getArch() {
-        return arch;
-    }
-
-    public String getTopology() {
-        return topology;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getModel() {
         return model;
     }
 
-    public String getSpeed() {
-        return speed;
-    }
-
-    public String getCurrent() {
-        return current;
-    }
-
-    public String getBits() {
-        return bits;
-    }
-
-    public String getCache() {
-        return cache;
-    }
-
-    public String getCacheL1() {
-        return cacheL1;
-    }
-
-    public String getCacheL2() {
-        return cacheL2;
-    }
-
-    public String getCacheL3() {
-        return cacheL3;
-    }
-
-    public String getCacheL4() {
-        return cacheL4;
-    }
-
-    public String getCacheL5() {
-        return cacheL5;
-    }
-
-    public String getBogomips() {
-        return bogomips;
-    }
-
-    public String getFlags() {
-        return flags;
-    }
-
-    public String getMinSpeed() {
-        return minSpeed;
-    }
-
-    public String getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public String getSocket() {
-        return socket;
-    }
-
-    public String getType() {
-        return type;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getFamily() {
         return family;
     }
 
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
+    public String getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(String current) {
+        this.current = current;
+    }
+
+    public String getArch() {
+        return arch;
+    }
+
+    public void setArch(String arch) {
+        this.arch = arch;
+    }
+
+    public String getTopology() {
+        return topology;
+    }
+
+    public void setTopology(String topology) {
+        this.topology = topology;
+    }
+
+    public String getBits() {
+        return bits;
+    }
+
+    public void setBits(String bits) {
+        this.bits = bits;
+    }
+
+    public String getCache() {
+        return cache;
+    }
+
+    public void setCache(String cache) {
+        this.cache = cache;
+    }
+
+    public String getCacheL1() {
+        return cacheL1;
+    }
+
+    public void setCacheL1(String cacheL1) {
+        this.cacheL1 = cacheL1;
+    }
+
+    public String getCacheL2() {
+        return cacheL2;
+    }
+
+    public void setCacheL2(String cacheL2) {
+        this.cacheL2 = cacheL2;
+    }
+
+    public String getCacheL3() {
+        return cacheL3;
+    }
+
+    public void setCacheL3(String cacheL3) {
+        this.cacheL3 = cacheL3;
+    }
+
+    public String getCacheL4() {
+        return cacheL4;
+    }
+
+    public void setCacheL4(String cacheL4) {
+        this.cacheL4 = cacheL4;
+    }
+
+    public String getCacheL5() {
+        return cacheL5;
+    }
+
+    public void setCacheL5(String cacheL5) {
+        this.cacheL5 = cacheL5;
+    }
+
+    public String getBogomips() {
+        return bogomips;
+    }
+
+    public void setBogomips(String bogomips) {
+        this.bogomips = bogomips;
+    }
+
+    public String getFlags() {
+        return flags;
+    }
+
+    public void setFlags(String flags) {
+        this.flags = flags;
+    }
+
+    public String getMinSpeed() {
+        return minSpeed;
+    }
+
+    public void setMinSpeed(String minSpeed) {
+        this.minSpeed = minSpeed;
+    }
+
+    public String getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(String maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public String getSocket() {
+        return socket;
+    }
+
+    public void setSocket(String socket) {
+        this.socket = socket;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getManufacturer() {
         return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public String getVersion() {
         return version;
     }
 
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     public String getVoltage() {
         return voltage;
+    }
+
+    public void setVoltage(String voltage) {
+        this.voltage = voltage;
     }
 
     public String getClock() {
         return clock;
     }
 
+    public void setClock(String clock) {
+        this.clock = clock;
+    }
+
     public String getSerialNumber() {
         return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public String getCharacteristics() {
         return characteristics;
     }
 
+    public void setCharacteristics(String characteristics) {
+        this.characteristics = characteristics;
+    }
+
     public List<String> getListCores() {
         return listCores;
     }
 
+    public void setListCores(List<String> listCores) {
+        this.listCores = listCores;
+    }
+
     public List<String> getSpeedCores() {
         return speedCores;
+    }
+
+    public void setSpeedCores(List<String> speedCores) {
+        this.speedCores = speedCores;
     }
 
     public String toString() {

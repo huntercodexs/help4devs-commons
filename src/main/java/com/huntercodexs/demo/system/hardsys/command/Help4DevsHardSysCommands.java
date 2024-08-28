@@ -2,6 +2,7 @@ package com.huntercodexs.demo.system.hardsys.command;
 
 public enum Help4DevsHardSysCommands {
 
+    AUTO("auto"),
     INXI("inxi -Fxz " +
             "--slots " +
             "--memory " +

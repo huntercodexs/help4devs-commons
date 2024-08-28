@@ -62,6 +62,7 @@ public abstract class Help4DevsHardSysBase {
     private final Help4DevsStringHandlerService stringHandler = new Help4DevsStringHandlerService();
 
     protected Help4DevsHardSysCommands command;
+    protected HashMap<String, Object> transport;
     protected HashMap<String, List<String>> resources;
 
     //INXI Version 3.0.38 (Layout)

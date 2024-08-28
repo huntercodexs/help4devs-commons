@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsVideoDto {
-
-    private final List<String> video;
 
     private List<String> id;
     private List<String> bus;
@@ -30,135 +26,174 @@ public class Help4DevsVideoDto {
     private List<String> devices;
     private List<String> features;
 
-    public Help4DevsVideoDto(List<String> video) {
-        this.video = video;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.video.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.video.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsVideoDto builder() {
-        this.id = buildCollection(0);
-        this.bus = buildCollection(1);
-        this.vga = buildCollection(2);
-        this.name = buildCollection(3);
-        this.model = buildCollection(4);
-        this.memory = buildCollection(5);
-        this.board = buildCollection(6);
-        this.vendor = buildCollection(7);
-        this.driver = buildCollection(8);
-        this.source = buildCollection(9);
-        this.openGL = buildCollection(10);
-        this.version = buildCollection(11);
-        this.product = buildCollection(12);
-        this.renderer = buildCollection(13);
-        this.resources = buildCollection(14);
-        this.frequency = buildCollection(15);
-        this.multimedia = buildCollection(16);
-        this.description = buildCollection(17);
-        this.capabilities = buildCollection(18);
-        this.devices = buildCollection(20);
-        this.features = buildCollection(21);
-        return this;
-    }
+    public Help4DevsVideoDto() {}
 
     public List<String> getId() {
         return id;
+    }
+
+    public void setId(List<String> id) {
+        this.id = id;
     }
 
     public List<String> getBus() {
         return bus;
     }
 
+    public void setBus(List<String> bus) {
+        this.bus = bus;
+    }
+
     public List<String> getVga() {
         return vga;
+    }
+
+    public void setVga(List<String> vga) {
+        this.vga = vga;
     }
 
     public List<String> getName() {
         return name;
     }
 
+    public void setName(List<String> name) {
+        this.name = name;
+    }
+
     public List<String> getModel() {
         return model;
+    }
+
+    public void setModel(List<String> model) {
+        this.model = model;
     }
 
     public List<String> getMemory() {
         return memory;
     }
 
+    public void setMemory(List<String> memory) {
+        this.memory = memory;
+    }
+
     public List<String> getBoard() {
         return board;
+    }
+
+    public void setBoard(List<String> board) {
+        this.board = board;
     }
 
     public List<String> getVendor() {
         return vendor;
     }
 
+    public void setVendor(List<String> vendor) {
+        this.vendor = vendor;
+    }
+
     public List<String> getDriver() {
         return driver;
+    }
+
+    public void setDriver(List<String> driver) {
+        this.driver = driver;
     }
 
     public List<String> getSource() {
         return source;
     }
 
+    public void setSource(List<String> source) {
+        this.source = source;
+    }
+
     public List<String> getOpenGL() {
         return openGL;
+    }
+
+    public void setOpenGL(List<String> openGL) {
+        this.openGL = openGL;
     }
 
     public List<String> getVersion() {
         return version;
     }
 
+    public void setVersion(List<String> version) {
+        this.version = version;
+    }
+
     public List<String> getProduct() {
         return product;
+    }
+
+    public void setProduct(List<String> product) {
+        this.product = product;
     }
 
     public List<String> getRenderer() {
         return renderer;
     }
 
+    public void setRenderer(List<String> renderer) {
+        this.renderer = renderer;
+    }
+
     public List<String> getResources() {
         return resources;
+    }
+
+    public void setResources(List<String> resources) {
+        this.resources = resources;
     }
 
     public List<String> getFrequency() {
         return frequency;
     }
 
+    public void setFrequency(List<String> frequency) {
+        this.frequency = frequency;
+    }
+
     public List<String> getMultimedia() {
         return multimedia;
+    }
+
+    public void setMultimedia(List<String> multimedia) {
+        this.multimedia = multimedia;
     }
 
     public List<String> getDescription() {
         return description;
     }
 
+    public void setDescription(List<String> description) {
+        this.description = description;
+    }
+
     public List<String> getCapabilities() {
         return capabilities;
+    }
+
+    public void setCapabilities(List<String> capabilities) {
+        this.capabilities = capabilities;
     }
 
     public List<String> getDevices() {
         return devices;
     }
 
+    public void setDevices(List<String> devices) {
+        this.devices = devices;
+    }
+
     public List<String> getFeatures() {
         return features;
+    }
+
+    public void setFeatures(List<String> features) {
+        this.features = features;
     }
 
     public String toString() {

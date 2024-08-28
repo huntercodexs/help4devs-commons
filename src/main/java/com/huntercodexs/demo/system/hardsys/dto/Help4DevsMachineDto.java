@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsMachineDto {
-
-    private final List<String> machine;
 
     private String uefi;
     private String name;
@@ -24,108 +20,128 @@ public class Help4DevsMachineDto {
     private String manufacturer;
     private List<String> features;
 
-    public Help4DevsMachineDto(List<String> machine) {
-        this.machine = machine;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.machine.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.machine.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsMachineDto builder() {
-        this.uefi = buildString(0);
-        this.name = buildString(1);
-        this.type = buildString(2);
-        this.date = buildString(3);
-        this.mobo = buildString(4);
-        this.code = buildString(5);
-        this.model = buildString(6);
-        this.serial = buildString(7);
-        this.vendor = buildString(8);
-        this.family = buildString(9);
-        this.version = buildString(10);
-        this.product = buildString(11);
-        this.description = buildString(12);
-        this.manufacturer = buildString(13);
-        this.features = buildCollection(14);
-        return this;
-    }
+    public Help4DevsMachineDto() {}
 
     public String getUefi() {
         return uefi;
+    }
+
+    public void setUefi(String uefi) {
+        this.uefi = uefi;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDate() {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getMobo() {
         return mobo;
+    }
+
+    public void setMobo(String mobo) {
+        this.mobo = mobo;
     }
 
     public String getCode() {
         return code;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getModel() {
         return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getSerial() {
         return serial;
     }
 
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
     public String getVendor() {
         return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 
     public String getFamily() {
         return family;
     }
 
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
     public String getVersion() {
         return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public String getProduct() {
         return product;
     }
 
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getManufacturer() {
         return manufacturer;
     }
 
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
     public List<String> getFeatures() {
         return features;
     }
 
-    @Override
+    public void setFeatures(List<String> features) {
+        this.features = features;
+    }
+
     public String toString() {
         return "Help4DevsMachineDto[" +
                 "uefi=" + uefi +

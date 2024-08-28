@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsBiosDto {
-
-    private final List<String> bios;
 
     private String id;
     private String name;
@@ -24,105 +20,126 @@ public class Help4DevsBiosDto {
     private List<String> details;
     private List<String> characteristics;
 
-    public Help4DevsBiosDto(List<String> bios) {
-        this.bios = bios;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.bios.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.bios.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsBiosDto builder() {
-        this.id = buildString(0);
-        this.name = buildString(1);
-        this.type = buildString(2);
-        this.vendor = buildString(3);
-        this.source = buildString(4);
-        this.serial = buildString(5);
-        this.version = buildString(6);
-        this.product = buildString(7);
-        this.release = buildString(8);
-        this.firmware = buildString(9);
-        this.revision = buildString(10);
-        this.description = buildString(11);
-        this.manufacturer = buildString(12);
-        this.details = buildCollection(13);
-        this.characteristics = buildCollection(14);
-        return this;
-    }
+    public Help4DevsBiosDto() {}
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getVendor() {
         return vendor;
     }
 
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
     public String getSource() {
         return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getSerial() {
         return serial;
     }
 
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
     public String getVersion() {
         return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public String getProduct() {
         return product;
     }
 
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
     public String getRelease() {
         return release;
+    }
+
+    public void setRelease(String release) {
+        this.release = release;
     }
 
     public String getFirmware() {
         return firmware;
     }
 
+    public void setFirmware(String firmware) {
+        this.firmware = firmware;
+    }
+
     public String getRevision() {
         return revision;
+    }
+
+    public void setRevision(String revision) {
+        this.revision = revision;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getManufacturer() {
         return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public List<String> getDetails() {
         return details;
     }
 
+    public void setDetails(List<String> details) {
+        this.details = details;
+    }
+
     public List<String> getCharacteristics() {
         return characteristics;
+    }
+
+    public void setCharacteristics(List<String> characteristics) {
+        this.characteristics = characteristics;
     }
 
     public String toString() {

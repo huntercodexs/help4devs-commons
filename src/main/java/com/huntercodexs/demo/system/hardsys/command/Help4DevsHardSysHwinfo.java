@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @implNote This class process for JSON and DTO formats results
+ * */
 public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
 
     public Help4DevsHardSysHwinfo(HashMap<String, List<String>> resources) {

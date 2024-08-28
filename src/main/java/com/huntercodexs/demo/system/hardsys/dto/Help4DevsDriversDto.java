@@ -1,12 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Help4DevsDriversDto {
-
-    private final List<String> drivers;
 
     private List<String> id;
     private List<String> names;
@@ -16,65 +12,62 @@ public class Help4DevsDriversDto {
     private List<String> detail;
     private List<String> device;
 
-    public Help4DevsDriversDto(List<String> drivers) {
-        this.drivers = drivers;
-    }
-
-    private String buildString(int i) {
-        try {
-            return this.drivers.get(i);
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[String]: "+re.getMessage());
-            return null;
-        }
-    }
-
-    private List<String> buildCollection(int i) {
-        try {
-            return Collections.singletonList(this.drivers.get(i));
-        } catch (RuntimeException re) {
-            System.out.println("ERROR[Collection]: "+re.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public Help4DevsDriversDto builder() {
-        this.id = buildCollection(0);
-        this.names = buildCollection(1);
-        this.vendor = buildCollection(2);
-        this.source = buildCollection(3);
-        this.description = buildCollection(4);
-        this.detail = buildCollection(5);
-        this.device = buildCollection(6);
-        return this;
-    }
+    public Help4DevsDriversDto() {}
 
     public List<String> getId() {
         return id;
+    }
+
+    public void setId(List<String> id) {
+        this.id = id;
     }
 
     public List<String> getNames() {
         return names;
     }
 
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
     public List<String> getVendor() {
         return vendor;
+    }
+
+    public void setVendor(List<String> vendor) {
+        this.vendor = vendor;
     }
 
     public List<String> getSource() {
         return source;
     }
 
+    public void setSource(List<String> source) {
+        this.source = source;
+    }
+
     public List<String> getDescription() {
         return description;
+    }
+
+    public void setDescription(List<String> description) {
+        this.description = description;
     }
 
     public List<String> getDetail() {
         return detail;
     }
 
+    public void setDetail(List<String> detail) {
+        this.detail = detail;
+    }
+
     public List<String> getDevice() {
         return device;
+    }
+
+    public void setDevice(List<String> device) {
+        this.device = device;
     }
 
     public String toString() {

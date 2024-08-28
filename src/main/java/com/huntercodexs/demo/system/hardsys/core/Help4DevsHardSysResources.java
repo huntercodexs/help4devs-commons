@@ -52,17 +52,28 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     private Help4DevsAllGroupDetails allGroupDetails;
     private HashMap<String, List<String>> resources;
 
+    /**
+     * @implNote Use for JSON cases
+     * */
     public Help4DevsHardSysResources(
-            HashMap<String, List<String>> resources,
             Help4DevsHardSysCommands command,
-            boolean jsonOn
+            HashMap<String, List<String>> resources
     ) {
-        if (jsonOn) {
-            this.jsonOn = true;
-            this.jsonBuilder(resources, command);
-        } else {
-            this.resources = resources;
-        }
+        this.jsonOn = true;
+        this.command = command;
+        this.jsonBuilder(resources, command);
+    }
+
+    /**
+     * @implNote Use for DTO cases
+     * */
+    public Help4DevsHardSysResources(
+            HashMap<String, Object> transport,
+            Help4DevsHardSysCommands command
+    ) {
+        this.jsonOn = false;
+        this.command = command;
+        this.transport = transport;
     }
 
     private void jsonBuilder(HashMap<String, List<String>> resources, Help4DevsHardSysCommands command) {
@@ -349,7 +360,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
         if (this.jsonOn) {
             throw new RuntimeException("Invalid Operation, please use jsonOn = false");
         }
-        return new Help4DevsHardSysBuilder(this.resources).build();
+        return new Help4DevsHardSysBuilder(this.transport).build();
     }
 
 }

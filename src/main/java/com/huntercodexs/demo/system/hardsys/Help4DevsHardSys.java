@@ -9,8 +9,7 @@ import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysResources;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.SYSTEMINFO;
-import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.sysCmd;
+import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.*;
 
 public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
@@ -23,6 +22,13 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
     private void checkOs() {
         String os = System.getProperty("os.name");
         String msg = "Invalid OS - This command should be used on";
+
+        /*
+         * The command will be configured late in the process flow
+         * */
+        if (this.command.equals(AUTO)) {
+            return;
+        }
 
         if (os.contains("Linux") || os.contains("Macintosh")) {
 
@@ -43,7 +49,8 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     private void loader() {
 
-        this.resources = new HashMap<>();
+        this.resources = new HashMap<>();/*JSON*/
+        this.transport = new HashMap<>();/*DTO*/
 
         for (String res : hardsys()) {
             this.resources.put(res, new ArrayList<>());
@@ -74,9 +81,10 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     public Help4DevsHardSysResources resources() {
         if (!this.getJsonOn()) {
-            new Help4DevsHardSysFactory(this.resources, this.command).make();
+            new Help4DevsHardSysFactory(this.command, this.resources, this.transport).make();
+            return new Help4DevsHardSysResources(this.transport, this.command);
         }
-        return new Help4DevsHardSysResources(this.resources, this.command, this.getJsonOn());
+        return new Help4DevsHardSysResources(this.command, this.resources);
     }
 
 }
