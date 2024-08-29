@@ -10,6 +10,9 @@ import java.util.List;
 
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonMergerRFC8259;
 
+/**
+ * @implNote This class only process for JSON format results
+ * */
 public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;

@@ -79,7 +79,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
         //Testing...
         Help4DevsMultimediaDto multimedia = new Help4DevsMultimediaDto();
         multimedia.setId(Arrays.asList("1","2"));
-        multimedia.setName(Arrays.asList("test","test"));
+        multimedia.setName(Arrays.asList("in test...","in test..."));
 
         this.transport.put(hardsys("multimedia"), multimedia);
 
