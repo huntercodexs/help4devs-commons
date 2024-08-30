@@ -39,8 +39,7 @@ public abstract class Help4DevsHardSysLayout {
             /*[14]*/ "hub:",
             /*[15]*/ "memory:",
             /*[16]*/ "bluetooth:",
-            /*[17]*/ "unknown:",
-            /*[18]*/ "multimedia:"
+            /*[17]*/ "unknown:"
     };
 
 }

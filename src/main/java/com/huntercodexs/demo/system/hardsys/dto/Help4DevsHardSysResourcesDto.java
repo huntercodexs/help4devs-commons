@@ -318,7 +318,7 @@ public class Help4DevsHardSysResourcesDto {
     }
 
     public String toString() {
-        return "Help4DevsHardSysMetricsDto[" +
+        return "Help4DevsHardSysResourcesDto[" +
                 "system=" + system +
                 ", machine=" + machine +
                 ", battery=" + battery +

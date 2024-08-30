@@ -118,19 +118,38 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
         String pattern = "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)";
         String replacer = "model:$1$2";
         String detail = "model";
-        codexsTesterAssertExact(stringExtractor(source, detail, pattern, replacer, 1), "i5-9300H");
+        codexsTesterAssertExact("i5-9300H", stringExtractor(source, detail, pattern, replacer, 1));
 
         source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
-        pattern = "(source: [/-_.0-9a-zA-Z]+)( description: )";
-        replacer = "source:$1";
         detail = "source";
-        codexsTesterAssertExact(stringExtractor(source, detail, pattern, replacer, 1), "/dev/input/event4");
+        pattern = "(source: [/-_.0-9a-zA-Z]+)( description: )";
+        replacer = "$1";
+        codexsTesterAssertExact("/dev/input/event4", stringExtractor(source, detail, pattern, replacer, 1));
 
         source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
+        detail = "description";
         pattern = "(description: [-_.0-9a-zA-Z]+)";
+        replacer = "$1";
+        codexsTesterAssertExact("AT-Translated-Set-2-keyboard", stringExtractor(source, detail, pattern, replacer, 1));
+
+        source = "SOURCE: SOURCE: LO DESCRIPTION: LOOPBACK-NETWORK-INTERFACE";
+        detail = "description";
+        pattern = "DESCRIPTION: (WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
+        replacer = "$1";
+        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, detail, pattern, replacer, 1));
+
+        source = "SOURCE: SOURCE: LO DESCRIPTION: LOOPBACK-NETWORK-INTERFACE";
+        detail = "DESCRIPTION";
+        pattern = "DESCRIPTION: (WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
+        replacer = "DESCRIPTION: $1";
+        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, detail, pattern, replacer, 1));
+
+        source = "SOURCE: SOURCE: LO DESCRIPTION: LOOPBACK-NETWORK-INTERFACE";
+        pattern = "DESCRIPTION: (WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
         replacer = "description:$1";
         detail = "description";
-        codexsTesterAssertExact(stringExtractor(source, detail, pattern, replacer, 1), "AT-Translated-Set-2-keyboard");
+
+        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, detail, pattern, replacer, 1));
     }
 
     @Test

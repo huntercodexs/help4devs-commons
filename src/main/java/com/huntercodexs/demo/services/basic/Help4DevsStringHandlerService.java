@@ -308,12 +308,20 @@ public class Help4DevsStringHandlerService {
      * */
     public static String stringExtractor(String input, String detail, String pattern, String replacer, int index) {
 
-        String begin = input.replaceAll(pattern, "#<"+index+"#"+replacer+"#"+index+">#");
-        String extract = begin.replaceAll(", ", " ");
+        try {
 
-        return StringUtils
-                .substringBetween(extract, "#<"+index+"#", "#"+index+">#")
-                .replaceAll(detail+":", "").trim();
+            String begin = input.replaceAll(pattern, "#<" + index + "#" + replacer + "#" + index + ">#");
+            String extract = begin.replaceAll(", ", " ");
+
+            return StringUtils
+                    .substringBetween(extract, "#<" + index + "#", "#" + index + ">#")
+                    .replaceAll(detail + ":", "").trim();
+
+        } catch (Exception ex) {
+            System.out.println("Exception during stringExtractor: " + ex.getMessage());
+            return "";
+        }
+
     }
 
     /**

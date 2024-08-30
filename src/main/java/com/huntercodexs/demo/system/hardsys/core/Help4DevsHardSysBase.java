@@ -24,6 +24,42 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
     protected HashMap<String, Object> transport;
     protected HashMap<String, List<String>> resources;
 
+    protected String vendorsPattern =
+            "(GAMDIAS|SMS|SEAGATE|SANDISK|SEGURIMAX|SECCON|MAX ELETRON|LACIE|NEPTON|SAMSUNG|PLUSCABLE|" +
+            "BIOSTAR|VIEWSONIC|JFL|TENDA|ARROW|GALAX|MSI|GAINWARD|VONDER|NOVE54|ZOTAC|HIKSEMI|HIKSEMI|" +
+            "WAVEONE|NORTH BAYOU|UBIQUITI|GAMEMAX|SEAL|CONTROL ID|MIKROTIK|INNO3D|MOTOROLA|MOTOROLA|" +
+            "MOTOROLA|MOTOROLA|GENIUS|GENIUS|GENIUS|PPA|LIKETEC|2FLEX|ACCEPT|ACER|ADATA|AGL|AMD|AOC|" +
+            "ASROCK|ASUS|AZZA|BELLA CERCA|BETA CAVI|BRASIL PC|C3 TECH|CHIP SCE|CISCO|CITROX|COLETEK|" +
+            "CONDUTTI|CONFISEG|CREALITY|D-LINK|DAZZ|DEEP COOL|ELGIN|ELGIN-BEMATECH|EPSON|EVGA|EZVIZ|" +
+            "FC FONTES|FIBERHOME|FLEX MIDIA|FURUKAWA|GENNO|GFORCE|GIGA|GIGABYTE|GILTAR|HDL|HIKVISION|" +
+            "HP|HUION|HYPERX|IGECAST|IMILAB|INTEL|INTELBRAS|IPEC|K-MEX|KASPERSKY|KINGSTON|LAN EXPERT|" +
+            "LENOVO|LG|LINEAR|LOGITECH|MEGATRON|MERCUSYS|MICROSOFT|APPLE|LINUX|MULTITOC|NANO ACCESS|" +
+            "NAZDA|NICE|NORTON|O-TECH|ONE POWER|ONIX|PATRIOT|PCYES|PECCININ|PHILIPS|PIXXO|PNY NVIDIA|" +
+            "POWERTEK|REDRAGON|T-DAGGER|TCL|TP-LINK|TRANSCEND|TSSHARA|VAIO|WACOM|WESTERN DIGITAL|XEROX|" +
+            "XZONE|G-TECH|SONY|CCE|PHILCO|AMAZON|LEXMARK|IBM|CREATIVE|VIA TECHNOLOGIES|REALTEK|C-MEDIA|" +
+            "ANALOG|ADLIB|MULTILASER|EXBOM|MOSART|NVIDIA)";
+
+    protected String processorModelPattern =
+            "(I[0-9]+|AMD|NVIDIA|MSI|GIGABYTE|ASUS|SAMSUNG)([-_.0-9a-zA-Z]+)";
+
+    protected String processorFamilyPatter =
+            "(INTEL|AMD|NVIDIA|MSI|GIGABYTE|ASUS|SAMSUNG)";
+
+    protected String monitorTypePattern =
+            "(FHD|WFHD|UHD|4K|HF LCD|LCD|HF|LED|UHLED|QLED)";
+
+    protected String videoTypePattern =
+            "(VGA|HD|FHD|UHD|DVI|HDMI|4K|DP|USB|RCA|MDP)";
+
+    protected String audioTypePattern =
+            "(PCH|HDMI|DTS|P2|USB|PS/2|S/PDIF)";
+
+    protected String storageTypePattern =
+            "(HD|SATA|SSD|NVME SSD|NVME|M2 SSD|M2|SCSI|SAS|ATA)";
+
+    protected String networkTypePattern =
+            "(WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
+
     protected String[] fields() {
         Field[] fields = Help4DevsHardSysResourcesDto.class.getDeclaredFields();
         int len = fields.length;
@@ -39,7 +75,7 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
         Field[] fields = Help4DevsHardSysResourcesDto.class.getDeclaredFields();
 
         for (Field field : fields) {
-            if (field.getName().equals(target)) {
+            if (field.getName().equalsIgnoreCase(target)) {
                 return target;
             }
         }
@@ -98,12 +134,20 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
 
     protected String stringExtractor(String input, String detail, String pattern, String replacer, int index) {
 
-        String begin = input.replaceAll(pattern, "#<"+index+"#"+replacer+"#"+index+">#");
-        String extract = begin.replaceAll(", ", " ");
+        try {
 
-        return StringUtils
-                .substringBetween(extract, "#<"+index+"#", "#"+index+">#")
-                .replaceAll(detail+":", "").trim();
+            String begin = input.replaceAll(pattern, "#<" + index + "#" + replacer + "#" + index + ">#");
+            String extract = begin.replaceAll(", ", " ");
+
+            return StringUtils
+                    .substringBetween(extract, "#<" + index + "#", "#" + index + ">#")
+                    .replaceAll(detail + ":", "").trim();
+
+        } catch (Exception ex) {
+            System.out.println("Exception during stringExtractor: " + ex.getMessage());
+            return "";
+        }
+
     }
 
     protected String stringList(List<String> items, String clear) {

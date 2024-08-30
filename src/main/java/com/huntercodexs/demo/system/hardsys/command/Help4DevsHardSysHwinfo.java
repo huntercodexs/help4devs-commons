@@ -5,7 +5,6 @@ import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +57,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
                             .replaceAll("-{2,}", " description: ");
 
                     makeList.add(item);
+
                 }
             }
         });
@@ -107,7 +107,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
         makeSource("^(keyboard)$", hardsys("keyboard"));
         makeSource("^(mouse)$", hardsys("mouse"));
         makeSource("^(network)$", hardsys("network"));
-        makeSource("^("+hardsys("networkInterface")+")$", hardsys("networkInterface"));
+        makeSource("^("+hardsys("networkinterface")+")$", hardsys("networkinterface"));
         makeSource("^(disk)$", hardsys("disk"));
         makeSource("^(partition)$", hardsys("partition"));
 
@@ -159,8 +159,6 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
 
                 }
             }
-
-            this.resources.put(fieldsTranslator(hwinfoLayout[18]), Arrays.asList("1", "test"));
 
             makeSourceAndGroup();
 

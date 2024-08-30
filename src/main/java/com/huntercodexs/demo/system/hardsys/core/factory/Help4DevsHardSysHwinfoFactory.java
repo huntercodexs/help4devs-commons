@@ -1,10 +1,16 @@
 package com.huntercodexs.demo.system.hardsys.core.factory;
 
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboardDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMonitorDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouseDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto;
+import com.huntercodexs.demo.system.hardsys.dto.*;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsAudioDto.Help4DevsAudio;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsGraphicsDto.Help4DevsGraphics;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboardDto.Help4DevsKeyboard;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMonitorDto.Help4DevsMonitor;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouseDto.Help4DevsMouse;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkDto.Help4DevsNetwork;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkInterfaceDto.Help4DevsNetworkInterface;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto.Help4DevsProcessor;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsStorageDto.Help4DevsStorage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,60 +28,71 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     private void processorFactory(List<String> items) {
 
+        Help4DevsProcessorDto processorDto = new Help4DevsProcessorDto();
+        processorDto.setCores(String.valueOf(items.size()));
+
         String itemClear = items.get(0).replaceAll("type: processor source: ", "");
+        processorDto.setName(itemClear.replaceAll(",", ""));
 
-        Help4DevsProcessorDto processors = new Help4DevsProcessorDto();
-        processors.setCores(String.valueOf(items.size()));
-        processors.setName(itemClear.replaceAll(",", ""));
-
-        int index = 0;
+        int id = 0;
         for (String item : items) {
 
-            Help4DevsProcessorDto.Help4DevsProcessor processorDto = new Help4DevsProcessorDto.Help4DevsProcessor();
+            Help4DevsProcessor processor = new Help4DevsProcessor();
 
-            processorDto.setCore(String.valueOf(index));
+            processor.setCore(String.valueOf(id));
 
-            processorDto.setModel(stringExtractor(
+            itemClear = item
+                    .replaceAll("type: processor source: ", "")
+                    .toUpperCase();
+
+            processor.setManufacturer(stringExtractor(
+                    itemClear,
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            processor.setModel(stringExtractor(
                     itemClear,
                     "model",
-                    "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)",
+                    processorModelPattern,
                     "model:$1$2",
-                    index));
+                    id+1));
 
-            processorDto.setFamily(stringExtractor(
+            processor.setFamily(stringExtractor(
                     itemClear,
                     "family",
-                    "(Intel|AMD|NVIDIA)",
+                    processorFamilyPatter,
                     "family:$1",
-                    index+1));
+                    id+2));
 
-            processorDto.setSpeed(stringExtractor(
+            processor.setSpeed(stringExtractor(
                     itemClear,
                     "speed",
-                    "([0-9]+\\.[0-9]+[MG]Hz)",
+                    "([0-9]+\\.[0-9]+[MG]HZ)",
                     "speed:$1",
-                    index+2));
+                    id+3));
 
-            processorDto.setCurrent(stringExtractor(
+            processor.setCurrent(stringExtractor(
                     itemClear,
                     "current",
-                    "([0-9]+) (MHz)",
+                    "([0-9]+) (MHZ)",
                     "current:$1 $2",
-                    index+3));
+                    id+4));
 
-            processors.addProcessor(processorDto);
-            index++;
+            processorDto.addProcessor(processor);
+            id++;
 
         }
 
-        this.transport.put(hardsys("processor"), processors);
+        this.transport.put(hardsys("processor"), processorDto);
 
     }
 
     private void keyboardFactory(List<String> items) {
 
-        Help4DevsKeyboardDto keyboards = new Help4DevsKeyboardDto();
-        keyboards.setQty(String.valueOf(items.size()));
+        Help4DevsKeyboardDto keyboardsDto = new Help4DevsKeyboardDto();
+        keyboardsDto.setQty(String.valueOf(items.size()));
 
         List<String> list = listClear(items, "type: keyboard source: type: keyboard ", "source: ");
 
@@ -84,39 +101,47 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
             item = item.replaceAll("\\.@\\.", ":");
 
-            Help4DevsKeyboardDto.Help4DevsKeyboard keyboardDto = new Help4DevsKeyboardDto.Help4DevsKeyboard();
-            keyboardDto.setId(String.format("%06d", id));
-            keyboardDto.setName(stringExtractor(
+            Help4DevsKeyboard keyboard = new Help4DevsKeyboard();
+            keyboard.setId(String.format("%06d", id));
+
+            keyboard.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            keyboard.setName(stringExtractor(
                     item,
                     "description",
                     "(description: [-_.0-9a-zA-Z:]+)",
                     "description:$1",
                     id));
-            keyboardDto.setSource(stringExtractor(
+            keyboard.setSource(stringExtractor(
                     item,
                     "source",
                     "(source: [/-_.0-9a-zA-Z]+)( description:)",
                     "source:$1",
                     id));
-            keyboardDto.setDescription(stringExtractor(
+            keyboard.setDescription(stringExtractor(
                     item,
                     "description",
                     "(description: [-_.0-9a-zA-Z:]+)",
                     "description:$1",
                     id).replaceAll("-", " "));
 
-            keyboards.addKeyboard(keyboardDto);
+            keyboardsDto.addKeyboard(keyboard);
             id++;
         }
 
-        this.transport.put(hardsys("keyboard"), keyboards);
+        this.transport.put(hardsys("keyboard"), keyboardsDto);
 
     }
 
     private void mouseFactory(List<String> items) {
 
-        Help4DevsMouseDto mouses = new Help4DevsMouseDto();
-        mouses.setQty(String.valueOf(items.size()));
+        Help4DevsMouseDto mouseDto = new Help4DevsMouseDto();
+        mouseDto.setQty(String.valueOf(items.size()));
 
         List<String> list = listClear(items, "type: mouse source: type: mouse ", "source: ");
 
@@ -125,69 +150,314 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
             item = item.replaceAll("\\.@\\.", ":");
 
-            Help4DevsMouseDto.Help4DevsMouse mouseDto = new Help4DevsMouseDto.Help4DevsMouse();
-            mouseDto.setId(String.format("%06d", id));
-            mouseDto.setName(stringExtractor(
+            Help4DevsMouse mouse = new Help4DevsMouse();
+            mouse.setId(String.format("%06d", id));
+
+            mouse.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            mouse.setName(stringExtractor(
                     item,
                     "description",
                     "(description: [-_.0-9a-zA-Z:]+)",
                     "description:$1",
                     id));
-            mouseDto.setSource(stringExtractor(
+            mouse.setSource(stringExtractor(
                     item,
                     "source",
                     "(source: [/-_.0-9a-zA-Z]+)( description:)",
                     "source:$1",
                     id));
-            mouseDto.setDescription(stringExtractor(
+            mouse.setDescription(stringExtractor(
                     item,
                     "description",
                     "(description: [-_.0-9a-zA-Z:]+)",
                     "description:$1",
                     id).replaceAll("-", " "));
 
-            mouses.addMouse(mouseDto);
+            mouseDto.addMouse(mouse);
             id++;
         }
 
-        this.transport.put(hardsys("mouse"), mouses);
+        this.transport.put(hardsys("mouse"), mouseDto);
     }
 
     private void monitorFactory(List<String> items) {
 
-        Help4DevsMonitorDto monitors = new Help4DevsMonitorDto();
-        monitors.setQty(String.valueOf(items.size()));
+        Help4DevsMonitorDto monitorsDto = new Help4DevsMonitorDto();
+        monitorsDto.setQty(String.valueOf(items.size()));
 
+        int id = 1;
         for (String item : items) {
 
             item = item.replaceAll("type: monitor source: ", "");
 
-            Help4DevsMonitorDto.Help4DevsMonitor monitorDto = new Help4DevsMonitorDto.Help4DevsMonitor();
-            monitorDto.setName(item.replaceAll("type: monitor source: ", ""));
-            monitorDto.setType(stringExtractor(
-                    item,
-                    "type",
-                    "(FHD|WFHD|UHD|4K|HF LCD|LCD|HF|LED|UHLED|QLED)",
-                    "type:$1",
-                    1));
+            Help4DevsMonitor monitor = new Help4DevsMonitor();
 
-            monitors.addMonitor(monitorDto);
+            monitor.setId(String.format("%06d", id));
+            monitor.setName(item.replaceAll("type: monitor source: ", ""));
+
+            monitor.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            monitor.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    monitorTypePattern,
+                    "type:$1",
+                    id));
+
+            monitorsDto.addMonitor(monitor);
+            id++;
 
         }
 
-        this.transport.put(hardsys("monitor"), monitors);
+        this.transport.put(hardsys("monitor"), monitorsDto);
 
     }
 
-    private void graphicsFactory(List<String> items) {}
+    private void graphicsFactory(List<String> items) {
 
-    private void audioFactory(List<String> items) {}
+        Help4DevsGraphicsDto graphicsDto = new Help4DevsGraphicsDto();
+        graphicsDto.setQty(String.valueOf(items.size()));
 
-    private void storageFactory(List<String> items) {}
+        int id = 1;
+        for (String item : items) {
 
-    private void networkFactory(List<String> items) {}
+            item = item.replaceAll("type: graphics source: ", "");
 
-    private void networkInterfaceFactory(List<String> items) {}
+            Help4DevsGraphics graphics = new Help4DevsGraphics();
+
+            graphics.setId(String.format("%06d", id));
+            graphics.setName(item.replaceAll("type: graphics source: ", ""));
+
+            graphics.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            graphics.setSource(stringExtractor(
+                    item,
+                    "type",
+                    videoTypePattern,
+                    "type:$1",
+                    id));
+
+            graphics.setDescription(item
+                    .replaceAll("type: graphics source: ", "")
+                    .replaceAll("-", " "));
+
+            if (graphics.getSource().equals("VGA")) {
+                graphics.setVga("YES");
+            }
+
+            graphicsDto.addGraphic(graphics);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("graphics"), graphicsDto);
+
+    }
+
+    private void audioFactory(List<String> items) {
+
+        Help4DevsAudioDto audioDto = new Help4DevsAudioDto();
+        audioDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: audio source: ", "");
+
+            Help4DevsAudio audio = new Help4DevsAudio();
+
+            audio.setId(String.format("%06d", id));
+            audio.setName(item.replaceAll("type: audio source: ", ""));
+
+            audio.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            audio.setSource(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    audioTypePattern,
+                    "type:$1",
+                    id));
+
+            audio.setDescription(item
+                    .replaceAll("type: audio source: ", "")
+                    .replaceAll("-", " "));
+
+            audioDto.addAudio(audio);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("audio"), audioDto);
+
+    }
+
+    private void storageFactory(List<String> items) {
+
+        Help4DevsStorageDto storageDto = new Help4DevsStorageDto();
+        storageDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: storage source: ", "");
+
+            Help4DevsStorage storage = new Help4DevsStorage();
+
+            storage.setId(String.format("%06d", id));
+            storage.setName(item.replaceAll("type: storage source: ", ""));
+
+            storage.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            storage.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    storageTypePattern,
+                    "type:$1",
+                    id));
+
+            storage.setDescription(item
+                    .replaceAll("type: storage source: ", "")
+                    .replaceAll("-", " "));
+
+            storageDto.addStorage(storage);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("storage"), storageDto);
+
+    }
+
+    private void networkFactory(List<String> items) {
+
+        Help4DevsNetworkDto networkDto = new Help4DevsNetworkDto();
+        networkDto.setQty(String.valueOf(items.size()));
+
+        List<String> list = listClear(items, "type: network source: type: network ", "source: ");
+
+        int id = 1;
+        for (String item : list) {
+
+            item = item.replaceAll("\\.@\\.", ":");
+
+            Help4DevsNetwork network = new Help4DevsNetwork();
+            network.setId(String.format("%06d", id));
+
+            network.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            network.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    networkTypePattern,
+                    "type:$1",
+                    id));
+
+            network.setName(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:/]+)",
+                    "description:$1",
+                    id));
+
+            network.setSource(stringExtractor(
+                    item,
+                    "source",
+                    "(source: [/-_.0-9a-zA-Z]+)( description:)",
+                    "source:$1",
+                    id));
+
+            networkDto.addNetwork(network);
+            id++;
+        }
+
+        this.transport.put(hardsys("network"), networkDto);
+
+    }
+
+    private void networkInterfaceFactory(List<String> items) {
+
+        Help4DevsNetworkInterfaceDto networkInterfaceDto = new Help4DevsNetworkInterfaceDto();
+        networkInterfaceDto.setQty(String.valueOf(items.size()));
+
+        List<String> list = listClear(
+                items,
+                "type: networkinterface source: type: networkinterface ",
+                "source: ");
+
+        int id = 1;
+        for (String item : list) {
+
+            item = item.replaceAll("\\.@\\.", ":");
+
+            Help4DevsNetworkInterface networkInterface = new Help4DevsNetworkInterface();
+            networkInterface.setId(String.format("%06d", id));
+
+            networkInterface.setName(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:/]+)",
+                    "description:$1",
+                    id));
+
+            networkInterface.setSource(stringExtractor(
+                    item,
+                    "source",
+                    "(source: [/-_.0-9a-zA-Z]+)( description:)",
+                    "source:$1",
+                    id));
+
+            networkInterface.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "description",
+                    vendorsPattern,
+                    "description:$1",
+                    id));
+
+            networkInterface.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "DESCRIPTION",
+                    "DESCRIPTION: "+networkTypePattern,
+                    "DESCRIPTION:$1",
+                    id));
+
+            networkInterfaceDto.addNetworkInterface(networkInterface);
+            id++;
+        }
+
+        this.transport.put(hardsys("networkInterface"), networkInterfaceDto);
+
+    }
 
     private void diskFactory(List<String> items) {}
 
@@ -249,7 +519,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
         audioFactory(this.resources.get(hardsys("audio")));
         storageFactory(this.resources.get(hardsys("storage")));
         networkFactory(this.resources.get(hardsys("network")));
-        networkInterfaceFactory(this.resources.get(hardsys("networkInterface")));
+        networkInterfaceFactory(this.resources.get(hardsys("networkinterface")));
         diskFactory(this.resources.get(hardsys("disk")));
         partitionFactory(this.resources.get(hardsys("partition")));
         usbFactory(this.resources.get(hardsys("usb")));
