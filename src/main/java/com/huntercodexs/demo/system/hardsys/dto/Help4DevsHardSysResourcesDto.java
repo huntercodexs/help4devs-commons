@@ -19,7 +19,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsBatteryDto battery;
     private Help4DevsMemoryDto memory;
     private Help4DevsSlotsDto slots;
-    private Help4DevsProcessors processor;
+    private Help4DevsProcessorDto processor;
     private Help4DevsGraphicsDto graphics;
     private Help4DevsAudioDto audio;
     private Help4DevsNetworkDto network;
@@ -28,14 +28,14 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsUsbDto usb;
     private Help4DevsSensorsDto sensors;
     private Help4DevsRunningDto running;
-    private Help4DevsMonitors monitor;
+    private Help4DevsMonitorDto monitor;
     private Help4DevsBiosDto bios;
     private Help4DevsBaseboardDto baseboard;
     private Help4DevsChassisDto chassis;
     private Help4DevsCacheDto cache;
     private Help4DevsConnectorDto connector;
-    private Help4DevsKeyboards keyboard;
-    private Help4DevsMouses mouse;
+    private Help4DevsKeyboardDto keyboard;
+    private Help4DevsMouseDto mouse;
     private Help4DevsHubDto hub;
     private Help4DevsSwitchDto switcher;
     private Help4DevsModemDto modem;
@@ -47,6 +47,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsNetworkInterfaceDto networkInterface;
     private Help4DevsUnknownDto unknown;
     private Help4DevsMultimediaDto multimedia;
+    private Help4DevsPrinterDto printer;
 
     public Help4DevsSystemDto getSystem() {
         return system;
@@ -88,12 +89,12 @@ public class Help4DevsHardSysResourcesDto {
         this.slots = (Help4DevsSlotsDto)slots;
     }
 
-    public Help4DevsProcessors getProcessor() {
+    public Help4DevsProcessorDto getProcessor() {
         return processor;
     }
 
     public void setProcessor(Object processor) {
-        this.processor = (Help4DevsProcessors) processor;
+        this.processor = (Help4DevsProcessorDto) processor;
     }
 
     public Help4DevsGraphicsDto getGraphics() {
@@ -160,12 +161,12 @@ public class Help4DevsHardSysResourcesDto {
         this.running = (Help4DevsRunningDto)running;
     }
 
-    public Help4DevsMonitors getMonitor() {
+    public Help4DevsMonitorDto getMonitor() {
         return monitor;
     }
 
     public void setMonitor(Object monitor) {
-        this.monitor = (Help4DevsMonitors)monitor;
+        this.monitor = (Help4DevsMonitorDto)monitor;
     }
 
     public Help4DevsBiosDto getBios() {
@@ -208,20 +209,20 @@ public class Help4DevsHardSysResourcesDto {
         this.connector = (Help4DevsConnectorDto)connector;
     }
 
-    public Help4DevsKeyboards getKeyboard() {
+    public Help4DevsKeyboardDto getKeyboard() {
         return keyboard;
     }
 
     public void setKeyboard(Object keyboard) {
-        this.keyboard = (Help4DevsKeyboards)keyboard;
+        this.keyboard = (Help4DevsKeyboardDto)keyboard;
     }
 
-    public Help4DevsMouses getMouse() {
+    public Help4DevsMouseDto getMouse() {
         return mouse;
     }
 
     public void setMouse(Object mouse) {
-        this.mouse = (Help4DevsMouses)mouse;
+        this.mouse = (Help4DevsMouseDto)mouse;
     }
 
     public Help4DevsHubDto getHub() {
@@ -310,6 +311,10 @@ public class Help4DevsHardSysResourcesDto {
 
     public void setMultimedia(Object multimedia) {
         this.multimedia = (Help4DevsMultimediaDto) multimedia;
+    }
+
+    public void setPrinter(Object printer) {
+        this.printer = (Help4DevsPrinterDto) printer;
     }
 
     public String toString() {

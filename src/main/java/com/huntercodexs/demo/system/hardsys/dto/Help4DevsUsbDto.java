@@ -1,114 +1,152 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Help4DevsUsbDto {
 
-    private List<String> id;
-    private List<String> type;
-    private List<String> name;
-    private List<String> ports;
-    private List<String> speed;
-    private List<String> info;
-    private List<String> source;
-    private List<String> vendor;
-    private List<String> description;
-    private List<String> features;
+    private String qty;
+    private List<Help4DevsUsb> details;
 
-    public Help4DevsUsbDto() {}
-
-    public List<String> getId() {
-        return id;
+    public Help4DevsUsbDto() {
+        this.details = new ArrayList<>();
     }
 
-    public void setId(List<String> id) {
-        this.id = id;
+    public String getQty() {
+        return qty;
     }
 
-    public List<String> getType() {
-        return type;
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
-    public void setType(List<String> type) {
-        this.type = type;
+    public List<Help4DevsUsb> getDetails() {
+        return details;
     }
 
-    public List<String> getName() {
-        return name;
+    public void setDetails(List<Help4DevsUsb> details) {
+        this.details = details;
     }
 
-    public void setName(List<String> name) {
-        this.name = name;
-    }
-
-    public List<String> getPorts() {
-        return ports;
-    }
-
-    public void setPorts(List<String> ports) {
-        this.ports = ports;
-    }
-
-    public List<String> getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(List<String> speed) {
-        this.speed = speed;
-    }
-
-    public List<String> getInfo() {
-        return info;
-    }
-
-    public void setInfo(List<String> info) {
-        this.info = info;
-    }
-
-    public List<String> getSource() {
-        return source;
-    }
-
-    public void setSource(List<String> source) {
-        this.source = source;
-    }
-
-    public List<String> getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(List<String> vendor) {
-        this.vendor = vendor;
-    }
-
-    public List<String> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<String> description) {
-        this.description = description;
-    }
-
-    public List<String> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(List<String> features) {
-        this.features = features;
+    public void addUsb(Help4DevsUsb usb) {
+        this.details.add(usb);
     }
 
     public String toString() {
         return "Help4DevsUsbDto[" +
-                "id=" + id +
-                ", type=" + type +
-                ", name=" + name +
-                ", ports=" + ports +
-                ", speed=" + speed +
-                ", info=" + info +
-                ", source=" + source +
-                ", vendor=" + vendor +
-                ", description=" + description +
-                ", features=" + features +
+                "qty=" + qty +
+                ", details=" + details +
                 "]";
+    }
+
+    public static class Help4DevsUsb {
+
+        private String id;
+        private String type;
+        private String name;
+        private String ports;
+        private String speed;
+        private String info;
+        private String source;
+        private String vendor;
+        private String description;
+        private List<String> features;
+
+        public Help4DevsUsb() {}
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getPorts() {
+            return ports;
+        }
+
+        public void setPorts(String ports) {
+            this.ports = ports;
+        }
+
+        public String getSpeed() {
+            return speed;
+        }
+
+        public void setSpeed(String speed) {
+            this.speed = speed;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getVendor() {
+            return vendor;
+        }
+
+        public void setVendor(String vendor) {
+            this.vendor = vendor;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public List<String> getFeatures() {
+            return features;
+        }
+
+        public void setFeatures(List<String> features) {
+            this.features = features;
+        }
+
+        public String toString() {
+            return "Help4DevsUsb[" +
+                    "id=" + id +
+                    ", type=" + type +
+                    ", name=" + name +
+                    ", ports=" + ports +
+                    ", speed=" + speed +
+                    ", info=" + info +
+                    ", source=" + source +
+                    ", vendor=" + vendor +
+                    ", description=" + description +
+                    ", features=" + features +
+                    "]";
+        }
     }
 }

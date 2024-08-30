@@ -3,13 +3,13 @@ package com.huntercodexs.demo.system.hardsys.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsProcessors {
+public class Help4DevsProcessorDto {
 
     private String cores;
     private String name;
-    private List<Help4DevsProcessorDto> details;
+    private List<Help4DevsProcessor> details;
 
-    public Help4DevsProcessors() {
+    public Help4DevsProcessorDto() {
         this.details = new ArrayList<>();
     }
 
@@ -29,27 +29,27 @@ public class Help4DevsProcessors {
         this.name = name;
     }
 
-    public List<Help4DevsProcessorDto> getDetails() {
+    public List<Help4DevsProcessor> getDetails() {
         return details;
     }
 
-    public void setDetails(List<Help4DevsProcessorDto> details) {
+    public void setDetails(List<Help4DevsProcessor> details) {
         this.details = details;
     }
 
-    public void addProcessor(Help4DevsProcessorDto processor) {
+    public void addProcessor(Help4DevsProcessor processor) {
         this.details.add(processor);
     }
 
     public String toString() {
-        return "Help4DevsProcessor[" +
+        return "Help4DevsProcessorDto[" +
                 "cores=" + cores +
                 ", name=" + name +
                 ", details=" + details +
                 "]";
     }
 
-    public static class Help4DevsProcessorDto {
+    public static class Help4DevsProcessor {
 
         private String core;
         private String model;
@@ -78,7 +78,7 @@ public class Help4DevsProcessors {
         private String serialNumber;
         private String characteristics;
 
-        public Help4DevsProcessorDto() {}
+        public Help4DevsProcessor() {}
 
         public String getCore() {
             return core;
@@ -289,7 +289,7 @@ public class Help4DevsProcessors {
         }
 
         public String toString() {
-            return "Help4DevsProcessorDto[" +
+            return "Help4DevsProcessor[" +
                     "core=" + core +
                     ", arch=" + arch +
                     ", topology=" + topology +

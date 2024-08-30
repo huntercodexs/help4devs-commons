@@ -44,6 +44,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     private Help4DevsNetworkInterfaceDetails networkInterfaceDetails;
     private Help4DevsUnknownDetails unknownDetails;
     private Help4DevsMultimediaDetails multimediaDetails;
+    private Help4DevsPrinterDetails printerDetails;
     private Help4DevsDevicesGroupDetails devicesGroupDetails;
     private Help4DevsNetworkGroupDetails networksGroupDetails;
     private Help4DevsDrivesGroupDetails drivesGroupDetails;
@@ -290,6 +291,11 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     public Help4DevsMultimediaDetails getMultimedia() {
         checkJsonState();
         return multimediaDetails;
+    }
+
+    public Help4DevsPrinterDetails getPrinter() {
+        checkJsonState();
+        return printerDetails;
     }
 
     public Help4DevsDevicesGroupDetails getDevicesGroup() {

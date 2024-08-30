@@ -3,12 +3,12 @@ package com.huntercodexs.demo.system.hardsys.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsKeyboards {
+public class Help4DevsPrinterDto {
 
     private String qty;
-    private List<Help4DevsKeyboardDto> details;
+    private List<Help4DevsPrinter> details;
 
-    public Help4DevsKeyboards() {
+    public Help4DevsPrinterDto() {
         this.details = new ArrayList<>();
     }
 
@@ -20,41 +20,40 @@ public class Help4DevsKeyboards {
         this.qty = qty;
     }
 
-    public List<Help4DevsKeyboardDto> getDetails() {
+    public List<Help4DevsPrinter> getDetails() {
         return details;
     }
 
-    public void setDetails(List<Help4DevsKeyboardDto> details) {
+    public void setDetails(List<Help4DevsPrinter> details) {
         this.details = details;
     }
 
-    public void addKeyboard(Help4DevsKeyboardDto keyboard) {
-        this.details.add(keyboard);
+    public void addPrinter(Help4DevsPrinter printer) {
+        this.details.add(printer);
     }
 
     public String toString() {
-        return "Help4DevsKeyboards[" +
+        return "Help4DevsPrinterDto[" +
                 "qty=" + qty +
                 ", details=" + details +
                 "]";
     }
 
-    public static class Help4DevsKeyboardDto {
+    public static class Help4DevsPrinter {
 
         private String id;
         private String name;
         private String type;
         private String model;
-        private String series;
         private String vendor;
-        private String source;
+        private String driver;
         private String serial;
-        private String layout;
-        private String frequency;
+        private String source;
+        private String manufacture;
         private String description;
-        private List<String> details;
+        private List<String> features;
 
-        public Help4DevsKeyboardDto() {}
+        public Help4DevsPrinter() {}
 
         public String getId() {
             return id;
@@ -88,14 +87,6 @@ public class Help4DevsKeyboards {
             this.model = model;
         }
 
-        public String getSeries() {
-            return series;
-        }
-
-        public void setSeries(String series) {
-            this.series = series;
-        }
-
         public String getVendor() {
             return vendor;
         }
@@ -104,12 +95,12 @@ public class Help4DevsKeyboards {
             this.vendor = vendor;
         }
 
-        public String getSource() {
-            return source;
+        public String getDriver() {
+            return driver;
         }
 
-        public void setSource(String source) {
-            this.source = source;
+        public void setDriver(String driver) {
+            this.driver = driver;
         }
 
         public String getSerial() {
@@ -120,20 +111,20 @@ public class Help4DevsKeyboards {
             this.serial = serial;
         }
 
-        public String getLayout() {
-            return layout;
+        public String getSource() {
+            return source;
         }
 
-        public void setLayout(String layout) {
-            this.layout = layout;
+        public void setSource(String source) {
+            this.source = source;
         }
 
-        public String getFrequency() {
-            return frequency;
+        public String getManufacture() {
+            return manufacture;
         }
 
-        public void setFrequency(String frequency) {
-            this.frequency = frequency;
+        public void setManufacture(String manufacture) {
+            this.manufacture = manufacture;
         }
 
         public String getDescription() {
@@ -144,28 +135,27 @@ public class Help4DevsKeyboards {
             this.description = description;
         }
 
-        public List<String> getDetails() {
-            return details;
+        public List<String> getFeatures() {
+            return features;
         }
 
-        public void setDetails(List<String> details) {
-            this.details = details;
+        public void setFeatures(List<String> features) {
+            this.features = features;
         }
 
         public String toString() {
-            return "Help4DevsKeyboardDto[" +
+            return "Help4DevsPrinter[" +
                     "id=" + id +
                     ", name=" + name +
                     ", type=" + type +
                     ", model=" + model +
-                    ", series=" + series +
                     ", vendor=" + vendor +
-                    ", source=" + source +
+                    ", driver=" + driver +
                     ", serial=" + serial +
-                    ", layout=" + layout +
-                    ", frequency=" + frequency +
+                    ", source=" + source +
+                    ", manufacture=" + manufacture +
                     ", description=" + description +
-                    ", details=" + details +
+                    ", features=" + features +
                     "]";
         }
     }

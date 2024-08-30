@@ -3,60 +3,59 @@ package com.huntercodexs.demo.system.hardsys.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsDiskDto {
+public class Help4DevsMonitorDto {
 
-    private String key;
-    private List<Help4DevsDisk> details;
+    private String qty;
+    private List<Help4DevsMonitor> details;
 
-    public Help4DevsDiskDto() {
+    public Help4DevsMonitorDto() {
         this.details = new ArrayList<>();
     }
 
-    public String getKey() {
-        return key;
+    public String getQty() {
+        return qty;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
-    public List<Help4DevsDisk> getDetails() {
+    public List<Help4DevsMonitor> getDetails() {
         return details;
     }
 
-    public void setDetails(List<Help4DevsDisk> details) {
+    public void setDetails(List<Help4DevsMonitor> details) {
         this.details = details;
     }
 
-    public void addDisk(Help4DevsDisk disk) {
-        this.details.add(disk);
+    public void addMonitor(Help4DevsMonitor monitor) {
+        this.details.add(monitor);
     }
 
     public String toString() {
-        return "Help4DevsDiskDto[" +
-                "key=" + key +
+        return "Help4DevsMonitorDto[" +
+                "qty=" + qty +
                 ", details=" + details +
                 "]";
     }
 
-    public static class Help4DevsDisk {
+    public static class Help4DevsMonitor {
 
         private String id;
         private String name;
         private String type;
         private String size;
-        private String used;
-        private String free;
-        private String speed;
-        private String vendor;
+        private String model;
+        private String series;
         private String driver;
-        private String serial;
+        private String vendor;
         private String source;
-        private String partition;
-        private String manufacture;
+        private String serial;
+        private String frequency;
+        private String description;
         private List<String> features;
 
-        public Help4DevsDisk() {}
+        public Help4DevsMonitor() {}
 
         public String getId() {
             return id;
@@ -90,36 +89,20 @@ public class Help4DevsDiskDto {
             this.size = size;
         }
 
-        public String getUsed() {
-            return used;
+        public String getModel() {
+            return model;
         }
 
-        public void setUsed(String used) {
-            this.used = used;
+        public void setModel(String model) {
+            this.model = model;
         }
 
-        public String getFree() {
-            return free;
+        public String getSeries() {
+            return series;
         }
 
-        public void setFree(String free) {
-            this.free = free;
-        }
-
-        public String getSpeed() {
-            return speed;
-        }
-
-        public void setSpeed(String speed) {
-            this.speed = speed;
-        }
-
-        public String getVendor() {
-            return vendor;
-        }
-
-        public void setVendor(String vendor) {
-            this.vendor = vendor;
+        public void setSeries(String series) {
+            this.series = series;
         }
 
         public String getDriver() {
@@ -130,12 +113,12 @@ public class Help4DevsDiskDto {
             this.driver = driver;
         }
 
-        public String getSerial() {
-            return serial;
+        public String getVendor() {
+            return vendor;
         }
 
-        public void setSerial(String serial) {
-            this.serial = serial;
+        public void setVendor(String vendor) {
+            this.vendor = vendor;
         }
 
         public String getSource() {
@@ -146,20 +129,28 @@ public class Help4DevsDiskDto {
             this.source = source;
         }
 
-        public String getPartition() {
-            return partition;
+        public String getSerial() {
+            return serial;
         }
 
-        public void setPartition(String partition) {
-            this.partition = partition;
+        public void setSerial(String serial) {
+            this.serial = serial;
         }
 
-        public String getManufacture() {
-            return manufacture;
+        public String getFrequency() {
+            return frequency;
         }
 
-        public void setManufacture(String manufacture) {
-            this.manufacture = manufacture;
+        public void setFrequency(String frequency) {
+            this.frequency = frequency;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
 
         public List<String> getFeatures() {
@@ -171,20 +162,19 @@ public class Help4DevsDiskDto {
         }
 
         public String toString() {
-            return "Help4DevsDisk[" +
+            return "Help4DevsMonitor[" +
                     "id=" + id +
                     ", name=" + name +
                     ", type=" + type +
                     ", size=" + size +
-                    ", used=" + used +
-                    ", free=" + free +
-                    ", speed=" + speed +
-                    ", vendor=" + vendor +
+                    ", model=" + model +
+                    ", series=" + series +
                     ", driver=" + driver +
-                    ", serial=" + serial +
+                    ", vendor=" + vendor +
                     ", source=" + source +
-                    ", partition=" + partition +
-                    ", manufacture=" + manufacture +
+                    ", serial=" + serial +
+                    ", frequency=" + frequency +
+                    ", description=" + description +
                     ", features=" + features +
                     "]";
         }

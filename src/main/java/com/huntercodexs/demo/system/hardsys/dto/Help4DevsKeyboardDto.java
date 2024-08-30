@@ -3,12 +3,12 @@ package com.huntercodexs.demo.system.hardsys.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsMonitors {
+public class Help4DevsKeyboardDto {
 
     private String qty;
-    private List<Help4DevsMonitorDto> details;
+    private List<Help4DevsKeyboard> details;
 
-    public Help4DevsMonitors() {
+    public Help4DevsKeyboardDto() {
         this.details = new ArrayList<>();
     }
 
@@ -20,42 +20,41 @@ public class Help4DevsMonitors {
         this.qty = qty;
     }
 
-    public List<Help4DevsMonitorDto> getDetails() {
+    public List<Help4DevsKeyboard> getDetails() {
         return details;
     }
 
-    public void setDetails(List<Help4DevsMonitorDto> details) {
+    public void setDetails(List<Help4DevsKeyboard> details) {
         this.details = details;
     }
 
-    public void addMonitor(Help4DevsMonitorDto monitor) {
-        this.details.add(monitor);
+    public void addKeyboard(Help4DevsKeyboard keyboard) {
+        this.details.add(keyboard);
     }
 
     public String toString() {
-        return "Help4DevsMonitor[" +
+        return "Help4DevsKeyboardDto[" +
                 "qty=" + qty +
                 ", details=" + details +
                 "]";
     }
 
-    public static class Help4DevsMonitorDto {
+    public static class Help4DevsKeyboard {
 
         private String id;
         private String name;
         private String type;
-        private String size;
         private String model;
         private String series;
-        private String driver;
         private String vendor;
         private String source;
         private String serial;
+        private String layout;
         private String frequency;
         private String description;
-        private List<String> features;
+        private List<String> details;
 
-        public Help4DevsMonitorDto() {}
+        public Help4DevsKeyboard() {}
 
         public String getId() {
             return id;
@@ -81,14 +80,6 @@ public class Help4DevsMonitors {
             this.type = type;
         }
 
-        public String getSize() {
-            return size;
-        }
-
-        public void setSize(String size) {
-            this.size = size;
-        }
-
         public String getModel() {
             return model;
         }
@@ -103,14 +94,6 @@ public class Help4DevsMonitors {
 
         public void setSeries(String series) {
             this.series = series;
-        }
-
-        public String getDriver() {
-            return driver;
-        }
-
-        public void setDriver(String driver) {
-            this.driver = driver;
         }
 
         public String getVendor() {
@@ -137,6 +120,14 @@ public class Help4DevsMonitors {
             this.serial = serial;
         }
 
+        public String getLayout() {
+            return layout;
+        }
+
+        public void setLayout(String layout) {
+            this.layout = layout;
+        }
+
         public String getFrequency() {
             return frequency;
         }
@@ -153,29 +144,28 @@ public class Help4DevsMonitors {
             this.description = description;
         }
 
-        public List<String> getFeatures() {
-            return features;
+        public List<String> getDetails() {
+            return details;
         }
 
-        public void setFeatures(List<String> features) {
-            this.features = features;
+        public void setDetails(List<String> details) {
+            this.details = details;
         }
 
         public String toString() {
-            return "Help4DevsMonitorDto[" +
+            return "Help4DevsKeyboard[" +
                     "id=" + id +
                     ", name=" + name +
                     ", type=" + type +
-                    ", size=" + size +
                     ", model=" + model +
                     ", series=" + series +
-                    ", driver=" + driver +
                     ", vendor=" + vendor +
                     ", source=" + source +
                     ", serial=" + serial +
+                    ", layout=" + layout +
                     ", frequency=" + frequency +
                     ", description=" + description +
-                    ", features=" + features +
+                    ", details=" + details +
                     "]";
         }
     }

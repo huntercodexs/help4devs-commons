@@ -4,8 +4,7 @@ import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.system.hardsys.Help4DevsHardSys;
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHardSysResourcesDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboards;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboards.Help4DevsKeyboardDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboardDto;
 import com.huntercodexs.demo.system.hardsys.group.*;
 import com.huntercodexs.demo.system.hardsys.processing.*;
 import org.junit.Test;
@@ -519,16 +518,16 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void help4DevsKeyboardDtoTest() {
 
-        Help4DevsKeyboards keyboard = new Help4DevsKeyboards();
+        Help4DevsKeyboardDto keyboard = new Help4DevsKeyboardDto();
         keyboard.setQty("2");
 
-        Help4DevsKeyboardDto keyboardDto = new Help4DevsKeyboardDto();
+        Help4DevsKeyboardDto.Help4DevsKeyboard keyboardDto = new Help4DevsKeyboardDto.Help4DevsKeyboard();
         keyboardDto.setId("1");
         keyboardDto.setName("name 1");
 
         keyboard.addKeyboard(keyboardDto);
 
-        keyboardDto = new Help4DevsKeyboardDto();
+        keyboardDto = new Help4DevsKeyboardDto.Help4DevsKeyboard();
         keyboardDto.setId("2");
         keyboardDto.setName("name 2");
 
@@ -549,17 +548,17 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void help4DevsKeyboardsTest() {
 
-        Help4DevsKeyboards keyboard = new Help4DevsKeyboards();
+        Help4DevsKeyboardDto keyboard = new Help4DevsKeyboardDto();
         keyboard.setQty("2");
 
-        List<Help4DevsKeyboardDto> keyboardList = new ArrayList<>();
+        List<Help4DevsKeyboardDto.Help4DevsKeyboard> keyboardList = new ArrayList<>();
 
-        Help4DevsKeyboardDto keyboardDto = new Help4DevsKeyboardDto();
+        Help4DevsKeyboardDto.Help4DevsKeyboard keyboardDto = new Help4DevsKeyboardDto.Help4DevsKeyboard();
         keyboardDto.setId("1");
         keyboardDto.setName("name 1");
         keyboardList.add(keyboardDto);
 
-        keyboardDto = new Help4DevsKeyboardDto();
+        keyboardDto = new Help4DevsKeyboardDto.Help4DevsKeyboard();
         keyboardDto.setId("2");
         keyboardDto.setName("name 2");
         keyboardList.add(keyboardDto);

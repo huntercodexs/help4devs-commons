@@ -38,6 +38,7 @@ public interface Help4DevsHardSysInterface {
     Help4DevsNetworkInterfaceDetails getNetworkInterface();
     Help4DevsUnknownDetails getUnknown();
     Help4DevsMultimediaDetails getMultimedia();
+    Help4DevsPrinterDetails getPrinter();
     /*Groups*/
     Help4DevsDevicesGroupDetails getDevicesGroup();
     Help4DevsNetworkGroupDetails getNetworksGroup();

@@ -3,12 +3,12 @@ package com.huntercodexs.demo.system.hardsys.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsMouses {
+public class Help4DevsMouseDto {
 
     private String qty;
-    private List<Help4DevsMouseDto> details;
+    private List<Help4DevsMouse> details;
 
-    public Help4DevsMouses() {
+    public Help4DevsMouseDto() {
         this.details = new ArrayList<>();
     }
 
@@ -20,26 +20,26 @@ public class Help4DevsMouses {
         this.qty = qty;
     }
 
-    public List<Help4DevsMouseDto> getDetails() {
+    public List<Help4DevsMouse> getDetails() {
         return details;
     }
 
-    public void setDetails(List<Help4DevsMouseDto> details) {
+    public void setDetails(List<Help4DevsMouse> details) {
         this.details = details;
     }
 
-    public void addMouse(Help4DevsMouseDto mouse) {
+    public void addMouse(Help4DevsMouse mouse) {
         this.details.add(mouse);
     }
 
     public String toString() {
-        return "Help4DevsMouse[" +
+        return "Help4DevsMouseDto[" +
                 "qty=" + qty +
                 ", details=" + details +
                 "]";
     }
 
-    public static class Help4DevsMouseDto {
+    public static class Help4DevsMouse {
 
         private String id;
         private String name;
@@ -151,7 +151,7 @@ public class Help4DevsMouses {
         }
 
         public String toString() {
-            return "Help4DevsMouseDto[" +
+            return "Help4DevsMouse[" +
                     "id=" + id +
                     ", name=" + name +
                     ", type=" + type +

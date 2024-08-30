@@ -1,74 +1,112 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Help4DevsSensorsDto {
 
-    private List<String> id;
-    private List<String> name;
-    private List<String> source;
-    private List<String> driver;
-    private List<String> details;
-    private List<String> description;
+    private String qty;
+    private List<Help4DevsSensors> details;
 
-    public Help4DevsSensorsDto() {}
-
-    public List<String> getId() {
-        return id;
+    public Help4DevsSensorsDto() {
+        this.details = new ArrayList<>();
     }
 
-    public void setId(List<String> id) {
-        this.id = id;
+    public String getQty() {
+        return qty;
     }
 
-    public List<String> getName() {
-        return name;
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
-    public void setName(List<String> name) {
-        this.name = name;
-    }
-
-    public List<String> getSource() {
-        return source;
-    }
-
-    public void setSource(List<String> source) {
-        this.source = source;
-    }
-
-    public List<String> getDriver() {
-        return driver;
-    }
-
-    public void setDriver(List<String> driver) {
-        this.driver = driver;
-    }
-
-    public List<String> getDetails() {
+    public List<Help4DevsSensors> getDetails() {
         return details;
     }
 
-    public void setDetails(List<String> details) {
+    public void setDetails(List<Help4DevsSensors> details) {
         this.details = details;
     }
 
-    public List<String> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<String> description) {
-        this.description = description;
+    public void addSensor(Help4DevsSensors sensor) {
+        this.details.add(sensor);
     }
 
     public String toString() {
         return "Help4DevsSensorsDto[" +
-                "id=" + id +
-                ", name=" + name +
-                ", source=" + source +
-                ", driver=" + driver +
+                "qty=" + qty +
                 ", details=" + details +
-                ", description=" + description +
                 "]";
+    }
+
+    public static class Help4DevsSensors {
+
+        private String id;
+        private String name;
+        private String source;
+        private String driver;
+        private String description;
+        private List<String> features;
+
+        public Help4DevsSensors() {}
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getDriver() {
+            return driver;
+        }
+
+        public void setDriver(String driver) {
+            this.driver = driver;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public List<String> getFeatures() {
+            return features;
+        }
+
+        public void setFeatures(List<String> features) {
+            this.features = features;
+        }
+
+        public String toString() {
+            return "Help4DevsSensors[" +
+                    "id=" + id +
+                    ", name=" + name +
+                    ", source=" + source +
+                    ", driver=" + driver +
+                    ", description=" + description +
+                    ", features=" + features +
+                    "]";
+        }
     }
 }

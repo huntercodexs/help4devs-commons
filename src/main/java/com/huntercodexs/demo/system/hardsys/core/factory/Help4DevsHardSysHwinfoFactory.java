@@ -1,14 +1,12 @@
 package com.huntercodexs.demo.system.hardsys.core.factory;
 
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
-import com.huntercodexs.demo.system.hardsys.dto.*;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboards.Help4DevsKeyboardDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMonitors.Help4DevsMonitorDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouses.Help4DevsMouseDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessors.Help4DevsProcessorDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboardDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMonitorDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouseDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,14 +24,14 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         String itemClear = items.get(0).replaceAll("type: processor source: ", "");
 
-        Help4DevsProcessors processors = new Help4DevsProcessors();
+        Help4DevsProcessorDto processors = new Help4DevsProcessorDto();
         processors.setCores(String.valueOf(items.size()));
         processors.setName(itemClear.replaceAll(",", ""));
 
         int index = 0;
         for (String item : items) {
 
-            Help4DevsProcessorDto processorDto = new Help4DevsProcessorDto();
+            Help4DevsProcessorDto.Help4DevsProcessor processorDto = new Help4DevsProcessorDto.Help4DevsProcessor();
 
             processorDto.setCore(String.valueOf(index));
 
@@ -76,7 +74,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     private void keyboardFactory(List<String> items) {
 
-        Help4DevsKeyboards keyboards = new Help4DevsKeyboards();
+        Help4DevsKeyboardDto keyboards = new Help4DevsKeyboardDto();
         keyboards.setQty(String.valueOf(items.size()));
 
         List<String> list = listClear(items, "type: keyboard source: type: keyboard ", "source: ");
@@ -86,7 +84,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
             item = item.replaceAll("\\.@\\.", ":");
 
-            Help4DevsKeyboardDto keyboardDto = new Help4DevsKeyboardDto();
+            Help4DevsKeyboardDto.Help4DevsKeyboard keyboardDto = new Help4DevsKeyboardDto.Help4DevsKeyboard();
             keyboardDto.setId(String.format("%06d", id));
             keyboardDto.setName(stringExtractor(
                     item,
@@ -117,7 +115,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     private void mouseFactory(List<String> items) {
 
-        Help4DevsMouses mouses = new Help4DevsMouses();
+        Help4DevsMouseDto mouses = new Help4DevsMouseDto();
         mouses.setQty(String.valueOf(items.size()));
 
         List<String> list = listClear(items, "type: mouse source: type: mouse ", "source: ");
@@ -127,7 +125,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
             item = item.replaceAll("\\.@\\.", ":");
 
-            Help4DevsMouseDto mouseDto = new Help4DevsMouseDto();
+            Help4DevsMouseDto.Help4DevsMouse mouseDto = new Help4DevsMouseDto.Help4DevsMouse();
             mouseDto.setId(String.format("%06d", id));
             mouseDto.setName(stringExtractor(
                     item,
@@ -157,14 +155,14 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     private void monitorFactory(List<String> items) {
 
-        Help4DevsMonitors monitors = new Help4DevsMonitors();
+        Help4DevsMonitorDto monitors = new Help4DevsMonitorDto();
         monitors.setQty(String.valueOf(items.size()));
 
         for (String item : items) {
 
             item = item.replaceAll("type: monitor source: ", "");
 
-            Help4DevsMonitorDto monitorDto = new Help4DevsMonitorDto();
+            Help4DevsMonitorDto.Help4DevsMonitor monitorDto = new Help4DevsMonitorDto.Help4DevsMonitor();
             monitorDto.setName(item.replaceAll("type: monitor source: ", ""));
             monitorDto.setType(stringExtractor(
                     item,
@@ -208,17 +206,6 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
     private void bluetoothFactory(List<String> items) {}
 
     private void unknownFactory(List<String> items) {}
-
-    private void multimediaFactory(List<String> items) {
-
-        //Testing...
-        Help4DevsMultimediaDto multimedia = new Help4DevsMultimediaDto();
-        multimedia.setId(Arrays.asList("1","2"));
-        multimedia.setName(Arrays.asList("in test...","in test..."));
-
-        this.transport.put(hardsys("multimedia"), multimedia);
-
-    }
 
     /**
      * @implNote This method will convert the resources from a List object to a DTO object
@@ -272,7 +259,6 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
         memoryFactory(this.resources.get(hardsys("memory")));
         bluetoothFactory(this.resources.get(hardsys("bluetooth")));
         unknownFactory(this.resources.get(hardsys("unknown")));
-        multimediaFactory(this.resources.get(hardsys("multimedia")));
 
     }
 

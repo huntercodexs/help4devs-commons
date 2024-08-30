@@ -1,114 +1,152 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Help4DevsSlotsDto {
 
-    private List<String> id;
-    private List<String> name;
-    private List<String> type;
-    private List<String> vendor;
-    private List<String> device;
-    private List<String> serial;
-    private List<String> details;
-    private List<String> location;
-    private List<String> description;
-    private List<String> manufacturer;
+    private String qty;
+    private List<Help4DevsSlots> details;
 
-    public Help4DevsSlotsDto() {}
-
-    public List<String> getId() {
-        return id;
+    public Help4DevsSlotsDto() {
+        this.details = new ArrayList<>();
     }
 
-    public void setId(List<String> id) {
-        this.id = id;
+    public String getQty() {
+        return qty;
     }
 
-    public List<String> getName() {
-        return name;
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
-    public void setName(List<String> name) {
-        this.name = name;
-    }
-
-    public List<String> getType() {
-        return type;
-    }
-
-    public void setType(List<String> type) {
-        this.type = type;
-    }
-
-    public List<String> getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(List<String> vendor) {
-        this.vendor = vendor;
-    }
-
-    public List<String> getDevice() {
-        return device;
-    }
-
-    public void setDevice(List<String> device) {
-        this.device = device;
-    }
-
-    public List<String> getSerial() {
-        return serial;
-    }
-
-    public void setSerial(List<String> serial) {
-        this.serial = serial;
-    }
-
-    public List<String> getDetails() {
+    public List<Help4DevsSlots> getDetails() {
         return details;
     }
 
-    public void setDetails(List<String> details) {
+    public void setDetails(List<Help4DevsSlots> details) {
         this.details = details;
     }
 
-    public List<String> getLocation() {
-        return location;
-    }
-
-    public void setLocation(List<String> location) {
-        this.location = location;
-    }
-
-    public List<String> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<String> description) {
-        this.description = description;
-    }
-
-    public List<String> getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(List<String> manufacturer) {
-        this.manufacturer = manufacturer;
+    public void addSlot(Help4DevsSlots slots) {
+        this.details.add(slots);
     }
 
     public String toString() {
         return "Help4DevsSlotsDto[" +
-                "id=" + id +
-                ", name=" + name +
-                ", type=" + type +
-                ", vendor=" + vendor +
-                ", device=" + device +
-                ", serial=" + serial +
+                "qty=" + qty +
                 ", details=" + details +
-                ", location=" + location +
-                ", description=" + description +
-                ", manufacturer=" + manufacturer +
                 "]";
+    }
+
+    public static class Help4DevsSlots {
+
+        private String id;
+        private String name;
+        private String type;
+        private String vendor;
+        private String device;
+        private String serial;
+        private String location;
+        private String description;
+        private String manufacturer;
+        private List<String> features;
+
+        public Help4DevsSlots() {}
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getVendor() {
+            return vendor;
+        }
+
+        public void setVendor(String vendor) {
+            this.vendor = vendor;
+        }
+
+        public String getDevice() {
+            return device;
+        }
+
+        public void setDevice(String device) {
+            this.device = device;
+        }
+
+        public String getSerial() {
+            return serial;
+        }
+
+        public void setSerial(String serial) {
+            this.serial = serial;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getManufacturer() {
+            return manufacturer;
+        }
+
+        public void setManufacturer(String manufacturer) {
+            this.manufacturer = manufacturer;
+        }
+
+        public List<String> getFeatures() {
+            return features;
+        }
+
+        public void setFeatures(List<String> features) {
+            this.features = features;
+        }
+
+        public String toString() {
+            return "Help4DevsSlots[" +
+                    "id=" + id +
+                    ", name=" + name +
+                    ", type=" + type +
+                    ", vendor=" + vendor +
+                    ", device=" + device +
+                    ", serial=" + serial +
+                    ", location=" + location +
+                    ", description=" + description +
+                    ", manufacturer=" + manufacturer +
+                    ", features=" + features +
+                    "]";
+        }
     }
 }

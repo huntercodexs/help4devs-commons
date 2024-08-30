@@ -1,164 +1,202 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Help4DevsStorageDto {
 
-    private List<String> id;
-    private List<String> name;
-    private List<String> type;
-    private List<String> size;
-    private List<String> used;
-    private List<String> free;
-    private List<String> speed;
-    private List<String> vendor;
-    private List<String> driver;
-    private List<String> serial;
-    private List<String> source;
-    private List<String> partition;
-    private List<String> manufacture;
-    private List<String> description;
-    private List<String> details;
+    private String qty;
+    private List<Help4DevsStorage> details;
 
-    public Help4DevsStorageDto() {}
-
-    public List<String> getId() {
-        return id;
+    public Help4DevsStorageDto() {
+        this.details = new ArrayList<>();
     }
 
-    public void setId(List<String> id) {
-        this.id = id;
+    public String getQty() {
+        return qty;
     }
 
-    public List<String> getName() {
-        return name;
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
-    public void setName(List<String> name) {
-        this.name = name;
-    }
-
-    public List<String> getType() {
-        return type;
-    }
-
-    public void setType(List<String> type) {
-        this.type = type;
-    }
-
-    public List<String> getSize() {
-        return size;
-    }
-
-    public void setSize(List<String> size) {
-        this.size = size;
-    }
-
-    public List<String> getUsed() {
-        return used;
-    }
-
-    public void setUsed(List<String> used) {
-        this.used = used;
-    }
-
-    public List<String> getFree() {
-        return free;
-    }
-
-    public void setFree(List<String> free) {
-        this.free = free;
-    }
-
-    public List<String> getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(List<String> speed) {
-        this.speed = speed;
-    }
-
-    public List<String> getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(List<String> vendor) {
-        this.vendor = vendor;
-    }
-
-    public List<String> getDriver() {
-        return driver;
-    }
-
-    public void setDriver(List<String> driver) {
-        this.driver = driver;
-    }
-
-    public List<String> getSerial() {
-        return serial;
-    }
-
-    public void setSerial(List<String> serial) {
-        this.serial = serial;
-    }
-
-    public List<String> getSource() {
-        return source;
-    }
-
-    public void setSource(List<String> source) {
-        this.source = source;
-    }
-
-    public List<String> getPartition() {
-        return partition;
-    }
-
-    public void setPartition(List<String> partition) {
-        this.partition = partition;
-    }
-
-    public List<String> getManufacture() {
-        return manufacture;
-    }
-
-    public void setManufacture(List<String> manufacture) {
-        this.manufacture = manufacture;
-    }
-
-    public List<String> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<String> description) {
-        this.description = description;
-    }
-
-    public List<String> getDetails() {
+    public List<Help4DevsStorage> getDetails() {
         return details;
     }
 
-    public void setDetails(List<String> details) {
+    public void setDetails(List<Help4DevsStorage> details) {
         this.details = details;
+    }
+
+    public void addStorage(Help4DevsStorage storage) {
+        this.details.add(storage);
     }
 
     public String toString() {
         return "Help4DevsStorageDto[" +
-                "id=" + id +
-                ", name=" + name +
-                ", type=" + type +
-                ", size=" + size +
-                ", used=" + used +
-                ", free=" + free +
-                ", speed=" + speed +
-                ", vendor=" + vendor +
-                ", driver=" + driver +
-                ", serial=" + serial +
-                ", source=" + source +
-                ", partition=" + partition +
-                ", manufacture=" + manufacture +
-                ", description=" + description +
+                "qty=" + qty +
                 ", details=" + details +
                 "]";
+    }
+
+    public static class Help4DevsStorage {
+
+        private String id;
+        private String name;
+        private String type;
+        private String size;
+        private String used;
+        private String free;
+        private String speed;
+        private String vendor;
+        private String driver;
+        private String serial;
+        private String source;
+        private String partition;
+        private String manufacture;
+        private String description;
+        private List<String> features;
+
+        public Help4DevsStorage() {}
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
+        }
+
+        public String getUsed() {
+            return used;
+        }
+
+        public void setUsed(String used) {
+            this.used = used;
+        }
+
+        public String getFree() {
+            return free;
+        }
+
+        public void setFree(String free) {
+            this.free = free;
+        }
+
+        public String getSpeed() {
+            return speed;
+        }
+
+        public void setSpeed(String speed) {
+            this.speed = speed;
+        }
+
+        public String getVendor() {
+            return vendor;
+        }
+
+        public void setVendor(String vendor) {
+            this.vendor = vendor;
+        }
+
+        public String getDriver() {
+            return driver;
+        }
+
+        public void setDriver(String driver) {
+            this.driver = driver;
+        }
+
+        public String getSerial() {
+            return serial;
+        }
+
+        public void setSerial(String serial) {
+            this.serial = serial;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getPartition() {
+            return partition;
+        }
+
+        public void setPartition(String partition) {
+            this.partition = partition;
+        }
+
+        public String getManufacture() {
+            return manufacture;
+        }
+
+        public void setManufacture(String manufacture) {
+            this.manufacture = manufacture;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public List<String> getFeatures() {
+            return features;
+        }
+
+        public void setFeatures(List<String> features) {
+            this.features = features;
+        }
+
+        public String toString() {
+            return "Help4DevsStorage[" +
+                    "id=" + id +
+                    ", name=" + name +
+                    ", type=" + type +
+                    ", size=" + size +
+                    ", used=" + used +
+                    ", free=" + free +
+                    ", speed=" + speed +
+                    ", vendor=" + vendor +
+                    ", driver=" + driver +
+                    ", serial=" + serial +
+                    ", source=" + source +
+                    ", partition=" + partition +
+                    ", manufacture=" + manufacture +
+                    ", description=" + description +
+                    ", features=" + features +
+                    "]";
+        }
     }
 }
