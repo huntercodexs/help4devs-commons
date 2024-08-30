@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -264,7 +265,7 @@ public class Help4DevsStringHandlerService {
      *
      * <p style="color: #CDCDCD">Extract one specific string from one input string</p>
      *
-     * <p>Usage example</p>
+     * <p>Usa example 1</p>
      *
      * <pre>
      *     String source = "Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4000 MHz";
@@ -278,6 +279,22 @@ public class Help4DevsStringHandlerService {
      *
      * <pre>
      *     i5-9300H
+     * </pre>
+     *
+     * <p>Usa example 2</p>
+     *
+     * <pre>
+     *     String source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
+     *     String pattern = "(description: [-_.0-9a-zA-Z]+)";
+     *     String replacer = "description:$1";
+     *     String detail = "description";
+     *     stringExtractor(source, detail, pattern, replacer, 2);
+     * </pre>
+     *
+     * <p>Result example</p>
+     *
+     * <pre>
+     *     AT-Translated-Set-2-keyboard
      * </pre>
      *
      * @param input (String: Data input to extract, for example: "Intel Core")
@@ -296,7 +313,7 @@ public class Help4DevsStringHandlerService {
 
         return StringUtils
                 .substringBetween(extract, "#<"+index+"#", "#"+index+">#")
-                .replaceAll(detail+":", "");
+                .replaceAll(detail+":", "").trim();
     }
 
     /**
@@ -404,5 +421,46 @@ public class Help4DevsStringHandlerService {
         }
 
         return String.valueOf(result);
+    }
+
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">listClear</h6>
+     *
+     * <p style="color: #CDCDCD">Create one list of String from an List items cleanup the content</p>
+     *
+     * <p>Usage example</p>
+     *
+     * <pre>
+     *     List&lt;String&gt; list = Arrays.asList(
+     *          "type: keyboard source: type: keyboard source: /dev/input/event9 description: MosArt-Wireless-Keyboard/Mouse",
+     *          "type: keyboard source: type: keyboard source: /dev/input/event4 description: AT-Translated-Set-2-keyboard"
+     *     );
+     *
+     *     String result = listClear(list, "type: keyboard source: type: keyboard source: ", "source: );
+     * </pre>
+     *
+     * <p>Result example</p>
+     *
+     * <pre>
+     *     List&lt;String&gt; list = Arrays.asList(
+     *          "source: /dev/input/event9 description: MosArt-Wireless-Keyboard/Mouse",
+     *          "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard"
+     *     );
+     * </pre>
+     *
+     * @param items (List[String]: Data to Clear)
+     * @param replace (String: Data to replace)
+     * @param replacement (String: Data to replacement)
+     * @return LIst&lt;String&gt; (List clear)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static List<String> listClear(List<String> items, String replace, String replacement) {
+        List<String> result = new ArrayList<>();
+        for (String current : items) {
+            result.add(current.replaceAll(replace, replacement));
+        }
+        return result;
     }
 }

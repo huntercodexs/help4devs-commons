@@ -19,7 +19,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsBatteryDto battery;
     private Help4DevsMemoryDto memory;
     private Help4DevsSlotsDto slots;
-    private Help4DevsProcessorDto processor;
+    private Help4DevsProcessors processor;
     private Help4DevsGraphicsDto graphics;
     private Help4DevsAudioDto audio;
     private Help4DevsNetworkDto network;
@@ -28,14 +28,14 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsUsbDto usb;
     private Help4DevsSensorsDto sensors;
     private Help4DevsRunningDto running;
-    private Help4DevsMonitorDto monitor;
+    private Help4DevsMonitors monitor;
     private Help4DevsBiosDto bios;
     private Help4DevsBaseboardDto baseboard;
     private Help4DevsChassisDto chassis;
     private Help4DevsCacheDto cache;
     private Help4DevsConnectorDto connector;
-    private Help4DevsKeyboardDto keyboard;
-    private Help4DevsMouseDto mouse;
+    private Help4DevsKeyboards keyboard;
+    private Help4DevsMouses mouse;
     private Help4DevsHubDto hub;
     private Help4DevsSwitchDto switcher;
     private Help4DevsModemDto modem;
@@ -88,12 +88,12 @@ public class Help4DevsHardSysResourcesDto {
         this.slots = (Help4DevsSlotsDto)slots;
     }
 
-    public Help4DevsProcessorDto getProcessor() {
+    public Help4DevsProcessors getProcessor() {
         return processor;
     }
 
     public void setProcessor(Object processor) {
-        this.processor = (Help4DevsProcessorDto) processor;
+        this.processor = (Help4DevsProcessors) processor;
     }
 
     public Help4DevsGraphicsDto getGraphics() {
@@ -160,12 +160,12 @@ public class Help4DevsHardSysResourcesDto {
         this.running = (Help4DevsRunningDto)running;
     }
 
-    public Help4DevsMonitorDto getMonitor() {
+    public Help4DevsMonitors getMonitor() {
         return monitor;
     }
 
     public void setMonitor(Object monitor) {
-        this.monitor = (Help4DevsMonitorDto)monitor;
+        this.monitor = (Help4DevsMonitors)monitor;
     }
 
     public Help4DevsBiosDto getBios() {
@@ -208,20 +208,20 @@ public class Help4DevsHardSysResourcesDto {
         this.connector = (Help4DevsConnectorDto)connector;
     }
 
-    public Help4DevsKeyboardDto getKeyboard() {
+    public Help4DevsKeyboards getKeyboard() {
         return keyboard;
     }
 
     public void setKeyboard(Object keyboard) {
-        this.keyboard = (Help4DevsKeyboardDto)keyboard;
+        this.keyboard = (Help4DevsKeyboards)keyboard;
     }
 
-    public Help4DevsMouseDto getMouse() {
+    public Help4DevsMouses getMouse() {
         return mouse;
     }
 
     public void setMouse(Object mouse) {
-        this.mouse = (Help4DevsMouseDto)mouse;
+        this.mouse = (Help4DevsMouses)mouse;
     }
 
     public Help4DevsHubDto getHub() {

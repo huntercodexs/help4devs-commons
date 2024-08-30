@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -102,7 +103,7 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
 
         return StringUtils
                 .substringBetween(extract, "#<"+index+"#", "#"+index+">#")
-                .replaceAll(detail+":", "");
+                .replaceAll(detail+":", "").trim();
     }
 
     protected String stringList(List<String> items, String clear) {
@@ -122,6 +123,14 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
         }
 
         return String.valueOf(result);
+    }
+
+    protected static List<String> listClear(List<String> items, String replace, String replacement) {
+        List<String> result = new ArrayList<>();
+        for (String current : items) {
+            result.add(current.replaceAll(replace, replacement));
+        }
+        return result;
     }
 
     protected String listExtractor(List<String> items, String detail, String clear, String pattern, String replacer) {

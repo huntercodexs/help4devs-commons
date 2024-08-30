@@ -1,9 +1,11 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
 import com.huntercodexs.demo.system.hardsys.Help4DevsHardSys;
+import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHardSysResourcesDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboards;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboards.Help4DevsKeyboardDto;
 import com.huntercodexs.demo.system.hardsys.group.*;
 import com.huntercodexs.demo.system.hardsys.processing.*;
 import org.junit.Test;
@@ -512,6 +514,68 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     public void generalSystemInfoBySysteminfoWindowsCommandTest() {
         Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(SYSTEMINFO);
         generalSystemInfo.resources();
+    }
+
+    @Test
+    public void help4DevsKeyboardDtoTest() {
+
+        Help4DevsKeyboards keyboard = new Help4DevsKeyboards();
+        keyboard.setQty("2");
+
+        Help4DevsKeyboardDto keyboardDto = new Help4DevsKeyboardDto();
+        keyboardDto.setId("1");
+        keyboardDto.setName("name 1");
+
+        keyboard.addKeyboard(keyboardDto);
+
+        keyboardDto = new Help4DevsKeyboardDto();
+        keyboardDto.setId("2");
+        keyboardDto.setName("name 2");
+
+        keyboard.addKeyboard(keyboardDto);
+
+        System.out.println(keyboard);
+
+        System.out.println(keyboard.getQty());
+        System.out.println(keyboard.getDetails());
+        System.out.println(keyboard.getDetails().get(0));
+        System.out.println(keyboard.getDetails().get(0).getId());
+        System.out.println(keyboard.getDetails().get(0).getName());
+        System.out.println(keyboard.getDetails().get(1));
+        System.out.println(keyboard.getDetails().get(1).getId());
+        System.out.println(keyboard.getDetails().get(1).getName());
+    }
+
+    @Test
+    public void help4DevsKeyboardsTest() {
+
+        Help4DevsKeyboards keyboard = new Help4DevsKeyboards();
+        keyboard.setQty("2");
+
+        List<Help4DevsKeyboardDto> keyboardList = new ArrayList<>();
+
+        Help4DevsKeyboardDto keyboardDto = new Help4DevsKeyboardDto();
+        keyboardDto.setId("1");
+        keyboardDto.setName("name 1");
+        keyboardList.add(keyboardDto);
+
+        keyboardDto = new Help4DevsKeyboardDto();
+        keyboardDto.setId("2");
+        keyboardDto.setName("name 2");
+        keyboardList.add(keyboardDto);
+
+        keyboard.setDetails(keyboardList);
+
+        System.out.println(keyboard);
+
+        System.out.println(keyboard.getQty());
+        System.out.println(keyboard.getDetails());
+        System.out.println(keyboard.getDetails().get(0));
+        System.out.println(keyboard.getDetails().get(0).getId());
+        System.out.println(keyboard.getDetails().get(0).getName());
+        System.out.println(keyboard.getDetails().get(1));
+        System.out.println(keyboard.getDetails().get(1).getId());
+        System.out.println(keyboard.getDetails().get(1).getName());
     }
 
 }

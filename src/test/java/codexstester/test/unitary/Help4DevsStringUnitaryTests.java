@@ -5,7 +5,9 @@ import com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.*;
@@ -117,6 +119,18 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
         String replacer = "model:$1$2";
         String detail = "model";
         codexsTesterAssertExact(stringExtractor(source, detail, pattern, replacer, 1), "i5-9300H");
+
+        source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
+        pattern = "(source: [/-_.0-9a-zA-Z]+)( description: )";
+        replacer = "source:$1";
+        detail = "source";
+        codexsTesterAssertExact(stringExtractor(source, detail, pattern, replacer, 1), "/dev/input/event4");
+
+        source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
+        pattern = "(description: [-_.0-9a-zA-Z]+)";
+        replacer = "description:$1";
+        detail = "description";
+        codexsTesterAssertExact(stringExtractor(source, detail, pattern, replacer, 1), "AT-Translated-Set-2-keyboard");
     }
 
     @Test
@@ -150,6 +164,59 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
         String result = listExtractor(source, detail, "data to remove: ", pattern, replacer);
 
         codexsTesterAssertExact(result, "4000 MHz,4001 MHz,4002 MHz");
+
+    }
+
+    @Test
+    public void listClearTest() {
+
+        List<String> list = new ArrayList<>();
+        list.add("type: keyboard source: type: keyboard source: /dev/input/event9 description: MosArt-Wireless-Keyboard/Mouse");
+        list.add("type: keyboard source: type: keyboard source: /dev/input/event4 description: AT-Translated-Set-2-keyboard");
+
+        List<String> result = listClear(
+                list,
+                "type: keyboard source: type: keyboard source: ",
+                "source: ");
+
+        for (String res : result) {
+            System.out.println(res);
+        }
+
+    }
+
+    @Test
+    public void listHasMapTest() {
+
+        List<HashMap<String, String>> hashMapList = new ArrayList<>();
+        //0[
+        //  {k:v},
+        //  {k:v},
+        //  {k:v},
+        //  {k:v},
+        //  {k:v}
+        //],
+        //1[
+        //  {k:v},
+        //  {k:v},
+        //  {k:v},
+        //  {k:v},
+        //  {k:v}
+        //]
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("k1", "v1");
+        hashMap.put("k2", "v2");
+        hashMap.put("k3", "v3");
+        hashMapList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("k4", "v4");
+        hashMap.put("k5", "v5");
+        hashMap.put("k6", "v6");
+        hashMapList.add(hashMap);
+
+        System.out.println(hashMapList);
 
     }
 

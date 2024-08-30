@@ -1,10 +1,16 @@
 package com.huntercodexs.demo.system.hardsys.core.factory;
 
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMultimediaDto;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto;
+import com.huntercodexs.demo.system.hardsys.dto.*;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboards.Help4DevsKeyboardDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMonitors.Help4DevsMonitorDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouses.Help4DevsMouseDto;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessors.Help4DevsProcessorDto;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @implNote This class only process for DTO format results
@@ -18,33 +24,162 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     private void processorFactory(List<String> items) {
 
-        int cores = items.size();
-        String processorName = items.get(0).replaceAll("type: processor source: ", "");
+        String itemClear = items.get(0).replaceAll("type: processor source: ", "");
 
-        Help4DevsProcessorDto processorDto = new Help4DevsProcessorDto();
-        processorDto.setCores(String.valueOf(cores));
-        processorDto.setName(processorName.replaceAll(",", ""));
-        processorDto.setModel(stringExtractor(processorName, "model", "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)", "model:$1$2", 0));
-        processorDto.setFamily(stringExtractor(processorName, "family", "(Intel|AMD|NVIDIA)", "family:$1", 1));
-        processorDto.setSpeed(stringExtractor(processorName, "speed", "([0-9]+\\.[0-9]+[MG]Hz)", "speed:$1", 2));
-        processorDto.setCurrent(stringExtractor(processorName, "current", "([0-9]+) (MHz)", "current:$1 $2", 3));
-        processorDto.setListCores(Collections.singletonList(stringList(items, "type: processor source: ")));
-        processorDto.setSpeedCores(Collections.singletonList(listExtractor(
-                items,
-                "speedCore",
-                "type: processor source: ",
-                "([0-9]+) (MHz)",
-                "speedCore:$1 $2")));
+        Help4DevsProcessors processors = new Help4DevsProcessors();
+        processors.setCores(String.valueOf(items.size()));
+        processors.setName(itemClear.replaceAll(",", ""));
 
-        this.transport.put(hardsys("processor"), processorDto);
+        int index = 0;
+        for (String item : items) {
+
+            Help4DevsProcessorDto processorDto = new Help4DevsProcessorDto();
+
+            processorDto.setCore(String.valueOf(index));
+
+            processorDto.setModel(stringExtractor(
+                    itemClear,
+                    "model",
+                    "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)",
+                    "model:$1$2",
+                    index));
+
+            processorDto.setFamily(stringExtractor(
+                    itemClear,
+                    "family",
+                    "(Intel|AMD|NVIDIA)",
+                    "family:$1",
+                    index+1));
+
+            processorDto.setSpeed(stringExtractor(
+                    itemClear,
+                    "speed",
+                    "([0-9]+\\.[0-9]+[MG]Hz)",
+                    "speed:$1",
+                    index+2));
+
+            processorDto.setCurrent(stringExtractor(
+                    itemClear,
+                    "current",
+                    "([0-9]+) (MHz)",
+                    "current:$1 $2",
+                    index+3));
+
+            processors.addProcessor(processorDto);
+            index++;
+
+        }
+
+        this.transport.put(hardsys("processor"), processors);
 
     }
 
-    private void keyboardFactory(List<String> items) {}
+    private void keyboardFactory(List<String> items) {
 
-    private void mouseFactory(List<String> items) {}
+        Help4DevsKeyboards keyboards = new Help4DevsKeyboards();
+        keyboards.setQty(String.valueOf(items.size()));
 
-    private void monitorFactory(List<String> items) {}
+        List<String> list = listClear(items, "type: keyboard source: type: keyboard ", "source: ");
+
+        int id = 1;
+        for (String item : list) {
+
+            item = item.replaceAll("\\.@\\.", ":");
+
+            Help4DevsKeyboardDto keyboardDto = new Help4DevsKeyboardDto();
+            keyboardDto.setId(String.format("%06d", id));
+            keyboardDto.setName(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:]+)",
+                    "description:$1",
+                    id));
+            keyboardDto.setSource(stringExtractor(
+                    item,
+                    "source",
+                    "(source: [/-_.0-9a-zA-Z]+)( description:)",
+                    "source:$1",
+                    id));
+            keyboardDto.setDescription(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:]+)",
+                    "description:$1",
+                    id).replaceAll("-", " "));
+
+            keyboards.addKeyboard(keyboardDto);
+            id++;
+        }
+
+        this.transport.put(hardsys("keyboard"), keyboards);
+
+    }
+
+    private void mouseFactory(List<String> items) {
+
+        Help4DevsMouses mouses = new Help4DevsMouses();
+        mouses.setQty(String.valueOf(items.size()));
+
+        List<String> list = listClear(items, "type: mouse source: type: mouse ", "source: ");
+
+        int id = 1;
+        for (String item : list) {
+
+            item = item.replaceAll("\\.@\\.", ":");
+
+            Help4DevsMouseDto mouseDto = new Help4DevsMouseDto();
+            mouseDto.setId(String.format("%06d", id));
+            mouseDto.setName(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:]+)",
+                    "description:$1",
+                    id));
+            mouseDto.setSource(stringExtractor(
+                    item,
+                    "source",
+                    "(source: [/-_.0-9a-zA-Z]+)( description:)",
+                    "source:$1",
+                    id));
+            mouseDto.setDescription(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:]+)",
+                    "description:$1",
+                    id).replaceAll("-", " "));
+
+            mouses.addMouse(mouseDto);
+            id++;
+        }
+
+        this.transport.put(hardsys("mouse"), mouses);
+    }
+
+    private void monitorFactory(List<String> items) {
+
+        Help4DevsMonitors monitors = new Help4DevsMonitors();
+        monitors.setQty(String.valueOf(items.size()));
+
+        for (String item : items) {
+
+            item = item.replaceAll("type: monitor source: ", "");
+
+            Help4DevsMonitorDto monitorDto = new Help4DevsMonitorDto();
+            monitorDto.setName(item.replaceAll("type: monitor source: ", ""));
+            monitorDto.setType(stringExtractor(
+                    item,
+                    "type",
+                    "(FHD|WFHD|UHD|4K|HF LCD|LCD|HF|LED|UHLED|QLED)",
+                    "type:$1",
+                    1));
+
+            monitors.addMonitor(monitorDto);
+
+        }
+
+        this.transport.put(hardsys("monitor"), monitors);
+
+    }
 
     private void graphicsFactory(List<String> items) {}
 
