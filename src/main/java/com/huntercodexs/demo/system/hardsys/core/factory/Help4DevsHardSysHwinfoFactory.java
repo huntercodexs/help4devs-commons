@@ -3,14 +3,23 @@ package com.huntercodexs.demo.system.hardsys.core.factory;
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.dto.*;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsAudioDto.Help4DevsAudio;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsBiosDto.Help4DevsBios;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsBluetoothDto.Help4DevsBluetooth;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsBridgeDto.Help4DevsBridge;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsDiskDto.Help4DevsDisk;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsGraphicsDto.Help4DevsGraphics;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHubDto.Help4DevsHub;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboardDto.Help4DevsKeyboard;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMemoryDto.Help4DevsMemory;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMonitorDto.Help4DevsMonitor;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouseDto.Help4DevsMouse;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkDto.Help4DevsNetwork;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkInterfaceDto.Help4DevsNetworkInterface;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsPartitionDto.Help4DevsPartition;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto.Help4DevsProcessor;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsStorageDto.Help4DevsStorage;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsUnknownDto.Help4DevsUnknown;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsUsbDto.Help4DevsUsb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -199,7 +208,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             Help4DevsMonitor monitor = new Help4DevsMonitor();
 
             monitor.setId(String.format("%06d", id));
-            monitor.setName(item.replaceAll("type: monitor source: ", ""));
+            monitor.setName(item);
 
             monitor.setVendor(stringExtractor(
                     item.toUpperCase(),
@@ -237,7 +246,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             Help4DevsGraphics graphics = new Help4DevsGraphics();
 
             graphics.setId(String.format("%06d", id));
-            graphics.setName(item.replaceAll("type: graphics source: ", ""));
+            graphics.setName(item);
 
             graphics.setVendor(stringExtractor(
                     item.toUpperCase(),
@@ -283,7 +292,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             Help4DevsAudio audio = new Help4DevsAudio();
 
             audio.setId(String.format("%06d", id));
-            audio.setName(item.replaceAll("type: audio source: ", ""));
+            audio.setName(item);
 
             audio.setVendor(stringExtractor(
                     item.toUpperCase(),
@@ -325,7 +334,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             Help4DevsStorage storage = new Help4DevsStorage();
 
             storage.setId(String.format("%06d", id));
-            storage.setName(item.replaceAll("type: storage source: ", ""));
+            storage.setName(item);
 
             storage.setVendor(stringExtractor(
                     item.toUpperCase(),
@@ -459,23 +468,357 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     }
 
-    private void diskFactory(List<String> items) {}
+    private void diskFactory(List<String> items) {
 
-    private void partitionFactory(List<String> items) {}
+        Help4DevsDiskDto disksDto = new Help4DevsDiskDto();
+        disksDto.setQty(String.valueOf(items.size()));
 
-    private void usbFactory(List<String> items) {}
+        List<String> list = listClear(items, "type: disk source: type: disk ", "source: ");
 
-    private void biosFactory(List<String> items) {}
+        int id = 1;
+        for (String item : list) {
 
-    private void bridgeFactory(List<String> items) {}
+            item = item.replaceAll("\\.@\\.", ":");
 
-    private void hubFactory(List<String> items) {}
+            Help4DevsDisk disk = new Help4DevsDisk();
+            disk.setId(String.format("%06d", id));
 
-    private void memoryFactory(List<String> items) {}
+            disk.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
 
-    private void bluetoothFactory(List<String> items) {}
+            disk.setName(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:/]+)",
+                    "description:$1",
+                    id));
+            disk.setSource(stringExtractor(
+                    item,
+                    "source",
+                    "(source: [/-_.0-9a-zA-Z]+)( description:)",
+                    "source:$1",
+                    id));
+            disk.setDescription(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:/]+)",
+                    "description:$1",
+                    id).replaceAll("-", " "));
+            disk.setManufacture(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
 
-    private void unknownFactory(List<String> items) {}
+            disksDto.addDisk(disk);
+            id++;
+        }
+
+        this.transport.put(hardsys("disk"), disksDto);
+
+    }
+
+    private void partitionFactory(List<String> items) {
+
+        Help4DevsPartitionDto partitionDto = new Help4DevsPartitionDto();
+        partitionDto.setQty(String.valueOf(items.size()));
+
+        List<String> list = listClear(
+                items,
+                "type: partition source: type: partition ",
+                "source: ");
+
+        int id = 1;
+        for (String item : list) {
+
+            item = item.replaceAll("\\.@\\.", ":");
+
+            Help4DevsPartition partition = new Help4DevsPartition();
+            partition.setId(String.format("%06d", id));
+
+            partition.setSource(stringExtractor(
+                    item,
+                    "source",
+                    "(source: [/-_.0-9a-zA-Z]+)( description:)",
+                    "source:$1",
+                    id));
+
+            partition.setDescription(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:/]+)",
+                    "description:$1",
+                    id).replaceAll("-", " "));
+
+            partitionDto.addPartition(partition);
+            id++;
+        }
+
+        this.transport.put(hardsys("partition"), partitionDto);
+
+    }
+
+    private void usbFactory(List<String> items) {
+
+        Help4DevsUsbDto usbDto = new Help4DevsUsbDto();
+        usbDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: usb source: ", "");
+
+            Help4DevsUsb usb = new Help4DevsUsb();
+
+            usb.setId(String.format("%06d", id));
+            usb.setName(item);
+
+            usb.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            usb.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    usbTypePattern,
+                    "type:$1",
+                    id));
+
+            usb.setDescription(item
+                    .replaceAll("type: usb source: ", "")
+                    .replaceAll("-", " "));
+
+            usbDto.addUsb(usb);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("usb"), usbDto);
+
+    }
+
+    private void biosFactory(List<String> items) {
+
+        Help4DevsBiosDto biosDto = new Help4DevsBiosDto();
+        biosDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: bios source: ", "");
+
+            Help4DevsBios bios = new Help4DevsBios();
+
+            bios.setId(String.format("%06d", id));
+            bios.setName(item);
+
+            bios.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            bios.setDescription(item.replaceAll("-", " "));
+
+            biosDto.addBios(bios);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("bios"), biosDto);
+
+    }
+
+    private void bridgeFactory(List<String> items) {
+
+        Help4DevsBridgeDto bridgeDto = new Help4DevsBridgeDto();
+        bridgeDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: bridge source: ", "");
+
+            Help4DevsBridge bridge = new Help4DevsBridge();
+
+            bridge.setId(String.format("%06d", id));
+            bridge.setName(item);
+
+            bridge.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            bridge.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    bridgeTypePattern,
+                    "type:$1",
+                    id));
+
+            bridge.setDescription(item
+                    .replaceAll("type: bridge source: ", "")
+                    .replaceAll("-", " "));
+
+            bridgeDto.addBridge(bridge);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("bridge"), bridgeDto);
+
+    }
+
+    private void hubFactory(List<String> items) {
+
+        Help4DevsHubDto hubDto = new Help4DevsHubDto();
+        hubDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: hub source: ", "");
+
+            Help4DevsHub hub = new Help4DevsHub();
+
+            hub.setId(String.format("%06d", id));
+            hub.setName(item);
+
+            hub.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            hub.setDescription(item
+                    .replaceAll("type: hub source: ", "")
+                    .replaceAll("-", " "));
+
+            hubDto.addHub(hub);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("hub"), hubDto);
+
+    }
+
+    private void memoryFactory(List<String> items) {
+
+        Help4DevsMemoryDto memoryDto = new Help4DevsMemoryDto();
+        memoryDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: memory source: ", "");
+
+            Help4DevsMemory memory = new Help4DevsMemory();
+
+            memory.setId(String.format("%06d", id));
+            memory.setName(item);
+
+            memory.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            memory.setDescription(item
+                    .replaceAll("type: memory source: ", "")
+                    .replaceAll("-", " "));
+
+            memoryDto.addMemory(memory);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("memory"), memoryDto);
+
+    }
+
+    private void bluetoothFactory(List<String> items) {
+
+        Help4DevsBluetoothDto bluetoothDto = new Help4DevsBluetoothDto();
+        bluetoothDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: bluetooth source: ", "");
+
+            Help4DevsBluetooth bluetooth = new Help4DevsBluetooth();
+
+            bluetooth.setId(String.format("%06d", id));
+            bluetooth.setName(item);
+
+            bluetooth.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            bluetooth.setDescription(item
+                    .replaceAll("type: bluetooth source: ", "")
+                    .replaceAll("-", " "));
+
+            bluetoothDto.addBluetooth(bluetooth);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("bluetooth"), bluetoothDto);
+
+    }
+
+    private void unknownFactory(List<String> items) {
+
+        Help4DevsUnknownDto unknownDto = new Help4DevsUnknownDto();
+        unknownDto.setQty(String.valueOf(items.size()));
+
+        int id = 1;
+        for (String item : items) {
+
+            item = item.replaceAll("type: unknown source: ", "");
+
+            Help4DevsUnknown unknown = new Help4DevsUnknown();
+
+            unknown.setId(String.format("%06d", id));
+            unknown.setName(item);
+
+            unknown.setVendor(stringExtractor(
+                    item.toUpperCase(),
+                    "type",
+                    vendorsPattern,
+                    "type:$1",
+                    id));
+
+            unknown.setDescription(item
+                    .replaceAll("type: unknown source: ", "")
+                    .replaceAll("-", " "));
+
+            unknownDto.addUnknown(unknown);
+            id++;
+
+        }
+
+        this.transport.put(hardsys("unknown"), unknownDto);
+
+    }
 
     /**
      * @implNote This method will convert the resources from a List object to a DTO object

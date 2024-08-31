@@ -44,6 +44,7 @@ public class Help4DevsUnknownDto {
         private String id;
         private String name;
         private String source;
+        private String vendor;
         private String description;
 
         public Help4DevsUnknown() {}
@@ -72,6 +73,14 @@ public class Help4DevsUnknownDto {
             this.source = source;
         }
 
+        public String getVendor() {
+            return vendor;
+        }
+
+        public void setVendor(String vendor) {
+            this.vendor = vendor;
+        }
+
         public String getDescription() {
             return description;
         }
@@ -85,6 +94,7 @@ public class Help4DevsUnknownDto {
                     "id=" + id +
                     ", name=" + name +
                     ", source=" + source +
+                    ", vendor=" + vendor +
                     ", description=" + description +
                     "]";
         }

@@ -1,5 +1,6 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Help4DevsBiosDto {
@@ -7,7 +8,9 @@ public class Help4DevsBiosDto {
     private String qty;
     private List<Help4DevsBios> details;
 
-    public Help4DevsBiosDto() {}
+    public Help4DevsBiosDto() {
+        this.details = new ArrayList<>();
+    }
 
     public String getQty() {
         return qty;

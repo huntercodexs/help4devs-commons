@@ -33,11 +33,11 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
             "CONDUTTI|CONFISEG|CREALITY|D-LINK|DAZZ|DEEP COOL|ELGIN|ELGIN-BEMATECH|EPSON|EVGA|EZVIZ|" +
             "FC FONTES|FIBERHOME|FLEX MIDIA|FURUKAWA|GENNO|GFORCE|GIGA|GIGABYTE|GILTAR|HDL|HIKVISION|" +
             "HP|HUION|HYPERX|IGECAST|IMILAB|INTEL|INTELBRAS|IPEC|K-MEX|KASPERSKY|KINGSTON|LAN EXPERT|" +
-            "LENOVO|LG|LINEAR|LOGITECH|MEGATRON|MERCUSYS|MICROSOFT|APPLE|LINUX|MULTITOC|NANO ACCESS|" +
+            "LENOVO|LG|LINEAR|LOGITECH|MEGATRON|MERCUSYS|MICROSOFT|APPLE|LINUS|MULTITOC|NANO ACCESS|" +
             "NAZDA|NICE|NORTON|O-TECH|ONE POWER|ONIX|PATRIOT|PCYES|PECCININ|PHILIPS|PIXXO|PNY NVIDIA|" +
             "POWERTEK|REDRAGON|T-DAGGER|TCL|TP-LINK|TRANSCEND|TSSHARA|VAIO|WACOM|WESTERN DIGITAL|XEROX|" +
             "XZONE|G-TECH|SONY|CCE|PHILCO|AMAZON|LEXMARK|IBM|CREATIVE|VIA TECHNOLOGIES|REALTEK|C-MEDIA|" +
-            "ANALOG|ADLIB|MULTILASER|EXBOM|MOSART|NVIDIA)";
+            "ANALOG|ADLIB|MULTILASER|EXBOM|MOSART|NVIDIA|CANNON|LINUX FOUNDATION|PHOENIX)";
 
     protected String processorModelPattern =
             "(I[0-9]+|AMD|NVIDIA|MSI|GIGABYTE|ASUS|SAMSUNG)([-_.0-9a-zA-Z]+)";
@@ -57,8 +57,14 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
     protected String storageTypePattern =
             "(HD|SATA|SSD|NVME SSD|NVME|M2 SSD|M2|SCSI|SAS|ATA)";
 
+    protected String usbTypePattern =
+            "(USB 3.1|3.1|C-TYPE|TYPE-C|2.0|PCH USB)";
+
     protected String networkTypePattern =
             "(WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
+
+    protected String bridgeTypePattern =
+            "(PCI Express|PCIe|PCI|PCH|ISA)";
 
     protected String[] fields() {
         Field[] fields = Help4DevsHardSysResourcesDto.class.getDeclaredFields();

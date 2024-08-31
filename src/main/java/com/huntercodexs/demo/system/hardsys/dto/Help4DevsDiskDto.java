@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Help4DevsDiskDto {
 
-    private String key;
+    private String qty;
     private List<Help4DevsDisk> details;
 
     public Help4DevsDiskDto() {
         this.details = new ArrayList<>();
     }
 
-    public String getKey() {
-        return key;
+    public String getQty() {
+        return qty;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
     public List<Help4DevsDisk> getDetails() {
@@ -34,7 +34,7 @@ public class Help4DevsDiskDto {
 
     public String toString() {
         return "Help4DevsDiskDto[" +
-                "key=" + key +
+                "qty=" + qty +
                 ", details=" + details +
                 "]";
     }
@@ -54,6 +54,7 @@ public class Help4DevsDiskDto {
         private String source;
         private String partition;
         private String manufacture;
+        private String description;
         private List<String> features;
 
         public Help4DevsDisk() {}
@@ -162,6 +163,14 @@ public class Help4DevsDiskDto {
             this.manufacture = manufacture;
         }
 
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
         public List<String> getFeatures() {
             return features;
         }
@@ -185,6 +194,7 @@ public class Help4DevsDiskDto {
                     ", source=" + source +
                     ", partition=" + partition +
                     ", manufacture=" + manufacture +
+                    ", description=" + description +
                     ", features=" + features +
                     "]";
         }
