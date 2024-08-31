@@ -5,6 +5,7 @@ import com.huntercodexs.demo.system.hardsys.command.*;
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysFactory;
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysResources;
+import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysSystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +57,10 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
             this.resources.put(res, new ArrayList<>());
         }
 
+        /*Global information - for all commands*/
+        new Help4DevsHardSysSystem(this.resources).run();
+
+        /*Command information - specific command*/
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
             new Help4DevsHardSysInxi(this.resources).run();
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
@@ -81,9 +86,11 @@ public class Help4DevsHardSys extends Help4DevsHardSysBase {
 
     public Help4DevsHardSysResources resources() {
         if (!this.getJsonOn()) {
+            /*for DTO result*/
             new Help4DevsHardSysFactory(this.command, this.resources, this.transport).make();
             return new Help4DevsHardSysResources(this.transport, this.command);
         }
+        /*for JSON result*/
         return new Help4DevsHardSysResources(this.command, this.resources);
     }
 

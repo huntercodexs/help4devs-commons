@@ -481,8 +481,12 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void generalSystemInfoByHwinfoCommand_ALL_DTO_Test() {
         Help4DevsHardSys hardSys = new Help4DevsHardSys(HWINFO);
+
         Help4DevsHardSysResourcesDto result = hardSys.resources().builder();
         System.out.println(result);
+
+        Help4DevsHardSysResourcesDto nonNull = hardSys.resources().nonNull();
+        System.out.println(nonNull);
     }
 
     @Test

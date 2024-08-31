@@ -128,7 +128,7 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
             String network = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("network")), hardsys("network"));
-            String networkInterface = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("networkInterface")), hardsys("networkInterface"));
+            String networkInterface = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("networkinterface")), hardsys("networkinterface"));
             String bridge = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("bridge")), hardsys("bridge"));
             String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("hub")), hardsys("hub"));
             String switcher = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("switcher")), hardsys("switcher"));

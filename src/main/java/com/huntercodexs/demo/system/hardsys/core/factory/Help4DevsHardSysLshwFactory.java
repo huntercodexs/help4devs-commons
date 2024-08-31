@@ -109,7 +109,7 @@ public class Help4DevsHardSysLshwFactory extends Help4DevsHardSysBase {
         videoFactory(this.resources.get(hardsys("video")));
         storageFactory(this.resources.get(hardsys("storage")));
         bridgeFactory(this.resources.get(hardsys("bridge")));
-        networkInterfaceFactory(this.resources.get(hardsys("networkInterface")));
+        networkInterfaceFactory(this.resources.get(hardsys("networkinterface")));
         unknownFactory(this.resources.get(hardsys("unknown")));
 
     }

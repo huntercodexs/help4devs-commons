@@ -30,6 +30,7 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
     private List<String> detailsFromLinuxCommandHwinfo() {
         return Arrays.asList(
+            this.allResources.getSystem().getDetails(),
             this.allResources.getProcessor().getDetails(),
             this.allResources.getKeyboard().getDetails(),
             this.allResources.getMouse().getDetails(),

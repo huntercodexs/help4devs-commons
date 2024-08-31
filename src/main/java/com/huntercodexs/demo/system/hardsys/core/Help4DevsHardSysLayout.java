@@ -2,7 +2,9 @@ package com.huntercodexs.demo.system.hardsys.core;
 
 public abstract class Help4DevsHardSysLayout {
 
-    //INXI Version 3.0.38 (Layout)
+    /**
+     * <p>INXI Version 3.0.38 (Layout)</p>
+     */
     protected static final String[] inxiInfo = new String[] {
             /*[ 0]*/ "System:    ",
             /*[ 1]*/ "Machine:   ",
@@ -20,7 +22,9 @@ public abstract class Help4DevsHardSysLayout {
             /*[13]*/ "Info:      "
     };
 
-    //HWINFO Version 21.68 (Layout)
+    /**
+     * <p>HWINFO Version 21.68 (Layout)</p>
+     */
     protected static final String[] hwinfoLayout = new String[] {
             /*[ 0]*/ "cpu:",
             /*[ 1]*/ "keyboard:",

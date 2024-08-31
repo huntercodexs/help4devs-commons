@@ -32,7 +32,9 @@ public class Help4DevsSystemDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
         for (String details : this.systemDetails) {
+            if (details.isEmpty()) continue;
             filter.add(details
+                    .replaceAll("type: system ", "")
                     .replaceAll("Kernel:", "kernel:")
                     .replaceAll("Desktop:", "desktop:")
                     .replaceAll("Distro:", "distro:"));

@@ -27,7 +27,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
                 .replaceAll("sound:", hardsys("audio"))
                 .replaceAll("storage:", hardsys("storage"))
                 .replaceAll("network:", hardsys("network"))
-                .replaceAll("network interface:", hardsys("networkInterface"))
+                .replaceAll("network interface:", hardsys("networkinterface"))
                 .replaceAll("disk:", hardsys("disk"))
                 .replaceAll("partition:", hardsys("partition"))
                 .replaceAll("cdrom:", hardsys("cdrom"))
@@ -117,12 +117,21 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
          * done to be used in the related group
          * */
         makeGroup("^(keyboard|mouse|monitor|hub)$", hardsys("devicesGroup"), false);
-        makeGroup("^(network|"+hardsys("networkInterface")+"|bridge|hub|switch)$", hardsys("networksGroup"), false);
+        makeGroup("^(network|"+hardsys("networkinterface")+"|bridge|hub|switch)$", hardsys("networksGroup"), false);
         makeGroup("^(disk|partition|cdrom|storage)$", hardsys("drivesGroup"), false);
         makeGroup("^(processor|memory|audio|battery)$", hardsys("componentsGroup"), false);
         makeGroup("^(baseboard|audio|bios|slots)$", hardsys("boardsGroup"), false);
         makeGroup("^(bios|cache)$", hardsys("hardwareGroup"), false);
 
+    }
+
+    private boolean forceBreak(int index, String line) {
+        for (int k = index; k < hwinfoLayout.length; k++) {
+            if (line.contains(hwinfoLayout[k])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void run() {
@@ -137,22 +146,30 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
 
                 if (currentLine.contains(hwinfoLayout[i])) {
 
-                    String lines;
+                    String line;
                     List<String> array = new ArrayList<>();
 
-                    while ((lines = reader.readLine()) != null) {
+                    while ((line = reader.readLine()) != null) {
 
                         //Last line - continue until readLine() equals null
                         if (i == hwinfoLayout.length-1) {
-                            array.add(lines.trim());
+                            array.add(line.trim());
                             continue;
                         }
 
-                        if (lines.contains(hwinfoLayout[i+1])) {
-                            currentLine = lines;
+                        //Next Layout Item
+                        if (line.contains(hwinfoLayout[i+1])) {
+                            currentLine = line;
                             break;
                         }
-                        array.add(lines.trim());
+
+                        //Prevent bug - In the case below the current resource is present in the output result
+                        if (forceBreak(i, line)) {
+                            currentLine = line;
+                            break;
+                        }
+
+                        array.add(line.trim());
                     }
 
                     //Save line according HARDSYS expected fields
