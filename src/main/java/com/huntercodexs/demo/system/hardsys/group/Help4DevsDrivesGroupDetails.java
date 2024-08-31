@@ -80,7 +80,8 @@ public class Help4DevsDrivesGroupDetails extends Help4DevsHardSysBase {
             String disk = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("disk")), hardsys("disk"));
             String partition = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("partition")), hardsys("partition"));
             String storage = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("storage")), hardsys("storage"));
-            return jsonMergerRFC8259(Arrays.asList(disk, partition, storage), hardsys("drivesGroup"));
+            String cdrom = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("cdrom")), hardsys("cdrom"));
+            return jsonMergerRFC8259(Arrays.asList(disk, partition, storage, cdrom), hardsys("drivesGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("drivesGroup"));

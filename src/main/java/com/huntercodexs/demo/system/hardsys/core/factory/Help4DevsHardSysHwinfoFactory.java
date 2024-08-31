@@ -16,6 +16,7 @@ import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouseDto.Help4DevsMouse
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkDto.Help4DevsNetwork;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkInterfaceDto.Help4DevsNetworkInterface;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsPartitionDto.Help4DevsPartition;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsCdRomDto.Help4DevsCdRom;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto.Help4DevsProcessor;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsStorageDto.Help4DevsStorage;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsUnknownDto.Help4DevsUnknown;
@@ -563,6 +564,46 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
     }
 
+    private void cdRomFactory(List<String> items) {
+
+        Help4DevsCdRomDto cdRomDto = new Help4DevsCdRomDto();
+        cdRomDto.setQty(String.valueOf(items.size()));
+
+        List<String> list = listClear(
+                items,
+                "type: cdrom source: type: cdrom ",
+                "source: ");
+
+        int id = 1;
+        for (String item : list) {
+
+            item = item.replaceAll("\\.@\\.", ":");
+
+            Help4DevsCdRom cdrom = new Help4DevsCdRom();
+            cdrom.setId(String.format("%06d", id));
+
+            cdrom.setSource(stringExtractor(
+                    item,
+                    "source",
+                    "(source: [/-_.0-9a-zA-Z]+)( description:)",
+                    "source:$1",
+                    id));
+
+            cdrom.setDescription(stringExtractor(
+                    item,
+                    "description",
+                    "(description: [-_.0-9a-zA-Z:/]+)",
+                    "description:$1",
+                    id).replaceAll("-", " "));
+
+            cdRomDto.addCdRom(cdrom);
+            id++;
+        }
+
+        this.transport.put(hardsys("cdrom"), cdRomDto);
+
+    }
+
     private void usbFactory(List<String> items) {
 
         Help4DevsUsbDto usbDto = new Help4DevsUsbDto();
@@ -865,6 +906,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
         networkInterfaceFactory(this.resources.get(hardsys("networkinterface")));
         diskFactory(this.resources.get(hardsys("disk")));
         partitionFactory(this.resources.get(hardsys("partition")));
+        cdRomFactory(this.resources.get(hardsys("cdrom")));
         usbFactory(this.resources.get(hardsys("usb")));
         biosFactory(this.resources.get(hardsys("bios")));
         bridgeFactory(this.resources.get(hardsys("bridge")));

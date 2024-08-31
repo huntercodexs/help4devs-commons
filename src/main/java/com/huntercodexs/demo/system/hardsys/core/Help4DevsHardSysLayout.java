@@ -33,13 +33,14 @@ public abstract class Help4DevsHardSysLayout {
             /*[ 8]*/ "network interface:",
             /*[ 9]*/ "disk:",
             /*[10]*/ "partition:",
-            /*[11]*/ "usb controller:",
-            /*[12]*/ "bios:",
-            /*[13]*/ "bridge:",
-            /*[14]*/ "hub:",
-            /*[15]*/ "memory:",
-            /*[16]*/ "bluetooth:",
-            /*[17]*/ "unknown:"
+            /*[11]*/ "cdrom:",
+            /*[12]*/ "usb controller:",
+            /*[13]*/ "bios:",
+            /*[14]*/ "bridge:",
+            /*[15]*/ "hub:",
+            /*[16]*/ "memory:",
+            /*[17]*/ "bluetooth:",
+            /*[18]*/ "unknown:"
     };
 
 }

@@ -41,6 +41,7 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
             this.allResources.getNetworkInterface().getDetails(),
             this.allResources.getDisk().getDetails(),
             this.allResources.getPartition().getDetails(),
+            this.allResources.getCdRom().getDetails(),
             this.allResources.getUsb().getDetails(),
             this.allResources.getBios().getDetails(),
             this.allResources.getBridge().getDetails(),

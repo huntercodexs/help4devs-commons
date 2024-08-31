@@ -15,7 +15,7 @@ public class Help4DevsHardSysSystemInfo extends Help4DevsHardSysBase {
         this.resources = resources;
     }
 
-    private String fieldsTranslator(String input) {
+    private String layoutTranslator(String input) {
         return input
                 .replaceAll("PCI Slots:", "slots")
                 .replaceAll("CPU: ", "processor")
@@ -63,7 +63,7 @@ public class Help4DevsHardSysSystemInfo extends Help4DevsHardSysBase {
                     }
 
                     //Save line according HARDSYS
-                    this.resources.put(fieldsTranslator(inxiInfo[i]), array);
+                    this.resources.put(layoutTranslator(inxiInfo[i]), array);
                 }
             }
 

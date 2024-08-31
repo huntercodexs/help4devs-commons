@@ -17,7 +17,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
         this.resources = resources;
     }
 
-    private String fieldsTranslator(String input) {
+    private String layoutTranslator(String input) {
         return input
                 .replaceAll("cpu:", hardsys("processor"))
                 .replaceAll("keyboard:", hardsys("keyboard"))
@@ -30,6 +30,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
                 .replaceAll("network interface:", hardsys("networkInterface"))
                 .replaceAll("disk:", hardsys("disk"))
                 .replaceAll("partition:", hardsys("partition"))
+                .replaceAll("cdrom:", hardsys("cdrom"))
                 .replaceAll("usb controller:", hardsys("usb"))
                 .replaceAll("bios:", hardsys("bios"))
                 .replaceAll("bridge:", hardsys("bridge"))
@@ -37,7 +38,6 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
                 .replaceAll("memory:", hardsys("memory"))
                 .replaceAll("bluetooth:", hardsys("bluetooth"))
                 .replaceAll("unknown:", hardsys("unknown"))
-                .replaceAll("multimedia:", hardsys("multimedia"))
                 .replaceAll("[^-_a-zA-Z ]", "")
                 .toLowerCase();
     }
@@ -110,6 +110,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
         makeSource("^("+hardsys("networkinterface")+")$", hardsys("networkinterface"));
         makeSource("^(disk)$", hardsys("disk"));
         makeSource("^(partition)$", hardsys("partition"));
+        makeSource("^(cdrom)$", hardsys("cdrom"));
 
         /*
          * In this point the resources already  was set and are
@@ -117,7 +118,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
          * */
         makeGroup("^(keyboard|mouse|monitor|hub)$", hardsys("devicesGroup"), false);
         makeGroup("^(network|"+hardsys("networkInterface")+"|bridge|hub|switch)$", hardsys("networksGroup"), false);
-        makeGroup("^(disk|partition|storage)$", hardsys("drivesGroup"), false);
+        makeGroup("^(disk|partition|cdrom|storage)$", hardsys("drivesGroup"), false);
         makeGroup("^(processor|memory|audio|battery)$", hardsys("componentsGroup"), false);
         makeGroup("^(baseboard|audio|bios|slots)$", hardsys("boardsGroup"), false);
         makeGroup("^(bios|cache)$", hardsys("hardwareGroup"), false);
@@ -155,7 +156,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
                     }
 
                     //Save line according HARDSYS expected fields
-                    this.resources.put(fieldsTranslator(hwinfoLayout[i]), array);
+                    this.resources.put(layoutTranslator(hwinfoLayout[i]), array);
 
                 }
             }

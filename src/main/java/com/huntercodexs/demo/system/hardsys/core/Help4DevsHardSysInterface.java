@@ -16,6 +16,7 @@ public interface Help4DevsHardSysInterface {
     Help4DevsNetworkDetails getNetwork();
     Help4DevsDriversDetails getDrivers();
     Help4DevsPartitionDetails getPartition();
+    Help4DevsCdRomDetails getCdRom();
     Help4DevsUsbDetails getUsb();
     Help4DevsSensorsDetails getSensors();
     Help4DevsRunningDetails getRunning();

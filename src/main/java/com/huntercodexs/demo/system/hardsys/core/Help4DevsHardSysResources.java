@@ -22,6 +22,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     private Help4DevsNetworkDetails networkDetails;
     private Help4DevsDriversDetails driversDetails;
     private Help4DevsPartitionDetails partitionDetails;
+    private Help4DevsCdRomDetails cdRomDetails;
     private Help4DevsUsbDetails usbDetails;
     private Help4DevsSensorsDetails sensorsDetails;
     private Help4DevsRunningDetails runningDetails;
@@ -91,6 +92,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
         this.networkDetails = new Help4DevsNetworkDetails(resources.get(hardsys("network")), command);
         this.driversDetails = new Help4DevsDriversDetails(resources.get(hardsys("drivers")), command);
         this.partitionDetails = new Help4DevsPartitionDetails(resources.get(hardsys("partition")), command);
+        this.cdRomDetails = new Help4DevsCdRomDetails(resources.get(hardsys("cdrom")), command);
         this.usbDetails = new Help4DevsUsbDetails(resources.get(hardsys("usb")), command);
         this.sensorsDetails = new Help4DevsSensorsDetails(resources.get(hardsys("sensors")), command);
         this.runningDetails = new Help4DevsRunningDetails(resources.get(hardsys("running")), command);
@@ -182,6 +184,11 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     public Help4DevsPartitionDetails getPartition() {
         checkJsonState();
         return partitionDetails;
+    }
+
+    public Help4DevsCdRomDetails getCdRom() {
+        checkJsonState();
+        return cdRomDetails;
     }
 
     public Help4DevsUsbDetails getUsb() {

@@ -23,6 +23,7 @@ public class Help4DevsHardSysBuilder extends Help4DevsHardSysBase {
         dto.setNetwork(this.transport.get(hardsys("network")));
         dto.setDrivers(this.transport.get(hardsys("drivers")));
         dto.setPartition(this.transport.get(hardsys("partition")));
+        dto.setCdRom(this.transport.get(hardsys("cdrom")));
         dto.setUsb(this.transport.get(hardsys("usb")));
         dto.setSensors(this.transport.get(hardsys("sensors")));
         dto.setRunning(this.transport.get(hardsys("running")));

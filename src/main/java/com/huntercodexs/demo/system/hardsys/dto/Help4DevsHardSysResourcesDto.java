@@ -25,6 +25,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsNetworkDto network;
     private Help4DevsDriversDto drivers;
     private Help4DevsPartitionDto partition;
+    private Help4DevsCdRomDto cdrom;
     private Help4DevsUsbDto usb;
     private Help4DevsSensorsDto sensors;
     private Help4DevsRunningDto running;
@@ -135,6 +136,14 @@ public class Help4DevsHardSysResourcesDto {
 
     public void setPartition(Object partition) {
         this.partition = (Help4DevsPartitionDto)partition;
+    }
+
+    public Help4DevsCdRomDto getCdRom() {
+        return cdrom;
+    }
+
+    public void setCdRom(Object cdrom) {
+        this.cdrom = (Help4DevsCdRomDto) cdrom;
     }
 
     public Help4DevsUsbDto getUsb() {
@@ -334,6 +343,7 @@ public class Help4DevsHardSysResourcesDto {
                 ", network=" + network +
                 ", drivers=" + drivers +
                 ", partition=" + partition +
+                ", cdrom=" + cdrom +
                 ", usb=" + usb +
                 ", sensors=" + sensors +
                 ", running=" + running +
