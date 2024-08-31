@@ -113,6 +113,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
         this.networkInterfaceDetails = new Help4DevsNetworkInterfaceDetails(resources.get(hardsys("networkInterface")), command);
         this.unknownDetails = new Help4DevsUnknownDetails(resources.get(hardsys("unknown")), command);
         this.multimediaDetails = new Help4DevsMultimediaDetails(resources.get(hardsys("multimedia")), command);
+        this.printerDetails = new Help4DevsPrinterDetails(resources.get(hardsys("printer")), command);
         this.devicesGroupDetails = new Help4DevsDevicesGroupDetails(resources.get(hardsys("devicesGroup")), command);
         this.networksGroupDetails = new Help4DevsNetworkGroupDetails(resources.get(hardsys("networksGroup")), command);
         this.drivesGroupDetails = new Help4DevsDrivesGroupDetails(resources.get(hardsys("drivesGroup")), command);

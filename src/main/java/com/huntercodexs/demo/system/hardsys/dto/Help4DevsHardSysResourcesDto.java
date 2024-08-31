@@ -313,6 +313,10 @@ public class Help4DevsHardSysResourcesDto {
         this.multimedia = (Help4DevsMultimediaDto) multimedia;
     }
 
+    public Help4DevsPrinterDto getPrinter() {
+        return printer;
+    }
+
     public void setPrinter(Object printer) {
         this.printer = (Help4DevsPrinterDto) printer;
     }
