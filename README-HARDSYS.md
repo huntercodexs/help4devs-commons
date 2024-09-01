@@ -9,14 +9,14 @@ specific linux command that ca be:
 
 | CMD Name   | Status | Linux | MacOs | Windows | Others |
 |------------|--------|-------|-------|---------|--------|
-| AUTO       | TODO   | YES   | YES   | NO      | NA     |
-| INXI       | WORK   | YES   | YES   | NO      | NA     |
-| HWINFO     | DONE   | YES   | YES   | NO      | NA     |
-| LSHW       | TODO   | YES   | NO    | NO      | NA     |
-| LSCPU      | TODO   | YES   | NO    | NO      | NA     |
-| LSCPU2     | TODO   | YES   | NO    | NO      | NA     |
-| DMIDECODE  | TODO   | YES   | YES   | NO      | NA     |
-| SYSTEMINFO | TODO   | YES   | NO    | NO      | NA     |
+| AUTO       | TODO   | yes   | yes   | no      | n/a    |
+| INXI       | WORK   | yes   | yes   | no      | n/a    |
+| HWINFO     | DONE   | yes   | yes   | no      | n/a    |
+| LSHW       | TODO   | yes   | no    | no      | n/a    |
+| LSCPU      | TODO   | yes   | no    | no      | n/a    |
+| LSCPU2     | TODO   | yes   | no    | no      | n/a    |
+| DMIDECODE  | TODO   | yes   | yes   | no      | n/a    |
+| SYSTEMINFO | TODO   | no    | no    | yes     | n/a    |
 
 > The AUTO command will be checking if each command of the list above can be executed successfully, but the sequence of 
 execution in the hierarchy is programmed to be in the follow way:
