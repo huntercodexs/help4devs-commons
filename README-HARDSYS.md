@@ -5,16 +5,20 @@
 Below it is possible to see the complete flow of processing to get the information about hardware and system from 
 specific linux command that ca be:
 
-- AUTO
-- INXI
-- HWINFO
-- LSHW
-- LSCPU
-- LSCPU2
-- DMIDECODE
-- SYSTEMINFO (For Windows)
+- Supported commands
 
-The AUTO command will be checking if each command of the list above can be executed successfully, but the sequence of 
+| CMD Name   | Status | Linux | MacOs | Windows | Others |
+|------------|--------|-------|-------|---------|--------|
+| AUTO       | TODO   | YES   | YES   | NO      | NA     |
+| INXI       | WORK   | YES   | YES   | NO      | NA     |
+| HWINFO     | DONE   | YES   | YES   | NO      | NA     |
+| LSHW       | TODO   | YES   | NO    | NO      | NA     |
+| LSCPU      | TODO   | YES   | NO    | NO      | NA     |
+| LSCPU2     | TODO   | YES   | NO    | NO      | NA     |
+| DMIDECODE  | TODO   | YES   | YES   | NO      | NA     |
+| SYSTEMINFO | TODO   | YES   | NO    | NO      | NA     |
+
+> The AUTO command will be checking if each command of the list above can be executed successfully, but the sequence of 
 execution in the hierarchy is programmed to be in the follow way:
 
 ###### For Linux Operating System
@@ -383,29 +387,6 @@ anny kind of issue, the rest of the process will be died and probably the result
 
 #### STEP-6
 
-**class:** Help4DevsAllGroupDetails
-
-**package:** com.huntercodexs.demo.system.hardsys.group;
-
-**description:** Add the new resource to All Groups.
-
-**about:** This class is used just when the request or calling is for all resources in the result and not for DTO
-format, so be careful with that class during the development.
-
-<code>
-
-    ...
-    private List<String> detailsFromLinuxCommandHwinfo() {
-        return Arrays.asList(
-            ...
-            this.allResources.getMultimedia().getDetails());
-    }
-    ...
-
-</code>
-
-#### STEP-7
-
 **class:** Help4DevsMultimediaDetails
 
 **package:** com.huntercodexs.demo.system.hardsys.processing;
@@ -540,7 +521,7 @@ to process the details and let everything prepared for the next steps.
 
 </code>
 
-#### STEP-8
+#### STEP-7
 
 **class:** Help4DevsHardSysInterface
 
@@ -563,6 +544,29 @@ class called, according piece of code below, it is pretty easy.
         Help4DevsMultimediaDetails getMultimedia();
         ...
     }
+
+</code>
+
+#### STEP-8
+
+**class:** Help4DevsAllGroupDetails
+
+**package:** com.huntercodexs.demo.system.hardsys.group;
+
+**description:** Add the new resource to All Groups.
+
+**about:** This class is used just when the request or calling is for all resources in the result and not for DTO
+format, so be careful with that class during the development.
+
+<code>
+
+    ...
+    private List<String> detailsFromLinuxCommandHwinfo() {
+        return Arrays.asList(
+            ...
+            this.allResources.getMultimedia().getDetails());
+    }
+    ...
 
 </code>
 
@@ -610,6 +614,14 @@ hands on the job and give your best.
 
 ####  STEP-10
 
+**class:** Help4DevsHardSysFactory
+
+**package:** com.huntercodexs.demo.system.hardsys.core;
+
+**description:** To serve as a bridge between resource dto and commands.
+
+####  STEP-11
+
 **class:** Help4DevsHardSysResources
 
 **package:** com.huntercodexs.demo.system.hardsys.core;
@@ -651,3 +663,12 @@ Below is a piece of code to help us better understand this topic
 
 </code>
 
+
+
+####  STEP-12
+
+**class:** Help4DevsHardSys
+
+**package:** com.huntercodexs.demo.system.hardsys;
+
+**description:** The first and main class to instance and use the HardSys library.

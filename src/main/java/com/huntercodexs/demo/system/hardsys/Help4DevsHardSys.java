@@ -1,4 +1,3 @@
-
 package com.huntercodexs.demo.system.hardsys;
 
 import com.huntercodexs.demo.system.hardsys.command.*;
