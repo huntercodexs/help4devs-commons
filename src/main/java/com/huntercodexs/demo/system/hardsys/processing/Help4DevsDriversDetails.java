@@ -75,7 +75,7 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("drivers"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("drivers"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("drivers"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("drivers"));

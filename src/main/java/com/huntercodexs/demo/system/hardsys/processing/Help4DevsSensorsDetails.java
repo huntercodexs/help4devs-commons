@@ -93,7 +93,7 @@ public class Help4DevsSensorsDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("sensors"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("sensors"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("sensors"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("sensors"));

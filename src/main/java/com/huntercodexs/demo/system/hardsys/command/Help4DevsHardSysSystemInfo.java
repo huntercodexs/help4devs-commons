@@ -30,40 +30,57 @@ public class Help4DevsHardSysSystemInfo extends Help4DevsHardSysBase {
 
     }
 
+    private boolean forceBreak(int index, String line) {
+        for (int k = index; k < systemInfoLayout.length; k++) {
+            if (line.contains(systemInfoLayout[k])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void run() {
 
         try (BufferedReader reader = execute(Help4DevsHardSysCommands.SYSTEMINFO)) {
 
             String currentLine = reader.readLine();
 
-            for (int i = 0; i < inxiInfo.length; i++) {
+            for (int i = 0; i < systemInfoLayout.length; i++) {
 
                 List<String> array = new ArrayList<>();
 
                 if (currentLine == null) continue;
 
-                if (currentLine.contains(inxiInfo[i])) {
+                if (currentLine.contains(systemInfoLayout[i])) {
 
                     String lines;
-                    array.add(currentLine.replace(inxiInfo[i], "").trim());
+                    array.add(currentLine.replace(systemInfoLayout[i], "").trim());
 
                     while ((lines = reader.readLine()) != null) {
 
                         //Last line
-                        if (i == inxiInfo.length-1) {
+                        if (i == systemInfoLayout.length-1) {
                             array.add(lines.trim());
                             continue;
                         }
 
-                        if (lines.contains(inxiInfo[i+1])) {
+                        //Next Layout Item
+                        if (lines.contains(systemInfoLayout[i+1])) {
                             currentLine = lines;
                             break;
                         }
+
+                        //Prevent bug - In the case below the current resource is present in the output result
+                        if (forceBreak(i, lines)) {
+                            currentLine = lines;
+                            break;
+                        }
+
                         array.add(lines.trim());
                     }
 
                     //Save line according HARDSYS
-                    this.resources.put(layoutTranslator(inxiInfo[i]), array);
+                    this.resources.put(layoutTranslator(systemInfoLayout[i]), array);
                 }
             }
 

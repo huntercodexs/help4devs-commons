@@ -55,7 +55,15 @@ public class Help4DevsDrivesGroupDetails extends Help4DevsHardSysBase {
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandLscpu2() {
+    private List<String> detailsFromLinuxCommandLsPci() {
+        List<String> filter = new ArrayList<>();
+        for (String details : this.drivesDetails) {
+            filter.add(details.replaceAll("DRIVES GROUP: ", "DrivesGroup: "));
+        }
+        return filter;
+    }
+
+    private List<String> detailsFromLinuxCommandLsUsb() {
         List<String> filter = new ArrayList<>();
         for (String details : this.drivesDetails) {
             filter.add(details.replaceAll("DRIVES GROUP: ", "DrivesGroup: "));
@@ -87,8 +95,10 @@ public class Help4DevsDrivesGroupDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("drivesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("drivesGroup"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("drivesGroup"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsys("drivesGroup"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("drivesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("drivesGroup"));
         }

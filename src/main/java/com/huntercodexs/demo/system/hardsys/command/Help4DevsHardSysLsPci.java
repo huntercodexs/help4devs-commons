@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Help4DevsHardSysLsCpu2 extends Help4DevsHardSysBase {
+public class Help4DevsHardSysLsPci extends Help4DevsHardSysBase {
 
-    public Help4DevsHardSysLsCpu2(HashMap<String, List<String>> resources) {
+    public Help4DevsHardSysLsPci(HashMap<String, List<String>> resources) {
         this.resources = resources;
     }
 
@@ -30,40 +30,57 @@ public class Help4DevsHardSysLsCpu2 extends Help4DevsHardSysBase {
 
     }
 
+    private boolean forceBreak(int index, String line) {
+        for (int k = index; k < lsPciLayout.length; k++) {
+            if (line.contains(lsPciLayout[k])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void run() {
 
-        try (BufferedReader reader = execute(Help4DevsHardSysCommands.LSCPU2)) {
+        try (BufferedReader reader = execute(Help4DevsHardSysCommands.LSPCI)) {
 
             String currentLine = reader.readLine();
 
-            for (int i = 0; i < inxiInfo.length; i++) {
+            for (int i = 0; i < lsPciLayout.length; i++) {
 
                 List<String> array = new ArrayList<>();
 
                 if (currentLine == null) continue;
 
-                if (currentLine.contains(inxiInfo[i])) {
+                if (currentLine.contains(lsPciLayout[i])) {
 
                     String lines;
-                    array.add(currentLine.replace(inxiInfo[i], "").trim());
+                    array.add(currentLine.replace(lsPciLayout[i], "").trim());
 
                     while ((lines = reader.readLine()) != null) {
 
                         //Last line
-                        if (i == inxiInfo.length-1) {
+                        if (i == lsPciLayout.length-1) {
                             array.add(lines.trim());
                             continue;
                         }
 
-                        if (lines.contains(inxiInfo[i+1])) {
+                        //Next Layout Item
+                        if (lines.contains(lsPciLayout[i+1])) {
                             currentLine = lines;
                             break;
                         }
+
+                        //Prevent bug - In the case below the current resource is present in the output result
+                        if (forceBreak(i, lines)) {
+                            currentLine = lines;
+                            break;
+                        }
+
                         array.add(lines.trim());
                     }
 
                     //Save line according HARDSYS
-                    this.resources.put(layoutTranslator(inxiInfo[i]), array);
+                    this.resources.put(layoutTranslator(lsPciLayout[i]), array);
                 }
             }
 

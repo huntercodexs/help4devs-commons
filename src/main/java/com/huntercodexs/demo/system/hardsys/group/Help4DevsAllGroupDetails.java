@@ -64,7 +64,12 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandLscpu2() {
+    private List<String> detailsFromLinuxCommandLsPci() {
+        List<String> filter = new ArrayList<>();
+        return filter;
+    }
+
+    private List<String> detailsFromLinuxCommandLsUsb() {
         List<String> filter = new ArrayList<>();
         return filter;
     }
@@ -83,8 +88,10 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
             return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), hardsys("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), hardsys("all"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("all"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
+            return jsonMergerRFC8259(detailsFromLinuxCommandLsPci(), hardsys("all"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
+            return jsonMergerRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("all"));
         }

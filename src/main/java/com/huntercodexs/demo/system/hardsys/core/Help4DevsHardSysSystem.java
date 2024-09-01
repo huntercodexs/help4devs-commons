@@ -74,23 +74,23 @@ public class Help4DevsHardSysSystem extends Help4DevsHardSysBase {
             String output = reader.readLine();
 
             //Distro
-            this.array.add("type: system distro: "+
+            this.array.add("type: system osDistro: "+
                     stringExtractor(output.toUpperCase(), "", osTypePattern, "$1", 1));
 
             //Date
-            this.array.add("type: system date: "+
+            this.array.add("type: system osDate: "+
                     stringExtractor(output, "", datePattern, "$1", 1));
 
             //Vendor
-            this.array.add("type: system vendor: "+
+            this.array.add("type: system osVendor: "+
                     stringExtractor(output.toUpperCase(), "", osVendorsPattern, "$1", 1));
 
             //Kernel
-            this.array.add("type: system kernel: "+
+            this.array.add("type: system osKernel: "+
                     stringExtractor(output, "", "([-0-9.]+generic)", "$1", 1));
 
             //Description
-            this.array.add("type: system description: "+output);
+            this.array.add("type: system osDescription: "+output);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

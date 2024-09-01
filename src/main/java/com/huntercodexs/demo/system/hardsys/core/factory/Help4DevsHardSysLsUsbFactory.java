@@ -5,9 +5,9 @@ import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import java.util.HashMap;
 import java.util.List;
 
-public class Help4DevsHardSysLsCpu2Factory extends Help4DevsHardSysBase {
+public class Help4DevsHardSysLsUsbFactory extends Help4DevsHardSysBase {
 
-    public Help4DevsHardSysLsCpu2Factory(HashMap<String, List<String>> resources) {
+    public Help4DevsHardSysLsUsbFactory(HashMap<String, List<String>> resources) {
         this.resources = resources;
     }
 

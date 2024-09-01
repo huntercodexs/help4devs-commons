@@ -78,7 +78,7 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("partition"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("partition"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("partition"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("partition"));

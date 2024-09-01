@@ -76,7 +76,7 @@ public class Help4DevsHubDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("hub"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("hub"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("hub"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("hub"));

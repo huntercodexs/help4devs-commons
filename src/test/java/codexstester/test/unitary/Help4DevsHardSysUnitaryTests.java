@@ -33,7 +33,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         result = sysCmd(Help4DevsHardSysCommands.LSCPU);
         codexsTesterAssertExact("lscpu", result);
 
-        result = sysCmd(Help4DevsHardSysCommands.LSCPU2);
+        result = sysCmd(Help4DevsHardSysCommands.LSPCI);
         codexsTesterAssertExact("lshw -C cpu", result);
 
         result = sysCmd(Help4DevsHardSysCommands.DMIDECODE);
@@ -220,8 +220,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void generalSystemInfoByInxiCommandTest() {
-
+    public void generalSystemInfoByInxiCommand_SINGLE_Test() {
         Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
         hardSys.json();
 
@@ -321,6 +320,13 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--UNKNOWN
         Help4DevsUnknownDetails unknown = hardSys.resources().getUnknown();
         System.out.println(unknown.getDetails());
+    }
+
+    @Test
+    public void generalSystemInfoByInxiCommand_GROUP_Test() {
+        Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
+        hardSys.json();
+
         //--DEVICES (GROUPS)
         Help4DevsDevicesGroupDetails devicesGroup = hardSys.resources().getDevicesGroup();
         System.out.println(devicesGroup.getDetails());
@@ -339,6 +345,24 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         //--HARDWARE (GROUPS)
         Help4DevsHardwareGroupDetails hardware = hardSys.resources().getHardwareGroup();
         System.out.println(hardware.getDetails());
+    }
+
+    @Test
+    public void generalSystemInfoByInxiCommand_ALL_JSON_Test() {
+        Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
+        hardSys.json();
+        System.out.println(hardSys.resources().all());
+    }
+
+    @Test
+    public void generalSystemInfoByInxiCommand_ALL_DTO_Test() {
+        Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
+
+        Help4DevsHardSysResourcesDto result = hardSys.resources().builder();
+        System.out.println(result);
+
+//        Help4DevsHardSysResourcesDto nonNull = hardSys.resources().nonNull();
+//        System.out.println(nonNull);
     }
 
     @Test
@@ -503,7 +527,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void generalSystemInfoByLscpu2CommandTest() {
-        Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(LSCPU2);
+        Help4DevsHardSys generalSystemInfo = new Help4DevsHardSys(LSPCI);
         generalSystemInfo.resources();
     }
 

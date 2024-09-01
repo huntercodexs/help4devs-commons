@@ -74,11 +74,11 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
         system.setJavaVmVersion(items.get(25).replaceAll("javaVmVersion:", "").trim());
         system.setJavaVmVendor(items.get(26).replaceAll("javaVmVendor:", "").trim());
         system.setJavaVmName(items.get(27).replaceAll("javaVmName:", "").trim());
-        system.setDistro(items.get(28).replaceAll("distro:", "").trim());
-        system.setDate(items.get(29).replaceAll("date:", "").trim());
-        system.setVendor(items.get(30).replaceAll("vendor:", "").trim());
-        system.setKernel(items.get(31).replaceAll("kernel:", "").trim());
-        system.setDescription(items.get(32).replaceAll("description:", "").trim());
+        system.setDistro(items.get(28).replaceAll("osDistro:", "").trim());
+        system.setDate(items.get(29).replaceAll("osDate:", "").trim());
+        system.setVendor(items.get(30).replaceAll("osVendor:", "").trim());
+        system.setKernel(items.get(31).replaceAll("osKernel:", "").trim());
+        system.setDescription(items.get(32).replaceAll("osDescription:", "").trim());
 
         systemDto.addSystem(system);
 

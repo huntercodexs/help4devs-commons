@@ -22,6 +22,7 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
         List<String> filter = new ArrayList<>();
         for (String details : this.networkDetails) {
 
+            details = details.replaceAll("\\.@\\.", ":");
             details = indexer(details, "bus ID: ", "busId", ": ", false);
             details = indexer(details, "v: ", "version", ": ", true);
             details = indexer(details, "driver: ", "driver", ": ", true);
@@ -128,7 +129,7 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("network"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("network"));

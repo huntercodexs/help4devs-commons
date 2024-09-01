@@ -19,7 +19,8 @@ public enum Help4DevsHardSysCommands {
     HWINFO("hwinfo --short"),
     LSHW("lshw -short"),
     LSCPU("lscpu"),
-    LSCPU2("lshw -C cpu"),
+    LSPCI("lspci"), //check the command: lspci -k
+    LSUSB("lsusb"),
     DMIDECODE("dmidecode"),
     //For windows
     SYSTEMINFO("systeminfo");

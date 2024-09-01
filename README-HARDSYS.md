@@ -1,5 +1,16 @@
 # HARDSYS
 
+## Available Versions according Java Version
+
+| Java Version | HardSys Version | Status |
+|--------------|-----------------|--------|
+| Java8        | 1.8.1           | WORK   |
+| Java11       | 1.11.1          | TODO   |
+| Java17       | 1.17.1          | TODO   |
+| Java21       | 1.21.1          | TODO   |
+
+> See more in the branch selector: 1.8.1, 1.11.1 and ...
+
 ## Overview on processing flow
 
 Below it is possible to see the complete flow of processing to get the information about hardware and system from 

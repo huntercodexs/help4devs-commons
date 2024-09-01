@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Help4DevsHardSysDmidecode extends Help4DevsHardSysBase {
+public class Help4DevsHardSysLsUsb extends Help4DevsHardSysBase {
 
-    public Help4DevsHardSysDmidecode(HashMap<String, List<String>> resources) {
+    public Help4DevsHardSysLsUsb(HashMap<String, List<String>> resources) {
         this.resources = resources;
     }
 
@@ -31,8 +31,8 @@ public class Help4DevsHardSysDmidecode extends Help4DevsHardSysBase {
     }
 
     private boolean forceBreak(int index, String line) {
-        for (int k = index; k < dmidecodeLayout.length; k++) {
-            if (line.contains(dmidecodeLayout[k])) {
+        for (int k = index; k < lsUsbLayout.length; k++) {
+            if (line.contains(lsUsbLayout[k])) {
                 return true;
             }
         }
@@ -41,46 +41,46 @@ public class Help4DevsHardSysDmidecode extends Help4DevsHardSysBase {
 
     public void run() {
 
-        try (BufferedReader reader = execute(Help4DevsHardSysCommands.DMIDECODE)) {
+        try (BufferedReader reader = execute(Help4DevsHardSysCommands.LSUSB)) {
 
             String currentLine = reader.readLine();
 
-            for (int i = 0; i < dmidecodeLayout.length; i++) {
+            for (int i = 0; i < lsUsbLayout.length; i++) {
 
                 List<String> array = new ArrayList<>();
 
                 if (currentLine == null) continue;
 
-                if (currentLine.contains(dmidecodeLayout[i])) {
+                if (currentLine.contains(lsUsbLayout[i])) {
 
-                    String line;
-                    array.add(currentLine.replace(dmidecodeLayout[i], "").trim());
+                    String lines;
+                    array.add(currentLine.replace(lsUsbLayout[i], "").trim());
 
-                    while ((line = reader.readLine()) != null) {
+                    while ((lines = reader.readLine()) != null) {
 
                         //Last line
-                        if (i == dmidecodeLayout.length-1) {
-                            array.add(line.trim());
+                        if (i == lsUsbLayout.length-1) {
+                            array.add(lines.trim());
                             continue;
                         }
 
                         //Next Layout Item
-                        if (line.contains(dmidecodeLayout[i+1])) {
-                            currentLine = line;
+                        if (lines.contains(lsUsbLayout[i+1])) {
+                            currentLine = lines;
                             break;
                         }
 
                         //Prevent bug - In the case below the current resource is present in the output result
-                        if (forceBreak(i, line)) {
-                            currentLine = line;
+                        if (forceBreak(i, lines)) {
+                            currentLine = lines;
                             break;
                         }
 
-                        array.add(line.trim());
+                        array.add(lines.trim());
                     }
 
                     //Save line according HARDSYS
-                    this.resources.put(layoutTranslator(dmidecodeLayout[i]), array);
+                    this.resources.put(layoutTranslator(lsUsbLayout[i]), array);
                 }
             }
 

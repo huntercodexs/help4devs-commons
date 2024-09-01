@@ -5,7 +5,7 @@ public abstract class Help4DevsHardSysLayout {
     /**
      * <p>INXI Version 3.0.38 (Layout)</p>
      */
-    protected static final String[] inxiInfo = new String[] {
+    protected static final String[] inxiLayout = new String[] {
             /*[ 0]*/ "System:    ",
             /*[ 1]*/ "Machine:   ",
             /*[ 2]*/ "Battery:   ",
@@ -17,9 +17,10 @@ public abstract class Help4DevsHardSysLayout {
             /*[ 8]*/ "Network:   ",
             /*[ 9]*/ "Drives:    ",
             /*[10]*/ "Partition: ",
-            /*[11]*/ "USB:       ",
-            /*[12]*/ "Sensors:   ",
-            /*[13]*/ "Info:      "
+            /*[11]*/ "CD Rom:    ",
+            /*[12]*/ "USB:       ",
+            /*[13]*/ "Sensors:   ",
+            /*[14]*/ "Info:      "
     };
 
     /**
@@ -45,6 +46,54 @@ public abstract class Help4DevsHardSysLayout {
             /*[16]*/ "memory:",
             /*[17]*/ "bluetooth:",
             /*[18]*/ "unknown:"
+    };
+
+    /**
+     * <p>LSHW (Layout)</p>
+     */
+    protected static final String[] lshwLayout = new String[] {
+            "Device-1: ",
+            "Device-2"
+    };
+
+    /**
+     * <p>LSCPU Version 2.34 (Layout)</p>
+     */
+    protected static final String[] lsCpuLayout = new String[] {
+            "Device-1: ",
+            "Device-2"
+    };
+
+    /**
+     * <p>LSPCI Version 3.6.4 (Layout)</p>
+     */
+    protected static final String[] lsPciLayout = new String[] {
+            "Device-1: ",
+            "Device-2"
+    };
+
+    /**
+     * <p>LSUSB Version 3.6.4 (Layout)</p>
+     */
+    protected static final String[] lsUsbLayout = new String[] {
+            "Device-1: ",
+            "Device-2"
+    };
+
+    /**
+     * <p>DMIDECODE Version 3.2 (Layout)</p>
+     */
+    protected static final String[] dmidecodeLayout = new String[] {
+            "Device-1: ",
+            "Device-2"
+    };
+
+    /**
+     * <p>SYSTEMINFO Windows (Layout)</p>
+     */
+    protected static final String[] systemInfoLayout = new String[] {
+            "Device-1: ",
+            "Device-2"
     };
 
 }

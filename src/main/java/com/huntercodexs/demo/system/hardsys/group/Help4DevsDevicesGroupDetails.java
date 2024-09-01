@@ -20,12 +20,15 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
         this.devicesDetails = devices;
     }
 
-    private List<String> detailsFromLinuxCommandInxi() {
-        List<String> filter = new ArrayList<>();
+    private List<String> detailsFromLinuxCommandInxi(String device) {
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
+            if (!details.contains("type: "+device)) continue;
+            listFilter.add(sourceFilter(details, device, index, "source", "source"));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandHwinfo(String device) {
@@ -55,7 +58,15 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandLscpu2() {
+    private List<String> detailsFromLinuxCommandLsPci() {
+        List<String> filter = new ArrayList<>();
+        for (String details : this.devicesDetails) {
+            filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
+        }
+        return filter;
+    }
+
+    private List<String> detailsFromLinuxCommandLsUsb() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
             filter.add(details.replaceAll("Devices Group: ", "devicesGroup: "));
@@ -72,8 +83,15 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
     }
 
     public String getDetails() {
+
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("devicesGroup"));
+
+            String battery = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("battery")), hardsys("battery"));
+            String sensors = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("sensors")), hardsys("sensors"));
+            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("keyboard")), hardsys("keyboard"));
+            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("mouse")), hardsys("mouse"));
+            return jsonMergerRFC8259(Arrays.asList(battery, sensors, keyboard, mouse), hardsys("devicesGroup"));
+
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
             String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("keyboard")), hardsys("keyboard"));
@@ -86,8 +104,10 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("devicesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("devicesGroup"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("devicesGroup"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsys("devicesGroup"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("devicesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("devicesGroup"));
         }

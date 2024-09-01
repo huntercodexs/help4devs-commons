@@ -68,7 +68,15 @@ public class Help4DevsBoardsGroupDetails extends Help4DevsHardSysBase {
         return filter;
     }
 
-    private List<String> detailsFromLinuxCommandLscpu2() {
+    private List<String> detailsFromLinuxCommandLsPci() {
+        List<String> filter = new ArrayList<>();
+        for (String details : this.devicesDetails) {
+            filter.add(details.replaceAll("BOARDS GROUP: ", "BoardsGroup: "));
+        }
+        return filter;
+    }
+
+    private List<String> detailsFromLinuxCommandLsUsb() {
         List<String> filter = new ArrayList<>();
         for (String details : this.devicesDetails) {
             filter.add(details.replaceAll("BOARDS GROUP: ", "BoardsGroup: "));
@@ -98,8 +106,10 @@ public class Help4DevsBoardsGroupDetails extends Help4DevsHardSysBase {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("boardsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("boardsGroup"));
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("boardsGroup"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsys("boardsGroup"));
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("boardsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("boardsGroup"));
         }

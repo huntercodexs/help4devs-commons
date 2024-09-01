@@ -27,8 +27,10 @@ public class Help4DevsHardSysFactory extends Help4DevsHardSysBase {
             new Help4DevsHardSysLshwFactory(this.resources).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             new Help4DevsHardSysLsCpuFactory(this.resources).factory();
-        } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU2)) {
-            new Help4DevsHardSysLsCpu2Factory(this.resources).factory();
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
+            new Help4DevsHardSysLsPciFactory(this.resources).factory();
+        } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
+            new Help4DevsHardSysLsUsbFactory(this.resources).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
             new Help4DevsHardSysDmidecodeFactory(this.resources).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.SYSTEMINFO)) {

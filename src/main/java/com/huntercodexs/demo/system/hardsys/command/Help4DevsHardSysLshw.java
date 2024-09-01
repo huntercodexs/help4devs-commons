@@ -30,40 +30,57 @@ public class Help4DevsHardSysLshw extends Help4DevsHardSysBase {
 
     }
 
+    private boolean forceBreak(int index, String line) {
+        for (int k = index; k < lshwLayout.length; k++) {
+            if (line.contains(lshwLayout[k])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void run() {
 
         try (BufferedReader reader = execute(Help4DevsHardSysCommands.LSHW)) {
 
             String currentLine = reader.readLine();
 
-            for (int i = 0; i < inxiInfo.length; i++) {
+            for (int i = 0; i < lshwLayout.length; i++) {
 
                 List<String> array = new ArrayList<>();
 
                 if (currentLine == null) continue;
 
-                if (currentLine.contains(inxiInfo[i])) {
+                if (currentLine.contains(lshwLayout[i])) {
 
-                    String lines;
-                    array.add(currentLine.replace(inxiInfo[i], "").trim());
+                    String line;
+                    array.add(currentLine.replace(lshwLayout[i], "").trim());
 
-                    while ((lines = reader.readLine()) != null) {
+                    while ((line = reader.readLine()) != null) {
 
                         //Last line
-                        if (i == inxiInfo.length-1) {
-                            array.add(lines.trim());
+                        if (i == lshwLayout.length-1) {
+                            array.add(line.trim());
                             continue;
                         }
 
-                        if (lines.contains(inxiInfo[i+1])) {
-                            currentLine = lines;
+                        //Next Layout Item
+                        if (line.contains(lshwLayout[i+1])) {
+                            currentLine = line;
                             break;
                         }
-                        array.add(lines.trim());
+
+                        //Prevent bug - In the case below the current resource is present in the output result
+                        if (forceBreak(i, line)) {
+                            currentLine = line;
+                            break;
+                        }
+
+                        array.add(line.trim());
                     }
 
                     //Save line according HARDSYS
-                    this.resources.put(layoutTranslator(inxiInfo[i]), array);
+                    this.resources.put(layoutTranslator(lshwLayout[i]), array);
                 }
             }
 
