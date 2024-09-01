@@ -6,6 +6,7 @@ import com.huntercodexs.demo.system.hardsys.dto.Help4DevsAudioDto.Help4DevsAudio
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsBiosDto.Help4DevsBios;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsBluetoothDto.Help4DevsBluetooth;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsBridgeDto.Help4DevsBridge;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsCdRomDto.Help4DevsCdRom;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsDiskDto.Help4DevsDisk;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsGraphicsDto.Help4DevsGraphics;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHubDto.Help4DevsHub;
@@ -16,9 +17,9 @@ import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouseDto.Help4DevsMouse
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkDto.Help4DevsNetwork;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkInterfaceDto.Help4DevsNetworkInterface;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsPartitionDto.Help4DevsPartition;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsCdRomDto.Help4DevsCdRom;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto.Help4DevsProcessor;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsStorageDto.Help4DevsStorage;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsSystemDto.Help4DevsSystem;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsUnknownDto.Help4DevsUnknown;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsUsbDto.Help4DevsUsb;
 
@@ -34,6 +35,55 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
     public Help4DevsHardSysHwinfoFactory(HashMap<String, List<String>> resources, HashMap<String, Object> transport) {
         this.resources = resources;
         this.transport = transport;
+    }
+
+    private void systemFactory(List<String> items) {
+
+        Help4DevsSystemDto systemDto = new Help4DevsSystemDto();
+        systemDto.setQty("1");
+
+        items = listClear(items, "type: system source: type: system ", "");
+
+        Help4DevsSystem system = new Help4DevsSystem();
+
+        system.setName(items.get(0).replaceAll("osName:", "").trim());
+        system.setArch(items.get(1).replaceAll("osArch:", "").trim());
+        system.setVersion(items.get(2).replaceAll("osVersion:", "").trim());
+        system.setFileSeparator(items.get(3).replaceAll("fileSeparator:", "").trim());
+        system.setPathSeparator(items.get(4).replaceAll("pathSeparator:", "").trim());
+        system.setLineSeparator(items.get(5).replaceAll("lineSeparator:", "").trim());
+        system.setUsername(items.get(6).replaceAll("userName:", "").trim());
+        system.setHome(items.get(7).replaceAll("userHome:", "").trim());
+        system.setUserdir(items.get(8).replaceAll("userDir:", "").trim());
+        system.setJavaVersion(items.get(9).replaceAll("javaVersion:", "").trim());
+        system.setJavaVendor(items.get(10).replaceAll("javaVendor:", "").trim());
+        system.setJavaVendorUrl(items.get(11).replaceAll("javaVendorUrl:", "").trim());
+        system.setJavaHome(items.get(12).replaceAll("javaHome:", "").trim());
+        system.setJavaSpecVersion(items.get(13).replaceAll("javaSpecVersion:", "").trim());
+        system.setJavaSpecVendor(items.get(14).replaceAll("javaSpecVendor:", "").trim());
+        system.setJavaSpecName(items.get(15).replaceAll("javaSpecName:", "").trim());
+        system.setJavaClassVersion(items.get(16).replaceAll("javaClassVersion:", "").trim());
+        system.setJavaClassPath(items.get(17).replaceAll("javaClassPath:", "").trim());
+        system.setJavaClassPath(items.get(18).replaceAll("javaLibPath:", "").trim());
+        system.setJavaTmpDir(items.get(19).replaceAll("javaTmpDir:", "").trim());
+        system.setJavaCompiler(items.get(20).replaceAll("javaCompiler:", "").trim());
+        system.setJavaExtDir(items.get(21).replaceAll("javaExtDir:", "").trim());
+        system.setJavaVmSpecVersion(items.get(22).replaceAll("javaVmSpecVersion:", "").trim());
+        system.setJavaVmSpecVendor(items.get(23).replaceAll("javaVmSpecVendor:", "").trim());
+        system.setJavaVmSpecName(items.get(24).replaceAll("javaVmSpecName:", "").trim());
+        system.setJavaVmVersion(items.get(25).replaceAll("javaVmVersion:", "").trim());
+        system.setJavaVmVendor(items.get(26).replaceAll("javaVmVendor:", "").trim());
+        system.setJavaVmName(items.get(27).replaceAll("javaVmName:", "").trim());
+        system.setDistro(items.get(28).replaceAll("distro:", "").trim());
+        system.setDate(items.get(29).replaceAll("date:", "").trim());
+        system.setVendor(items.get(30).replaceAll("vendor:", "").trim());
+        system.setKernel(items.get(31).replaceAll("kernel:", "").trim());
+        system.setDescription(items.get(32).replaceAll("description:", "").trim());
+
+        systemDto.addSystem(system);
+
+        this.transport.put(hardsys("system"), systemDto);
+
     }
 
     private void processorFactory(List<String> items) {
@@ -895,6 +945,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             this.resources.remove(remove);
         }
 
+        systemFactory(this.resources.get(hardsys("system")));
         processorFactory(this.resources.get(hardsys("processor")));
         keyboardFactory(this.resources.get(hardsys("keyboard")));
         mouseFactory(this.resources.get(hardsys("mouse")));

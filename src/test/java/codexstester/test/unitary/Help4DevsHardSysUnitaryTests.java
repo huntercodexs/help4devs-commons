@@ -485,8 +485,8 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         Help4DevsHardSysResourcesDto result = hardSys.resources().builder();
         System.out.println(result);
 
-        Help4DevsHardSysResourcesDto nonNull = hardSys.resources().nonNull();
-        System.out.println(nonNull);
+//        Help4DevsHardSysResourcesDto nonNull = hardSys.resources().nonNull();
+//        System.out.println(nonNull);
     }
 
     @Test

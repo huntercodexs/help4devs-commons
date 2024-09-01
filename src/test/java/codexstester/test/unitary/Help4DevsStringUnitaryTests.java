@@ -117,39 +117,39 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
         String source = "Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4000 MHz";
         String pattern = "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)";
         String replacer = "model:$1$2";
-        String detail = "model";
-        codexsTesterAssertExact("i5-9300H", stringExtractor(source, detail, pattern, replacer, 1));
+        String clear = "model";
+        codexsTesterAssertExact("i5-9300H", stringExtractor(source, clear, pattern, replacer, 1));
 
         source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
-        detail = "source";
+        clear = "source";
         pattern = "(source: [/-_.0-9a-zA-Z]+)( description: )";
         replacer = "$1";
-        codexsTesterAssertExact("/dev/input/event4", stringExtractor(source, detail, pattern, replacer, 1));
+        codexsTesterAssertExact("/dev/input/event4", stringExtractor(source, clear, pattern, replacer, 1));
 
         source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
-        detail = "description";
+        clear = "description";
         pattern = "(description: [-_.0-9a-zA-Z]+)";
         replacer = "$1";
-        codexsTesterAssertExact("AT-Translated-Set-2-keyboard", stringExtractor(source, detail, pattern, replacer, 1));
+        codexsTesterAssertExact("AT-Translated-Set-2-keyboard", stringExtractor(source, clear, pattern, replacer, 1));
 
         source = "SOURCE: SOURCE: LO DESCRIPTION: LOOPBACK-NETWORK-INTERFACE";
-        detail = "description";
+        clear = "description";
         pattern = "DESCRIPTION: (WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
         replacer = "$1";
-        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, detail, pattern, replacer, 1));
+        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, clear, pattern, replacer, 1));
 
         source = "SOURCE: SOURCE: LO DESCRIPTION: LOOPBACK-NETWORK-INTERFACE";
-        detail = "DESCRIPTION";
+        clear = "DESCRIPTION";
         pattern = "DESCRIPTION: (WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
         replacer = "DESCRIPTION: $1";
-        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, detail, pattern, replacer, 1));
+        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, clear, pattern, replacer, 1));
 
         source = "SOURCE: SOURCE: LO DESCRIPTION: LOOPBACK-NETWORK-INTERFACE";
         pattern = "DESCRIPTION: (WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
         replacer = "description:$1";
-        detail = "description";
+        clear = "description";
 
-        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, detail, pattern, replacer, 1));
+        codexsTesterAssertExact("LOOPBACK", stringExtractor(source, clear, pattern, replacer, 1));
     }
 
     @Test

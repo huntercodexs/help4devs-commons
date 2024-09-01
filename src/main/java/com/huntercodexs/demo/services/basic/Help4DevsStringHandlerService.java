@@ -271,8 +271,8 @@ public class Help4DevsStringHandlerService {
      *     String source = "Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 4000 MHz";
      *     String pattern = "(i[0-9]+|AMD|NVIDIA)([-_.0-9a-zA-Z]+)";
      *     String replacer = "model:$1$2";
-     *     String detail = "model";
-     *     stringExtractor(source, detail, pattern, replacer, 1);
+     *     String clear = "model";
+     *     stringExtractor(source, clear, pattern, replacer, 1);
      * </pre>
      *
      * <p>Result example</p>
@@ -287,8 +287,8 @@ public class Help4DevsStringHandlerService {
      *     String source = "source: /dev/input/event4 description: AT-Translated-Set-2-keyboard";
      *     String pattern = "(description: [-_.0-9a-zA-Z]+)";
      *     String replacer = "description:$1";
-     *     String detail = "description";
-     *     stringExtractor(source, detail, pattern, replacer, 2);
+     *     String clear = "description";
+     *     stringExtractor(source, clear, pattern, replacer, 2);
      * </pre>
      *
      * <p>Result example</p>
@@ -298,7 +298,7 @@ public class Help4DevsStringHandlerService {
      * </pre>
      *
      * @param input (String: Data input to extract, for example: "Intel Core")
-     * @param detail (String: Any data to apply or control the replacement, for example: model)
+     * @param clear (String: Data to clear final string resulted)
      * @param pattern (String: Expression to execute the replacement, for example: (Intel|AMD))
      * @param replacer (String: Expression to replacement, for example: "model: $1")
      * @param index (int: can be >= 0)
@@ -306,7 +306,7 @@ public class Help4DevsStringHandlerService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String stringExtractor(String input, String detail, String pattern, String replacer, int index) {
+    public static String stringExtractor(String input, String clear, String pattern, String replacer, int index) {
 
         try {
 
@@ -315,7 +315,7 @@ public class Help4DevsStringHandlerService {
 
             return StringUtils
                     .substringBetween(extract, "#<" + index + "#", "#" + index + ">#")
-                    .replaceAll(detail + ":", "").trim();
+                    .replaceAll(clear + ":", "").trim();
 
         } catch (Exception ex) {
             System.out.println("Exception during stringExtractor: " + ex.getMessage());

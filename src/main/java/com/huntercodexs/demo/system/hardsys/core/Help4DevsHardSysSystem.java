@@ -1,5 +1,8 @@
 package com.huntercodexs.demo.system.hardsys.core;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,10 +66,42 @@ public class Help4DevsHardSysSystem extends Help4DevsHardSysBase {
         this.array.add("type: system javaVmName: "+System.getProperty("java.vm.name"));
     }
 
+    private void othersInfo() {
+        Process process;
+        try {
+            process = Runtime.getRuntime().exec("uname -a");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String output = reader.readLine();
+
+            //Distro
+            this.array.add("type: system distro: "+
+                    stringExtractor(output.toUpperCase(), "", osTypePattern, "$1", 1));
+
+            //Date
+            this.array.add("type: system date: "+
+                    stringExtractor(output, "", datePattern, "$1", 1));
+
+            //Vendor
+            this.array.add("type: system vendor: "+
+                    stringExtractor(output.toUpperCase(), "", osVendorsPattern, "$1", 1));
+
+            //Kernel
+            this.array.add("type: system kernel: "+
+                    stringExtractor(output, "", "([-0-9.]+generic)", "$1", 1));
+
+            //Description
+            this.array.add("type: system description: "+output);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void run() {
         systemInfo();
         javaInfo();
         javaVmInfo();
+        othersInfo();
         this.resources.put(hardsys("system"), this.array);
     }
 }

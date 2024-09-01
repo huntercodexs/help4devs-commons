@@ -39,6 +39,19 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
             "XZONE|G-TECH|SONY|CCE|PHILCO|AMAZON|LEXMARK|IBM|CREATIVE|VIA TECHNOLOGIES|REALTEK|C-MEDIA|" +
             "ANALOG|ADLIB|MULTILASER|EXBOM|MOSART|NVIDIA|CANNON|LINUX FOUNDATION|PHOENIX)";
 
+    protected String osVendorsPattern =
+            "(LINUX|PHOENIX|BSD|GOOGLE|CHROME OS|IOS|MICROSOFT|APPLE|RED HAT|LENOVO|IBM|HP|ORACLE|JUNIPER" +
+            "|WAVEOS|ACKSYS|MITSUBISHI|SOLARIS|ORACLELINUX|SYNOLOGY)";
+
+    protected String osTypePattern =
+            "(UBUNTU|RED HAT|BSD|ALMALINUX|BIG LINUX|MINT|MANDRIVA|SLACKWARE|AMAZON ?LINUX|ORACLE ?LINUX|" +
+            "WINDOWS 7|WINDOWS 10|WINDOWS 11|WINDOWS|WIN7|WIN10|WIN11|IOS|ANDROID|IOSX|CENTOS|DEBIAN|SUSE|" +
+            "OPENSUSE|WINDOWS SERVER|ORACLE|ARCH|ARCH-LINUX|MS-DOS|CHROME[- ]OS|KURUMIN|XUBUNTU|AMIGA ?OS|" +
+            "MAC ?OS|OPEN ?BSD|JAVA ?OS|ROCK ?LINUX|OS2|OS/2|XEROX|FREE ?BSD|OPEN ?SOLARIS|SKY ?OS|IS-DOS)";
+
+    protected String datePattern =
+            "(SMP [A-Z][a-z]{2} [A-Z][a-z]{2} [0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2} UTC)";
+
     protected String processorModelPattern =
             "(I[0-9]+|AMD|NVIDIA|MSI|GIGABYTE|ASUS|SAMSUNG)([-_.0-9a-zA-Z]+)";
 
@@ -138,7 +151,7 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
         return input;
     }
 
-    protected String stringExtractor(String input, String detail, String pattern, String replacer, int index) {
+    protected String stringExtractor(String input, String clear, String pattern, String replacer, int index) {
 
         try {
 
@@ -147,7 +160,7 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
 
             return StringUtils
                     .substringBetween(extract, "#<" + index + "#", "#" + index + ">#")
-                    .replaceAll(detail + ":", "").trim();
+                    .replaceAll(clear + ":", "").trim();
 
         } catch (Exception ex) {
             System.out.println("Exception during stringExtractor: " + ex.getMessage());

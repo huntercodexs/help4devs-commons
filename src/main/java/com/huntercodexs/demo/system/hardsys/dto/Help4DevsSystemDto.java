@@ -42,6 +42,7 @@ public class Help4DevsSystemDto {
     public static class Help4DevsSystem {
 
         private String name;
+        private String distro;
         private String arch;
         private String home;
         private String date;
@@ -58,6 +59,27 @@ public class Help4DevsSystemDto {
         private String fileSeparator;
         private String pathSeparator;
         private String lineSeparator;
+
+        private String javaVersion;
+        private String javaVendor;
+        private String javaVendorUrl;
+        private String javaHome;
+        private String javaSpecVersion;
+        private String javaSpecVendor;
+        private String javaSpecName;
+        private String javaClassVersion;
+        private String javaClassPath;
+        private String javaLibPath;
+        private String javaTmpDir;
+        private String javaCompiler;
+        private String javaExtDir;
+        private String javaVmSpecVersion;
+        private String javaVmSpecVendor;
+        private String javaVmSpecName;
+        private String javaVmVersion;
+        private String javaVmVendor;
+        private String javaVmName;
+
         private List<String> hotfix;
         private List<String> features;
 
@@ -69,6 +91,14 @@ public class Help4DevsSystemDto {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getDistro() {
+            return distro;
+        }
+
+        public void setDistro(String distro) {
+            this.distro = distro;
         }
 
         public String getArch() {
@@ -199,6 +229,158 @@ public class Help4DevsSystemDto {
             this.lineSeparator = lineSeparator;
         }
 
+        public String getJavaVersion() {
+            return javaVersion;
+        }
+
+        public void setJavaVersion(String javaVersion) {
+            this.javaVersion = javaVersion;
+        }
+
+        public String getJavaVendor() {
+            return javaVendor;
+        }
+
+        public void setJavaVendor(String javaVendor) {
+            this.javaVendor = javaVendor;
+        }
+
+        public String getJavaVendorUrl() {
+            return javaVendorUrl;
+        }
+
+        public void setJavaVendorUrl(String javaVendorUrl) {
+            this.javaVendorUrl = javaVendorUrl;
+        }
+
+        public String getJavaHome() {
+            return javaHome;
+        }
+
+        public void setJavaHome(String javaHome) {
+            this.javaHome = javaHome;
+        }
+
+        public String getJavaSpecVersion() {
+            return javaSpecVersion;
+        }
+
+        public void setJavaSpecVersion(String javaSpecVersion) {
+            this.javaSpecVersion = javaSpecVersion;
+        }
+
+        public String getJavaSpecVendor() {
+            return javaSpecVendor;
+        }
+
+        public void setJavaSpecVendor(String javaSpecVendor) {
+            this.javaSpecVendor = javaSpecVendor;
+        }
+
+        public String getJavaSpecName() {
+            return javaSpecName;
+        }
+
+        public void setJavaSpecName(String javaSpecName) {
+            this.javaSpecName = javaSpecName;
+        }
+
+        public String getJavaClassVersion() {
+            return javaClassVersion;
+        }
+
+        public void setJavaClassVersion(String javaClassVersion) {
+            this.javaClassVersion = javaClassVersion;
+        }
+
+        public String getJavaClassPath() {
+            return javaClassPath;
+        }
+
+        public void setJavaClassPath(String javaClassPath) {
+            this.javaClassPath = javaClassPath;
+        }
+
+        public String getJavaLibPath() {
+            return javaLibPath;
+        }
+
+        public void setJavaLibPath(String javaLibPath) {
+            this.javaLibPath = javaLibPath;
+        }
+
+        public String getJavaTmpDir() {
+            return javaTmpDir;
+        }
+
+        public void setJavaTmpDir(String javaTmpDir) {
+            this.javaTmpDir = javaTmpDir;
+        }
+
+        public String getJavaCompiler() {
+            return javaCompiler;
+        }
+
+        public void setJavaCompiler(String javaCompiler) {
+            this.javaCompiler = javaCompiler;
+        }
+
+        public String getJavaExtDir() {
+            return javaExtDir;
+        }
+
+        public void setJavaExtDir(String javaExtDir) {
+            this.javaExtDir = javaExtDir;
+        }
+
+        public String getJavaVmSpecVersion() {
+            return javaVmSpecVersion;
+        }
+
+        public void setJavaVmSpecVersion(String javaVmSpecVersion) {
+            this.javaVmSpecVersion = javaVmSpecVersion;
+        }
+
+        public String getJavaVmSpecVendor() {
+            return javaVmSpecVendor;
+        }
+
+        public void setJavaVmSpecVendor(String javaVmSpecVendor) {
+            this.javaVmSpecVendor = javaVmSpecVendor;
+        }
+
+        public String getJavaVmSpecName() {
+            return javaVmSpecName;
+        }
+
+        public void setJavaVmSpecName(String javaVmSpecName) {
+            this.javaVmSpecName = javaVmSpecName;
+        }
+
+        public String getJavaVmVersion() {
+            return javaVmVersion;
+        }
+
+        public void setJavaVmVersion(String javaVmVersion) {
+            this.javaVmVersion = javaVmVersion;
+        }
+
+        public String getJavaVmVendor() {
+            return javaVmVendor;
+        }
+
+        public void setJavaVmVendor(String javaVmVendor) {
+            this.javaVmVendor = javaVmVendor;
+        }
+
+        public String getJavaVmName() {
+            return javaVmName;
+        }
+
+        public void setJavaVmName(String javaVmName) {
+            this.javaVmName = javaVmName;
+        }
+
         public List<String> getHotfix() {
             return hotfix;
         }
@@ -207,17 +389,18 @@ public class Help4DevsSystemDto {
             this.hotfix = hotfix;
         }
 
-        public List<String> getDetails() {
+        public List<String> getFeatures() {
             return features;
         }
 
-        public void setDetails(List<String> details) {
-            this.features = details;
+        public void setFeatures(List<String> features) {
+            this.features = features;
         }
 
         public String toString() {
             return "Help4DevsSystem[" +
                     "name=" + name +
+                    ", distro=" + distro +
                     ", arch=" + arch +
                     ", home=" + home +
                     ", date=" + date +
@@ -234,6 +417,25 @@ public class Help4DevsSystemDto {
                     ", fileSeparator=" + fileSeparator +
                     ", pathSeparator=" + pathSeparator +
                     ", lineSeparator=" + lineSeparator +
+                    ", javaVersion=" + javaVersion +
+                    ", javaVendor=" + javaVendor +
+                    ", javaVendorUrl=" + javaVendorUrl +
+                    ", javaHome=" + javaHome +
+                    ", javaSpecVersion=" + javaSpecVersion +
+                    ", javaSpecVendor=" + javaSpecVendor +
+                    ", javaSpecName=" + javaSpecName +
+                    ", javaClassVersion=" + javaClassVersion +
+                    ", javaClassPath=" + javaClassPath +
+                    ", javaLibPath=" + javaLibPath +
+                    ", javaTmpDir=" + javaTmpDir +
+                    ", javaCompiler=" + javaCompiler +
+                    ", javaExtDir=" + javaExtDir +
+                    ", javaVmSpecVersion=" + javaVmSpecVersion +
+                    ", javaVmSpecVendor=" + javaVmSpecVendor +
+                    ", javaVmSpecName=" + javaVmSpecName +
+                    ", javaVmVersion=" + javaVmVersion +
+                    ", javaVmVendor=" + javaVmVendor +
+                    ", javaVmName=" + javaVmName +
                     ", hotfix=" + hotfix +
                     ", features=" + features +
                     "]";
