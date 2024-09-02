@@ -30,8 +30,8 @@ public class Help4DevsMouseDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.mouseDetails) {
-            if (details.isEmpty() || !details.contains(hardsys("mouse"))) continue;
-            listFilter.add(sourceFilter(details, hardsys("mouse"), index, "source", "input"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("mouse"))) continue;
+            listFilter.add(sourceFilter(details, hardsysCheck("mouse"), index, "source", "input"));
             index++;
         }
         return listFilter;
@@ -71,19 +71,19 @@ public class Help4DevsMouseDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("mouse"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("mouse"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("mouse"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("mouse"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("mouse"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("mouse"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("mouse"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("mouse"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("mouse") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("mouse") +": " + this.command);
     }
 
 }

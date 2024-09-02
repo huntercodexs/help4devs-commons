@@ -79,20 +79,20 @@ public class Help4DevsMemoryDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("memory"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("memory"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("memory"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("memory"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("memory"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("memory"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("memory"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("memory"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("memory"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("memory"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("memory"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("memory"));
         }
 
-        throw new RuntimeException("Invalid command for "+ hardsys("memory") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("memory") +": " + this.command);
     }
 
 }

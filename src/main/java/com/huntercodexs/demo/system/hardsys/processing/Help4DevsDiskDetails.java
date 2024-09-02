@@ -30,8 +30,8 @@ public class Help4DevsDiskDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.diskDetails) {
-            if (details.isEmpty() || !details.contains(hardsys("disk"))) continue;
-            listFilter.add(sourceFilter(details, hardsys("disk"), index, "source", "source"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("disk"))) continue;
+            listFilter.add(sourceFilter(details, hardsysCheck("disk"), index, "source", "source"));
             index++;
         }
         return listFilter;
@@ -71,19 +71,19 @@ public class Help4DevsDiskDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("disk"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("disk"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("disk"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("disk"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("disk"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("disk"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("disk"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("disk"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("disk"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("disk"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("disk"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("disk"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("disk") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("disk") +": " + this.command);
     }
 
 }

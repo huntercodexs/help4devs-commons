@@ -141,30 +141,30 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("networksGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("networksGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String network = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("network")), hardsys("network"));
-            String networkInterface = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("networkinterface")), hardsys("networkinterface"));
-            String bridge = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("bridge")), hardsys("bridge"));
-            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("hub")), hardsys("hub"));
-            String switcher = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("switcher")), hardsys("switcher"));
-            return jsonMergerRFC8259(Arrays.asList(network, networkInterface, bridge, hub, switcher), hardsys("networksGroup"));
+            String network = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("network")), hardsysCheck("network"));
+            String nicInterface = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("nicInterface")), hardsysCheck("nicInterface"));
+            String bridge = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("bridge")), hardsysCheck("bridge"));
+            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("hub")), hardsysCheck("hub"));
+            String switcher = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("switcher")), hardsysCheck("switcher"));
+            return jsonMergerRFC8259(Arrays.asList(network, nicInterface, bridge, hub, switcher), hardsysCheck("networksGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("networksGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("networksGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("networksGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("networksGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsys("networksGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck("networksGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("networksGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck("networksGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("networksGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("networksGroup"));
         }
 
-        throw new RuntimeException("Invalid command for "+ hardsys("networksGroup") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("networksGroup") +": " + this.command);
     }
 
 }

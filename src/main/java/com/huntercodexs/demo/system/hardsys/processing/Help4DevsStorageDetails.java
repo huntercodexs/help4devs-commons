@@ -69,19 +69,19 @@ public class Help4DevsStorageDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("storage"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("storage"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("storage"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("storage"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("storage"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("storage"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("storage"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("storage"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("storage"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("storage"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("storage"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("storage"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("storage") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("storage") +": " + this.command);
     }
 
 }

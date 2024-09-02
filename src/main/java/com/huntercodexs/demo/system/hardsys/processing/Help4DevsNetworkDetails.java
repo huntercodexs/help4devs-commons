@@ -41,8 +41,8 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.networkDetails) {
-            if (details.isEmpty() || !details.contains(hardsys("network"))) continue;
-            listFilter.add(sourceFilter(details, hardsys("network"), index, "source", "source"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("network"))) continue;
+            listFilter.add(sourceFilter(details, hardsysCheck("network"), index, "source", "source"));
             index++;
         }
         return listFilter;
@@ -122,20 +122,20 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("network"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("network"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("network"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("network"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("network"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("network"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("network"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("network"));
         }
 
-        throw new RuntimeException("Invalid command for "+ hardsys("network") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("network") +": " + this.command);
     }
 
 }

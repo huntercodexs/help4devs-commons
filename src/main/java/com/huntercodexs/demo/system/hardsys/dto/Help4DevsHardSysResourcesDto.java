@@ -45,7 +45,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsVideoDto video;
     private Help4DevsStorageDto storage;
     private Help4DevsBridgeDto bridge;
-    private Help4DevsNetworkInterfaceDto networkInterface;
+    private Help4DevsNicInterfaceDto nicInterface;
     private Help4DevsUnknownDto unknown;
     private Help4DevsMultimediaDto multimedia;
     private Help4DevsPrinterDto printer;
@@ -298,12 +298,12 @@ public class Help4DevsHardSysResourcesDto {
         this.bridge = (Help4DevsBridgeDto)bridge;
     }
 
-    public Help4DevsNetworkInterfaceDto getNetworkInterface() {
-        return networkInterface;
+    public Help4DevsNicInterfaceDto getNicInterface() {
+        return nicInterface;
     }
 
-    public void setNetworkInterface(Object networkInterface) {
-        this.networkInterface = (Help4DevsNetworkInterfaceDto)networkInterface;
+    public void setNicInterface(Object nicInterface) {
+        this.nicInterface = (Help4DevsNicInterfaceDto) nicInterface;
     }
 
     public Help4DevsUnknownDto getUnknown() {
@@ -363,7 +363,7 @@ public class Help4DevsHardSysResourcesDto {
                 ", video=" + video +
                 ", storage=" + storage +
                 ", bridge=" + bridge +
-                ", networkInterface=" + networkInterface +
+                ", nicInterface=" + nicInterface +
                 ", unknown=" + unknown +
                 ", multimedia=" + multimedia +
                 "]";

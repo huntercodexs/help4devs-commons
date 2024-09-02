@@ -102,6 +102,6 @@ public class Help4DevsHardSysSystem extends Help4DevsHardSysBase {
         javaInfo();
         javaVmInfo();
         othersInfo();
-        this.resources.put(hardsys("system"), this.array);
+        this.resources.put(hardsysCheck("system"), this.array);
     }
 }

@@ -97,23 +97,23 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
          * These resources have sources from the current command and
          * hence needs to treated with a different mode
          * */
-        makeSource("^(keyboard)$", hardsys("keyboard"));
-        makeSource("^(mouse)$", hardsys("mouse"));
-        makeSource("^(network)$", hardsys("network"));
-        makeSource("^(networkinterface)$", hardsys("networkinterface"));
-        makeSource("^(disk)$", hardsys("disk"));
-        makeSource("^(partition)$", hardsys("partition"));
+        makeSource("^(keyboard)$", hardsysCheck("keyboard"));
+        makeSource("^(mouse)$", hardsysCheck("mouse"));
+        makeSource("^(network)$", hardsysCheck("network"));
+        makeSource("^(nicInterface)$", hardsysCheck("nicInterface"));
+        makeSource("^(disk)$", hardsysCheck("disk"));
+        makeSource("^(partition)$", hardsysCheck("partition"));
 
         /*
          * In this point the resources already  was set and are
          * done to be used in the related group
          * */
-        makeGroup("^(battery|sensors|keyboard|mouse|monitor|hub)$", hardsys("devicesGroup"), false);
-        makeGroup("^(network|networkinterface|bridge|hub|switch)$", hardsys("networksGroup"), false);
-        makeGroup("^(disk|partition|cdrom|storage)$", hardsys("drivesGroup"), false);
-        makeGroup("^(processor|memory|sensors|audio|battery)$", hardsys("componentsGroup"), false);
-        makeGroup("^(baseboard|audio|bios|slots)$", hardsys("boardsGroup"), false);
-        makeGroup("^(bios|cache|running)$", hardsys("hardwareGroup"), false);
+        makeGroup("^(battery|sensors|keyboard|mouse|monitor|hub)$", hardsysCheck("devicesGroup"), false);
+        makeGroup("^(network|nicInterface|bridge|hub|switch)$", hardsysCheck("networksGroup"), false);
+        makeGroup("^(disk|partition|cdrom|storage)$", hardsysCheck("drivesGroup"), false);
+        makeGroup("^(processor|memory|sensors|audio|battery)$", hardsysCheck("componentsGroup"), false);
+        makeGroup("^(baseboard|audio|bios|slots)$", hardsysCheck("boardsGroup"), false);
+        makeGroup("^(bios|cache|running)$", hardsysCheck("hardwareGroup"), false);
 
     }
 
@@ -129,14 +129,14 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
     private void mergeSystemResource(List<String> copySystemResources) {
         List<String> merge = new ArrayList<>();
         merge.addAll(copySystemResources);
-        merge.addAll(this.resources.get(hardsys("system")));
-        this.resources.put(hardsys("system"), merge);
+        merge.addAll(this.resources.get(hardsysCheck("system")));
+        this.resources.put(hardsysCheck("system"), merge);
     }
 
     public void run() {
 
         List<String> copySystemResources = listClear(
-                this.resources.get(hardsys("system")), "type: system ", "");
+                this.resources.get(hardsysCheck("system")), "type: system ", "");
 
         try (BufferedReader reader = execute(Help4DevsHardSysCommands.INXI)) {
 

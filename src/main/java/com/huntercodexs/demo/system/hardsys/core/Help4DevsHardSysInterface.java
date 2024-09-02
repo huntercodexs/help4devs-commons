@@ -36,7 +36,7 @@ public interface Help4DevsHardSysInterface {
     Help4DevsVideoDetails getVideo();
     Help4DevsStorageDetails getStorage();
     Help4DevsBridgeDetails getBridge();
-    Help4DevsNetworkInterfaceDetails getNetworkInterface();
+    Help4DevsNicInterfaceDetails getNicInterface();
     Help4DevsUnknownDetails getUnknown();
     Help4DevsMultimediaDetails getMultimedia();
     Help4DevsPrinterDetails getPrinter();

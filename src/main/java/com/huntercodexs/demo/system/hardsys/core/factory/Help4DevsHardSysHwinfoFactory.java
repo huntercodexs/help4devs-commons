@@ -15,7 +15,7 @@ import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMemoryDto.Help4DevsMemo
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMonitorDto.Help4DevsMonitor;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMouseDto.Help4DevsMouse;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkDto.Help4DevsNetwork;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkInterfaceDto.Help4DevsNetworkInterface;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNicInterfaceDto.Help4DevsNicInterface;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsPartitionDto.Help4DevsPartition;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto.Help4DevsProcessor;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsStorageDto.Help4DevsStorage;
@@ -82,7 +82,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         systemDto.addSystem(system);
 
-        this.transport.put(hardsys("system"), systemDto);
+        this.transport.put(hardsysCheck("system"), systemDto);
 
     }
 
@@ -145,7 +145,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("processor"), processorDto);
+        this.transport.put(hardsysCheck("processor"), processorDto);
 
     }
 
@@ -194,7 +194,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             id++;
         }
 
-        this.transport.put(hardsys("keyboard"), keyboardsDto);
+        this.transport.put(hardsysCheck("keyboard"), keyboardsDto);
 
     }
 
@@ -243,7 +243,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             id++;
         }
 
-        this.transport.put(hardsys("mouse"), mouseDto);
+        this.transport.put(hardsysCheck("mouse"), mouseDto);
     }
 
     private void monitorFactory(List<String> items) {
@@ -280,7 +280,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("monitor"), monitorsDto);
+        this.transport.put(hardsysCheck("monitor"), monitorsDto);
 
     }
 
@@ -326,7 +326,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("graphics"), graphicsDto);
+        this.transport.put(hardsysCheck("graphics"), graphicsDto);
 
     }
 
@@ -368,7 +368,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("audio"), audioDto);
+        this.transport.put(hardsysCheck("audio"), audioDto);
 
     }
 
@@ -410,7 +410,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("storage"), storageDto);
+        this.transport.put(hardsysCheck("storage"), storageDto);
 
     }
 
@@ -461,18 +461,18 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             id++;
         }
 
-        this.transport.put(hardsys("network"), networkDto);
+        this.transport.put(hardsysCheck("network"), networkDto);
 
     }
 
-    private void networkInterfaceFactory(List<String> items) {
+    private void nicInterfaceFactory(List<String> items) {
 
-        Help4DevsNetworkInterfaceDto networkInterfaceDto = new Help4DevsNetworkInterfaceDto();
-        networkInterfaceDto.setQty(String.valueOf(items.size()));
+        Help4DevsNicInterfaceDto nicInterfaceDto = new Help4DevsNicInterfaceDto();
+        nicInterfaceDto.setQty(String.valueOf(items.size()));
 
         List<String> list = listClear(
                 items,
-                "type: networkinterface source: type: networkinterface ",
+                "type: nicInterface source: type: nicInterface ",
                 "source: ");
 
         int id = 1;
@@ -480,42 +480,42 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
             item = item.replaceAll("\\.@\\.", ":");
 
-            Help4DevsNetworkInterface networkInterface = new Help4DevsNetworkInterface();
-            networkInterface.setId(String.format("%06d", id));
+            Help4DevsNicInterface nicInterface = new Help4DevsNicInterface();
+            nicInterface.setId(String.format("%06d", id));
 
-            networkInterface.setName(stringExtractor(
+            nicInterface.setName(stringExtractor(
                     item,
                     "description",
                     "(description: [-_.0-9a-zA-Z:/]+)",
                     "description:$1",
                     id));
 
-            networkInterface.setSource(stringExtractor(
+            nicInterface.setSource(stringExtractor(
                     item,
                     "source",
                     "(source: [/-_.0-9a-zA-Z]+)( description:)",
                     "source:$1",
                     id));
 
-            networkInterface.setVendor(stringExtractor(
+            nicInterface.setVendor(stringExtractor(
                     item.toUpperCase(),
                     "description",
                     vendorsPattern,
                     "description:$1",
                     id));
 
-            networkInterface.setType(stringExtractor(
+            nicInterface.setType(stringExtractor(
                     item.toUpperCase(),
                     "DESCRIPTION",
                     "DESCRIPTION: "+networkTypePattern,
                     "DESCRIPTION:$1",
                     id));
 
-            networkInterfaceDto.addNetworkInterface(networkInterface);
+            nicInterfaceDto.addNicInterface(nicInterface);
             id++;
         }
 
-        this.transport.put(hardsys("networkInterface"), networkInterfaceDto);
+        this.transport.put(hardsysCheck("nicInterface"), nicInterfaceDto);
 
     }
 
@@ -570,7 +570,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             id++;
         }
 
-        this.transport.put(hardsys("disk"), disksDto);
+        this.transport.put(hardsysCheck("disk"), disksDto);
 
     }
 
@@ -610,7 +610,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             id++;
         }
 
-        this.transport.put(hardsys("partition"), partitionDto);
+        this.transport.put(hardsysCheck("partition"), partitionDto);
 
     }
 
@@ -650,7 +650,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             id++;
         }
 
-        this.transport.put(hardsys("cdrom"), cdRomDto);
+        this.transport.put(hardsysCheck("cdrom"), cdRomDto);
 
     }
 
@@ -692,7 +692,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("usb"), usbDto);
+        this.transport.put(hardsysCheck("usb"), usbDto);
 
     }
 
@@ -725,7 +725,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("bios"), biosDto);
+        this.transport.put(hardsysCheck("bios"), biosDto);
 
     }
 
@@ -767,7 +767,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("bridge"), bridgeDto);
+        this.transport.put(hardsysCheck("bridge"), bridgeDto);
 
     }
 
@@ -802,7 +802,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("hub"), hubDto);
+        this.transport.put(hardsysCheck("hub"), hubDto);
 
     }
 
@@ -837,7 +837,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("memory"), memoryDto);
+        this.transport.put(hardsysCheck("memory"), memoryDto);
 
     }
 
@@ -872,7 +872,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("bluetooth"), bluetoothDto);
+        this.transport.put(hardsysCheck("bluetooth"), bluetoothDto);
 
     }
 
@@ -907,7 +907,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
         }
 
-        this.transport.put(hardsys("unknown"), unknownDto);
+        this.transport.put(hardsysCheck("unknown"), unknownDto);
 
     }
 
@@ -945,26 +945,26 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             this.resources.remove(remove);
         }
 
-        systemFactory(this.resources.get(hardsys("system")));
-        processorFactory(this.resources.get(hardsys("processor")));
-        keyboardFactory(this.resources.get(hardsys("keyboard")));
-        mouseFactory(this.resources.get(hardsys("mouse")));
-        monitorFactory(this.resources.get(hardsys("monitor")));
-        graphicsFactory(this.resources.get(hardsys("graphics")));
-        audioFactory(this.resources.get(hardsys("audio")));
-        storageFactory(this.resources.get(hardsys("storage")));
-        networkFactory(this.resources.get(hardsys("network")));
-        networkInterfaceFactory(this.resources.get(hardsys("networkinterface")));
-        diskFactory(this.resources.get(hardsys("disk")));
-        partitionFactory(this.resources.get(hardsys("partition")));
-        cdRomFactory(this.resources.get(hardsys("cdrom")));
-        usbFactory(this.resources.get(hardsys("usb")));
-        biosFactory(this.resources.get(hardsys("bios")));
-        bridgeFactory(this.resources.get(hardsys("bridge")));
-        hubFactory(this.resources.get(hardsys("hub")));
-        memoryFactory(this.resources.get(hardsys("memory")));
-        bluetoothFactory(this.resources.get(hardsys("bluetooth")));
-        unknownFactory(this.resources.get(hardsys("unknown")));
+        systemFactory(this.resources.get(hardsysCheck("system")));
+        processorFactory(this.resources.get(hardsysCheck("processor")));
+        keyboardFactory(this.resources.get(hardsysCheck("keyboard")));
+        mouseFactory(this.resources.get(hardsysCheck("mouse")));
+        monitorFactory(this.resources.get(hardsysCheck("monitor")));
+        graphicsFactory(this.resources.get(hardsysCheck("graphics")));
+        audioFactory(this.resources.get(hardsysCheck("audio")));
+        storageFactory(this.resources.get(hardsysCheck("storage")));
+        networkFactory(this.resources.get(hardsysCheck("network")));
+        nicInterfaceFactory(this.resources.get(hardsysCheck("nicInterface")));
+        diskFactory(this.resources.get(hardsysCheck("disk")));
+        partitionFactory(this.resources.get(hardsysCheck("partition")));
+        cdRomFactory(this.resources.get(hardsysCheck("cdrom")));
+        usbFactory(this.resources.get(hardsysCheck("usb")));
+        biosFactory(this.resources.get(hardsysCheck("bios")));
+        bridgeFactory(this.resources.get(hardsysCheck("bridge")));
+        hubFactory(this.resources.get(hardsysCheck("hub")));
+        memoryFactory(this.resources.get(hardsysCheck("memory")));
+        bluetoothFactory(this.resources.get(hardsysCheck("bluetooth")));
+        unknownFactory(this.resources.get(hardsysCheck("unknown")));
 
     }
 

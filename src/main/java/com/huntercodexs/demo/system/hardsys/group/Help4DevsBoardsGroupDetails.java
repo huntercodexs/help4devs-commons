@@ -94,26 +94,26 @@ public class Help4DevsBoardsGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("boardsGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("boardsGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String baseboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("baseboard")), hardsys("baseboard"));
-            String audio = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("audio")), hardsys("audio"));
-            return jsonMergerRFC8259(Arrays.asList(baseboard, audio), hardsys("boardsGroup"));
+            String baseboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("baseboard")), hardsysCheck("baseboard"));
+            String audio = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("audio")), hardsysCheck("audio"));
+            return jsonMergerRFC8259(Arrays.asList(baseboard, audio), hardsysCheck("boardsGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("boardsGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("boardsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("boardsGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("boardsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsys("boardsGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck("boardsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("boardsGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck("boardsGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("boardsGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("boardsGroup"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("boardsGroup") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("boardsGroup") +": " + this.command);
     }
 }
 

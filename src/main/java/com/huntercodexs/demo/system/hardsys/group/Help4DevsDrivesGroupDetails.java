@@ -81,28 +81,28 @@ public class Help4DevsDrivesGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("drivesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("drivesGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String disk = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("disk")), hardsys("disk"));
-            String partition = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("partition")), hardsys("partition"));
-            String storage = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("storage")), hardsys("storage"));
-            String cdrom = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("cdrom")), hardsys("cdrom"));
-            return jsonMergerRFC8259(Arrays.asList(disk, partition, storage, cdrom), hardsys("drivesGroup"));
+            String disk = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("disk")), hardsysCheck("disk"));
+            String partition = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("partition")), hardsysCheck("partition"));
+            String storage = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("storage")), hardsysCheck("storage"));
+            String cdrom = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("cdrom")), hardsysCheck("cdrom"));
+            return jsonMergerRFC8259(Arrays.asList(disk, partition, storage, cdrom), hardsysCheck("drivesGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("drivesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("drivesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("drivesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("drivesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsys("drivesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck("drivesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("drivesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck("drivesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("drivesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("drivesGroup"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("drivesGroup") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("drivesGroup") +": " + this.command);
     }
 }
 

@@ -30,8 +30,8 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.keyboardDetails) {
-            if (details.isEmpty() || !details.contains(hardsys("keyboard"))) continue;
-            listFilter.add(sourceFilter(details, hardsys("keyboard"), index, "source", "input"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("keyboard"))) continue;
+            listFilter.add(sourceFilter(details, hardsysCheck("keyboard"), index, "source", "input"));
             index++;
         }
         return listFilter;
@@ -71,19 +71,19 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("keyboard"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("keyboard"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("keyboard"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("keyboard"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("keyboard"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("keyboard"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("keyboard"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("keyboard"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("keyboard"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("keyboard"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("keyboard"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("keyboard"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("keyboard") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("keyboard") +": " + this.command);
     }
 }
 

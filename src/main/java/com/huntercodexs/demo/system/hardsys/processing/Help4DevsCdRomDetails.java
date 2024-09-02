@@ -30,8 +30,8 @@ public class Help4DevsCdRomDetails extends Help4DevsHardSysBase {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
         for (String details : this.cdromDetails) {
-            if (details.isEmpty() || !details.contains(hardsys("cdrom"))) continue;
-            listFilter.add(sourceFilter(details, hardsys("cdrom"), index, "source", "source"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("cdrom"))) continue;
+            listFilter.add(sourceFilter(details, hardsysCheck("cdrom"), index, "source", "source"));
             index++;
         }
         return listFilter;
@@ -71,19 +71,19 @@ public class Help4DevsCdRomDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("cdrom"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("cdrom"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("cdrom"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("cdrom"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("cdrom"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("cdrom"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("cdrom") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("cdrom") +": " + this.command);
     }
 
 }

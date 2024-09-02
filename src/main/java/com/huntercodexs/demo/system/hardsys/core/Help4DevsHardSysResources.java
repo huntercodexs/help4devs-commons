@@ -42,7 +42,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     private Help4DevsVideoDetails videoDetails;
     private Help4DevsStorageDetails storageDetails;
     private Help4DevsBridgeDetails bridgeDetails;
-    private Help4DevsNetworkInterfaceDetails networkInterfaceDetails;
+    private Help4DevsNicInterfaceDetails nicInterfaceDetails;
     private Help4DevsUnknownDetails unknownDetails;
     private Help4DevsMultimediaDetails multimediaDetails;
     private Help4DevsPrinterDetails printerDetails;
@@ -81,47 +81,47 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
 
     private void jsonBuilder() {
         //See the HARDSYS to get more details
-        this.systemDetails = new Help4DevsSystemDetails(this.resources.get(hardsys("system")), this.command);
-        this.machineDetails = new Help4DevsMachineDetails(this.resources.get(hardsys("machine")), this.command);
-        this.batteryDetails = new Help4DevsBatteryDetails(this.resources.get(hardsys("battery")), this.command);
-        this.memoryDetails = new Help4DevsMemoryDetails(this.resources.get(hardsys("memory")), this.command);
-        this.slotsDetails = new Help4DevsSlotsDetails(this.resources.get(hardsys("slots")), this.command);
-        this.processorDetails = new Help4DevsProcessorDetails(this.resources.get(hardsys("processor")), this.command);
-        this.graphicsDetails = new Help4DevsGraphicsDetails(this.resources.get(hardsys("graphics")), this.command);
-        this.audioDetails = new Help4DevsAudioDetails(this.resources.get(hardsys("audio")), this.command);
-        this.networkDetails = new Help4DevsNetworkDetails(this.resources.get(hardsys("network")), this.command);
-        this.driversDetails = new Help4DevsDriversDetails(this.resources.get(hardsys("drivers")), this.command);
-        this.partitionDetails = new Help4DevsPartitionDetails(this.resources.get(hardsys("partition")), this.command);
-        this.cdRomDetails = new Help4DevsCdRomDetails(this.resources.get(hardsys("cdrom")), this.command);
-        this.usbDetails = new Help4DevsUsbDetails(this.resources.get(hardsys("usb")), this.command);
-        this.sensorsDetails = new Help4DevsSensorsDetails(this.resources.get(hardsys("sensors")), this.command);
-        this.runningDetails = new Help4DevsRunningDetails(this.resources.get(hardsys("running")), this.command);
-        this.monitorDetails = new Help4DevsMonitorDetails(this.resources.get(hardsys("monitor")), this.command);
-        this.biosDetails = new Help4DevsBiosDetails(this.resources.get(hardsys("bios")), this.command);
-        this.baseboardDetails = new Help4DevsBaseboardDetails(this.resources.get(hardsys("baseboard")), this.command);
-        this.chassisDetails = new Help4DevsChassisDetails(this.resources.get(hardsys("chassis")), this.command);
-        this.cacheDetails = new Help4DevsCacheDetails(this.resources.get(hardsys("cache")), this.command);
-        this.connectorDetails = new Help4DevsConnectorDetails(this.resources.get(hardsys("connector")), this.command);
-        this.keyboardDetails = new Help4DevsKeyboardDetails(this.resources.get(hardsys("keyboard")), this.command);
-        this.mouseDetails = new Help4DevsMouseDetails(this.resources.get(hardsys("mouse")), this.command);
-        this.hubDetails = new Help4DevsHubDetails(this.resources.get(hardsys("hub")), this.command);
-        this.switchDetails = new Help4DevsSwitchDetails(this.resources.get(hardsys("switcher")), this.command);
-        this.modemDetails = new Help4DevsModemDetails(this.resources.get(hardsys("modem")), this.command);
-        this.diskDetails = new Help4DevsDiskDetails(this.resources.get(hardsys("disk")), this.command);
-        this.bluetoothDetails = new Help4DevsBluetoothDetails(this.resources.get(hardsys("bluetooth")), this.command);
-        this.videoDetails = new Help4DevsVideoDetails(this.resources.get(hardsys("video")), this.command);
-        this.storageDetails = new Help4DevsStorageDetails(this.resources.get(hardsys("storage")), this.command);
-        this.bridgeDetails = new Help4DevsBridgeDetails(this.resources.get(hardsys("bridge")), this.command);
-        this.networkInterfaceDetails = new Help4DevsNetworkInterfaceDetails(this.resources.get(hardsys("networkinterface")), this.command);
-        this.unknownDetails = new Help4DevsUnknownDetails(this.resources.get(hardsys("unknown")), this.command);
-        this.multimediaDetails = new Help4DevsMultimediaDetails(this.resources.get(hardsys("multimedia")), this.command);
-        this.printerDetails = new Help4DevsPrinterDetails(this.resources.get(hardsys("printer")), this.command);
-        this.devicesGroupDetails = new Help4DevsDevicesGroupDetails(this.resources.get(hardsys("devicesGroup")), this.command);
-        this.networksGroupDetails = new Help4DevsNetworkGroupDetails(this.resources.get(hardsys("networksGroup")), this.command);
-        this.drivesGroupDetails = new Help4DevsDrivesGroupDetails(this.resources.get(hardsys("drivesGroup")), this.command);
-        this.componentsGroupDetails = new Help4DevsComponentsGroupDetails(this.resources.get(hardsys("componentsGroup")), this.command);
-        this.boardsGroupDetails = new Help4DevsBoardsGroupDetails(this.resources.get(hardsys("boardsGroup")), this.command);
-        this.hardwareGroupDetails = new Help4DevsHardwareGroupDetails(this.resources.get(hardsys("hardwareGroup")), this.command);
+        this.systemDetails = new Help4DevsSystemDetails(this.resources.get(hardsysCheck("system")), this.command);
+        this.machineDetails = new Help4DevsMachineDetails(this.resources.get(hardsysCheck("machine")), this.command);
+        this.batteryDetails = new Help4DevsBatteryDetails(this.resources.get(hardsysCheck("battery")), this.command);
+        this.memoryDetails = new Help4DevsMemoryDetails(this.resources.get(hardsysCheck("memory")), this.command);
+        this.slotsDetails = new Help4DevsSlotsDetails(this.resources.get(hardsysCheck("slots")), this.command);
+        this.processorDetails = new Help4DevsProcessorDetails(this.resources.get(hardsysCheck("processor")), this.command);
+        this.graphicsDetails = new Help4DevsGraphicsDetails(this.resources.get(hardsysCheck("graphics")), this.command);
+        this.audioDetails = new Help4DevsAudioDetails(this.resources.get(hardsysCheck("audio")), this.command);
+        this.networkDetails = new Help4DevsNetworkDetails(this.resources.get(hardsysCheck("network")), this.command);
+        this.driversDetails = new Help4DevsDriversDetails(this.resources.get(hardsysCheck("drivers")), this.command);
+        this.partitionDetails = new Help4DevsPartitionDetails(this.resources.get(hardsysCheck("partition")), this.command);
+        this.cdRomDetails = new Help4DevsCdRomDetails(this.resources.get(hardsysCheck("cdrom")), this.command);
+        this.usbDetails = new Help4DevsUsbDetails(this.resources.get(hardsysCheck("usb")), this.command);
+        this.sensorsDetails = new Help4DevsSensorsDetails(this.resources.get(hardsysCheck("sensors")), this.command);
+        this.runningDetails = new Help4DevsRunningDetails(this.resources.get(hardsysCheck("running")), this.command);
+        this.monitorDetails = new Help4DevsMonitorDetails(this.resources.get(hardsysCheck("monitor")), this.command);
+        this.biosDetails = new Help4DevsBiosDetails(this.resources.get(hardsysCheck("bios")), this.command);
+        this.baseboardDetails = new Help4DevsBaseboardDetails(this.resources.get(hardsysCheck("baseboard")), this.command);
+        this.chassisDetails = new Help4DevsChassisDetails(this.resources.get(hardsysCheck("chassis")), this.command);
+        this.cacheDetails = new Help4DevsCacheDetails(this.resources.get(hardsysCheck("cache")), this.command);
+        this.connectorDetails = new Help4DevsConnectorDetails(this.resources.get(hardsysCheck("connector")), this.command);
+        this.keyboardDetails = new Help4DevsKeyboardDetails(this.resources.get(hardsysCheck("keyboard")), this.command);
+        this.mouseDetails = new Help4DevsMouseDetails(this.resources.get(hardsysCheck("mouse")), this.command);
+        this.hubDetails = new Help4DevsHubDetails(this.resources.get(hardsysCheck("hub")), this.command);
+        this.switchDetails = new Help4DevsSwitchDetails(this.resources.get(hardsysCheck("switcher")), this.command);
+        this.modemDetails = new Help4DevsModemDetails(this.resources.get(hardsysCheck("modem")), this.command);
+        this.diskDetails = new Help4DevsDiskDetails(this.resources.get(hardsysCheck("disk")), this.command);
+        this.bluetoothDetails = new Help4DevsBluetoothDetails(this.resources.get(hardsysCheck("bluetooth")), this.command);
+        this.videoDetails = new Help4DevsVideoDetails(this.resources.get(hardsysCheck("video")), this.command);
+        this.storageDetails = new Help4DevsStorageDetails(this.resources.get(hardsysCheck("storage")), this.command);
+        this.bridgeDetails = new Help4DevsBridgeDetails(this.resources.get(hardsysCheck("bridge")), this.command);
+        this.nicInterfaceDetails = new Help4DevsNicInterfaceDetails(this.resources.get(hardsysCheck("nicInterface")), this.command);
+        this.unknownDetails = new Help4DevsUnknownDetails(this.resources.get(hardsysCheck("unknown")), this.command);
+        this.multimediaDetails = new Help4DevsMultimediaDetails(this.resources.get(hardsysCheck("multimedia")), this.command);
+        this.printerDetails = new Help4DevsPrinterDetails(this.resources.get(hardsysCheck("printer")), this.command);
+        this.devicesGroupDetails = new Help4DevsDevicesGroupDetails(this.resources.get(hardsysCheck("devicesGroup")), this.command);
+        this.networksGroupDetails = new Help4DevsNetworkGroupDetails(this.resources.get(hardsysCheck("networksGroup")), this.command);
+        this.drivesGroupDetails = new Help4DevsDrivesGroupDetails(this.resources.get(hardsysCheck("drivesGroup")), this.command);
+        this.componentsGroupDetails = new Help4DevsComponentsGroupDetails(this.resources.get(hardsysCheck("componentsGroup")), this.command);
+        this.boardsGroupDetails = new Help4DevsBoardsGroupDetails(this.resources.get(hardsysCheck("boardsGroup")), this.command);
+        this.hardwareGroupDetails = new Help4DevsHardwareGroupDetails(this.resources.get(hardsysCheck("hardwareGroup")), this.command);
         this.allGroupDetails = new Help4DevsAllGroupDetails(this, this.command);
     }
 
@@ -286,9 +286,9 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
         return bridgeDetails;
     }
 
-    public Help4DevsNetworkInterfaceDetails getNetworkInterface() {
+    public Help4DevsNicInterfaceDetails getNicInterface() {
         checkJsonState();
-        return networkInterfaceDetails;
+        return nicInterfaceDetails;
     }
 
     public Help4DevsUnknownDetails getUnknown() {

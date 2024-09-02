@@ -19,27 +19,26 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
 
     private String layoutTranslator(String input) {
         return input
-                .replaceAll("cpu:", hardsys("processor"))
-                .replaceAll("keyboard:", hardsys("keyboard"))
-                .replaceAll("mouse:", hardsys("mouse"))
-                .replaceAll("monitor:", hardsys("monitor"))
-                .replaceAll("graphics card:", hardsys("graphics"))
-                .replaceAll("sound:", hardsys("audio"))
-                .replaceAll("storage:", hardsys("storage"))
-                .replaceAll("network:", hardsys("network"))
-                .replaceAll("network interface:", hardsys("networkinterface"))
-                .replaceAll("disk:", hardsys("disk"))
-                .replaceAll("partition:", hardsys("partition"))
-                .replaceAll("cdrom:", hardsys("cdrom"))
-                .replaceAll("usb controller:", hardsys("usb"))
-                .replaceAll("bios:", hardsys("bios"))
-                .replaceAll("bridge:", hardsys("bridge"))
-                .replaceAll("hub:", hardsys("hub"))
-                .replaceAll("memory:", hardsys("memory"))
-                .replaceAll("bluetooth:", hardsys("bluetooth"))
-                .replaceAll("unknown:", hardsys("unknown"))
-                .replaceAll("[^-_a-zA-Z ]", "")
-                .toLowerCase();
+            .replaceAll("cpu:", hardsysCheck("processor"))
+            .replaceAll("keyboard:", hardsysCheck("keyboard"))
+            .replaceAll("mouse:", hardsysCheck("mouse"))
+            .replaceAll("monitor:", hardsysCheck("monitor"))
+            .replaceAll("graphics card:", hardsysCheck("graphics"))
+            .replaceAll("sound:", hardsysCheck("audio"))
+            .replaceAll("storage:", hardsysCheck("storage"))
+            .replaceAll("network:", hardsysCheck("network"))
+            .replaceAll("network interface:", hardsysCheck("nicInterface"))
+            .replaceAll("disk:", hardsysCheck("disk"))
+            .replaceAll("partition:", hardsysCheck("partition"))
+            .replaceAll("cdrom:", hardsysCheck("cdrom"))
+            .replaceAll("usb controller:", hardsysCheck("usb"))
+            .replaceAll("bios:", hardsysCheck("bios"))
+            .replaceAll("bridge:", hardsysCheck("bridge"))
+            .replaceAll("hub:", hardsysCheck("hub"))
+            .replaceAll("memory:", hardsysCheck("memory"))
+            .replaceAll("bluetooth:", hardsysCheck("bluetooth"))
+            .replaceAll("unknown:", hardsysCheck("unknown"))
+            .replaceAll("[^-_a-zA-Z ]", "");
     }
 
     private void makeSource(String pattern, String hardsy) {
@@ -104,24 +103,24 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
          * These resources have sources from the current command and
          * hence needs to treated with a different mode
          * */
-        makeSource("^(keyboard)$", hardsys("keyboard"));
-        makeSource("^(mouse)$", hardsys("mouse"));
-        makeSource("^(network)$", hardsys("network"));
-        makeSource("^("+hardsys("networkinterface")+")$", hardsys("networkinterface"));
-        makeSource("^(disk)$", hardsys("disk"));
-        makeSource("^(partition)$", hardsys("partition"));
-        makeSource("^(cdrom)$", hardsys("cdrom"));
+        makeSource("^(keyboard)$", hardsysCheck("keyboard"));
+        makeSource("^(mouse)$", hardsysCheck("mouse"));
+        makeSource("^(network)$", hardsysCheck("network"));
+        makeSource("^("+ hardsysCheck("nicInterface")+")$", hardsysCheck("nicInterface"));
+        makeSource("^(disk)$", hardsysCheck("disk"));
+        makeSource("^(partition)$", hardsysCheck("partition"));
+        makeSource("^(cdrom)$", hardsysCheck("cdrom"));
 
         /*
          * In this point the resources already  was set and are
          * done to be used in the related group
          * */
-        makeGroup("^(keyboard|mouse|monitor|hub)$", hardsys("devicesGroup"), false);
-        makeGroup("^(network|"+hardsys("networkinterface")+"|bridge|hub|switch)$", hardsys("networksGroup"), false);
-        makeGroup("^(disk|partition|cdrom|storage)$", hardsys("drivesGroup"), false);
-        makeGroup("^(processor|memory|audio|battery)$", hardsys("componentsGroup"), false);
-        makeGroup("^(baseboard|audio|bios|slots)$", hardsys("boardsGroup"), false);
-        makeGroup("^(bios|cache)$", hardsys("hardwareGroup"), false);
+        makeGroup("^(keyboard|mouse|monitor|hub)$", hardsysCheck("devicesGroup"), false);
+        makeGroup("^(network|nicInterface|bridge|hub|switch)$", hardsysCheck("networksGroup"), false);
+        makeGroup("^(disk|partition|cdrom|storage)$", hardsysCheck("drivesGroup"), false);
+        makeGroup("^(processor|memory|audio|battery)$", hardsysCheck("componentsGroup"), false);
+        makeGroup("^(baseboard|audio|bios|slots)$", hardsysCheck("boardsGroup"), false);
+        makeGroup("^(bios|cache)$", hardsysCheck("hardwareGroup"), false);
 
     }
 

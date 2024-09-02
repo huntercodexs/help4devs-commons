@@ -315,7 +315,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         Help4DevsBridgeDetails bridge = hardSys.resources().getBridge();
         System.out.println(bridge.getDetails());
         //--NETWORK-INTERFACE
-        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.resources().getNetworkInterface();
+        Help4DevsNicInterfaceDetails networkInterface = hardSys.resources().getNicInterface();
         System.out.println(networkInterface.getDetails());
         //--UNKNOWN
         Help4DevsUnknownDetails unknown = hardSys.resources().getUnknown();
@@ -462,7 +462,7 @@ public class Help4DevsHardSysUnitaryTests extends Help4DevsBridgeTests {
         Help4DevsBridgeDetails bridge = hardSys.resources().getBridge();
         System.out.println(bridge.getDetails());
         //--NETWORK-INTERFACE
-        Help4DevsNetworkInterfaceDetails networkInterface = hardSys.resources().getNetworkInterface();
+        Help4DevsNicInterfaceDetails networkInterface = hardSys.resources().getNicInterface();
         System.out.println(networkInterface.getDetails());
         //--UNKNOWN
         Help4DevsUnknownDetails unknown = hardSys.resources().getUnknown();

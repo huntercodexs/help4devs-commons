@@ -3,12 +3,12 @@ package com.huntercodexs.demo.system.hardsys.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsNetworkInterfaceDto {
+public class Help4DevsNicInterfaceDto {
 
     private String qty;
-    private List<Help4DevsNetworkInterface> details;
+    private List<Help4DevsNicInterface> details;
 
-    public Help4DevsNetworkInterfaceDto() {
+    public Help4DevsNicInterfaceDto() {
         this.details = new ArrayList<>();
     }
 
@@ -20,26 +20,26 @@ public class Help4DevsNetworkInterfaceDto {
         this.qty = qty;
     }
 
-    public List<Help4DevsNetworkInterface> getDetails() {
+    public List<Help4DevsNicInterface> getDetails() {
         return details;
     }
 
-    public void setDetails(List<Help4DevsNetworkInterface> details) {
+    public void setDetails(List<Help4DevsNicInterface> details) {
         this.details = details;
     }
 
-    public void addNetworkInterface(Help4DevsNetworkInterface networkInterface) {
-        this.details.add(networkInterface);
+    public void addNicInterface(Help4DevsNicInterface nicInterface) {
+        this.details.add(nicInterface);
     }
 
     public String toString() {
-        return "Help4DevsNetworkInterfaceDto[" +
+        return "Help4DevsNicInterfaceDto[" +
                 "qty=" + qty +
                 ", details=" + details +
                 "]";
     }
 
-    public static class Help4DevsNetworkInterface {
+    public static class Help4DevsNicInterface {
 
         private String id;
         private String mac;
@@ -56,7 +56,7 @@ public class Help4DevsNetworkInterfaceDto {
         private String address;
         private List<String> features;
 
-        public Help4DevsNetworkInterface() {}
+        public Help4DevsNicInterface() {}
 
         public String getId() {
             return id;
@@ -171,7 +171,7 @@ public class Help4DevsNetworkInterfaceDto {
         }
 
         public String toString() {
-            return "Help4DevsNetworkInterface[" +
+            return "Help4DevsNicInterface[" +
                     "id=" + id +
                     ", mac=" + mac +
                     ", ips=" + ips +

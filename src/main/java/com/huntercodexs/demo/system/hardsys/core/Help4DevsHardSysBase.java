@@ -79,7 +79,7 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
     protected String bridgeTypePattern =
             "(PCI Express|PCIe|PCI|PCH|ISA)";
 
-    protected String[] fields() {
+    protected String[] hardsysFields() {
         Field[] fields = Help4DevsHardSysResourcesDto.class.getDeclaredFields();
         int len = fields.length;
         String[] names = new String[len];
@@ -90,7 +90,7 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysLayout {
         return names;
     }
 
-    protected String hardsys(String target) {
+    protected String hardsysCheck(String target) {
         Field[] fields = Help4DevsHardSysResourcesDto.class.getDeclaredFields();
 
         for (Field field : fields) {

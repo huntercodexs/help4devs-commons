@@ -71,7 +71,7 @@ public class Help4DevsHardSysLsPciFactory extends Help4DevsHardSysBase {
 
     private void bridgeFactory(List<String> items) {}
 
-    private void networkInterfaceFactory(List<String> items) {}
+    private void nicInterfaceFactory(List<String> items) {}
 
     private void unknownFactory(List<String> items) {}
 
@@ -79,38 +79,38 @@ public class Help4DevsHardSysLsPciFactory extends Help4DevsHardSysBase {
 
         /*Code Here*/
 
-        systemFactory(this.resources.get(hardsys("system")));
-        machineFactory(this.resources.get(hardsys("machine")));
-        batteryFactory(this.resources.get(hardsys("battery")));
-        memoryFactory(this.resources.get(hardsys("memory")));
-        slotsFactory(this.resources.get(hardsys("slots")));
-        processorFactory(this.resources.get(hardsys("processor")));
-        graphicsFactory(this.resources.get(hardsys("graphics")));
-        audioFactory(this.resources.get(hardsys("audio")));
-        networkFactory(this.resources.get(hardsys("network")));
-        driversFactory(this.resources.get(hardsys("drivers")));
-        partitionFactory(this.resources.get(hardsys("partition")));
-        usbFactory(this.resources.get(hardsys("usb")));
-        sensorsFactory(this.resources.get(hardsys("sensors")));
-        runningFactory(this.resources.get(hardsys("running")));
-        monitorFactory(this.resources.get(hardsys("monitor")));
-        biosFactory(this.resources.get(hardsys("bios")));
-        baseboardFactory(this.resources.get(hardsys("baseboard")));
-        chassisFactory(this.resources.get(hardsys("chassis")));
-        cacheFactory(this.resources.get(hardsys("cache")));
-        connectorFactory(this.resources.get(hardsys("connector")));
-        keyboardFactory(this.resources.get(hardsys("keyboard")));
-        mouseFactory(this.resources.get(hardsys("mouse")));
-        hubFactory(this.resources.get(hardsys("hub")));
-        switcherFactory(this.resources.get(hardsys("switcher")));
-        modemFactory(this.resources.get(hardsys("modem")));
-        diskFactory(this.resources.get(hardsys("disk")));
-        bluetoothFactory(this.resources.get(hardsys("bluetooth")));
-        videoFactory(this.resources.get(hardsys("video")));
-        storageFactory(this.resources.get(hardsys("storage")));
-        bridgeFactory(this.resources.get(hardsys("bridge")));
-        networkInterfaceFactory(this.resources.get(hardsys("networkInterface")));
-        unknownFactory(this.resources.get(hardsys("unknown")));
+        systemFactory(this.resources.get(hardsysCheck("system")));
+        machineFactory(this.resources.get(hardsysCheck("machine")));
+        batteryFactory(this.resources.get(hardsysCheck("battery")));
+        memoryFactory(this.resources.get(hardsysCheck("memory")));
+        slotsFactory(this.resources.get(hardsysCheck("slots")));
+        processorFactory(this.resources.get(hardsysCheck("processor")));
+        graphicsFactory(this.resources.get(hardsysCheck("graphics")));
+        audioFactory(this.resources.get(hardsysCheck("audio")));
+        networkFactory(this.resources.get(hardsysCheck("network")));
+        driversFactory(this.resources.get(hardsysCheck("drivers")));
+        partitionFactory(this.resources.get(hardsysCheck("partition")));
+        usbFactory(this.resources.get(hardsysCheck("usb")));
+        sensorsFactory(this.resources.get(hardsysCheck("sensors")));
+        runningFactory(this.resources.get(hardsysCheck("running")));
+        monitorFactory(this.resources.get(hardsysCheck("monitor")));
+        biosFactory(this.resources.get(hardsysCheck("bios")));
+        baseboardFactory(this.resources.get(hardsysCheck("baseboard")));
+        chassisFactory(this.resources.get(hardsysCheck("chassis")));
+        cacheFactory(this.resources.get(hardsysCheck("cache")));
+        connectorFactory(this.resources.get(hardsysCheck("connector")));
+        keyboardFactory(this.resources.get(hardsysCheck("keyboard")));
+        mouseFactory(this.resources.get(hardsysCheck("mouse")));
+        hubFactory(this.resources.get(hardsysCheck("hub")));
+        switcherFactory(this.resources.get(hardsysCheck("switcher")));
+        modemFactory(this.resources.get(hardsysCheck("modem")));
+        diskFactory(this.resources.get(hardsysCheck("disk")));
+        bluetoothFactory(this.resources.get(hardsysCheck("bluetooth")));
+        videoFactory(this.resources.get(hardsysCheck("video")));
+        storageFactory(this.resources.get(hardsysCheck("storage")));
+        bridgeFactory(this.resources.get(hardsysCheck("bridge")));
+        nicInterfaceFactory(this.resources.get(hardsysCheck("nicInterface")));
+        unknownFactory(this.resources.get(hardsysCheck("unknown")));
 
     }
 

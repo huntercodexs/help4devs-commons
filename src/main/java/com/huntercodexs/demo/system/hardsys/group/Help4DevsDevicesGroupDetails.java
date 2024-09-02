@@ -86,32 +86,32 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
 
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
 
-            String battery = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("battery")), hardsys("battery"));
-            String sensors = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("sensors")), hardsys("sensors"));
-            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("keyboard")), hardsys("keyboard"));
-            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsys("mouse")), hardsys("mouse"));
-            return jsonMergerRFC8259(Arrays.asList(battery, sensors, keyboard, mouse), hardsys("devicesGroup"));
+            String battery = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsysCheck("battery")), hardsysCheck("battery"));
+            String sensors = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsysCheck("sensors")), hardsysCheck("sensors"));
+            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsysCheck("keyboard")), hardsysCheck("keyboard"));
+            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandInxi(hardsysCheck("mouse")), hardsysCheck("mouse"));
+            return jsonMergerRFC8259(Arrays.asList(battery, sensors, keyboard, mouse), hardsysCheck("devicesGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
 
-            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("keyboard")), hardsys("keyboard"));
-            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("mouse")), hardsys("mouse"));
-            String monitor = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("monitor")), hardsys("monitor"));
-            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsys("hub")), hardsys("hub"));
-            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse, monitor, hub), hardsys("devicesGroup"));
+            String keyboard = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("keyboard")), hardsysCheck("keyboard"));
+            String mouse = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("mouse")), hardsysCheck("mouse"));
+            String monitor = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("monitor")), hardsysCheck("monitor"));
+            String hub = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("hub")), hardsysCheck("hub"));
+            return jsonMergerRFC8259(Arrays.asList(keyboard, mouse, monitor, hub), hardsysCheck("devicesGroup"));
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("devicesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("devicesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("devicesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("devicesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsys("devicesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck("devicesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("devicesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck("devicesGroup"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("devicesGroup"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("devicesGroup"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("devicesGroup") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("devicesGroup") +": " + this.command);
     }
 }
 

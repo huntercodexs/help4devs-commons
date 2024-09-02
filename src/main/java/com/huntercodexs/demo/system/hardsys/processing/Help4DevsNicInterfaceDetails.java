@@ -8,19 +8,19 @@ import java.util.List;
 
 import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonCreatorRFC8259;
 
-public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
+public class Help4DevsNicInterfaceDetails extends Help4DevsHardSysBase {
 
     private final Help4DevsHardSysCommands command;
-    private final List<String> networkInterfaceDetails;
+    private final List<String> nicInterfaceDetails;
 
-    public Help4DevsNetworkInterfaceDetails(List<String> network, Help4DevsHardSysCommands command) {
+    public Help4DevsNicInterfaceDetails(List<String> network, Help4DevsHardSysCommands command) {
         this.command = command;
-        this.networkInterfaceDetails = network;
+        this.nicInterfaceDetails = network;
     }
 
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.networkInterfaceDetails) {
+        for (String details : this.nicInterfaceDetails) {
 
             details = indexer(details, "bus ID: ", "busId", ": ", false);
             details = indexer(details, "v: ", "version", ": ", true);
@@ -39,9 +39,9 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> listFilter = new ArrayList<>();
         int index = 0;
-        for (String details : this.networkInterfaceDetails) {
-            if (details.isEmpty() || !details.contains(hardsys("networkinterface"))) continue;
-            listFilter.add(sourceFilter(details, hardsys("networkinterface"), index, "source", "source"));
+        for (String details : this.nicInterfaceDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("nicInterface"))) continue;
+            listFilter.add(sourceFilter(details, hardsysCheck("nicInterface"), index, "source", "source"));
             index++;
         }
         return listFilter;
@@ -50,7 +50,7 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkInterfaceDetails) {
+        for (String details : this.nicInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -68,7 +68,7 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkInterfaceDetails) {
+        for (String details : this.nicInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -86,7 +86,7 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkInterfaceDetails) {
+        for (String details : this.nicInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -104,7 +104,7 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.networkInterfaceDetails) {
+        for (String details : this.nicInterfaceDetails) {
             filter.add(details
                     .replaceAll("bus ID: ", "busId: ")
                     .replaceFirst(" v:", " version_"+n+":")
@@ -121,20 +121,20 @@ public class Help4DevsNetworkInterfaceDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsys("networkinterface"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("nicInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), "networkinterface");
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), "nicInterface");
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsys("networkinterface"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("nicInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsys("networkinterface"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("nicInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsys("networkinterface"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("nicInterface"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("networkinterface"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("nicInterface"));
         }
 
-        throw new RuntimeException("Invalid command for "+ hardsys("networkinterface") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("nicInterface") +": " + this.command);
     }
 
 }

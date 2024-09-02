@@ -39,7 +39,7 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
             this.allResources.getAudio().getDetails(),
             this.allResources.getStorage().getDetails(),
             this.allResources.getNetwork().getDetails(),
-            this.allResources.getNetworkInterface().getDetails(),
+            this.allResources.getNicInterface().getDetails(),
             this.allResources.getDisk().getDetails(),
             this.allResources.getPartition().getDetails(),
             this.allResources.getCdRom().getDetails(),
@@ -81,21 +81,21 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandInxi(), hardsys("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandHwinfo(), hardsys("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), hardsys("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), hardsys("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLsPci(), hardsys("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLsUsb(), hardsys("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck("all"));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), hardsys("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("all"));
         }
-        throw new RuntimeException("Invalid command for "+ hardsys("all") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck("all") +": " + this.command);
     }
 }
 
