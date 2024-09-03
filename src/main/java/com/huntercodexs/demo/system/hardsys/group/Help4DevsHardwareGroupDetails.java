@@ -2,6 +2,7 @@ package com.huntercodexs.demo.system.hardsys.group;
 
 import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
+import com.huntercodexs.demo.system.hardsys.processing.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,108 +13,187 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonM
 
 public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
 
+    private final List<String> hardwareDetails;
     private final Help4DevsHardSysCommands command;
-    private final List<String> devicesDetails;
+    private final String resourceName = "hardwareGroup";
 
     public Help4DevsHardwareGroupDetails(List<String> devices, Help4DevsHardSysCommands command) {
         this.command = command;
-        this.devicesDetails = devices;
+        this.hardwareDetails = devices;
     }
 
-    private List<String> detailsFromLinuxCommandInxi() {
-        List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
-        }
-        return filter;
-    }
-
-    private List<String> detailsFromLinuxCommandHwinfo(String device) {
+    private List<String> detailsFromLinuxCommandInxi(String device) {
         List<String> listFilter = new ArrayList<>();
-        int index = 0;
-        for (String details : this.devicesDetails) {
-
+        for (String details : this.hardwareDetails) {
             if (!details.contains("type: "+device)) continue;
-
-            details = details.replaceAll("type: "+device+" ", "");
-
-            indexerUpdate(index);
-            details = indexer(details, "source: ", "source", ": ", true);
-
-            indexerUpdate(index);
-            details = indexer(details, "description: ", "description", ": ", true);
-
-            details = details.replaceAll("\\.@\\.", ":");
+            details = details.replaceAll("type: " + device +" ?", "");
             listFilter.add(details);
+        }
+        return listFilter;
+    }
 
-            index++;
-
+    private List<String> detailsFromLinuxCommandHwinfo(String device, boolean replace) {
+        List<String> listFilter = new ArrayList<>();
+        for (String details : this.hardwareDetails) {
+            if (!details.contains("type: "+device)) continue;
+            if (replace) {
+                details = details.replaceAll("type: " + device + " ?", "");
+                details = details.replaceAll("source: ?", "");
+            }
+            listFilter.add(details);
         }
         return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
+        for (String details : this.hardwareDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", resourceName));
         }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
+        for (String details : this.hardwareDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", resourceName));
         }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandLsPci() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
+        for (String details : this.hardwareDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", resourceName));
         }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandLsUsb() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
+        for (String details : this.hardwareDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", resourceName));
         }
         return filter;
     }
 
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("HARDWARE GROUP: ", "HardwareGroup: "));
+        for (String details : this.hardwareDetails) {
+            filter.add(details.replaceAll("HARDWARE GROUP: ", resourceName));
         }
         return filter;
     }
 
+    private List<String> detailsFromWindowsCommandSystemInfo() {
+        List<String> filter = new ArrayList<>();
+        for (String details : this.hardwareDetails) {
+            filter.add(details.replaceAll("DRIVES GROUP: ", resourceName+": "));
+        }
+        return filter;
+    }
+
+    private String groupsByInxiCommand() {
+
+        String processor = new Help4DevsProcessorDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck("processor")),
+                this.command).getDetails();
+
+        String memory = new Help4DevsMemoryDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck("memory")),
+                this.command).getDetails();
+
+        String bios = new Help4DevsBiosDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck("bios")),
+                this.command).getDetails();
+
+        String cache = new Help4DevsCacheDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck( "cache")),
+                this.command).getDetails();
+
+        String disk = new Help4DevsDiskDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck( "disk")),
+                this.command).getDetails();
+
+        String partition = new Help4DevsPartitionDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck( "partition")),
+                this.command).getDetails();
+
+        String cdrom = new Help4DevsCdRomDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck( "cdrom")),
+                this.command).getDetails();
+
+        return jsonMergerRFC8259(Arrays.asList(processor, memory, bios, cache, disk, partition, cdrom), hardsysCheck(resourceName));
+
+    }
+
+    private String groupsByHwinfoCommand() {
+
+        String bios = new Help4DevsBiosDetails(
+                detailsFromLinuxCommandHwinfo(hardsysCheck("bios"), false),
+                this.command).getDetails();
+
+        String cache = new Help4DevsCacheDetails(
+                detailsFromLinuxCommandHwinfo(hardsysCheck("cache"), false),
+                this.command).getDetails();
+
+        return jsonMergerRFC8259(Arrays.asList(bios, cache), hardsysCheck(resourceName));
+
+    }
+
+    private String groupsByLshwCommand() {
+        return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
+    }
+
+    private String groupsByLsCpuCommand() {
+        return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck(resourceName));
+    }
+
+    private String groupsByLsPciCommand() {
+        return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck(resourceName));
+    }
+
+    private String groupsByLsUsbCommand() {
+        return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck(resourceName));
+    }
+
+    private String groupsByDmidecodeCommand() {
+        return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck(resourceName));
+    }
+
+    private String groupsBySystemInfoCommand() {
+        return jsonCreatorRFC8259(detailsFromWindowsCommandSystemInfo(), hardsysCheck(resourceName));
+    }
+
     public String getDetails() {
+
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("hardwareGroup"));
+            return groupsByInxiCommand();
 
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-
-            String bios = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("bios")), hardsysCheck("bios"));
-            String cache = jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(hardsysCheck("cache")), hardsysCheck("cache"));
-            return jsonMergerRFC8259(Arrays.asList(bios, cache), hardsysCheck("hardwareGroup"));
+            return groupsByHwinfoCommand();
 
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("hardwareGroup"));
+            return groupsByLshwCommand();
+
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("hardwareGroup"));
+            return groupsByLsCpuCommand();
+
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck("hardwareGroup"));
+            return groupsByLsPciCommand();
+
         } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck("hardwareGroup"));
+            return groupsByLsUsbCommand();
+
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("hardwareGroup"));
+            return groupsByDmidecodeCommand();
+
+        } else if (this.command.equals(Help4DevsHardSysCommands.SYSTEMINFO)) {
+            return groupsBySystemInfoCommand();
+
         }
-        throw new RuntimeException("Invalid command for "+ hardsysCheck("hardwareGroup") +": " + this.command);
+
+        throw new RuntimeException("Invalid command for "+ hardsysCheck(resourceName) +": " + this.command);
     }
 }
 

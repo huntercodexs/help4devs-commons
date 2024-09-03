@@ -26,7 +26,7 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
                 .replaceAll("Graphics: ", "graphics")
                 .replaceAll("Audio: ", "audio")
                 .replaceAll("Network: ", "network")
-                .replaceAll("Drives: ", "drives")
+                .replaceAll("Drives: ", "disk")
                 .replaceAll("Partition: ", "partition")
                 .replaceAll("USB: ", "usb")
                 .replaceAll("Sensors: ", "sensors")
@@ -45,7 +45,7 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
                 for (String item : list) {
                     if (item.isEmpty()) continue;
 
-                    if (!item.contains("type")) {
+                    /*if (!item.contains("type")) {
                         item = "type: " + value + " source: " + item
                                 .replaceAll("-", "###")
                                 .replaceAll("\\[", "(")
@@ -53,9 +53,9 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
                                 .replaceAll(" ", "-")
                                 .replaceAll("([0-9])([-#]+)([0-9]):([0-9])", "$1###$3.@.$4")
                                 .replaceAll("-{2,}", " description: ");
-                    }
+                    }*/
 
-                    merge.add(item);
+                    merge.add("type: " + value + " " + item);
 
                 }
                 remove.add(value);
@@ -78,11 +78,11 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
          * done to be used in the related group
          * */
         makeGroup("^(battery|sensors)$", hardsysCheck("devicesGroup"), false);
-        makeGroup("^(network)$", hardsysCheck("networksGroup"), false);
-        makeGroup("^(partition)$", hardsysCheck("drivesGroup"), false);
-        makeGroup("^(processor|memory)$", hardsysCheck("componentsGroup"), false);
-        makeGroup("^(audio|slots)$", hardsysCheck("boardsGroup"), false);
-        makeGroup("^(running)$", hardsysCheck("hardwareGroup"), false);
+        makeGroup("^(network|nicInterface)$", hardsysCheck("networksGroup"), false);
+        makeGroup("^(partition|disk|drives)$", hardsysCheck("drivesGroup"), false);
+        makeGroup("^(processor|memory|audio|battery|sensors)$", hardsysCheck("componentsGroup"), false);
+        makeGroup("^(baseboard|audio|graphics|slots)$", hardsysCheck("boardsGroup"), false);
+        makeGroup("^(processor|memory|bios|cache|disk|partition|cdrom)$", hardsysCheck("hardwareGroup"), false);
 
     }
 

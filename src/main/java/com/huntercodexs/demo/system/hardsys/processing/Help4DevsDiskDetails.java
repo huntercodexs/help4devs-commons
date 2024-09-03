@@ -22,7 +22,7 @@ public class Help4DevsDiskDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
         for (String details : this.diskDetails) {
-            filter.add(details.replaceAll("Disk: ", resourceName+": "));
+            filter.add(details.replaceAll("Local Storage: ", "localStorage: Local "));
         }
         return filter;
     }
