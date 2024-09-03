@@ -10,8 +10,9 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonC
 
 public class Help4DevsCdRomDetails extends Help4DevsHardSysBase {
 
-    private final Help4DevsHardSysCommands command;
+    private final String resourceName = "cdrom";
     private final List<String> cdromDetails;
+    private final Help4DevsHardSysCommands command;
 
     public Help4DevsCdRomDetails(List<String> cdrom, Help4DevsHardSysCommands command) {
         this.command = command;
@@ -71,19 +72,19 @@ public class Help4DevsCdRomDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("cdrom"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck(resourceName));
         }
-        throw new RuntimeException("Invalid command for "+ hardsysCheck("cdrom") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck(resourceName) +": " + this.command);
     }
 
 }

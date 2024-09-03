@@ -35,29 +35,6 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
                 .toLowerCase();
     }
 
-    private void makeSource(String pattern, String hardsy) {
-
-        List<String> makeList = new ArrayList<>();
-
-        this.resources.forEach((key, list) -> {
-            if (key.matches(pattern)) {
-                for (String item : list) {
-                    if (item.isEmpty()) continue;
-
-                    item = "type: " +key+ " source: "+item
-                            .replaceAll(" ", "-")
-                            .replaceAll(":", ".@.")
-                            .replaceAll("-{2,}", " description: ");
-
-                    makeList.add(item);
-
-                }
-            }
-        });
-
-        this.resources.put(hardsy, makeList);
-    }
-
     private void makeGroup(String pattern, String hardsy, boolean delete) {
 
         List<String> merge = new ArrayList<>();
@@ -70,8 +47,11 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
 
                     if (!item.contains("type")) {
                         item = "type: " + value + " source: " + item
+                                .replaceAll("-", "###")
+                                .replaceAll("\\[", "(")
+                                .replaceAll("]", ")")
                                 .replaceAll(" ", "-")
-                                .replaceAll(":", ".@.")
+                                .replaceAll("([0-9])([-#]+)([0-9]):([0-9])", "$1###$3.@.$4")
                                 .replaceAll("-{2,}", " description: ");
                     }
 
@@ -94,26 +74,15 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
     private void makeSourceAndGroup() {
 
         /*
-         * These resources have sources from the current command and
-         * hence needs to treated with a different mode
-         * */
-        makeSource("^(keyboard)$", hardsysCheck("keyboard"));
-        makeSource("^(mouse)$", hardsysCheck("mouse"));
-        makeSource("^(network)$", hardsysCheck("network"));
-        makeSource("^(nicInterface)$", hardsysCheck("nicInterface"));
-        makeSource("^(disk)$", hardsysCheck("disk"));
-        makeSource("^(partition)$", hardsysCheck("partition"));
-
-        /*
          * In this point the resources already  was set and are
          * done to be used in the related group
          * */
-        makeGroup("^(battery|sensors|keyboard|mouse|monitor|hub)$", hardsysCheck("devicesGroup"), false);
-        makeGroup("^(network|nicInterface|bridge|hub|switch)$", hardsysCheck("networksGroup"), false);
-        makeGroup("^(disk|partition|cdrom|storage)$", hardsysCheck("drivesGroup"), false);
-        makeGroup("^(processor|memory|sensors|audio|battery)$", hardsysCheck("componentsGroup"), false);
-        makeGroup("^(baseboard|audio|bios|slots)$", hardsysCheck("boardsGroup"), false);
-        makeGroup("^(bios|cache|running)$", hardsysCheck("hardwareGroup"), false);
+        makeGroup("^(battery|sensors)$", hardsysCheck("devicesGroup"), false);
+        makeGroup("^(network)$", hardsysCheck("networksGroup"), false);
+        makeGroup("^(partition)$", hardsysCheck("drivesGroup"), false);
+        makeGroup("^(processor|memory)$", hardsysCheck("componentsGroup"), false);
+        makeGroup("^(audio|slots)$", hardsysCheck("boardsGroup"), false);
+        makeGroup("^(running)$", hardsysCheck("hardwareGroup"), false);
 
     }
 

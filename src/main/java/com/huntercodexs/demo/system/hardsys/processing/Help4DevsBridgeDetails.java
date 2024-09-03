@@ -10,8 +10,9 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonC
 
 public class Help4DevsBridgeDetails extends Help4DevsHardSysBase {
 
-    private final Help4DevsHardSysCommands command;
+    private final String resourceName = "bridge";
     private final List<String> bridgeDetails;
+    private final Help4DevsHardSysCommands command;
 
     public Help4DevsBridgeDetails(List<String> bridge, Help4DevsHardSysCommands command) {
         this.command = command;
@@ -21,7 +22,7 @@ public class Help4DevsBridgeDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
         for (String details : this.bridgeDetails) {
-            filter.add(details.replaceAll("BRIDGE: ", "bridge: "));
+            filter.add(details.replaceAll("BRIDGE: ", resourceName+": "));
         }
         return filter;
     }
@@ -38,7 +39,7 @@ public class Help4DevsBridgeDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
         for (String details : this.bridgeDetails) {
-            filter.add(details.replaceAll("BRIDGE: ", "bridge: "));
+            filter.add(details.replaceAll("BRIDGE: ", resourceName+": "));
         }
         return filter;
     }
@@ -46,7 +47,7 @@ public class Help4DevsBridgeDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         for (String details : this.bridgeDetails) {
-            filter.add(details.replaceAll("BRIDGE: ", "bridge: "));
+            filter.add(details.replaceAll("BRIDGE: ", resourceName+": "));
         }
         return filter;
     }
@@ -54,7 +55,7 @@ public class Help4DevsBridgeDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         for (String details : this.bridgeDetails) {
-            filter.add(details.replaceAll("BRIDGE: ", "bridge: "));
+            filter.add(details.replaceAll("BRIDGE: ", resourceName+": "));
         }
         return filter;
     }
@@ -62,26 +63,26 @@ public class Help4DevsBridgeDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         for (String details : this.bridgeDetails) {
-            filter.add(details.replaceAll("BRIDGE: ", "bridge: "));
+            filter.add(details.replaceAll("BRIDGE: ", resourceName+": "));
         }
         return filter;
     }
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("bridge"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("bridge"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("bridge"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("bridge"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("bridge"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("bridge"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck(resourceName));
         }
-        throw new RuntimeException("Invalid command for "+ hardsysCheck("bridge") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck(resourceName) +": " + this.command);
     }
 
 }

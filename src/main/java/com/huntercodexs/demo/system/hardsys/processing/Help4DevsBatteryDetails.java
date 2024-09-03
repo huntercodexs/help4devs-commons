@@ -21,7 +21,7 @@ public class Help4DevsBatteryDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
         for (String details : this.batteryDetails) {
-            filter.add(details.replaceAll("ID-1:", "id1:"));
+            filter.add(details.replaceAll("ID-([0-9]+):", "id$1:"));
         }
         return filter;
     }

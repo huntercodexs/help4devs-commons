@@ -10,8 +10,9 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonC
 
 public class Help4DevsVideoDetails extends Help4DevsHardSysBase {
 
-    private final Help4DevsHardSysCommands command;
+    private final String resourceName = "video";
     private final List<String> videoDetails;
+    private final Help4DevsHardSysCommands command;
 
     public Help4DevsVideoDetails(List<String> devices, Help4DevsHardSysCommands command) {
         this.command = command;
@@ -21,7 +22,7 @@ public class Help4DevsVideoDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
         for (String details : this.videoDetails) {
-            filter.add(details.replaceAll("Video: ", "video: "));
+            filter.add(details.replaceAll("Video: ", resourceName+": "));
         }
         return filter;
     }
@@ -32,8 +33,6 @@ public class Help4DevsVideoDetails extends Help4DevsHardSysBase {
         for (String details : this.videoDetails) {
 
             if (details == null || details.isEmpty()) continue;
-
-            //details = details.replaceAll("\\[", "(").replaceAll("]", ")");
 
             indexerUpdate(index);
             details = indexer(details, "source: ", "source", ": ", true);
@@ -53,7 +52,7 @@ public class Help4DevsVideoDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
         for (String details : this.videoDetails) {
-            filter.add(details.replaceAll("Video: ", "video: "));
+            filter.add(details.replaceAll("Video: ", resourceName+": "));
         }
         return filter;
     }
@@ -61,7 +60,7 @@ public class Help4DevsVideoDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         for (String details : this.videoDetails) {
-            filter.add(details.replaceAll("Video: ", "video: "));
+            filter.add(details.replaceAll("Video: ", resourceName+": "));
         }
         return filter;
     }
@@ -69,7 +68,7 @@ public class Help4DevsVideoDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         for (String details : this.videoDetails) {
-            filter.add(details.replaceAll("Video: ", "video: "));
+            filter.add(details.replaceAll("Video: ", resourceName+": "));
         }
         return filter;
     }
@@ -77,26 +76,26 @@ public class Help4DevsVideoDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         for (String details : this.videoDetails) {
-            filter.add(details.replaceAll("Video: ", "video: "));
+            filter.add(details.replaceAll("Video: ", resourceName+": "));
         }
         return filter;
     }
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("video"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("video"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("video"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("video"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("video"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("video"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck(resourceName));
         }
-        throw new RuntimeException("Invalid command for "+ hardsysCheck("video") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck(resourceName) +": " + this.command);
     }
 
 }

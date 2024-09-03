@@ -383,14 +383,14 @@ public class Help4DevsParserService {
             line = line.replaceAll("\\[", "(").replaceAll("]", ")");
 
             String[] fields = line
-                    .replaceAll("([-/)(\\\\_0-9a-zA-Z]+): ", "[$1],")
+                    .replaceAll("([.@#\\-/)(\\\\_0-9a-zA-Z]+): ", "[$1],")
                     .replaceAll(",([^\\[[a-zA-Z]\\]]+)", "")
                     .replaceAll("]\\[", ",")
                     .replaceAll("[\\[\\]]", "")
                     .split(",");
 
             String[] values = line
-                    .replaceAll("([-/)(\\\\_0-9a-zA-Z]+): ", " ")
+                    .replaceAll("([.@#\\-/)(\\\\_0-9a-zA-Z]+): ", " ")
                     .replaceAll("_", "{:under:}")
                     .replaceAll(" ", "_")
                     .replaceAll("__", "{:split:}")

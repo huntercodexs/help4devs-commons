@@ -10,8 +10,9 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonC
 
 public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
 
-    private final Help4DevsHardSysCommands command;
+    private final String resourceName = "drivers";
     private final List<String> driversDetails;
+    private final Help4DevsHardSysCommands command;
 
     public Help4DevsDriversDetails(List<String> drivers, Help4DevsHardSysCommands command) {
         this.command = command;
@@ -21,7 +22,7 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
         for (String details : this.driversDetails) {
-            filter.add(details.replaceAll("DRIVERS: ", "drivers: "));
+            filter.add(details.replaceAll("DRIVERS: ", resourceName+": "));
         }
         return filter;
     }
@@ -29,7 +30,7 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
         for (String details : this.driversDetails) {
-            filter.add(details.replaceAll("DRIVERS: ", "drivers: "));
+            filter.add(details.replaceAll("DRIVERS: ", resourceName+": "));
         }
         return filter;
     }
@@ -37,7 +38,7 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLshw() {
         List<String> filter = new ArrayList<>();
         for (String details : this.driversDetails) {
-            filter.add(details.replaceAll("DRIVERS: ", "drivers: "));
+            filter.add(details.replaceAll("DRIVERS: ", resourceName+": "));
         }
         return filter;
     }
@@ -45,7 +46,7 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         for (String details : this.driversDetails) {
-            filter.add(details.replaceAll("DRIVERS: ", "drivers: "));
+            filter.add(details.replaceAll("DRIVERS: ", resourceName+": "));
         }
         return filter;
     }
@@ -53,7 +54,7 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         for (String details : this.driversDetails) {
-            filter.add(details.replaceAll("DRIVERS: ", "drivers: "));
+            filter.add(details.replaceAll("DRIVERS: ", resourceName+": "));
         }
         return filter;
     }
@@ -61,26 +62,26 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         for (String details : this.driversDetails) {
-            filter.add(details.replaceAll("DRIVERS: ", "drivers: "));
+            filter.add(details.replaceAll("DRIVERS: ", resourceName+": "));
         }
         return filter;
     }
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("drivers"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("drivers"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("drivers"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("drivers"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck("drivers"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandLscpu2(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("drivers"));
+            return jsonCreatorRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck(resourceName));
         }
-        throw new RuntimeException("Invalid command for "+ hardsysCheck("drivers") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck(resourceName) +": " + this.command);
     }
 
 }
