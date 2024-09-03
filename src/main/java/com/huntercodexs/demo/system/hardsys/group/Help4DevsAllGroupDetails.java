@@ -15,6 +15,7 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonM
  * */
 public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
+    private final String resourceName = "all";
     private final Help4DevsHardSysCommands command;
     private final Help4DevsHardSysResources allResources;
 
@@ -24,8 +25,23 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandInxi() {
-        List<String> filter = new ArrayList<>();
-        return filter;
+        return Arrays.asList(
+                this.allResources.getSystem().getDetails(),
+                this.allResources.getMachine().getDetails(),
+                this.allResources.getBattery().getDetails(),
+                this.allResources.getMemory().getDetails(),
+                this.allResources.getSlots().getDetails(),
+                this.allResources.getProcessor().getDetails(),
+                this.allResources.getGraphics().getDetails(),
+                this.allResources.getAudio().getDetails(),
+                this.allResources.getNetwork().getDetails(),
+                this.allResources.getDisk().getDetails(),
+                this.allResources.getStorage().getDetails(),
+                this.allResources.getPartition().getDetails(),
+                this.allResources.getUsb().getDetails(),
+                this.allResources.getSensors().getDetails(),
+                this.allResources.getRunning().getDetails(),
+                this.allResources.getPrinter().getDetails());
     }
 
     private List<String> detailsFromLinuxCommandHwinfo() {
@@ -81,21 +97,21 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
 
     public String getDetails() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandInxi(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandHwinfo(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLscpu(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLsPci(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.LSUSB)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandLsUsb(), hardsysCheck(resourceName));
         } else if (this.command.equals(Help4DevsHardSysCommands.DMIDECODE)) {
-            return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck("all"));
+            return jsonMergerRFC8259(detailsFromLinuxCommandDmidecode(), hardsysCheck(resourceName));
         }
-        throw new RuntimeException("Invalid command for "+ hardsysCheck("all") +": " + this.command);
+        throw new RuntimeException("Invalid command for "+ hardsysCheck(resourceName) +": " + this.command);
     }
 }
 
