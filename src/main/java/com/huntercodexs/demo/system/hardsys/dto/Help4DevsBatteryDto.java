@@ -34,7 +34,7 @@ public class Help4DevsBatteryDto {
 
     public String toString() {
         return "Help4DevsBatteryDto[" +
-                "qty='" + qty +
+                "qty=" + qty +
                 ", details=" + details +
                 "]";
     }

@@ -20,6 +20,72 @@ public class Help4DevsStringHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">stringCounter</h6>
+     *
+     * <p style="color: #CDCDCD">Count one specific string occurrence in the specific string phrase</p>
+     *
+     * <p>Example 1</p>
+     *
+     * <blockquote><pre>
+     * String data = "Topology: Quad Core model: Intel Core i5-9300H bits: 64 type: MT MCP " +
+     * "arch: Kaby Lake rev: D L2 cache: 8192 KiB flags: avx avx2 lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx " +
+     * "bogomips: 38400 Speed: 4000 MHz min/max: 800/4100 MHz " +
+     * "Core speeds (MHz): 1: 4000 2: 4000 3: 4000 4: 4000 5: 4020 6: 4000 7: 4020 8: 4000";
+     * int result = stringCounter(data, "[1-9]: ([0-9]{4})");
+     *
+     * Result: 8
+     *</pre></blockquote>
+     *
+     * <p>Example 2</p>
+     *
+     * <blockquote><pre>
+     * String data = "Topology: Quad Core model: Intel Core i5-9300H bits: 64 type: MT MCP " +
+     * "arch: Kaby Lake rev: D L2 cache: 8192 KiB flags: avx avx2 lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx " +
+     * "bogomips: 38400 Speed: 4000 MHz min/max: 800/4100 MHz " +
+     * "Core speeds (MHz): 1: 4000 2: 4000 3: 4000 4: 4000 5: 4020 6: 4000 7: 4020 8: 4000";
+     * result = stringCounter(data, "4020");
+     *
+     * Result: 2
+     * </pre></blockquote>
+     *
+     * @param input (String: Data to check)
+     * @param pattern (String: Data expression to use in the counter - should be a pattern RegExp)
+     * @return int (Quantity of occurrence based on pattern expression)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static int stringCounter(String input, String pattern) {
+
+        int counter = 0;
+
+        try {
+
+            while (true) {
+
+                String begin = input.replaceFirst(
+                        pattern, "#<" + counter + "#{{{ REPLACED }}}#" + counter + ">#");
+
+                String result = StringUtils
+                        .substringBetween(begin, "#<" + counter + "#", "#" + counter + ">#")
+                        .trim();
+
+                counter+=1;
+
+                if (result.isEmpty()) break;
+                input = begin;
+
+            }
+
+            return counter;
+
+        } catch (Exception ex) {
+            System.out.println("Exception during stringExtractor: " + ex.getMessage());
+            return counter;
+        }
+
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">repeat</h6>
      *
      * <p style="color: #CDCDCD">Repeat a string or char one or more times - Java 1.8 or minor</p>
@@ -325,6 +391,100 @@ public class Help4DevsStringHandlerService {
     }
 
     /**
+     *
+     * <h6 style="color: #FFFF00; font-size: 11px">extractByPattern</h6>
+     *
+     * <p style="color: #CDCDCD">Extract a specific alphanumeric data defined by specific field</p>
+     *
+     * <p>Definitions</p>
+     *
+     * <p>
+     * - Default pattern: "("+field+": ?)([-_.0-9a-zA-Z"+useChars+"]+)"+qty,
+     * where qty can be {1,} in case useChars is equal " " or qty can be ""
+     * in case useChar equals null or ""
+     * <br />
+     * <br />
+     * - Its required that input contains a delimiter (:) to get correctly
+     * result, see the below examples:
+     * </p>
+     *
+     * <p>Example 1</p>
+     *
+     * <blockquote><pre>
+     * String input = "Type: Laptop";
+     * String result = alphaFieldPattern(input, "Type", null);
+     *
+     * Result: Laptop
+     * </pre></blockquote>
+     *
+     * <p>Example 2</p>
+     *
+     * <blockquote><pre>
+     * String input = "Type: \"Laptop\"";
+     * String result = alphaFieldPattern(input, "Type", "\"");
+     *
+     * Result: Laptop
+     * </pre></blockquote>
+     *
+     * <p>Example 3</p>
+     *
+     *<blockquote><pre>
+     * String input = "product: Nitro AN517-51";
+     * String result = alphaFieldPattern(input, "product", " ");
+     *
+     * Result: Nitro AN517-51
+     *</pre></blockquote>
+     *
+     * <p>Example 4</p>
+     *
+     * <blockquote><pre>
+     * String input = "product: Nitro AN517-51 v: 1.33.3";
+     * String result = alphaFieldPattern(input, "v", "");
+     *
+     * Result: 1.33.3
+     * </pre></blockquote>
+     *
+     * @param input (String: Data source to extract)
+     * @param field (String: Data that mark the specific extraction)
+     * @param useChars (String: Adjustment chars to use)
+     * @return String (Data extracted)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String extractByPattern(String input, String field, String useChars) {
+
+        try {
+
+            if (useChars == null) {
+                useChars = "";
+            }
+
+            String qty = "";
+            if (useChars.equals(" ")) {
+                qty = "{1,} ";
+            }
+
+            String begin = input
+                    .replaceAll(
+                            "("+field+": ?)([-)(}{\\]\\[@#%_.0-9a-zA-Z"+useChars+"]+)"+qty,
+                            "#<1#" + field+":$2" + "#1>#");
+
+            String extract = begin.replaceAll(", ", " ");
+
+            return StringUtils
+                    .substringBetween(extract, "#<1#", "#1>#")
+                    .replaceAll(field + ":", "")
+                    .replaceAll("\"", "")
+                    .trim();
+
+        } catch (Exception ex) {
+            System.out.println("Exception during alphaFieldPattern: " + ex.getMessage());
+            return "";
+        }
+
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">stringList</h6>
      *
      * <p style="color: #CDCDCD">Create one list of String from an List items</p>
@@ -431,7 +591,6 @@ public class Help4DevsStringHandlerService {
         return String.valueOf(result);
     }
 
-
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">listClear</h6>
      *
@@ -470,5 +629,50 @@ public class Help4DevsStringHandlerService {
             result.add(current.replaceAll(replace, replacement));
         }
         return result;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">alphaFieldPattern</h6>
+     *
+     * <p style="color: #CDCDCD">Extract a part of input based on field</p>
+     *
+     * @param input (String)
+     * @param field (String)
+     * @param useChars (String)
+     * @return LIst&lt;String&gt; (List clear)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String alphaFieldPattern(String input, String field, String useChars) {
+
+        try {
+
+            if (useChars == null) {
+                useChars = "";
+            }
+
+            String qty = "";
+            if (useChars.equals(" ")) {
+                qty = "{1,} ";
+            }
+
+            String begin = input
+                    .replaceAll(
+                            "("+field+": ?)([-)(}{\\]\\[/@#%_.0-9a-zA-Z"+useChars+"]+)"+qty,
+                            "#<1#" + field+":$2" + "#1>#");
+
+            String extract = begin.replaceAll(", ", " ");
+
+            return StringUtils
+                    .substringBetween(extract, "#<1#", "#1>#")
+                    .replaceAll(field + ":", "")
+                    .replaceAll("\"", "")
+                    .trim();
+
+        } catch (Exception ex) {
+            System.out.println("Exception during alphaFieldPattern: " + ex.getMessage());
+            return "";
+        }
+
     }
 }

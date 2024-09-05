@@ -16,6 +16,22 @@ import static com.huntercodexs.demo.services.data.Help4DevsDataRandomService.ran
 public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
+    public void countStringTest() {
+
+        String data = "Topology: Quad Core model: Intel Core i5-9300H bits: 64 type: MT MCP " +
+                "arch: Kaby Lake rev: D L2 cache: 8192 KiB flags: avx avx2 lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx " +
+                "bogomips: 38400 Speed: 4000 MHz min/max: 800/4100 MHz " +
+                "Core speeds (MHz): 1: 4000 2: 4000 3: 4000 4: 4000 5: 4020 6: 4000 7: 4020 8: 4000";
+
+        int result = stringCounter(data, "[1-9]: ([0-9]{4})");
+        codexsTesterAssertInt(8, result);
+
+        result = stringCounter(data, "4020");
+        codexsTesterAssertInt(2, result);
+
+    }
+
+    @Test
     public void repeatTest() {
         codexsTesterAssertText("*****", repeat("*", 5));
         codexsTesterAssertText("++++++++++", repeat("+", 10));
@@ -150,6 +166,52 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
         clear = "description";
 
         codexsTesterAssertExact("LOOPBACK", stringExtractor(source, clear, pattern, replacer, 1));
+
+        source = "Topology: Quad Core model: Intel Core i5-9300H bits: 64 type: MT MCP arch: Kaby Lake " +
+                "rev: D L2 cache: 8192 KiB flags: avx avx2 lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx " +
+                "bogomips: 38400 Speed: 4000 MHz min/max: 800/4100 MHz " +
+                "Core speeds (MHz): 1: 4000 2: 4000 3: 4000 4: 4000 5: 4000 6: 4000 7: 4000 8: 4000";
+        pattern = "([1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4})";
+        replacer = "$1";
+        clear = "";
+
+        codexsTesterAssertExact(
+                "1 4000 2 4000 3 4000 4 4000 5 4000 6 4000 7 4000 8 4000",
+                stringExtractor(source, clear, pattern, replacer, 1));
+    }
+
+    @Test
+    public void extractByPatternTest() {
+
+        String input = "Type: Laptop";
+        String result = extractByPattern(input, "Type", null);
+
+        codexsTesterAssertExact("Laptop", result);
+
+        input = "Type: \"Laptop\"";
+        result = extractByPattern(input, "Type", "\"");
+
+        codexsTesterAssertExact("Laptop", result);
+
+        input = "product: Nitro AN517-51 version: 1.33.3";
+        result = extractByPattern(input, "product", " ");
+
+        codexsTesterAssertExact("Nitro AN517-51", result);
+
+        input = "product: Nitro AN517-51 v: 1.33.3";
+        result = extractByPattern(input, "v", "");
+
+        codexsTesterAssertExact("1.33.3", result);
+
+        input = "RAM: total: 23.31 GiB used: 6.97 GiB (29.9%) RAM Report: permissions: Unable to run dmidecode. Root privileges required.";
+        result = extractByPattern(input, "total", " ");
+
+        codexsTesterAssertExact("23.31 GiB", result);
+
+        result = extractByPattern(input, "used", " ");
+
+        codexsTesterAssertExact("6.97 GiB (29.9%) RAM", result);
+
     }
 
     @Test

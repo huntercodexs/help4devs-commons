@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.listClear;
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.stringExtractor;
+
 /**
  * @implNote This class only process for DTO format results
  * */
@@ -122,7 +125,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             processor.setFamily(stringExtractor(
                     itemClear,
                     "family",
-                    processorFamilyPatter,
+                    processorFamilyPattern,
                     "family:$1",
                     id+2));
 
@@ -922,7 +925,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
 
             List<String> makeList = new ArrayList<>();
 
-            if (key.contains("_group") || key.equals("all")) {
+            if (key.contains("Group") || key.equals("all")) {
                 removeList.add(key);
             } else {
 

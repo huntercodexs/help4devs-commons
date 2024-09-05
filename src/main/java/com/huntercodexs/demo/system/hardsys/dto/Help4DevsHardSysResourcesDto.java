@@ -366,6 +366,7 @@ public class Help4DevsHardSysResourcesDto {
                 ", nicInterface=" + nicInterface +
                 ", unknown=" + unknown +
                 ", multimedia=" + multimedia +
+                ", printer=" + printer +
                 "]";
     }
 }

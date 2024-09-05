@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.stringExtractor;
+
 public class Help4DevsHardSysSystem extends Help4DevsHardSysBase {
 
     private final List<String> array;

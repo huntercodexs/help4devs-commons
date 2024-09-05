@@ -20,7 +20,7 @@ public class Help4DevsHardSysFactory extends Help4DevsHardSysBase {
 
     public void make() {
         if (this.command.equals(Help4DevsHardSysCommands.INXI)) {
-            new Help4DevsHardSysInxiFactory(this.resources).factory();
+            new Help4DevsHardSysInxiFactory(this.resources, this.transport).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
             new Help4DevsHardSysHwinfoFactory(this.resources, this.transport).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {

@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.listClear;
+
 public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
+
+    private List<String> copySystemResources;
 
     public Help4DevsHardSysInxi(HashMap<String, List<String>> resources) {
         this.resources = resources;
@@ -44,19 +48,7 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
             if (value.matches(pattern)) {
                 for (String item : list) {
                     if (item.isEmpty()) continue;
-
-                    /*if (!item.contains("type")) {
-                        item = "type: " + value + " source: " + item
-                                .replaceAll("-", "###")
-                                .replaceAll("\\[", "(")
-                                .replaceAll("]", ")")
-                                .replaceAll(" ", "-")
-                                .replaceAll("([0-9])([-#]+)([0-9]):([0-9])", "$1###$3.@.$4")
-                                .replaceAll("-{2,}", " description: ");
-                    }*/
-
                     merge.add("type: " + value + " " + item);
-
                 }
                 remove.add(value);
             }
@@ -95,16 +87,38 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
         return false;
     }
 
-    private void mergeSystemResource(List<String> copySystemResources) {
+    private void mergeSystemResource() {
         List<String> merge = new ArrayList<>();
-        merge.addAll(copySystemResources);
+        merge.addAll(this.copySystemResources);
         merge.addAll(this.resources.get(hardsysCheck("system")));
         this.resources.put(hardsysCheck("system"), merge);
     }
 
+    private void makeSingleListItem() {
+        for (String keyname : hardsysFields()) {
+
+            switch (keyname) {
+                case "system":
+                case "graphics":
+                case "audio":
+                case "network":
+                case "usb":
+                    continue;
+            }
+
+            List<String> single = new ArrayList<>();
+            StringBuilder concat = new StringBuilder();
+            for (String item : this.resources.get(keyname)) {
+                concat.append(item).append(" ");
+            }
+            single.add(String.valueOf(concat).trim());
+            this.resources.put(keyname, single);
+        }
+    }
+
     public void run() {
 
-        List<String> copySystemResources = listClear(
+        this.copySystemResources = listClear(
                 this.resources.get(hardsysCheck("system")), "type: system ", "");
 
         try (BufferedReader reader = execute(Help4DevsHardSysCommands.INXI)) {
@@ -150,7 +164,8 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
             }
 
             makeSourceAndGroup();
-            mergeSystemResource(copySystemResources);
+            mergeSystemResource();
+            makeSingleListItem();
 
         } catch (IOException ioe) {
             throw new RuntimeException(ioe.getMessage());
