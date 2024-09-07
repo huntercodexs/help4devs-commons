@@ -340,43 +340,43 @@ public class Help4DevsHardSysResourcesDto {
     }
 
     public String toString() {
-        return "Help4DevsHardSysResourcesDto[" +
-                "system=" + system +
-                ", machine=" + machine +
-                ", battery=" + battery +
-                ", memory=" + memory +
-                ", slots=" + slots +
-                ", processor=" + processor +
-                ", graphics=" + graphics +
-                ", audio=" + audio +
-                ", network=" + network +
-                ", drivers=" + drivers +
-                ", partition=" + partition +
-                ", cdrom=" + cdrom +
-                ", usb=" + usb +
-                ", sensors=" + sensors +
-                ", running=" + running +
-                ", monitor=" + monitor +
-                ", bios=" + bios +
-                ", baseboard=" + baseboard +
-                ", chassis=" + chassis +
-                ", cache=" + cache +
-                ", connector=" + connector +
-                ", keyboard=" + keyboard +
-                ", mouse=" + mouse +
-                ", hub=" + hub +
-                ", switcher=" + switcher +
-                ", modem=" + modem +
-                ", disk=" + disk +
-                ", drives=" + drives +
-                ", bluetooth=" + bluetooth +
-                ", video=" + video +
-                ", storage=" + storage +
-                ", bridge=" + bridge +
-                ", nicInterface=" + nicInterface +
-                ", unknown=" + unknown +
-                ", multimedia=" + multimedia +
-                ", printer=" + printer +
+        return "Help4DevsHardSysResourcesDto[\n" +
+                "\tsystem=" + system + ",\n" +
+                "\tmachine=" + machine + ",\n" +
+                "\tbattery=" + battery + ",\n" +
+                "\tmemory=" + memory + ",\n" +
+                "\tslots=" + slots + ",\n" +
+                "\tprocessor=" + processor + ",\n" +
+                "\tgraphics=" + graphics + ",\n" +
+                "\taudio=" + audio + ",\n" +
+                "\tnetwork=" + network + ",\n" +
+                "\tdrivers=" + drivers + ",\n" +
+                "\tpartition=" + partition + ",\n" +
+                "\tcdrom=" + cdrom + ",\n" +
+                "\tusb=" + usb + ",\n" +
+                "\tsensors=" + sensors + ",\n" +
+                "\trunning=" + running + ",\n" +
+                "\tmonitor=" + monitor + ",\n" +
+                "\tbios=" + bios + ",\n" +
+                "\tbaseboard=" + baseboard + ",\n" +
+                "\tchassis=" + chassis + ",\n" +
+                "\tcache=" + cache + ",\n" +
+                "\tconnector=" + connector + ",\n" +
+                "\tkeyboard=" + keyboard + ",\n" +
+                "\tmouse=" + mouse + ",\n" +
+                "\thub=" + hub + ",\n" +
+                "\tswitcher=" + switcher + ",\n" +
+                "\tmodem=" + modem + ",\n" +
+                "\tdisk=" + disk + ",\n" +
+                "\tdrives=" + drives + ",\n" +
+                "\tbluetooth=" + bluetooth + ",\n" +
+                "\tvideo=" + video + ",\n" +
+                "\tstorage=" + storage + ",\n" +
+                "\tbridge=" + bridge + ",\n" +
+                "\tnicInterface=" + nicInterface + ",\n" +
+                "\tunknown=" + unknown + ",\n" +
+                "\tmultimedia=" + multimedia + ",\n" +
+                "\tprinter=" + printer + "\n" +
                 "]";
     }
 }
