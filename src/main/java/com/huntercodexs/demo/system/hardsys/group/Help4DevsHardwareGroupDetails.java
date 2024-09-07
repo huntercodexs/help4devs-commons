@@ -115,6 +115,10 @@ public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
                 detailsFromLinuxCommandInxi(hardsysCheck( "disk")),
                 this.command).getDetails();
 
+        String drives = new Help4DevsDrivesDetails(
+                detailsFromLinuxCommandInxi(hardsysCheck( "drives")),
+                this.command).getDetails();
+
         String partition = new Help4DevsPartitionDetails(
                 detailsFromLinuxCommandInxi(hardsysCheck( "partition")),
                 this.command).getDetails();
@@ -123,7 +127,8 @@ public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
                 detailsFromLinuxCommandInxi(hardsysCheck( "cdrom")),
                 this.command).getDetails();
 
-        return jsonMergerRFC8259(Arrays.asList(processor, memory, bios, cache, disk, partition, cdrom), hardsysCheck(resourceName));
+        return jsonMergerRFC8259(Arrays.asList(
+                processor, memory, bios, cache, disk, drives, partition, cdrom), hardsysCheck(resourceName));
 
     }
 

@@ -2,13 +2,20 @@ package com.huntercodexs.demo.system.hardsys.core.factory;
 
 import com.huntercodexs.demo.system.hardsys.core.Help4DevsHardSysBase;
 import com.huntercodexs.demo.system.hardsys.dto.*;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsAudioDto.Help4DevsAudio;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsBatteryDto.Help4DevsBattery;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsDrivesDto.Help4DevsDrives;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsGraphicsDto.Help4DevsGraphics;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMachineDto.Help4DevsMachine;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsMemoryDto.Help4DevsMemory;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsNetworkDto.Help4DevsNetwork;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsPartitionDto.Help4DevsPartition;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsProcessorDto.Help4DevsProcessor;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsSlotsDto.Help4DevsSlots;
 import com.huntercodexs.demo.system.hardsys.dto.Help4DevsSystemDto.Help4DevsSystem;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsUsbDto.Help4DevsUsb;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsSensorsDto.Help4DevsSensors;
+import com.huntercodexs.demo.system.hardsys.dto.Help4DevsRunningDto.Help4DevsRunning;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +29,58 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
     public Help4DevsHardSysInxiFactory(HashMap<String, List<String>> resources, HashMap<String, Object> transport) {
         this.resources = resources;
         this.transport = transport;
+    }
+
+    private List<List<String>> fixFields() {
+        List<List<String>> cleanup = new ArrayList<>();
+
+        List<String> toClean1 = new ArrayList<>();
+        toClean1.add("bus ID");
+        toClean1.add("busId");
+        cleanup.add(toClean1);
+
+        List<String> toClean2 = new ArrayList<>();
+        toClean2.add("direct render");
+        toClean2.add("directRender");
+        cleanup.add(toClean2);
+
+        List<String> toClean3 = new ArrayList<>();
+        toClean3.add("OpenGL");
+        toClean3.add("OpenGL: unknown");
+        cleanup.add(toClean3);
+
+        List<String> toClean4 = new ArrayList<>();
+        toClean4.add("Sound Server");
+        toClean4.add("soundServer");
+        cleanup.add(toClean4);
+        cleanup.add(toClean3);
+
+        List<String> toClean5 = new ArrayList<>();
+        toClean5.add("Local Storage");
+        toClean5.add("localStorage");
+        cleanup.add(toClean5);
+
+        List<String> toClean6 = new ArrayList<>();
+        toClean6.add("Message");
+        toClean6.add("message");
+        cleanup.add(toClean6);
+
+        List<String> toClean7 = new ArrayList<>();
+        toClean7.add("Partition");
+        toClean7.add("partition");
+        cleanup.add(toClean7);
+
+        List<String> toClean8 = new ArrayList<>();
+        toClean8.add("System Temperatures");
+        toClean8.add("systemTemp");
+        cleanup.add(toClean8);
+
+        List<String> toClean9 = new ArrayList<>();
+        toClean9.add("Fan Speeds \\(RPM\\)");
+        toClean9.add("fanSpeed");
+        cleanup.add(toClean9);
+
+        return cleanup;
     }
 
     private void systemFactory(List<String> items) {
@@ -69,8 +128,6 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
 
         this.transport.put(hardsysCheck("system"), systemDto);
 
-        System.out.println("==========[system]> " + this.transport.get(hardsysCheck("system")));
-
     }
 
     private void machineFactory(List<String> items) {
@@ -112,8 +169,6 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
 
         this.transport.put(hardsysCheck("machine"), machineDto);
 
-        System.out.println("==========[machine]> " + this.transport.get(hardsysCheck("machine")));
-
     }
 
     private void batteryFactory(List<String> items) {
@@ -133,8 +188,6 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
         batteryDto.addBattery(battery);
 
         this.transport.put(hardsysCheck("battery"), batteryDto);
-
-        System.out.println("==========[battery]> " + this.transport.get(hardsysCheck("battery")));
     }
 
     private void memoryFactory(List<String> items) {
@@ -153,8 +206,6 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
 
         this.transport.put(hardsysCheck("memory"), memoryDto);
 
-        System.out.println("==========[memory]> " + this.transport.get(hardsysCheck("memory")));
-
     }
 
     private void slotsFactory(List<String> items) {
@@ -169,8 +220,6 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
         slotsDto.addSlot(slots);
 
         this.transport.put(hardsysCheck("slots"), slotsDto);
-
-        System.out.println("==========[slots]> " + this.transport.get(hardsysCheck("slots")));
     }
 
     private void processorFactory(List<String> items) {
@@ -220,25 +269,11 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
 
         this.transport.put(hardsysCheck("processor"), processorDto);
 
-        System.out.println("==========[processor]> " + this.transport.get(hardsysCheck("processor")));
-
     }
 
     private void graphicsFactory(List<String> items) {
 
-        List<List<String>> cleanup = new ArrayList<>();
-
-        List<String> toClean1 = new ArrayList<>();
-        toClean1.add("bus ID");
-        toClean1.add("busId");
-        cleanup.add(toClean1);
-
-        List<String> toClean2 = new ArrayList<>();
-        toClean2.add("direct render");
-        toClean2.add("directRender");
-        cleanup.add(toClean2);
-
-        List<String> listFixed = listNormalize(items, "Device-", cleanup);
+        List<String> listFixed = listNormalize(items, "Device-", fixFields());
 
         Help4DevsGraphicsDto graphicsDto = new Help4DevsGraphicsDto();
         graphicsDto.setQty(String.valueOf(listFixed.size()));
@@ -251,7 +286,13 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
             graphics.setVendor(alphaFieldPattern(item, "vendor", " "));
             graphics.setDriver(alphaFieldPattern(item, "driver", ""));
             graphics.setVersion(alphaFieldPattern(item, "v", ""));
-            graphics.setId(alphaFieldPattern(item, "busId", ""));
+            graphics.setId(alphaFieldPattern(item, "busId", ":"));
+            graphics.setDisplay(alphaFieldPattern(item, "Display", " "));
+            graphics.setServer(alphaFieldPattern(item, "server", " "));
+            graphics.setFailed(alphaFieldPattern(item, "FAILED", " "));
+            graphics.setUnloaded(alphaFieldPattern(item, "unloaded", ","));
+            graphics.setResolution(alphaFieldPattern(item, "resolution", ",~ "));
+            graphics.setRenderer(alphaFieldPattern(item, "renderer", " "));
 
             graphicsDto.addGraphic(graphics);
             index += 1;
@@ -259,25 +300,273 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
 
         this.transport.put(hardsysCheck("graphics"), graphicsDto);
 
-        System.out.println("==========[graphics]> " + this.transport.get(hardsysCheck("graphics")));
+    }
+
+    private void audioFactory(List<String> items) {
+
+        List<String> listFixed = listNormalize(items, "Device-", fixFields());
+
+        Help4DevsAudioDto audioDto = new Help4DevsAudioDto();
+        audioDto.setQty(String.valueOf(listFixed.size()));
+
+        int index = 1;
+        for (String item : listFixed) {
+            Help4DevsAudio audio = new Help4DevsAudio();
+
+            audio.setName(alphaFieldPattern(item, "Device-"+index, " "));
+            audio.setVendor(alphaFieldPattern(item, "vendor", " "));
+            audio.setDriver(alphaFieldPattern(item, "driver", ""));
+            audio.setVersion(alphaFieldPattern(item, "v", ""));
+            audio.setId(alphaFieldPattern(item, "busId", ":"));
+            audio.setSource(alphaFieldPattern(item, "soundServer", " "));
+
+            audioDto.addAudio(audio);
+            index += 1;
+        }
+
+        this.transport.put(hardsysCheck("audio"), audioDto);
 
     }
 
-    private void audioFactory(List<String> items) {}
+    private void networkFactory(List<String> items) {
 
-    private void networkFactory(List<String> items) {}
+        List<String> listFixed = listNormalize(items, "Device-|IF-ID-", fixFields());
 
-    private void diskFactory(List<String> items) {}
+        Help4DevsNetworkDto networkDto = new Help4DevsNetworkDto();
+        networkDto.setQty(String.valueOf(listFixed.size()));
 
-    private void storageFactory(List<String> items) {}
+        int index = 1;
+        boolean deviceChanged = false;
 
-    private void partitionFactory(List<String> items) {}
+        for (String item : listFixed) {
 
-    private void usbFactory(List<String> items) {}
+            Help4DevsNetwork network = new Help4DevsNetwork();
 
-    private void sensorsFactory(List<String> items) {}
+            /*
+             * Reset index device: In this case when there is more one type of devices identification,
+             * for example:
+             *      Device-1:
+             *      Device-2:
+             *      Device-3:
+             *      IF-ID-1:
+             *      IF-ID-2:
+             *      Dev-1:
+             *      Dev-2:
+             * we need to restart the index to get the correctly index from each kind of device, however,
+             * if occurs the follow flow
+             *      Device-1:
+             *      Device-2:
+             *      IF-ID-1:
+             *      IF-ID-2:
+             *      Device-3:
+             *      Device-4:
+             *      ...
+             * it will become a problem because the index of original/start device was lost and we can not
+             * follow in this way, so pay attention in that issue.
+             *
+             * Put here the conditions to reset the index of each device.
+            */
+            if (item.contains("IF-ID-") || !deviceChanged) {
+                index = 1;
+                deviceChanged = true;
+            }
 
-    private void runningFactory(List<String> items) {}
+            network.setName(alphaFieldPattern(item, "Device-"+index, " "));
+            network.setSource(alphaFieldPattern(item, "IF|IF\\-ID\\-"+index, ""));
+
+            network.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "",
+                    networkTypePattern,
+                    "$1",
+                    index));
+
+            network.setVendor(alphaFieldPattern(item, "vendor", " "));
+            network.setDriver(alphaFieldPattern(item, "driver", ""));
+            network.setVersion(alphaFieldPattern(item, "v", ""));
+            network.setId(alphaFieldPattern(item, "busId", ":"));
+            network.setPorts(alphaFieldPattern(item, "ports", ""));
+            network.setStatus(alphaFieldPattern(item, "state", ""));
+            network.setSpeed(alphaFieldPattern(item, "speed", " "));
+            network.setMac(alphaFieldPattern(item, "mac", "><"));
+
+            networkDto.addNetwork(network);
+            index += 1;
+        }
+
+        this.transport.put(hardsysCheck("network"), networkDto);
+
+    }
+
+    private void drivesFactory(List<String> items) {
+
+        List<String> listFixed = listNormalize(items, "localStorage|message", fixFields());
+
+        Help4DevsDrivesDto drivesDto = new Help4DevsDrivesDto();
+        drivesDto.setQty(String.valueOf(listFixed.size()));
+
+        int index = 1;
+        boolean deviceChanged = false;
+
+        for (String item : listFixed) {
+
+            Help4DevsDrives drives = new Help4DevsDrives();
+
+            if (item.contains("localStorage") || item.contains("message") || !deviceChanged) {
+                index = 1;
+                deviceChanged = true;
+            }
+
+            drives.setName(alphaFieldPattern(item, "model", " "));
+            drives.setSize(alphaFieldPattern(item, "size", " "));
+            drives.setUsed(alphaFieldPattern(item, "used", " "));
+            drives.setVendor(alphaFieldPattern(item, "vendor", " "));
+            drives.setSource(alphaFieldPattern(item, "ID\\-"+index, ""));
+            drives.setDescription(alphaFieldPattern(item, "message", " \\."));
+
+            drives.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "",
+                    drivesTypePattern,
+                    "$1",
+                    index));
+
+            drivesDto.addDisk(drives);
+            index += 1;
+        }
+
+        this.transport.put(hardsysCheck("drives"), drivesDto);
+
+    }
+
+    private void partitionFactory(List<String> items) {
+
+        List<String> listFixed = listNormalize(items, "Partition", fixFields());
+
+        Help4DevsPartitionDto partitionDto = new Help4DevsPartitionDto();
+        partitionDto.setQty(String.valueOf(listFixed.size()));
+
+        int index = 1;
+        boolean deviceChanged = false;
+
+        for (String item : listFixed) {
+
+            Help4DevsPartition partition = new Help4DevsPartition();
+
+            if (item.contains("ID-") || !deviceChanged) {
+                index = 1;
+                deviceChanged = true;
+            }
+
+            partition.setSource(alphaFieldPattern(item, "ID\\-"+index, ""));
+            partition.setSize(alphaFieldPattern(item, "size", " "));
+            partition.setUsed(alphaFieldPattern(item, "used", " "));
+            partition.setType(alphaFieldPattern(item, "fs", null));
+            partition.setDev(alphaFieldPattern(item, "dev", null));
+
+            partitionDto.addPartition(partition);
+            index += 1;
+        }
+
+        this.transport.put(hardsysCheck("partition"), partitionDto);
+
+    }
+
+    private void usbFactory(List<String> items) {
+
+        List<String> listFixed = listNormalize(items, "Hub|Device-", fixFields());
+
+        Help4DevsUsbDto usbDto = new Help4DevsUsbDto();
+        usbDto.setQty(String.valueOf(listFixed.size()));
+
+        int index = 1;
+
+        for (String item : listFixed) {
+
+            Help4DevsUsb usb = new Help4DevsUsb();
+
+            usb.setId(alphaFieldPattern(item, "Hub|Device-"+index, "-:"));
+            usb.setName(alphaFieldPattern(item, "info", " /"));
+            usb.setSource(alphaFieldPattern(item, "Hub|Device-"+index, "-:"));
+            usb.setDescription(alphaFieldPattern(item, "info", " /"));
+            usb.setVersion(alphaFieldPattern(item, "rev", "."));
+            usb.setDriver(alphaFieldPattern(item, "driver", ","));
+            usb.setPorts(alphaFieldPattern(item, "ports", ""));
+            usb.setType(alphaFieldPattern(item, "type", ","));
+
+            usb.setVendor(stringExtractor(
+                    item.toUpperCase(), "", vendorsPattern, "$1", index));
+
+            usbDto.addUsb(usb);
+
+            if (item.contains("Device-")) {
+                index += 1;
+            }
+
+        }
+
+        this.transport.put(hardsysCheck("usb"), usbDto);
+
+    }
+
+    private void sensorsFactory(List<String> items) {
+
+        List<String> listFixed = listNormalize(items, "systemTemp|fanSpeed", fixFields());
+
+        Help4DevsSensorsDto sensorsDto = new Help4DevsSensorsDto();
+        sensorsDto.setQty(String.valueOf(listFixed.size()));
+
+        for (String item : listFixed) {
+
+            Help4DevsSensors sensors = new Help4DevsSensors();
+
+            sensors.setName(alphaFieldPattern(item, "model", " "));
+            sensors.setMobo(alphaFieldPattern(item, "mobo", " "));
+            sensors.setTemperature(alphaFieldPattern(item, "cpu", " "));
+            sensors.setDescription(item.split(":")[0]);
+
+            sensors.setType(stringExtractor(
+                    item.toUpperCase(),
+                    "",
+                    sensorsTypePattern,
+                    "$1",
+                    1));
+
+            sensorsDto.addSensor(sensors);
+
+        }
+
+        this.transport.put(hardsysCheck("sensors"), sensorsDto);
+
+    }
+
+    private void runningFactory(List<String> items) {
+
+        List<String> listFixed = listNormalize(items, "Partition", fixFields());
+
+        Help4DevsRunningDto runningDto = new Help4DevsRunningDto();
+
+        for (String item : listFixed) {
+
+            Help4DevsRunning running = new Help4DevsRunning();
+
+            running.setProcesses(alphaFieldPattern(item, "Processes", null));
+            running.setUptime(alphaFieldPattern(item, "Uptime", " "));
+            running.setInit(alphaFieldPattern(item, "Init", null));
+            running.setRunlevel(alphaFieldPattern(item, "runlevel", null));
+            running.setCompilers(alphaFieldPattern(item, "Compilers", null));
+            running.setGcc(alphaFieldPattern(item, "gcc", null));
+            running.setShell(alphaFieldPattern(item, "Shell", null));
+            running.setClient(alphaFieldPattern(item, "Client", null));
+            running.setVersion(alphaFieldPattern(item, "v", null));
+            running.setInxi(alphaFieldPattern(item, "inxi", null));
+
+            runningDto.addRunning(running);
+        }
+
+        this.transport.put(hardsysCheck("running"), runningDto);
+
+    }
 
     private void printerFactory(List<String> items) {}
 
@@ -326,8 +615,7 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
         graphicsFactory(this.resources.get(hardsysCheck("graphics")));
         audioFactory(this.resources.get(hardsysCheck("audio")));
         networkFactory(this.resources.get(hardsysCheck("network")));
-        diskFactory(this.resources.get(hardsysCheck("disk")));
-        storageFactory(this.resources.get(hardsysCheck("storage")));
+        drivesFactory(this.resources.get(hardsysCheck("drives")));
         partitionFactory(this.resources.get(hardsysCheck("partition")));
         usbFactory(this.resources.get(hardsysCheck("usb")));
         sensorsFactory(this.resources.get(hardsysCheck("sensors")));

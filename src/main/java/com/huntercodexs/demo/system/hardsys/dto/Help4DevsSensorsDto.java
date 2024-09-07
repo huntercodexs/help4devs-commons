@@ -43,12 +43,32 @@ public class Help4DevsSensorsDto {
 
         private String id;
         private String name;
+        private String type;
+        private String mobo;
+        private String speed;
+        private String temperature;
         private String source;
         private String driver;
         private String description;
         private List<String> features;
 
         public Help4DevsSensors() {}
+
+        public String getSpeed() {
+            return speed;
+        }
+
+        public void setSpeed(String speed) {
+            this.speed = speed;
+        }
+
+        public String getTemperature() {
+            return temperature;
+        }
+
+        public void setTemperature(String temperature) {
+            this.temperature = temperature;
+        }
 
         public String getId() {
             return id;
@@ -64,6 +84,22 @@ public class Help4DevsSensorsDto {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getMobo() {
+            return mobo;
+        }
+
+        public void setMobo(String mobo) {
+            this.mobo = mobo;
         }
 
         public String getSource() {
@@ -102,6 +138,10 @@ public class Help4DevsSensorsDto {
             return "Help4DevsSensors[" +
                     "id=" + id +
                     ", name=" + name +
+                    ", temperature=" + temperature +
+                    ", speed=" + speed +
+                    ", type=" + type +
+                    ", mobo=" + mobo +
                     ", source=" + source +
                     ", driver=" + driver +
                     ", description=" + description +

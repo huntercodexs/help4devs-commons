@@ -49,6 +49,8 @@ public class Help4DevsUsbDto {
         private String info;
         private String source;
         private String vendor;
+        private String driver;
+        private String version;
         private String description;
         private List<String> features;
 
@@ -94,6 +96,14 @@ public class Help4DevsUsbDto {
             this.speed = speed;
         }
 
+        public String getVersion() {
+            return version;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
+        }
+
         public String getInfo() {
             return info;
         }
@@ -116,6 +126,14 @@ public class Help4DevsUsbDto {
 
         public void setVendor(String vendor) {
             this.vendor = vendor;
+        }
+
+        public String getDriver() {
+            return driver;
+        }
+
+        public void setDriver(String driver) {
+            this.driver = driver;
         }
 
         public String getDescription() {
@@ -141,6 +159,8 @@ public class Help4DevsUsbDto {
                     ", name=" + name +
                     ", ports=" + ports +
                     ", speed=" + speed +
+                    ", version=" + version +
+                    ", driver=" + driver +
                     ", info=" + info +
                     ", source=" + source +
                     ", vendor=" + vendor +

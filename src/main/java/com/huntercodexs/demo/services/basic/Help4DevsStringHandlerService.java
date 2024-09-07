@@ -231,17 +231,30 @@ public class Help4DevsStringHandlerService {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">sanitizeAscii</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">sanitizeAsciiCaseSensitive</h6>
      *
-     * <p style="color: #CDCDCD">Data Convert and Data Clean remove non ASCII characters</p>
+     * <p style="color: #CDCDCD">Data to remove non ASCII characters and convert case sensitive</p>
      *
-     * @param input (String: String to sanitize)
+     * <p>Example</p>
+     *
+     * <blockquote><pre>
+     * String result = sanitizeAsciiCaseSensitive("Teste com acentuação é inevital !", "upper");
+     * Result: TESTE COM ACENTUACAO E INEVITAL !
+     *
+     * result = sanitizeAsciiCaseSensitive("Teste com acentuação é inevital !", "lower");
+     * Result: teste com acentuacao e inevital !
+     *
+     * result = sanitizeAsciiCaseSensitive("Teste com acentuação é inevital !", null);
+     * Result: Teste com acentuacao e inevital !
+     * </pre></blockquote>
+     *
+     * @param input (String: Data to sanitize)
      * @param letterType (String: Output format type [upper, lower])
-     * @return String (Data Json)
+     * @return String (Data sanitized)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String sanitizeAscii(String input, String letterType) {
+    public static String sanitizeAsciiCaseSensitive(String input, String letterType) {
         if (letterType == null) letterType = "";
         try {
             if (letterType.endsWith("upper")) {
@@ -254,6 +267,32 @@ public class Help4DevsStringHandlerService {
                 return Normalizer.normalize(input, Normalizer.Form.NFD)
                         .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
             }
+        } catch (RuntimeException re) {
+            throw new RuntimeException(re.getMessage());
+        }
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">sanitizeAscii</h6>
+     *
+     * <p style="color: #CDCDCD">Data to remove non ASCII characters</p>
+     *
+     * <p>Example</p>
+     *
+     * <blockquote><pre>
+     * String result = sanitizeAscii("Teste com acentuação é inevital, pois acontece mesmo.");
+     * Result: Teste com acentuacao e inevital, pois acontece mesmo
+     * </pre></blockquote>
+     *
+     * @param input (String: Data to sanitize)
+     * @return String (Data Sanitized)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String sanitizeAscii(String input) {
+        try {
+            return Normalizer.normalize(input, Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "");
         } catch (RuntimeException re) {
             throw new RuntimeException(re.getMessage());
         }
@@ -634,7 +673,25 @@ public class Help4DevsStringHandlerService {
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">alphaFieldPattern</h6>
      *
-     * <p style="color: #CDCDCD">Extract a part of input based on field</p>
+     * <p style="color: #CDCDCD">Extract one part of input based on field</p>
+     *
+     * <p>
+     *     Examples
+     * </p>
+     *
+     * <blockquote><pre>
+     * String item1 = "IF: enp7s0 state: up speed: 1000 Mbps duplex: full mac: <filter>";
+     * String result1 = alphaFieldPattern(item1, "IF", "");
+     * System.out.println("=====[result1]> " + result1);
+     *
+     * String item2 = "IF-ID-1: br-1222323251ed state: down mac: <filter>";
+     * String result2 = alphaFieldPattern(item2, "IF-ID-1", "");
+     * System.out.println("=====[result2]> " + result2);
+     *
+     * String item3 = "IF-ID-1: br-1222323251ed state: down mac: <filter>";
+     * String result3 = alphaFieldPattern(item3, "IF|IF-ID-1", "");
+     * System.out.println("=====[result3]> " + result3);
+     * </pre></blockquote>
      *
      * @param input (String)
      * @param field (String)
@@ -656,16 +713,14 @@ public class Help4DevsStringHandlerService {
                 qty = "{1,} ";
             }
 
-            String begin = input
-                    .replaceAll(
-                            "("+field+": ?)([-)(}{\\]\\[/@#%_.0-9a-zA-Z"+useChars+"]+)"+qty,
-                            "#<1#" + field+":$2" + "#1>#");
-
+            String pattern = "("+field+")(:)( ?)([-)(}{\\]\\[/@#%_.0-9a-zA-Z"+useChars+"]+)"+qty;
+            String replacement = "#<1#{{{REPLACE}}}:$4#1>#";
+            String begin = input.replaceAll(pattern, replacement);
             String extract = begin.replaceAll(", ", " ");
 
             return StringUtils
                     .substringBetween(extract, "#<1#", "#1>#")
-                    .replaceAll(field + ":", "")
+                    .replaceAll("\\{\\{\\{REPLACE}}}:", "")
                     .replaceAll("\"", "")
                     .trim();
 

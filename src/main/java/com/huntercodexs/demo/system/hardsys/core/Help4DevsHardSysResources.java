@@ -38,6 +38,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     private Help4DevsSwitchDetails switchDetails;
     private Help4DevsModemDetails modemDetails;
     private Help4DevsDiskDetails diskDetails;
+    private Help4DevsDrivesDetails drivesDetails;
     private Help4DevsBluetoothDetails bluetoothDetails;
     private Help4DevsVideoDetails videoDetails;
     private Help4DevsStorageDetails storageDetails;
@@ -108,6 +109,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
         this.switchDetails = new Help4DevsSwitchDetails(this.resources.get(hardsysCheck("switcher")), this.command);
         this.modemDetails = new Help4DevsModemDetails(this.resources.get(hardsysCheck("modem")), this.command);
         this.diskDetails = new Help4DevsDiskDetails(this.resources.get(hardsysCheck("disk")), this.command);
+        this.drivesDetails = new Help4DevsDrivesDetails(this.resources.get(hardsysCheck("drives")), this.command);
         this.bluetoothDetails = new Help4DevsBluetoothDetails(this.resources.get(hardsysCheck("bluetooth")), this.command);
         this.videoDetails = new Help4DevsVideoDetails(this.resources.get(hardsysCheck("video")), this.command);
         this.storageDetails = new Help4DevsStorageDetails(this.resources.get(hardsysCheck("storage")), this.command);
@@ -264,6 +266,11 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     public Help4DevsDiskDetails getDisk() {
         checkJsonState();
         return diskDetails;
+    }
+
+    public Help4DevsDrivesDetails getDrives() {
+        checkJsonState();
+        return drivesDetails;
     }
 
     public Help4DevsBluetoothDetails getBluetooth() {

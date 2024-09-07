@@ -41,6 +41,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsSwitchDto switcher;
     private Help4DevsModemDto modem;
     private Help4DevsDiskDto disk;
+    private Help4DevsDrivesDto drives;
     private Help4DevsBluetoothDto bluetooth;
     private Help4DevsVideoDto video;
     private Help4DevsStorageDto storage;
@@ -266,6 +267,14 @@ public class Help4DevsHardSysResourcesDto {
         this.disk = (Help4DevsDiskDto)disk;
     }
 
+    public Help4DevsDrivesDto getDrives() {
+        return drives;
+    }
+
+    public void setDrives(Object drives) {
+        this.drives = (Help4DevsDrivesDto) drives;
+    }
+
     public Help4DevsBluetoothDto getBluetooth() {
         return bluetooth;
     }
@@ -359,6 +368,7 @@ public class Help4DevsHardSysResourcesDto {
                 ", switcher=" + switcher +
                 ", modem=" + modem +
                 ", disk=" + disk +
+                ", drives=" + drives +
                 ", bluetooth=" + bluetooth +
                 ", video=" + video +
                 ", storage=" + storage +

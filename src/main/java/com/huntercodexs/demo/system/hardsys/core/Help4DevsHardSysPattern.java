@@ -15,7 +15,7 @@ public abstract class Help4DevsHardSysPattern extends Help4DevsHardSysLayout {
             "NAZDA|NICE|NORTON|O-TECH|ONE POWER|ONIX|PATRIOT|PCYES|PECCININ|PHILIPS|PIXXO|PNY NVIDIA|" +
             "POWERTEK|REDRAGON|T-DAGGER|TCL|TP-LINK|TRANSCEND|TSSHARA|VAIO|WACOM|WESTERN DIGITAL|XEROX|" +
             "XZONE|G-TECH|SONY|CCE|PHILCO|AMAZON|LEXMARK|IBM|CREATIVE|VIA TECHNOLOGIES|REALTEK|C-MEDIA|" +
-            "ANALOG|ADLIB|MULTILASER|EXBOM|MOSART|NVIDIA|CANNON|LINUX FOUNDATION|PHOENIX)";
+            "ANALOG|ADLIB|MULTILASER|EXBOM|MOSART|NVIDIA|CANNON|LINUX FOUNDATION|PHOENIX|CHICONY)";
 
     protected String productFamilyPattern =
             "(NITRO|ASPIRE|PREDATOR|COMPUTEX|SIM+|INTEL|RYZEN|INSPIRON|VIVOBOOK|LATITUTE|VOSTRO|PRECISION|" +
@@ -27,9 +27,12 @@ public abstract class Help4DevsHardSysPattern extends Help4DevsHardSysLayout {
 
     protected String osTypePattern =
             "(UBUNTU|RED HAT|BSD|ALMALINUX|BIG LINUX|MINT|MANDRIVA|SLACKWARE|AMAZON ?LINUX|ORACLE ?LINUX|" +
-            "WINDOWS 7|WINDOWS 10|WINDOWS 11|WINDOWS|WIN7|WIN10|WIN11|IOS|ANDROID|IOSX|CENTOS|DEBIAN|SUSE|" +
-            "OPENSUSE|WINDOWS SERVER|ORACLE|ARCH|ARCH-LINUX|MS-DOS|CHROME[- ]OS|KURUMIN|XUBUNTU|AMIGA ?OS|" +
-            "MAC ?OS|OPEN ?BSD|JAVA ?OS|ROCK ?LINUX|OS2|OS/2|XEROX|FREE ?BSD|OPEN ?SOLARIS|SKY ?OS|IS-DOS)";
+                    "WINDOWS 7|WINDOWS 10|WINDOWS 11|WINDOWS|WIN7|WIN10|WIN11|IOS|ANDROID|IOSX|CENTOS|DEBIAN|SUSE|" +
+                    "OPENSUSE|WINDOWS SERVER|ORACLE|ARCH|ARCH-LINUX|MS-DOS|CHROME[- ]OS|KURUMIN|XUBUNTU|AMIGA ?OS|" +
+                    "MAC ?OS|OPEN ?BSD|JAVA ?OS|ROCK ?LINUX|OS2|OS/2|XEROX|FREE ?BSD|OPEN ?SOLARIS|SKY ?OS|IS-DOS)";
+
+    protected String drivesTypePattern =
+            "(HD|FLOPPY|DISK|CD-?ROM|DVD|DISKETTE|LOCAL)";
 
     protected String datePattern =
             "(SMP [A-Z][a-z]{2} [A-Z][a-z]{2} [0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2} UTC)";
@@ -52,14 +55,20 @@ public abstract class Help4DevsHardSysPattern extends Help4DevsHardSysLayout {
     protected String storageTypePattern =
             "(HD|SATA|SSD|NVME SSD|NVME|M2 SSD|M2|SCSI|SAS|ATA)";
 
-    protected String usbTypePattern =
+    protected String usbVersionTypePattern =
             "(USB 3.1|3.1|C-TYPE|TYPE-C|2.0|PCH USB)";
 
     protected String networkTypePattern =
-            "(WAN|WLAN|ETHERNET|WIFI|WIRELESS|LOOPBACK|LAN|LO)";
+            "(WAN|WLAN|ETHERNET|WI\\- ?FI|WIFI|WI ?FI|WIRELESS|LOOPBACK|LAN|LO)";
 
     protected String bridgeTypePattern =
             "(PCI Express|PCIe|PCI|PCH|ISA)";
+
+    protected String sensorsTypePattern =
+            "(FAN ?SPEEDS|SYSTEM ?TEMPERATURES|COOLER|SENSOR|FAN|TEMP)";
+
+    protected String usbTypePattern =
+            "(AUDIO|VIDEO|BLUETOOTH|KEYBOARD,MOUSE|KEYBOARD|MOUSE)";
 
     protected String numericPattern = "([0-9]+)";
     protected String alphaPattern1 = "([a-zA-Z])";

@@ -3,12 +3,12 @@ package com.huntercodexs.demo.system.hardsys.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Help4DevsPartitionDto {
+public class Help4DevsDrivesDto {
 
     private String qty;
-    private List<Help4DevsPartition> details;
+    private List<Help4DevsDrives> details;
 
-    public Help4DevsPartitionDto() {
+    public Help4DevsDrivesDto() {
         this.details = new ArrayList<>();
     }
 
@@ -20,29 +20,28 @@ public class Help4DevsPartitionDto {
         this.qty = qty;
     }
 
-    public List<Help4DevsPartition> getDetails() {
+    public List<Help4DevsDrives> getDetails() {
         return details;
     }
 
-    public void setDetails(List<Help4DevsPartition> details) {
+    public void setDetails(List<Help4DevsDrives> details) {
         this.details = details;
     }
 
-    public void addPartition(Help4DevsPartition partition) {
-        this.details.add(partition);
+    public void addDisk(Help4DevsDrives disk) {
+        this.details.add(disk);
     }
 
     public String toString() {
-        return "Help4DevsPartitionDto[" +
+        return "Help4DevsDrivesDto[" +
                 "qty=" + qty +
                 ", details=" + details +
                 "]";
     }
 
-    public static class Help4DevsPartition {
+    public static class Help4DevsDrives {
 
         private String id;
-        private String dev;
         private String name;
         private String type;
         private String size;
@@ -53,11 +52,12 @@ public class Help4DevsPartitionDto {
         private String driver;
         private String serial;
         private String source;
+        private String partition;
         private String manufacture;
         private String description;
         private List<String> features;
 
-        public Help4DevsPartition() {}
+        public Help4DevsDrives() {}
 
         public String getId() {
             return id;
@@ -73,14 +73,6 @@ public class Help4DevsPartitionDto {
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public String getDev() {
-            return dev;
-        }
-
-        public void setDev(String dev) {
-            this.dev = dev;
         }
 
         public String getType() {
@@ -155,6 +147,14 @@ public class Help4DevsPartitionDto {
             this.source = source;
         }
 
+        public String getPartition() {
+            return partition;
+        }
+
+        public void setPartition(String partition) {
+            this.partition = partition;
+        }
+
         public String getManufacture() {
             return manufacture;
         }
@@ -180,9 +180,8 @@ public class Help4DevsPartitionDto {
         }
 
         public String toString() {
-            return "Help4DevsPartition[" +
+            return "Help4DevsDrives[" +
                     "id=" + id +
-                    ", dev=" + dev +
                     ", name=" + name +
                     ", type=" + type +
                     ", size=" + size +
@@ -193,6 +192,7 @@ public class Help4DevsPartitionDto {
                     ", driver=" + driver +
                     ", serial=" + serial +
                     ", source=" + source +
+                    ", partition=" + partition +
                     ", manufacture=" + manufacture +
                     ", description=" + description +
                     ", features=" + features +

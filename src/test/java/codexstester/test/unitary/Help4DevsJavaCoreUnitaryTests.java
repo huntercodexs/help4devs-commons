@@ -27,6 +27,9 @@ public class Help4DevsJavaCoreUnitaryTests extends Help4DevsBridgeTests {
         items.add("Display: x11 server: X.Org 1.20.13 driver: modesetting FAILED: nvidia unloaded: fbdev,nouveau,vesa");
         items.add("resolution: 1920x1080~60Hz, 2560x1080~60Hz");
         items.add("OpenGL: renderer: Mesa Intel UHD Graphics 630 (CFL GT2) v: 4.6 Mesa 21.2.6 direct render: Yes");
+        items.add("IF-ID-1: br-1222323251ed state: down mac: <filter>");
+        items.add("IF-ID-2: br-6a9bcd66bcea state: down mac: <filter>");
+        items.add("IF-ID-3: br-809eca8ee88a state: down mac: <filter>");
 
         List<List<String>> cleanup = new ArrayList<>();
 
@@ -40,7 +43,7 @@ public class Help4DevsJavaCoreUnitaryTests extends Help4DevsBridgeTests {
         toClean2.add("directRender");
         cleanup.add(toClean2);
 
-        List<String> listFixed = listNormalize(items, "Device-", cleanup);
+        List<String> listFixed = listNormalize(items, "Device-|IF-ID-", cleanup);
 
         for (String item : listFixed) {
             System.out.println("===> " + item);

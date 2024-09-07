@@ -30,7 +30,7 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
                 .replaceAll("Graphics: ", "graphics")
                 .replaceAll("Audio: ", "audio")
                 .replaceAll("Network: ", "network")
-                .replaceAll("Drives: ", "disk")
+                .replaceAll("Drives: ", "drives")
                 .replaceAll("Partition: ", "partition")
                 .replaceAll("USB: ", "usb")
                 .replaceAll("Sensors: ", "sensors")
@@ -74,7 +74,7 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
         makeGroup("^(partition|disk|drives)$", hardsysCheck("drivesGroup"), false);
         makeGroup("^(processor|memory|audio|battery|sensors)$", hardsysCheck("componentsGroup"), false);
         makeGroup("^(baseboard|audio|graphics|slots)$", hardsysCheck("boardsGroup"), false);
-        makeGroup("^(processor|memory|bios|cache|disk|partition|cdrom)$", hardsysCheck("hardwareGroup"), false);
+        makeGroup("^(processor|memory|bios|cache|disk|partition|cdrom|drives)$", hardsysCheck("hardwareGroup"), false);
 
     }
 
@@ -102,15 +102,20 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
                 case "graphics":
                 case "audio":
                 case "network":
+                case "drives":
+                case "partition":
                 case "usb":
+                case "sensors":
                     continue;
             }
 
             List<String> single = new ArrayList<>();
             StringBuilder concat = new StringBuilder();
+
             for (String item : this.resources.get(keyname)) {
                 concat.append(item).append(" ");
             }
+
             single.add(String.valueOf(concat).trim());
             this.resources.put(keyname, single);
         }

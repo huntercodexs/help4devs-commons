@@ -682,7 +682,7 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
             usb.setType(stringExtractor(
                     item.toUpperCase(),
                     "type",
-                    usbTypePattern,
+                    usbVersionTypePattern,
                     "type:$1",
                     id));
 

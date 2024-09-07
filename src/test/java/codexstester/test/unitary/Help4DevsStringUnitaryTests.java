@@ -87,15 +87,22 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void sanitizeAsciiTest() {
-        String result = sanitizeAscii("Teste com acentuação é inevital !", "upper");
+    public void sanitizeAsciiCaseSensitiveTest() {
+        String result = sanitizeAsciiCaseSensitive("Teste com acentuação é inevital !", "upper");
         codexsTesterAssertExact("TESTE COM ACENTUACAO E INEVITAL !", result);
 
-        result = sanitizeAscii("Teste com acentuação é inevital !", "lower");
+        result = sanitizeAsciiCaseSensitive("Teste com acentuação é inevital !", "lower");
         codexsTesterAssertExact("teste com acentuacao e inevital !", result);
 
-        result = sanitizeAscii("Teste com acentuação é inevital !", null);
+        result = sanitizeAsciiCaseSensitive("Teste com acentuação é inevital !", null);
         codexsTesterAssertExact("Teste com acentuacao e inevital !", result);
+
+    }
+
+    @Test
+    public void sanitizeAsciiTest() {
+        String result = sanitizeAscii("Teste com acentuação é inevital, pois acontece mesmo.");
+        codexsTesterAssertExact("Teste com acentuacao e inevital, pois acontece mesmo.", result);
     }
 
     @Test
@@ -299,6 +306,21 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
 
         System.out.println(hashMapList);
 
+    }
+
+    @Test
+    public void alphaFieldPatternTest() {
+        String item1 = "IF: enp7s0 state: up speed: 1000 Mbps duplex: full mac: <filter>";
+        String result1 = alphaFieldPattern(item1, "IF", "");
+        System.out.println("=====[result1]> " + result1);
+
+        String item2 = "IF-ID-1: br-1222323251ed state: down mac: <filter>";
+        String result2 = alphaFieldPattern(item2, "IF-ID-1", "");
+        System.out.println("=====[result2]> " + result2);
+
+        String item3 = "IF-ID-1: br-1222323251ed state: down mac: <filter>";
+        String result3 = alphaFieldPattern(item3, "IF|IF-ID-1", "");
+        System.out.println("=====[result3]> " + result3);
     }
 
 }

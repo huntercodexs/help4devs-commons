@@ -51,16 +51,21 @@ public class Help4DevsGraphicsDto {
         private String vendor;
         private String driver;
         private String source;
+        private String failed;
         private String openGL;
+        private String server;
+        private String devices;
         private String version;
+        private String display;
         private String product;
         private String renderer;
+        private String unloaded;
         private String resources;
         private String frequency;
         private String multimedia;
+        private String resolution;
         private String description;
         private String capabilities;
-        private String devices;
         private List<String> features;
 
         public Help4DevsGraphics() {}
@@ -161,6 +166,22 @@ public class Help4DevsGraphicsDto {
             this.version = version;
         }
 
+        public String getDisplay() {
+            return display;
+        }
+
+        public void setDisplay(String display) {
+            this.display = display;
+        }
+
+        public String getServer() {
+            return server;
+        }
+
+        public void setServer(String server) {
+            this.server = server;
+        }
+
         public String getProduct() {
             return product;
         }
@@ -233,6 +254,30 @@ public class Help4DevsGraphicsDto {
             this.features = features;
         }
 
+        public String getFailed() {
+            return failed;
+        }
+
+        public void setFailed(String failed) {
+            this.failed = failed;
+        }
+
+        public String getUnloaded() {
+            return unloaded;
+        }
+
+        public void setUnloaded(String unloaded) {
+            this.unloaded = unloaded;
+        }
+
+        public String getResolution() {
+            return resolution;
+        }
+
+        public void setResolution(String resolution) {
+            this.resolution = resolution;
+        }
+
         public String toString() {
             return "Help4DevsGraphics[" +
                     "id=" + id +
@@ -245,16 +290,21 @@ public class Help4DevsGraphicsDto {
                     ", vendor=" + vendor +
                     ", driver=" + driver +
                     ", source=" + source +
+                    ", failed=" + failed +
                     ", openGL=" + openGL +
+                    ", server=" + server +
+                    ", devices=" + devices +
                     ", version=" + version +
+                    ", display=" + display +
                     ", product=" + product +
                     ", renderer=" + renderer +
+                    ", unloaded=" + unloaded +
                     ", resources=" + resources +
                     ", frequency=" + frequency +
                     ", multimedia=" + multimedia +
+                    ", resolution=" + resolution +
                     ", description=" + description +
                     ", capabilities=" + capabilities +
-                    ", devices=" + devices +
                     ", features=" + features +
                     "]";
         }
