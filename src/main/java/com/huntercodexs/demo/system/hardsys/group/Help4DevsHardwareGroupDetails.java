@@ -162,7 +162,7 @@ public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
                 detailsFromLinuxCommandLshw(hardsysCheck( "disk")),
                 this.command).getDetails();
 
-        String controller = new Help4DevsDrivesDetails(
+        String controller = new Help4DevsControllerDetails(
                 detailsFromLinuxCommandLshw(hardsysCheck( "controller")),
                 this.command).getDetails();
 
@@ -170,7 +170,7 @@ public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
                 detailsFromLinuxCommandLshw(hardsysCheck( "partition")),
                 this.command).getDetails();
 
-        String unknown = new Help4DevsPartitionDetails(
+        String unknown = new Help4DevsUnknownDetails(
                 detailsFromLinuxCommandLshw(hardsysCheck( "unknown")),
                 this.command).getDetails();
 

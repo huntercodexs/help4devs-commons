@@ -36,11 +36,14 @@ public class Help4DevsControllerDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        for (String baseboard : this.controllerDetails) {
-            filter.add(baseboard.replaceAll("CONTROLLER: ", resourceName+": "));
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
+        for (String details : this.controllerDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("controller"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("controller"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

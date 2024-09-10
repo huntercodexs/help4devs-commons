@@ -137,7 +137,7 @@ public class Help4DevsBoardsGroupDetails extends Help4DevsHardSysBase {
                 detailsFromLinuxCommandLshw(hardsysCheck("graphics")),
                 this.command).getDetails();
 
-        String multimedia = new Help4DevsGraphicsDetails(
+        String multimedia = new Help4DevsMultimediaDetails(
                 detailsFromLinuxCommandLshw(hardsysCheck("multimedia")),
                 this.command).getDetails();
 

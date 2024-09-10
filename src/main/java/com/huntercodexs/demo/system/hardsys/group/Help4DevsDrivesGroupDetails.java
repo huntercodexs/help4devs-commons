@@ -144,7 +144,7 @@ public class Help4DevsDrivesGroupDetails extends Help4DevsHardSysBase {
                 detailsFromLinuxCommandLshw(hardsysCheck("partition")),
                 this.command).getDetails();
 
-        String storage = new Help4DevsPartitionDetails(
+        String storage = new Help4DevsStorageDetails(
                 detailsFromLinuxCommandLshw(hardsysCheck("storage")),
                 this.command).getDetails();
 

@@ -35,6 +35,15 @@ public class Help4DevsHardSysLshw extends Help4DevsHardSysBase {
                 .toLowerCase();
     }
 
+    private String layoutRevert(String input) {
+        return input
+                .replaceAll("bus", "controller")
+                .replaceAll("communication", "controller")
+                .replaceAll("display", "graphics")
+                .replaceAll("(input|generic|system)", "unknown")
+                .replaceAll("volume", "partition");
+    }
+
     private void makeSource(String pattern, String hardsy) {
 
         List<String> makeList = new ArrayList<>();
@@ -53,16 +62,40 @@ public class Help4DevsHardSysLshw extends Help4DevsHardSysBase {
                     String[] split = item.split(":::");
 
                     makeList.add(
-                            " type: "+ split[2] +
+                            " type: "+ layoutRevert(split[2]) +
                             " source: " + split[0] +
                             " device: "+ split[1] +
-                            " description: "+ split[3]);
+                            " description: " + split[3] + " ("+split[2]+")");
 
                 }
             }
         });
 
         this.resources.put(hardsy, makeList);
+    }
+
+    private void makeGroup(String pattern, String hardsy, boolean delete) {
+
+        List<String> merge = new ArrayList<>();
+        List<String> remove = new ArrayList<>();
+
+        this.resources.forEach((value, list) -> {
+            if (value.matches(pattern)) {
+                for (String item : list) {
+                    if (item.isEmpty()) continue;
+                    merge.add(layoutRevert(item));
+                }
+                remove.add(value);
+            }
+        });
+
+        if (delete) {
+            for (String item : remove) {
+                this.resources.remove(item);
+            }
+        }
+
+        this.resources.put(hardsy, merge);
     }
 
     private void makeMouse(String content) {
@@ -139,6 +172,17 @@ public class Help4DevsHardSysLshw extends Help4DevsHardSysBase {
         makeSource("^(storage)$", hardsysCheck("storage"));
         makeSource("^(machine)$", hardsysCheck("machine"));
         makeSource("^(graphics)$", hardsysCheck("graphics"));
+
+        /*
+         * In this point the resources already  was set and are
+         * done to be used in the related group
+         * */
+        makeGroup("^(battery|sensors)$", hardsysCheck("devicesGroup"), false);
+        makeGroup("^(network|bridge)$", hardsysCheck("networksGroup"), false);
+        makeGroup("^(partition|disk|storage)$", hardsysCheck("drivesGroup"), false);
+        makeGroup("^(processor|memory|multimedia)$", hardsysCheck("componentsGroup"), false);
+        makeGroup("^(graphics|multimedia)$", hardsysCheck("boardsGroup"), false);
+        makeGroup("^(processor|memory|disk|controller|partition|unknown)$", hardsysCheck("hardwareGroup"), false);
 
     }
 
