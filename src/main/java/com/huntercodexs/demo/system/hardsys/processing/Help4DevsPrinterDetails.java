@@ -38,11 +38,14 @@ public class Help4DevsPrinterDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.printerDetails) {
-            filter.add(details.replaceAll(resNameUpper+": ", resName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("printer"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("printer"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

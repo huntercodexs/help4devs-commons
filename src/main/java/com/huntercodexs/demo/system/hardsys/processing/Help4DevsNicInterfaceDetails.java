@@ -49,21 +49,14 @@ public class Help4DevsNicInterfaceDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.nicInterfaceDetails) {
-            filter.add(details
-                    .replaceAll("bus ID: ", "busId: ")
-                    .replaceFirst(" v:", " version_"+n+":")
-                    .replaceFirst("driver: ", "driver_"+n+": ")
-                    .replaceFirst("port: ", "port_"+n+": ")
-                    .replaceFirst("busId: ", "busId_"+n+": ")
-                    .replaceFirst("IF: ", "IF_"+n+": ")
-                    .replaceFirst("state: ", "state_"+n+": ")
-                    .replaceFirst("mac: ", "mac_"+n+": "));
-            n++;
+            if (details.isEmpty() || !details.contains(hardsysCheck("nicInterface"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("nicInterface"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

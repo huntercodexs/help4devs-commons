@@ -49,21 +49,14 @@ public class Help4DevsNetworkDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.networkDetails) {
-            filter.add(details
-                    .replaceAll("bus ID: ", "busId: ")
-                    .replaceFirst(" v:", " version_"+n+":")
-                    .replaceFirst("driver: ", "driver_"+n+": ")
-                    .replaceFirst("port: ", "port_"+n+": ")
-                    .replaceFirst("busId: ", "busId_"+n+": ")
-                    .replaceFirst("IF: ", "IF_"+n+": ")
-                    .replaceFirst("state: ", "state_"+n+": ")
-                    .replaceFirst("mac: ", "mac_"+n+": "));
-            n++;
+            if (details.isEmpty() || !details.contains(hardsysCheck("network"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("network"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

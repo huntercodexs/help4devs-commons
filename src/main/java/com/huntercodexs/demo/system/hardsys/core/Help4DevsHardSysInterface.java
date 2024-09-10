@@ -23,6 +23,7 @@ public interface Help4DevsHardSysInterface {
     Help4DevsMonitorDetails getMonitor();
     Help4DevsBiosDetails getBios();
     Help4DevsBaseboardDetails getBaseboard();
+    Help4DevsControllerDetails getController();
     Help4DevsChassisDetails getChassis();
     Help4DevsCacheDetails getCache();
     Help4DevsConnectorDetails getConnector();

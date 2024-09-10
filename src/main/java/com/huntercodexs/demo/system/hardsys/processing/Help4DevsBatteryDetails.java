@@ -35,11 +35,14 @@ public class Help4DevsBatteryDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.batteryDetails) {
-            filter.add(details.replaceAll("ID-1:", "id1:"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("battery"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("battery"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

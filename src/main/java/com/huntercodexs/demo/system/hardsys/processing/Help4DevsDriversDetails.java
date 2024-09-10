@@ -36,11 +36,14 @@ public class Help4DevsDriversDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.driversDetails) {
-            filter.add(details.replaceAll("DRIVERS: ", resourceName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("drivers"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("drivers"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

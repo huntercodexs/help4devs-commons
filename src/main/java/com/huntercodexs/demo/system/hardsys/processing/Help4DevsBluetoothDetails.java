@@ -37,11 +37,14 @@ public class Help4DevsBluetoothDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.bluetoothDetails) {
-            filter.add(details.replaceAll("Bluetooth: ", resourceName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("bluetooth"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("bluetooth"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

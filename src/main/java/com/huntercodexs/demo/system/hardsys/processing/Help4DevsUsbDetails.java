@@ -11,17 +11,17 @@ import static com.huntercodexs.demo.services.parser.Help4DevsParserService.jsonC
 public class Help4DevsUsbDetails extends Help4DevsHardSysBase {
 
     private final String resourceName = "usb";
-    private final List<String> UsbDetails;
+    private final List<String> usbDetails;
     private final Help4DevsHardSysCommands command;
 
     public Help4DevsUsbDetails(List<String> usb, Help4DevsHardSysCommands command) {
         this.command = command;
-        this.UsbDetails = usb;
+        this.usbDetails = usb;
     }
 
     private List<String> detailsFromLinuxCommandInxi() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.UsbDetails) {
+        for (String details : this.usbDetails) {
 
             details = indexer(details, "(Device-[0-9]): ([0-9]-[0-9]):([0-9])", "$1: $2.$3", "", false);
             details = indexer(details, "info: ", "info", ": ", true);
@@ -38,7 +38,7 @@ public class Help4DevsUsbDetails extends Help4DevsHardSysBase {
 
     private List<String> detailsFromLinuxCommandHwinfo() {
         List<String> filter = new ArrayList<>();
-        for (String details : this.UsbDetails) {
+        for (String details : this.usbDetails) {
             if (details == null || details.isEmpty()) continue;
             filter.add(detailsFilter(details, "source"));
         }
@@ -46,26 +46,20 @@ public class Help4DevsUsbDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
-        for (String details : this.UsbDetails) {
-            filter.add(details
-                    .replaceAll("(Device-[0-9]): ([0-9]-[0-9]):([0-9])", "$1: $2.$3")
-                    .replaceFirst("info: ", "info_"+n+": ")
-                    .replaceFirst("rev: ", "rev_"+n+": ")
-                    .replaceFirst("Hub: ", "hub_"+n+": ")
-                    .replaceFirst("type: ", "type_"+n+": ")
-                    .replaceFirst("driver: ", "driver_"+n+": ")
-                    .replaceFirst("ports: ", "ports_"+n+": "));
-            n++;
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
+        for (String details : this.usbDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("usb"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("usb"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.UsbDetails) {
+        for (String details : this.usbDetails) {
             filter.add(details
                     .replaceAll("(Device-[0-9]): ([0-9]-[0-9]):([0-9])", "$1: $2.$3")
                     .replaceFirst("info: ", "info_"+n+": ")
@@ -82,7 +76,7 @@ public class Help4DevsUsbDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandLscpu2() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.UsbDetails) {
+        for (String details : this.usbDetails) {
             filter.add(details
                     .replaceAll("(Device-[0-9]): ([0-9]-[0-9]):([0-9])", "$1: $2.$3")
                     .replaceFirst("info: ", "info_"+n+": ")
@@ -99,7 +93,7 @@ public class Help4DevsUsbDetails extends Help4DevsHardSysBase {
     private List<String> detailsFromLinuxCommandDmidecode() {
         List<String> filter = new ArrayList<>();
         int n = 0;
-        for (String details : this.UsbDetails) {
+        for (String details : this.usbDetails) {
             filter.add(details
                     .replaceAll("(Device-[0-9]): ([0-9]-[0-9]):([0-9])", "$1: $2.$3")
                     .replaceFirst("info: ", "info_"+n+": ")

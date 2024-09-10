@@ -30,6 +30,7 @@ public class Help4DevsHardSysBuilder extends Help4DevsHardSysBase {
         dto.setMonitor(this.transport.get(hardsysCheck("monitor")));
         dto.setBios(this.transport.get(hardsysCheck("bios")));
         dto.setBaseboard(this.transport.get(hardsysCheck("baseboard")));
+        dto.setController(this.transport.get(hardsysCheck("controller")));
         dto.setChassis(this.transport.get(hardsysCheck("chassis")));
         dto.setCache(this.transport.get(hardsysCheck("cache")));
         dto.setConnector(this.transport.get(hardsysCheck("connector")));
@@ -71,6 +72,7 @@ public class Help4DevsHardSysBuilder extends Help4DevsHardSysBase {
         dto.setMonitor(this.transport.get(hardsysCheck("monitor")));
         dto.setBios(this.transport.get(hardsysCheck("bios")));
         dto.setBaseboard(this.transport.get(hardsysCheck("baseboard")));
+        dto.setController(this.transport.get(hardsysCheck("controller")));
         dto.setChassis(this.transport.get(hardsysCheck("chassis")));
         dto.setCache(this.transport.get(hardsysCheck("cache")));
         dto.setConnector(this.transport.get(hardsysCheck("connector")));

@@ -36,11 +36,14 @@ public class Help4DevsBaseboardDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        for (String baseboard : this.baseboardDetails) {
-            filter.add(baseboard.replaceAll("BASEBOARD: ", resourceName+": "));
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
+        for (String details : this.baseboardDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("baseboard"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("baseboard"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

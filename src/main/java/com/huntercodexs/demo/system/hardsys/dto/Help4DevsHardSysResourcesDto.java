@@ -32,6 +32,7 @@ public class Help4DevsHardSysResourcesDto {
     private Help4DevsMonitorDto monitor;
     private Help4DevsBiosDto bios;
     private Help4DevsBaseboardDto baseboard;
+    private Help4DevsControllerDto controller;
     private Help4DevsChassisDto chassis;
     private Help4DevsCacheDto cache;
     private Help4DevsConnectorDto connector;
@@ -193,6 +194,14 @@ public class Help4DevsHardSysResourcesDto {
 
     public void setBaseboard(Object baseboard) {
         this.baseboard = (Help4DevsBaseboardDto)baseboard;
+    }
+
+    public Help4DevsControllerDto getController() {
+        return controller;
+    }
+
+    public void setController(Object controller) {
+        this.controller = (Help4DevsControllerDto) controller;
     }
 
     public Help4DevsChassisDto getChassis() {
@@ -359,6 +368,7 @@ public class Help4DevsHardSysResourcesDto {
                 "\tmonitor=" + monitor + ",\n" +
                 "\tbios=" + bios + ",\n" +
                 "\tbaseboard=" + baseboard + ",\n" +
+                "\tcontroller=" + controller + ",\n" +
                 "\tchassis=" + chassis + ",\n" +
                 "\tcache=" + cache + ",\n" +
                 "\tconnector=" + connector + ",\n" +

@@ -44,14 +44,14 @@ public class Help4DevsSystemDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.systemDetails) {
-            filter.add(details
-                    .replaceAll("Kernel:", "kernel:")
-                    .replaceAll("Desktop:", "desktop:")
-                    .replaceAll("Distro:", "distro:"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("system"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("system"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

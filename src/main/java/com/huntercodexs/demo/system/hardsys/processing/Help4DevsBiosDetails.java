@@ -37,11 +37,14 @@ public class Help4DevsBiosDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        for (String bios : this.biosDetails) {
-            filter.add(bios.replaceAll("BIOS: ", resourceName+": "));
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
+        for (String details : this.biosDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("bios"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("bios"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

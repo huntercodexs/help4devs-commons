@@ -47,16 +47,14 @@ public class Help4DevsGraphicsDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.graphicsDetails) {
-            filter.add(details
-                    .replaceAll("OpenGL: ", "openGL: ")
-                    .replaceFirst(" v:", " version_"+n+":")
-                    .replaceFirst("driver: ", "driver_"+n+": "));
-            n++;
+            if (details.isEmpty() || !details.contains(hardsysCheck("graphics"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("graphics"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

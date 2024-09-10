@@ -39,11 +39,14 @@ public class Help4DevsPartitionDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.partitionDetails) {
-            filter.add(details.replaceAll("fs: ", "fileSystem: "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("partition"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("partition"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

@@ -39,13 +39,14 @@ public class Help4DevsMemoryDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.memoryDetails) {
-            filter.add(details
-                    .replaceAll("RAM: total:", "type: RAM total:")
-                    .replaceAll("RAM Report: permissions:", "report: N/A permissions:"));
+            if (details.isEmpty() || !details.contains(hardsysCheck("memory"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("memory"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

@@ -50,10 +50,34 @@ public abstract class Help4DevsHardSysLayout {
 
     /**
      * <p>LSHW (Layout)</p>
+     *
+     * <p>
+     *     The Lshw command layout below doesn't respect the order from output command,
+     *     it means that the output result when execute this command can be very different
+     *     that one, so this layout just is used to show witch fields or resources are
+     *     expected from that current linux command
+     * </p>
+     *
+     * <p>
+     *     NOTE: DO NOT REMOVE THE SPACES ON THE LINES BELOW, IT IS BELONG TO THE
+     *     LSHW LINUX COMMAND LAYOUT
+     * </p>
      */
     protected static final String[] lshwLayout = new String[] {
-            "Device-1: ",
-            "Device-2"
+            /*[ 1]*/ "bridge         ",
+            /*[ 2]*/ "bus            ",
+            /*[ 3]*/ "communication  ",
+            /*[ 4]*/ "disk           ",
+            /*[ 5]*/ "display        ",
+            /*[ 6]*/ "generic        ",
+            /*[ 7]*/ "input          ",
+            /*[ 8]*/ "memory         ",
+            /*[ 9]*/ "multimedia     ",
+            /*[10]*/ "network        ",
+            /*[11]*/ "processor      ",
+            /*[12]*/ "storage        ",
+            /*[13]*/ "system         ",
+            /*[14]*/ "volume         "
     };
 
     /**

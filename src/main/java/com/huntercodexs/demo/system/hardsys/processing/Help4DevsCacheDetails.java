@@ -36,11 +36,14 @@ public class Help4DevsCacheDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        for (String cache : this.cacheDetails) {
-            filter.add(cache.replaceAll("CACHE: ", resourceName+": "));
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
+        for (String details : this.cacheDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("cache"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("cache"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

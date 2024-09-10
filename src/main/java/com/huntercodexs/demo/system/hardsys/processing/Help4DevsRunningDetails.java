@@ -45,16 +45,14 @@ public class Help4DevsRunningDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.runningDetails) {
-            filter.add(details
-                    .replaceAll("Compilers: ", "compilers: N/A ")
-                    .replaceFirst("Client: ", "client_"+n+": ")
-            );
-            n++;
+            if (details.isEmpty() || !details.contains(hardsysCheck("running"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("running"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

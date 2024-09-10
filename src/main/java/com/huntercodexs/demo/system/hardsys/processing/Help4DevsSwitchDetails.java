@@ -52,11 +52,14 @@ public class Help4DevsSwitchDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.switchDetails) {
-            filter.add(details.replaceAll("Switch: ", resourceName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("switcher"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("switcher"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

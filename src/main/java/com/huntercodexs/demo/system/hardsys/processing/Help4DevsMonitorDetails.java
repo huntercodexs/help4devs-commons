@@ -37,11 +37,14 @@ public class Help4DevsMonitorDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.monitorDetails) {
-            filter.add(details.replaceAll("MONITOR: ", resourceName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("monitor"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("monitor"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

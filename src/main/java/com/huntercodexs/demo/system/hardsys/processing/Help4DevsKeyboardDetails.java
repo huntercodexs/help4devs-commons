@@ -39,11 +39,14 @@ public class Help4DevsKeyboardDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.keyboardDetails) {
-            filter.add(details.replaceAll("Keyboard: ", resourceName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("keyboard"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("keyboard"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

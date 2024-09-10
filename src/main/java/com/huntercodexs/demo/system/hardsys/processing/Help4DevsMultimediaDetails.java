@@ -38,11 +38,14 @@ public class Help4DevsMultimediaDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.multimediaDetails) {
-            filter.add(details.replaceAll(resNameUpper+": ", resName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("multimedia"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("multimedia"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

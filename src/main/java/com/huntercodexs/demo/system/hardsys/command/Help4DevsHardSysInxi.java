@@ -132,7 +132,7 @@ public class Help4DevsHardSysInxi extends Help4DevsHardSysBase {
 
             for (int i = 0; i < inxiLayout.length; i++) {
 
-                if (currentLine == null) continue;
+                //if (currentLine == null) continue;
 
                 if (currentLine.contains(inxiLayout[i])) {
 

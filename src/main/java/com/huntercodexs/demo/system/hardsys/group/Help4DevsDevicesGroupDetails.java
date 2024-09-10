@@ -45,12 +45,14 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
         return listFilter;
     }
 
-    private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+    private List<String> detailsFromLinuxCommandLshw(String device) {
+        List<String> listFilter = new ArrayList<>();
         for (String details : this.devicesDetails) {
-            filter.add(details.replaceAll("Devices Group: ", resourceName+": "));
+            if (!details.contains("type: "+device)) continue;
+            details = details.replaceAll("type: " + device +" ?", "");
+            listFilter.add(details);
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
@@ -129,7 +131,7 @@ public class Help4DevsDevicesGroupDetails extends Help4DevsHardSysBase {
     }
 
     private String groupsByLshwCommand() {
-        return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
+        return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(null), hardsysCheck(resourceName));
     }
 
     private String groupsByLsCpuCommand() {

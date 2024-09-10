@@ -45,12 +45,14 @@ public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
         return listFilter;
     }
 
-    private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+    private List<String> detailsFromLinuxCommandLshw(String device) {
+        List<String> listFilter = new ArrayList<>();
         for (String details : this.hardwareDetails) {
-            filter.add(details.replaceAll("HARDWARE GROUP: ", resourceName));
+            if (!details.contains("type: "+device)) continue;
+            details = details.replaceAll("type: " + device +" ?", "");
+            listFilter.add(details);
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
@@ -147,7 +149,34 @@ public class Help4DevsHardwareGroupDetails extends Help4DevsHardSysBase {
     }
 
     private String groupsByLshwCommand() {
-        return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
+
+        String processor = new Help4DevsProcessorDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck("processor")),
+                this.command).getDetails();
+
+        String memory = new Help4DevsMemoryDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck("memory")),
+                this.command).getDetails();
+
+        String disk = new Help4DevsDiskDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck( "disk")),
+                this.command).getDetails();
+
+        String controller = new Help4DevsDrivesDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck( "controller")),
+                this.command).getDetails();
+
+        String partition = new Help4DevsPartitionDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck( "partition")),
+                this.command).getDetails();
+
+        String unknown = new Help4DevsPartitionDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck( "unknown")),
+                this.command).getDetails();
+
+        return jsonMergerRFC8259(Arrays.asList(
+                processor, memory, disk, controller, partition, unknown), hardsysCheck(resourceName));
+
     }
 
     private String groupsByLsCpuCommand() {

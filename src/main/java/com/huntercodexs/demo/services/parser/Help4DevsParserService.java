@@ -383,6 +383,7 @@ public class Help4DevsParserService {
             line = line.replaceAll("\\[", "(").replaceAll("]", ")");
 
             String[] fields = line
+                    .trim()
                     .replaceAll("([.@#\\-/)(\\\\_0-9a-zA-Z]+): ", "[$1],")
                     .replaceAll(",([^\\[[a-zA-Z]\\]]+)", "")
                     .replaceAll("]\\[", ",")
@@ -390,6 +391,7 @@ public class Help4DevsParserService {
                     .split(",");
 
             String[] values = line
+                    .trim()
                     .replaceAll("([.@#\\-/)(\\\\_0-9a-zA-Z]+): ", " ")
                     .replaceAll("_", "{:under:}")
                     .replaceAll(" ", "_")

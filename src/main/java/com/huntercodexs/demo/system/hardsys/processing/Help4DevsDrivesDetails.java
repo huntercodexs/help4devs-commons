@@ -39,11 +39,14 @@ public class Help4DevsDrivesDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.drivesDetails) {
-            filter.add(details.replaceAll("Drives: ", resourceName+": "));
+            if (details.isEmpty() || !details.contains(hardsysCheck("drives"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("drives"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

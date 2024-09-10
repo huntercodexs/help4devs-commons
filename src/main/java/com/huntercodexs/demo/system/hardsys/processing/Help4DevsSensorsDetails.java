@@ -42,14 +42,14 @@ public class Help4DevsSensorsDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.sensorsDetails) {
-            filter.add(details
-                    .replaceAll("System Temperatures: ", "systemTemperatures: ºC ")
-                    .replaceAll("Fan Speeds \\(RPM\\): ", "fanSpeedsRPM: ")
-            );
+            if (details.isEmpty() || !details.contains(hardsysCheck("sensors"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("sensors"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

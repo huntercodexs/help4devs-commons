@@ -45,12 +45,14 @@ public class Help4DevsBoardsGroupDetails extends Help4DevsHardSysBase {
         return listFilter;
     }
 
-    private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
+    private List<String> detailsFromLinuxCommandLshw(String device) {
+        List<String> listFilter = new ArrayList<>();
         for (String details : this.boardDetails) {
-            filter.add(details.replaceAll("BOARDS GROUP: ", resourceName+": "));
+            if (!details.contains("type: "+device)) continue;
+            details = details.replaceAll("type: " + device +" ?", "");
+            listFilter.add(details);
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
@@ -130,7 +132,17 @@ public class Help4DevsBoardsGroupDetails extends Help4DevsHardSysBase {
     }
 
     private String groupsByLshwCommand() {
-        return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
+
+        String graphics = new Help4DevsGraphicsDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck("graphics")),
+                this.command).getDetails();
+
+        String multimedia = new Help4DevsGraphicsDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck("multimedia")),
+                this.command).getDetails();
+
+        return jsonMergerRFC8259(Arrays.asList(graphics, multimedia), hardsysCheck(resourceName));
+
     }
 
     private String groupsByLsCpuCommand() {

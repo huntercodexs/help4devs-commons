@@ -48,17 +48,14 @@ public class Help4DevsMachineDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.machineDetails) {
-            filter.add(details
-                    .replaceAll("Type:", "type:")
-                    .replaceAll("System:", "system:")
-                    .replaceFirst("serial:", "serial_"+n+":")
-                    .replaceFirst(" v:", " version_"+n+":"));
-            n++;
+            if (details.isEmpty() || !details.contains(hardsysCheck("machine"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("machine"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

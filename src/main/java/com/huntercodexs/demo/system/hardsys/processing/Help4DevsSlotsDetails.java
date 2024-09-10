@@ -36,11 +36,14 @@ public class Help4DevsSlotsDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        for (String slot : this.slotsDetails) {
-            filter.add(slot.replaceAll("Permissions: ", "permissions: "));
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
+        for (String details : this.slotsDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("slots"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("slots"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

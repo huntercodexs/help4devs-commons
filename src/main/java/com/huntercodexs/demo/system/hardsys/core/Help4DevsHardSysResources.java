@@ -29,6 +29,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     private Help4DevsMonitorDetails monitorDetails;
     private Help4DevsBiosDetails biosDetails;
     private Help4DevsBaseboardDetails baseboardDetails;
+    private Help4DevsControllerDetails controllerDetails;
     private Help4DevsChassisDetails chassisDetails;
     private Help4DevsCacheDetails cacheDetails;
     private Help4DevsConnectorDetails connectorDetails;
@@ -100,6 +101,7 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
         this.monitorDetails = new Help4DevsMonitorDetails(this.resources.get(hardsysCheck("monitor")), this.command);
         this.biosDetails = new Help4DevsBiosDetails(this.resources.get(hardsysCheck("bios")), this.command);
         this.baseboardDetails = new Help4DevsBaseboardDetails(this.resources.get(hardsysCheck("baseboard")), this.command);
+        this.controllerDetails = new Help4DevsControllerDetails(this.resources.get(hardsysCheck("controller")), this.command);
         this.chassisDetails = new Help4DevsChassisDetails(this.resources.get(hardsysCheck("chassis")), this.command);
         this.cacheDetails = new Help4DevsCacheDetails(this.resources.get(hardsysCheck("cache")), this.command);
         this.connectorDetails = new Help4DevsConnectorDetails(this.resources.get(hardsysCheck("connector")), this.command);
@@ -221,6 +223,11 @@ public class Help4DevsHardSysResources extends Help4DevsHardSysBase implements H
     public Help4DevsBaseboardDetails getBaseboard() {
         checkJsonState();
         return baseboardDetails;
+    }
+
+    public Help4DevsControllerDetails getController() {
+        checkJsonState();
+        return controllerDetails;
     }
 
     public Help4DevsChassisDetails getChassis() {

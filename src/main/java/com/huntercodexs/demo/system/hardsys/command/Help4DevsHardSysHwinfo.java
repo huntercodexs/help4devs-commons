@@ -141,7 +141,7 @@ public class Help4DevsHardSysHwinfo extends Help4DevsHardSysBase {
 
             for (int i = 0; i < hwinfoLayout.length; i++) {
 
-                if (currentLine == null) continue;
+                //if (currentLine == null) continue;
 
                 if (currentLine.contains(hwinfoLayout[i])) {
 

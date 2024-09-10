@@ -94,4 +94,19 @@ public abstract class Help4DevsHardSysBase extends Help4DevsHardSysPattern {
         return input;
     }
 
+    protected String lshwFilter(String input, String type, int index) {
+        input = input.replaceAll("type: "+type+" ", "");
+
+        indexerUpdate(index);
+        input = indexer(input, "source: ", "source", ": ", true);
+
+        indexerUpdate(index);
+        input = indexer(input, "description: ", "description", ": ", true);
+
+        indexerUpdate(index);
+        input = indexer(input, "device: ", "device", ": ", true);
+
+        return input;
+    }
+
 }

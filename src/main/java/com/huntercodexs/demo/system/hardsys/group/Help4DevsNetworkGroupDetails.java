@@ -45,22 +45,13 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
         return listFilter;
     }
 
-    private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
+    private List<String> detailsFromLinuxCommandLshw(String device) {
+        List<String> listFilter = new ArrayList<>();
         for (String details : this.networkDetails) {
-            filter.add(details
-                    .replaceAll("bus ID: ", "busId: ")
-                    .replaceFirst(" v:", " version_"+n+":")
-                    .replaceFirst("driver: ", "driver_"+n+": ")
-                    .replaceFirst("port: ", "port_"+n+": ")
-                    .replaceFirst("busId: ", "busId_"+n+": ")
-                    .replaceFirst("IF: ", "IF_"+n+": ")
-                    .replaceFirst("state: ", "state_"+n+": ")
-                    .replaceFirst("mac: ", "mac_"+n+": "));
-            n++;
+            if (!details.contains("type: "+device)) continue;
+            listFilter.add(details);
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
@@ -205,7 +196,16 @@ public class Help4DevsNetworkGroupDetails extends Help4DevsHardSysBase {
     }
 
     private String groupsByLshwCommand() {
-        return jsonCreatorRFC8259(detailsFromLinuxCommandLshw(), hardsysCheck(resourceName));
+
+        String network = new Help4DevsNetworkDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck("network")),
+                this.command).getDetails();
+
+        String bridge = new Help4DevsBridgeDetails(
+                detailsFromLinuxCommandLshw(hardsysCheck("bridge")),
+                this.command).getDetails();
+
+        return jsonMergerRFC8259(Arrays.asList(network, bridge), hardsysCheck(resourceName));
     }
 
     private String groupsByLsCpuCommand() {

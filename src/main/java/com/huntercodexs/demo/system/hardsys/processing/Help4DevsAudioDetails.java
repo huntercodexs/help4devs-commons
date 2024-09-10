@@ -45,19 +45,14 @@ public class Help4DevsAudioDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        int n = 0;
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
         for (String details : this.audioDetails) {
-            filter.add(details
-                    .replaceAll("Sound Server: ", "soundServer: ")
-                    .replaceFirst(" v:", " version_"+n+":")
-                    .replaceAll("bus ID: ", "busId: ")
-                    .replaceFirst("vendor: ", "vendor_"+n+": ")
-                    .replaceFirst("driver: ", "driver_"+n+": ")
-                    .replaceFirst("busId: ", "busId_"+n+": "));
-            n++;
+            if (details.isEmpty() || !details.contains(hardsysCheck("audio"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("audio"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

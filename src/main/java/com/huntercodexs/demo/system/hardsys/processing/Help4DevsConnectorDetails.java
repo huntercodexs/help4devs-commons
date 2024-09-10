@@ -36,11 +36,14 @@ public class Help4DevsConnectorDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        for (String connector : this.connectorDetails) {
-            filter.add(connector.replaceAll("CONNECTOR: ", resourceName+": "));
+        List<String> listFilter = new ArrayList<>();
+        int index = 0;
+        for (String details : this.connectorDetails) {
+            if (details.isEmpty() || !details.contains(hardsysCheck("connector"))) continue;
+            listFilter.add(lshwFilter(details, hardsysCheck("connector"), index));
+            index++;
         }
-        return filter;
+        return listFilter;
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {

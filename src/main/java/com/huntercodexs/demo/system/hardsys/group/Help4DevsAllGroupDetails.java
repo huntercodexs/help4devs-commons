@@ -70,8 +70,21 @@ public class Help4DevsAllGroupDetails extends Help4DevsHardSysBase {
     }
 
     private List<String> detailsFromLinuxCommandLshw() {
-        List<String> filter = new ArrayList<>();
-        return filter;
+        return Arrays.asList(
+                this.allResources.getBridge().getDetails(),
+                this.allResources.getController().getDetails(),
+                this.allResources.getDisk().getDetails(),
+                this.allResources.getGraphics().getDetails(),
+                this.allResources.getUnknown().getDetails(),
+                this.allResources.getMouse().getDetails(),
+                this.allResources.getKeyboard().getDetails(),
+                this.allResources.getMemory().getDetails(),
+                this.allResources.getMultimedia().getDetails(),
+                this.allResources.getNetwork().getDetails(),
+                this.allResources.getProcessor().getDetails(),
+                this.allResources.getStorage().getDetails(),
+                this.allResources.getMachine().getDetails()
+        );
     }
 
     private List<String> detailsFromLinuxCommandLscpu() {
