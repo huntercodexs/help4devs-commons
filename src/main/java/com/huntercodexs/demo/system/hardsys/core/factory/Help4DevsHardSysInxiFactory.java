@@ -108,7 +108,7 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
         system.setJavaSpecName(items.get(15).replaceAll("javaSpecName:", "").trim());
         system.setJavaClassVersion(items.get(16).replaceAll("javaClassVersion:", "").trim());
         system.setJavaClassPath(items.get(17).replaceAll("javaClassPath:", "").trim());
-        system.setJavaClassPath(items.get(18).replaceAll("javaLibPath:", "").trim());
+        system.setJavaLibPath(items.get(18).replaceAll("javaLibPath:", "").trim());
         system.setJavaTmpDir(items.get(19).replaceAll("javaTmpDir:", "").trim());
         system.setJavaCompiler(items.get(20).replaceAll("javaCompiler:", "").trim());
         system.setJavaExtDir(items.get(21).replaceAll("javaExtDir:", "").trim());

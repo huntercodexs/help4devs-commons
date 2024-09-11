@@ -24,7 +24,7 @@ public class Help4DevsHardSysFactory extends Help4DevsHardSysBase {
         } else if (this.command.equals(Help4DevsHardSysCommands.HWINFO)) {
             new Help4DevsHardSysHwinfoFactory(this.resources, this.transport).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSHW)) {
-            new Help4DevsHardSysLshwFactory(this.resources).factory();
+            new Help4DevsHardSysLshwFactory(this.resources, this.transport).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSCPU)) {
             new Help4DevsHardSysLsCpuFactory(this.resources).factory();
         } else if (this.command.equals(Help4DevsHardSysCommands.LSPCI)) {
