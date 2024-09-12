@@ -127,7 +127,7 @@ public class Help4DevsHardSysLshw extends Help4DevsHardSysBase {
         for (String unknown : this.resources.get(hardsysCheck("unknown"))) {
 
             if (unknown.contains("input")) {
-                if (unknown.toLowerCase().contains("mouse")) {
+                if (unknown.toLowerCase().contains("mouse") && !unknown.toLowerCase().contains("keyboard")) {
                     makeMouse(unknown);
                 } else if (unknown.toLowerCase().contains("keyboard")) {
                     makeKeyboard(unknown);

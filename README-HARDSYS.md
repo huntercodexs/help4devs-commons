@@ -21,11 +21,12 @@ specific linux command that ca be:
 | CMD Name   | Status | Linux | MacOs | Windows | Others |
 |------------|--------|-------|-------|---------|--------|
 | AUTO       | TODO   | yes   | yes   | no      | n/a    |
-| INXI       | WORK   | yes   | yes   | no      | n/a    |
+| INXI       | DONE   | yes   | yes   | no      | n/a    |
 | HWINFO     | DONE   | yes   | yes   | no      | n/a    |
-| LSHW       | TODO   | yes   | no    | no      | n/a    |
+| LSHW       | DONE   | yes   | no    | no      | n/a    |
 | LSCPU      | TODO   | yes   | no    | no      | n/a    |
-| LSCPU2     | TODO   | yes   | no    | no      | n/a    |
+| LSPCI      | TODO   | yes   | no    | no      | n/a    |
+| LSUSB      | TODO   | yes   | no    | no      | n/a    |
 | DMIDECODE  | TODO   | yes   | yes   | no      | n/a    |
 | SYSTEMINFO | TODO   | no    | no    | yes     | n/a    |
 
@@ -34,9 +35,14 @@ execution in the hierarchy is programmed to be in the follow way:
 
 ###### For Linux Operating System
 
-- DMIDECODE
+- AUTO
 - INXI
 - HWINFO
+- LSHW
+- LSCPU
+- LSPCI
+- LSUSB
+- DMIDECODE
 
 In case that any command be correctly executed an Exception will be thrown informing the error, for example: 
 "Command NOT FOUND". 
@@ -45,9 +51,18 @@ In case that any command be correctly executed an Exception will be thrown infor
 
 <small>The only command available for windows is systeminfo</small>
 
+- AUTO
 - SYSTEMINFO
 
 ![hardsys.png](./media/hardsys.png)
+
+## How to execute this library via CLI
+
+You can run this program via cli passing the commands available in this documentation, for example:
+
+<pre>
+sudo ${JAVA_HOME}/java -jar help4devs-commons-1.0.0-SNAPSHOT.jar {{{HARDSYS-COMMAND}}} --spring.config.location=${PATH_APP}/application.properties
+</pre>
 
 ## Managing the resources (technical details - for developers)
 
