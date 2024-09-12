@@ -1,13 +1,13 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.system.hardsys.Help4DevsHardSys;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsHardSysResourcesDto;
-import com.huntercodexs.demo.system.hardsys.group.*;
-import com.huntercodexs.demo.system.hardsys.processing.*;
+import com.huntercodexs.demo.services.system.hardsys.Help4DevsHardSys;
+import com.huntercodexs.demo.services.system.hardsys.dto.Help4DevsHardSysResourcesDto;
+import com.huntercodexs.demo.services.system.hardsys.group.*;
+import com.huntercodexs.demo.services.system.hardsys.processing.*;
 import org.junit.Test;
 
-import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.HWINFO;
+import static com.huntercodexs.demo.services.system.hardsys.command.Help4DevsHardSysCommands.HWINFO;
 
 public class Help4DevsHardSysHwinfoUnitaryTests extends Help4DevsBridgeTests {
 

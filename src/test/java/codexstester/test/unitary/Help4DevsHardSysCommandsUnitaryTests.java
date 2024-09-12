@@ -1,8 +1,8 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands;
-import com.huntercodexs.demo.system.hardsys.dto.Help4DevsKeyboardDto;
+import com.huntercodexs.demo.services.system.hardsys.command.Help4DevsHardSysCommands;
+import com.huntercodexs.demo.services.system.hardsys.dto.Help4DevsKeyboardDto;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.huntercodexs.demo.system.hardsys.command.Help4DevsHardSysCommands.sysCmd;
+import static com.huntercodexs.demo.services.system.hardsys.command.Help4DevsHardSysCommands.sysCmd;
 
 public class Help4DevsHardSysCommandsUnitaryTests extends Help4DevsBridgeTests {
 

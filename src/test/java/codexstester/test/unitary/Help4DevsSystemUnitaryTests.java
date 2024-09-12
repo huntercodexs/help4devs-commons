@@ -1,8 +1,8 @@
 package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
-import com.huntercodexs.demo.system.Help4DevsSystemService;
-import com.huntercodexs.demo.system.Help4DevsSystemService.*;
+import com.huntercodexs.demo.services.system.Help4DevsSystemService;
+import com.huntercodexs.demo.services.system.Help4DevsSystemService.*;
 import org.junit.Test;
 
 import java.lang.management.ManagementFactory;
