@@ -229,8 +229,6 @@ public class Help4DevsHardSysLshwFactory extends Help4DevsHardSysBase {
 
     private void keyboardFactory(List<String> items) {
 
-        System.out.println("=====[keyboard]> " + items);
-
         Help4DevsKeyboardDto keyboardDto = new Help4DevsKeyboardDto();
         keyboardDto.setQty(String.valueOf(items.size()));
 
@@ -253,8 +251,6 @@ public class Help4DevsHardSysLshwFactory extends Help4DevsHardSysBase {
     }
 
     private void mouseFactory(List<String> items) {
-
-        System.out.println("=====[mouse]> " + items);
 
         Help4DevsMouseDto mouseDto = new Help4DevsMouseDto();
         mouseDto.setQty(String.valueOf(items.size()));
