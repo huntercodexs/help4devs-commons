@@ -1,5 +1,6 @@
 package com.huntercodexs.demo.system.hardsys.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Help4DevsControllerDto {
@@ -7,7 +8,9 @@ public class Help4DevsControllerDto {
     private String qty;
     private List<Help4DevsController> details;
 
-    public Help4DevsControllerDto() {}
+    public Help4DevsControllerDto() {
+        this.details = new ArrayList<>();
+    }
 
     public String getQty() {
         return qty;

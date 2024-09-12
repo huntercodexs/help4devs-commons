@@ -53,7 +53,7 @@ public abstract class Help4DevsHardSysPattern extends Help4DevsHardSysLayout {
             "(PCH|HDMI|DTS|P2|USB|PS/2|S/PDIF)";
 
     protected String storageTypePattern =
-            "(HD|SATA|SSD|NVME SSD|NVME|M2 SSD|M2|SCSI|SAS|ATA)";
+            "(HD|SATA|SSD|NVME SSD|NVME|M2 SSD|M2|SCSI|SAS|ATA|NVME)";
 
     protected String usbVersionTypePattern =
             "(USB 3.1|3.1|C-TYPE|TYPE-C|2.0|PCH USB)";
@@ -66,6 +66,9 @@ public abstract class Help4DevsHardSysPattern extends Help4DevsHardSysLayout {
 
     protected String sensorsTypePattern =
             "(FAN ?SPEEDS|SYSTEM ?TEMPERATURES|COOLER|SENSOR|FAN|TEMP)";
+
+    protected String controllerTypePattern =
+            "(SPI|SMBUS|IO|USB|MOTHERBOARD|BUS)";
 
     protected String usbTypePattern =
             "(AUDIO|VIDEO|BLUETOOTH|KEYBOARD,MOUSE|KEYBOARD|MOUSE)";

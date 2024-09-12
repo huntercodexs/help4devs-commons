@@ -41,43 +41,43 @@ public class Help4DevsMultimediaDto {
 
     public static class Help4DevsMultimedia {
 
-        private List<String> id;
-        private List<String> name;
-        private List<String> source;
-        private List<String> description;
+        private String id;
+        private String name;
+        private String source;
+        private String description;
 
         public Help4DevsMultimedia() {
         }
 
-        public List<String> getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(List<String> id) {
+        public void setId(String id) {
             this.id = id;
         }
 
-        public List<String> getName() {
+        public String getName() {
             return name;
         }
 
-        public void setName(List<String> name) {
+        public void setName(String name) {
             this.name = name;
         }
 
-        public List<String> getSource() {
+        public String getSource() {
             return source;
         }
 
-        public void setSource(List<String> source) {
+        public void setSource(String source) {
             this.source = source;
         }
 
-        public List<String> getDescription() {
+        public String getDescription() {
             return description;
         }
 
-        public void setDescription(List<String> description) {
+        public void setDescription(String description) {
             this.description = description;
         }
 
@@ -87,7 +87,7 @@ public class Help4DevsMultimediaDto {
                     ", name=" + name +
                     ", source=" + source +
                     ", description=" + description +
-                    ']';
+                    "]";
         }
     }
 }
