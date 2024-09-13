@@ -225,7 +225,7 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
     private void processorFactory(List<String> items) {
 
         Help4DevsProcessorDto processorDto = new Help4DevsProcessorDto();
-        processorDto.setCores(String.valueOf(stringCounter(items.get(0), "[1-9]: ([0-9]{4})")));
+        processorDto.setCores(String.valueOf(stringCounter(items.get(0), "[1-9]: ([0-9]{3,4})")));
         processorDto.setName(alphaFieldPattern(items.get(0), "model", " "));
 
         Help4DevsProcessor processor = new Help4DevsProcessor();
@@ -254,7 +254,7 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
                 "Core Speeds - "+stringExtractor(
                 items.get(0).toUpperCase(),
                 "",
-                "([1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4} [1-9]: [0-9]{4})",
+                "([1-9]: [0-9]{3,4} [1-9]: [0-9]{3,4} [1-9]: [0-9]{3,4} [1-9]: [0-9]{3,4} [1-9]: [0-9]{3,4} [1-9]: [0-9]{3,4} [1-9]: [0-9]{3,4} [1-9]: [0-9]{3,4})",
                 "$1",
                 1).replaceAll(" ", ": "));
 
@@ -268,6 +268,7 @@ public class Help4DevsHardSysInxiFactory extends Help4DevsHardSysBase {
         processorDto.addProcessor(processor);
 
         this.transport.put(hardsysCheck("processor"), processorDto);
+
 
     }
 

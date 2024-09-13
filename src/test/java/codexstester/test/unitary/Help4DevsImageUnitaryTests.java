@@ -9,13 +9,13 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.repeat;
+import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
 import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.binFile;
 import static com.huntercodexs.demo.services.file.Help4DevsFileHandlerService.byteFile;
 import static com.huntercodexs.demo.services.image.Help4DevsImageService.*;
 import static com.huntercodexs.demo.services.image.Help4DevsImageService.ImageType.*;
-import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.repeat;
-import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.matrixPrinter;
-import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.stdout;
+import static com.huntercodexs.demo.services.stdout.Help4DevsStdoutService.matrixPrinter;
 
 public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
 

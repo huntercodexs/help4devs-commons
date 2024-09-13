@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.params;
-import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.repeat;
 
 public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
 
@@ -96,27 +95,6 @@ public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
     public void hardsysFindTest() {
         System.out.println(hardsysFind("system"));
         System.out.println(hardsysFind("processor"));
-    }
-
-    @Test
-    public void cliTableTest() {
-
-        repeat("-", 20);
-
-        System.out.println("|-----------------------------------------------------------------------------------------------------|");
-        System.out.println("|                                                                                                     |");
-        System.out.println("| CODEXS CLI TABLE - huntercodexs.com                                                                 |");
-        System.out.println("|                                                                                                     |");
-        System.out.println("|-----------------------------------------------------------------------------------------------------|");
-        System.out.println("| # | Resource         | System                                                                       |");
-        System.out.println("|-----------------------------------------------------------------------------------------------------|");
-        System.out.println("| 1 | osName           | Linux           |                                                            |");
-        System.out.println("|   | osVersion        | Ubuntu          |                                                            |");
-        System.out.println("|   | osVendor         | Linux           |                                                            |");
-        System.out.println("|   | osPath           | /               |                                                            |");
-        System.out.println("|   | osDistro         | Debian          |                                                            |");
-        System.out.println("|-----------------------------------------------------------------------------------------------------|");
-
     }
 
 }

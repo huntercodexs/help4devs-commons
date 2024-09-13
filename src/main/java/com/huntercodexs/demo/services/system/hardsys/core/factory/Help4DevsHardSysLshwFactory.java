@@ -128,6 +128,8 @@ public class Help4DevsHardSysLshwFactory extends Help4DevsHardSysBase {
         processor.setManufacturer(stringExtractor(
                 items.get(0).toUpperCase(), "description", vendorsPattern, "description:$1", 1));
 
+        processor.setCharacteristics("Core Speeds - " + processor.getSpeed());
+
         processorDto.addProcessor(processor);
 
         this.transport.put(hardsysCheck("processor"), processorDto);

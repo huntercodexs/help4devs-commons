@@ -1,42 +1,27 @@
 package com.huntercodexs.demo;
 
-import com.huntercodexs.demo.services.system.hardsys.Help4DevsHardSys;
-import com.huntercodexs.demo.services.system.hardsys.dto.Help4DevsHardSysResourcesDto;
+import com.huntercodexs.demo.services.system.hardsys.core.Help4DevsHardSysCliOutput;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import static com.huntercodexs.demo.services.system.hardsys.command.Help4DevsHardSysCommands.*;
 
 @SpringBootApplication
 public class Help4DevsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Help4DevsApplication.class, args);
+        hardsysRunner(args);
+    }
 
+    private static void hardsysRunner(String[] args) {
         if (args.length > 0) {
-
-            System.out.println("Load information: Please wait...");
-            Help4DevsHardSys hardSys;
-
-            switch (args[0]) {
-                case "inxi":
-                    hardSys = new Help4DevsHardSys(INXI);
-                    break;
-                case "hwinfo":
-                    hardSys = new Help4DevsHardSys(HWINFO);
-                    break;
-                case "lshw":
-                    hardSys = new Help4DevsHardSys(LSHW);
-                    break;
-                default:
-                    hardSys = new Help4DevsHardSys(AUTO);
-                    break;
+            if (args[0].equals("hardsys") && !args[1].isEmpty()) {
+                Help4DevsHardSysCliOutput cliOutput = new Help4DevsHardSysCliOutput();
+                cliOutput.printer(
+                        args[1],
+                        "HARDSYS CLI TABLE - https://huntercodexs.com",
+                        80);
             }
-
-            Help4DevsHardSysResourcesDto result = hardSys.resources().builder();
-            System.out.println(result);
         }
-
     }
 
 }

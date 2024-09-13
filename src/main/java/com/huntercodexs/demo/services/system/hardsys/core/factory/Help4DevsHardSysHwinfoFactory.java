@@ -143,6 +143,8 @@ public class Help4DevsHardSysHwinfoFactory extends Help4DevsHardSysBase {
                     "current:$1 $2",
                     id+4));
 
+            processor.setCharacteristics("Core Speeds - " + processor.getSpeed());
+
             processorDto.addProcessor(processor);
             id++;
 
