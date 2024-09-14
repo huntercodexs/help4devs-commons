@@ -56,12 +56,44 @@ In case that any command be correctly executed an Exception will be thrown infor
 
 ![hardsys.png](./media/hardsys.png)
 
-## How to execute this library via CLI
+## Usage
+
+#### CLI
 
 You can run this program via cli passing the commands available in this documentation, for example:
 
 <pre>
-sudo ${JAVA_HOME}/java -jar help4devs-commons-1.0.0-SNAPSHOT.jar {{{HARDSYS-COMMAND}}} --spring.config.location=${PATH_APP}/application.properties
+sudo ${JAVA_HOME}/java -jar help4devs-commons-1.0.0-SNAPSHOT.jar hardsys [inxi, hwinfo, lshw...] --spring.config.location=${PATH_APP}/application.properties
+</pre>
+
+#### JSON
+
+If you want to give a simple response using JSON format as a output result, give a look in the example below.
+
+<pre>
+
+@Test
+public void generalSystemInfoByInxiCommand_ALL_JSON_Test() {
+    Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
+    hardSys.json();
+    System.out.println(hardSys.resources().all());
+}
+
+</pre>
+
+#### DTO
+
+Below is one simple example to use the DTO format as a output result
+
+<pre>
+
+@Test
+public void generalSystemInfoByInxiCommand_ALL_DTO_Test() {
+    Help4DevsHardSys hardSys = new Help4DevsHardSys(INXI);
+    Help4DevsHardSysResourcesDto result = hardSys.resources().builder();
+    System.out.println(result);
+}
+
 </pre>
 
 ## Managing the resources (technical details - for developers)
@@ -689,8 +721,6 @@ Below is a piece of code to help us better understand this topic
 
 </code>
 
-
-
 ####  STEP-12
 
 **class:** Help4DevsHardSys
@@ -698,3 +728,4 @@ Below is a piece of code to help us better understand this topic
 **package:** com.huntercodexs.demo.system.hardsys;
 
 **description:** The first and main class to instance and use the HardSys library.
+
