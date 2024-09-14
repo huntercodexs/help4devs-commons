@@ -15,7 +15,7 @@ import static com.huntercodexs.demo.services.barcode.Help4DevsBarcodeService.*;
 
 public class Help4DevsBarcodeUnitaryTests extends Help4DevsBridgeTests {
 
-    private final static String filepathTarget = "./src/test/resources/help4devs/files/pdf/my-pdfbox-test-barcode.pdf";
+    private final static String filepathTarget = "./src/test/resources/help4devs/files/pdf/my-easypdf-test-barcode.pdf";
 
     @Test
     public void barcodeTest() {

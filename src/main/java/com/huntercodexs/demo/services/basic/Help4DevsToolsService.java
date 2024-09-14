@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.Base64;
-import java.util.List;
 import java.util.UUID;
 
 import static com.huntercodexs.demo.enumerator.DataMasked.dataMasked;
@@ -111,6 +110,7 @@ public class Help4DevsToolsService {
      * @param label (TraceType: label to stick the log detail and give an emphasis in the target message)
      * @param type (String: Type of log [info, error])
      * @return trace (String - trace detail)
+     * @author huntercodexs (powered by jereelton-devel)
      * */
     public static String trace(String track, String id, String message, TraceType label, String type) {
 
@@ -129,36 +129,4 @@ public class Help4DevsToolsService {
         return trace;
     }
 
-    public static void matrixPrinter(List<List<String>> matrix, int columnSize) {
-        if (columnSize == 1) {
-            System.out.println("MATRIX PRINTER SAY: [ERROR] MATRIX IS NOT A MATRIX (3X3)");
-            return;
-        }
-
-        System.out.println("[MATRIX PRINTER]");
-        for (List<String> line : matrix) {
-            System.out.print("[");
-            int columnCounter = 0;
-
-            for (String column : line) {
-
-                if (columnSize > 1) {
-                    if (columnCounter < line.size()-1) {
-                        System.out.print(column.substring(0, columnSize) + ", ");
-                    } else {
-                        System.out.print(column.substring(0, columnSize));
-                    }
-                } else {
-                    if (columnCounter < line.size()-1) {
-                        System.out.print(column + ", ");
-                    } else {
-                        System.out.print(column);
-                    }
-                }
-
-                columnCounter++;
-            }
-            System.out.println("]");
-        }
-    }
 }

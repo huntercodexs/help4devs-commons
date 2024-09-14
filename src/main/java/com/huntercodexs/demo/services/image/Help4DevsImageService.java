@@ -187,7 +187,7 @@ public class Help4DevsImageService {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">simulateCalculateBytesTest</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">simulateCalculateBytes</h6>
      *
      * <p style="color: #CDCDCD">Simulate one image length in bytes from an Integer value</p>
      *
@@ -196,12 +196,12 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String simulateCalculateBytesTest(int bytesLength) {
+    public static String simulateCalculateBytes(int bytesLength) {
         return calculateBytes(bytesLength);
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">simulateCalculateKilobytesTest</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">simulateCalculateKilobytes</h6>
      *
      * <p style="color: #CDCDCD">Simulate one image length in kilobytes from an Integer value</p>
      *
@@ -210,12 +210,12 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String simulateCalculateKilobytesTest(int bytesLength) {
+    public static String simulateCalculateKilobytes(int bytesLength) {
         return calculateKilobytes(bytesLength);
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">simulateCalculateMegabytesTest</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">simulateCalculateMegabytes</h6>
      *
      * <p style="color: #CDCDCD">Simulate one image length in megabytes from an Integer value</p>
      *
@@ -224,7 +224,7 @@ public class Help4DevsImageService {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public static String simulateCalculateMegabytesTest(int bytesLength) {
+    public static String simulateCalculateMegabytes(int bytesLength) {
         return calculateMegabytes(bytesLength);
     }
 

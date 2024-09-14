@@ -5,7 +5,9 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -331,6 +333,127 @@ public class Help4DevsParserService {
         }
 
         return jsonResponse;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jsonCreatorRFC8259</h6>
+     *
+     * <p style="color: #CDCDCD">Create one JSON String format according RFC8259 standards</p>
+     *
+     * <p>The string to convert to JSON String should be something like below:</p>
+     * <p>Field1: Value1 ExtraValue1 Field2: Value2 Field3: Value3</p>
+     *
+     * <h6>Example</h6>
+     * <p>Kernel: 5.15.0-117-generic x86_64 bits: 64 compiler: N/A
+     * <br />
+     * Kernel: 5.15.0-117-generic_x86_64 bits: 64 compiler-version: java_compiler_v1
+     * <br />
+     * min/max: 1000 bits: 64 compiler-version: java_compiler_v1</p>
+     *
+     * @param input (List[String])
+     * @param mainField (String)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static String jsonCreatorRFC8259(List<String> input, String mainField) {
+
+        //JSON: Valid (RFC 8259)
+        StringBuilder jsonFormat;
+        String jsonEnd = "}}";
+
+        if (mainField == null || mainField.isEmpty()) {
+            jsonFormat = new StringBuilder("{");
+            jsonEnd = "}";
+
+            if (input == null || input.isEmpty()) {
+                return "{}";
+            }
+
+        } else {
+            jsonFormat = new StringBuilder("{\""+mainField+"\":{");
+
+            if (input == null || input.isEmpty()) {
+                return "{\""+mainField+"\":{}}";
+            }
+        }
+
+        for (String line : input) {
+
+            //Prevent formatting error from incorrect character usage [
+            line = line.replaceAll("\\[", "(").replaceAll("]", ")");
+
+            String[] fields = line
+                    .trim()
+                    .replaceAll("([.@#\\-/)(\\\\_0-9a-zA-Z]+): ", "[$1],")
+                    .replaceAll(",([^\\[[a-zA-Z]\\]]+)", "")
+                    .replaceAll("]\\[", ",")
+                    .replaceAll("[\\[\\]]", "")
+                    .split(",");
+
+            String[] values = line
+                    .trim()
+                    .replaceAll("([.@#\\-/)(\\\\_0-9a-zA-Z]+): ", " ")
+                    .replaceAll("_", "{:under:}")
+                    .replaceAll(" ", "_")
+                    .replaceAll("__", "{:split:}")
+                    .replaceAll("_", " ")
+                    .replaceAll("\\{:under:}", "_")
+                    .split("\\{:split:}");
+
+            //System.out.println("[Parser] FIELDS: "+Arrays.toString(fields));
+            //System.out.println("[Parser] VALUES: "+Arrays.toString(values));
+
+            try {
+
+                for (int i = 0; i < fields.length; i++) {
+                    jsonFormat
+                            //Field
+                            .append("\"").append(fields[i].trim()).append("\"").append(":")
+                            //Value
+                            .append("\"").append(values[i].trim()).append("\"").append(",");
+                }
+
+            } catch (Exception ex) {
+                System.out.println("[EXCEPTION] jsonCreatorRFC8259: "+ex.getMessage());
+            }
+        }
+
+        jsonFormat.append(jsonEnd);
+
+        //Hotfix and finish
+        String jsonResponse = String.valueOf(jsonFormat).replaceAll(","+jsonEnd+"$", jsonEnd);
+        jsonResponse = jsonResponse.replaceAll("(\":\"\")(,})", "$1}");
+        jsonResponse = jsonResponse.replaceAll("(\":\"\")([-_0-9a-zA-Z]+)", "$1,\"$2");
+
+        return jsonResponse;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jsonMergerRFC8259</h6>
+     *
+     * <p style="color: #CDCDCD">Merge one or mor JSON String format according RFC8259 standards</p>
+     *
+     * @param input (List[String])
+     * @param mainField (String)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public static String jsonMergerRFC8259(List<String> input, String mainField) {
+
+        if (mainField == null || mainField.isEmpty()) {
+            mainField = "Object";
+        }
+
+        StringBuilder jsonResponse = new StringBuilder("{\"" + mainField + "\": {");
+
+        for (String jsonItem : input) {
+            jsonResponse
+                    .append(jsonItem.replaceAll("}$", "").replaceAll("^\\{", ""))
+                    .append(",");
+        }
+
+        return (jsonResponse+"}}").replaceAll("},}", "}}");
+
     }
 
 }
