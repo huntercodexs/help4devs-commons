@@ -35,11 +35,14 @@ public abstract class InternalHttpHeadersFactoryTests extends ExternalPropertyTe
     }
 
     protected void assertInternalTests(String ref, String text) {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
+
         if (text.contains(ref)) {
             Assert.assertEquals(1, 1);
-            resulted(true);
+            resulted(true, element);
         } else {
-            resulted(false);
+            resulted(false, element);
             Assert.assertEquals(1, 0);
         }
     }

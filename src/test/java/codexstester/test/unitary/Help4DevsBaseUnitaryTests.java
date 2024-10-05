@@ -97,4 +97,164 @@ public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
         System.out.println(hardsysFind("processor"));
     }
 
+    @Test
+    public void stringIteratorTest() {
+        String json =
+            "{" +
+                "\"age\":43," +
+                "\"name\":\"Diego Wiz \\\"Don\\\"\", " +
+                "\"parental\":\"father\"," +
+                "\"address\": {" +
+                    "\"name\":\"USA\"," +
+                    "\"street\":\"England Stanford\", " +
+                    "\"number\":100," +
+                    "\"states\":{" +
+                        "\"first\":\"Kansas \\\"\\{ID\\}\\\"\"," +
+                        "\"second\":\"New York \\\"\\[123,456,789\\]\\\"\"," +
+                        "\"third\":\"North Carolina \\\"NC\\\"\"," +
+                        "\"final\":[123,321,231,\"XYZ-1234\"]" +
+                    "}" +
+                "}," +
+                "\"contacts\": [" +
+                    "[" +
+                        "12345678," +
+                        "23432432," +
+                        "[" +
+                            "8909080," +
+                            "\"XYZ43434RER\"," +
+                            "\"XYZ8392018\"" +
+                        "]" +
+                    "], " +
+                    "\"email@email.com\"," +
+                    "{" +
+                        "\"id\":902," +
+                        "\"cities\": [\"Kansas 12\",\"New York\",\"Florida\"]" +
+                    "}" +
+                "]," +
+                "\"zNumber\":789" +
+            "}";
+
+        String[] fields = new String[]{"contacts", "address", "parental", "name", "zNumber", "age"};
+        String field = fields[0];
+        boolean arrayTest = true;
+        boolean jsonTest = false;
+
+        json = json
+                .replaceAll("\n", "")
+                .replaceAll("\r", "")
+                .replaceAll("\t", "")
+
+                .replaceAll("\", \"", "\",\"")
+                .replaceAll("\", \\[", "\",[")
+                .replaceAll("\", \\{", "\",{")
+
+                .replaceAll("\": \"", "\":\"")
+                .replaceAll("\": \\[", "\":[")
+                .replaceAll("\": \\{", "\":{")
+
+                .replaceAll("], \"", "],\"")
+                .replaceAll("], \\[", "],[")
+                .replaceAll("], \\{", "],{")
+
+                .replaceAll("}, \"", "},\"")
+                .replaceAll("}, \\[", "},[")
+                .replaceAll("}, \\{", "},{");
+
+        //System.out.println(json);
+
+        int pos = json.indexOf("\""+field+"\":");
+        int len = ("\""+field+"\":").length();
+        int tot = pos + len;
+
+        //System.out.println(pos);
+        //System.out.println(len);
+        //System.out.println(tot);
+
+        boolean isIntOn = false;
+        boolean isStringOn = false;
+        boolean isJsonOn = false;
+        boolean isArrayOn = false;
+
+        StringBuilder result = new StringBuilder();
+
+        int jsonOpenCounter = 0;
+        int arrayOpenCounter = 0;
+
+        String prevChar = "";
+
+        for (int i = tot; i < json.length(); i++) {
+            String ch4r = String.valueOf(json.charAt(i));
+
+            //Array
+            if ((ch4r.equals("[") || isArrayOn) && arrayTest) {
+
+                if (ch4r.equals("[") && !prevChar.equals("\\")) {
+                    arrayOpenCounter += 1;
+                } else if (ch4r.equals("]") && !prevChar.equals("\\")) {
+                    arrayOpenCounter -= 1;
+                }
+
+                //isArrayOn = false
+                if (arrayOpenCounter == 0 && isArrayOn) {
+                    result.append(json.charAt(i));
+                    break;
+                }
+
+                isArrayOn = true;
+                result.append(json.charAt(i));
+                prevChar = ch4r;
+                continue;
+            }
+            //JSON
+            if ((ch4r.equals("{") || isJsonOn) && jsonTest) {
+
+                if (ch4r.equals("{") && !prevChar.equals("\\")) {
+                    jsonOpenCounter += 1;
+                } else if (ch4r.equals("}") && !prevChar.equals("\\")) {
+                    jsonOpenCounter -= 1;
+                }
+
+                //isJsonOn = false
+                if (jsonOpenCounter == 0 && isJsonOn) {
+                    result.append(json.charAt(i));
+                    break;
+                }
+
+                isJsonOn = true;
+                result.append(json.charAt(i));
+                prevChar = ch4r;
+                continue;
+            }
+            //String
+            if (ch4r.equals("\"") || isStringOn) {
+
+                //isStringOn = false
+                if (ch4r.equals("\"") && isStringOn && !prevChar.equals("\\")) {
+                    break;
+                }
+
+                if (!ch4r.equals("\"") && !ch4r.equals("\\") || prevChar.equals("\\")) {
+                    result.append(json.charAt(i));
+                }
+
+                isStringOn = true;
+                prevChar = ch4r;
+                continue;
+            }
+            //Integer
+            if (ch4r.matches("^[0-9]$") || isIntOn) {
+
+                //isIntOn = false
+                if (!ch4r.matches("^[0-9]$")) {
+                    break;
+                }
+
+                isIntOn = true;
+                result.append(json.charAt(i));
+                continue;
+            }
+        }
+
+        System.out.println("Result: " + result);
+    }
 }

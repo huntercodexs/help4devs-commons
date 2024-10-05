@@ -71,9 +71,17 @@ public class CodexsHelperTests {
             System.out.print("\n");
         }
         if (data != null && !data.equals("")) {
-            System.out.println(title + ": " + data);
+            if (title.contains("[") && title.contains("]")) {
+                System.out.println(title + " " + data);
+            } else {
+                System.out.println(title + ": " + data);
+            }
         } else if (data == null) {
-            System.out.println(title + ": null");
+            if (title.contains("[") && title.contains("]")) {
+                System.out.println(title + " null");
+            } else {
+                System.out.println(title + ": null");
+            }
         } else {
             System.out.println(title);
         }

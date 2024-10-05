@@ -101,6 +101,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             boolean debug
     ) throws Exception {
 
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
+
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("JSON-KEYS...............", extractFields(expectedJsonDataTree, 0), false);
         codexsHelperLogTermTests("JSON-VALUES.............", extractFields(expectedJsonDataTree, 1), false);
@@ -114,7 +117,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!jsonCompare.getClass().toString().contains("org.json.JSONObject")) {
             codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-JSON-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -129,7 +132,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             if (i > 0) {
                 if (arraySize != expectedJsonDataTree[i].length) {
                     codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-LENGTH)", expectedJsonDataTree[i], true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
             }
@@ -138,7 +141,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 Object tmp = jsonCompare.get(expectedJsonDataTree[i][0].toString());
             } catch (JSONException je) {
                 codexsHelperLogTermTests("> RESULT IS [ABORT] [WRONG-KEY]", expectedJsonDataTree[i][0].toString(), true);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -153,7 +156,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", expectedJsonDataTree[i][0], false);
                 codexsHelperLogTermTests("EXPECTED..", expectedJsonDataTree[i][2], false);
                 codexsHelperLogTermTests("RECEIVED..", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -215,21 +218,21 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 if (fndVal.equals(expVal) && fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-1]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-2]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (!codexsHelperMd5(fndVal.toString()).equals(codexsHelperMd5(expVal.toString()))) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [ERROR] [WRONG-VALUE]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -243,7 +246,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expKey, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -257,7 +260,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expKey, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -269,6 +272,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             String refactorMode, /*none,easy,middle,regular,complex*/
             boolean debug
     ) throws Exception {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("JSON-KEYS...............", extractFields(expectedJsonDataTree, 0), false);
@@ -283,7 +289,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!jsonCompare.getClass().toString().contains("net.minidev.json.JSONObject")) {
             codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-JSON-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -298,7 +304,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             if (i > 0) {
                 if (arraySize != expectedJsonDataTree[i].length) {
                     codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-LENGTH)", expectedJsonDataTree[i], true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
             }
@@ -307,7 +313,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 Object tmp = jsonCompare.get(expectedJsonDataTree[i][0].toString());
             } catch (Exception ex) {
                 codexsHelperLogTermTests("> RESULT IS [ABORT] [WRONG-KEY]", expectedJsonDataTree[i][0].toString(), true);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -322,7 +328,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", expectedJsonDataTree[i][0], false);
                 codexsHelperLogTermTests("EXPECTED..", expectedJsonDataTree[i][2], false);
                 codexsHelperLogTermTests("RECEIVED..", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -384,21 +390,21 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 if (fndVal.equals(expVal) && fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-1]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-2]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (!codexsHelperMd5(fndVal.toString()).equals(codexsHelperMd5(expVal.toString()))) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [ERROR] [WRONG-VALUE]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -412,7 +418,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expKey, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -426,7 +432,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expKey, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -439,6 +445,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             String refactorMode, /*none,easy,middle,regular,complex*/
             boolean debug
     ) throws Exception {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("JSON-KEYS...............", Arrays.toString(jsonKeys), false);
@@ -453,13 +462,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!jsonCompare.getClass().toString().contains("net.minidev.json.JSONObject")) {
             codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-JSON-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
         if (jsonKeys.length != jsonValues.length || jsonKeys.length != jsonTyped.length || jsonKeys.length != jsonCompare.size()) {
             codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-LENGTH)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -469,7 +478,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 Object tmp = jsonCompare.get(jsonKeys[i]);
             } catch (Exception ex) {
                 codexsHelperLogTermTests("> RESULT IS [ABORT] [WRONG-KEY]", jsonKeys[i], true);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -484,7 +493,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", jsonTyped[i], false);
                 codexsHelperLogTermTests("EXPECTED..", jsonTyped[i], false);
                 codexsHelperLogTermTests("RECEIVED..", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -546,21 +555,21 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 if (fndVal.equals(expVal) && fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-1]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-2]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (!codexsHelperMd5(fndVal.toString()).equals(codexsHelperMd5(expVal.toString()))) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [ERROR] [WRONG-VALUE]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -574,7 +583,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expKey, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -588,7 +597,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expKey, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -601,6 +610,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             String refactorMode, /*none,easy,middle,regular,complex*/
             boolean debug
     ) throws Exception {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("JSON-KEYS...............", Arrays.toString(jsonKeys), false);
@@ -615,13 +627,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!jsonCompare.getClass().toString().contains("org.json.JSONObject")) {
             codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-JSON-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
         if (jsonKeys.length != jsonValues.length || jsonKeys.length != jsonTyped.length || jsonKeys.length != jsonCompare.length()) {
             codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-LENGTH)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -631,7 +643,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 Object tmp = jsonCompare.get(jsonKeys[i]);
             } catch (Exception ex) {
                 codexsHelperLogTermTests("> RESULT IS [ABORT] [WRONG-KEY]", jsonKeys[i], true);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -646,7 +658,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", jsonKeys[i], false);
                 codexsHelperLogTermTests("EXPECTED..", jsonTyped[i], false);
                 codexsHelperLogTermTests("RECEIVED..", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -708,21 +720,21 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 if (fndVal.equals(expVal) && fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-1]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (fndType != expType && !isInterface(expType, fndType)) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-2]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
                 if (!codexsHelperMd5(fndVal.toString()).equals(codexsHelperMd5(expVal.toString()))) {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [ERROR] [WRONG-VALUE]", expKey, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -736,7 +748,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expKey, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -750,7 +762,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expKey, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -759,6 +771,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             Object[] dataCompare,
             boolean strictMode
     ) throws Exception {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("JSON-KEYS...............", extractFields(expectedJsonDataTree, 0), false);
@@ -776,7 +791,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
             if (!jsonCompare.getClass().toString().contains("net.minidev.json.JSONObject")) {
                 codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-JSON-TYPED)", "", true);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -791,7 +806,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 if (i > 0) {
                     if (arraySize != expectedJsonDataTree[i].length) {
                         codexsHelperLogTermTests("ERROR ON JSON DATA COMPARE (WRONG-LENGTH)", expectedJsonDataTree[i], true);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -800,7 +815,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     Object tmp = jsonCompare.get(expectedJsonDataTree[i][0].toString());
                 } catch (Exception ex) {
                     codexsHelperLogTermTests("> RESULT IS [ABORT] [WRONG-KEY]", expectedJsonDataTree[i][0].toString(), true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -815,7 +830,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", expectedJsonDataTree[i][0], false);
                     codexsHelperLogTermTests("EXPECTED..", expectedJsonDataTree[i][2], false);
                     codexsHelperLogTermTests("RECEIVED..", null, false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -860,21 +875,21 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (fndVal.equals(expVal) && fndType != expType && !isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-1]", expKey, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
 
                     if (fndType != expType && !isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [CRITICAL-ERROR] [WRONG-TYPED-2]", expKey, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
 
                     if (!codexsHelperMd5(fndVal.toString()).equals(codexsHelperMd5(expVal.toString()))) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [ERROR] [WRONG-VALUE]", expKey, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
 
@@ -888,7 +903,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                         } else {
                             codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expKey, true);
                             defaultMessage(expVal, fndVal, expType, fndType, expKey, "IGNORED");
-                            resulted(false);
+                            resulted(false, element);
                             Assert.fail();
                         }
                     }
@@ -904,7 +919,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             k++;
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -914,6 +929,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             Class<?> dtoClass,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("=========== SUMMARY =========", "", true);
         codexsHelperLogTermTests("FIELDS.......................", extractFields(expectedDtoDataTree, 0), false);
@@ -940,7 +958,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("ERROR ON DTO DATA COMPARE (WRONG-DTO-CLASS)", "", false);
                 codexsHelperLogTermTests("  ==> EXPECTED...: ", dtoClass, false);
                 codexsHelperLogTermTests("  ==> RECEIVED...: ", currentCompare.getClass(), false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -956,7 +974,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("  ==> EXPECTED-SIZE-CLASS....", sizeClass, false);
                 codexsHelperLogTermTests("  ==> RECEIVED-DTO-COMPARE...", sizeCompare, false);
                 codexsHelperLogTermTests("  ==> RECEIVED-DATA-TREE.....", sizeDataTree, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -987,13 +1005,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                         if (!isInterface(expType, fndType)) {
                             codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", expName, true);
                             defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                            resulted(false);
+                            resulted(false, element);
                             Assert.fail();
                         }
                         codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                         strictMessage(false);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
 
@@ -1001,7 +1019,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-NAME]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                         strictMessage(false);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
 
@@ -1009,7 +1027,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                         strictMessage(false);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
 
@@ -1023,7 +1041,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                         } else {
                             codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expName, true);
                             defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                            resulted(false);
+                            resulted(false, element);
                             Assert.fail();
                         }
                     }
@@ -1049,7 +1067,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             k++;
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -1059,6 +1077,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             Class<?> dtoClass,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("=========== SUMMARY =========", "", true);
         codexsHelperLogTermTests("FIELDS.......................", extractFields(expectedDtoDataTree, 0), false);
@@ -1082,7 +1103,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             codexsHelperLogTermTests("ERROR ON DTO DATA COMPARE (WRONG-DTO-CLASS)", "", false);
             codexsHelperLogTermTests("  ==> EXPECTED...: ", dtoClass, false);
             codexsHelperLogTermTests("  ==> RECEIVED...: ", dtoCompare.getClass(), false);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1098,7 +1119,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             codexsHelperLogTermTests("  ==> EXPECTED-SIZE-CLASS....", sizeClass, false);
             codexsHelperLogTermTests("  ==> RECEIVED-DTO-COMPARE...", sizeCompare, false);
             codexsHelperLogTermTests("  ==> RECEIVED-DATA-TREE.....", sizeDataTree, false);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1128,13 +1149,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1142,7 +1163,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-NAME]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1150,7 +1171,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1164,7 +1185,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -1188,7 +1209,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             codexsHelperLogTermTests("> RESULT IS [OK]", expName, false);
 
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -1199,6 +1220,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             Class<?> dtoClass,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("VALUES..................", Arrays.toString(dtoValues), false);
@@ -1220,7 +1244,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             codexsHelperLogTermTests("ERROR ON DTO DATA COMPARE (WRONG-DTO-CLASS)", "", false);
             codexsHelperLogTermTests("  ==> EXPECTED...: ", dtoClass, false);
             codexsHelperLogTermTests("  ==> RECEIVED...: ", dtoCompare.getClass(), false);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1234,7 +1258,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             codexsHelperLogTermTests("  ==> COMPARE....", dtoCompare.getClass(), false);
             codexsHelperLogTermTests("  ==> EXPECTED...", sizeClass, false);
             codexsHelperLogTermTests("  ==> RECEIVED...", sizeCompare, false);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1265,13 +1289,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1279,7 +1303,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-NAME]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1287,7 +1311,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1301,7 +1325,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -1325,7 +1349,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             codexsHelperLogTermTests("> RESULT IS [OK]", expName, false);
 
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -1334,6 +1358,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             HashMap<Object, Object> hashMapCompare,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("HASH-MAP-KEYS...........", extractFields(expectedHashMapDataTree, 0), false);
@@ -1346,7 +1373,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!hashMapCompare.getClass().toString().contains("HashMap")) {
             codexsHelperLogTermTests("ERROR ON HASH-MAP DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1361,7 +1388,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             if (i > 0) {
                 if (arraySize != expectedHashMapDataTree[i].length) {
                     codexsHelperLogTermTests("ERROR ON HASH-MAP DATA COMPARE (WRONG-LENGTH)", expectedHashMapDataTree[i], true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
             }
@@ -1377,7 +1404,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [MISSING-KEY]", expectedHashMapDataTree[i][0], true);
                 codexsHelperLogTermTests("EXPECTED....", expectedHashMapDataTree[i][0], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -1409,13 +1436,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1423,7 +1450,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-NAME]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1431,7 +1458,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1445,7 +1472,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -1467,7 +1494,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expName, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -1478,6 +1505,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             HashMap<Object, Object> hashMapCompare,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("HASH-MAP-KEYS...........", Arrays.toString(hashMapKeys), false);
@@ -1490,13 +1520,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!hashMapCompare.getClass().toString().contains("HashMap")) {
             codexsHelperLogTermTests("ERROR ON HASH-MAP DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
         if (hashMapKeys.length != hashMapValues.length || hashMapKeys.length != hashMapTyped.length || hashMapKeys.length != hashMapCompare.size()) {
             codexsHelperLogTermTests("ERROR ON HASH-MAP DATA COMPARE (WRONG-LENGTH)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1513,7 +1543,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [MISSING-KEY]", hashMapKeys[i], true);
                 codexsHelperLogTermTests("EXPECTED....", hashMapKeys[i], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -1545,13 +1575,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1559,7 +1589,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-NAME]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1567,7 +1597,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1581,7 +1611,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -1603,7 +1633,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expName, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
     }
 
@@ -1612,6 +1642,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             ArrayList<Object> arrayListCompare,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("ARRAY-LIST-KEYS.........", extractFields(expectedArrayListDataTree, 0), false);
@@ -1624,7 +1657,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!arrayListCompare.getClass().toString().contains("ArrayList")) {
             codexsHelperLogTermTests("ERROR ON ARRAY-LIST DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1639,7 +1672,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             if (i > 0) {
                 if (arraySize != expectedArrayListDataTree[i].length) {
                     codexsHelperLogTermTests("ERROR ON ARRAY-LIST DATA COMPARE (WRONG-LENGTH)", expectedArrayListDataTree[i], true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
             }
@@ -1655,7 +1688,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", "INDEX-"+i, true);
                 codexsHelperLogTermTests("EXPECTED....", expectedArrayListDataTree[i][2], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -1685,13 +1718,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1699,7 +1732,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1713,7 +1746,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -1728,7 +1761,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", "INDEX-"+i, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -1740,6 +1773,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             boolean strictMode
     ) {
 
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
+
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("ARRAY-LIST-VALUES.......", Arrays.toString(arrayListValues), false);
         codexsHelperLogTermTests("ARRAY-LIST-TYPED........", Arrays.toString(arrayListTyped), false);
@@ -1750,13 +1786,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!arrayListCompare.getClass().toString().contains("ArrayList")) {
             codexsHelperLogTermTests("ERROR ON ARRAY-LIST DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
         if (arrayListValues.length != arrayListTyped.length || arrayListValues.length != arrayListCompare.size()) {
             codexsHelperLogTermTests("ERROR ON ARRAY-LIST DATA COMPARE (WRONG-LENGTH)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1773,7 +1809,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", "INDEX-"+i, true);
                 codexsHelperLogTermTests("EXPECTED....", arrayListTyped[i], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -1803,13 +1839,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1817,7 +1853,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1831,7 +1867,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -1846,7 +1882,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", "INDEX-"+i, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -1856,6 +1892,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             LinkedList<Object> linkedListCompare,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("LINKED-LIST-KEYS........", extractFields(expectedLinkedListDataTree, 0), false);
@@ -1868,7 +1907,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!linkedListCompare.getClass().toString().contains("LinkedList")) {
             codexsHelperLogTermTests("ERROR ON LINKED-LIST DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -1883,7 +1922,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             if (i > 0) {
                 if (arraySize != expectedLinkedListDataTree[i].length) {
                     codexsHelperLogTermTests("ERROR ON LINKED-LIST DATA COMPARE (WRONG-LENGTH)", expectedLinkedListDataTree[i], true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
             }
@@ -1899,7 +1938,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", "INDEX-"+i, true);
                 codexsHelperLogTermTests("EXPECTED....", expectedLinkedListDataTree[i][2], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -1929,13 +1968,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1943,7 +1982,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -1957,7 +1996,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -1972,7 +2011,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", "INDEX-"+i, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -1984,6 +2023,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             boolean strictMode
     ) {
 
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
+
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("LINKED-LIST-VALUES......", Arrays.toString(linkedListValues), false);
         codexsHelperLogTermTests("LINKED-LIST-TYPED.......", Arrays.toString(linkedListTyped), false);
@@ -1994,13 +2036,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!linkedListCompare.getClass().toString().contains("LinkedList")) {
             codexsHelperLogTermTests("ERROR ON LINKED-LIST DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
         if (linkedListValues.length != linkedListTyped.length || linkedListValues.length != linkedListCompare.size()) {
             codexsHelperLogTermTests("ERROR ON LINKED-LIST DATA COMPARE (WRONG-LENGTH)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -2017,7 +2059,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", "INDEX-"+i, true);
                 codexsHelperLogTermTests("EXPECTED....", linkedListTyped[i], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -2047,13 +2089,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2061,7 +2103,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2075,7 +2117,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -2090,7 +2132,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", "INDEX-"+i, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -2100,6 +2142,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             List<String> listCompare,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("LIST-KEYS...............", extractFields(expectedListDataTree, 0), false);
@@ -2112,7 +2157,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!listCompare.getClass().toString().contains("ArrayList") && !listCompare.getClass().toString().contains("List")) {
             codexsHelperLogTermTests("ERROR ON LIST<I> DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -2127,7 +2172,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             if (i > 0) {
                 if (arraySize != expectedListDataTree[i].length) {
                     codexsHelperLogTermTests("ERROR ON LIST DATA COMPARE (WRONG-LENGTH)", expectedListDataTree[i], true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
             }
@@ -2143,7 +2188,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", "INDEX-"+i, true);
                 codexsHelperLogTermTests("EXPECTED....", expectedListDataTree[i][2], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -2173,13 +2218,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2187,7 +2232,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2201,7 +2246,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -2216,7 +2261,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", "INDEX-"+i, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -2228,6 +2273,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             boolean strictMode
     ) {
 
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
+
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("LIST-VALUES.............", Arrays.toString(listValues), false);
         codexsHelperLogTermTests("LIST-TYPED..............", Arrays.toString(listTyped), false);
@@ -2238,13 +2286,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!listCompare.getClass().toString().contains("ArrayList") && !listCompare.getClass().toString().contains("List")) {
             codexsHelperLogTermTests("ERROR ON LIST<I> DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
         if (listValues.length != listTyped.length || listValues.length != listCompare.size()) {
             codexsHelperLogTermTests("ERROR ON LIST<I> DATA COMPARE (WRONG-LENGTH)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -2261,7 +2309,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [WRONG-TYPED]", "INDEX-"+i, true);
                 codexsHelperLogTermTests("EXPECTED....", listTyped[i], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -2291,13 +2339,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2305,7 +2353,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", "INDEX-"+i, true);
                     defaultMessage(expVal, fndVal, expType, fndType, null, null);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2319,7 +2367,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -2334,7 +2382,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", "INDEX-"+i, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -2344,6 +2392,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             LinkedHashMap<Object, Object> linkedHashMapCompare,
             boolean strictMode
     ) {
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("LINKED-HASH-MAP-KEYS....", extractFields(expectedLinkedHashMapDataTree, 0), false);
@@ -2356,7 +2407,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!linkedHashMapCompare.getClass().toString().contains("LinkedHashMap")) {
             codexsHelperLogTermTests("ERROR ON LINKED-HASH-MAP DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -2371,7 +2422,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             if (i > 0) {
                 if (arraySize != expectedLinkedHashMapDataTree[i].length) {
                     codexsHelperLogTermTests("ERROR ON LINKED-HASH-MAP DATA COMPARE (WRONG-LENGTH)", expectedLinkedHashMapDataTree[i], true);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
             }
@@ -2391,7 +2442,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [MISSING-KEY]", expectedLinkedHashMapDataTree[i][0], true);
                 codexsHelperLogTermTests("EXPECTED....", expectedLinkedHashMapDataTree[i][0], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -2423,13 +2474,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2437,7 +2488,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-NAME]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2445,7 +2496,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2459,7 +2510,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -2481,7 +2532,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expName, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }
@@ -2494,6 +2545,9 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             boolean strictMode
     ) {
 
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
+
         codexsHelperLogTermTests("======== SUMMARY =======", "", true);
         codexsHelperLogTermTests("LINKED-HASH-MAP-KEYS....", Arrays.toString(linkedHashMapKeys), false);
         codexsHelperLogTermTests("LINKED-HASH-MAP-VALUES..", Arrays.toString(linkedHashMapValues), false);
@@ -2505,13 +2559,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
 
         if (!linkedHashMapCompare.getClass().toString().contains("LinkedHashMap")) {
             codexsHelperLogTermTests("ERROR ON LINKED-HASH-MAP DATA COMPARE (WRONG-CLASS-TYPED)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
         if (linkedHashMapKeys.length != linkedHashMapValues.length || linkedHashMapKeys.length != linkedHashMapTyped.length || linkedHashMapKeys.length != linkedHashMapCompare.size()) {
             codexsHelperLogTermTests("ERROR ON LINKED-HASH-MAP DATA COMPARE (WRONG-LENGTH)", "", true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail();
         }
 
@@ -2528,7 +2582,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                 codexsHelperLogTermTests("> RESULT IS [FAIL] [CRITICAL] [MISSING-KEY]", linkedHashMapKeys[i], true);
                 codexsHelperLogTermTests("EXPECTED....", linkedHashMapKeys[i], false);
                 codexsHelperLogTermTests("RECEIVED....", null, false);
-                resulted(false);
+                resulted(false, element);
                 Assert.fail();
             }
 
@@ -2560,13 +2614,13 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     if (!isInterface(expType, fndType)) {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-TYPED]", expName, true);
                         defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                     codexsHelperLogTermTests("> RESULT IS [ABORTED] [STRICT] [WRONG-TYPED]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2574,7 +2628,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-NAME]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2582,7 +2636,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     codexsHelperLogTermTests("> RESULT IS [FAIL] [STRICT] [WRONG-VALUE]", expName, true);
                     defaultMessage(expVal, fndVal, expType, fndType, expName, fndName);
                     strictMessage(false);
-                    resulted(false);
+                    resulted(false, element);
                     Assert.fail();
                 }
 
@@ -2596,7 +2650,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
                     } else {
                         codexsHelperLogTermTests("> RESULT IS [FAIL] [NO-STRICT] [WRONG-TYPED]", "INDEX-"+i, true);
                         defaultMessage(expVal, fndVal, expType, fndType, null, null);
-                        resulted(false);
+                        resulted(false, element);
                         Assert.fail();
                     }
                 }
@@ -2618,7 +2672,7 @@ public abstract class AdvancedTests extends CodexsTesterIgnitionTests {
             }
             codexsHelperLogTermTests("> RESULT IS [OK]", expName, false);
         }
-        resulted(true);
+        resulted(true, element);
         Assert.assertTrue(true);
 
     }

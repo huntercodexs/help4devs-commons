@@ -123,6 +123,44 @@ public class Help4DevsStringHandlerService {
     }
 
     /**
+     * <h6 style="color: #FFFF00; font-size: 11px">ucFirst</h6>
+     *
+     * <p style="color: #CDCDCD">Turn Upper Case the first letter from one string</p>
+     *
+     * <p>Example</p>
+     *
+     * <blockquote><pre>
+     * String result = ucFirst("name");
+     * Result: "Name"
+     *
+     * result = ucFirst("n");
+     * Result: "N"
+     *
+     * result = ucFirst("");
+     * Result: ""
+     *
+     * result = ucFirst(null);
+     * Result: ""
+     *
+     * result = ucFirst("8automatic");
+     * Result: "8automatic"
+     * </pre></blockquote>
+     *
+     * @param input (String: Data to Convert)
+     * @return String (Data converted)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public static String ucFirst(String input) {
+        if (input == null || input.isEmpty()) return "";
+        if (input.matches("^[0-9].*$")) return input;
+        if (input.length() == 1) return input.substring(0, 1).toUpperCase();
+        String uc = input.substring(0, 1).toUpperCase();
+        String rest = input.substring(1);
+        return uc+rest;
+    }
+
+    /**
      * <h6 style="color: #FFFF00; font-size: 11px">queryStringBuilder</h6>
      *
      * <p style="color: #CDCDCD">Create a query string from Data JSON or List structures</p>

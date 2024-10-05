@@ -45,6 +45,24 @@ public class Help4DevsStringUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
+    public void ucFirstTest() {
+        String result = ucFirst("name");
+        codexsTesterAssertExact("Name", result);
+
+        result = ucFirst("n");
+        codexsTesterAssertExact("N", result);
+
+        result = ucFirst("");
+        codexsTesterAssertExact("", result);
+
+        result = ucFirst(null);
+        codexsTesterAssertExact("", result);
+
+        result = ucFirst("8automatic");
+        codexsTesterAssertExact("8automatic", result);
+    }
+
+    @Test
     public void queryStringBuilderTest() {
         String result = queryStringBuilder("[ {age: 40, gender: female},{age: 30, gender: female}]");
         codexsTesterAssertExact("age=40&gender=female&age=30&gender=female", result);

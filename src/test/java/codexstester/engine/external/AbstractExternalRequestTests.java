@@ -56,6 +56,8 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
     }
 
     private void dispatcher(RequestDto requestDto, HeadersDto headersDto, String method) {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
 
         String uri = externalUriBaseTest;
 
@@ -128,7 +130,7 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
             if (requestDto.getExpectedMessage() != null && !requestDto.getExpectedMessage().equals("")) {
                 codexsHelperLogTerm("RESPONSE[BODY] MATCH", response.getBody(), true);
                 Assert.assertEquals(requestDto.getExpectedMessage(), response.getBody());
-                resulted(true);
+                resulted(true, element);
             }
 
         } catch (HttpClientErrorException ex) {
@@ -152,7 +154,7 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
                     codexsHelperLogTerm("!!! W A R N I N G !!!", warn, false);
 
                     Assert.assertTrue(true);
-                    resulted(true);
+                    resulted(true, element);
                 }
             }
 
@@ -177,13 +179,13 @@ public abstract class AbstractExternalRequestTests extends InternalRequest1xxTes
                     codexsHelperLogTerm("!!! W A R N I N G !!!", warn, false);
 
                     Assert.assertTrue(true);
-                    resulted(true);
+                    resulted(true, element);
                 }
             }
 
         } catch (RuntimeException re) {
             codexsHelperLogTerm("RuntimeException[MESSAGE]:", re.getMessage(), true);
-            resulted(false);
+            resulted(false, element);
             Assert.fail("RuntimeException[MESSAGE]: " + re.getMessage());
         }
     }
