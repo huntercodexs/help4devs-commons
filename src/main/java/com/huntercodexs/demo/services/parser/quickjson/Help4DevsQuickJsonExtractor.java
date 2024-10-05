@@ -1,4 +1,6 @@
-package com.huntercodexs.demo.services.parser;
+package com.huntercodexs.demo.services.parser.quickjson;
+
+import static com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonAbstract.*;
 
 public class Help4DevsQuickJsonExtractor {
 
@@ -13,7 +15,7 @@ public class Help4DevsQuickJsonExtractor {
         return field != null && !field.isEmpty();
     }
 
-    private String jsonFilter(String json) {
+    private String jsonFilter(String json, String field) {
         return json
                 .replaceAll("\n", "")
                 .replaceAll("\r", "")
@@ -33,11 +35,13 @@ public class Help4DevsQuickJsonExtractor {
 
                 .replaceAll("}, \"", "},\"")
                 .replaceAll("}, \\[", "},[")
-                .replaceAll("}, \\{", "},{");
+                .replaceAll("}, \\{", "},{")
+
+                .replaceAll(JSON_FIELD_REGEXP[0].replaceFirst(TARGET, field), JSON_FIELD_REGEXP[1]);
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">standardExtractor</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">standardExtraction</h6>
      *
      * <p style="color: #CDCDCD">Retrieve the value from on specific json</p>
      *
@@ -86,15 +90,13 @@ public class Help4DevsQuickJsonExtractor {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public Object standardExtractor(Object jsonObj, String field) {
+    public Object standardExtraction(Object jsonObj, String field) {
 
         String[] split;
         String json = String.valueOf(jsonObj);
 
         String subArray1Extract = json
-                .replaceFirst(
-                        "(.*)(\""+field+ "\": ?)\\[([\"0-9a-zA-Z:}{, _+.-]+)(\"])(.*)",
-                        "[$1][$2]{@EXTRACT}[$3$4{@EXTRACT}[$5]");
+                .replaceFirst(SUB_ARRAY1_REGEXP[0].replaceFirst(TARGET, field), SUB_ARRAY1_REGEXP[1]);
 
         split = subArray1Extract.split("\\{@EXTRACT}");
 
@@ -103,9 +105,7 @@ public class Help4DevsQuickJsonExtractor {
         }
 
         String subArrayExtract = json
-                .replaceFirst(
-                        "(.*)(\""+field+ "\": ?)\\[([\"0-9a-zA-Z:}{\\]\\[, _+.-]+)(]])(.*)",
-                        "[$1][$2]{@EXTRACT}[$3$4{@EXTRACT}[$5]");
+                .replaceFirst(SUB_ARRAY2_REGEXP[0].replaceFirst(TARGET, field), SUB_ARRAY2_REGEXP[1]);
 
         split = subArrayExtract.split("\\{@EXTRACT}");
 
@@ -114,9 +114,7 @@ public class Help4DevsQuickJsonExtractor {
         }
 
         String jsonExtract = json
-                .replaceFirst(
-                        "(.*)(\""+field+"\": ?)\\{([\"0-9a-zA-Z:}{\\]\\[, _+.-]+)}(,\"[a-zA-Z][0-9a-zA-Z-_]\":)?(.*)",
-                        "[$1][$2]{@EXTRACT}{$3}{@EXTRACT}[$4][$5]");
+                .replaceFirst(JSON_REGEXP[0].replaceFirst(TARGET, field), JSON_REGEXP[1]);
 
         split = jsonExtract.split("\\{@EXTRACT}");
 
@@ -125,9 +123,7 @@ public class Help4DevsQuickJsonExtractor {
         }
 
         String arrayExtract = json
-                .replaceFirst(
-                        "(.*)(\""+field+"\": ?)\\[([\"0-9a-zA-Z, _+.-]+)](.*)",
-                        "[$1][$2]{@EXTRACT}[$3]{@EXTRACT}[$4]");
+                .replaceFirst(ARRAY_REGEXP[0].replaceFirst(TARGET, field), ARRAY_REGEXP[1]);
 
         split = arrayExtract.split("\\{@EXTRACT}");
 
@@ -135,9 +131,7 @@ public class Help4DevsQuickJsonExtractor {
             return split[1];
         }
 
-        String dataExtract = json.replaceFirst(
-                "(,\"" + field + "\"): ?\"?([0-9a-zA-Z .}{\\]\\[)(@#!&*|/$%_+-]+)\"?,? ?",
-                "$1{@EXTRACT}$2");
+        String dataExtract = json.replaceFirst(STR_REGEXP[0].replaceFirst(TARGET, field), STR_REGEXP[1]);
 
         split = dataExtract.split("\\{@EXTRACT}");
 
@@ -154,7 +148,7 @@ public class Help4DevsQuickJsonExtractor {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">advancedExtractor</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">smartExtraction</h6>
      *
      * <p style="color: #CDCDCD">Retrieve the value from on specific json - Strict</p>
      *
@@ -174,14 +168,24 @@ public class Help4DevsQuickJsonExtractor {
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public Object advancedExtractor(String json, String field) {
+    public Object smartExtraction(String json, String field) {
 
         if (!jsonOk(json, field) || !fieldOk(field)) return "";
 
-        json = jsonFilter(json);
+        json = jsonFilter(json, field);
 
         int pos = json.indexOf("\""+field+"\":");
         int len = ("\""+field+"\":").length();
+
+        System.out.println("===[pos-1]> " + pos);
+
+        // No primary field
+        if (pos > 1 && String.valueOf(json.charAt(pos-1)).equals("{")) {
+            pos = json.indexOf(",\""+field+"\":");
+            len = (",\""+field+"\":").length();
+            System.out.println("===[pos-2]> " + pos);
+        }
+
         int tot = pos + len;
 
         boolean isIntOn = false;
@@ -189,8 +193,8 @@ public class Help4DevsQuickJsonExtractor {
         boolean isJsonOn = false;
         boolean isArrayOn = false;
 
-        boolean arrayTest = false;
-        boolean jsonTest = false;
+        boolean arrayTest = true;
+        boolean jsonTest = true;
 
         StringBuilder result = new StringBuilder();
 
@@ -204,6 +208,8 @@ public class Help4DevsQuickJsonExtractor {
 
             //Array
             if ((ch4r.equals("[") || isArrayOn) && arrayTest) {
+
+                System.out.println("=======++> ARRAY");
 
                 if (ch4r.equals("[") && !prevChar.equals("\\")) {
                     arrayOpenCounter += 1;
@@ -225,6 +231,8 @@ public class Help4DevsQuickJsonExtractor {
             //JSON
             if ((ch4r.equals("{") || isJsonOn) && jsonTest) {
 
+                System.out.println("=======++> JSON");
+
                 if (ch4r.equals("{") && !prevChar.equals("\\")) {
                     jsonOpenCounter += 1;
                 } else if (ch4r.equals("}") && !prevChar.equals("\\")) {
@@ -245,6 +253,8 @@ public class Help4DevsQuickJsonExtractor {
             //String
             if (ch4r.equals("\"") || isStringOn) {
 
+                System.out.println("=======++> STRING");
+
                 //isStringOn = false
                 if (ch4r.equals("\"") && isStringOn && !prevChar.equals("\\")) {
                     break;
@@ -260,6 +270,8 @@ public class Help4DevsQuickJsonExtractor {
             }
             //Integer
             if (ch4r.matches("^[0-9]$") || isIntOn) {
+
+                System.out.println("=======++> INTEGER");
 
                 //isIntOn = false
                 if (!ch4r.matches("^[0-9]$")) {

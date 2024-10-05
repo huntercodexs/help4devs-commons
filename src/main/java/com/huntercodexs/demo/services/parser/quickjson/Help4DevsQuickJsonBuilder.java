@@ -1,4 +1,4 @@
-package com.huntercodexs.demo.services.parser;
+package com.huntercodexs.demo.services.parser.quickjson;
 
 import org.springframework.util.ReflectionUtils;
 
@@ -90,7 +90,7 @@ public class Help4DevsQuickJsonBuilder {
             for (Field field : fields) {
 
                 String currentField = field.getName();
-                Object fieldValue = this.qjExtract.standardExtractor(jsonData, currentField);
+                Object fieldValue = this.qjExtract.standardExtraction(jsonData, currentField);
 
                 if (fieldValue == null && this.strictMode) {
                     throw new RuntimeException("Invalid data to mapper, field not found: " + currentField);

@@ -1,4 +1,4 @@
-package com.huntercodexs.demo.services.parser;
+package com.huntercodexs.demo.services.parser.quickjson;
 
 import java.util.HashMap;
 

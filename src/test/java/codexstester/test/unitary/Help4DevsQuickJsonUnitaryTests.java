@@ -2,9 +2,9 @@ package codexstester.test.unitary;
 
 import codexstester.setup.bridge.Help4DevsBridgeTests;
 import com.huntercodexs.demo.dto.QuickJsonDto;
-import com.huntercodexs.demo.services.parser.Help4DevsQuickJson;
-import com.huntercodexs.demo.services.parser.Help4DevsQuickJsonBuilder;
-import com.huntercodexs.demo.services.parser.Help4DevsQuickJsonExtractor;
+import com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJson;
+import com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonBuilder;
+import com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonExtractor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -297,97 +297,32 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
 
         String result = qj.json();
 
-        Object extract = qjExtractor.standardExtractor(result, "name");
+        Object extract = qjExtractor.standardExtraction(result, "name");
         codexsTesterAssertExact("John", String.valueOf(extract));
 
-        extract = qjExtractor.standardExtractor(result, "lastname");
+        extract = qjExtractor.standardExtraction(result, "lastname");
         codexsTesterAssertExact("Smith", String.valueOf(extract));
 
-        extract = qjExtractor.standardExtractor(result, "fullname");
+        extract = qjExtractor.standardExtraction(result, "fullname");
         codexsTesterAssertExact("John Smith Viz", String.valueOf(extract));
 
-        extract = qjExtractor.standardExtractor(result, "age");
+        extract = qjExtractor.standardExtraction(result, "age");
         codexsTesterAssertInt(35, Integer.parseInt(String.valueOf(extract)));
 
-        extract = qjExtractor.standardExtractor(result, "address");
+        extract = qjExtractor.standardExtraction(result, "address");
         codexsTesterAssertExact("[\"Street 1\", 200, \"New York City\"]", String.valueOf(extract));
 
-        extract = qjExtractor.standardExtractor(result, "contacts");
+        extract = qjExtractor.standardExtraction(result, "contacts");
         codexsTesterAssertExact("[12345678, 98789789, 12424242]", String.valueOf(extract));
 
-        extract = qjExtractor.standardExtractor(result, "reference");
+        extract = qjExtractor.standardExtraction(result, "reference");
         codexsTesterAssertExact("{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}", String.valueOf(extract));
 
-        extract = qjExtractor.standardExtractor(result, "family");
+        extract = qjExtractor.standardExtraction(result, "family");
         codexsTesterAssertExact("[\"mother\", \"July Smith\", \"father\", \"Luis Smith\", [\"brother\", \"Igor Smith\", \"age\", 24], [\"sister\", \"Elen Smith\", \"age\", 22]]", String.valueOf(extract));
 
-        extract = qjExtractor.standardExtractor(result, "map");
+        extract = qjExtractor.standardExtraction(result, "map");
         codexsTesterAssertExact("{\"map3\":[\"Array 1\", \"Array 2\", 222, \"Array 3\"], \"map2\":345, \"map1\":\"Map 1 Value Test\"}", String.valueOf(extract));
-    }
-
-    @Test
-    public void advancedExtractorTest() {
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("map1", "Map 1 Value Test");
-        map.put("map2", 345);
-        map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
-
-        qj.setStdoutOn(false);
-        qj.add("name", "John");
-        qj.add("lastname", "Smith");
-        qj.add("fullname", "John Smith Viz");
-        qj.add("age", 35);
-        qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
-        qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
-        qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
-        qj.add("family",
-                Arrays.asList(
-                        "mother", "July Smith",
-                        "father", "Luis Smith",
-                        Arrays.asList(
-                                "sister", "Elen Smith", "age", 22
-                        ),
-                        Arrays.asList(
-                                "brother", "Igor Smith", "age", 24
-                        )
-                )
-        );
-        qj.add("map", map);
-
-        String result = qj.json();
-        System.out.println(result);
-
-        Object extract = qjExtractor.advancedExtractor(result, "notExist");
-        codexsTesterAssertExact("", String.valueOf(extract));
-
-        extract = qjExtractor.advancedExtractor(result, "name");
-        System.out.println(extract);
-//        codexsTesterAssertExact("John", String.valueOf(extract));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "lastname");
-//        codexsTesterAssertExact("Smith", String.valueOf(extract));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "fullname");
-//        codexsTesterAssertExact("John Smith Viz", String.valueOf(extract));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "age");
-//        codexsTesterAssertInt(35, Integer.parseInt(String.valueOf(extract)));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "address");
-//        codexsTesterAssertExact("[\"Street 1\", 200, \"New York City\"]", String.valueOf(extract));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "contacts");
-//        codexsTesterAssertExact("[12345678, 98789789, 12424242]", String.valueOf(extract));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "reference");
-//        codexsTesterAssertExact("{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}", String.valueOf(extract));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "family");
-//        codexsTesterAssertExact("[\"mother\", \"July Smith\", \"father\", \"Luis Smith\", [\"brother\", \"Igor Smith\", \"age\", 24], [\"sister\", \"Elen Smith\", \"age\", 22]]", String.valueOf(extract));
-//
-//        extract = Help4DevsQuickJsonService.advancedExtractor(result, "map");
-//        codexsTesterAssertExact("{\"map3\":[\"Array 1\", \"Array 2\", 222, \"Array 3\"], \"map2\":345, \"map1\":\"Map 1 Value Test\"}", String.valueOf(extract));
     }
 
     @Test
@@ -471,6 +406,73 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
                 "\t],\n" +
                 "\t\"lastname\":\"Smith\"\n" +
                 "}", result);
+    }
+
+    @Test
+    public void advancedExtractorTest() {
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("map1", "Map 1 Value Test");
+        map.put("map2", 345);
+        map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
+
+        qj.setStdoutOn(false);
+        qj.add("name", "John");
+        qj.add("lastname", "Smith");
+        qj.add("fullname", "John Smith Viz");
+        qj.add("age", 35);
+        qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+        qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+        qj.add("reference", "{\"parental\":\"mother\",\"name\":\"Sarah Wiz\",\"alias\":\"mom\"}");
+        qj.add("family",
+                Arrays.asList(
+                        "mother", "July Smith",
+                        "father", "Luis Smith",
+                        Arrays.asList(
+                                "sister", "Elen Smith", "age", 22
+                        ),
+                        Arrays.asList(
+                                "brother", "Igor Smith", "age", 24
+                        )
+                )
+        );
+        qj.add("map", map);
+
+        String result = qj.json();
+        System.out.println(result);
+
+        Object extract;
+
+        extract = qjExtractor.smartExtraction(result, "notExist");
+        codexsTesterAssertExact("", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "name");
+        codexsTesterAssertExact("John", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "lastname");
+        codexsTesterAssertExact("Smith", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "fullname");
+        codexsTesterAssertExact("John Smith Viz", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "age");
+        codexsTesterAssertInt(35, Integer.parseInt(String.valueOf(extract)));
+
+        extract = qjExtractor.smartExtraction(result, "address");
+        codexsTesterAssertExact("[\"Street 1\", 200, \"New York City\"]", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "contacts");
+        codexsTesterAssertExact("[12345678, 98789789, 12424242]", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "reference");
+        codexsTesterAssertExact("{\"parental\":\"mother\",\"name\":\"Sarah Wiz\",\"alias\":\"mom\"}", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "family");
+        codexsTesterAssertExact("[\"mother\",\"July Smith\",\"father\",\"Luis Smith\",[\"brother\",\"Igor Smith\",\"age\", 24],[\"sister\",\"Elen Smith\",\"age\", 22]]", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "map");
+        codexsTesterAssertExact("{\"map3\":[\"Array 1\",\"Array 2\", 222, \"Array 3\"],\"map2\":345, \"map1\":\"Map 1 Value Test\"}", String.valueOf(extract));
+
     }
 
     @Test
