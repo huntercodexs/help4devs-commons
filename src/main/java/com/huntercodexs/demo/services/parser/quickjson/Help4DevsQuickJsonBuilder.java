@@ -22,7 +22,7 @@ public class Help4DevsQuickJsonBuilder {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">mapper</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">build</h6>
      *
      * <p style="color: #CDCDCD">Convert data from any Object to JSON String format</p>
      *
@@ -39,21 +39,21 @@ public class Help4DevsQuickJsonBuilder {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
      *     HashMap<String, Object> map = new HashMap<>();
      *     map.put("map1", "Map 1 Value Test");
      *     map.put("map2", 345);
      *     map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
      *
-     *     quickJson.setStrictMode(false);
-     *     quickJson.add("name", "John");
-     *     quickJson.add("lastname", "Smith");
-     *     quickJson.add("fullname", "John Smith Viz");
-     *     quickJson.add("age", 35);
-     *     quickJson.add("address", Arrays.asList("Street 1", "200", "New York City"));
-     *     quickJson.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
-     *     quickJson.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
-     *     quickJson.add("family",
+     *     qj.setStrictMode(false);
+     *     qj.add("name", "John");
+     *     qj.add("lastname", "Smith");
+     *     qj.add("fullname", "John Smith Viz");
+     *     qj.add("age", 35);
+     *     qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+     *     qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+     *     qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
+     *     qj.add("family",
      *             Arrays.asList(
      *                     "mother", "July Smith",
      *                     "father", "Luis Smith",
@@ -65,11 +65,11 @@ public class Help4DevsQuickJsonBuilder {
      *                     )
      *             )
      *     );
-     *     quickJson.add("map", map);
+     *     qj.add("map", map);
      *
-     *     String result = quickJson.json();
+     *     String result = qj.json();
      *
-     *     QuickJsonDto mapper = (QuickJsonDto) quickJson.mapper(QuickJsonDto.class, result);
+     *     QuickJsonDto mapper = (QuickJsonDto) qj.mapper(QuickJsonDto.class, result);
      *
      *     System.out.println(mapper);
      * }
@@ -154,7 +154,7 @@ public class Help4DevsQuickJsonBuilder {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">mapper</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">build</h6>
      *
      * <p style="color: #CDCDCD">Convert data from any JSON String to Object</p>
      *

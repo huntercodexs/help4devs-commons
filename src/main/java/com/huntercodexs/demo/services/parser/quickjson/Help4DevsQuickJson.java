@@ -118,9 +118,9 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.print();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.print();
      * }
      * </pre></blockquote>
      *
@@ -147,9 +147,9 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.addAll("name", "John", "lastname", "Smith");
-     *     quickJson.print();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.addAll("name", "John", "lastname", "Smith");
+     *     qj.print();
      * }
      * </pre></blockquote>
      *
@@ -180,10 +180,10 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.remove("name");
-     *     quickJson.print();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.remove("name");
+     *     qj.print();
      * }
      * </pre></blockquote>
      *
@@ -204,10 +204,10 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.clear();
-     *     quickJson.print();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.clear();
+     *     qj.print();
      * }
      * </pre></blockquote>
      *
@@ -227,10 +227,10 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.update("name", "Mary");
-     *     quickJson.print();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.update("name", "Mary");
+     *     qj.print();
      * }
      * </pre></blockquote>
      *
@@ -252,9 +252,9 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     Object result = quickJson.get("name");
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     Object result = qj.get("name");
      *     System.out.println(result);
      * }
      * </pre></blockquote>
@@ -279,14 +279,14 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.add("lastname", "Smith");
-     *     quickJson.add("age", 35);
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.add("lastname", "Smith");
+     *     qj.add("age", 35);
      *
-     *     quickJson.create(null);
+     *     qj.create(null);
      *
-     *     String result = quickJson.json();
+     *     String result = qj.json();
      *     System.out.println(result);
      * }
      * </pre></blockquote>
@@ -332,14 +332,14 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.add("lastname", "Smith");
-     *     quickJson.add("age", 35);
-     *     quickJson.add("address", Arrays.asList("Street 1", "200", "New York City"));
-     *     quickJson.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
-     *     quickJson.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
-     *     quickJson.add("family",
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.add("lastname", "Smith");
+     *     qj.add("age", 35);
+     *     qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+     *     qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+     *     qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
+     *     qj.add("family",
      *          Arrays.asList(
      *              "mother", "July Smith",
      *              "father", "Luis Smith",
@@ -352,7 +352,7 @@ public class Help4DevsQuickJson {
      *          )
      *     );
      *
-     *     String result = quickJson.json();
+     *     String result = qj.json();
      *     System.out.println(result);
      * }
      * </pre></blockquote>
@@ -410,9 +410,9 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.print();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.print();
      * }
      * </pre></blockquote>
      *
@@ -443,15 +443,15 @@ public class Help4DevsQuickJson {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.add("lastname", "Smith");
-     *     quickJson.add("fullname", "John Smith Viz");
-     *     quickJson.add("age", 35);
-     *     quickJson.add("address", Arrays.asList("Street 1", "200", "New York City"));
-     *     quickJson.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
-     *     quickJson.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\",\"contact\":{\"phone\":\"1234567890\",\"email\":\"john@email.com\"}}");
-     *     quickJson.add("family",
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     qj.add("name", "John");
+     *     qj.add("lastname", "Smith");
+     *     qj.add("fullname", "John Smith Viz");
+     *     qj.add("age", 35);
+     *     qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+     *     qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+     *     qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\",\"contact\":{\"phone\":\"1234567890\",\"email\":\"john@email.com\"}}");
+     *     qj.add("family",
      *             Arrays.asList(
      *                     "mother", "July Smith",
      *                     "father", "Luis Smith",
@@ -464,7 +464,7 @@ public class Help4DevsQuickJson {
      *             )
      *     );
      *
-     *     String result = quickJson.prettify();
+     *     String result = qj.prettify();
      *     System.out.println(result);
      * }
      * </pre></blockquote>

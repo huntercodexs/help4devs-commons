@@ -162,7 +162,7 @@ public class Help4DevsQuickJsonExtractor {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService qj = new Help4DevsQuickJsonService();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
      *     Help4DevsQuickJsonExtractor qjExtractor = new Help4DevsQuickJsonExtractor();
      *
      *     HashMap<String, Object> map = new HashMap<>();
@@ -279,7 +279,7 @@ public class Help4DevsQuickJsonExtractor {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService qj = new Help4DevsQuickJsonService();
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
      *     Help4DevsQuickJsonExtractor qjExtractor = new Help4DevsQuickJsonExtractor();
      *
      *     HashMap<String, Object> map = new HashMap<>();

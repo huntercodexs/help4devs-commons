@@ -257,4 +257,5 @@ public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
 
         System.out.println("Result: " + result);
     }
+
 }
