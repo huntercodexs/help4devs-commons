@@ -135,8 +135,8 @@ public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
             "}";
 
         String[] fields = new String[]{"contacts", "address", "parental", "name", "zNumber", "age"};
-        String field = fields[0];
-        boolean arrayTest = true;
+        String field = fields[3];
+        boolean arrayTest = false;
         boolean jsonTest = false;
 
         json = json

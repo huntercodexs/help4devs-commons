@@ -4,7 +4,28 @@ import static com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJson
 
 public class Help4DevsQuickJsonExtractor {
 
+    private int position;
+    private int length;
+    private int total;
+
+    private int jsonOpenCounter = 0;
+    private int arrayOpenCounter = 0;
+
+    private String json = "";
+    private String ch4r = "";
+    private String prevChar = "";
+    private StringBuilder result = new StringBuilder();
+
     public Help4DevsQuickJsonExtractor() {
+    }
+
+    private void reset() {
+        this.json = "";
+        this.ch4r = "";
+        this.prevChar = "";
+        this.jsonOpenCounter = 0;
+        this.arrayOpenCounter = 0;
+        this.result = new StringBuilder();
     }
 
     private boolean jsonOk(String json, String field) {
@@ -40,6 +61,98 @@ public class Help4DevsQuickJsonExtractor {
                 .replaceAll(JSON_FIELD_REGEXP[0].replaceFirst(TARGET, field), JSON_FIELD_REGEXP[1]);
     }
 
+    private void arrayExtract() {
+
+        for (int i = this.total; i < this.json.length(); i++) {
+
+            this.ch4r = String.valueOf(json.charAt(i));
+
+            if (this.ch4r.equals("[") && !this.prevChar.equals("\\")) {
+                this.arrayOpenCounter += 1;
+            } else if (this.ch4r.equals("]") && !this.prevChar.equals("\\")) {
+                this.arrayOpenCounter -= 1;
+            }
+
+            if (this.arrayOpenCounter == 0) {
+                this.result.append(this.json.charAt(i));
+                break;
+            }
+
+            this.result.append(this.json.charAt(i));
+            this.prevChar = this.ch4r;
+
+        }
+
+        if (this.arrayOpenCounter > 0) {
+            throw new RuntimeException("Critical Error - Invalid Array: " + this.result);
+        }
+
+    }
+
+    private void jsonExtract() {
+
+        for (int i = this.total; i < this.json.length(); i++) {
+
+            this.ch4r = String.valueOf(this.json.charAt(i));
+
+            if (this.ch4r.equals("{") && !this.prevChar.equals("\\")) {
+                this.jsonOpenCounter += 1;
+            } else if (this.ch4r.equals("}") && !this.prevChar.equals("\\")) {
+                this.jsonOpenCounter -= 1;
+            }
+
+            if (this.jsonOpenCounter == 0) {
+                this.result.append(this.json.charAt(i));
+                break;
+            }
+
+            this.result.append(this.json.charAt(i));
+            this.prevChar = this.ch4r;
+
+        }
+
+        if (this.arrayOpenCounter > 0) {
+            throw new RuntimeException("Critical Error - Invalid JSON: " + this.result);
+        }
+
+    }
+
+    private void strExtract() {
+
+        for (int i = this.total; i < this.json.length(); i++) {
+
+            this.ch4r = String.valueOf(this.json.charAt(i));
+
+            if (i > this.total && this.ch4r.equals("\"") && !this.prevChar.equals("\\")) {
+                break;
+            }
+
+            if (!this.ch4r.equals("\"") && !this.ch4r.equals("\\") || this.prevChar.equals("\\")) {
+                this.result.append(this.json.charAt(i));
+            }
+
+            this.prevChar = this.ch4r;
+
+        }
+
+    }
+
+    private void intExtract() {
+
+        for (int i = this.total; i < this.json.length(); i++) {
+
+            this.ch4r = String.valueOf(this.json.charAt(i));
+
+            if (!this.ch4r.matches("^[0-9]$")) {
+                break;
+            }
+
+            this.result.append(this.json.charAt(i));
+
+        }
+
+    }
+
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">standardExtraction</h6>
      *
@@ -49,37 +162,47 @@ public class Help4DevsQuickJsonExtractor {
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
-     *     quickJson.add("name", "John");
-     *     quickJson.add("lastname", "Smith");
-     *     quickJson.add("fullname", "John Smith Viz");
-     *     quickJson.add("age", 35);
-     *     quickJson.add("address", Arrays.asList("Street 1", "200", "New York City"));
-     *     quickJson.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
-     *     quickJson.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
-     *     quickJson.add("family",
-     *             Arrays.asList(
-     *                     "mother", "July Smith",
-     *                     "father", "Luis Smith",
-     *                     Arrays.asList(
-     *                             "sister", "Elen Smith", "age", 22
-     *                     ),
-     *                     Arrays.asList(
-     *                             "brother", "Igor Smith", "age", 24
-     *                     )
-     *             )
-     *     );
+     *     Help4DevsQuickJsonService qj = new Help4DevsQuickJsonService();
+     *     Help4DevsQuickJsonExtractor qjExtractor = new Help4DevsQuickJsonExtractor();
      *
-     *     String result = quickJson.json();
-     *     Object extract = Help4DevsQuickJsonService.extract(result, "name");
-     *     extract = Help4DevsQuickJsonService.extract(result, "lastname");
-     *     extract = Help4DevsQuickJsonService.extract(result, "fullname");
-     *     extract = Help4DevsQuickJsonService.extract(result, "age");
-     *     extract = Help4DevsQuickJsonService.extract(result, "address");
-     *     extract = Help4DevsQuickJsonService.extract(result, "contacts");
-     *     extract = Help4DevsQuickJsonService.extract(result, "reference");
-     *     extract = Help4DevsQuickJsonService.extract(result, "family");
-     *     extract = Help4DevsQuickJsonService.extract(result, "map");
+     *     HashMap<String, Object> map = new HashMap<>();
+     *     map.put("map1", "Map 1 Value Test");
+     *     map.put("map2", 345);
+     *     map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
+     *
+     *     qj.setStdoutOn(false);
+     *     qj.add("name", "John");
+     *     qj.add("lastname", "Smith");
+     *     qj.add("fullname", "John Smith Viz");
+     *     qj.add("age", 35);
+     *     qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+     *     qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+     *     qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
+     *     qj.add("family",
+     *                 Arrays.asList(
+     *                         "mother", "July Smith",
+     *                         "father", "Luis Smith",
+     *                         Arrays.asList(
+     *                                 "sister", "Elen Smith", "age", 22
+     *                         ),
+     *                         Arrays.asList(
+     *                                 "brother", "Igor Smith", "age", 24
+     *                         )
+     *                 )
+     *         );
+     *     qj.add("map", map);
+     *
+     *     String result = qj.json();
+     *
+     *     Object extract = qjExtractor.standardExtraction(result, "name");
+     *     extract = qjExtractor.standardExtraction(result, "lastname");
+     *     extract = qjExtractor.standardExtraction(result, "fullname");
+     *     extract = qjExtractor.standardExtraction(result, "age");
+     *     extract = qjExtractor.standardExtraction(result, "address");
+     *     extract = qjExtractor.standardExtraction(result, "contacts");
+     *     extract = qjExtractor.standardExtraction(result, "reference");
+     *     extract = qjExtractor.standardExtraction(result, "family");
+     *     extract = qjExtractor.standardExtraction(result, "map");
      *
      * }
      * </pre></blockquote>
@@ -150,15 +273,58 @@ public class Help4DevsQuickJsonExtractor {
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">smartExtraction</h6>
      *
-     * <p style="color: #CDCDCD">Retrieve the value from on specific json - Strict</p>
-     *
-     * <p>This method </p>
+     * <p style="color: #CDCDCD">Retrieve the value from on specific json using advanced method</p>
      *
      * <p>Example</p>
      *
      * <blockquote><pre>
      * public void test() {
-     *     Help4DevsQuickJsonService quickJson = new Help4DevsQuickJsonService();
+     *     Help4DevsQuickJsonService qj = new Help4DevsQuickJsonService();
+     *     Help4DevsQuickJsonExtractor qjExtractor = new Help4DevsQuickJsonExtractor();
+     *
+     *     HashMap<String, Object> map = new HashMap<>();
+     *         map.put("map1", "Map 1 Value Test");
+     *         map.put("map2", 345);
+     *         map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
+     *
+     *         qj.setStdoutOn(false);
+     *         qj.add("name", "John");
+     *         qj.add("lastname", "Smith");
+     *         qj.add("fullname", "John Smith Viz \\\"Don\\\"");
+     *         qj.add("age", 35);
+     *         qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+     *         qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+     *         qj.add("reference", "{\"parental\":\"mother\",\"name\":\"Sarah Wiz\",\"alias\":\"mom\"}");
+     *         qj.add("family",
+     *                 Arrays.asList(
+     *                         "mother", "July Smith",
+     *                         "father", "Luis Smith",
+     *                         Arrays.asList(
+     *                                 "sister", "Elen Smith", "age", 22
+     *                         ),
+     *                         Arrays.asList(
+     *                                 "brother", "Igor Smith", "age", 24
+     *                         )
+     *                 )
+     *         );
+     *         qj.add("map", map);
+     *
+     *         String result = qj.json();
+     *         System.out.println(result);
+     *
+     *         Object extract;
+     *
+     *         extract = qjExtractor.smartExtraction(result, "notExist");
+     *         extract = qjExtractor.smartExtraction(result, "age");
+     *         extract = qjExtractor.smartExtraction(result, "name");
+     *         extract = qjExtractor.smartExtraction(result, "lastname");
+     *         extract = qjExtractor.smartExtraction(result, "fullname");
+     *         extract = qjExtractor.smartExtraction(result, "address");
+     *         extract = qjExtractor.smartExtraction(result, "contacts");
+     *         extract = qjExtractor.smartExtraction(result, "reference");
+     *         extract = qjExtractor.smartExtraction(result, "family");
+     *         extract = qjExtractor.smartExtraction(result, "map");
+     *
      * }
      * </pre></blockquote>
      *
@@ -170,121 +336,49 @@ public class Help4DevsQuickJsonExtractor {
      * */
     public Object smartExtraction(String json, String field) {
 
+        this.reset();
+
         if (!jsonOk(json, field) || !fieldOk(field)) return "";
 
-        json = jsonFilter(json, field);
+        this.json = jsonFilter(json, field);
+        this.position = this.json.indexOf("\""+field+"\":");
+        this.length = ("\""+field+"\":").length();
 
-        int pos = json.indexOf("\""+field+"\":");
-        int len = ("\""+field+"\":").length();
-
-        System.out.println("===[pos-1]> " + pos);
-
-        // No primary field
-        if (pos > 1 && String.valueOf(json.charAt(pos-1)).equals("{")) {
-            pos = json.indexOf(",\""+field+"\":");
-            len = (",\""+field+"\":").length();
-            System.out.println("===[pos-2]> " + pos);
+        /*
+         * When not is primary field in the JSON or String, for example:
+         * Suppose that you are trying to retrieve one field called "name", and the JSON String is:
+         *
+         * {"person":{"name":"Mary Viz"}}
+         *
+         * According to the string above the field "name" is not a primary field, so you need to get
+         * the value from "person" field firstly and so get the "name" inside the value from "person"
+         */
+        if (this.position > 1 && String.valueOf(this.json.charAt(this.position -1)).equals("{")) {
+            this.position = this.json.indexOf(",\""+field+"\":");
+            this.length = (",\""+field+"\":").length();
         }
 
-        int tot = pos + len;
+        this.total = this.position + this.length;
+        this.ch4r = String.valueOf(this.json.charAt(this.total));
 
-        boolean isIntOn = false;
-        boolean isStringOn = false;
-        boolean isJsonOn = false;
-        boolean isArrayOn = false;
-
-        boolean arrayTest = true;
-        boolean jsonTest = true;
-
-        StringBuilder result = new StringBuilder();
-
-        int jsonOpenCounter = 0;
-        int arrayOpenCounter = 0;
-
-        String prevChar = "";
-
-        for (int i = tot; i < json.length(); i++) {
-            String ch4r = String.valueOf(json.charAt(i));
-
-            //Array
-            if ((ch4r.equals("[") || isArrayOn) && arrayTest) {
-
-                System.out.println("=======++> ARRAY");
-
-                if (ch4r.equals("[") && !prevChar.equals("\\")) {
-                    arrayOpenCounter += 1;
-                } else if (ch4r.equals("]") && !prevChar.equals("\\")) {
-                    arrayOpenCounter -= 1;
-                }
-
-                //isArrayOn = false
-                if (arrayOpenCounter == 0 && isArrayOn) {
-                    result.append(json.charAt(i));
-                    break;
-                }
-
-                isArrayOn = true;
-                result.append(json.charAt(i));
-                prevChar = ch4r;
-                continue;
-            }
-            //JSON
-            if ((ch4r.equals("{") || isJsonOn) && jsonTest) {
-
-                System.out.println("=======++> JSON");
-
-                if (ch4r.equals("{") && !prevChar.equals("\\")) {
-                    jsonOpenCounter += 1;
-                } else if (ch4r.equals("}") && !prevChar.equals("\\")) {
-                    jsonOpenCounter -= 1;
-                }
-
-                //isJsonOn = false
-                if (jsonOpenCounter == 0 && isJsonOn) {
-                    result.append(json.charAt(i));
-                    break;
-                }
-
-                isJsonOn = true;
-                result.append(json.charAt(i));
-                prevChar = ch4r;
-                continue;
-            }
-            //String
-            if (ch4r.equals("\"") || isStringOn) {
-
-                System.out.println("=======++> STRING");
-
-                //isStringOn = false
-                if (ch4r.equals("\"") && isStringOn && !prevChar.equals("\\")) {
-                    break;
-                }
-
-                if (!ch4r.equals("\"") && !ch4r.equals("\\") || prevChar.equals("\\")) {
-                    result.append(json.charAt(i));
-                }
-
-                isStringOn = true;
-                prevChar = ch4r;
-                continue;
-            }
-            //Integer
-            if (ch4r.matches("^[0-9]$") || isIntOn) {
-
-                System.out.println("=======++> INTEGER");
-
-                //isIntOn = false
-                if (!ch4r.matches("^[0-9]$")) {
-                    break;
-                }
-
-                isIntOn = true;
-                result.append(json.charAt(i));
-                continue;
-            }
+        //Array
+        if (this.ch4r.equals("[")) {
+            arrayExtract();
+        }
+        //JSON
+        else if (this.ch4r.equals("{")) {
+            jsonExtract();
+        }
+        //String
+        else if (this.ch4r.equals("\"")) {
+            strExtract();
+        }
+        //Integer
+        else if (this.ch4r.matches("^[0-9]$")) {
+            intExtract();
         }
 
-        return String.valueOf(result);
+        return String.valueOf(this.result);
     }
 
 }
