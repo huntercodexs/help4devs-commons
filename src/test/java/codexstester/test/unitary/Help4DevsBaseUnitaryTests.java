@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsBaseService.params;
@@ -256,6 +257,90 @@ public class Help4DevsBaseUnitaryTests extends Help4DevsBridgeTests {
         }
 
         System.out.println("Result: " + result);
+    }
+
+    @Test
+    public void regExpTest() {
+
+        String json = "{\"arr1\":[\"Array 1\",\"Array 2\",222,\"Array 31\"],\"map1\":{\"name\":\"Sarah Wiz\",\"parental\":\"friend1\"}, \"arr2\":[\"Array 1\",\"Array 2\",222,\"Array 32\"],\"map2\":345,\"map3\":{\"name\":\"Sarah Wiz\",\"parental\":\"friend2\"},\"map4\":\"Map 1 Value Test\",\"map5\":{\"name\":\"Sarah Wiz\",\"parental\":\"friend3\"},\"arr3\":[\"Array 1\",\"Array 2\",222,\"Array 33\"]}";
+
+        final String JSON_PATTERN = "(:\\{((\"[_a-zA-Z][_0-9a-zA-Z]+\")(:)(\"?[0-9a-zA-Z .\\]\\[)(@#!&*|/$%_+-]+\"?(,?)))+})";
+
+        final String ARRAY_PATTERN = "(:\\[((\"?[0-9a-zA-Z .\\)\\(@#!&*|/$%_+-]+\"?(,?)))+])";
+
+        //////////////////////////////////////////ARRAY/////////////////////////////////////////////////
+
+        int arrayCounter = 0;
+        List<Object> arrayData = new ArrayList<>();
+        List<Object> arraySave = new ArrayList<>();
+
+        while (true) {
+            arrayCounter += 1;
+
+            if (!json.matches(".*"+ARRAY_PATTERN+".*")) {
+                break;
+            }
+
+            arrayData.add(json.replaceFirst(ARRAY_PATTERN+".*", "$1"));
+            json = json.replaceFirst(ARRAY_PATTERN, ":@ARRAYOBJECT"+arrayCounter+"@");
+        }
+
+        for (Object value : arrayData) {
+            arraySave.add(value.toString().replaceFirst(".*"+ARRAY_PATTERN, "$1").replaceFirst(":", ""));
+        }
+
+        ////////////////////////////////////////JSON///////////////////////////////////////////////////
+
+        int jsonCounter = 0;
+        List<Object> jsonData = new ArrayList<>();
+        List<Object> jsonSave = new ArrayList<>();
+
+        while (true) {
+            jsonCounter += 1;
+
+            if (!json.matches(".*"+JSON_PATTERN+".*")) {
+                break;
+            }
+
+            jsonData.add(json.replaceFirst(JSON_PATTERN+".*", "$1"));
+            json = json.replaceFirst(JSON_PATTERN, ":@JSONOBJECT"+jsonCounter+"@");
+        }
+
+        for (Object value : jsonData) {
+            jsonSave.add(value.toString().replaceFirst(".*"+JSON_PATTERN, "$1").replaceFirst(":", ""));
+        }
+
+        ///////////////////////////////////FINISH////////////////////////////////////////////////
+
+        System.out.println("JSON: " + json);
+
+        jsonCounter = 1;
+        arrayCounter = 1;
+        String[] jsonFields = json.replaceFirst("\\{", "").replaceFirst("}", "").split(",");
+        HashMap<Object, Object> hashMap = new HashMap<>();
+
+        for (int i = 0; i < jsonFields.length; i++) {
+
+            String[] keyValue = jsonFields[i].split(":");
+            String jf = keyValue[0].trim().replaceFirst("^\"", "").replaceFirst("\"$", "");
+            String jv = keyValue[1].trim().replaceFirst("^\"", "").replaceFirst("\"$", "");
+
+            if (jv.contains("@JSONOBJECT"+jsonCounter+"@")) {
+                jv = jv.replaceFirst(jv, String.valueOf(jsonSave.get(jsonCounter-1)));
+                jsonCounter+=1;
+            } else if (jv.contains("@ARRAYOBJECT"+arrayCounter+"@")) {
+                jv = jv.replaceFirst(jv, String.valueOf(arraySave.get(arrayCounter-1)));
+                arrayCounter+=1;
+            }
+
+            hashMap.put(jf, jv);
+        }
+
+        System.out.println("=============+> FINAL RESULT - HASH MAP");
+
+        hashMap.forEach((k, v) -> {
+            System.out.println("key: " + k + ", value: " + v);
+        });
     }
 
 }

@@ -410,7 +410,7 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
     }
 
     @Test
-    public void advancedExtractorTest() {
+    public void smartExtractorTest() {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("map1", "Map 1 Value Test");
@@ -424,6 +424,7 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
         qj.add("age", 35);
         qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
         qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+        qj.add("numbers", Arrays.asList(1, 2, 3, 4, 5));
         qj.add("reference", "{\"parental\":\"mother\",\"name\":\"Sarah Wiz\",\"alias\":\"mom\"}");
         qj.add("family",
                 Arrays.asList(
@@ -460,29 +461,33 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertExact("John Smith Viz \"Don\"", String.valueOf(extract));
 
         extract = qjExtractor.smartExtraction(result, "address");
-        codexsTesterAssertExact("[\"Street 1\", 200, \"New York City\"]", String.valueOf(extract));
+        codexsTesterAssertExact("[\"Street 1\",200,\"New York City\"]", String.valueOf(extract));
 
         extract = qjExtractor.smartExtraction(result, "contacts");
         codexsTesterAssertExact("[12345678, 98789789, 12424242]", String.valueOf(extract));
+
+        extract = qjExtractor.smartExtraction(result, "numbers");
+        codexsTesterAssertExact("[1, 2, 3, 4, 5]", String.valueOf(extract));
 
         extract = qjExtractor.smartExtraction(result, "reference");
         codexsTesterAssertExact("{\"parental\":\"mother\",\"name\":\"Sarah Wiz\",\"alias\":\"mom\"}", String.valueOf(extract));
 
         extract = qjExtractor.smartExtraction(result, "family");
-        codexsTesterAssertExact("[\"mother\",\"July Smith\",\"father\",\"Luis Smith\",[\"brother\",\"Igor Smith\",\"age\", 24],[\"sister\",\"Elen Smith\",\"age\", 22]]", String.valueOf(extract));
+        codexsTesterAssertExact("[\"mother\",\"July Smith\",\"father\",\"Luis Smith\",[\"brother\",\"Igor Smith\",\"age\",24],[\"sister\",\"Elen Smith\",\"age\",22]]", String.valueOf(extract));
 
         extract = qjExtractor.smartExtraction(result, "map");
-        codexsTesterAssertExact("{\"map3\":[\"Array 1\",\"Array 2\", 222, \"Array 3\"],\"map2\":345, \"map1\":\"Map 1 Value Test\"}", String.valueOf(extract));
+        codexsTesterAssertExact("{\"map3\":[\"Array 1\",\"Array 2\",222,\"Array 3\"],\"map2\":345,\"map1\":\"Map 1 Value Test\"}", String.valueOf(extract));
 
     }
 
     @Test
-    public void mapper_ObjectToJSON_Test() {
+    public void build_JsonToObject_Test() {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("map1", "Map 1 Value Test");
         map.put("map2", 345);
         map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
+        map.put("map4", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
 
         qj.setStrictMode(false);
         qj.add("type", "Person");
@@ -492,6 +497,7 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
         qj.add("age", 35);
         qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
         qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+        qj.add("numbers", Arrays.asList(1, 2, 3, 4, 5, 6));
         qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
         qj.add("family",
                 Arrays.asList(
@@ -507,15 +513,18 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
         );
         qj.add("map", map);
 
-        String result = qj.json();
+        String jsonResult = qj.json();
 
-        QuickJsonDto mapper = (QuickJsonDto) qjBuilder.build(QuickJsonDto.class, result);
+        qjBuilder.setStrictMode(false);
+        QuickJsonDto build = (QuickJsonDto) qjBuilder.build(jsonResult, QuickJsonDto.class);
 
-        System.out.println(mapper);
+        codexsTesterAssertExact("QuickJsonDto(type=Person, age=35, name=John, lastname=Smith, fullname=John Smith Viz, reference={\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}, address=[\"Street 1\", 200, \"New York City\"], contacts=[12345678,  98789789,  12424242], numbers=[1,  2,  3,  4,  5,  6], family=[\"mother\", \"July Smith\", \"father\", \"Luis Smith\", [\"brother\", \"Igor Smith\", \"age\", 24], [\"sister\", \"Elen Smith\", \"age\", 22]], map={map3=[\"Array 1\",\"Array 2\",222,\"Array 3\"], map2=345, map1=Map 1 Value Test, map4={\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}})", build.toString());
+
     }
 
     @Test
-    public void mapper_JSONToObject_Test() {
+    public void build_ObjectToJson_Test() {
+        //QuickJsonDto build = (QuickJsonDto) qjBuilder.build(QuickJsonDto.class, jsonResult);
     }
 
 }

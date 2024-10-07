@@ -20,6 +20,7 @@ public class QuickJsonDto {
     public String reference;
     public List<Object> address;
     public List<Object> contacts;
+    public List<Object> numbers;
     public List<Object> family;
-    public HashMap<?,?> map;
+    public HashMap<Object,Object> map;
 }

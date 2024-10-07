@@ -2,13 +2,13 @@ package com.huntercodexs.demo.services.parser.quickjson;
 
 public abstract class Help4DevsQuickJsonAbstract {
 
-    private static final String FIELD = "[_a-zA-Z][_0-9a-zA-Z]";
+    private static final String FIELD = "[_a-zA-Z][_0-9a-zA-Z]+";
     private static final String VALUE = "[0-9a-zA-Z .\\]\\[)(@#!&*|/$%_+-]+";
 
     protected static final String TARGET = "@::field::@";
 
     protected static final String[] JSON_FIELD_REGEXP = new String[] {
-            "(\\{\""+ FIELD +"+\"):\\{(\""+ FIELD +"+\":\""+ VALUE +"\",)*(\""+ TARGET +"\":\""+ VALUE +"\",?)(\""+ FIELD +"+\":\""+ VALUE +"\",?)*}",
+            "(\\{\""+ FIELD +"\"):\\{(\""+ FIELD +"\":\""+ VALUE +"\",)*(\""+ TARGET +"\":\""+ VALUE +"\",?)(\""+ FIELD +"\":\""+ VALUE +"\",?)*}",
             "$1:{}"
     };
 
@@ -38,5 +38,10 @@ public abstract class Help4DevsQuickJsonAbstract {
     };
 
     protected static final String[] INT_REGEXP = new String[]{};
+
+    protected static final String HASHMAP_JSON_REGEXP =
+            "(:\\{((\"[_a-zA-Z][_0-9a-zA-Z]+\")(:)(\"?[0-9a-zA-Z .\\]\\[)(@#!&*|/$%_+-]+\"?(,?)))+})";
+
+    protected static final String HASHMAP_ARRAY_REGEXP = "(:\\[((\"?[0-9a-zA-Z .\\)\\(@#!&*|/$%_+-]+\"?(,?)))+])";
 
 }

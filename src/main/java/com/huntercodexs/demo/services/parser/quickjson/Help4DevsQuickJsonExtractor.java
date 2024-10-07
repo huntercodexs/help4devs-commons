@@ -42,6 +42,9 @@ public class Help4DevsQuickJsonExtractor {
                 .replaceAll("\r", "")
                 .replaceAll("\t", "")
 
+                .replaceAll("\", ([0-9])", "\",$1")
+                .replaceAll("([0-9]), \"", "$1,\"")
+
                 .replaceAll("\", \"", "\",\"")
                 .replaceAll("\", \\[", "\",[")
                 .replaceAll("\", \\{", "\",{")
@@ -328,15 +331,17 @@ public class Help4DevsQuickJsonExtractor {
      * }
      * </pre></blockquote>
      *
-     * @param json (String)
+     * @param jsonObj (String)
      * @param field (String)
      * @return Object (Extracted Value from JSON Data)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public Object smartExtraction(String json, String field) {
+    public Object smartExtraction(Object jsonObj, String field) {
 
         this.reset();
+
+        String json = String.valueOf(jsonObj);
 
         if (!jsonOk(json, field) || !fieldOk(field)) return "";
 

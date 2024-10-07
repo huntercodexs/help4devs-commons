@@ -4,17 +4,123 @@ import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonAbstract.HASHMAP_ARRAY_REGEXP;
+import static com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonAbstract.HASHMAP_JSON_REGEXP;
 
 public class Help4DevsQuickJsonBuilder {
 
     private boolean strictMode;
+    private final List<Object> arraySave;
+    private final List<Object> jsonSave;
 
     Help4DevsQuickJsonExtractor qjExtract;
 
     public Help4DevsQuickJsonBuilder() {
         this.qjExtract = new Help4DevsQuickJsonExtractor();
         this.strictMode = false;
+        this.arraySave = new ArrayList<>();
+        this.jsonSave = new ArrayList<>();
+    }
+
+    private String hashMapArrayExtractor(String json) {
+
+        int arrayCounter = 0;
+        List<Object> arrayData = new ArrayList<>();
+
+        while (true) {
+            arrayCounter += 1;
+
+            if (!json.matches(".*"+HASHMAP_ARRAY_REGEXP+".*")) {
+                break;
+            }
+
+            arrayData.add(json.replaceFirst(HASHMAP_ARRAY_REGEXP+".*", "$1"));
+            json = json.replaceFirst(HASHMAP_ARRAY_REGEXP, ":@ARRAYOBJECT"+arrayCounter+"@");
+        }
+
+        for (Object value : arrayData) {
+            this.arraySave.add(value
+                    .toString()
+                    .replaceFirst(".*"+HASHMAP_ARRAY_REGEXP, "$1")
+                    .replaceFirst(":", ""));
+        }
+
+        return json;
+    }
+
+    private String hashMapJsonExtractor(String json) {
+
+        int jsonCounter = 0;
+        List<Object> jsonData = new ArrayList<>();
+
+        while (true) {
+            jsonCounter += 1;
+
+            if (!json.matches(".*"+HASHMAP_JSON_REGEXP+".*")) {
+                break;
+            }
+
+            jsonData.add(json.replaceFirst(HASHMAP_JSON_REGEXP+".*", "$1"));
+            json = json.replaceFirst(HASHMAP_JSON_REGEXP, ":@JSONOBJECT"+jsonCounter+"@");
+        }
+
+        for (Object value : jsonData) {
+            this.jsonSave.add(value
+                    .toString()
+                    .replaceFirst(".*"+HASHMAP_JSON_REGEXP, "$1")
+                    .replaceFirst(":", ""));
+        }
+
+        return json;
+    }
+
+    private HashMap<Object, Object> hashMapExtractor(Object jsonObj) {
+
+        String json = String.valueOf(jsonObj);
+        json = this.hashMapArrayExtractor(json);
+        json = this.hashMapJsonExtractor(json);
+        HashMap<Object, Object> hashMap = new HashMap<>();
+
+        int jsonCounter = 1;
+        int arrayCounter = 1;
+
+        String[] jsonFields = json
+                .replaceFirst("\\{", "")
+                .replaceFirst("}", "")
+                .split(",");
+
+		for (String jsonField : jsonFields) {
+
+			String[] keyValue = jsonField.split(":");
+
+			String jf = keyValue[0]
+					.trim()
+					.replaceFirst("^\"", "")
+					.replaceFirst("\"$", "");
+
+			String jv = keyValue[1]
+					.trim()
+					.replaceFirst("^\"", "")
+					.replaceFirst("\"$", "");
+
+			if (jv.contains("@JSONOBJECT" + jsonCounter + "@")) {
+				jv = jv.replaceFirst(jv, String.valueOf(jsonSave.get(jsonCounter - 1)));
+				jsonCounter += 1;
+
+			} else if (jv.contains("@ARRAYOBJECT" + arrayCounter + "@")) {
+				jv = jv.replaceFirst(jv, String.valueOf(arraySave.get(arrayCounter - 1)));
+				arrayCounter += 1;
+			}
+
+			hashMap.put(jf, jv);
+		}
+
+        return hashMap;
     }
 
     public void setStrictMode(boolean mode) {
@@ -24,7 +130,7 @@ public class Help4DevsQuickJsonBuilder {
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">build</h6>
      *
-     * <p style="color: #CDCDCD">Convert data from any Object to JSON String format</p>
+     * <p style="color: #CDCDCD">Convert data from any JSON String to Object</p>
      *
      * <p>IMPORTANT: This support only five type of data:</p>
      * <ul>
@@ -40,18 +146,23 @@ public class Help4DevsQuickJsonBuilder {
      * <blockquote><pre>
      * public void test() {
      *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     Help4DevsQuickJsonBuilder qjBuilder = new Help4DevsQuickJsonBuilder();
+     *
      *     HashMap<String, Object> map = new HashMap<>();
      *     map.put("map1", "Map 1 Value Test");
      *     map.put("map2", 345);
      *     map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
+     *     map.put("map4", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
      *
      *     qj.setStrictMode(false);
+     *     qj.add("type", "Person");
      *     qj.add("name", "John");
      *     qj.add("lastname", "Smith");
      *     qj.add("fullname", "John Smith Viz");
      *     qj.add("age", 35);
      *     qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
      *     qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+     *     qj.add("numbers", Arrays.asList(1, 2, 3, 4, 5, 6));
      *     qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
      *     qj.add("family",
      *             Arrays.asList(
@@ -67,19 +178,22 @@ public class Help4DevsQuickJsonBuilder {
      *     );
      *     qj.add("map", map);
      *
-     *     String result = qj.json();
+     *     String jsonResult = qj.json();
      *
-     *     QuickJsonDto mapper = (QuickJsonDto) qj.mapper(QuickJsonDto.class, result);
+     *     qjBuilder.setStrictMode(false);
+     *     QuickJsonDto build = (QuickJsonDto) qjBuilder.build(jsonResult, QuickJsonDto.class);
      *
-     *     System.out.println(mapper);
+     *     System.out.println(build);
      * }
      * </pre></blockquote>
      *
-     * @return String (JSON String value)
+     * @param jsonData (Object)
+     * @param classT (Class&lt;T&gt;)
+     * @return Object (Object based on Class Type argument)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public <T> T build(Class<T> classT, Object jsonData) {
+    public <T> T build(Object jsonData, Class<T> classT) {
 
         Field[] fields = classT.getDeclaredFields();
 
@@ -90,7 +204,7 @@ public class Help4DevsQuickJsonBuilder {
             for (Field field : fields) {
 
                 String currentField = field.getName();
-                Object fieldValue = this.qjExtract.standardExtraction(jsonData, currentField);
+                Object fieldValue = this.qjExtract.smartExtraction(jsonData, currentField);
 
                 if (fieldValue == null && this.strictMode) {
                     throw new RuntimeException("Invalid data to mapper, field not found: " + currentField);
@@ -103,12 +217,15 @@ public class Help4DevsQuickJsonBuilder {
                     case "class java.lang.Object":
                         field1.set(instanceClass, fieldValue);
                         break;
+
                     case "class java.lang.Integer":
                         field1.set(instanceClass, Integer.parseInt(String.valueOf(fieldValue)));
                         break;
+
                     case "class java.lang.String":
                         field1.set(instanceClass, String.valueOf(fieldValue));
                         break;
+
                     case "interface java.util.List":
 
                         if (fieldValue != null) {
@@ -125,17 +242,16 @@ public class Help4DevsQuickJsonBuilder {
                         }
 
                         break;
-                    case "interface java.util.HashMap":
+
+                    case "class java.util.HashMap":
 
                         if (fieldValue != null) {
-
-                            field1.set(instanceClass, fieldValue);
-
+                            field1.set(instanceClass, hashMapExtractor(fieldValue));
                         } else {
                             field1.set(instanceClass, null);
                         }
-
                         break;
+
                 }
             }
 
@@ -156,13 +272,13 @@ public class Help4DevsQuickJsonBuilder {
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">build</h6>
      *
-     * <p style="color: #CDCDCD">Convert data from any JSON String to Object</p>
+     * <p style="color: #CDCDCD">Convert data from any Object to JSON String</p>
      *
      * @return Object (Data Object)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public Object build(Object jsonData, Class<?> className) {
+    public <T> T build(Class<T> classT, Object jsonData) {
         return null;
     }
 
