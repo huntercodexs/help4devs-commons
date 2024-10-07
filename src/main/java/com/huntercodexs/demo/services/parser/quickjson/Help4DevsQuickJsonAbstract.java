@@ -2,8 +2,11 @@ package com.huntercodexs.demo.services.parser.quickjson;
 
 public abstract class Help4DevsQuickJsonAbstract {
 
-    private static final String FIELD = "[_a-zA-Z][_0-9a-zA-Z]+";
-    private static final String VALUE = "[0-9a-zA-Z .\\]\\[)(@#!&*|/$%_+-]+";
+    protected static final String FIELD = "[_a-zA-Z][_0-9a-zA-Z]+";
+
+    protected static final String VALUE = "[0-9a-zA-Z .\\]\\[)(@#!&*|/$%_+-]+";
+
+    protected static final String STRINGED = "[_a-zA-Z][0-9a-zA-Z .\\]\\[)(@#!&*|/$%_+-]+";
 
     protected static final String TARGET = "@::field::@";
 

@@ -9,8 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonAbstract.HASHMAP_ARRAY_REGEXP;
-import static com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonAbstract.HASHMAP_JSON_REGEXP;
+import static com.huntercodexs.demo.services.parser.quickjson.Help4DevsQuickJsonAbstract.*;
 
 public class Help4DevsQuickJsonBuilder {
 
@@ -18,9 +17,11 @@ public class Help4DevsQuickJsonBuilder {
     private final List<Object> arraySave;
     private final List<Object> jsonSave;
 
+    Help4DevsQuickJson qj;
     Help4DevsQuickJsonExtractor qjExtract;
 
     public Help4DevsQuickJsonBuilder() {
+        this.qj = new Help4DevsQuickJson();
         this.qjExtract = new Help4DevsQuickJsonExtractor();
         this.strictMode = false;
         this.arraySave = new ArrayList<>();
@@ -274,12 +275,100 @@ public class Help4DevsQuickJsonBuilder {
      *
      * <p style="color: #CDCDCD">Convert data from any Object to JSON String</p>
      *
+     * <p>IMPORTANT: This support only five type of data:</p>
+     * <ul>
+     *     <li>Object</li>
+     *     <li>Integer</li>
+     *     <li>String</li>
+     *     <li>List</li>
+     *     <li>HashMap</li>
+     * </ul>
+     *
+     * <p>Example</p>
+     *
+     * <blockquote><pre>
+     * public void test() {
+     *     Help4DevsQuickJson qj = new Help4DevsQuickJson();
+     *     Help4DevsQuickJsonBuilder qjBuilder = new Help4DevsQuickJsonBuilder();
+     *
+     *     HashMap<String, Object> map = new HashMap<>();
+     *     map.put("map1", "Map 1 Value Test");
+     *     map.put("map2", 345);
+     *     map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
+     *     map.put("map4", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
+     *
+     *     qj.setStrictMode(false);
+     *     qj.add("type", "Person");
+     *     qj.add("name", "John");
+     *     qj.add("lastname", "Smith");
+     *     qj.add("fullname", "John Smith Viz");
+     *     qj.add("age", 35);
+     *     qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+     *     qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+     *     qj.add("numbers", Arrays.asList(1, 2, 3, 4, 5, 6));
+     *     qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
+     *     qj.add("family",
+     *             Arrays.asList(
+     *                     "mother", "July Smith",
+     *                     "father", "Luis Smith",
+     *                     Arrays.asList(
+     *                             "sister", "Elen Smith", "age", 22
+     *                     ),
+     *                     Arrays.asList(
+     *                             "brother", "Igor Smith", "age", 24
+     *                     )
+     *             )
+     *     );
+     *     qj.add("map", map);
+     *
+     *     String jsonResult = qj.json();
+     *
+     *     qjBuilder.setStrictMode(false);
+     *     QuickJsonDto build = (QuickJsonDto) qjBuilder.build(jsonResult, QuickJsonDto.class);
+     *
+     *     Object jsonFinal = qjBuilder.build(quickJsonDto);
+     *
+     *     System.out.println(jsonFinal);
+     * }
+     * </pre></blockquote>
+     *
+     * @param object (Object: Java Object to convert for JSON Object)
      * @return Object (Data Object)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public <T> T build(Class<T> classT, Object jsonData) {
-        return null;
+    public Object build(Object object) {
+
+        Class<?> classT = object.getClass();
+        Field[] fields = classT.getDeclaredFields();
+
+        String[] packageSplit = classT.getName().split("\\.");
+        String className = packageSplit[packageSplit.length-1];
+
+        String dataJson = object.toString()
+                .replaceFirst(className+"\\(", "{")
+                .replaceFirst("\\)$", "}")
+                .replaceAll("("+FIELD+")=", "\"$1\":")
+                .replaceAll("(\""+FIELD+"\"):("+STRINGED+")", "$1:\"$2\"");
+
+		try {
+
+		    for (Field field : fields) {
+
+                Field field1 = classT.getField(field.getName());
+                String fieldName = field1.getName();
+
+                Object content = this.qjExtract.smartExtraction(dataJson, fieldName);
+
+                this.qj.add(fieldName, content);
+
+            }
+
+            return this.qj.json();
+
+		} catch (NoSuchFieldException e) {
+			throw new RuntimeException("Critical Error: " + e.getMessage());
+		}
     }
 
 }

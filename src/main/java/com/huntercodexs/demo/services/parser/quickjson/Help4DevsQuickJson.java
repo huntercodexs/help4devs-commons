@@ -44,7 +44,10 @@ public class Help4DevsQuickJson {
         int index = 0;
         for (String item : splitter) {
 
-            String itemClear = item.trim();
+            String itemClear = item
+                    .trim()
+                    .replaceFirst("^\"", "")
+                    .replaceFirst("\"$", "");
 
             if (itemClear.matches("^[0-9]+$")) {//Numeric
                 result.add(itemClear);

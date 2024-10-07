@@ -16,8 +16,8 @@ import java.util.List;
 public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
 
     Help4DevsQuickJson qj;
-    Help4DevsQuickJsonExtractor qjExtractor;
     Help4DevsQuickJsonBuilder qjBuilder;
+    Help4DevsQuickJsonExtractor qjExtractor;
 
     @Before
     public void setup() {
@@ -524,7 +524,46 @@ public class Help4DevsQuickJsonUnitaryTests extends Help4DevsBridgeTests {
 
     @Test
     public void build_ObjectToJson_Test() {
-        //QuickJsonDto build = (QuickJsonDto) qjBuilder.build(QuickJsonDto.class, jsonResult);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("map1", "Map 1 Value Test");
+        map.put("map2", 345);
+        map.put("map3", Arrays.asList("Array 1", "Array 2", 222, "Array 3"));
+        map.put("map4", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
+
+        qj.setStrictMode(false);
+        qj.add("type", "Person");
+        qj.add("name", "John");
+        qj.add("lastname", "Smith");
+        qj.add("fullname", "John Smith Viz");
+        qj.add("age", 35);
+        qj.add("address", Arrays.asList("Street 1", "200", "New York City"));
+        qj.add("contacts", Arrays.asList("12345678", "98789789", "12424242"));
+        qj.add("numbers", Arrays.asList(1, 2, 3, 4, 5, 6));
+        qj.add("reference", "{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}");
+        qj.add("family",
+                Arrays.asList(
+                        "mother", "July Smith",
+                        "father", "Luis Smith",
+                        Arrays.asList(
+                                "sister", "Elen Smith", "age", 22
+                        ),
+                        Arrays.asList(
+                                "brother", "Igor Smith", "age", 24
+                        )
+                )
+        );
+        qj.add("map", map);
+
+        String jsonResult = qj.json();
+
+        qjBuilder.setStrictMode(false);
+        QuickJsonDto quickJsonDto = (QuickJsonDto) qjBuilder.build(jsonResult, QuickJsonDto.class);
+
+        Object jsonFinal = qjBuilder.build(quickJsonDto);
+
+        codexsTesterAssertExact("{\"reference\":{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"},\"address\":[\"Street 1\", 200, \"New York City\"],\"name\":\"John\",\"numbers\":[1, 2, 3, 4, 5, 6],\"fullname\":\"John Smith Viz\",\"type\":\"Person\",\"family\":[\"mother\", \"July Smith\", \"father\", \"Luis Smith\", \"Igor Smith\", \"age\", \"Elen Smith\", \"age\"],\"map\":{\"map3\":[\"Array 1\",\"Array 2\",222,\"Array 3\"],\"map2\":345,\"map1\":\"Map 1 Value Test\",\"map4\":{\"name\":\"Sarah Wiz\",\"parental\":\"friend\"}},\"age\":35,\"contacts\":[12345678, 98789789, 12424242],\"lastname\":\"Smith\"}", String.valueOf(jsonFinal));
+
     }
 
 }
