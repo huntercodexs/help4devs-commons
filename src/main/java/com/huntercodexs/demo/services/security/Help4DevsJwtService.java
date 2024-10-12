@@ -2,7 +2,9 @@ package com.huntercodexs.demo.services.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.huntercodexs.demo.config.JwtAssignHelper;
 import com.huntercodexs.demo.config.JwtHelper;
+import com.huntercodexs.demo.dto.JwtResponseDto;
 import com.huntercodexs.demo.enumerator.TokenType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -17,6 +20,76 @@ public class Help4DevsJwtService {
 
     @Autowired
     JwtHelper jwtHelper;
+
+    @Autowired
+    JwtAssignHelper jwtAssignHelper;
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jwt</h6>
+     *
+     * <p style="color: #CDCDCD">Create a JWT Token</p>
+     *
+     * @return String (JWT)
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public JwtResponseDto jwt() {
+        JwtResponseDto responseDto = new JwtResponseDto();
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("token_type", TokenType.TOKEN_TYPE_1.name());
+        String jwt = jwtHelper.jwtCreator("sub_"+UUID.randomUUID(), claims);
+        responseDto.setJwt(jwt);
+        return responseDto;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jwtCheck</h6>
+     *
+     * <p style="color: #CDCDCD">Check the JWT Token</p>
+     *
+     * @return boolean
+     * @author huntercodexs (powered by jereelton-devel)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     */
+    public boolean jwtCheck(String header) {
+        String jwt = jwtHelper.jwtVerifier(header);
+        return (jwt != null);
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jwtAssign</h6>
+     *
+     * <p style="color: #CDCDCD">Create a Assigned JWT Token</p>
+
+     * @return String (JWT)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public JwtResponseDto jwtAssign() {
+        JwtResponseDto responseDto = new JwtResponseDto();
+        Map<String, String> claims = new HashMap<>();
+        claims.put("token_type", TokenType.TOKEN_TYPE_1.name());
+        String jwt = jwtAssignHelper.jwtCreator("sub_"+UUID.randomUUID(), claims);
+        responseDto.setJwt(jwt);
+        return responseDto;
+    }
+
+    /**
+     * <h6 style="color: #FFFF00; font-size: 11px">jwtAssignCheck</h6>
+     *
+     * <p style="color: #CDCDCD">Check the JWT Assigned Token</p>
+
+     * @return String (JWT)
+     * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
+     * @author huntercodexs (powered by jereelton-devel)
+     * */
+    public boolean jwtAssignCheck(String header) {
+        String jwt = get(header);
+        String subject = subject(jwt);
+        String identify = identifier(jwt, TokenType.TOKEN_TYPE_1, subject);
+        System.out.println("===================> "+identify);
+        return (identify != null);
+    }
 
     /**
      * <h6 style="color: #FFFF00; font-size: 11px">create</h6>
@@ -31,7 +104,7 @@ public class Help4DevsJwtService {
     public String create(String subject) {
         Map<String, String> claims = new HashMap<>();
         claims.put("token_type", TokenType.TOKEN_TYPE_1.name());
-        return jwtHelper.jwtCreator(subject, claims);
+        return jwtAssignHelper.jwtCreator(subject, claims);
     }
 
     /**

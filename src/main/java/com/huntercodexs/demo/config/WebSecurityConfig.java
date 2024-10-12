@@ -17,6 +17,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${app.basic-authentication.password}")
     String password;
 
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser(username)
+                .password("{noop}"+password)
+                .roles("USER");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -32,24 +41,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .and()
 //            .httpBasic();
 
+//        http
+//                .cors()
+//                .and()
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers(
+//                        "/api/**"
+//                ).permitAll();
+
         http
                 .cors()
                 .and()
                 .csrf().disable()
+                .requestMatcher(new OAuthRequestedMatcher())
                 .authorizeRequests()
                 .antMatchers(
+                        "/actuator/**",
                         "/api/**"
-                ).permitAll();
+                )
+                .permitAll()
+                .anyRequest()
+                .authenticated();
 
-    }
-
-    @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser(username)
-            .password("{noop}"+password)
-            .roles("USER");
     }
 
 }

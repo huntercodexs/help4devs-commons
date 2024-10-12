@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Component
-public class JwtHelper {
+public class JwtAssignHelper {
 	
 	@Autowired
 	RSAPrivateKey rsaPrivateKey;
@@ -30,8 +30,8 @@ public class JwtHelper {
 
 		return jwtBuilder
 				.withNotBefore(new Date())
-				.withExpiresAt(new Date(System.currentTimeMillis()+ 1000L * 60 * expireTimer))
-				.sign(Algorithm.RSA256(rsaPublicKey, rsaPrivateKey));
+				.withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60 * expireTimer))
+				.sign(Algorithm.RSA512(rsaPublicKey, rsaPrivateKey));
 	}
 	
 }
