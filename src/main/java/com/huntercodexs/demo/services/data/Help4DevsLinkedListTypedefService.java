@@ -105,7 +105,7 @@ public class Help4DevsLinkedListTypedefService {
             this.current = current;
         }
 
-        /*TODO: Fix bug then remove all elements from the object*/
+        /*TODO: Fix bug when remove all elements from the object*/
         private void delete(T seek) {
             this.previous = null;
             this.current = this.first;

@@ -19,11 +19,13 @@
 	<description>help4devs-commons</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<!--<java.version>1.8</java.version>-->
 		<!--<java.version>11</java.version>-->
-		<!--<java.version>17</java.version>-->
+		<java.version>17</java.version>
 		<!--<java.version>21</java.version>-->
 		<itext.version>8.0.4</itext.version>
+		<cucumber.legacy.version>4.2.0</cucumber.legacy.version>
+		<cucumber.version>7.10.1</cucumber.version>
 	</properties>
 
 	<dependencies>
@@ -331,6 +333,49 @@
 			<groupId>net.minidev</groupId>
 			<artifactId>json-smart</artifactId>
 			<version>2.3</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--CUCUMBER-->
+		<!--Cucumber Legacy: Lambdas-->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java8</artifactId>
+			<version>${cucumber.legacy.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--Cucumber-->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.legacy.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${cucumber.legacy.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.legacy.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--Cucumber Extent Report-->
+		<dependency>
+			<groupId>tech.grasshopper</groupId>
+			<artifactId>extentreports-cucumber7-adapter</artifactId>
+			<version>1.13.0</version>
 			<scope>compile</scope>
 		</dependency>
 
