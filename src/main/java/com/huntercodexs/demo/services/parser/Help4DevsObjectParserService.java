@@ -32,19 +32,20 @@ public class Help4DevsObjectParserService {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">{name}</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">listMapToObject</h6>
      *
-     * <p style="color: #CDCDCD">{description}</p>
+     * <p style="color: #CDCDCD">To convert a Object Data into List object data</p>
      *
      * <p>Example</p>
      *
      * <blockquote><pre>
-     *     {example-code}
+     * Help4DevsObjectParserService help4DevsObjectParserService = new Help4DevsObjectParserService();
+     * List&lt;Employee&gt; objects = help4DevsObjectParserService.listMapToObject(table, Employee.class);
      * </pre></blockquote>
      *
-     * @param
-     * @param
-     * @return
+     * @param obj (Object: DataTable from Cucumber is compatible)
+     * @param classT (Class: The class name to convert the current object data
+     * @return List&lt;T&gt; (One Java List of Object T relate)
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -90,18 +91,19 @@ public class Help4DevsObjectParserService {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">{name}</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">mapInMap</h6>
      *
-     * <p style="color: #CDCDCD">{description}</p>
+     * <p style="color: #CDCDCD">To convert a Object Data into Map object data</p>
      *
      * <p>Example</p>
      *
      * <blockquote><pre>
-     *     {example-code}
+     * Help4DevsObjectParserService help4DevsObjectParserService = new Help4DevsObjectParserService();
+     * Map<String, Map<String, String>> mapMap = help4DevsObjectParserService.mapInMap(table);
      * </pre></blockquote>
      *
-     * @param
-     * @return
+     * @param obj (Object: DataTable from Cucumber is compatible)
+     * @return Map&lt;String, Map&lt;String, String&gt;&gt;
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
@@ -127,18 +129,19 @@ public class Help4DevsObjectParserService {
     }
 
     /**
-     * <h6 style="color: #FFFF00; font-size: 11px">{name}</h6>
+     * <h6 style="color: #FFFF00; font-size: 11px">mapInList</h6>
      *
-     * <p style="color: #CDCDCD">{description}</p>
+     * <p style="color: #CDCDCD">To convert a Object Data into Map List object data</p>
      *
      * <p>Example</p>
      *
      * <blockquote><pre>
-     *     {example-code}
+     * Help4DevsObjectParserService help4DevsObjectParserService = new Help4DevsObjectParserService();
+     * Map<String, List<String>> mapList = help4DevsObjectParserService.mapInList(table);
      * </pre></blockquote>
      *
-     * @param
-     * @return
+     * @param obj (Object: DataTable from Cucumber is compatible)
+     * @return Map&lt;String, List&lt;String&gt;&gt;
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */

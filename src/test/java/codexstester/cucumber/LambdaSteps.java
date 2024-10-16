@@ -9,11 +9,11 @@ import java.util.Map;
 
 public class LambdaSteps implements En {
 
-    Help4DevsObjectParserService cucumberLambdaService;
+    Help4DevsObjectParserService help4DevsObjectParserService;
 
     public LambdaSteps() {
 
-        this.cucumberLambdaService = new Help4DevsObjectParserService();
+        this.help4DevsObjectParserService = new Help4DevsObjectParserService();
 
         Given("list test", (DataTable table) -> {
             System.out.println("=========+++> LIST");
@@ -45,7 +45,7 @@ public class LambdaSteps implements En {
 
         And("map list test", (DataTable table) -> {
             System.out.println("=========+++> MAP LIST");
-            Map<String, List<String>> mapList = cucumberLambdaService.mapInList(table);
+            Map<String, List<String>> mapList = help4DevsObjectParserService.mapInList(table);
 
             mapList.forEach((k, v) -> {
                 System.out.println(k+" => "+v);
@@ -54,7 +54,7 @@ public class LambdaSteps implements En {
 
         And("map map test", (DataTable table) -> {
             System.out.println("=========+++> MAP MAP");
-            Map<String, Map<String, String>> mapMap = cucumberLambdaService.mapInMap(table);
+            Map<String, Map<String, String>> mapMap = help4DevsObjectParserService.mapInMap(table);
 
             mapMap.forEach((k, v) -> {
                 System.out.println(k+" => "+v);

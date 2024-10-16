@@ -12,16 +12,16 @@ import java.util.List;
 
 public class DataTableSteps {
 
-    Help4DevsObjectParserService cucumberLambdaService;
+    Help4DevsObjectParserService help4DevsObjectParserService;
 
     public DataTableSteps() {
-        this.cucumberLambdaService = new Help4DevsObjectParserService();
+        this.help4DevsObjectParserService = new Help4DevsObjectParserService();
     }
 
     @Given("user wants to create an employee using the following attributes")
     public void userWantsToCreateAnEmployeeUsingTheFollowingAttributes(DataTable table) {
         System.out.println("========> DataTable");
-        List<Employee> objects = cucumberLambdaService.listMapToObject(table, Employee.class);
+        List<Employee> objects = help4DevsObjectParserService.listMapToObject(table, Employee.class);
         System.out.println(objects);
     }
 
