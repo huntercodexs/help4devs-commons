@@ -1,6 +1,7 @@
 package codexstester.cucumber;
 
 import com.huntercodexs.demo.dto.Employee;
+import com.huntercodexs.demo.services.parser.Help4DevsObjectParserService;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,10 +12,10 @@ import java.util.List;
 
 public class DataTableSteps {
 
-    Help4DevsCucumberLambdaService cucumberLambdaService;
+    Help4DevsObjectParserService cucumberLambdaService;
 
     public DataTableSteps() {
-        this.cucumberLambdaService = new Help4DevsCucumberLambdaService();
+        this.cucumberLambdaService = new Help4DevsObjectParserService();
     }
 
     @Given("user wants to create an employee using the following attributes")

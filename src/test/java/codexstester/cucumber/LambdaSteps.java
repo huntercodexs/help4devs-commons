@@ -1,5 +1,6 @@
 package codexstester.cucumber;
 
+import com.huntercodexs.demo.services.parser.Help4DevsObjectParserService;
 import cucumber.api.java8.En;
 import io.cucumber.datatable.DataTable;
 
@@ -8,11 +9,11 @@ import java.util.Map;
 
 public class LambdaSteps implements En {
 
-    Help4DevsCucumberLambdaService cucumberLambdaService;
+    Help4DevsObjectParserService cucumberLambdaService;
 
     public LambdaSteps() {
 
-        this.cucumberLambdaService = new Help4DevsCucumberLambdaService();
+        this.cucumberLambdaService = new Help4DevsObjectParserService();
 
         Given("list test", (DataTable table) -> {
             System.out.println("=========+++> LIST");

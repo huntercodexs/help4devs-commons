@@ -1,7 +1,6 @@
-package codexstester.cucumber;
+package com.huntercodexs.demo.services.parser;
 
-import io.cucumber.datatable.DataTable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -10,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
-public class Help4DevsCucumberLambdaService {
+@Service
+public class Help4DevsObjectParserService {
 
     private static String[] getValuesForObject(String[] rows, Field[] fields) {
         String[] cols = rows[0].replaceFirst("\\|", "").split("\\|");
@@ -40,19 +39,19 @@ public class Help4DevsCucumberLambdaService {
      * <p>Example</p>
      *
      * <blockquote><pre>
+     *     {example-code}
      * </pre></blockquote>
      *
-     * @param
      * @param
      * @param
      * @return
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public <T> List<T> listMapToObject(DataTable table, Class<T> classT) {
+    public <T> List<T> listMapToObject(Object obj, Class<T> classT) {
 
         Field[] fields = classT.getDeclaredFields();
-        String[] rows = table.toString().split("\\|\n");
+        String[] rows = obj.toString().split("\\|\n");
         String[] cols = getValuesForObject(rows, fields);
 
         try {
@@ -98,20 +97,19 @@ public class Help4DevsCucumberLambdaService {
      * <p>Example</p>
      *
      * <blockquote><pre>
+     *     {example-code}
      * </pre></blockquote>
      *
-     * @param
-     * @param
      * @param
      * @return
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public Map<String, Map<String, String>> mapInMap(DataTable table) {
+    public Map<String, Map<String, String>> mapInMap(Object obj) {
 
         Map<String, Map<String, String>> tableMapMap = new HashMap<>();
 
-        String[] rows = table.toString().split("\\|\n");
+        String[] rows = obj.toString().split("\\|\n");
         String[] cols = rows[0].split("\\|");
 
         String key = cols[cols.length-2].trim();
@@ -136,20 +134,19 @@ public class Help4DevsCucumberLambdaService {
      * <p>Example</p>
      *
      * <blockquote><pre>
+     *     {example-code}
      * </pre></blockquote>
      *
-     * @param
-     * @param
      * @param
      * @return
      * @see <a href="https://github.com/huntercodexs/help4devs-commons">Help4devs (GitHub)</a>
      * @author huntercodexs (powered by jereelton-devel)
      * */
-    public Map<String, List<String>> mapInList(DataTable table) {
+    public Map<String, List<String>> mapInList(Object obj) {
 
         Map<String, List<String>> tableMapList = new HashMap<>();
 
-        String[] rows = table.toString().split("\\|\n");
+        String[] rows = obj.toString().split("\\|\n");
 
         for (String row : rows) {
 
