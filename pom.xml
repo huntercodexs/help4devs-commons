@@ -7,8 +7,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+
+		<!--Java 8-->
 		<!--<version>2.0.1.RELEASE</version>-->
+
+		<!--Java 8 ... Java 17-->
 		<version>2.6.4</version>
+
+		<!--Java 21-->
+		<!--<version>3.3.2</version>-->
+
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -23,9 +31,18 @@
 		<!--<java.version>11</java.version>-->
 		<java.version>17</java.version>
 		<!--<java.version>21</java.version>-->
+
 		<itext.version>8.0.4</itext.version>
-		<cucumber.legacy.version>4.2.0</cucumber.legacy.version>
-		<cucumber.version>7.10.1</cucumber.version>
+		<junit.version>4.13.2</junit.version>
+		<junit-jupiter.version>5.8.2</junit-jupiter.version>
+		<junit-platform.version>1.10.3</junit-platform.version>
+		<cucumber.version.legacy>4.2.0</cucumber.version.legacy>
+		<cucumber.version>7.12.0</cucumber.version>
+		<extent-report.version>1.13.0</extent-report.version>
+		<selenium.version>3.13.0</selenium.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<dependencies>
@@ -185,15 +202,21 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>json-smart</artifactId>
+			<version>2.3</version>
+			<scope>compile</scope>
+		</dependency>
 
-		<!--OPEN-API-->
+		<!--OPENAPI: SWAGGER-->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-webmvc-core</artifactId>
 			<version>1.4.6</version>
 		</dependency>
 
-		<!--PDF: iText-->
+		<!--PDF: ITEXT-->
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itext-core</artifactId>
@@ -213,7 +236,7 @@
 			<version>2.0.0</version>
 		</dependency>
 
-		<!--MS-OFFICE TO PDF-->
+		<!--PDF: MS-OFFICE - (WINDOWS REQUIRED)-->
 		<dependency>
 			<groupId>com.documents4j</groupId>
 			<artifactId>documents4j-api</artifactId>
@@ -303,17 +326,53 @@
 			<version>2.2.4</version>
 		</dependency>
 
-		<!--TESTS: CODEXSTESTER-->
+		<!--CODEXSTESTER: TESTS-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!--CODEXSTESTER: JUNIT4-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--CODEXSTESTER: JUNIT5-->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--CODEXSTESTER: JUNIT-PLATFORM: SUITE-->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<version>${junit-platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--CODEXSTESTER: PROJECT REACTOR-->
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--CODEXSTESTER: MOCK MVC-->
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
@@ -324,44 +383,40 @@
 			<artifactId>spring-mock-mvc</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--CODEXSTESTER: SELENIUM-->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.minidev</groupId>
-			<artifactId>json-smart</artifactId>
-			<version>2.3</version>
-			<scope>compile</scope>
-		</dependency>
 
-		<!--CUCUMBER-->
-		<!--Cucumber Legacy: Lambdas-->
+		<!--CODEXSTESTER: CUCUMBER LEGACY: JAVA8 - FOR LAMBDAS-->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java8</artifactId>
-			<version>${cucumber.legacy.version}</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 
-		<!--Cucumber-->
+		<!--CODEXSTESTER: CUCUMBER-->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber.legacy.version}</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-spring</artifactId>
-			<version>${cucumber.legacy.version}</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber.legacy.version}</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -371,12 +426,12 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--Cucumber Extent Report-->
+		<!--CUCUMBER REPORT-->
 		<dependency>
 			<groupId>tech.grasshopper</groupId>
 			<artifactId>extentreports-cucumber7-adapter</artifactId>
-			<version>1.13.0</version>
-			<scope>compile</scope>
+			<version>${extent-report.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -410,7 +465,9 @@
 
 	<build>
 		<plugins>
-			<plugin>
+
+			<!--It Works: Use it to build a jar file-->
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${project.parent.version}</version>
@@ -419,7 +476,88 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
+			</plugin>-->
+
+			<!--Generate Jar file with the class main-->
+			<!--<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${project.parent.version}</version>
+				<configuration>
+					<mainClass>com.huntercodexs.codexstester.SampleApplication</mainClass>
+				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+			</plugin>-->
+
+			<!--Generate Final Jar with all dependency-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<configuration>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--Generate Reports: extentreports-cucumber7-adapter-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- Set the test source directory -->
+					<testSourceDirectory>src/test/java/codexstester/bdd</testSourceDirectory>
+					<trimStackTrace>false</trimStackTrace>
+					<excludes>
+						<exclude>**/*Integration.java</exclude>
+					</excludes>
+					<systemPropertyVariables>
+						<extent.reporter.html.start>true</extent.reporter.html.start>
+						<!-- Specify the output path for the HTML report -->
+						<extent.reporter.html.out>
+							target/cucumber-reports/ApplicationTestReport.html
+						</extent.reporter.html.out>
+						<!-- Specify the Extent configuration file -->
+						<extent.reporter.html.config>
+							src/test/resources/reporting/extent-config.xml
+						</extent.reporter.html.config>
+						<!-- Enable quiet mode to suppress console logs -->
+						<cucumber.publish.quiet>true</cucumber.publish.quiet>
+					</systemPropertyVariables>
+					<argLine>
+						--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED
+					</argLine>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<phase>integration-test</phase>
+						<configuration>
+							<excludes>
+								<exclude>none</exclude>
+							</excludes>
+							<includes>
+								<include>**/*Integration.java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
