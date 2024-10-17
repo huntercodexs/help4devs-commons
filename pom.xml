@@ -389,7 +389,7 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>${selenium.version}</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<!--CODEXSTESTER: CUCUMBER LEGACY: JAVA8 - FOR LAMBDAS-->
@@ -426,11 +426,31 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--CUCUMBER REPORT-->
+		<!--CODEXSTESTER: CUCUMBER REPORT-->
 		<dependency>
 			<groupId>tech.grasshopper</groupId>
 			<artifactId>extentreports-cucumber7-adapter</artifactId>
 			<version>${extent-report.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--CODEXSTESTER: FIX (java.lang.NoClassDefFoundError: org/w3c/dom/ls/DocumentLS)-->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xerces</artifactId>
+			<version>2.4.0</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.11.0</version>
 			<scope>test</scope>
 		</dependency>
 
