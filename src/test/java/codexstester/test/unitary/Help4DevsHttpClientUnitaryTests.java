@@ -18,7 +18,6 @@ public class Help4DevsHttpClientUnitaryTests extends Help4DevsBridgeTests {
     @Test
     public void httpGetTest() throws Exception {
 
-        //Z2h$!@#wX1ZxNXU0SXRYM0dab01COTJnVDd0Y05jWFhxeWltMTBBRzBjRg==
         help4DevsHttpClientService.setMakeLog(true);
         help4DevsHttpClientService.setHeaderList("Authorization", "Bearer 89237128931289371289372183927189");
         help4DevsHttpClientService.setHeaderList("X-Api-Key", "09x890x8x908x9x08");
