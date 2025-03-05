@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface TeamsCard {
 
+    String teamsWebhook();
+
     String notifierCard(String title, String subtitle, String image);
 
     String messageCard(

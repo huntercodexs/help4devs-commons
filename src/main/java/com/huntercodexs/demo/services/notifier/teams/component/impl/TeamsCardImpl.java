@@ -7,6 +7,7 @@ import com.huntercodexs.demo.services.notifier.teams.model.messagecard.Facts;
 import com.huntercodexs.demo.services.notifier.teams.model.messagecard.MessageCardLayout;
 import com.huntercodexs.demo.services.notifier.teams.model.messagecard.PotentialAction;
 import com.huntercodexs.demo.services.notifier.teams.model.messagecard.Sections;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import static com.huntercodexs.demo.services.notifier.teams.constant.TeamsFeatur
 
 @Component
 public class TeamsCardImpl implements TeamsCard {
+
+    @Value("${tier.webhook.teams:}")
+    public String teamsWebhook;
 
     private String layoutFix(String input) {
         return input
@@ -41,6 +45,11 @@ public class TeamsCardImpl implements TeamsCard {
             return path;
         }
         return null;
+    }
+
+    @Override
+    public String teamsWebhook() {
+        return this.teamsWebhook;
     }
 
     @Override
