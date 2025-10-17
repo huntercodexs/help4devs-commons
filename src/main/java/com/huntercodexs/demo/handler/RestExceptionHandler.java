@@ -56,11 +56,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 			restErrorResponseDto.setMessage(help4DevsSampleException.getMessage());
 
 			if (help4DevsSampleException.getTcn() != null) {
-				
+
 				tcn = help4DevsSampleException.getTcn();
 				trace(tcn, null, "Help4DevsSampleException: " + ex.getMessage(), RESPONSE_ENTITY, "error");
 				restErrorResponseDto.setTcn(tcn);
-				
+
 			} else {
 				trace(null, null, "Help4DevsSampleException: " + ex.getMessage(), RESPONSE_ENTITY, "error");
 			}

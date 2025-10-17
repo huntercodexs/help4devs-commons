@@ -333,11 +333,11 @@ public class Help4DevsDataStructureUnitaryTests extends Help4DevsBridgeTests {
             put(5.55,5.55);
         }};
         Hashtable<JSONObject, JSONObject> jsonHashtable = new Hashtable<JSONObject, JSONObject>(){{
-            put( new JSONObject(), new JSONObject());
-            put( new JSONObject(), new JSONObject());
-            put( new JSONObject(), new JSONObject());
-            put( new JSONObject(), new JSONObject());
-            put( new JSONObject(), new JSONObject());
+            put(new JSONObject(), new JSONObject());
+            put(new JSONObject(), new JSONObject());
+            put(new JSONObject(), new JSONObject());
+            put(new JSONObject(), new JSONObject());
+            put(new JSONObject(), new JSONObject());
         }};
         Hashtable<Object, Object> objectHashtable = new Hashtable<Object, Object>(){{
             put(1,1);
@@ -920,6 +920,54 @@ public class Help4DevsDataStructureUnitaryTests extends Help4DevsBridgeTests {
 
         System.out.println(json);
 
+    }
+
+    @Test
+    public void stackTest() {
+        Stack<Integer> stack = new Stack<>();
+        stack.add(1);
+        stack.add(2);
+        stack.add(3);
+        stack.add(3);
+
+        System.out.println(stack);
+
+        int push = stack.push(10);
+        System.out.println(stack);
+
+        int pop = stack.pop();
+        System.out.println(stack);
+
+        int peek = stack.peek();
+        System.out.println(stack);
+
+        int search = stack.search(3);
+        System.out.println(stack);
+
+        System.out.println(push);
+        System.out.println(pop);
+        System.out.println(peek);
+        System.out.println(search);
+
+        stack.clear();
+    }
+
+    @Test
+    public void queueTest() {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+
+        Integer r1 = queue.poll();
+        Integer r2 = queue.poll();
+        Integer r3 = queue.poll();
+
+        queue.clear();
+
+        System.out.println(r1);
+        System.out.println(r2);
+        System.out.println(r3);
     }
 
 }

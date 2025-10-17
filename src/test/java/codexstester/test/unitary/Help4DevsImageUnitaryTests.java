@@ -63,11 +63,11 @@ public class Help4DevsImageUnitaryTests extends Help4DevsBridgeTests {
         codexsTesterAssertBool(true, jpeg3Result);
         codexsTesterAssertBool(true, jpg1Result);
         codexsTesterAssertBool(true, jpg2Result);
-        codexsTesterAssertBool(false, tiffResult);
+        codexsTesterAssertBool(true, tiffResult);
         codexsTesterAssertBool(false, psdResult);
         codexsTesterAssertBool(false, svgResult);
         codexsTesterAssertBool(false, webpResult);
-        codexsTesterAssertBool(false, nefResult);
+        codexsTesterAssertBool(true, nefResult);
         codexsTesterAssertBool(false, pdfResult);
     }
 
