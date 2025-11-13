@@ -36,6 +36,18 @@ public class Help4DevsMaskedUnitaryTests extends Help4DevsBridgeTests {
         String cpfMasked = dataMasked("447.359.437-81", "*", DataMasked.CPF_NUMBER_MASK);
         codexsTesterAssertExact("***.***.437-81", cpfMasked);
 
+        cpfMasked = dataMasked("447.359.437-81", "*", DataMasked.CPF_NUMBER_MASK_INITIAL);
+        codexsTesterAssertExact("447.359.***-**", cpfMasked);
+
+        cpfMasked = dataMasked("007.359.437-81", "*", DataMasked.CPF_NUMBER_MASK_INITIAL);
+        codexsTesterAssertExact("7.359.***-**", cpfMasked);
+
+        cpfMasked = dataMasked("00735943781", "*", DataMasked.CPF_NUMBER_MASK_INITIAL);
+        codexsTesterAssertExact("7359*****", cpfMasked);
+
+        cpfMasked = dataMasked("735943781", "*", DataMasked.CPF_NUMBER_MASK_INITIAL);
+        codexsTesterAssertExact("7359*****", cpfMasked);
+
         cpfMasked = dataMasked("447.359.437-81", "*", DataMasked.CPF_NUMBER_DIGIT_MASK);
         codexsTesterAssertExact("***.359.437-**", cpfMasked);
     }

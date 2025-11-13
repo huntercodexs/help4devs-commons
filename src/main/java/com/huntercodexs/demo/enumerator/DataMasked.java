@@ -2,6 +2,7 @@ package com.huntercodexs.demo.enumerator;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.val;
 
 import static com.huntercodexs.demo.services.basic.Help4DevsStringHandlerService.repeat;
 import static com.huntercodexs.demo.services.basic.Help4DevsToolsService.infoLog;
@@ -20,6 +21,12 @@ public enum DataMasked {
     CPF_NUMBER_MASK(
             "([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{2})",
             "@masked$2@masked$4$5$6$7",
+            3),
+
+    //[89765405823], [897-654-058-23], [897.654.058-23], [897.654.058.23], [897 654 058-23], [897 654 058 23]
+    CPF_NUMBER_MASK_INITIAL(
+            "([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{3})([-. ]?)([0-9]{2})",
+            "$1$2$3$4@masked$6@masked",
             3),
 
     //[89765405823], [897-654-058-23], [897.654.058-23], [897.654.058.23], [897 654 058-23], [897 654 058 23]
@@ -75,21 +82,22 @@ public enum DataMasked {
     }
 
     private static String defaultMask(String input, DataMasked dataMasked) {
-        switch (dataMasked.name()) {
-            case "CARD_NUMBER_MASK":
+        switch (dataMasked) {
+            case CARD_NUMBER_MASK:
                 return repeat("0", 16);
-            case "CPF_NUMBER_MASK":
-            case "CPF_NUMBER_DIGIT_MASK":
+            case CPF_NUMBER_MASK:
+            case CPF_NUMBER_DIGIT_MASK:
+            case CPF_NUMBER_MASK_INITIAL:
                 return repeat("0", 11);
-            case "CNPJ_NUMBER_MASK":
+            case CNPJ_NUMBER_MASK:
                 return repeat("0", 14);
-            case "RG_NUMBER_SSPSP_MASK":
+            case RG_NUMBER_SSPSP_MASK:
                 return repeat("0", 9);
-            case "EMAIL_ADDRESS_MASK":
+            case EMAIL_ADDRESS_MASK:
                 return "******@*mail.com";
-            case "PHONE_NUMBER_MASK":
+            case PHONE_NUMBER_MASK:
                 return repeat("0", 13);
-            case "GENERIC_MASK":
+            case GENERIC_MASK:
                 return repeat("*", 8);
             default:
                 throw new RuntimeException("Wrong Data Mask Name");
@@ -115,14 +123,18 @@ public enum DataMasked {
             data = defaultMask(data, dataMasked);
         }
 
-        if (dataMasked.name().equals("PHONE_NUMBER_MASK")) {
+        if (dataMasked.equals(DataMasked.PHONE_NUMBER_MASK)) {
             data = data.replaceAll("[^0-9]", "");
         }
 
-        if (dataMasked.name().equals("GENERIC_MASK")) {
+        if (dataMasked.equals(DataMasked.GENERIC_MASK)) {
             mask = repeat(mask, data.length()-2);
         } else {
             mask = repeat(mask, dataMasked.getRepeat());
+        }
+
+        if (dataMasked.equals(DataMasked.CPF_NUMBER_DIGIT_MASK) || dataMasked.equals(DataMasked.CPF_NUMBER_MASK_INITIAL) || dataMasked.equals(DataMasked.CPF_NUMBER_MASK)) {
+            data = cpfPadding(data);
         }
 
         String pattern = dataMasked.getPattern();
@@ -131,12 +143,29 @@ public enum DataMasked {
 
         if (result.equals(data)) {
             infoLog("dataMasked say: Nothing to do ["+result+"]");
+            return data;
         }
 
-        if (dataMasked.name().equals(DataMasked.CPF_NUMBER_DIGIT_MASK.name())) {
+        if (dataMasked.equals(DataMasked.CPF_NUMBER_DIGIT_MASK) || dataMasked.equals(DataMasked.CPF_NUMBER_MASK_INITIAL)) {
             result = result.substring(0, result.length()-1);
+            result = removeCpfPadding(result);
+        } else if (dataMasked.equals(DataMasked.CPF_NUMBER_MASK)) {
+            result = removeCpfPadding(result);
         }
 
         return result;
+    }
+
+    private static String cpfPadding(String data) {
+        if (data.length() < 11) {
+            var zerosToAdd = 11 - data.replaceAll("[^0-9]", "").length();
+            var leadingZeros = repeat("0", zerosToAdd);
+            data = leadingZeros + data;
+        }
+        return data;
+    }
+
+    private static String removeCpfPadding(String data) {
+        return data.replaceFirst("^0+", "");
     }
 }

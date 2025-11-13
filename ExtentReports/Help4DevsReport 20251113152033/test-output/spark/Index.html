@@ -1,0 +1,2554 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title></title>
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@d6562a79075e061305ccfdb82f01e5e195e2d307/spark/css/spark-style.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@7cc78ce/spark/js/jsontree.js"></script>
+<style type="text/css"></style></head><body class="spa bdd-report standard">
+  <div class="app">
+    <div class="layout">
+<div class="header navbar">
+<div class="vheader">
+<div class="nav-logo">
+<a href="#">
+<div class="logo" style="background-image: url('https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png')"></div>
+</a>
+</div>
+<ul class="nav-left">
+<li class="search-box">
+<a class="search-toggle" href="#">
+<i class="search-icon fa fa-search"></i>
+<i class="search-icon-close fa fa-close"></i>
+</a>
+</li>
+<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
+</ul>
+<ul class="nav-right">
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary"></span></a>
+</li>
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">Nov 13, 2025 03:20:33 PM</span></a>
+</li>
+</ul>
+</div>
+</div><div class="side-nav">
+<div class="side-nav-inner">
+<ul class="side-nav-menu">
+<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+<a id="nav-dashboard" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bar-chart"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('test-view')">
+<a id="nav-test" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('category-view')">
+<a id="nav-category" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-tag"></i></span>
+</a>
+</li>
+</ul>
+</div>
+</div>      <div class="vcontainer">
+        <div class="main-content">
+<div class="container-fluid p-4 view dashboard-view">
+<div class="row">
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Started</p>
+<h3>Nov 13, 2025 03:20:33 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Ended</p>
+<h3>Nov 13, 2025 03:21:16 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-pass">Features Passed</p>
+<h3>14</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-fail">Features Failed</p>
+<h3>0</h3>
+</div></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Features</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='parent-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'>
+<b>14</b> features passed
+</small>
+</div>
+<div>
+<small data-tooltip='0%'><b>0</b> features failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Scenarios</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='child-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>34</b> scenarios passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> scenarios failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Steps</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='grandchild-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>144</b> steps passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> steps failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><div class="col-md-12">
+<div class="card"><div class="card-header"><p>Timeline</p></div>
+<div class="card-body pt-0"><div>
+<canvas id="timeline" height="120"></canvas>
+</div></div>
+</div>
+</div></div>
+<script>
+var timeline = {
+"User endpoint validation":0.052,"For List Example":0.012,"Employee Handling":0.027,"Lambda":0.023,"Counter from 3 to 0 to start any job":0.056,"Counter from 3 to 0 to start any job":0.041,"User login test":18.667,"User endpoint validation":0.016,"Counter from 3 to 0 to start any job":0.042,"Counter from 3 to 0 to start any job":0.079,"Employee Handling":0.044,"Lambda":0.004,"For List Example":0.009,"User login test":15.401
+};
+</script>
+<div class="row">
+<div class="col-lg-6 col-md-12 category-container">
+<div class="card">
+<div class="card-header"><p>Tags</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
+<tr>
+<td>@EmployeeNOK</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@Login</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@EmployeeOK</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@FinalValidation</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@Things</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@Employee</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@Counter</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@InitialValidation</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@LambdaTag</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@BackgroundUser</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="col-lg-6 col-md-12 sysenv-container">
+<div class="card">
+<div class="card-header"><p>System/Environment</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Value</th></tr></thead>
+<tbody>
+<tr>
+<td>version</td>
+<td>22.04 LTS</td>
+</tr>
+<tr>
+<td>os</td>
+<td>Linux Ubuntu</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var statusGroup = {
+parentCount: 5,
+passParent: 14,
+failParent: 0,
+warningParent: 0,
+skipParent: 0,
+childCount: 5,
+passChild: 34,
+failChild: 0,
+warningChild: 0,
+skipChild: 0,
+infoChild: 0,
+grandChildCount: 5,
+passGrandChild: 144,
+failGrandChild: 0,
+warningGrandChild: 0,
+skipGrandChild: 0,
+infoGrandChild: 0,
+eventsCount: 5,
+};
+</script><div class="test-wrapper row view test-view">
+  <div class="test-list">
+    <div class="test-list-tools">
+<ul class="tools pull-left">
+<li><a href="#"><span class="font-size-14">Tests</span></a></li>
+</ul>
+<ul class="tools text-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
+<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<div class="dropdown-divider"></div>
+<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
+<ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" href="#">@EmployeeNOK</a><a class="dropdown-item" href="#">@Login</a><a class="dropdown-item" href="#">@EmployeeOK</a><a class="dropdown-item" href="#">@FinalValidation</a><a class="dropdown-item" href="#">@Things</a><a class="dropdown-item" href="#">@Employee</a><a class="dropdown-item" href="#">@Counter</a><a class="dropdown-item" href="#">@InitialValidation</a><a class="dropdown-item" href="#">@LambdaTag</a><a class="dropdown-item" href="#">@BackgroundUser</a>
+</ul>
+</li>
+</ul>
+</div>    <div class="test-list-wrapper scrollable">
+      <ul class="test-list-item">
+        <li class="test-item"  status="pass" test-id="1"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">User endpoint validation</p>
+            <p class="text-sm">
+              <span>3:20:39 PM</span> / <span>00:00:00:052</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">User endpoint validation</h5>
+<span class='badge badge-success'>11.13.2025 3:20:39 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:20:39 PM</span>
+<span class='badge badge-default'>00:00:00:052</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>First fields validation for get users endpoint</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundDBSteps.addingFirstUserIntoDatabase(java.lang.String,java.lang.String)">
+                <span>Given the first user is added into database using username "john" and password "1234"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.usersEndpointIsAccessedUsingGet()">
+                <span>Given users endpoint is accessed using get</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.theResultIsSuccessfulOrErrorFromHttpResponse(int,java.lang.String)">
+                <span>And the result is 200 successful http response</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.theHttpResponseHasAllExpectedFieldsForGetRequest()">
+                <span>And the http response has all expected fields for get request</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="7"><span class="badge log pass-bg mr-2">Pass</span>Second fields validation for get users endpoint</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundDBSteps.addingFirstUserIntoDatabase(java.lang.String,java.lang.String)">
+                <span>Given the first user is added into database using username "john" and password "1234"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundDBSteps.databaseIsAccessed()">
+                <span>Given database is accessed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.usersEndpointIsAccessedUsingGet()">
+                <span>Given users endpoint is accessed using get</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.theResultIsSuccessfulOrErrorFromHttpResponse(int,java.lang.String)">
+                <span>And the result is 200 successful http response</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundUserSteps.theResponseIsValidatedAgainFromGetUsersEndpointRequest()">
+                <span>And the response is validated again from get users endpoint request</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="13"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">For List Example</p>
+            <p class="text-sm">
+              <span>3:20:40 PM</span> / <span>00:00:00:012</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">For List Example</h5>
+<span class='badge badge-success'>11.13.2025 3:20:40 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:20:40 PM</span>
+<span class='badge badge-default'>00:00:00:012</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=13</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="14"><span class="badge log pass-bg mr-2">Pass</span>Testing List</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingAnimals(java.util.List<java.lang.String>)">
+                <span>Given the following animals:</span>
+      <div><table class='markup-table table '><tr><td>cow</td></tr><tr><td>horse</td></tr><tr><td>sheep</td></tr><tr><td>dog</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingObjects(java.util.List<java.util.List<java.lang.String>>)">
+                <span>And the following objects:</span>
+      <div><table class='markup-table table '><tr><td>pen</td><td>notebook</td><td>car</td></tr><tr><td>ball</td><td>plate</td><td>money</td></tr><tr><td>pencil</td><td>gun</td><td>shoes</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingFruits(java.util.List<java.util.Map<java.lang.String, java.lang.String>>)">
+                <span>And the following fruits:</span>
+      <div><table class='markup-table table '><tr><td>fruit</td><td>color</td><td>quantity</td></tr><tr><td>apple</td><td>red</td><td>1</td></tr><tr><td>banana</td><td>yellow</td><td>3</td></tr><tr><td>grape</td><td>lilac</td><td>10</td></tr><tr><td>lime</td><td>green</td><td>8</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingNumbers(java.util.Map<java.lang.String, java.lang.String>)">
+                <span>And the following numbers:</span>
+      <div><table class='markup-table table '><tr><td>cod_1000</td><td>one thousand</td></tr><tr><td>cod_2000</td><td>two thousand</td></tr><tr><td>cod_3000</td><td>three thousand</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingCars(java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">
+                <span>And the following cars:</span>
+      <div><table class='markup-table table '><tr><td>suv</td><td>HRV</td><td>BMW X6</td><td>Renegade</td></tr><tr><td>hatch</td><td>Onix</td><td>HB20</td><td>Focus</td></tr><tr><td>sedan</td><td>Corolla</td><td>Mercedes</td><td>Versa</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingNames(java.util.Map<java.lang.String, java.util.Map<java.lang.String, java.lang.String>>)">
+                <span>And the following dates:</span>
+      <div><table class='markup-table table '><tr><td></td><td>Start</td><td>End</td></tr><tr><td>world war 1</td><td>10-06-1800</td><td>10-02-1900</td></tr><tr><td>world war 2</td><td>11-00-1900</td><td>10-04-1950</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.showAllDataTogether()">
+                <span>Then show all data together</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="22"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Employee Handling</p>
+            <p class="text-sm">
+              <span>3:20:40 PM</span> / <span>00:00:00:027</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Employee Handling</h5>
+<span class='badge badge-success'>11.13.2025 3:20:40 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:20:40 PM</span>
+<span class='badge badge-default'>00:00:00:027</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=22</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="23"><span class="badge log pass-bg mr-2">Pass</span>Create Employee using all required fields</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userWantsToCreateAnEmployeeUsingTheFollowingAttributes(io.cucumber.datatable.DataTable)">
+                <span>Given user wants to create an employee using the following attributes</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>firstName</td><td>lastName</td><td>dateOfBirth</td><td>startDate</td><td>endDate</td><td>employmentType</td><td>email</td></tr><tr><td>1</td><td>John</td><td>Smith</td><td>1988-08-30</td><td>2001-11-05</td><td></td><td>Contract</td><td>john.smith@email.com</td></tr><tr><td>2</td><td>Mary</td><td>Smith</td><td>1988-08-30</td><td>2001-11-05</td><td></td><td>Contract</td><td>mary.smith@email.com</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.withTheFollowingAddressInformation(io.cucumber.datatable.DataTable)">
+                <span>And with the following address information</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>street</td><td>city</td><td>number</td><td>state</td></tr><tr><td>1</td><td>Street One Test</td><td>New York</td><td>100</td><td></td></tr><tr><td>2</td><td>Street Two Test</td><td>Springfield</td><td>200</td><td>Ohio</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userTryToSaveTheNewEmployeeUsingAllRequiredFields(java.lang.String)">
+                <span>When user try to save the new employee 'using all required fields'</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.theResultIsSuccessfulAndResponseIs(java.lang.String,java.lang.String)">
+                <span>Then the result is 'successful' and response is ''</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="28"><span class="badge log pass-bg mr-2">Pass</span>Create Employee forgetting firstName</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userWantsToCreateAnEmployeeUsingTheFollowingAttributes(io.cucumber.datatable.DataTable)">
+                <span>Given user wants to create an employee using the following attributes</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>firstName</td><td>lastName</td><td>dateOfBirth</td><td>startDate</td><td>endDate</td><td>employmentType</td><td>email</td></tr><tr><td>1</td><td></td><td>Smith</td><td>1988-08-30</td><td>2001-11-05</td><td></td><td>Contract</td><td>john.smith@email.com</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.withTheFollowingAddressInformation(io.cucumber.datatable.DataTable)">
+                <span>And with the following address information</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>street</td><td>city</td><td>number</td><td>state</td></tr><tr><td>1</td><td>Street One Test</td><td>New York</td><td>100</td><td></td></tr><tr><td>2</td><td>Street Two Test</td><td>Springfield</td><td>200</td><td>Ohio</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userTryToSaveTheNewEmployeeUsingAllRequiredFields(java.lang.String)">
+                <span>When user try to save the new employee 'using all required fields'</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.theResultIsSuccessfulAndResponseIs(java.lang.String,java.lang.String)">
+                <span>Then the result is 'failure' and response is 'create.employeeDTO.firstName: must not be empty'</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="33"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Lambda</p>
+            <p class="text-sm">
+              <span>3:20:40 PM</span> / <span>00:00:00:023</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Lambda</h5>
+<span class='badge badge-success'>11.13.2025 3:20:40 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:20:40 PM</span>
+<span class='badge badge-default'>00:00:00:023</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=33</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="34"><span class="badge log pass-bg mr-2">Pass</span>Test different types of data structure</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:59)">
+                <span>Given list test</span>
+      <div><table class='markup-table table '><tr><td>cow</td></tr><tr><td>horse</td></tr><tr><td>sheep</td></tr><tr><td>dog</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:66)">
+                <span>And list list test</span>
+      <div><table class='markup-table table '><tr><td>pen</td><td>notebook</td><td>car</td></tr><tr><td>ball</td><td>plate</td><td>money</td></tr><tr><td>pencil</td><td>gun</td><td>shoes</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:73)">
+                <span>And list map test</span>
+      <div><table class='markup-table table '><tr><td>fruit</td><td>color</td><td>quantity</td></tr><tr><td>apple</td><td>red</td><td>1</td></tr><tr><td>banana</td><td>yellow</td><td>3</td></tr><tr><td>grape</td><td>lilac</td><td>10</td></tr><tr><td>lime</td><td>green</td><td>8</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:80)">
+                <span>And map test</span>
+      <div><table class='markup-table table '><tr><td>cod_1000</td><td>one thousand</td></tr><tr><td>cod_2000</td><td>two thousand</td></tr><tr><td>cod_3000</td><td>three thousand</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:87)">
+                <span>And map list test</span>
+      <div><table class='markup-table table '><tr><td>suv</td><td>HRV</td><td>BMW X6</td><td>Renegade</td></tr><tr><td>hatch</td><td>Onix</td><td>HB20</td><td>Focus</td></tr><tr><td>sedan</td><td>Corolla</td><td>Mercedes</td><td>Versa</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:96)">
+                <span>And map map test</span>
+      <div><table class='markup-table table '><tr><td></td><td>Start</td><td>End</td></tr><tr><td>world war 1</td><td>10-06-1800</td><td>10-02-1900</td></tr><tr><td>world war 2</td><td>11-00-1900</td><td>10-04-1950</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:105)">
+                <span>And with the following template string definition</span>
+      <div><div class='row'>
+ <div class='col-md-12'>
+  <textarea readonly class='code-block'>Test Template String Java</textarea>
+ </div>
+</div>
+
+      </div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="42"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Counter from 3 to 0 to start any job</p>
+            <p class="text-sm">
+              <span>3:20:41 PM</span> / <span>00:00:00:056</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Counter from 3 to 0 to start any job</h5>
+<span class='badge badge-success'>11.13.2025 3:20:41 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:20:41 PM</span>
+<span class='badge badge-default'>00:00:00:056</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=42</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="43"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+      </div>
+    </div>
+        <div class="scenario_outline collapse">
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="44"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "3"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "Three..."</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="49"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "2"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "Two..."</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="54"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "1"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "One..."</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="59"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "0"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "Go !"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="64"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Counter from 3 to 0 to start any job</p>
+            <p class="text-sm">
+              <span>3:20:41 PM</span> / <span>00:00:00:041</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Counter from 3 to 0 to start any job</h5>
+<span class='badge badge-success'>11.13.2025 3:20:41 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:20:41 PM</span>
+<span class='badge badge-default'>00:00:00:041</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=64</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="65"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "3"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "Three..."</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="70"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "2"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "Two..."</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="75"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "1"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "One..."</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="80"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "0"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "Go !"</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="85"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">User login test</p>
+            <p class="text-sm">
+              <span>3:20:41 PM</span> / <span>00:00:18:667</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">User login test</h5>
+<span class='badge badge-success'>11.13.2025 3:20:41 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-default'>00:00:18:667</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=85</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Perform user login on Practice Test Automation website</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="86"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+      </div>
+    </div>
+        <div class="scenario_outline collapse">
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="87"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given user is on login page</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When user login with "student" and "Password123"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then login status should be "true"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="91"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given user is on login page</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When user login with "student" and "Password444"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then login status should be "false"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="95"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given user is on login page</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When user login with "stud3nt" and "Password123"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then login status should be "false"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="99"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">User endpoint validation</p>
+            <p class="text-sm">
+              <span>3:21:00 PM</span> / <span>00:00:00:016</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">User endpoint validation</h5>
+<span class='badge badge-success'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-default'>00:00:00:016</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=99</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="100"><span class="badge log pass-bg mr-2">Pass</span>First fields validation for get users endpoint</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundDBSteps.addingFirstUserIntoDatabase(java.lang.String,java.lang.String)">
+                <span>Given the first user is added into database using username "john" and password "1234"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.usersEndpointIsAccessedUsingGet()">
+                <span>Given users endpoint is accessed using get</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.theResultIsSuccessfulOrErrorFromHttpResponse(int,java.lang.String)">
+                <span>And the result is 200 successful http response</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.theHttpResponseHasAllExpectedFieldsForGetRequest()">
+                <span>And the http response has all expected fields for get request</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="105"><span class="badge log pass-bg mr-2">Pass</span>Second fields validation for get users endpoint</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundDBSteps.addingFirstUserIntoDatabase(java.lang.String,java.lang.String)">
+                <span>Given the first user is added into database using username "john" and password "1234"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundDBSteps.databaseIsAccessed()">
+                <span>Given database is accessed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.usersEndpointIsAccessedUsingGet()">
+                <span>Given users endpoint is accessed using get</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundAPISteps.theResultIsSuccessfulOrErrorFromHttpResponse(int,java.lang.String)">
+                <span>And the result is 200 successful http response</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.BackgroundUserSteps.theResponseIsValidatedAgainFromGetUsersEndpointRequest()">
+                <span>And the response is validated again from get users endpoint request</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="111"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Counter from 3 to 0 to start any job</p>
+            <p class="text-sm">
+              <span>3:21:00 PM</span> / <span>00:00:00:042</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Counter from 3 to 0 to start any job</h5>
+<span class='badge badge-success'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-default'>00:00:00:042</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=111</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="112"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+      </div>
+    </div>
+        <div class="scenario_outline collapse">
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="113"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "3"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "Three..."</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="118"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "2"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "Two..."</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="123"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "1"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "One..."</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="128"><span class="badge log pass-bg mr-2">Pass</span>BackendCallsCounter</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When the client calls endpoint "/api/counter/" passing argument value "0"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then response status code is 200</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And return string should be "Go !"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="133"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Counter from 3 to 0 to start any job</p>
+            <p class="text-sm">
+              <span>3:21:00 PM</span> / <span>00:00:00:079</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Counter from 3 to 0 to start any job</h5>
+<span class='badge badge-success'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-default'>00:00:00:079</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=133</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="134"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "3"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "Three..."</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="139"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "2"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "Two..."</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="144"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "1"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "One..."</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="149"><span class="badge log pass-bg mr-2">Pass</span>Backend calling to start a counter</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientsNeedsToStartOneSpecificJob()">
+                <span>Given the clients needs to start one specific job</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.theClientCallsEndpointPassingValue(java.lang.String,java.lang.String)">
+                <span>When the client calls endpoint "/api/counter/" passing argument value "0"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.responseStatusCodeIs(int)">
+                <span>Then response status code is 200</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.CounterSteps.returnStringShouldBe(java.lang.String)">
+                <span>And return string should be "Go !"</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="154"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Employee Handling</p>
+            <p class="text-sm">
+              <span>3:21:00 PM</span> / <span>00:00:00:044</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Employee Handling</h5>
+<span class='badge badge-success'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-default'>00:00:00:044</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=154</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="155"><span class="badge log pass-bg mr-2">Pass</span>Create Employee using all required fields</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userWantsToCreateAnEmployeeUsingTheFollowingAttributes(io.cucumber.datatable.DataTable)">
+                <span>Given user wants to create an employee using the following attributes</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>firstName</td><td>lastName</td><td>dateOfBirth</td><td>startDate</td><td>endDate</td><td>employmentType</td><td>email</td></tr><tr><td>1</td><td>John</td><td>Smith</td><td>1988-08-30</td><td>2001-11-05</td><td></td><td>Contract</td><td>john.smith@email.com</td></tr><tr><td>2</td><td>Mary</td><td>Smith</td><td>1988-08-30</td><td>2001-11-05</td><td></td><td>Contract</td><td>mary.smith@email.com</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.withTheFollowingAddressInformation(io.cucumber.datatable.DataTable)">
+                <span>And with the following address information</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>street</td><td>city</td><td>number</td><td>state</td></tr><tr><td>1</td><td>Street One Test</td><td>New York</td><td>100</td><td></td></tr><tr><td>2</td><td>Street Two Test</td><td>Springfield</td><td>200</td><td>Ohio</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userTryToSaveTheNewEmployeeUsingAllRequiredFields(java.lang.String)">
+                <span>When user try to save the new employee 'using all required fields'</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.theResultIsSuccessfulAndResponseIs(java.lang.String,java.lang.String)">
+                <span>Then the result is 'successful' and response is ''</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="160"><span class="badge log pass-bg mr-2">Pass</span>Create Employee forgetting firstName</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userWantsToCreateAnEmployeeUsingTheFollowingAttributes(io.cucumber.datatable.DataTable)">
+                <span>Given user wants to create an employee using the following attributes</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>firstName</td><td>lastName</td><td>dateOfBirth</td><td>startDate</td><td>endDate</td><td>employmentType</td><td>email</td></tr><tr><td>1</td><td></td><td>Smith</td><td>1988-08-30</td><td>2001-11-05</td><td></td><td>Contract</td><td>john.smith@email.com</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.withTheFollowingAddressInformation(io.cucumber.datatable.DataTable)">
+                <span>And with the following address information</span>
+      <div><table class='markup-table table '><tr><td>id</td><td>street</td><td>city</td><td>number</td><td>state</td></tr><tr><td>1</td><td>Street One Test</td><td>New York</td><td>100</td><td></td></tr><tr><td>2</td><td>Street Two Test</td><td>Springfield</td><td>200</td><td>Ohio</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.userTryToSaveTheNewEmployeeUsingAllRequiredFields(java.lang.String)">
+                <span>When user try to save the new employee 'using all required fields'</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.DataTableSteps.theResultIsSuccessfulAndResponseIs(java.lang.String,java.lang.String)">
+                <span>Then the result is 'failure' and response is 'create.employeeDTO.firstName: must not be empty'</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="165"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Lambda</p>
+            <p class="text-sm">
+              <span>3:21:00 PM</span> / <span>00:00:00:004</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Lambda</h5>
+<span class='badge badge-success'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-default'>00:00:00:004</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=165</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="166"><span class="badge log pass-bg mr-2">Pass</span>Test different types of data structure</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:59)">
+                <span>Given list test</span>
+      <div><table class='markup-table table '><tr><td>cow</td></tr><tr><td>horse</td></tr><tr><td>sheep</td></tr><tr><td>dog</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:66)">
+                <span>And list list test</span>
+      <div><table class='markup-table table '><tr><td>pen</td><td>notebook</td><td>car</td></tr><tr><td>ball</td><td>plate</td><td>money</td></tr><tr><td>pencil</td><td>gun</td><td>shoes</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:73)">
+                <span>And list map test</span>
+      <div><table class='markup-table table '><tr><td>fruit</td><td>color</td><td>quantity</td></tr><tr><td>apple</td><td>red</td><td>1</td></tr><tr><td>banana</td><td>yellow</td><td>3</td></tr><tr><td>grape</td><td>lilac</td><td>10</td></tr><tr><td>lime</td><td>green</td><td>8</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:80)">
+                <span>And map test</span>
+      <div><table class='markup-table table '><tr><td>cod_1000</td><td>one thousand</td></tr><tr><td>cod_2000</td><td>two thousand</td></tr><tr><td>cod_3000</td><td>three thousand</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:87)">
+                <span>And map list test</span>
+      <div><table class='markup-table table '><tr><td>suv</td><td>HRV</td><td>BMW X6</td><td>Renegade</td></tr><tr><td>hatch</td><td>Onix</td><td>HB20</td><td>Focus</td></tr><tr><td>sedan</td><td>Corolla</td><td>Mercedes</td><td>Versa</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:96)">
+                <span>And map map test</span>
+      <div><table class='markup-table table '><tr><td></td><td>Start</td><td>End</td></tr><tr><td>world war 1</td><td>10-06-1800</td><td>10-02-1900</td></tr><tr><td>world war 2</td><td>11-00-1900</td><td>10-04-1950</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.LambdaSteps.<init>(LambdaSteps.java:105)">
+                <span>And with the following template string definition</span>
+      <div><div class='row'>
+ <div class='col-md-12'>
+  <textarea readonly class='code-block'>Test Template String Java</textarea>
+ </div>
+</div>
+
+      </div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="174"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">For List Example</p>
+            <p class="text-sm">
+              <span>3:21:00 PM</span> / <span>00:00:00:009</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">For List Example</h5>
+<span class='badge badge-success'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-default'>00:00:00:009</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=174</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="175"><span class="badge log pass-bg mr-2">Pass</span>Testing List</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingAnimals(java.util.List<java.lang.String>)">
+                <span>Given the following animals:</span>
+      <div><table class='markup-table table '><tr><td>cow</td></tr><tr><td>horse</td></tr><tr><td>sheep</td></tr><tr><td>dog</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingObjects(java.util.List<java.util.List<java.lang.String>>)">
+                <span>And the following objects:</span>
+      <div><table class='markup-table table '><tr><td>pen</td><td>notebook</td><td>car</td></tr><tr><td>ball</td><td>plate</td><td>money</td></tr><tr><td>pencil</td><td>gun</td><td>shoes</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingFruits(java.util.List<java.util.Map<java.lang.String, java.lang.String>>)">
+                <span>And the following fruits:</span>
+      <div><table class='markup-table table '><tr><td>fruit</td><td>color</td><td>quantity</td></tr><tr><td>apple</td><td>red</td><td>1</td></tr><tr><td>banana</td><td>yellow</td><td>3</td></tr><tr><td>grape</td><td>lilac</td><td>10</td></tr><tr><td>lime</td><td>green</td><td>8</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingNumbers(java.util.Map<java.lang.String, java.lang.String>)">
+                <span>And the following numbers:</span>
+      <div><table class='markup-table table '><tr><td>cod_1000</td><td>one thousand</td></tr><tr><td>cod_2000</td><td>two thousand</td></tr><tr><td>cod_3000</td><td>three thousand</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingCars(java.util.Map<java.lang.String, java.util.List<java.lang.String>>)">
+                <span>And the following cars:</span>
+      <div><table class='markup-table table '><tr><td>suv</td><td>HRV</td><td>BMW X6</td><td>Renegade</td></tr><tr><td>hatch</td><td>Onix</td><td>HB20</td><td>Focus</td></tr><tr><td>sedan</td><td>Corolla</td><td>Mercedes</td><td>Versa</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.theFollowingNames(java.util.Map<java.lang.String, java.util.Map<java.lang.String, java.lang.String>>)">
+                <span>And the following dates:</span>
+      <div><table class='markup-table table '><tr><td></td><td>Start</td><td>End</td></tr><tr><td>world war 1</td><td>10-06-1800</td><td>10-02-1900</td></tr><tr><td>world war 2</td><td>11-00-1900</td><td>10-04-1950</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="codexstester.bdd.stepsdef.ListSteps.showAllDataTogether()">
+                <span>Then show all data together</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="183"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">User login test</p>
+            <p class="text-sm">
+              <span>3:21:00 PM</span> / <span>00:00:15:401</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">User login test</h5>
+<span class='badge badge-success'>11.13.2025 3:21:00 PM</span>
+<span class='badge badge-danger'>11.13.2025 3:21:16 PM</span>
+<span class='badge badge-default'>00:00:15:401</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=183</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Perform user login on Practice Test Automation website</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="184"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+      </div>
+    </div>
+        <div class="scenario_outline collapse">
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="185"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given user is on login page</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When user login with "student" and "Password123"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then login status should be "true"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="189"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given user is on login page</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When user login with "student" and "Password444"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then login status should be "false"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="193"><span class="badge log pass-bg mr-2">Pass</span>CheckLoginStatus</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given user is on login page</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When user login with "stud3nt" and "Password123"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then login status should be "false"</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="test-content scrollable">
+<div class="test-content-tools">
+<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
+</div>
+<div class="test-content-detail"><div class="detail-body"></div></div>
+</div></div>
+<div class="test-wrapper row view category-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">10</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@EmployeeNOK</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@EmployeeNOK</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:40 PM</td>
+<td>
+<a href="#" class="linked" test-id='22' id='28'>Create Employee forgetting firstName</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee forgetting firstName</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='154' id='160'>Create Employee forgetting firstName</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee forgetting firstName</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>6</span>
+</span>
+<p class="name">@Login</p>
+<p class="duration text-sm">6 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@Login</h4>
+<span status="pass" class='badge log pass-bg'>6 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:41 PM</td>
+<td>
+<a href="#" class="linked" test-id='85' id='87'>CheckLoginStatus</a>
+<div class="">
+<span class="badge badge-default">User login test.CheckLoginStatus</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:50 PM</td>
+<td>
+<a href="#" class="linked" test-id='85' id='91'>CheckLoginStatus</a>
+<div class="">
+<span class="badge badge-default">User login test.CheckLoginStatus</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:55 PM</td>
+<td>
+<a href="#" class="linked" test-id='85' id='95'>CheckLoginStatus</a>
+<div class="">
+<span class="badge badge-default">User login test.CheckLoginStatus</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='183' id='185'>CheckLoginStatus</a>
+<div class="">
+<span class="badge badge-default">User login test.CheckLoginStatus</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='183' id='189'>CheckLoginStatus</a>
+<div class="">
+<span class="badge badge-default">User login test.CheckLoginStatus</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:11 PM</td>
+<td>
+<a href="#" class="linked" test-id='183' id='193'>CheckLoginStatus</a>
+<div class="">
+<span class="badge badge-default">User login test.CheckLoginStatus</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@EmployeeOK</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@EmployeeOK</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:40 PM</td>
+<td>
+<a href="#" class="linked" test-id='22' id='23'>Create Employee using all required fields</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee using all required fields</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='154' id='155'>Create Employee using all required fields</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee using all required fields</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@FinalValidation</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@FinalValidation</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:39 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='7'>Second fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.Second fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='105'>Second fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.Second fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@Things</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@Things</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:40 PM</td>
+<td>
+<a href="#" class="linked" test-id='13' id='14'>Testing List</a>
+<div class="">
+<span class="badge badge-default">For List Example.Testing List</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='174' id='175'>Testing List</a>
+<div class="">
+<span class="badge badge-default">For List Example.Testing List</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>4</span>
+</span>
+<p class="name">@Employee</p>
+<p class="duration text-sm">4 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@Employee</h4>
+<span status="pass" class='badge log pass-bg'>4 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:40 PM</td>
+<td>
+<a href="#" class="linked" test-id='22' id='23'>Create Employee using all required fields</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee using all required fields</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:40 PM</td>
+<td>
+<a href="#" class="linked" test-id='22' id='28'>Create Employee forgetting firstName</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee forgetting firstName</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='154' id='155'>Create Employee using all required fields</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee using all required fields</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='154' id='160'>Create Employee forgetting firstName</a>
+<div class="">
+<span class="badge badge-default">Employee Handling.Create Employee forgetting firstName</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>8</span>
+</span>
+<p class="name">@Counter</p>
+<p class="duration text-sm">8 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@Counter</h4>
+<span status="pass" class='badge log pass-bg'>8 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:41 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='44'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:41 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='49'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:41 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='54'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:41 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='59'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='111' id='113'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='111' id='118'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='111' id='123'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='111' id='128'>BackendCallsCounter</a>
+<div class="">
+<span class="badge badge-default">Counter from 3 to 0 to start any job.BackendCallsCounter</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@InitialValidation</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@InitialValidation</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:39 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>First fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.First fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='100'>First fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.First fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@LambdaTag</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@LambdaTag</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:40 PM</td>
+<td>
+<a href="#" class="linked" test-id='33' id='34'>Test different types of data structure</a>
+<div class="">
+<span class="badge badge-default">Lambda.Test different types of data structure</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='165' id='166'>Test different types of data structure</a>
+<div class="">
+<span class="badge badge-default">Lambda.Test different types of data structure</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>4</span>
+</span>
+<p class="name">@BackgroundUser</p>
+<p class="duration text-sm">4 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@BackgroundUser</h4>
+<span status="pass" class='badge log pass-bg'>4 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:39 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>First fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.First fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:20:39 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='7'>Second fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.Second fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='100'>First fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.First fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>15:21:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='105'>Second fields validation for get users endpoint</a>
+<div class="">
+<span class="badge badge-default">User endpoint validation.Second fields validation for get users endpoint</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div>        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@d6562a79075e061305ccfdb82f01e5e195e2d307/spark/js/spark-script.js"></script>
+<script type="text/javascript"></script></body>
+</html>
